@@ -9,7 +9,10 @@
 import UIKit
 
 class FirstViewController: UIViewController {
-
+    
+    //MARK: Properties
+    @IBOutlet weak var ProfileNameTextField: UITextField!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
