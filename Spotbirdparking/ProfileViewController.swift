@@ -31,11 +31,9 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         ProfileImagePicker.delegate = self
         ProfileImageView.isUserInteractionEnabled = true;
         
-        print("CarsTable Delegate")
         CarsTable.delegate = self
-        print("CarsTable Datasource")
         CarsTable.dataSource = self
-        print("loadSampleCars()")
+        //self.CarsTable.register(CarCell.self, forCellReuseIdentifier: "CarCell")
         loadSampleCars()
         
         // Do any additional setup after loading the view, typically from a nib.
@@ -150,7 +148,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         //Table view cells are reused and should be dequeued w/ cell identifier
-        let cellIdentifier = "CarTableViewCell"
+        let cellIdentifier = "CarCell"
         
         guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? CarCell else {
             fatalError("The dequeued cell is not an instance of carCell")
@@ -160,6 +158,8 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         let car = cars[indexPath.row]
         
         // Assign values to cell elements
+        print(car.make)
+        print(car.model)
         cell.CarMakeModelLabel.text = car.make + ", " + car.model
         cell.CarYearLabel.text = ""
         if let y = car.year {
