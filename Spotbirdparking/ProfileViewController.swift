@@ -33,7 +33,6 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         
         CarsTable.delegate = self
         CarsTable.dataSource = self
-        //self.CarsTable.register(CarCell.self, forCellReuseIdentifier: "CarCell")
         loadSampleCars()
         
         // Do any additional setup after loading the view, typically from a nib.
@@ -42,6 +41,16 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    override func viewWillLayoutSubviews() {
+//        DispatchQueue.async(execute: DispatchQueue.main {
+        DispatchQueue.main.async {
+            //This code will run in the main thread:
+            var frame = self.CarsTable.frame
+            frame.size.height = self.CarsTable.contentSize.height
+            self.CarsTable.frame = frame
+        }
     }
     
     /*
@@ -58,7 +67,7 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
             fatalError("Expected a dict containing the original image, instead got: /(info)")
         }
         
-        // Set the profile image to the selected image
+        dispatch_async(dispatch_get_main_queue(), ^{// Set the profile image to the selected image
         ProfileImageView.image = selectedImage
         dismiss(animated: true, completion: nil)
     }
@@ -145,6 +154,10 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         return cars.count
     }
     
+    //func tableView(_ tableView: UITableView, heightForRowAt IndexPath: IndexPath) -> CGFloat {
+    //    return 90
+    //}
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         //Table view cells are reused and should be dequeued w/ cell identifier
@@ -158,14 +171,14 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
         let car = cars[indexPath.row]
         
         // Assign values to cell elements
-        print(car.make)
-        print(car.model)
-        cell.CarMakeModelLabel.text = car.make + ", " + car.model
+        cell.CarMakeModelLabel.text = car.make + " " + car.model
         cell.CarYearLabel.text = ""
         if let y = car.year {
             cell.CarYearLabel.text = "\(y)"
         }
         cell.CarImageView.image = car.photo
+        
+//        self.CarsTable.sizeToFit()
         
         return cell
     }
@@ -174,9 +187,13 @@ class ProfileViewController: UIViewController, UITextFieldDelegate, UIImagePicke
     private func loadSampleCars() {
         let carPhoto1 = UIImage(named: "carPhoto1")
         
-        guard let car1 = Car(make: "Toyota", model: "Rav4", photo: carPhoto1, year: 1999, defaultSetting: true) else {
+        guard let car1 = Car(make: "Toyota", model: "Rav4", photo: #imageLiteral(resourceName: "SampleCar"), year: 1999, defaultSetting: true) else {
             fatalError("Unable to instantiate Default Car")
         }
+        
+//        guard let car2 = Car(make: "Mazda", model: "CX5", photo: #imageLiteral(resourceName: "SampleCar"), year: 2014, defaultSetting: false) else{
+//            fatalError("Unable to instantiate Car2")
+//        }
         
         cars += [car1]
         print(cars)
