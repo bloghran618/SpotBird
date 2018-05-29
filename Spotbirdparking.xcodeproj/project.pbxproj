@@ -9,14 +9,13 @@
 /* Begin PBXBuildFile section */
 		B71F2DE62086CDA800F47274 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71F2DE52086CDA800F47274 /* AppDelegate.swift */; };
 		B71F2DE82086CDA800F47274 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71F2DE72086CDA800F47274 /* FirstViewController.swift */; };
-		B71F2DEA2086CDA800F47274 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71F2DE92086CDA800F47274 /* ProfileViewController.swift */; };
 		B71F2DED2086CDA800F47274 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B71F2DEB2086CDA800F47274 /* Main.storyboard */; };
 		B71F2DEF2086CDAA00F47274 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B71F2DEE2086CDAA00F47274 /* Assets.xcassets */; };
 		B71F2DF22086CDAA00F47274 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B71F2DF02086CDAA00F47274 /* LaunchScreen.storyboard */; };
 		B71F2DFD2086CDAA00F47274 /* SpotbirdparkingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71F2DFC2086CDAA00F47274 /* SpotbirdparkingTests.swift */; };
-		B72680BF208D123100BCED2F /* Me.swift in Sources */ = {isa = PBXBuildFile; fileRef = B72680BE208D123100BCED2F /* Me.swift */; };
-		B7490077209161D5002D5E08 /* CarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7490076209161D5002D5E08 /* CarCell.swift */; };
-		B7937DEE20928EB300DB7C37 /* Car.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7937DED20928EB300DB7C37 /* Car.swift */; };
+		B7364D0620B65B390081F40F /* ProfileTableOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7364D0520B65B390081F40F /* ProfileTableOption.swift */; };
+		B7364D0820B65F120081F40F /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7364D0720B65F120081F40F /* ProfileTableViewController.swift */; };
+		B7CF24F120BCBB3000722933 /* YouViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CF24F020BCBB3000722933 /* YouViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -33,7 +32,6 @@
 		B71F2DE22086CDA800F47274 /* Spotbirdparking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spotbirdparking.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B71F2DE52086CDA800F47274 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B71F2DE72086CDA800F47274 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
-		B71F2DE92086CDA800F47274 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		B71F2DEC2086CDA800F47274 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B71F2DEE2086CDAA00F47274 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B71F2DF12086CDAA00F47274 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -41,9 +39,9 @@
 		B71F2DF82086CDAA00F47274 /* SpotbirdparkingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpotbirdparkingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B71F2DFC2086CDAA00F47274 /* SpotbirdparkingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotbirdparkingTests.swift; sourceTree = "<group>"; };
 		B71F2DFE2086CDAA00F47274 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B72680BE208D123100BCED2F /* Me.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Me.swift; sourceTree = "<group>"; };
-		B7490076209161D5002D5E08 /* CarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarCell.swift; sourceTree = "<group>"; };
-		B7937DED20928EB300DB7C37 /* Car.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Car.swift; sourceTree = "<group>"; };
+		B7364D0520B65B390081F40F /* ProfileTableOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableOption.swift; sourceTree = "<group>"; };
+		B7364D0720B65F120081F40F /* ProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
+		B7CF24F020BCBB3000722933 /* YouViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,10 +85,9 @@
 			children = (
 				B71F2DE52086CDA800F47274 /* AppDelegate.swift */,
 				B71F2DE72086CDA800F47274 /* FirstViewController.swift */,
-				B72680BE208D123100BCED2F /* Me.swift */,
-				B71F2DE92086CDA800F47274 /* ProfileViewController.swift */,
-				B7490076209161D5002D5E08 /* CarCell.swift */,
-				B7937DED20928EB300DB7C37 /* Car.swift */,
+				B7364D0520B65B390081F40F /* ProfileTableOption.swift */,
+				B7364D0720B65F120081F40F /* ProfileTableViewController.swift */,
+				B7CF24F020BCBB3000722933 /* YouViewController.swift */,
 				B71F2DEB2086CDA800F47274 /* Main.storyboard */,
 				B71F2DEE2086CDAA00F47274 /* Assets.xcassets */,
 				B71F2DF02086CDAA00F47274 /* LaunchScreen.storyboard */,
@@ -209,12 +206,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B71F2DEA2086CDA800F47274 /* ProfileViewController.swift in Sources */,
-				B72680BF208D123100BCED2F /* Me.swift in Sources */,
-				B7490077209161D5002D5E08 /* CarCell.swift in Sources */,
 				B71F2DE62086CDA800F47274 /* AppDelegate.swift in Sources */,
-				B7937DEE20928EB300DB7C37 /* Car.swift in Sources */,
+				B7364D0620B65B390081F40F /* ProfileTableOption.swift in Sources */,
+				B7364D0820B65F120081F40F /* ProfileTableViewController.swift in Sources */,
 				B71F2DE82086CDA800F47274 /* FirstViewController.swift in Sources */,
+				B7CF24F120BCBB3000722933 /* YouViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
