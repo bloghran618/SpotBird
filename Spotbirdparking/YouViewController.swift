@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Photos
 
 class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -25,13 +26,37 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         profilePhoto.isUserInteractionEnabled = true
         
         print("'you' viewcontroller did load! :)")
-
+        
         // Do any additional setup after loading the view.
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func checkGalleryPermission() {
+        let photoAuthorizationStatus = PHPhotoLibrary.authorizationStatus()
+        switch photoAuthorizationStatus {
+        case .authorized:
+            print("Access is granted by user")
+        case .notDetermined:
+            PHPhotoLibrary.requestAuthorization({
+                (newStatus) in
+                print("status is \(newStatus)")
+                if newStatus ==  PHAuthorizationStatus.authorized {
+                    /* do stuff here */
+                    print("success")
+                }
+            })
+            print("It is not determined until now")
+        case .restricted:
+            // same same
+            print("User do not have access to photo album.")
+        case .denied:
+            // same same
+            print("User has denied the permission.")
+        }
     }
     
     @IBAction func ProfileImageOnClick(_ sender: Any) {
@@ -79,11 +104,21 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     }
     
     func openGallery() {
+        checkGalleryPermission()
         ProfileImagePicker.sourceType = UIImagePickerControllerSourceType.photoLibrary
         ProfileImagePicker.allowsEditing = false
         self.present(ProfileImagePicker, animated: true, completion: nil)
     }
     
+    @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [AnyHashable: Any]) {
+        let chosenImage = info[UIImagePickerControllerOriginalImage]
+        self.profilePhoto!.image = chosenImage as? UIImage
+        picker.dismiss(animated: true, completion: nil)
+    }
+    
+    @objc func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true, completion: nil)
+    }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         firstName.resignFirstResponder()
