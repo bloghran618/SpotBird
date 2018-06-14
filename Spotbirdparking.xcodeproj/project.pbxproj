@@ -13,6 +13,7 @@
 		B71F2DEF2086CDAA00F47274 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B71F2DEE2086CDAA00F47274 /* Assets.xcassets */; };
 		B71F2DF22086CDAA00F47274 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B71F2DF02086CDAA00F47274 /* LaunchScreen.storyboard */; };
 		B71F2DFD2086CDAA00F47274 /* SpotbirdparkingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71F2DFC2086CDAA00F47274 /* SpotbirdparkingTests.swift */; };
+		B72D8BE420D0B6BE0038310F /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = B72D8BE320D0B6BE0038310F /* CheckBox.swift */; };
 		B7364D0620B65B390081F40F /* ProfileTableOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7364D0520B65B390081F40F /* ProfileTableOption.swift */; };
 		B7364D0820B65F120081F40F /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7364D0720B65F120081F40F /* ProfileTableViewController.swift */; };
 		B75AE7B920C496B40069A151 /* CarsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75AE7B820C496B40069A151 /* CarsTableViewCell.swift */; };
@@ -43,6 +44,7 @@
 		B71F2DF82086CDAA00F47274 /* SpotbirdparkingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpotbirdparkingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B71F2DFC2086CDAA00F47274 /* SpotbirdparkingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotbirdparkingTests.swift; sourceTree = "<group>"; };
 		B71F2DFE2086CDAA00F47274 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B72D8BE320D0B6BE0038310F /* CheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
 		B7364D0520B65B390081F40F /* ProfileTableOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableOption.swift; sourceTree = "<group>"; };
 		B7364D0720B65F120081F40F /* ProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
 		B75AE7B820C496B40069A151 /* CarsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarsTableViewCell.swift; sourceTree = "<group>"; };
@@ -100,6 +102,7 @@
 				B75AE7BA20C4B63D0069A151 /* CarsDefinitionViewController.swift */,
 				B75AE7B820C496B40069A151 /* CarsTableViewCell.swift */,
 				B7A86B4A20C0E9DB00041C61 /* Car.swift */,
+				B72D8BE320D0B6BE0038310F /* CheckBox.swift */,
 				B71F2DEB2086CDA800F47274 /* Main.storyboard */,
 				B71F2DEE2086CDAA00F47274 /* Assets.xcassets */,
 				B71F2DF02086CDAA00F47274 /* LaunchScreen.storyboard */,
@@ -222,6 +225,7 @@
 				B75AE7BB20C4B63D0069A151 /* CarsDefinitionViewController.swift in Sources */,
 				B7364D0620B65B390081F40F /* ProfileTableOption.swift in Sources */,
 				B7A86B4B20C0E9DB00041C61 /* Car.swift in Sources */,
+				B72D8BE420D0B6BE0038310F /* CheckBox.swift in Sources */,
 				B7364D0820B65F120081F40F /* ProfileTableViewController.swift in Sources */,
 				B71F2DE82086CDA800F47274 /* FirstViewController.swift in Sources */,
 				B7CF24F120BCBB3000722933 /* YouViewController.swift in Sources */,

@@ -21,7 +21,7 @@ class CarsViewController: UIViewController, UITableViewDataSource {
         
         if cars.count == 0 {
             cars = [
-                Car(make: "Tesla", model: "Roadster", year: "2018", carImage: UIImage(named: "EmptyCar")!, isDefault: false)
+                Car(make: "Tesla", model: "Roadster", year: "2018", carImage: UIImage(named: "EmptyCar")!, isDefault: true)
                 ] as! [Car]
         }
         self.CarsTable.rowHeight = 100
@@ -82,14 +82,17 @@ class CarsViewController: UIViewController, UITableViewDataSource {
             if let selectedIndexPath = CarsTable.indexPathForSelectedRow {
                 // Update an existing car
                 cars[selectedIndexPath.row] = car
+                manageOneDefaultCar(carIndex: selectedIndexPath.row)
                 CarsTable.reloadRows(at: [selectedIndexPath], with: .none)
             }
             else {
                 // Add new car
                 let newIndexPath = IndexPath(row: cars.count, section: 0)
                 cars.append(car)
+                manageOneDefaultCar(carIndex: (cars.count-1))
                 CarsTable.insertRows(at: [newIndexPath], with: .automatic)
             }
+            CarsTable.reloadData()
         }
     }
     
@@ -105,7 +108,7 @@ class CarsViewController: UIViewController, UITableViewDataSource {
                  fatalError("Unexpected destination: \(segue.destination)")
             }
             guard let selectedCarCell = sender as? CarsTableViewCell else {
-                fatalError("Unexpected sender: \(sender)")
+                fatalError("Unexpected sender: \(sender ?? "")")
             }
             
             guard let indexPath = CarsTable.indexPath(for: selectedCarCell) else {
@@ -116,7 +119,18 @@ class CarsViewController: UIViewController, UITableViewDataSource {
             carsDefinitionViewController.car = selectedCar
             
         default:
-            print("Unexpected Segue Identifier: \(segue.identifier)")
+            print("Unexpected Segue Identifier: \(segue.identifier ?? "")")
         }
+    }
+    private func manageOneDefaultCar(carIndex: Int) {
+        print("Managing defaults...")
+        print("See row \(carIndex)")
+        if cars[carIndex].isDefault == true {
+            for eachCar in cars {
+                eachCar.isDefault = false
+            }
+            cars[carIndex].isDefault = true
+        }
+        return
     }
 }

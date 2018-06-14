@@ -6,7 +6,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -106,13 +105,13 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XHV-xG-mLh">
-                                <rect key="frame" x="112" y="543" width="150" height="75"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XHV-xG-mLh">
+                                <rect key="frame" x="149.5" y="543" width="75" height="75"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="75" id="6fP-IW-hMa"/>
-                                    <constraint firstAttribute="width" constant="150" id="k6Q-Gh-hYT"/>
+                                    <constraint firstAttribute="width" constant="75" id="azw-Z2-LuW"/>
                                 </constraints>
-                                <state key="normal" title="Add Car"/>
+                                <state key="normal" title="Add Car" image="addButton"/>
                                 <connections>
                                     <segue destination="QBs-8J-n2h" kind="modal" identifier="AddCar" id="cgN-Rl-PN5"/>
                                 </connections>
@@ -131,8 +130,8 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="8yO-3m-0ej">
                                                     <rect key="frame" x="8" y="8" width="84" height="84"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" secondItem="8yO-3m-0ej" secondAttribute="height" multiplier="1:1" id="HhY-Ge-wP1"/>
-                                                        <constraint firstAttribute="width" constant="84" id="UHw-Hz-Z53"/>
+                                                        <constraint firstAttribute="height" constant="84" id="RBe-Yx-5By"/>
+                                                        <constraint firstAttribute="width" constant="84" id="qU5-nY-I1P"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gsi-jf-uT9">
@@ -221,10 +220,14 @@
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wBF-3K-gxU">
                                 <rect key="frame" x="112" y="72" width="150" height="150"/>
+                                <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="150" id="Di0-ef-rnU"/>
                                     <constraint firstAttribute="width" constant="150" id="WrR-E3-GN2"/>
                                 </constraints>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="s2o-4I-UG7" appends="YES" id="DVH-Tj-Tam"/>
+                                </connections>
                             </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Make" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Xwn-xG-gsy">
                                 <rect key="frame" x="8" y="230" width="359" height="30"/>
@@ -253,11 +256,17 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c1z-CD-J0K">
-                                <rect key="frame" x="162" y="344" width="50" height="50"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set Default?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lVA-pG-SwB">
+                                <rect key="frame" x="141" y="344" width="93.5" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qPH-ql-Yff" customClass="CheckBox" customModule="Spotbirdparking" customModuleProvider="target">
+                                <rect key="frame" x="162" y="373" width="50" height="50"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="BM9-U3-MBS"/>
-                                    <constraint firstAttribute="width" constant="50" id="a0p-96-ev5"/>
+                                    <constraint firstAttribute="height" constant="50" id="AgL-mR-w5R"/>
+                                    <constraint firstAttribute="width" constant="50" id="s9m-NN-iJo"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
                             </button>
@@ -266,16 +275,18 @@
                         <constraints>
                             <constraint firstItem="9f3-F1-eTQ" firstAttribute="trailing" secondItem="Xwn-xG-gsy" secondAttribute="trailing" constant="8" id="8kA-Ki-Wrc"/>
                             <constraint firstItem="9f3-F1-eTQ" firstAttribute="trailing" secondItem="xoI-41-8iY" secondAttribute="trailing" constant="8" id="Cba-pP-zxT"/>
+                            <constraint firstItem="lVA-pG-SwB" firstAttribute="top" secondItem="xoI-41-8iY" secondAttribute="bottom" constant="8" id="Emv-CB-x87"/>
+                            <constraint firstItem="qPH-ql-Yff" firstAttribute="top" secondItem="lVA-pG-SwB" secondAttribute="bottom" constant="8" id="EyE-zb-12C"/>
                             <constraint firstItem="Xwn-xG-gsy" firstAttribute="leading" secondItem="9f3-F1-eTQ" secondAttribute="leading" constant="8" id="H9h-zw-fjN"/>
                             <constraint firstItem="Xwn-xG-gsy" firstAttribute="top" secondItem="wBF-3K-gxU" secondAttribute="bottom" constant="8" id="P3I-VM-gem"/>
                             <constraint firstItem="LV5-BV-FZg" firstAttribute="leading" secondItem="9f3-F1-eTQ" secondAttribute="leading" constant="8" id="UWx-gt-bsX"/>
+                            <constraint firstItem="qPH-ql-Yff" firstAttribute="centerX" secondItem="qGa-WJ-NJr" secondAttribute="centerX" id="XhY-5I-ckE"/>
+                            <constraint firstItem="lVA-pG-SwB" firstAttribute="centerX" secondItem="qGa-WJ-NJr" secondAttribute="centerX" id="aGH-NH-p7t"/>
                             <constraint firstItem="wBF-3K-gxU" firstAttribute="top" secondItem="9f3-F1-eTQ" secondAttribute="top" constant="8" id="aV8-fQ-SmC"/>
                             <constraint firstItem="wBF-3K-gxU" firstAttribute="centerX" secondItem="qGa-WJ-NJr" secondAttribute="centerX" id="acw-Um-qgW"/>
-                            <constraint firstItem="c1z-CD-J0K" firstAttribute="centerX" secondItem="qGa-WJ-NJr" secondAttribute="centerX" id="dAe-qB-7a8"/>
                             <constraint firstItem="xoI-41-8iY" firstAttribute="top" secondItem="LV5-BV-FZg" secondAttribute="bottom" constant="8" id="ib3-tU-Mws"/>
                             <constraint firstItem="9f3-F1-eTQ" firstAttribute="trailing" secondItem="LV5-BV-FZg" secondAttribute="trailing" constant="8" id="oaB-Ju-caP"/>
                             <constraint firstItem="xoI-41-8iY" firstAttribute="leading" secondItem="9f3-F1-eTQ" secondAttribute="leading" constant="8" id="ojK-Z6-Pwh"/>
-                            <constraint firstItem="c1z-CD-J0K" firstAttribute="top" secondItem="xoI-41-8iY" secondAttribute="bottom" constant="8" id="su4-kj-79B"/>
                             <constraint firstItem="LV5-BV-FZg" firstAttribute="top" secondItem="Xwn-xG-gsy" secondAttribute="bottom" constant="8" id="zND-R5-hZY"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="9f3-F1-eTQ"/>
@@ -293,7 +304,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="Default" destination="c1z-CD-J0K" id="3Bb-IX-XmV"/>
+                        <outlet property="Default" destination="qPH-ql-Yff" id="NQs-2M-H35"/>
                         <outlet property="Image" destination="wBF-3K-gxU" id="6Un-5S-dyO"/>
                         <outlet property="Make" destination="Xwn-xG-gsy" id="kur-wg-gEq"/>
                         <outlet property="Model" destination="LV5-BV-FZg" id="XlR-z7-5B9"/>
@@ -303,6 +314,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="n0k-J1-mlF" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="NJC-da-6eO" userLabel="Exit" sceneMemberID="exit"/>
+                <tapGestureRecognizer id="s2o-4I-UG7">
+                    <connections>
+                        <action selector="CarImageOnClick:" destination="cfP-5i-Ni3" id="fhl-H0-Rfl"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="4312.8000000000002" y="357.57121439280365"/>
         </scene>
@@ -483,6 +499,7 @@
     </scenes>
     <resources>
         <image name="EmptyProfile" width="240" height="240"/>
+        <image name="addButton" width="112" height="112"/>
         <image name="first" width="30" height="30"/>
         <image name="second" width="30" height="30"/>
     </resources>

@@ -24,11 +24,7 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         
         ProfileImagePicker.delegate = self
         profilePhoto.isUserInteractionEnabled = true
-        
-        print("'you' viewcontroller did load! :)")
-        
-        // Do any additional setup after loading the view.
-    }
+        }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
