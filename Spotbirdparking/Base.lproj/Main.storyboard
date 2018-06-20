@@ -89,7 +89,6 @@
                     <navigationItem key="navigationItem" title="Your Profile" id="VKa-W7-Gld"/>
                     <connections>
                         <segue destination="g1R-Fe-m4C" kind="show" identifier="You" id="qfj-IF-I7j"/>
-                        <segue destination="x5C-gl-7C2" kind="show" identifier="Payment" id="3cF-wG-dRD"/>
                         <segue destination="JUt-VR-hJv" kind="show" identifier="Cars" id="SWG-Zv-ggL"/>
                     </connections>
                 </tableViewController>
@@ -321,30 +320,6 @@
                 </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="4312.8000000000002" y="357.57121439280365"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="D4E-ip-zpB">
-            <objects>
-                <viewController id="x5C-gl-7C2" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="li6-3o-nvo">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Payment" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RFr-Rr-CQh">
-                                <rect key="frame" x="166" y="82" width="67" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <viewLayoutGuide key="safeArea" id="brh-x9-1co"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="l8V-PK-D1N" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2511" y="1030"/>
         </scene>
         <!--You View Controller-->
         <scene sceneID="Ir0-gm-vsg">

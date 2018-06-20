@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Stripe
+import Alamofire
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -14,7 +16,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        // Set up Stripe keys
+        STPPaymentConfiguration.shared().publishableKey = "pk_test_TV3DNqRM8DCQJEcvMGpayRRj"
+        // See https://stripe.com/docs/mobile/ios for instructions on how to set up Apple Pay
         
         // Assign color values to tab bar.
         UITabBar.appearance().backgroundColor = UIColor.green

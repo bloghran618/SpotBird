@@ -10,6 +10,7 @@ import UIKit
 import Photos
 
 class CarsDefinitionViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    
     @IBOutlet weak var Image: UIImageView!
     @IBOutlet weak var Make: UITextField!
     @IBOutlet weak var Model: UITextField!
@@ -130,13 +131,16 @@ class CarsDefinitionViewController: UIViewController, UITextFieldDelegate, UIIma
         self.present(CarImagePicker, animated: true, completion: nil)
     }
     
-    @objc func imagePickerController(picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [AnyHashable: Any]) {
+    @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [AnyHashable: Any]) {
         let chosenImage = info[UIImagePickerControllerOriginalImage]
-        self.Image!.image = chosenImage as? UIImage
+        print("Setting Image as: ")
+        self.Image.image = chosenImage as? UIImage
         picker.dismiss(animated: true, completion: nil)
     }
     
     @objc func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        print("Imagepickercontroller did cancle"
+        )
         picker.dismiss(animated: true, completion: nil)
     }
     

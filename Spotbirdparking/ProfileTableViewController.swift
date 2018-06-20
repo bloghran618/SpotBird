@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Stripe
 
 
 
@@ -56,7 +57,9 @@ class ProfileTableViewController: UITableViewController {
             self.performSegue(withIdentifier: "Cars", sender: self)
         }
         else if profileOptions![(indexPath as NSIndexPath).row].option == "Payment" {
-            self.performSegue(withIdentifier: "Payment", sender: self)
+            let addCardViewController = STPAddCardViewController()
+            addCardViewController.delegate = self
+            navigationController?.pushViewController(addCardViewController, animated: true)
         }
     }
     
@@ -126,4 +129,18 @@ class ProfileTableViewController: UITableViewController {
     }
     */
 
+    
+}
+
+
+extension ProfileTableViewController: STPAddCardViewControllerDelegate {
+    
+    func addCardViewControllerDidCancel(_ addCardViewController: STPAddCardViewController) {
+        navigationController?.popViewController(animated: true)
+    }
+    
+    func addCardViewController(_ addCardViewController: STPAddCardViewController,
+                               didCreateToken token: STPToken,
+                               completion: @escaping STPErrorBlock) {
+    }
 }

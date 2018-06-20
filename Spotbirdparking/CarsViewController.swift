@@ -64,7 +64,9 @@ class CarsViewController: UIViewController, UITableViewDataSource {
         if editingStyle == .delete {
             // Delete the row from the data source
             cars.remove(at: indexPath.row)
+            manageDefaultCar(carIndex: 0)
             tableView.deleteRows(at: [indexPath], with: .fade)
+            CarsTable.reloadData()
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }
@@ -82,14 +84,14 @@ class CarsViewController: UIViewController, UITableViewDataSource {
             if let selectedIndexPath = CarsTable.indexPathForSelectedRow {
                 // Update an existing car
                 cars[selectedIndexPath.row] = car
-                manageOneDefaultCar(carIndex: selectedIndexPath.row)
+                manageDefaultCar(carIndex: selectedIndexPath.row)
                 CarsTable.reloadRows(at: [selectedIndexPath], with: .none)
             }
             else {
                 // Add new car
                 let newIndexPath = IndexPath(row: cars.count, section: 0)
                 cars.append(car)
-                manageOneDefaultCar(carIndex: (cars.count-1))
+                manageDefaultCar(carIndex: (cars.count-1))
                 CarsTable.insertRows(at: [newIndexPath], with: .automatic)
             }
             CarsTable.reloadData()
@@ -122,14 +124,29 @@ class CarsViewController: UIViewController, UITableViewDataSource {
             print("Unexpected Segue Identifier: \(segue.identifier ?? "")")
         }
     }
-    private func manageOneDefaultCar(carIndex: Int) {
+    private func manageDefaultCar(carIndex: Int) {
         print("Managing defaults...")
         print("See row \(carIndex)")
+        
+        // Manage max one default
         if cars[carIndex].isDefault == true {
             for eachCar in cars {
                 eachCar.isDefault = false
             }
             cars[carIndex].isDefault = true
+        }
+        
+        // Manage min one default
+        var isOneDefault = false
+        for eachCar in cars {
+            if eachCar.isDefault == true {
+                isOneDefault = true
+            }
+        }
+        print("one default? : \(isOneDefault)")
+        print("cars.count: \(cars.count)")
+        if isOneDefault == false && cars.count > 0 {
+            cars[0].isDefault = true
         }
         return
     }
