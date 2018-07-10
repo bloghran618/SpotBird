@@ -20,8 +20,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         STPPaymentConfiguration.shared().publishableKey = "pk_test_TV3DNqRM8DCQJEcvMGpayRRj"
         // See https://stripe.com/docs/mobile/ios for instructions on how to set up Apple Pay
         
+//        MyAPIClient.sharedClient.baseURLString = "https://stripe-example-backend619.herokuapp.com/"
+        
+        let config = STPPaymentConfiguration.shared()
+        config.companyName = "Spotbird Parking"
+        
         // Assign color values to tab bar.
-        UITabBar.appearance().backgroundColor = UIColor.green
+        UITabBar.appearance().backgroundColor = UIColor(red: 0, green: 1, blue: 75/255, alpha: 1)
         UITabBar.appearance().tintColor = UIColor.white
         
         return true

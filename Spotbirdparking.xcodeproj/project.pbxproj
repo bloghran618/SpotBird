@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		5FF0A639CF1B4D96F7FBA93E /* Pods_Spotbirdparking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 004FEE7D57FACF9250B89078 /* Pods_Spotbirdparking.framework */; };
+		B7141A4D20ED1DAF005B54D3 /* MyAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7141A4C20ED1DAF005B54D3 /* MyAPIClient.swift */; };
 		B71F2DE62086CDA800F47274 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71F2DE52086CDA800F47274 /* AppDelegate.swift */; };
 		B71F2DE82086CDA800F47274 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71F2DE72086CDA800F47274 /* FirstViewController.swift */; };
 		B71F2DED2086CDA800F47274 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B71F2DEB2086CDA800F47274 /* Main.storyboard */; };
@@ -42,6 +43,7 @@
 		531BC5D2A3103854A71A1723 /* Pods-SpotbirdparkingTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpotbirdparkingTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SpotbirdparkingTests/Pods-SpotbirdparkingTests.debug.xcconfig"; sourceTree = "<group>"; };
 		96BF38230272878D1241525C /* Pods-Spotbirdparking.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Spotbirdparking.release.xcconfig"; path = "Pods/Target Support Files/Pods-Spotbirdparking/Pods-Spotbirdparking.release.xcconfig"; sourceTree = "<group>"; };
 		A2E9D3CDA1B39711BA0D6344 /* Pods-Spotbirdparking.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Spotbirdparking.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Spotbirdparking/Pods-Spotbirdparking.debug.xcconfig"; sourceTree = "<group>"; };
+		B7141A4C20ED1DAF005B54D3 /* MyAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAPIClient.swift; sourceTree = "<group>"; };
 		B71F2DE22086CDA800F47274 /* Spotbirdparking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spotbirdparking.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B71F2DE52086CDA800F47274 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B71F2DE72086CDA800F47274 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 			isa = PBXGroup;
 			children = (
 				B71F2DE52086CDA800F47274 /* AppDelegate.swift */,
+				B7141A4C20ED1DAF005B54D3 /* MyAPIClient.swift */,
 				B71F2DE72086CDA800F47274 /* FirstViewController.swift */,
 				B7364D0520B65B390081F40F /* ProfileTableOption.swift */,
 				B7364D0720B65F120081F40F /* ProfileTableViewController.swift */,
@@ -324,6 +327,7 @@
 				B71F2DE82086CDA800F47274 /* FirstViewController.swift in Sources */,
 				B7CF24F120BCBB3000722933 /* YouViewController.swift in Sources */,
 				B75AE7B920C496B40069A151 /* CarsTableViewCell.swift in Sources */,
+				B7141A4D20ED1DAF005B54D3 /* MyAPIClient.swift in Sources */,
 				B7B67FE320C34A7400A13FD0 /* CarsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

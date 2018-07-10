@@ -1,3 +1,4 @@
+
 //
 //  ProfileTableViewController.swift
 //  Spotbirdparking
@@ -10,11 +11,39 @@ import UIKit
 import Stripe
 
 
-
-class ProfileTableViewController: UITableViewController {
+class ProfileTableViewController: UITableViewController, STPPaymentContextDelegate {
     
     var profileOptions: [ProfileTableOption]?
     let cellIdentifier = "profileTableCell"
+    
+    let config = STPPaymentConfiguration.shared()
+    let customerContext = STPCustomerContext(keyProvider: MyAPIClient.sharedClient)
+    
+    let paymentContext = STPPaymentContext(customerContext: STPCustomerContext(keyProvider: MyAPIClient.sharedClient))
+    
+    let stripePublishableKey = "pk_test_TV3DNqRM8DCQJEcvMGpayRRj"
+    let backendBaseURL: String? = "https://stripe-example-backend619.herokuapp.com/"
+    
+//    init(price: Int) {
+//
+//        print("Entered Init")
+////        MyAPIClient.sharedClient.baseURLString = self.backendBaseURL
+//
+//        super.init(nibName: nil, bundle: nil)
+//
+//        self.paymentContext.delegate = self
+//        self.paymentContext.hostViewController = self
+//        self.paymentContext.paymentAmount = price
+//        print(self.paymentContext.paymentAmount)
+//        print(self.paymentContext.hostViewController)
+//    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        print("Entered required init")
+        super.init(coder: aDecoder)
+        setPaymentContext(price: 5000)
+    }
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +51,8 @@ class ProfileTableViewController: UITableViewController {
         profileOptions = [
             ProfileTableOption(option: "You", description: "Tell us about yourself", logoImageName: "EmptyProfile"),
             ProfileTableOption(option: "Cars", description: "Create and set default cars", logoImageName: "EmptyCar"),
-            ProfileTableOption(option: "Payment", description: "Manage your payment options", logoImageName: "dollarSign")
+            ProfileTableOption(option: "Payment", description: "Manage your payment options", logoImageName: "dollarSign"),
+            ProfileTableOption(option: "Test Stripe", description: "To be torn down later", logoImageName: "test")
         ]
     }
     
@@ -57,9 +87,23 @@ class ProfileTableViewController: UITableViewController {
             self.performSegue(withIdentifier: "Cars", sender: self)
         }
         else if profileOptions![(indexPath as NSIndexPath).row].option == "Payment" {
-            let addCardViewController = STPAddCardViewController()
-            addCardViewController.delegate = self
-            navigationController?.pushViewController(addCardViewController, animated: true)
+            print(self.paymentContext.hostViewController)
+            self.paymentContext.pushPaymentMethodsViewController()
+        }
+        else if profileOptions![(indexPath as NSIndexPath).row].option == "Test Stripe" {
+            print("To Implement Payment here!")
+            
+            self.paymentContext.requestPayment()
+//            // Setup customer context
+//            let customerContext = STPCustomerContext(keyProvider: MyKeyProvider().shared())
+//
+//            // Setup payment methods view controller
+//            let paymentMethodsViewController = STPPaymentMethodsViewController(configuration: STPPaymentConfiguration.shared(), theme: STPTheme.default(), customerContext: customerContext, delegate: self)
+//
+            
+//            // Present payment methods view controller
+//            let navigationController = UINavigationController(rootViewController: paymentMethodsViewController)
+//            present(navigationController, animated: true)
         }
     }
     
@@ -130,17 +174,94 @@ class ProfileTableViewController: UITableViewController {
     */
 
     
+    // MARK: STPPaymentContextDelegate
+    
+    func paymentContext(_ paymentContext: STPPaymentContext, didCreatePaymentResult paymentResult: STPPaymentResult, completion: @escaping STPErrorBlock) {
+        print("run didCreatePaymentResult paymentContext()")
+        MyAPIClient.sharedClient.completeCharge(paymentResult,
+                                                amount: self.paymentContext.paymentAmount,
+                                                shippingAddress: self.paymentContext.shippingAddress,
+                                                shippingMethod: self.paymentContext.selectedShippingMethod,
+                                                completion: completion)
+    }
+    
+    func paymentContext(_ paymentContext: STPPaymentContext, didFinishWith status: STPPaymentStatus, error: Error?) {
+        print("run didFinishWith paymentContext()")
+        let title: String
+        let message: String
+        switch status {
+        case .error:
+            title = "Error"
+            message = error?.localizedDescription ?? ""
+        case .success:
+            title = "Success"
+            message = "You bought a SPOT!"
+        case .userCancellation:
+            return
+        }
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(action)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func paymentContextDidChange(_ paymentContext: STPPaymentContext) {
+        print("run paymentContextDidChange()")
+//        self.paymentRow.loading = paymentContext.loading
+//        if let paymentMethod = paymentContext.selectedPaymentMethod {
+//            self.paymentRow.detail = paymentMethod.label
+//        }
+//        else {
+//            self.paymentRow.detail = "Select Payment"
+//        }
+//        if let shippingMethod = paymentContext.selectedShippingMethod {
+//            self.shippingRow.detail = shippingMethod.label
+//        }
+//        else {
+//            self.shippingRow.detail = "Enter \(self.shippingString) Info"
+//        }
+//        self.totalRow.detail = self.numberFormatter.string(from: NSNumber(value: Float(self.paymentContext.paymentAmount)/100))!
+    }
+    
+    func paymentContext(_ paymentContext: STPPaymentContext, didFailToLoadWithError error: Error) {
+        print("run didFailToLoadWithError paymentContext()")
+        let alertController = UIAlertController(
+            title: "Error",
+            message: error.localizedDescription,
+            preferredStyle: .alert
+        )
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
+            // Need to assign to _ because optional binding loses @discardableResult value
+            // https://bugs.swift.org/browse/SR-1681
+            _ = self.navigationController?.popViewController(animated: true)
+        })
+        let retry = UIAlertAction(title: "Retry", style: .default, handler: { action in
+            self.paymentContext.retryLoading()
+        })
+        alertController.addAction(cancel)
+        alertController.addAction(retry)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func setPaymentContext(price: Int) {
+        self.paymentContext.delegate = self
+        self.paymentContext.hostViewController = self
+        self.paymentContext.paymentAmount = price
+        print(self.paymentContext.paymentAmount)
+        print(self.paymentContext.hostViewController)
+    }
+    
 }
 
 
-extension ProfileTableViewController: STPAddCardViewControllerDelegate {
-    
-    func addCardViewControllerDidCancel(_ addCardViewController: STPAddCardViewController) {
-        navigationController?.popViewController(animated: true)
-    }
-    
-    func addCardViewController(_ addCardViewController: STPAddCardViewController,
-                               didCreateToken token: STPToken,
-                               completion: @escaping STPErrorBlock) {
-    }
-}
+//extension ProfileTableViewController: STPAddCardViewControllerDelegate {
+//
+//    func addCardViewControllerDidCancel(_ addCardViewController: STPAddCardViewController) {
+//        navigationController?.popViewController(animated: true)
+//    }
+//
+//    func addCardViewController(_ addCardViewController: STPAddCardViewController,
+//                               didCreateToken token: STPToken,
+//                               completion: @escaping STPErrorBlock) {
+//    }
+//}

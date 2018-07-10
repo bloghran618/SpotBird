@@ -169,6 +169,12 @@ class CarsDefinitionViewController: UIViewController, UITextFieldDelegate, UIIma
         }
     }
     
+    @IBAction func checkBoxChecked(_ sender: Any) {
+        Make.resignFirstResponder()
+        Model.resignFirstResponder()
+        Year.resignFirstResponder()
+    }
+    
 
 
     // MARK: - Navigation
