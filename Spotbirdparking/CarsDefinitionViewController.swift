@@ -24,6 +24,8 @@ class CarsDefinitionViewController: UIViewController, UITextFieldDelegate, UIIma
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.hideKeyboardWhenTappedAround()
+        
         Make.delegate = self
         Model.delegate = self
         Year.delegate = self

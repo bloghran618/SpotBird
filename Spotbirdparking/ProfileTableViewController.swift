@@ -24,20 +24,6 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
     let stripePublishableKey = "pk_test_TV3DNqRM8DCQJEcvMGpayRRj"
     let backendBaseURL: String? = "https://stripe-example-backend619.herokuapp.com/"
     
-//    init(price: Int) {
-//
-//        print("Entered Init")
-////        MyAPIClient.sharedClient.baseURLString = self.backendBaseURL
-//
-//        super.init(nibName: nil, bundle: nil)
-//
-//        self.paymentContext.delegate = self
-//        self.paymentContext.hostViewController = self
-//        self.paymentContext.paymentAmount = price
-//        print(self.paymentContext.paymentAmount)
-//        print(self.paymentContext.hostViewController)
-//    }
-    
     required init?(coder aDecoder: NSCoder) {
         print("Entered required init")
         super.init(coder: aDecoder)

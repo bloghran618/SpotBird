@@ -19,6 +19,8 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.hideKeyboardWhenTappedAround()
+        
         firstName.delegate = self
         lastName.delegate = self
         
@@ -122,4 +124,16 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         return true
     }
 
+}
+
+extension UIViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIViewController.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
 }
