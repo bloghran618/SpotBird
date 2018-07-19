@@ -26,6 +26,7 @@
 		B7CD91E920F8298F00CFF016 /* SpotTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CD91E820F8298F00CFF016 /* SpotTableViewCell.swift */; };
 		B7CD91EB20F82C6100CFF016 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CD91EA20F82C6100CFF016 /* ShareViewController.swift */; };
 		B7CF24F120BCBB3000722933 /* YouViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CF24F020BCBB3000722933 /* YouViewController.swift */; };
+		B7F9425920FD903D001B421E /* SpotImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F9425820FD903D001B421E /* SpotImageViewController.swift */; };
 		BBA6049CE74020DC683BC5B6 /* Pods_SpotbirdparkingTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAF59DF2ADFBA1A8A49A61F /* Pods_SpotbirdparkingTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -68,6 +69,7 @@
 		B7CD91E820F8298F00CFF016 /* SpotTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotTableViewCell.swift; sourceTree = "<group>"; };
 		B7CD91EA20F82C6100CFF016 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		B7CF24F020BCBB3000722933 /* YouViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouViewController.swift; sourceTree = "<group>"; };
+		B7F9425820FD903D001B421E /* SpotImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotImageViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -137,6 +139,7 @@
 				B7CD91EA20F82C6100CFF016 /* ShareViewController.swift */,
 				B7CD91E820F8298F00CFF016 /* SpotTableViewCell.swift */,
 				B7A35D4020F5AA4500E4B566 /* AddressViewController.swift */,
+				B7F9425820FD903D001B421E /* SpotImageViewController.swift */,
 				B72D8BE320D0B6BE0038310F /* CheckBox.swift */,
 				B71F2DEB2086CDA800F47274 /* Main.storyboard */,
 				B71F2DEE2086CDAA00F47274 /* Assets.xcassets */,
@@ -333,6 +336,7 @@
 				B7364D0620B65B390081F40F /* ProfileTableOption.swift in Sources */,
 				B7A86B4B20C0E9DB00041C61 /* Car.swift in Sources */,
 				B72D8BE420D0B6BE0038310F /* CheckBox.swift in Sources */,
+				B7F9425920FD903D001B421E /* SpotImageViewController.swift in Sources */,
 				B7364D0820B65F120081F40F /* ProfileTableViewController.swift in Sources */,
 				B7CD91E920F8298F00CFF016 /* SpotTableViewCell.swift in Sources */,
 				B71F2DE82086CDA800F47274 /* FirstViewController.swift in Sources */,

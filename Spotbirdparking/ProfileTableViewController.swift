@@ -38,6 +38,7 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
             ProfileTableOption(option: "You", description: "Tell us about yourself", logoImageName: "EmptyProfile"),
             ProfileTableOption(option: "Cars", description: "Create and set default cars", logoImageName: "EmptyCar"),
             ProfileTableOption(option: "Payment", description: "Manage your payment options", logoImageName: "dollarSign"),
+            ProfileTableOption(option: "List", description: "Share your spot", logoImageName: "Share"),
             ProfileTableOption(option: "Test Stripe", description: "To be torn down later", logoImageName: "test")
         ]
     }
@@ -75,6 +76,9 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
         else if profileOptions![(indexPath as NSIndexPath).row].option == "Payment" {
             print(self.paymentContext.hostViewController)
             self.paymentContext.pushPaymentMethodsViewController()
+        }
+        else if profileOptions![(indexPath as NSIndexPath).row].option == "List" {
+            self.performSegue(withIdentifier: "Share", sender: self)
         }
         else if profileOptions![(indexPath as NSIndexPath).row].option == "Test Stripe" {
             print("To Implement Payment here!")

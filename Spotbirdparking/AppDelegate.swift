@@ -26,8 +26,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         config.companyName = "Spotbird Parking"
         
         // Assign color values to tab bar.
-        UITabBar.appearance().backgroundColor = UIColor(red: 0, green: 1, blue: 75/255, alpha: 1)
-        UITabBar.appearance().tintColor = UIColor.white
+//        UITabBar.
+//        UITabBar.appearance().tintColor = UIColor.white
         
         return true
     }
