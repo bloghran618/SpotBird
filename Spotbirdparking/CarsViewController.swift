@@ -128,6 +128,14 @@ class CarsViewController: UIViewController, UITableViewDataSource {
         print("Managing defaults...")
         print("See row \(carIndex)")
         
+        // Manage min one default
+        var isOneDefault = false
+        for eachCar in cars {
+            if eachCar.isDefault == true {
+                isOneDefault = true
+            }
+        }
+        
         // Manage max one default
         if cars[carIndex].isDefault == true {
             for eachCar in cars {
@@ -136,13 +144,6 @@ class CarsViewController: UIViewController, UITableViewDataSource {
             cars[carIndex].isDefault = true
         }
         
-        // Manage min one default
-        var isOneDefault = false
-        for eachCar in cars {
-            if eachCar.isDefault == true {
-                isOneDefault = true
-            }
-        }
         print("one default? : \(isOneDefault)")
         print("cars.count: \(cars.count)")
         if isOneDefault == false && cars.count > 0 {

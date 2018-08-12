@@ -9,10 +9,13 @@
 import UIKit
 import Photos
 
-class SpotImageViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class SpotImageViewController: UIViewController, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var spotImageView: UIImageView!
     @IBOutlet weak var schedulingBarButton: UIBarButtonItem!
+    @IBOutlet weak var spotDescription: UITextView!
+    
+    let defaultImage = "addButton"
     
     var spotImagePicker = UIImagePickerController()
     
@@ -21,8 +24,17 @@ class SpotImageViewController: UIViewController, UITextFieldDelegate, UIImagePic
         
         spotImagePicker.delegate = self
         spotImageView.isUserInteractionEnabled = true
-
-        // Do any additional setup after loading the view.
+        
+        spotImageView.image = UIImage.init(named: defaultImage)
+        
+        schedulingBarButton.isEnabled = false
+        
+        self.spotDescription.delegate = self
+        spotDescription.text = "Enter Spot Desccription Here"
+        spotDescription.textColor = UIColor.lightGray
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(SpotImageViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(SpotImageViewController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -54,8 +66,9 @@ class SpotImageViewController: UIViewController, UITextFieldDelegate, UIImagePic
         }
     }
     
-    @IBAction func ProfileImageOnClick(_ sender: Any) {
+    @IBAction func SpotImageOnClick(_ sender: Any) {
         print("Choose image")
+        self.spotDescription.resignFirstResponder()
         
         // Alert allows you to choose between Camera, Gallery or Cancel
         let alert = UIAlertController(title: "Choose Image", message: nil, preferredStyle: .actionSheet)
@@ -105,6 +118,9 @@ class SpotImageViewController: UIViewController, UITextFieldDelegate, UIImagePic
     @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [AnyHashable: Any]) {
         let chosenImage = info[UIImagePickerControllerOriginalImage]
         self.spotImageView!.image = chosenImage as? UIImage
+        
+        schedulingBarButtonCheckEnable()
+        
         picker.dismiss(animated: true, completion: nil)
     }
     
@@ -112,6 +128,58 @@ class SpotImageViewController: UIViewController, UITextFieldDelegate, UIImagePic
         picker.dismiss(animated: true, completion: nil)
     }
     
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if spotDescription.textColor == UIColor.lightGray {
+            spotDescription.text = nil
+            spotDescription.textColor = UIColor.black
+        }
+    }
     
-
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if spotDescription.text.isEmpty {
+            spotDescription.text = "Enter Spot Desccription Here"
+            spotDescription.textColor = UIColor.lightGray
+        }
+        spotDescription.resignFirstResponder()
+        schedulingBarButtonCheckEnable()
+    }
+    
+    func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
+        if spotDescription.text.isEmpty {
+            spotDescription.text = "Enter Spot Description Here"
+            spotDescription.textColor = UIColor.lightGray
+        }
+        spotDescription.resignFirstResponder()
+        return true
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+            textView.resignFirstResponder()
+            return false
+        }
+        return true
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            self.view.frame.origin.y -= keyboardSize.height
+        }
+    }
+    
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
+            self.view.frame.origin.y = 0
+        }
+    }
+    
+    func schedulingBarButtonCheckEnable() {
+        if(self.spotImageView.image != UIImage.init(named: "addButton") && spotDescription.textColor == UIColor.black) {
+            self.schedulingBarButton.isEnabled = true
+        }
+        else {
+            self.schedulingBarButton.isEnabled = false
+        }
+    }
+    
 }

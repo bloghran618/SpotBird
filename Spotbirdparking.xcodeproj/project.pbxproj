@@ -20,6 +20,7 @@
 		B7364D0820B65F120081F40F /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7364D0720B65F120081F40F /* ProfileTableViewController.swift */; };
 		B75AE7B920C496B40069A151 /* CarsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75AE7B820C496B40069A151 /* CarsTableViewCell.swift */; };
 		B75AE7BB20C4B63D0069A151 /* CarsDefinitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75AE7BA20C4B63D0069A151 /* CarsDefinitionViewController.swift */; };
+		B77D9346211A807700D505BD /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77D9345211A807700D505BD /* ScheduleViewController.swift */; };
 		B7A35D4120F5AA4500E4B566 /* AddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A35D4020F5AA4500E4B566 /* AddressViewController.swift */; };
 		B7A86B4B20C0E9DB00041C61 /* Car.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A86B4A20C0E9DB00041C61 /* Car.swift */; };
 		B7B67FE320C34A7400A13FD0 /* CarsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7B67FE220C34A7400A13FD0 /* CarsViewController.swift */; };
@@ -63,6 +64,7 @@
 		B7364D0720B65F120081F40F /* ProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
 		B75AE7B820C496B40069A151 /* CarsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarsTableViewCell.swift; sourceTree = "<group>"; };
 		B75AE7BA20C4B63D0069A151 /* CarsDefinitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarsDefinitionViewController.swift; sourceTree = "<group>"; };
+		B77D9345211A807700D505BD /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
 		B7A35D4020F5AA4500E4B566 /* AddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressViewController.swift; sourceTree = "<group>"; };
 		B7A86B4A20C0E9DB00041C61 /* Car.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Car.swift; sourceTree = "<group>"; };
 		B7B67FE220C34A7400A13FD0 /* CarsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarsViewController.swift; sourceTree = "<group>"; };
@@ -140,6 +142,7 @@
 				B7CD91E820F8298F00CFF016 /* SpotTableViewCell.swift */,
 				B7A35D4020F5AA4500E4B566 /* AddressViewController.swift */,
 				B7F9425820FD903D001B421E /* SpotImageViewController.swift */,
+				B77D9345211A807700D505BD /* ScheduleViewController.swift */,
 				B72D8BE320D0B6BE0038310F /* CheckBox.swift */,
 				B71F2DEB2086CDA800F47274 /* Main.storyboard */,
 				B71F2DEE2086CDAA00F47274 /* Assets.xcassets */,
@@ -333,6 +336,7 @@
 				B7CD91EB20F82C6100CFF016 /* ShareViewController.swift in Sources */,
 				B71F2DE62086CDA800F47274 /* AppDelegate.swift in Sources */,
 				B75AE7BB20C4B63D0069A151 /* CarsDefinitionViewController.swift in Sources */,
+				B77D9346211A807700D505BD /* ScheduleViewController.swift in Sources */,
 				B7364D0620B65B390081F40F /* ProfileTableOption.swift in Sources */,
 				B7A86B4B20C0E9DB00041C61 /* Car.swift in Sources */,
 				B72D8BE420D0B6BE0038310F /* CheckBox.swift in Sources */,
