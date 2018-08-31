@@ -22,16 +22,21 @@ class SpotImageViewController: UIViewController, UITextViewDelegate, UIImagePick
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        AppState.sharedInstance.activeSpot.pringSpotCliffNotes()
+        
         spotImagePicker.delegate = self
         spotImageView.isUserInteractionEnabled = true
         
-        spotImageView.image = UIImage.init(named: defaultImage)
+        spotImageView.image = AppState.sharedInstance.activeSpot.spotImage
+        spotDescription.text = AppState.sharedInstance.activeSpot.description
         
-        schedulingBarButton.isEnabled = false
+        schedulingBarButton.isEnabled = schedulingBarButtonCheckEnable()
         
         self.spotDescription.delegate = self
-        spotDescription.text = "Enter Spot Desccription Here"
-        spotDescription.textColor = UIColor.lightGray
+        if(AppState.sharedInstance.activeSpot.description == "") {
+            spotDescription.text = "Enter Spot Desccription Here"
+            spotDescription.textColor = UIColor.lightGray
+        }
         
         NotificationCenter.default.addObserver(self, selector: #selector(SpotImageViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(SpotImageViewController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
@@ -99,6 +104,7 @@ class SpotImageViewController: UIViewController, UITextViewDelegate, UIImagePick
             spotImagePicker.sourceType = UIImagePickerControllerSourceType.camera
             spotImagePicker.allowsEditing = false
             self.present(spotImagePicker, animated: true, completion: nil)
+            AppState.sharedInstance.activeSpot.spotImage = spotImageView.image
         }
             
         else {
@@ -117,7 +123,8 @@ class SpotImageViewController: UIViewController, UITextViewDelegate, UIImagePick
     
     @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [AnyHashable: Any]) {
         let chosenImage = info[UIImagePickerControllerOriginalImage]
-        self.spotImageView!.image = chosenImage as? UIImage
+        AppState.sharedInstance.activeSpot.spotImage = chosenImage as? UIImage
+        self.spotImageView!.image = AppState.sharedInstance.activeSpot.spotImage
         
         schedulingBarButtonCheckEnable()
         
@@ -141,6 +148,7 @@ class SpotImageViewController: UIViewController, UITextViewDelegate, UIImagePick
             spotDescription.textColor = UIColor.lightGray
         }
         spotDescription.resignFirstResponder()
+        AppState.sharedInstance.activeSpot.description = spotDescription.text
         schedulingBarButtonCheckEnable()
     }
     
@@ -150,6 +158,7 @@ class SpotImageViewController: UIViewController, UITextViewDelegate, UIImagePick
             spotDescription.textColor = UIColor.lightGray
         }
         spotDescription.resignFirstResponder()
+        AppState.sharedInstance.activeSpot.description = spotDescription.text
         return true
     }
     
@@ -173,12 +182,14 @@ class SpotImageViewController: UIViewController, UITextViewDelegate, UIImagePick
         }
     }
     
-    func schedulingBarButtonCheckEnable() {
-        if(self.spotImageView.image != UIImage.init(named: "addButton") && spotDescription.textColor == UIColor.black) {
+    func schedulingBarButtonCheckEnable() -> Bool {
+        if(AppState.sharedInstance.activeSpot.spotImage != UIImage.init(named: "addButton") && AppState.sharedInstance.activeSpot.description != "") {
             self.schedulingBarButton.isEnabled = true
+            return true
         }
         else {
             self.schedulingBarButton.isEnabled = false
+            return false
         }
     }
     

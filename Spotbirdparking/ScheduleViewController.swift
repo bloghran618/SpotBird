@@ -38,7 +38,6 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate{
     @IBOutlet weak var sunStartTime: UITextField!
     @IBOutlet weak var sunEndTime: UITextField!
     
-    
     private var datePicker: UIDatePicker?
     
     
@@ -139,7 +138,30 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate{
         
         sunSwitch.addTarget(self, action: #selector(sunSwitchStateChanged), for: UIControlEvents.valueChanged)
         
+        monStartTime.text = AppState.sharedInstance.activeSpot.monStartTime
+        monEndTime.text = AppState.sharedInstance.activeSpot.monEndTime
+        tueStartTime.text = AppState.sharedInstance.activeSpot.tueStartTime
+        tueEndTime.text = AppState.sharedInstance.activeSpot.tueEndTime
+        wedStartTime.text = AppState.sharedInstance.activeSpot.wedStartTime
+        wedEndTime.text = AppState.sharedInstance.activeSpot.wedEndTime
+        thuStartTime.text = AppState.sharedInstance.activeSpot.thuStartTime
+        thuEndTime.text = AppState.sharedInstance.activeSpot.thuEndTime
+        friStartTime.text = AppState.sharedInstance.activeSpot.friStartTime
+        friEndTime.text = AppState.sharedInstance.activeSpot.friEndTime
+        satStartTime.text = AppState.sharedInstance.activeSpot.satStartTime
+        satEndTime.text = AppState.sharedInstance.activeSpot.satEndTime
+        sunStartTime.text = AppState.sharedInstance.activeSpot.sunStartTime
+        sunEndTime.text = AppState.sharedInstance.activeSpot.sunEndTime
         
+        monSwitch.setOn(AppState.sharedInstance.activeSpot.monOn, animated: true)
+        tueSwitch.setOn(AppState.sharedInstance.activeSpot.tueOn, animated: true)
+        wedSwitch.setOn(AppState.sharedInstance.activeSpot.wedOn, animated: true)
+        thuSwitch.setOn(AppState.sharedInstance.activeSpot.thuOn, animated: true)
+        friSwitch.setOn(AppState.sharedInstance.activeSpot.friOn, animated: true)
+        satSwitch.setOn(AppState.sharedInstance.activeSpot.satOn, animated: true)
+        sunSwitch.setOn(AppState.sharedInstance.activeSpot.sunOn, animated: true)
+        
+        AppState.sharedInstance.activeSpot.pringSpotCliffNotes()
         
     }
 
@@ -161,29 +183,34 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate{
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         dateFormatter.dateFormat = "hh:mm a"
-        monStartTime.text = dateFormatter.string(from: sender.date)
+        AppState.sharedInstance.activeSpot.monStartTime = dateFormatter.string(from: sender.date)
+        monStartTime.text = AppState.sharedInstance.activeSpot.monStartTime
     }
     
     @objc func monEndDatePickerValueChanged(_ sender: UIDatePicker) {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSTIX")
         dateFormatter.dateFormat = "hh:mm a"
-        monEndTime.text = dateFormatter.string(from: sender.date)
+        AppState.sharedInstance.activeSpot.monEndTime = dateFormatter.string(from: sender.date)
+        monEndTime.text = AppState.sharedInstance.activeSpot.monEndTime
     }
     
     @objc func monSwitchStateChanged(switchState: UISwitch) {
+        AppState.sharedInstance.activeSpot.monOn = switchState.isOn
+        
         if switchState.isOn {
-            monStartTime.isEnabled = true
-            monEndTime.isEnabled = true
-            monStartTime.text = "12:00 AM"
-            monEndTime.text = "12:00 PM"
+            AppState.sharedInstance.activeSpot.monStartTime = "12:00 AM"
+            AppState.sharedInstance.activeSpot.monEndTime = "12:00 PM"
         }
         else {
-            monStartTime.isEnabled = false
-            monEndTime.isEnabled = false
-            monStartTime.text = ""
-            monEndTime.text = ""
+            AppState.sharedInstance.activeSpot.monStartTime = ""
+            AppState.sharedInstance.activeSpot.monEndTime = ""
         }
+        
+        monStartTime.isEnabled = AppState.sharedInstance.activeSpot.monOn
+        monEndTime.isEnabled = AppState.sharedInstance.activeSpot.monOn
+        monStartTime.text = AppState.sharedInstance.activeSpot.monStartTime
+        monEndTime.text = AppState.sharedInstance.activeSpot.monEndTime
     }
     
     
@@ -193,29 +220,34 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate{
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         dateFormatter.dateFormat = "hh:mm a"
-        tueStartTime.text = dateFormatter.string(from: sender.date)
+        AppState.sharedInstance.activeSpot.tueStartTime = dateFormatter.string(from: sender.date)
+        tueStartTime.text = AppState.sharedInstance.activeSpot.tueStartTime
     }
     
     @objc func tueEndDatePickerValueChanged(_ sender: UIDatePicker) {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSTIX")
         dateFormatter.dateFormat = "hh:mm a"
-        tueEndTime.text = dateFormatter.string(from: sender.date)
+        AppState.sharedInstance.activeSpot.tueEndTime = dateFormatter.string(from: sender.date)
+        tueEndTime.text = AppState.sharedInstance.activeSpot.tueEndTime
     }
     
     @objc func tueSwitchStateChanged(switchState: UISwitch) {
+        AppState.sharedInstance.activeSpot.tueOn = switchState.isOn
+        
         if switchState.isOn {
-            tueStartTime.isEnabled = true
-            tueEndTime.isEnabled = true
-            tueStartTime.text = "12:00 AM"
-            tueEndTime.text = "12:00 PM"
+            AppState.sharedInstance.activeSpot.tueStartTime = "12:00 AM"
+            AppState.sharedInstance.activeSpot.tueEndTime = "12:00 PM"
         }
         else {
-            tueStartTime.isEnabled = false
-            tueEndTime.isEnabled = false
-            tueStartTime.text = ""
-            tueEndTime.text = ""
+            AppState.sharedInstance.activeSpot.tueStartTime = ""
+            AppState.sharedInstance.activeSpot.tueEndTime = ""
         }
+        
+        tueStartTime.isEnabled = AppState.sharedInstance.activeSpot.tueOn
+        tueEndTime.isEnabled = AppState.sharedInstance.activeSpot.tueOn
+        tueStartTime.text = AppState.sharedInstance.activeSpot.tueStartTime
+        tueEndTime.text = AppState.sharedInstance.activeSpot.tueEndTime
     }
     
     // Wednesday
@@ -224,29 +256,34 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate{
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         dateFormatter.dateFormat = "hh:mm a"
-        wedStartTime.text = dateFormatter.string(from: sender.date)
+        AppState.sharedInstance.activeSpot.wedStartTime = dateFormatter.string(from: sender.date)
+        wedStartTime.text = AppState.sharedInstance.activeSpot.wedStartTime
     }
     
     @objc func wedEndDatePickerValueChanged(_ sender: UIDatePicker) {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSTIX")
         dateFormatter.dateFormat = "hh:mm a"
-        wedEndTime.text = dateFormatter.string(from: sender.date)
+        AppState.sharedInstance.activeSpot.wedEndTime = dateFormatter.string(from: sender.date)
+        wedEndTime.text = AppState.sharedInstance.activeSpot.wedEndTime
     }
     
     @objc func wedSwitchStateChanged(switchState: UISwitch) {
+        AppState.sharedInstance.activeSpot.wedOn = switchState.isOn
+        
         if switchState.isOn {
-            wedStartTime.isEnabled = true
-            wedEndTime.isEnabled = true
-            wedStartTime.text = "12:00 AM"
-            wedEndTime.text = "12:00 PM"
+            AppState.sharedInstance.activeSpot.wedStartTime = "12:00 AM"
+            AppState.sharedInstance.activeSpot.wedEndTime = "12:00 PM"
         }
         else {
-            wedStartTime.isEnabled = false
-            wedEndTime.isEnabled = false
-            wedStartTime.text = ""
-            wedEndTime.text = ""
+            AppState.sharedInstance.activeSpot.wedStartTime = ""
+            AppState.sharedInstance.activeSpot.wedEndTime = ""
         }
+        
+        wedStartTime.isEnabled = AppState.sharedInstance.activeSpot.wedOn
+        wedEndTime.isEnabled = AppState.sharedInstance.activeSpot.wedOn
+        wedStartTime.text = AppState.sharedInstance.activeSpot.wedStartTime
+        wedEndTime.text = AppState.sharedInstance.activeSpot.wedEndTime
     }
     
     // Thursday
@@ -255,29 +292,34 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate{
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         dateFormatter.dateFormat = "hh:mm a"
-        thuStartTime.text = dateFormatter.string(from: sender.date)
+        AppState.sharedInstance.activeSpot.thuStartTime = dateFormatter.string(from: sender.date)
+        thuStartTime.text = AppState.sharedInstance.activeSpot.thuStartTime
     }
     
     @objc func thuEndDatePickerValueChanged(_ sender: UIDatePicker) {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSTIX")
         dateFormatter.dateFormat = "hh:mm a"
-        thuEndTime.text = dateFormatter.string(from: sender.date)
+        AppState.sharedInstance.activeSpot.thuEndTime = dateFormatter.string(from: sender.date)
+        thuEndTime.text = AppState.sharedInstance.activeSpot.thuEndTime
     }
     
     @objc func thuSwitchStateChanged(switchState: UISwitch) {
+        AppState.sharedInstance.activeSpot.thuOn = switchState.isOn
+        
         if switchState.isOn {
-            thuStartTime.isEnabled = true
-            thuEndTime.isEnabled = true
-            thuStartTime.text = "12:00 AM"
-            thuEndTime.text = "12:00 PM"
+            AppState.sharedInstance.activeSpot.thuStartTime = "12:00 AM"
+            AppState.sharedInstance.activeSpot.thuEndTime = "12:00 PM"
         }
         else {
-            thuStartTime.isEnabled = false
-            thuEndTime.isEnabled = false
-            thuStartTime.text = ""
-            thuEndTime.text = ""
+            AppState.sharedInstance.activeSpot.thuStartTime = ""
+            AppState.sharedInstance.activeSpot.thuEndTime = ""
         }
+        
+        thuStartTime.isEnabled = AppState.sharedInstance.activeSpot.thuOn
+        thuEndTime.isEnabled = AppState.sharedInstance.activeSpot.thuOn
+        thuStartTime.text = AppState.sharedInstance.activeSpot.thuStartTime
+        thuEndTime.text = AppState.sharedInstance.activeSpot.thuEndTime
     }
     
     // Friday
@@ -286,29 +328,34 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate{
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         dateFormatter.dateFormat = "hh:mm a"
-        friStartTime.text = dateFormatter.string(from: sender.date)
+        AppState.sharedInstance.activeSpot.friStartTime = dateFormatter.string(from: sender.date)
+        friStartTime.text = AppState.sharedInstance.activeSpot.friStartTime
     }
     
     @objc func friEndDatePickerValueChanged(_ sender: UIDatePicker) {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSTIX")
         dateFormatter.dateFormat = "hh:mm a"
-        friEndTime.text = dateFormatter.string(from: sender.date)
+        AppState.sharedInstance.activeSpot.friEndTime = dateFormatter.string(from: sender.date)
+        friEndTime.text = AppState.sharedInstance.activeSpot.friEndTime
     }
     
     @objc func friSwitchStateChanged(switchState: UISwitch) {
+        AppState.sharedInstance.activeSpot.friOn = switchState.isOn
+        
         if switchState.isOn {
-            friStartTime.isEnabled = true
-            friEndTime.isEnabled = true
-            friStartTime.text = "12:00 AM"
-            friEndTime.text = "12:00 PM"
+            AppState.sharedInstance.activeSpot.friStartTime = "12:00 AM"
+            AppState.sharedInstance.activeSpot.friEndTime = "12:00 PM"
         }
         else {
-            friStartTime.isEnabled = false
-            friEndTime.isEnabled = false
-            friStartTime.text = ""
-            friEndTime.text = ""
+            AppState.sharedInstance.activeSpot.friStartTime = ""
+            AppState.sharedInstance.activeSpot.friEndTime = ""
         }
+        
+        friStartTime.isEnabled = AppState.sharedInstance.activeSpot.friOn
+        friEndTime.isEnabled = AppState.sharedInstance.activeSpot.friOn
+        friStartTime.text = AppState.sharedInstance.activeSpot.friStartTime
+        friEndTime.text = AppState.sharedInstance.activeSpot.friEndTime
     }
     
     // Saturday
@@ -317,29 +364,34 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate{
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         dateFormatter.dateFormat = "hh:mm a"
-        satStartTime.text = dateFormatter.string(from: sender.date)
+        AppState.sharedInstance.activeSpot.satStartTime = dateFormatter.string(from: sender.date)
+        satStartTime.text = AppState.sharedInstance.activeSpot.satStartTime
     }
     
     @objc func satEndDatePickerValueChanged(_ sender: UIDatePicker) {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSTIX")
         dateFormatter.dateFormat = "hh:mm a"
-        satEndTime.text = dateFormatter.string(from: sender.date)
+        AppState.sharedInstance.activeSpot.satEndTime = dateFormatter.string(from: sender.date)
+        satEndTime.text = AppState.sharedInstance.activeSpot.satEndTime
     }
     
     @objc func satSwitchStateChanged(switchState: UISwitch) {
+        AppState.sharedInstance.activeSpot.satOn = switchState.isOn
+        
         if switchState.isOn {
-            satStartTime.isEnabled = true
-            satEndTime.isEnabled = true
-            satStartTime.text = "12:00 AM"
-            satEndTime.text = "12:00 PM"
+            AppState.sharedInstance.activeSpot.satStartTime = "12:00 AM"
+            AppState.sharedInstance.activeSpot.satEndTime = "12:00 PM"
         }
         else {
-            satStartTime.isEnabled = false
-            satEndTime.isEnabled = false
-            satStartTime.text = ""
-            satEndTime.text = ""
+            AppState.sharedInstance.activeSpot.satStartTime = ""
+            AppState.sharedInstance.activeSpot.satEndTime = ""
         }
+        
+        satStartTime.isEnabled = AppState.sharedInstance.activeSpot.satOn
+        satEndTime.isEnabled = AppState.sharedInstance.activeSpot.satOn
+        satStartTime.text = AppState.sharedInstance.activeSpot.satStartTime
+        satEndTime.text = AppState.sharedInstance.activeSpot.satEndTime
     }
     
     // Sunday
@@ -348,40 +400,34 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate{
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         dateFormatter.dateFormat = "hh:mm a"
-        sunStartTime.text = dateFormatter.string(from: sender.date)
+        AppState.sharedInstance.activeSpot.sunStartTime = dateFormatter.string(from: sender.date)
+        sunStartTime.text = AppState.sharedInstance.activeSpot.sunStartTime
     }
     
     @objc func sunEndDatePickerValueChanged(_ sender: UIDatePicker) {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSTIX")
         dateFormatter.dateFormat = "hh:mm a"
-        sunEndTime.text = dateFormatter.string(from: sender.date)
+        AppState.sharedInstance.activeSpot.sunEndTime = dateFormatter.string(from: sender.date)
+        sunEndTime.text = AppState.sharedInstance.activeSpot.sunEndTime
     }
     
     @objc func sunSwitchStateChanged(switchState: UISwitch) {
+        AppState.sharedInstance.activeSpot.sunOn = switchState.isOn
+        
         if switchState.isOn {
-            sunStartTime.isEnabled = true
-            sunEndTime.isEnabled = true
-            sunStartTime.text = "12:00 AM"
-            sunEndTime.text = "12:00 PM"
+            AppState.sharedInstance.activeSpot.sunStartTime = "12:00 AM"
+            AppState.sharedInstance.activeSpot.sunEndTime = "12:00 PM"
         }
         else {
-            sunStartTime.isEnabled = false
-            sunEndTime.isEnabled = false
-            sunStartTime.text = ""
-            sunEndTime.text = ""
+            AppState.sharedInstance.activeSpot.sunStartTime = ""
+            AppState.sharedInstance.activeSpot.sunEndTime = ""
         }
+        
+        sunStartTime.isEnabled = AppState.sharedInstance.activeSpot.sunOn
+        sunEndTime.isEnabled = AppState.sharedInstance.activeSpot.sunOn
+        sunStartTime.text = AppState.sharedInstance.activeSpot.sunStartTime
+        sunEndTime.text = AppState.sharedInstance.activeSpot.sunEndTime
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

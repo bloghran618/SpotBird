@@ -12,6 +12,7 @@ class ShareViewController: UIViewController, UITableViewDataSource {
 
     @IBOutlet weak var spotTable: UITableView!
     @IBOutlet weak var addSpot: UIButton!
+    var spots = [Spot]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +33,12 @@ class ShareViewController: UIViewController, UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SpotCell", for: indexPath) as? SpotTableViewCell
         
         return cell!
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "addressSegue" {
+            AppState.sharedInstance.activeSpot = Spot()
+        }
     }
     
 

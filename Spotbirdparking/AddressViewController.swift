@@ -16,8 +16,12 @@ class AddressViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        AppState.sharedInstance.activeSpot.pringSpotCliffNotes()
+        
         self.addressField.delegate = self
         self.hideKeyboardWhenTappedAround()
+        
+        addressField.text = AppState.sharedInstance.activeSpot.address
         
         if addressField.text == "" {
             nextButton.isEnabled = false
@@ -32,7 +36,8 @@ class AddressViewController: UIViewController, UITextFieldDelegate {
     // Behavior when you hit return on keyboard
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         self.addressField.resignFirstResponder()
-        if addressField.text != "" {
+        AppState.sharedInstance.activeSpot.address = addressField.text!
+        if AppState.sharedInstance.activeSpot.address != "" {
             nextButton.isEnabled = true
         }
         else {
@@ -44,21 +49,13 @@ class AddressViewController: UIViewController, UITextFieldDelegate {
     // Behavior when you click outside of the text box
     func textFieldDidEndEditing(_ textField: UITextField) {
         self.addressField.resignFirstResponder()
-        if addressField.text != "" {
+        AppState.sharedInstance.activeSpot.address = addressField.text!
+        if AppState.sharedInstance.activeSpot.address != "" {
             nextButton.isEnabled = true
         }
         else {
             nextButton.isEnabled = false
         }
     }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }

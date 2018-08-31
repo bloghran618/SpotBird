@@ -64,7 +64,8 @@ class CarsViewController: UIViewController, UITableViewDataSource {
         if editingStyle == .delete {
             // Delete the row from the data source
             cars.remove(at: indexPath.row)
-            manageDefaultCar(carIndex: 0)
+            
+            (carIndex: 0)
             tableView.deleteRows(at: [indexPath], with: .fade)
             CarsTable.reloadData()
         } else if editingStyle == .insert {
