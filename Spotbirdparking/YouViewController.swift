@@ -33,6 +33,14 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func firstNameValueChanged(_ sender: UITextField) {
+        AppState.sharedInstance.user.firstName = sender.text!
+    }
+
+    @IBAction func lastNameValueChanged(_ sender: UITextField) {
+        AppState.sharedInstance.user.lastName = sender.text!
+    }
+    
     func checkGalleryPermission() {
         let photoAuthorizationStatus = PHPhotoLibrary.authorizationStatus()
         switch photoAuthorizationStatus {
@@ -58,7 +66,6 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     }
     
     @IBAction func ProfileImageOnClick(_ sender: Any) {
-        print("Choose image")
         // Close the keyboard
         firstName.resignFirstResponder()
         lastName.resignFirstResponder()
@@ -110,7 +117,8 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     
     @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [AnyHashable: Any]) {
         let chosenImage = info[UIImagePickerControllerOriginalImage]
-        self.profilePhoto!.image = chosenImage as? UIImage
+        AppState.sharedInstance.user.profileImage = (chosenImage as! UIImage)
+        self.profilePhoto!.image = AppState.sharedInstance.user.profileImage
         picker.dismiss(animated: true, completion: nil)
     }
     
