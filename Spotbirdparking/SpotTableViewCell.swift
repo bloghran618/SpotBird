@@ -9,7 +9,11 @@
 import UIKit
 
 class SpotTableViewCell: UITableViewCell {
-
+    
+    @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak var townCityZipLabel: UILabel!
+    @IBOutlet weak var spotImageView: UIImageView!
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

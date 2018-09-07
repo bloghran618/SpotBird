@@ -26,7 +26,14 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         
         ProfileImagePicker.delegate = self
         profilePhoto.isUserInteractionEnabled = true
+        
+        firstName.text = AppState.sharedInstance.user.firstName
+        lastName.text = AppState.sharedInstance.user.lastName
+        if AppState.sharedInstance.user.profileImage != UIImage.init(named: "empytProfile") {
+            profilePhoto.image = AppState.sharedInstance.user.profileImage
         }
+        
+    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

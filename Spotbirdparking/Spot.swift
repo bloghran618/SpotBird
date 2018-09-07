@@ -11,8 +11,11 @@ import UIKit
 
 class Spot {
     var address: String
+    var town: String
+    var state: String
+    var zipCode: String
     
-    var spotImage: UIImage?
+    var spotImage: UIImage
     var description: String
     
     var monStartTime: String
@@ -46,10 +49,16 @@ class Spot {
     var weeklyOn: Bool
     var monthlyOn: Bool
     
+    var index: Int
+    var approved: Bool
     
-    init?(address: String, spotImage: UIImage, description: String, monStartTime: String, monEndTime: String, tueStartTime: String, tueEndTime: String, wedStartTime: String, wedEndTime: String, thuStartTime: String, thuEndTime: String, friStartTime: String, friEndTime: String, satStartTime: String, satEndTime: String, sunStartTime: String, sunEndTime: String, monOn: Bool, tueOn: Bool, wedOn: Bool, thuOn: Bool, friOn: Bool, satOn: Bool, sunOn: Bool, hourlyPricing: String, dailyPricing: String, weeklyPricing: String, monthlyPricing: String, weeklyOn: Bool, monthlyOn: Bool) {
+    
+    init(address: String, town: String, state: String, zipCode: String,spotImage: UIImage, description: String, monStartTime: String, monEndTime: String, tueStartTime: String, tueEndTime: String, wedStartTime: String, wedEndTime: String, thuStartTime: String, thuEndTime: String, friStartTime: String, friEndTime: String, satStartTime: String, satEndTime: String, sunStartTime: String, sunEndTime: String, monOn: Bool, tueOn: Bool, wedOn: Bool, thuOn: Bool, friOn: Bool, satOn: Bool, sunOn: Bool, hourlyPricing: String, dailyPricing: String, weeklyPricing: String, monthlyPricing: String, weeklyOn: Bool, monthlyOn: Bool, index: Int, approved: Bool) {
         
         self.address = address
+        self.town = town
+        self.state = state
+        self.zipCode = zipCode
         
         self.spotImage = spotImage
         self.description = description
@@ -84,12 +93,18 @@ class Spot {
         
         self.weeklyOn = weeklyOn
         self.monthlyOn = monthlyOn
+        
+        self.index = index
+        self.approved = approved
     }
     
     init() {
         self.address = ""
+        self.town = ""
+        self.state = ""
+        self.zipCode = ""
         
-        self.spotImage = UIImage.init(named: "addButton")
+        self.spotImage = UIImage.init(named: "emptySpot")!
         self.description = ""
         
         self.monStartTime = "12:00 AM"
@@ -122,6 +137,9 @@ class Spot {
         
         self.weeklyOn = true
         self.monthlyOn = true
+        
+        self.index = -1
+        self.approved = false
     }
     
     func calculateReccomendedPricing() -> Array<String> {

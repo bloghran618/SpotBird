@@ -27,4 +27,14 @@ class AppState {
         self.spots = []
         self.activeSpot = Spot()
     }
+    
+    func addActiveSpot() {
+        if self.activeSpot.index == -1 { // indicates that we are in add mode
+            self.spots.append(activeSpot)
+        }
+        else { // indicates we are in edit mode
+            self.spots[self.activeSpot.index] = self.activeSpot
+        }
+        self.activeSpot = Spot() // clear active spot
+    }
 }

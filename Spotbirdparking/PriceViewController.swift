@@ -127,5 +127,12 @@ class PriceViewController: UIViewController, UITextFieldDelegate {
         // Pass the selected object to the new view controller.
     }
     */
+    
+    @IBAction func postSpot(_ sender: Any) {
+        AppState.sharedInstance.addActiveSpot()
+        let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController];
+        self.navigationController!.popToViewController(viewControllers[viewControllers.count - 5], animated: true);
+    }
+    
 
 }

@@ -104,7 +104,7 @@ class SpotImageViewController: UIViewController, UITextViewDelegate, UIImagePick
             spotImagePicker.sourceType = UIImagePickerControllerSourceType.camera
             spotImagePicker.allowsEditing = false
             self.present(spotImagePicker, animated: true, completion: nil)
-            AppState.sharedInstance.activeSpot.spotImage = spotImageView.image
+            AppState.sharedInstance.activeSpot.spotImage = spotImageView.image!
         }
             
         else {
@@ -123,7 +123,7 @@ class SpotImageViewController: UIViewController, UITextViewDelegate, UIImagePick
     
     @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [AnyHashable: Any]) {
         let chosenImage = info[UIImagePickerControllerOriginalImage]
-        AppState.sharedInstance.activeSpot.spotImage = chosenImage as? UIImage
+        AppState.sharedInstance.activeSpot.spotImage = (chosenImage as? UIImage)!
         self.spotImageView!.image = AppState.sharedInstance.activeSpot.spotImage
         
         schedulingBarButtonCheckEnable()

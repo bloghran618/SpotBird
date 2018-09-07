@@ -421,13 +421,51 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="463"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SpotCell" id="atT-KC-vWg" customClass="SpotTableViewCell" customModule="Spotbirdparking" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SpotCell" rowHeight="100" id="atT-KC-vWg" customClass="SpotTableViewCell" customModule="Spotbirdparking" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="atT-KC-vWg" id="WzA-bS-iQ6">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="99.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gLy-ac-PkU">
+                                                    <rect key="frame" x="101" y="21" width="241" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xTA-cN-tse">
+                                                    <rect key="frame" x="101" y="51.5" width="241" height="20.5"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="IwH-BX-Xwt">
+                                                    <rect key="frame" x="15" y="11" width="78" height="78"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="IwH-BX-Xwt" secondAttribute="height" multiplier="1:1" id="UHM-dd-HbC"/>
+                                                        <constraint firstAttribute="height" constant="78" id="YZB-iv-5gZ"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="gLy-ac-PkU" firstAttribute="trailing" secondItem="WzA-bS-iQ6" secondAttribute="trailingMargin" constant="8" id="2hL-fV-w5w"/>
+                                                <constraint firstItem="IwH-BX-Xwt" firstAttribute="top" secondItem="WzA-bS-iQ6" secondAttribute="topMargin" id="D8b-E5-Imx"/>
+                                                <constraint firstItem="gLy-ac-PkU" firstAttribute="leading" secondItem="IwH-BX-Xwt" secondAttribute="trailing" constant="8" id="PS2-Jg-Qhe"/>
+                                                <constraint firstItem="IwH-BX-Xwt" firstAttribute="leading" secondItem="WzA-bS-iQ6" secondAttribute="leadingMargin" id="SlL-ec-VXR"/>
+                                                <constraint firstItem="gLy-ac-PkU" firstAttribute="top" secondItem="WzA-bS-iQ6" secondAttribute="topMargin" constant="10" id="Wtj-rx-AY1"/>
+                                                <constraint firstItem="xTA-cN-tse" firstAttribute="top" secondItem="gLy-ac-PkU" secondAttribute="bottom" constant="10" id="a27-MS-y1L"/>
+                                                <constraint firstItem="IwH-BX-Xwt" firstAttribute="bottom" secondItem="WzA-bS-iQ6" secondAttribute="bottomMargin" id="eqM-V0-z6F"/>
+                                                <constraint firstItem="xTA-cN-tse" firstAttribute="trailing" secondItem="WzA-bS-iQ6" secondAttribute="trailingMargin" constant="8" id="pDn-Ku-FrR"/>
+                                                <constraint firstItem="xTA-cN-tse" firstAttribute="leading" secondItem="IwH-BX-Xwt" secondAttribute="trailing" constant="8" id="u2s-d9-1AG"/>
+                                            </constraints>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="addressLabel" destination="gLy-ac-PkU" id="ICF-Pc-WN8"/>
+                                            <outlet property="spotImageView" destination="IwH-BX-Xwt" id="IxU-H8-a1A"/>
+                                            <outlet property="townCityZipLabel" destination="xTA-cN-tse" id="hVQ-gw-rFU"/>
+                                            <segue destination="ely-Xp-6Le" kind="push" identifier="editSpotSegue" id="ebE-Py-sWa"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
@@ -439,7 +477,7 @@
                                 </constraints>
                                 <state key="normal" title="Button" image="addButton"/>
                                 <connections>
-                                    <segue destination="ely-Xp-6Le" kind="show" identifier="addressSegue" id="D5s-t7-cfd"/>
+                                    <segue destination="ely-Xp-6Le" kind="show" identifier="addSpotSegue" id="D5s-t7-cfd"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -484,6 +522,27 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="City" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hCh-sS-F9g">
+                                <rect key="frame" x="8" y="161" width="359" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="State" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fHa-CJ-w9T">
+                                <rect key="frame" x="8" y="199" width="351" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Zip Code" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="paw-Zx-dXj">
+                                <rect key="frame" x="8" y="237" width="351" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -506,11 +565,14 @@
                     <connections>
                         <outlet property="addressField" destination="JOB-zr-9L2" id="X3f-aX-C6b"/>
                         <outlet property="nextButton" destination="Nde-2w-6fV" id="F6T-jg-J2e"/>
+                        <outlet property="stateField" destination="fHa-CJ-w9T" id="ock-bu-g1V"/>
+                        <outlet property="townField" destination="hCh-sS-F9g" id="aJJ-Rw-owB"/>
+                        <outlet property="zipField" destination="paw-Zx-dXj" id="A7R-Dt-atI"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cVV-tE-bXR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2489" y="1075"/>
+            <point key="canvasLocation" x="2488.8000000000002" y="1074.5127436281859"/>
         </scene>
         <!--Picture-->
         <scene sceneID="Wkt-0O-dIG">
@@ -1038,7 +1100,13 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="d7g-YT-wCP"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Pricing" id="MhB-PJ-qkU"/>
+                    <navigationItem key="navigationItem" title="Pricing" id="MhB-PJ-qkU">
+                        <barButtonItem key="rightBarButtonItem" title="Post" id="8b1-Ez-ibV">
+                            <connections>
+                                <action selector="postSpot:" destination="cxN-3o-dLD" id="PT1-tk-8EH"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="dailyPricing" destination="5VT-3Q-HwK" id="X2c-Ag-okA"/>
                         <outlet property="hourlyPricing" destination="HPq-cO-aD5" id="X9E-iw-F8B"/>
@@ -1126,6 +1194,7 @@
         <image name="addButton" width="376" height="379"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="joF-UJ-eFO"/>
+        <segue reference="ebE-Py-sWa"/>
+        <segue reference="abM-xf-YGr"/>
     </inferredMetricsTieBreakers>
 </document>

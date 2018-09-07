@@ -29,5 +29,30 @@ class User {
         self.profileImage = UIImage.init(named: "empytProfile")
         self.cars = []
     }
+    
+    public func manageOneDefaultCar(carIndex: Int) {
+        // Manage min one default
+        var isOneDefault = false
+        for eachCar in self.cars {
+            if eachCar.isDefault == true {
+                isOneDefault = true
+            }
+        }
+        
+        // Manage max one default
+        if cars[carIndex].isDefault == true {
+            for eachCar in self.cars {
+                eachCar.isDefault = false
+            }
+            cars[carIndex].isDefault = true
+        }
+        
+        print("one default? : \(isOneDefault)")
+        print("cars.count: \(cars.count)")
+        if isOneDefault == false && cars.count > 0 {
+            cars[0].isDefault = true
+        }
+        return
+    }
 }
 
