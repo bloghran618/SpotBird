@@ -1,6 +1,6 @@
 //
 //  User.swift
-//  
+//
 //
 //  Created by user138340 on 8/27/18.
 //
@@ -55,4 +55,3 @@ class User {
         return
     }
 }
-
