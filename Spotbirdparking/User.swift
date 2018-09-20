@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import Firebase
 
 
 class User {
@@ -21,14 +22,14 @@ class User {
         self.lastName = lastName
         self.profileImage = profileImage
         self.cars = cars
-    }
+        }
     
     init() {
         self.firstName = ""
         self.lastName = ""
         self.profileImage = UIImage.init(named: "empytProfile")
         self.cars = []
-    }
+        }
     
     public func manageOneDefaultCar(carIndex: Int) {
         // Manage min one default
@@ -54,4 +55,42 @@ class User {
         }
         return
     }
+    
+    public func setFirstName(name: String) {
+        self.firstName = name
+        let firstNameRef = AppState.appStateRoot.child("user").child("firstName")
+        firstNameRef.setValue(name)
+    }
+    
+    public func setLastName(name: String) {
+        self.lastName = name
+        let lastNameRef = AppState.appStateRoot.child("user").child("lastName")
+        lastNameRef.setValue(name)
+    }
+    
+    public func setProfileImage(profile: UIImage) {
+        var data = Data()
+        data = UIImagePNGRepresentation(profile)!
+        let filePath = "profilePicture"
+//        let profileImageRef = AppState.sharedInstance.storageRef.child("user").child("profilePicture")
+        let metaData = StorageMetadata()
+        metaData.contentType = "image/png"
+        
+        AppState.sharedInstance.storageRef.child(filePath).putData(data, metadata: metaData) {(metaData,error) in
+            if let error = error {
+                print(error.localizedDescription)
+                return
+            }
+//            else {
+//                //store downloadURL
+//                let downloadURL = metaData!.downloadURL()!.absoluteString
+//                //store downloadURL at database
+//                self.databaseRef.child("users").child(FIRAuth.auth()!.currentUser!.uid).updateChildValues(["userPhoto": downloadURL])
+//            }
+            
+        }
+        
+        self.profileImage = profile
+    }
+    
 }

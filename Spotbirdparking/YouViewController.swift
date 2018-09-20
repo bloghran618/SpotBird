@@ -41,11 +41,11 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     }
     
     @IBAction func firstNameValueChanged(_ sender: UITextField) {
-        AppState.sharedInstance.user.firstName = sender.text!
+        AppState.sharedInstance.user.setFirstName(name: sender.text!)
     }
 
     @IBAction func lastNameValueChanged(_ sender: UITextField) {
-        AppState.sharedInstance.user.lastName = sender.text!
+        AppState.sharedInstance.user.setLastName(name: sender.text!) 
     }
     
     func checkGalleryPermission() {
@@ -124,7 +124,8 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     
     @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [AnyHashable: Any]) {
         let chosenImage = info[UIImagePickerControllerOriginalImage]
-        AppState.sharedInstance.user.profileImage = (chosenImage as! UIImage)
+//        AppState.sharedInstance.user.profileImage = (chosenImage as! UIImage)
+        AppState.sharedInstance.user.setProfileImage(profile: chosenImage as! UIImage)
         self.profilePhoto!.image = AppState.sharedInstance.user.profileImage
         picker.dismiss(animated: true, completion: nil)
     }

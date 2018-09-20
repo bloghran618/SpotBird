@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Firebase
 
 class AppState {
     static let sharedInstance = AppState()
@@ -15,6 +16,9 @@ class AppState {
     var user: User
     var spots: [Spot]
     var activeSpot: Spot
+    
+    static let appStateRoot = Database.database().reference() // can change root
+    let storageRef = Storage.storage().reference()
     
     init?(user: User, spots: [Spot], activeSpot: Spot) {
         self.user = user

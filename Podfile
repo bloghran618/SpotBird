@@ -8,6 +8,9 @@ target 'Spotbirdparking' do
   # Pods for Spotbirdparking
   pod 'Stripe'
   pod 'Alamofire'
+  pod 'Firebase/Core'
+  pod 'Firebase/Database'
+  pod 'Firebase/Storage'
 
   target 'SpotbirdparkingTests' do
     inherit! :search_paths
