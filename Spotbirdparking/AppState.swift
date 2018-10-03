@@ -13,6 +13,9 @@ import Firebase
 class AppState {
     static let sharedInstance = AppState()
     
+   
+    var userid = ""
+    var dict_spot: NSMutableDictionary = [:]
     var user: User
     var spots: [Spot]
     var activeSpot: Spot
@@ -41,4 +44,5 @@ class AppState {
         }
         self.activeSpot = Spot() // clear active spot
     }
+
 }

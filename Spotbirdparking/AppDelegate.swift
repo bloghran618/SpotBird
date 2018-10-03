@@ -11,6 +11,7 @@ import Stripe
 import Alamofire
 import Firebase
 
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -18,8 +19,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        FirebaseApp.configure()
+    
         
+        
+        
+        FirebaseApp.configure()
+    
         // Set up Stripe keys
         STPPaymentConfiguration.shared().publishableKey = "pk_test_TV3DNqRM8DCQJEcvMGpayRRj"
         // See https://stripe.com/docs/mobile/ios for instructions on how to set up Apple Pay
@@ -32,6 +37,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Assign color values to tab bar.
 //        UITabBar.
 //        UITabBar.appearance().tintColor = UIColor.white
+        
+        print(UserDefaults.standard.value(forKey: "logindata"))
+        
+        if UserDefaults.standard.value(forKey: "logindata") as? NSDictionary != nil{
+        let dict = UserDefaults.standard.value(forKey: "logindata") as? NSDictionary
+            AppState.sharedInstance.userid = dict?.value(forKey: "id") as! String
+       print( AppState.sharedInstance.userid)
+            let appDelegate = UIApplication.shared.delegate! as! AppDelegate
+              let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let initialViewController = storyboard.instantiateViewController(withIdentifier: "myTabbarControllerID")
+            appDelegate.window?.rootViewController = initialViewController
+            appDelegate.window?.makeKeyAndVisible()
+        }
+        else
+        {
+            self.window = UIWindow(frame: UIScreen.main.bounds)
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let initialViewController = storyboard.instantiateViewController(withIdentifier: "Login_ViewController")
+            self.window?.rootViewController = initialViewController
+            self.window?.makeKeyAndVisible()
+        }
         
         return true
     }

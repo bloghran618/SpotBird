@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0406E62A21620AD900C3E97B /* Login_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0406E62921620AD900C3E97B /* Login_ViewController.swift */; };
+		04B4D5952163BDF400F49505 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04B4D5942163BDF400F49505 /* GoogleService-Info.plist */; };
+		04E63848216211AD003EAC28 /* Signup_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E63847216211AD003EAC28 /* Signup_ViewController.swift */; };
+		04E6384A2162722F003EAC28 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E638492162722F003EAC28 /* CoreLocation.framework */; };
 		5FF0A639CF1B4D96F7FBA93E /* Pods_Spotbirdparking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 004FEE7D57FACF9250B89078 /* Pods_Spotbirdparking.framework */; };
 		B702B112212E361D004B3EF1 /* PriceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B702B111212E361D004B3EF1 /* PriceViewController.swift */; };
 		B7141A4D20ED1DAF005B54D3 /* MyAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7141A4C20ED1DAF005B54D3 /* MyAPIClient.swift */; };
@@ -19,7 +23,6 @@
 		B72D8BE420D0B6BE0038310F /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = B72D8BE320D0B6BE0038310F /* CheckBox.swift */; };
 		B7364D0620B65B390081F40F /* ProfileTableOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7364D0520B65B390081F40F /* ProfileTableOption.swift */; };
 		B7364D0820B65F120081F40F /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7364D0720B65F120081F40F /* ProfileTableViewController.swift */; };
-		B737231E2148B68B00BC9A84 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B737231D2148B68A00BC9A84 /* GoogleService-Info.plist */; };
 		B7445D67212B967C0063F58D /* Spot.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7445D66212B967C0063F58D /* Spot.swift */; };
 		B75AE7B920C496B40069A151 /* CarsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75AE7B820C496B40069A151 /* CarsTableViewCell.swift */; };
 		B75AE7BB20C4B63D0069A151 /* CarsDefinitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75AE7BA20C4B63D0069A151 /* CarsDefinitionViewController.swift */; };
@@ -48,6 +51,10 @@
 
 /* Begin PBXFileReference section */
 		004FEE7D57FACF9250B89078 /* Pods_Spotbirdparking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Spotbirdparking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		0406E62921620AD900C3E97B /* Login_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login_ViewController.swift; sourceTree = "<group>"; };
+		04B4D5942163BDF400F49505 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		04E63847216211AD003EAC28 /* Signup_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signup_ViewController.swift; sourceTree = "<group>"; };
+		04E638492162722F003EAC28 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		0E75364D0721806783610271 /* Pods-SpotbirdparkingTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpotbirdparkingTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SpotbirdparkingTests/Pods-SpotbirdparkingTests.release.xcconfig"; sourceTree = "<group>"; };
 		3DAF59DF2ADFBA1A8A49A61F /* Pods_SpotbirdparkingTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SpotbirdparkingTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		531BC5D2A3103854A71A1723 /* Pods-SpotbirdparkingTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpotbirdparkingTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SpotbirdparkingTests/Pods-SpotbirdparkingTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -68,7 +75,6 @@
 		B72D8BE320D0B6BE0038310F /* CheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
 		B7364D0520B65B390081F40F /* ProfileTableOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableOption.swift; sourceTree = "<group>"; };
 		B7364D0720B65F120081F40F /* ProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
-		B737231D2148B68A00BC9A84 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B7445D66212B967C0063F58D /* Spot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spot.swift; sourceTree = "<group>"; };
 		B75AE7B820C496B40069A151 /* CarsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarsTableViewCell.swift; sourceTree = "<group>"; };
 		B75AE7BA20C4B63D0069A151 /* CarsDefinitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarsDefinitionViewController.swift; sourceTree = "<group>"; };
@@ -89,6 +95,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				04E6384A2162722F003EAC28 /* CoreLocation.framework in Frameworks */,
 				5FF0A639CF1B4D96F7FBA93E /* Pods_Spotbirdparking.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -138,6 +145,7 @@
 		B71F2DE42086CDA800F47274 /* Spotbirdparking */ = {
 			isa = PBXGroup;
 			children = (
+				04B4D5942163BDF400F49505 /* GoogleService-Info.plist */,
 				B71F2DE52086CDA800F47274 /* AppDelegate.swift */,
 				B7A669D72134EC030057A283 /* AppState.swift */,
 				B7826C932147582100616275 /* User.swift */,
@@ -162,7 +170,8 @@
 				B71F2DEE2086CDAA00F47274 /* Assets.xcassets */,
 				B71F2DF02086CDAA00F47274 /* LaunchScreen.storyboard */,
 				B71F2DF32086CDAA00F47274 /* Info.plist */,
-				B737231D2148B68A00BC9A84 /* GoogleService-Info.plist */,
+				0406E62921620AD900C3E97B /* Login_ViewController.swift */,
+				04E63847216211AD003EAC28 /* Signup_ViewController.swift */,
 			);
 			path = Spotbirdparking;
 			sourceTree = "<group>";
@@ -179,6 +188,7 @@
 		BB81449C832F6316AD50E70D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				04E638492162722F003EAC28 /* CoreLocation.framework */,
 				004FEE7D57FACF9250B89078 /* Pods_Spotbirdparking.framework */,
 				3DAF59DF2ADFBA1A8A49A61F /* Pods_SpotbirdparkingTests.framework */,
 			);
@@ -270,7 +280,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B71F2DF22086CDAA00F47274 /* LaunchScreen.storyboard in Resources */,
-				B737231E2148B68B00BC9A84 /* GoogleService-Info.plist in Resources */,
+				04B4D5952163BDF400F49505 /* GoogleService-Info.plist in Resources */,
 				B71F2DEF2086CDAA00F47274 /* Assets.xcassets in Resources */,
 				B71F2DED2086CDA800F47274 /* Main.storyboard in Resources */,
 			);
@@ -296,6 +306,7 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/Stripe/Stripe.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
@@ -305,6 +316,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Stripe.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
@@ -361,6 +373,7 @@
 				B7CD91EB20F82C6100CFF016 /* ShareViewController.swift in Sources */,
 				B71F2DE62086CDA800F47274 /* AppDelegate.swift in Sources */,
 				B702B112212E361D004B3EF1 /* PriceViewController.swift in Sources */,
+				04E63848216211AD003EAC28 /* Signup_ViewController.swift in Sources */,
 				B7445D67212B967C0063F58D /* Spot.swift in Sources */,
 				B75AE7BB20C4B63D0069A151 /* CarsDefinitionViewController.swift in Sources */,
 				B77D9346211A807700D505BD /* ScheduleViewController.swift in Sources */,
@@ -376,6 +389,7 @@
 				B75AE7B920C496B40069A151 /* CarsTableViewCell.swift in Sources */,
 				B7141A4D20ED1DAF005B54D3 /* MyAPIClient.swift in Sources */,
 				B7B67FE320C34A7400A13FD0 /* CarsViewController.swift in Sources */,
+				0406E62A21620AD900C3E97B /* Login_ViewController.swift in Sources */,
 				B7A35D4120F5AA4500E4B566 /* AddressViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -538,8 +552,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Spotbirdparking/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = Spotbird.Spotbirdparking;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -553,8 +571,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Spotbirdparking/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = Spotbird.Spotbirdparking;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -570,7 +592,11 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = SpotbirdparkingTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = Spotbird.SpotbirdparkingTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
@@ -587,7 +613,11 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = SpotbirdparkingTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = Spotbird.SpotbirdparkingTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
