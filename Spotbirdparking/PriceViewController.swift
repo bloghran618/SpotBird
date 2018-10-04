@@ -28,18 +28,18 @@ class PriceViewController: UIViewController, UITextFieldDelegate,CLLocationManag
     
     var refArtists: DatabaseReference!
     var locationManager = CLLocationManager()
-  
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         locationManager.requestWhenInUseAuthorization()
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
-       // let currentLocation: CLLocation!
+        // let currentLocation: CLLocation!
         
         if( CLLocationManager.authorizationStatus() == .authorizedWhenInUse ||
             CLLocationManager.authorizationStatus() ==  .authorizedAlways){
-          // currentLocation = locManager.location
-      
+            // currentLocation = locManager.location
+            
             
             let lat = (locationManager.location?.coordinate.latitude) as! NSNumber
             print(lat)
@@ -51,7 +51,7 @@ class PriceViewController: UIViewController, UITextFieldDelegate,CLLocationManag
             AppState.sharedInstance.dict_spot.setValue(long, forKey: "user_long")
             
         }
-     
+        
         
         self.hideKeyboardWhenTappedAround()
         hourlyPricing.keyboardType = UIKeyboardType.decimalPad
@@ -84,7 +84,7 @@ class PriceViewController: UIViewController, UITextFieldDelegate,CLLocationManag
         AppState.sharedInstance.dict_spot.setValue(monthlyPricingString, forKey: "monthlyPricing")
     }
     
-   
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
@@ -223,52 +223,52 @@ class PriceViewController: UIViewController, UITextFieldDelegate,CLLocationManag
                     
                     self.refArtists = Database.database().reference().child("Spots");
                     //
-                  let key = self.refArtists.childByAutoId().key
+                    let key = self.refArtists.childByAutoId().key
                     
                     
                     print( AppState.sharedInstance.dict_spot.value(forKey: "switch_monthly"))
                     
                     
                     let spots = ["id":AppState.sharedInstance.userid,
-                                "image":fullURL,
-                                "description":AppState.sharedInstance.dict_spot.value(forKey: "address") as! String,
-                                "address":AppState.sharedInstance.dict_spot.value(forKey: "address") as! String,
-                                "city":AppState.sharedInstance.dict_spot.value(forKey: "city") as! String,
-                                "state":AppState.sharedInstance.dict_spot.value(forKey: "state") as! String,
-                                "zipcode":AppState.sharedInstance.dict_spot.value(forKey: "zipcode") as! String,
-                                
-                                "monStartTime":AppState.sharedInstance.dict_spot.value(forKey: "monStartTime") as! String,
-                                "monEndTime":AppState.sharedInstance.dict_spot.value(forKey: "monEndTime") as! String,
-                                
-                                "tueStartTime":AppState.sharedInstance.dict_spot.value(forKey: "tueStartTime") as! String,
-                                "tueEndTime":AppState.sharedInstance.dict_spot.value(forKey: "tueEndTime") as! String,
-                                
-                                "wedStartTime":AppState.sharedInstance.dict_spot.value(forKey: "wedStartTime") as! String,
-                                "wedEndTime":AppState.sharedInstance.dict_spot.value(forKey: "wedEndTime") as! String,
-                                
-                                "thuStartTime":AppState.sharedInstance.dict_spot.value(forKey: "thuStartTime") as! String,
-                                "thuEndTime":AppState.sharedInstance.dict_spot.value(forKey: "thuEndTime") as! String,
-                                
-                                "friStartTime":AppState.sharedInstance.dict_spot.value(forKey: "friStartTime") as! String,
-                                "friEndTime":AppState.sharedInstance.dict_spot.value(forKey: "friEndTime") as! String,
-                                
-                                "satStartTime":AppState.sharedInstance.dict_spot.value(forKey: "satStartTime") as! String,
-                                "satEndTime":AppState.sharedInstance.dict_spot.value(forKey: "satEndTime") as! String,
-                                
-                                "sunStartTime":AppState.sharedInstance.dict_spot.value(forKey: "sunStartTime") as! String,
-                                "sunEndTime":AppState.sharedInstance.dict_spot.value(forKey: "sunEndTime") as! String,
-                                
-                                "dailyPricing":AppState.sharedInstance.dict_spot.value(forKey: "dailyPricing") as! String,
-                                "hourlyPricing":AppState.sharedInstance.dict_spot.value(forKey: "hourlyPricing") as! String,
-                                "weeklyPricing":AppState.sharedInstance.dict_spot.value(forKey: "weeklyPricing") as! String,
-                                "monthlyPricing":AppState.sharedInstance.dict_spot.value(forKey: "monthlyPricing") as! String,
-                                "switch_weekly":AppState.sharedInstance.dict_spot.value(forKey: "switch_weekly") as! Bool,
-                                "switch_monthly":AppState.sharedInstance.dict_spot.value(forKey: "switch_monthly") as! Bool,
-                                "user_lat":AppState.sharedInstance.dict_spot.value(forKey: "user_lat") as!  NSNumber,
-                                "user_long":AppState.sharedInstance.dict_spot.value(forKey: "user_long") as!  NSNumber
-                                ] as [String : Any]
+                                 "image":fullURL,
+                                 "description":AppState.sharedInstance.dict_spot.value(forKey: "address") as! String,
+                                 "address":AppState.sharedInstance.dict_spot.value(forKey: "address") as! String,
+                                 "city":AppState.sharedInstance.dict_spot.value(forKey: "city") as! String,
+                                 "state":AppState.sharedInstance.dict_spot.value(forKey: "state") as! String,
+                                 "zipcode":AppState.sharedInstance.dict_spot.value(forKey: "zipcode") as! String,
+                                 
+                                 "monStartTime":AppState.sharedInstance.dict_spot.value(forKey: "monStartTime") as! String,
+                                 "monEndTime":AppState.sharedInstance.dict_spot.value(forKey: "monEndTime") as! String,
+                                 
+                                 "tueStartTime":AppState.sharedInstance.dict_spot.value(forKey: "tueStartTime") as! String,
+                                 "tueEndTime":AppState.sharedInstance.dict_spot.value(forKey: "tueEndTime") as! String,
+                                 
+                                 "wedStartTime":AppState.sharedInstance.dict_spot.value(forKey: "wedStartTime") as! String,
+                                 "wedEndTime":AppState.sharedInstance.dict_spot.value(forKey: "wedEndTime") as! String,
+                                 
+                                 "thuStartTime":AppState.sharedInstance.dict_spot.value(forKey: "thuStartTime") as! String,
+                                 "thuEndTime":AppState.sharedInstance.dict_spot.value(forKey: "thuEndTime") as! String,
+                                 
+                                 "friStartTime":AppState.sharedInstance.dict_spot.value(forKey: "friStartTime") as! String,
+                                 "friEndTime":AppState.sharedInstance.dict_spot.value(forKey: "friEndTime") as! String,
+                                 
+                                 "satStartTime":AppState.sharedInstance.dict_spot.value(forKey: "satStartTime") as! String,
+                                 "satEndTime":AppState.sharedInstance.dict_spot.value(forKey: "satEndTime") as! String,
+                                 
+                                 "sunStartTime":AppState.sharedInstance.dict_spot.value(forKey: "sunStartTime") as! String,
+                                 "sunEndTime":AppState.sharedInstance.dict_spot.value(forKey: "sunEndTime") as! String,
+                                 
+                                 "dailyPricing":AppState.sharedInstance.dict_spot.value(forKey: "dailyPricing") as! String,
+                                 "hourlyPricing":AppState.sharedInstance.dict_spot.value(forKey: "hourlyPricing") as! String,
+                                 "weeklyPricing":AppState.sharedInstance.dict_spot.value(forKey: "weeklyPricing") as! String,
+                                 "monthlyPricing":AppState.sharedInstance.dict_spot.value(forKey: "monthlyPricing") as! String,
+                                 "switch_weekly":AppState.sharedInstance.dict_spot.value(forKey: "switch_weekly") as! Bool,
+                                 "switch_monthly":AppState.sharedInstance.dict_spot.value(forKey: "switch_monthly") as! Bool,
+                                 "user_lat":AppState.sharedInstance.dict_spot.value(forKey: "user_lat") as!  NSNumber,
+                                 "user_long":AppState.sharedInstance.dict_spot.value(forKey: "user_long") as!  NSNumber
+                        ] as [String : Any]
                     
-                   
+                    
                     self.refArtists.child(key!).setValue(spots)
                     
                 }
@@ -285,10 +285,10 @@ class PriceViewController: UIViewController, UITextFieldDelegate,CLLocationManag
         
         
         //        AppState.sharedInstance.addActiveSpot()
-                let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController];
-                self.navigationController!.popToViewController(viewControllers[viewControllers.count - 5], animated: true);
-}
-   
+        let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController];
+        self.navigationController!.popToViewController(viewControllers[viewControllers.count - 5], animated: true);
+    }
+    
     func randomStringWithLength(length: Int) -> NSString {
         let characters: NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
         let randomString: NSMutableString = NSMutableString(capacity: length)

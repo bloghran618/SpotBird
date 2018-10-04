@@ -13,6 +13,7 @@ target 'Spotbirdparking' do
   pod 'Firebase/Storage'
   pod 'Firebase/Database'
   pod 'SDWebImage'
+  pod 'GoogleMaps'
 
 
   target 'SpotbirdparkingTests' do
