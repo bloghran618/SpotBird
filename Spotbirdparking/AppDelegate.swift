@@ -10,6 +10,8 @@ import UIKit
 import Stripe
 import Alamofire
 import Firebase
+import GoogleMaps
+import GooglePlaces
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,6 +21,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
         FirebaseApp.configure()
+        
+        // API Keys for Google
+        GMSServices.provideAPIKey("AIzaSyC29rKRcHlAik1UyLD0jYtjC1KIXIRbEkA")
+        GMSPlacesClient.provideAPIKey("AIzaSyBXzbFQ7U9PRS-vrl5RR6es5qOeZ4KuKSg")
         
         // Set up Stripe keys
         STPPaymentConfiguration.shared().publishableKey = "pk_test_TV3DNqRM8DCQJEcvMGpayRRj"

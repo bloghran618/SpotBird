@@ -7,35 +7,66 @@
 //
 
 import UIKit
+import CoreLocation
+import GoogleMaps
+import GooglePlaces
 
-class AddressViewController: UIViewController, UITextFieldDelegate {
+class AddressViewController: UIViewController, CLLocationManagerDelegate {
 
-    @IBOutlet weak var addressField: UITextField!
-    @IBOutlet weak var townField: UITextField!
-    @IBOutlet weak var stateField: UITextField!
-    @IBOutlet weak var zipField: UITextField!
     @IBOutlet weak var nextButton: UIBarButtonItem!
+    
+    let locationManager = CLLocationManager()
+    var mapView: GMSMapView!
+    
+    var resultsViewController: GMSAutocompleteResultsViewController?
+    var searchController: UISearchController?
+    var resultView: UITextView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         AppState.sharedInstance.activeSpot.pringSpotCliffNotes()
         
-        self.addressField.delegate = self
-        self.townField.delegate = self
-        self.stateField.delegate = self
-        self.zipField.delegate = self
+        // MAP VIEW
+        locationManager.delegate = self
+        enableBasicLocationServices()
         
-        self.hideKeyboardWhenTappedAround()
+        let camera = GMSCameraPosition.camera(withLatitude: 39.95, longitude: -75.16, zoom: 10.0)
+        mapView = GMSMapView.map(withFrame: CGRect.zero, camera: camera)
+        self.view = mapView
+        // END MAP VIEW
         
-        addressField.text = AppState.sharedInstance.activeSpot.address
-        townField.text = AppState.sharedInstance.activeSpot.town
-        stateField.text = AppState.sharedInstance.activeSpot.state
-        zipField.text = AppState.sharedInstance.activeSpot.zipCode
+        // SEARCH BAR
+        resultsViewController = GMSAutocompleteResultsViewController()
+        resultsViewController?.delegate = self
         
-        if addressField.text == "" {
-            nextButton.isEnabled = false
-        }
+        searchController = UISearchController(searchResultsController: resultsViewController)
+        searchController?.searchResultsUpdater = resultsViewController
+        
+        navigationController?.navigationBar.isTranslucent = false
+        searchController?.hidesNavigationBarDuringPresentation = false
+        // This makes the view area include the nav bar even though it is opaque.
+        // Adjust the view placement down.
+        self.extendedLayoutIncludesOpaqueBars = true
+        self.edgesForExtendedLayout = .top
+        
+        let subView = UIView(frame: CGRect(x: 0, y: 65.0, width: 350.0, height: 45.0))
+        
+        subView.addSubview((searchController?.searchBar)!)
+        view.addSubview(subView)
+        searchController?.searchBar.sizeToFit()
+        searchController?.hidesNavigationBarDuringPresentation = false
+        
+        // When UISearchController presents the results view, present it in
+        // this view controller, not one further up the chain.
+        definesPresentationContext = false
+        
+        searchController?.isActive = true
+        
+        // END SEARCH BAR
+        
+        
+        
     }
 
     override func didReceiveMemoryWarning() {
@@ -43,59 +74,79 @@ class AddressViewController: UIViewController, UITextFieldDelegate {
         // Dispose of any resources that can be recreated.
     }
     
-    // Behavior when you hit return on keyboard
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField == addressField {
-            self.addressField.resignFirstResponder()
-            AppState.sharedInstance.activeSpot.address = addressField.text!
-        }
-        else if textField == townField {
-            self.townField.resignFirstResponder()
-            AppState.sharedInstance.activeSpot.town = townField.text!
-        }
-        else if textField == stateField {
-            self.stateField.resignFirstResponder()
-            AppState.sharedInstance.activeSpot.state = stateField.text!
-        }
-        else if textField == zipField {
-            self.zipField.resignFirstResponder()
-            AppState.sharedInstance.activeSpot.zipCode = zipField.text!
-        }
-        
-        if AppState.sharedInstance.activeSpot.address != "" {
-            nextButton.isEnabled = true
-        }
-        else {
-            nextButton.isEnabled = false
-        }
-        return true
+    func searchController(_ searchController: UISearchController) {
+        print("Trying our best to present!!!")
     }
-
-    // Behavior when you click outside of the text box
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        if textField == addressField {
-            self.addressField.resignFirstResponder()
-            AppState.sharedInstance.activeSpot.address = addressField.text!
-        }
-        else if textField == townField {
-            self.townField.resignFirstResponder()
-            AppState.sharedInstance.activeSpot.town = townField.text!
-        }
-        else if textField == stateField {
-            self.stateField.resignFirstResponder()
-            AppState.sharedInstance.activeSpot.state = stateField.text!
-        }
-        else if textField == zipField {
-            self.zipField.resignFirstResponder()
-            AppState.sharedInstance.activeSpot.zipCode = zipField.text!
+    
+    func enableBasicLocationServices() {
+        
+        let status  = CLLocationManager.authorizationStatus()
+        
+        // Check initial authorization
+        if status == .notDetermined {
+            locationManager.requestWhenInUseAuthorization()
+            return
         }
         
-        if AppState.sharedInstance.activeSpot.address != "" {
-            nextButton.isEnabled = true
+        // Handle location serviced denied
+        if status == .denied || status == .restricted {
+            let alert = UIAlertController(title: "Location Services Disabled", message: "Please enable Location Services in Settings", preferredStyle: .alert)
+            
+            let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alert.addAction(okAction)
+            
+            present(alert, animated: true, completion: nil)
+            return
+        }
+        
+        if status == .authorizedWhenInUse {
+            print("Status Authorized!")
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyHundredMeters
+            locationManager.startUpdatingLocation()
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+        
+        if status == .authorizedWhenInUse {
+            
+            locationManager.startUpdatingLocation()
+            mapView.isMyLocationEnabled = true
+            mapView.settings.myLocationButton = true
         }
         else {
-            nextButton.isEnabled = false
+            locationManager.stopUpdatingLocation()
+            mapView.isMyLocationEnabled = false
+            mapView.settings.myLocationButton = false
         }
     }
 
+}
+
+// Handle the user's selection.
+extension AddressViewController: GMSAutocompleteResultsViewControllerDelegate {
+    func resultsController(_ resultsController: GMSAutocompleteResultsViewController,
+                           didAutocompleteWith place: GMSPlace) {
+        searchController?.isActive = false
+        // Do something with the selected place.
+        print("Place name: \(place.name)")
+        print("Place address: \(place.formattedAddress)")
+        print("Place attributions: \(place.attributions)")
+    }
+    
+    func resultsController(_ resultsController: GMSAutocompleteResultsViewController,
+                           didFailAutocompleteWithError error: Error){
+        // TODO: handle the error.
+        print("Error: ", error.localizedDescription)
+    }
+    
+    // Turn the network activity indicator on and off again.
+    func didRequestAutocompletePredictions(forResultsController resultsController: GMSAutocompleteResultsViewController) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+    }
+    
+    func didUpdateAutocompletePredictions(forResultsController resultsController: GMSAutocompleteResultsViewController) {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+    }
 }

@@ -11,6 +11,9 @@ target 'Spotbirdparking' do
   pod 'Firebase/Core'
   pod 'Firebase/Database'
   pod 'Firebase/Storage'
+  pod 'GoogleMaps'
+  pod 'GooglePlaces'
+  pod 'GooglePlacesPicker'
 
   target 'SpotbirdparkingTests' do
     inherit! :search_paths
