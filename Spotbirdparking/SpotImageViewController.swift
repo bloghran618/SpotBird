@@ -176,6 +176,7 @@ class SpotImageViewController: UIViewController, UITextViewDelegate, UIImagePick
         spotDescription.resignFirstResponder()
       //  AppState.sharedInstance.activeSpot.description = spotDescription.text
     AppState.sharedInstance.dict_spot.setValue(spotDescription.text!, forKey: "description")
+          schedulingBarButtonCheckEnable()
         return true
     }
     

@@ -52,6 +52,11 @@ PODS:
   - GoogleMaps/Base (2.7.0)
   - GoogleMaps/Maps (2.7.0):
     - GoogleMaps/Base
+  - GooglePlacePicker (2.7.0):
+    - GoogleMaps (= 2.7.0)
+    - GooglePlaces (= 2.7.0)
+  - GooglePlaces (2.7.0):
+    - GoogleMaps/Base (= 2.7.0)
   - GoogleUtilities/AppDelegateSwizzler (5.2.3):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
@@ -87,6 +92,8 @@ DEPENDENCIES:
   - Firebase/Database
   - Firebase/Storage
   - GoogleMaps
+  - GooglePlacePicker
+  - GooglePlaces
   - SDWebImage
   - Stripe
 
@@ -103,6 +110,8 @@ SPEC REPOS:
     - FirebaseStorage
     - GoogleAppMeasurement
     - GoogleMaps
+    - GooglePlacePicker
+    - GooglePlaces
     - GoogleUtilities
     - GTMSessionFetcher
     - leveldb-library
@@ -122,6 +131,8 @@ SPEC CHECKSUMS:
   FirebaseStorage: fd82e5e5c474897e19972b34b22ac0f589dce04e
   GoogleAppMeasurement: fc4a4c3fe0144db9313cbf443ffe62e6b1d6268c
   GoogleMaps: f79af95cb24d869457b1f961c93d3ce8b2f3b848
+  GooglePlacePicker: 59ea44db173c58486ad6123993e81feefcbce9c3
+  GooglePlaces: 3d06e6c99654545b4738ce49648745779c25f2ef
   GoogleUtilities: 6f681e27050c5e130325e89fa0316dfca826f954
   GTMSessionFetcher: 0c4baf0a73acd0041bf9f71ea018deedab5ea84e
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
@@ -129,6 +140,6 @@ SPEC CHECKSUMS:
   SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
   Stripe: 2c69e216061d54d9c538204bb4f58bd597ddfc5b
 
-PODFILE CHECKSUM: 2affaa26975ce5f4560d10e017118930d1a024d1
+PODFILE CHECKSUM: 4de430c076e53941608239a13f1abc57f5e105d4
 
 COCOAPODS: 1.5.3

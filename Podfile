@@ -14,6 +14,8 @@ target 'Spotbirdparking' do
   pod 'Firebase/Database'
   pod 'SDWebImage'
   pod 'GoogleMaps'
+  pod 'GooglePlacePicker'
+  pod 'GooglePlaces'
 
 
   target 'SpotbirdparkingTests' do

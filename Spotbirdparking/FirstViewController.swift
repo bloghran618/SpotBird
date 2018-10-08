@@ -11,9 +11,11 @@ import GoogleMaps
 import Alamofire
 import Firebase
 import Photos
+import GooglePlaces
+import GooglePlacePicker
 
-class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapViewDelegate {
-    
+class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapViewDelegate{
+   
     //MARK: Properties
     @IBOutlet weak var ProfileNameTextField: UITextField!
     
@@ -34,11 +36,18 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     var markerlongitude:Double  = Double()
     
     var arrspot:NSMutableArray = NSMutableArray()
+    var timer = Timer()  // time
+    
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        //scheduledTimerWithTimeInterval()  // time
+        
                 getlatlong()
+       
+ 
         
                 self.mapView.delegate = self
                 self.locationManager.delegate = self
@@ -52,10 +61,28 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                 mapView.settings.myLocationButton = true
                 mapView.padding = UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 20)
     }
+   
+//    func scheduledTimerWithTimeInterval(){
+//        // Scheduling timer to Call the function "updateCounting" with the interval of 1 seconds
+//        timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.updateCounting), userInfo: nil, repeats: true)
+//    }
+//
+//    @objc func updateCounting(){
+//        NSLog("counting..")
+//
+//
+//    }
     
+  
     
-     
-     func getlatlong(){
+    @IBAction func btn_mapsearch(_ sender: Any) {
+   
+    }
+    
+    func getlatlong(){
+        
+//   AppState.sharedInstance.userid == ""
+        
      refArtists = Database.database().reference().child("Spots");
      refArtists.observe(DataEventType.value, with: { (snapshot) in
      
@@ -156,8 +183,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
    
     }
      
-   
-     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
+   func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
     fetchMapData(lat: markerlatitude, long: markerlongitude)
      }
      
@@ -182,12 +208,9 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     
       @IBAction func btn_getdirection(_ sender: Any) {
         
-        
-    }
+       }
     
-  
-     
-     func draw(_ rect: CGRect ,img : UIImageView) {
+    func draw(_ rect: CGRect ,img : UIImageView) {
      
      // Get Height and Width
      let layerHeight = img.frame.height
@@ -256,7 +279,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
      let polyline = GMSPolyline(path: path)
      polyline.strokeWidth = 5.0
      // polyline.strokeColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
-     polyline.strokeColor = UIColor.black
+     polyline.strokeColor = UIColor.red
      polyline.map = mapView
      
      if(animated){
@@ -299,5 +322,12 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         toLayer.cornerRadius = CGFloat(cornerRad)
         
     }
+    
+    
+    
+    // Handle the user's selection.
+
+    
+    
 }
 

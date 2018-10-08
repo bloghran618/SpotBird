@@ -11,13 +11,19 @@ import Firebase
 import SDWebImage
 
 class ShareViewController: UIViewController, UITableViewDataSource {
-
+    
     @IBOutlet weak var spotTable: UITableView!
     @IBOutlet weak var addSpot: UIButton!
+    
+    @IBOutlet weak var seg_spot: UISegmentedControl!
+    var  spotbool = false
+    
     var spots = [Spot]()
     
     var refArtists: DatabaseReference!
     var arrspot:NSMutableArray = NSMutableArray()
+    
+    var arrspotAll:NSMutableArray = NSMutableArray()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,64 +31,128 @@ class ShareViewController: UIViewController, UITableViewDataSource {
         self.spotTable.dataSource = self
         self.spotTable.rowHeight = 100
         
-        navigationItem.rightBarButtonItem = editButtonItem
-
-//        let spots = [Spot(address: "42 Ardmore Rd", town: "West Hartford", state: "CT", zipCode: "06119", spotImage: UIImage.init(named: "empytSpot")!, description: "This is a spop", monStartTime: "12:00 AM", monEndTime: "12:00 Am", tueStartTime: "12:00 AM", tueEndTime: "12:00 AM", wedStartTime: "12:00 AM", wedEndTime: "12:00 AM", thuStartTime: "12:00 AM", thuEndTime: "12:00 AM", friStartTime: "12:00 AM", friEndTime: "12:00 AM", satStartTime: "12:00 AM", satEndTime: "12:00 AM", sunStartTime: "12:00 AM", sunEndTime: "12:00 AM", monOn: true, tueOn: true, wedOn: true, thuOn: true, friOn: true, satOn: true, sunOn: true, hourlyPricing: "1.00", dailyPricing: "1.00", weeklyPricing: "1.00", monthlyPricing: "1.00", weeklyOn: true, monthlyOn: true)]
-//
-//        AppState.sharedInstance.spots = spots
+        //  navigationItem.rightBarButtonItem = editButtonItem
+        seg_spot.selectedSegmentIndex = 1
         
-//        AppState.sharedInstance.spots = [Spot(), Spot()]
-
+        //
+        //        AppState.sharedInstance.spots = spots
+        
+        //        AppState.sharedInstance.spots = [Spot(), Spot()]
+        
         // Do any additional setup after loading the view.
         
-         fetchdata()
+        spotTable.allowsSelection = false
+     
+        fetchdata()
     }
     
     override func viewDidAppear(_ animated: Bool) {
-       
+        
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-   }
+    }
+    
+    @IBAction func seg_spotdata(_ sender: Any) {
+        switch seg_spot.selectedSegmentIndex
+        {
+        case 0:
+            NSLog("my selected")
+            spotbool = true
+            arrspot.removeAllObjects()
+            for i in 0..<arrspotAll.count{
+                if AppState.sharedInstance.userid == (arrspotAll.object(at: i) as! NSDictionary).value(forKey: "id") as! String
+                {
+                    arrspot.add(arrspotAll.object(at: i))
+                }
+            }
+            
+            spotTable.allowsSelection = true
+            navigationItem.rightBarButtonItem = editButtonItem
+            print(arrspot)
+            spotTable.reloadData()
+            
+            
+            
+            
+        case 1:
+            NSLog("all selected")
+            spotbool = false
+            arrspot.removeAllObjects()
+            for i in 0..<arrspotAll.count{
+                if AppState.sharedInstance.userid != (arrspotAll.object(at: i) as! NSDictionary).value(forKey: "id") as! String
+                {
+                    arrspot.add(arrspotAll.object(at: i))
+                }
+            }
+            spotTable.allowsSelection = false
+            navigationItem.rightBarButtonItem = nil
+            print(arrspot)
+            spotTable.reloadData()
+            
+            
+        default:
+            break;
+        }
+        
+    }
+    
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-       return arrspot.count
+        return arrspot.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SpotCell", for: indexPath) as? SpotTableViewCell
         let spot = arrspot[indexPath.row] as!  NSDictionary
         print(spot)
-       
+        
         let city = spot.value(forKey: "city") as! String
         let state = spot.value(forKey: "state") as! String
         let zipcode = spot.value(forKey: "zipcode") as! String
         let imagespot = spot.value(forKey: "image") as! String
+        let address = spot.value(forKey: "address") as? String
         
-        cell?.addressLabel.text = spot.value(forKey: "address") as? String
+        
+        
+        cell?.addressLabel.text = address
         cell?.townCityZipLabel.text = city + "  \(state)  \(zipcode)"
+         cell?.imageView?.sd_setImage(with: URL(string: imagespot), placeholderImage: UIImage(named: "placeholder.png"))
         
         
-          cell?.imageView?.sd_setImage(with: URL(string: imagespot), placeholderImage: UIImage(named: "placeholder.png"))
+        if(spotbool == false)
+        {
+            cell?.accessoryType = UITableViewCellAccessoryType.none
+        }
+        else
+        {
+            cell?.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
+        }
         
-//        let spot = AppState.sharedInstance.spots[indexPath.row]
-//        cell?.addressLabel.text = spot.address
-//        cell?.townCityZipLabel.text = spot.town + " " + spot.state + ", " + spot.zipCode
-//        cell?.imageView!.image = spot.spotImage
+        //        let spot = AppState.sharedInstance.spots[indexPath.row]
+        //        cell?.addressLabel.text = spot.address
+        //        cell?.townCityZipLabel.text = spot.town + " " + spot.state + ", " + spot.zipCode
+        //        cell?.imageView!.image = spot.spotImage
         
         return cell!
     }
     
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
-        spotTable.setEditing(editing, animated: animated)
-    }
+        if spotbool == true{
+         spotTable.setEditing(editing, animated: animated)
+        }
+        else{
+         spotTable.setEditing(false, animated: false)
+        }
+      }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
+        if spotbool == true{
+         if editingStyle == .delete {
             // Delete the row from the data source
-         //   AppState.sharedInstance.spots.remove(at: indexPath.row)
+            //   AppState.sharedInstance.spots.remove(at: indexPath.row)
             
             let id = (arrspot.object(at: indexPath.row) as! NSDictionary).value(forKey: "id")
             let url = (arrspot.object(at: indexPath.row) as! NSDictionary).value(forKey: "image") as! String
@@ -122,23 +192,27 @@ class ShareViewController: UIViewController, UITableViewDataSource {
             
             
             
-             arrspot.removeObject(at: indexPath.row)
+            arrspot.removeObject(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
         } else if editingStyle == .insert {
             // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
         }
+        }
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
+        if spotbool == true {
         return true
+        }else{
+            return false
+        }
     }
     
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "addressSegue" {
-//            AppState.sharedInstance.activeSpot = Spot()
-//        }
-//    }
+    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    //        if segue.identifier == "addressSegue" {
+    //            AppState.sharedInstance.activeSpot = Spot()
+    //        }
+    //    }
     
     func fetchdata() {
         refArtists = Database.database().reference().child("Spots");
@@ -150,17 +224,25 @@ class ShareViewController: UIViewController, UITableViewDataSource {
                     print(snapshotValue.count)
                     if snapshotValue.count>0{
                         self.arrspot.removeAllObjects()
+                        self.arrspotAll.removeAllObjects()
                         for (theKey, theValue) in snapshotValue {
                             print(theValue)
-                            self.arrspot.add(theValue)
+                            self.arrspotAll.add(theValue)
+                            
+                            let dict = theValue as! NSDictionary
+                            if dict.value(forKey: "id") as! String  !=  AppState.sharedInstance.userid{
+                                
+                                self.arrspot.add(theValue)
+                            }
                         }
                         print(self.arrspot)
                         print(self.arrspot.count)
+                        //    self.arrspotAll = self.arrspot.mutableCopy() as! NSMutableArray
                         self.spotTable.reloadData()
                     }
-                  }
-              }
-         })
+                }
+            }
+        })
     }
     
     //MARK: Navigation
@@ -170,11 +252,14 @@ class ShareViewController: UIViewController, UITableViewDataSource {
             
         case "addSpotSegue":
             print("Add Spot")
-          //  AppState.sharedInstance.activeSpot = Spot()
+            //  AppState.sharedInstance.activeSpot = Spot()
             AppState.sharedInstance.dict_spot.removeAllObjects()
             
         case "editSpotSegue":
             print("Edit Spot")
+            
+            
+            
             guard let addressViewController = segue.destination as? AddressViewController else {
                 fatalError("Unexpected destination: \(segue.destination)")
             }
@@ -186,13 +271,13 @@ class ShareViewController: UIViewController, UITableViewDataSource {
                 fatalError("The selected cell is not being displayed by the table")
             }
             
-//            AppState.sharedInstance.activeSpot = AppState.sharedInstance.spots[indexPath.row]
-//            AppState.sharedInstance.activeSpot.index = indexPath.row
+            //            AppState.sharedInstance.activeSpot = AppState.sharedInstance.spots[indexPath.row]
+            //            AppState.sharedInstance.activeSpot.index = indexPath.row
             AppState.sharedInstance.dict_spot = arrspot.object(at: indexPath.row) as! NSMutableDictionary
             
         default:
             print("Unexpected Segue Identifier: \(segue.identifier ?? "")")
         }
     }
-
+    
 }
