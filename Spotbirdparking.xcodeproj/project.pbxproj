@@ -11,9 +11,6 @@
 		0426E0332164F4FF0017E88B /* CustomInfoWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0426E0322164F4FE0017E88B /* CustomInfoWindow.xib */; };
 		0426E0352164F5060017E88B /* CustomInfoWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0426E0342164F5050017E88B /* CustomInfoWindow.swift */; };
 		0426E0382164F97D0017E88B /* PriceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B702B111212E361D004B3EF1 /* PriceViewController.swift */; };
-		0426E03A2164FA290017E88B /* event_popup_transparent.png in Resources */ = {isa = PBXBuildFile; fileRef = 0426E0392164FA280017E88B /* event_popup_transparent.png */; };
-		0426E0402165101C0017E88B /* dr.png in Resources */ = {isa = PBXBuildFile; fileRef = 0426E03E2165101B0017E88B /* dr.png */; };
-		0426E044216516480017E88B /* downarrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 0426E043216516470017E88B /* downarrow.png */; };
 		04B4D5952163BDF400F49505 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04B4D5942163BDF400F49505 /* GoogleService-Info.plist */; };
 		04E63848216211AD003EAC28 /* Signup_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E63847216211AD003EAC28 /* Signup_ViewController.swift */; };
 		04E6384A2162722F003EAC28 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E638492162722F003EAC28 /* CoreLocation.framework */; };
@@ -59,9 +56,6 @@
 		0406E62921620AD900C3E97B /* Login_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login_ViewController.swift; sourceTree = "<group>"; };
 		0426E0322164F4FE0017E88B /* CustomInfoWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomInfoWindow.xib; sourceTree = "<group>"; };
 		0426E0342164F5050017E88B /* CustomInfoWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomInfoWindow.swift; sourceTree = "<group>"; };
-		0426E0392164FA280017E88B /* event_popup_transparent.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = event_popup_transparent.png; sourceTree = "<group>"; };
-		0426E03E2165101B0017E88B /* dr.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dr.png; sourceTree = "<group>"; };
-		0426E043216516470017E88B /* downarrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = downarrow.png; sourceTree = "<group>"; };
 		04B4D5942163BDF400F49505 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		04E63847216211AD003EAC28 /* Signup_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signup_ViewController.swift; sourceTree = "<group>"; };
 		04E638492162722F003EAC28 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -156,9 +150,7 @@
 			isa = PBXGroup;
 			children = (
 				04B4D5942163BDF400F49505 /* GoogleService-Info.plist */,
-				0426E03E2165101B0017E88B /* dr.png */,
 				B71F2DE52086CDA800F47274 /* AppDelegate.swift */,
-				0426E043216516470017E88B /* downarrow.png */,
 				B7A669D72134EC030057A283 /* AppState.swift */,
 				B7826C932147582100616275 /* User.swift */,
 				B7445D66212B967C0063F58D /* Spot.swift */,
@@ -167,7 +159,6 @@
 				B71F2DE72086CDA800F47274 /* FirstViewController.swift */,
 				B7364D0720B65F120081F40F /* ProfileTableViewController.swift */,
 				B7364D0520B65B390081F40F /* ProfileTableOption.swift */,
-				0426E0392164FA280017E88B /* event_popup_transparent.png */,
 				B7CF24F020BCBB3000722933 /* YouViewController.swift */,
 				B7B67FE220C34A7400A13FD0 /* CarsViewController.swift */,
 				B75AE7B820C496B40069A151 /* CarsTableViewCell.swift */,
@@ -295,14 +286,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0426E03A2164FA290017E88B /* event_popup_transparent.png in Resources */,
 				0426E0332164F4FF0017E88B /* CustomInfoWindow.xib in Resources */,
 				B71F2DF22086CDAA00F47274 /* LaunchScreen.storyboard in Resources */,
-				0426E044216516480017E88B /* downarrow.png in Resources */,
 				04B4D5952163BDF400F49505 /* GoogleService-Info.plist in Resources */,
 				B71F2DEF2086CDAA00F47274 /* Assets.xcassets in Resources */,
 				B71F2DED2086CDA800F47274 /* Main.storyboard in Resources */,
-				0426E0402165101C0017E88B /* dr.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

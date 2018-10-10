@@ -7,13 +7,15 @@
 //
 
 import UIKit
+//import GoogleSignIn
 import Stripe
 import Alamofire
 import Firebase
 import GoogleMaps
+import GooglePlaces
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate{
 
     var window: UIWindow?
 
@@ -22,6 +24,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //    AIzaSyBXzbFQ7U9PRS-vrl5RR6es5qOeZ4KuKSg
 //        GMSServices.provideAPIKey("AIzaSyCCPLZoH8d2j7rMFcDufb3S3ueUvO-c8vU")
         GMSServices.provideAPIKey("AIzaSyBXzbFQ7U9PRS-vrl5RR6es5qOeZ4KuKSg")
+        
+        
+        GMSPlacesClient.provideAPIKey("AIzaSyCvFxAOvA246L6Syk7Cl426254C-sMJGxk")
+       
         
         
         FirebaseApp.configure()

@@ -226,7 +226,7 @@ class PriceViewController: UIViewController, UITextFieldDelegate,CLLocationManag
                     let key = self.refArtists.childByAutoId().key
                     
                     
-                    print( AppState.sharedInstance.dict_spot.value(forKey: "switch_monthly"))
+                    print( AppState.sharedInstance.dict_spot)
                     
                     
                     let spots = ["id":AppState.sharedInstance.userid,
