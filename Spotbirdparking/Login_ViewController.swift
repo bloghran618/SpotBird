@@ -10,10 +10,9 @@ import UIKit
 import Firebase
 import FirebaseAuth
 
-
 class Login_ViewController: UIViewController {
     
-    @IBOutlet weak var txt_name: UITextField!
+    @IBOutlet weak var txt_uname: UITextField!
     @IBOutlet weak var txt_pass: UITextField!
 
    var refArtists: DatabaseReference!
@@ -27,26 +26,19 @@ class Login_ViewController: UIViewController {
     }
     
     @IBAction func btn_newuser(_ sender: Any) {
-        
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "Signup_ViewController") as! Signup_ViewController
+         let vc = self.storyboard?.instantiateViewController(withIdentifier: "Signup_ViewController") as! Signup_ViewController
         self.present(vc, animated: true, completion: nil)
-        
     }
     
-
-    @IBAction func btn_login(_ sender: Any) {
+@IBAction func btn_login(_ sender: Any) {
         
-        let ref = Database.database().reference().child("User").queryOrdered(byChild: "fname").queryEqual(toValue : txt_name.text!)
+        let ref = Database.database().reference().child("User").queryOrdered(byChild: "uname").queryEqual(toValue : txt_uname.text!)
         ref.observe(.value, with:{ (snapshot: DataSnapshot) in
             
-          //  print(snapshot.value)
-            
-            if snapshot.exists()  {
+         if snapshot.exists()  {
                 
                 for snap in snapshot.children {
-//                    print(snap as! DataSnapshot)
-//                    print((snap as! DataSnapshot).key)
-//                    print((snap as! DataSnapshot).value)
+
                     let dict = ((snap as! DataSnapshot).value) as! NSDictionary
                     print(dict)
                     if self.txt_pass.text! == dict.value(forKey: "pass") as! String {
@@ -70,27 +62,22 @@ class Login_ViewController: UIViewController {
 //                        self.present(alertController, animated: true, completion: nil)
                         
                     }else {
-                        let alertController = UIAlertController(title: "Error", message: "Wrong Password..", preferredStyle: .alert)
-                        
-                      let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                        let alertController = UIAlertController(title: "Error", message: "Incorrect Password..", preferredStyle: .alert)
+                       let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
                          alertController.addAction(defaultAction)
-                         self.present(alertController, animated: true, completion: nil)
+                        self.present(alertController, animated: true, completion: nil)
                     }
                     
                 }
             }
             else {
-                let alertController = UIAlertController(title: "Error", message: "Wrong First Name.", preferredStyle: .alert)
-                
-                let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                let alertController = UIAlertController(title: "Error", message: "Incorrect User Name.", preferredStyle: .alert)
+                 let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
                 alertController.addAction(defaultAction)
-                
                 self.present(alertController, animated: true, completion: nil)
             }
         })
-        
-
-    }
+      }
   
-    
+
 }

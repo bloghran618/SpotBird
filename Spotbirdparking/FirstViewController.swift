@@ -14,9 +14,10 @@ import Photos
 import GooglePlaces
 import GooglePlacePicker
 
-class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapViewDelegate,GMSAutocompleteViewControllerDelegate{
+class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapViewDelegate,UISearchBarDelegate,GMSAutocompleteViewControllerDelegate,UITableViewDelegate,UITableViewDataSource{
     
     @IBOutlet var mapView: GMSMapView!
+    @IBOutlet weak var searchBar: UISearchBar!
     
     var locationManager = CLLocationManager()
     let CurrentLocMarker = GMSMarker()
@@ -29,13 +30,22 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     var arrspot:NSMutableArray = NSMutableArray()
     var timer = Timer()  // time
     var five = 0
+ 
+    @IBOutlet weak var tblLoction: UITableView!
+    var arrPlaces = NSMutableArray(capacity: 100)
+    let operationQueue = OperationQueue()
+    let currentLat = 51.5033640
+    let currentLong = -0.1276250
+   // var LocationDataDelegate : LocationData! = nil
+    var tblLocation : UITableView!
+ //   var lblNodata = UILabel()
     
-    override func viewDidLoad() {
+   override func viewDidLoad() {
         super.viewDidLoad()
         //scheduledTimerWithTimeInterval()  // time
+    searchBar.backgroundColor = UIColor.clear
         
         //  getlatlong()
-        
         self.mapView.delegate = self
         self.locationManager.delegate = self
         self.locationManager.requestAlwaysAuthorization()
@@ -48,9 +58,160 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         mapView.settings.myLocationButton = true
         
         mapView.padding = UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 20)
+//        lblNodata.frame = CGRect(x: 0, y: 80, width:
+//            self.view.frame.size.width, height: self.view.frame.size.height-60)
+        //lblNodata.text = "Please enter text to get your location"
+    //    self.view.addSubview(lblNodata)
+        searchBar.placeholder = "Search here"
+ //      lblNodata.textAlignment = .center
+        searchBar.delegate = self
+             tblLoction.isHidden = true
+    searchBar.resignFirstResponder()
     }
     
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
+
     
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        print("1245788995623")
+        self.beginSearching(searchText: searchText)
+    }
+    
+    func beginSearching(searchText:String) {
+        if searchText.count == 0 {
+            
+            self.arrPlaces.removeAllObjects()
+            tblLoction.isHidden = true
+             searchBar.resignFirstResponder()
+              iToast.makeText("Please enter text to get your location").show()
+          //  lblNodata.isHidden = false
+            return
+        }
+        
+        operationQueue.addOperation { () -> Void in
+            self.forwardGeoCoding(searchText: searchText)
+        }
+    }
+    
+    //MARK: - Search place from Google -
+    func forwardGeoCoding(searchText:String) {
+        googlePlacesResult(input: searchText) { (result) -> Void in
+            let searchResult:NSDictionary = ["keyword":searchText,"results":result]
+            if result.count > 0
+            {
+                let features = searchResult.value(forKey: "results") as! NSArray
+                self.arrPlaces.removeAllObjects()
+                self.arrPlaces = NSMutableArray(capacity: 100)
+             
+                
+                print(features.count)
+                for jk in 0...features.count-1
+                {
+                    let dict = features.object(at: jk) as! NSDictionary
+                    self.arrPlaces.add(dict)
+                }
+                DispatchQueue.main.async(execute: {
+                    if self.arrPlaces.count != 0
+                    {
+                        self.tblLoction.isHidden = false
+               
+                       // self.lblNodata.isHidden = true
+                       self.tblLoction.reloadData()
+                        print("if if if if if if if if if if if if if if if if if")
+                    }
+                    else
+            {           print("else else else else else else else else else else else")
+                        self.tblLoction.isHidden = true
+                       // self.lblNodata.isHidden = false
+                      iToast.makeText("Location Not Found").show()
+                        self.tblLoction.reloadData()
+                    }
+                });
+            }
+        }
+    }
+    
+    //MARK: - Google place API request -
+    func googlePlacesResult(input: String, completion: @escaping (_ result: NSArray) -> Void) {
+        let searchWordProtection = input.replacingOccurrences(of: " ", with: "");        if searchWordProtection.characters.count != 0 {
+            let urlString = NSString(format: "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=%@&types=establishment|geocode&location=%@,%@&radius=&language=en&key=AIzaSyCvFxAOvA246L6Syk7Cl426254C-sMJGxk",input,"\(AppState.sharedInstance.lat)","\(AppState.sharedInstance.long)")
+           // print(urlString)
+            let url = NSURL(string: urlString.addingPercentEscapes(using: String.Encoding.utf8.rawValue)!)
+          //  print(url!)
+            let defaultConfigObject = URLSessionConfiguration.default
+            let delegateFreeSession = URLSession(configuration: defaultConfigObject, delegate: nil, delegateQueue: OperationQueue.main)
+            let request = NSURLRequest(url: url! as URL)
+            let task =  delegateFreeSession.dataTask(with: request as URLRequest, completionHandler:
+            {
+                (data, response, error) -> Void in
+                if let data = data
+                {
+                    do {
+                        let jSONresult = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as! [String:AnyObject]
+                        let results:NSArray = jSONresult["predictions"] as! NSArray
+                        let status = jSONresult["status"] as! String
+                        if status == "NOT_FOUND" || status == "REQUEST_DENIED"
+                        {
+//                            let userInfo:NSDictionary = ["error": jSONresult["status"]!]
+//                            print(userInfo)
+//                            let newError = NSError(domain: "API Error", code: 666, userInfo: (userInfo as! NSDictionary as! [String : Any]))
+                        // let arr:NSArray = [newError]
+                            iToast.makeText("Location Not Found").show()
+                            let arr:NSArray = NSArray()
+                            completion(arr)
+                            return
+                        }
+                        else
+                        {
+                            completion(results)
+                        }
+                    }
+                    catch
+                    {
+                        print("json error: \(error)")
+                        
+                    }
+                }
+                else if let error = error
+                {
+                    print(error)
+                }
+            })
+            task.resume()
+        }
+        
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return arrPlaces.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
+    {
+        let tblCell = tableView.dequeueReusableCell(withIdentifier: "locationCell")
+        if arrPlaces.count > 0{
+            let dict = self.arrPlaces.object(at: indexPath.row) as! NSDictionary
+        tblCell?.textLabel?.text = dict.value(forKey: "description") as? String
+        tblCell?.textLabel?.numberOfLines = 0
+        tblCell?.textLabel?.sizeToFit()
+        }
+        return tblCell!
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
+    {
+//        if LocationDataDelegate != nil
+//        {
+//            let dict = arrPlaces.object(at: indexPath.row) as! NSDictionary
+//            print(dict.value(forKey: "terms") as! NSArray)
+//            let ArrSelected = dict.value(forKey: "terms") as! NSArray
+//            LocationDataDelegate.didSelectLocationData(LocationData: ArrSelected)
+//        }
+//        self.dismiss(animated: true, completion: nil)
+    }
+
     //    func scheduledTimerWithTimeInterval(){
     //        // Scheduling timer to Call the function "updateCounting" with the interval of 1 seconds
     //        timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.updateCounting), userInfo: nil, repeats: true)
@@ -62,12 +223,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     //
     //    }
     
-    @IBAction func btn_mapsearch(_ sender: Any) {
-        let autocompleteController = GMSAutocompleteViewController()
-        autocompleteController.delegate = self
-        present(autocompleteController, animated: true, completion: nil)
-    }
-    
+
     func getlatlong(){
         five = 0
         //   AppState.sharedInstance.userid == ""
@@ -109,6 +265,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         self.CurrentLocMarker.map = self.mapView
         userlatitude = (location?.coordinate.latitude)!
         userlongitude = (location?.coordinate.longitude)!
+        AppState.sharedInstance.lat = userlatitude
+        AppState.sharedInstance.long = userlongitude
         //  print(location?.coordinate)
         let camera = GMSCameraPosition.camera(withLatitude: (location?.coordinate.latitude)!, longitude: (location?.coordinate.longitude)!, zoom:12)
         
@@ -119,6 +277,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         
         
         self.locationManager.stopUpdatingLocation()
+        
+      
         
     }
     
@@ -177,6 +337,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
         fetchMapData(lat: markerlatitude, long: markerlongitude)
     }
+    
     // MARK:_ Load Marker to map :-  Spot
     func loadEventsToMap(lat:Double,long:Double){
         
@@ -320,11 +481,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         dismiss(animated: true, completion: nil)
         
         let cordinate:[String: CLLocationCoordinate2D] = ["cordinate": place.coordinate]
-        
-        place.coordinate.latitude
-        place.coordinate.longitude
-        
-        mapView.clear()
+          mapView.clear()
         
         var markerView = UIImageView()
         markerView = UIImageView(image: UIImage.init(named: "current_location_icon"))
@@ -360,37 +517,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
     }
     
-    
-    /*
-     // MARK:_ DISTANCE :_
-     func deg2rad(deg:Double) -> Double {
-     return deg * M_PI / 180
-     }
-     
-     
-     func rad2deg(rad:Double) -> Double {
-     return rad * 180.0 / M_PI
-     }
-     
-     func distance(lat1:Double, lon1:Double, lat2:Double, lon2:Double, unit:String) -> Double {
-     let theta = lon1 - lon2
-     var dist = sin(deg2rad(deg: lat1)) * sin(deg2rad(deg: lat2)) + cos(deg2rad(deg: lat1)) * cos(deg2rad(deg: lat2)) * cos(deg2rad(deg: theta))
-     dist = acos(dist)
-     dist = rad2deg(rad: dist)
-     dist = dist * 60 * 1.1515
-     if (unit == "K") {
-     dist = dist * 1.609344
-     }
-     else if (unit == "N") {
-     dist = dist * 0.8684
-     }
-     
-     print(dist)
-     return dist
-     }
-     */
-    
-    
+ 
     
 }
 

@@ -16,6 +16,7 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
     @IBOutlet weak var profilePhoto: UIImageView!
     @IBOutlet weak var txt_fname: UITextField!
     @IBOutlet weak var txt_lname: UITextField!
+    @IBOutlet weak var txt_username: UITextField!
     @IBOutlet weak var txt_pass: UITextField!
     @IBOutlet weak var Btn_newuser: UIButton!
     
@@ -66,7 +67,7 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
         
         if txt_fname.text == ""
         {
-            let alert = UIAlertController(title: "Alert", message: "Enter First Name", preferredStyle: UIAlertControllerStyle.alert)
+            let alert = UIAlertController(title: "Spotbirdparking", message: "Enter First Name", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }else if txt_lname.text == ""
@@ -75,25 +76,32 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
-        else if txt_pass.text == ""
+        else if txt_username.text == ""
         {
-            let alert = UIAlertController(title: "Alert", message: "Enter Password", preferredStyle: UIAlertControllerStyle.alert)
+            let alert = UIAlertController(title: "Alert", message: "Enter User Name", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
-        else if profilePhoto.image == #imageLiteral(resourceName: "EmptyProfile")
+        else if txt_pass.text == ""
         {
-            let alert = UIAlertController(title: "Alert", message: "Select Profile Pic", preferredStyle: UIAlertControllerStyle.alert)
+            let alert = UIAlertController(title: "Spotbirdparking", message: "Password", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
-        }else {
+        }
+        else if (txt_pass.text?.count)! < 8
+        {
+            let alert = UIAlertController(title: "Spotbirdparking", message: "Minimum 8 character Password ", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+        else {
             
         let ref = Database.database().reference()
-        ref.child("User").queryOrdered(byChild: "fname").queryEqual(toValue: txt_fname.text)
+        ref.child("User").queryOrdered(byChild: "uname").queryEqual(toValue: txt_username.text)
             .observeSingleEvent(of: .value, with: {(snapshot: DataSnapshot) in
                 
                 if snapshot.exists() {
-                    let alertController = UIAlertController(title: "Error", message: "mob no. already exist ", preferredStyle: .alert)
+                    let alertController = UIAlertController(title: "Spotbirdparking", message: "User Name already exist ", preferredStyle: .alert)
                     
                     let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
                     alertController.addAction(defaultAction)
@@ -102,11 +110,10 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
                 }
                 else {
                     self.save_newuser()
-                  }
+                     }
                 
-        })
-            
-        }
+                    })
+          }
     }
     
     func openCamera() {
@@ -116,7 +123,6 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
             ProfileImagePicker.allowsEditing = false
             self.present(ProfileImagePicker, animated: true, completion: nil)
         }
-            
         else {
             let alert = UIAlertController(title: "Warning", message: "You don't have a camera", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
@@ -168,53 +174,68 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
     
     func save_newuser()
     {
-        var imageReference: StorageReference {
-            return Storage.storage().reference().child("User")
-        }
-        guard let imageData = UIImageJPEGRepresentation(profilePhoto.image!, 0.5) else { return }
-         let uploadImageRef = imageReference.child(randomStringWithLength(length: 5) as String)
-        
-        let uploadTask = uploadImageRef.putData(imageData, metadata: nil) { (metadata, error) in
-            print("UPLOAD TASK FINISHED")
-            print(metadata ?? "NO METADATA")
-            print(error ?? "NO ERROR")
+         if profilePhoto.image == #imageLiteral(resourceName: "EmptyProfile")
+        {
+            self.refArtists = Database.database().reference().child("User");
+            let key = self.refArtists.childByAutoId().key
+            let newuser = ["id":key,
+                           "fname":self.txt_fname.text!,
+                           "lname":self.txt_lname.text!,
+                           "uname":self.txt_username.text!,
+                           "pass":self.txt_pass.text!,
+                           "image":""]
+            print(newuser)
+            self.refArtists.child(key!).setValue(newuser)
             
-            uploadImageRef.downloadURL(completion: { (url, error) in
-                if let error = error {
-                    print(error.localizedDescription)
-                    return
-                }
-                if let url = url?.absoluteString {
-                    let fullURL = url
-                    print(fullURL)
-                    
-                    self.refArtists = Database.database().reference().child("User");
-                    
-                    let key = self.refArtists.childByAutoId().key
-                    
-                    let newuser = ["id":key,
-                                   "fname":self.txt_fname.text!,
-                                   "lname":self.txt_lname.text!,
-                                   "pass":self.txt_pass.text!,
-                                   "image":fullURL]
-                                
-                    
-                    print(newuser)
-                    self.refArtists.child(key!).setValue(newuser)
-                    
-                    let vc = self.storyboard?.instantiateViewController(withIdentifier: "Login_ViewController") as! Login_ViewController
-                    self.present(vc, animated: true, completion: nil)
-                    
-                }
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "Login_ViewController") as! Login_ViewController
+            self.present(vc, animated: true, completion: nil)
+            
+        }
+         else {
+            
+            var imageReference: StorageReference {
+                return Storage.storage().reference().child("User")
+            }
+            guard let imageData = UIImageJPEGRepresentation(profilePhoto.image!, 0.5) else { return }
+            let uploadImageRef = imageReference.child(randomStringWithLength(length: 5) as String)
+            
+            let uploadTask = uploadImageRef.putData(imageData, metadata: nil) { (metadata, error) in
+                print("UPLOAD TASK FINISHED")
+                print(metadata ?? "NO METADATA")
+                print(error ?? "NO ERROR")
                 
-            })
-       }
+                uploadImageRef.downloadURL(completion: { (url, error) in
+                    if let error = error {
+                        print(error.localizedDescription)
+                        return
+                    }
+                    if let url = url?.absoluteString {
+                        let fullURL = url
+                        print(fullURL)
+                        self.refArtists = Database.database().reference().child("User");
+                        let key = self.refArtists.childByAutoId().key
+                        let newuser = ["id":key,
+                                       "fname":self.txt_fname.text!,
+                                       "lname":self.txt_lname.text!,
+                                       "uname":self.txt_username.text!,
+                                       "pass":self.txt_pass.text!,
+                                       "image":fullURL]
+                        print(newuser)
+                        self.refArtists.child(key!).setValue(newuser)
+                        
+                        let vc = self.storyboard?.instantiateViewController(withIdentifier: "Login_ViewController") as! Login_ViewController
+                        self.present(vc, animated: true, completion: nil)
+                        
+                    }
+                })
+            }
+            
+         }
     }
     
     func randomStringWithLength(length: Int) -> NSString {
         let characters: NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
         let randomString: NSMutableString = NSMutableString(capacity: length)
-        
         for i in 0..<length {
             let len = UInt32(characters.length)
             let rand = arc4random_uniform(len)
@@ -223,11 +244,10 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
         return randomString
     }
     
-   func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
      return true
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
-        
     }
 }

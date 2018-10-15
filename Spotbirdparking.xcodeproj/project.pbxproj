@@ -11,6 +11,7 @@
 		0426E0332164F4FF0017E88B /* CustomInfoWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0426E0322164F4FE0017E88B /* CustomInfoWindow.xib */; };
 		0426E0352164F5060017E88B /* CustomInfoWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0426E0342164F5050017E88B /* CustomInfoWindow.swift */; };
 		0426E0382164F97D0017E88B /* PriceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B702B111212E361D004B3EF1 /* PriceViewController.swift */; };
+		043E033721746CF300134F78 /* iToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 043E033521746CF300134F78 /* iToast.m */; };
 		04B4D5952163BDF400F49505 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04B4D5942163BDF400F49505 /* GoogleService-Info.plist */; };
 		04E63848216211AD003EAC28 /* Signup_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E63847216211AD003EAC28 /* Signup_ViewController.swift */; };
 		04E6384A2162722F003EAC28 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E638492162722F003EAC28 /* CoreLocation.framework */; };
@@ -56,6 +57,9 @@
 		0406E62921620AD900C3E97B /* Login_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login_ViewController.swift; sourceTree = "<group>"; };
 		0426E0322164F4FE0017E88B /* CustomInfoWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomInfoWindow.xib; sourceTree = "<group>"; };
 		0426E0342164F5050017E88B /* CustomInfoWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomInfoWindow.swift; sourceTree = "<group>"; };
+		043E033421746CF100134F78 /* Spotbirdparking-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Spotbirdparking-Bridging-Header.h"; sourceTree = "<group>"; };
+		043E033521746CF300134F78 /* iToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iToast.m; sourceTree = "<group>"; };
+		043E033621746CF300134F78 /* iToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iToast.h; sourceTree = "<group>"; };
 		04B4D5942163BDF400F49505 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		04E63847216211AD003EAC28 /* Signup_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signup_ViewController.swift; sourceTree = "<group>"; };
 		04E638492162722F003EAC28 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -115,6 +119,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		043E033321746CDD00134F78 /* Third_Partys */ = {
+			isa = PBXGroup;
+			children = (
+				043E033621746CF300134F78 /* iToast.h */,
+				043E033521746CF300134F78 /* iToast.m */,
+				043E033421746CF100134F78 /* Spotbirdparking-Bridging-Header.h */,
+			);
+			path = Third_Partys;
+			sourceTree = "<group>";
+		};
 		3E614DC8E61FBFDA7C188CE5 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -149,6 +163,7 @@
 		B71F2DE42086CDA800F47274 /* Spotbirdparking */ = {
 			isa = PBXGroup;
 			children = (
+				043E033321746CDD00134F78 /* Third_Partys */,
 				04B4D5942163BDF400F49505 /* GoogleService-Info.plist */,
 				B71F2DE52086CDA800F47274 /* AppDelegate.swift */,
 				B7A669D72134EC030057A283 /* AppState.swift */,
@@ -255,6 +270,7 @@
 				TargetAttributes = {
 					B71F2DE12086CDA800F47274 = {
 						CreatedOnToolsVersion = 9.3;
+						LastSwiftMigration = 0940;
 					};
 					B71F2DF72086CDAA00F47274 = {
 						CreatedOnToolsVersion = 9.3;
@@ -336,6 +352,7 @@
 				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/Stripe/Stripe.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
@@ -346,6 +363,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Stripe.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
@@ -414,6 +432,7 @@
 				B7F9425920FD903D001B421E /* SpotImageViewController.swift in Sources */,
 				B7364D0820B65F120081F40F /* ProfileTableViewController.swift in Sources */,
 				B7A669D82134EC030057A283 /* AppState.swift in Sources */,
+				043E033721746CF300134F78 /* iToast.m in Sources */,
 				B7CD91E920F8298F00CFF016 /* SpotTableViewCell.swift in Sources */,
 				B71F2DE82086CDA800F47274 /* FirstViewController.swift in Sources */,
 				B7CF24F120BCBB3000722933 /* YouViewController.swift in Sources */,
@@ -582,6 +601,7 @@
 			baseConfigurationReference = A2E9D3CDA1B39711BA0D6344 /* Pods-Spotbirdparking.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Spotbirdparking/Info.plist;
@@ -591,6 +611,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = Spotbird.Spotbirdparking;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Spotbirdparking/Third_Partys/Spotbirdparking-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -601,6 +623,7 @@
 			baseConfigurationReference = 96BF38230272878D1241525C /* Pods-Spotbirdparking.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = Spotbirdparking/Info.plist;
@@ -610,6 +633,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = Spotbird.Spotbirdparking;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Spotbirdparking/Third_Partys/Spotbirdparking-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};

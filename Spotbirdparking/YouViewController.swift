@@ -29,16 +29,8 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         
         firstName.delegate = self
         lastName.delegate = self
-        
         ProfileImagePicker.delegate = self
         profilePhoto.isUserInteractionEnabled = true
-        
-//        firstName.text = AppState.sharedInstance.user.firstName
-//        lastName.text = AppState.sharedInstance.user.lastName
-//        if AppState.sharedInstance.user.profileImage != UIImage.init(named: "empytProfile") {
-//            profilePhoto.image = AppState.sharedInstance.user.profileImage
-//        }
-        
         
         let camera = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveprofile))
         self.navigationItem.rightBarButtonItem = camera
@@ -62,18 +54,14 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         self.strurl = (self.dict.value(forKey: "image") as? String)!
         self.profilePhoto.sd_setImage(with: URL(string: self.strurl), placeholderImage: UIImage(named: "placeholder.png"))
     
-    }
-    }
-    })
-
-    
-  
-    }
+           }
+        }
+     })
+ }
     
     // udapte user profile
     @objc func saveprofile(){
       
-        
         var imageReference: StorageReference {
             return Storage.storage().reference().child("User")
         }
@@ -87,7 +75,20 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         var imageview = UIImageView()
          imageview.sd_setImage(with: URL(string: strurl), placeholderImage: UIImage(named: "placeholder.png"))
         
-        if profilePhoto.image == imageview.image{
+        if profilePhoto.image == #imageLiteral(resourceName: "EmptyProfile"){
+            
+            let str = "User/" + AppState.sharedInstance.userid
+            print(str)
+            let ref = Database.database().reference().child(str)
+            
+            ref.updateChildValues([
+                "fname":self.firstName.text!,
+                "lname":self.lastName.text!,
+                "image":""
+                ])
+        }
+        
+        else if profilePhoto.image == imageview.image{
             
             guard let imageData = UIImageJPEGRepresentation(profilePhoto.image!, 0.5) else { return }
             let uploadImageRef = imageReference.child(String(imgname))
@@ -116,11 +117,8 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
                                     "lname":self.lastName.text!,
                                     "image":fullURL
                                       ])
-                        
-                        
-                    }
-                    
-                })
+                         }
+                  })
             }
             
             uploadTask.observe(.progress) { (snapshot) in
@@ -180,12 +178,7 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
                     
                 }
             }
-            
-            
-            
-            
-//
-     //   uploadTask.resume()
+           
         }
 
      }

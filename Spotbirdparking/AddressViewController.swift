@@ -34,12 +34,6 @@ class AddressViewController: UIViewController, UITextFieldDelegate {
         stateField.text = AppState.sharedInstance.dict_spot.value(forKey: "state") as? String
         zipField.text = AppState.sharedInstance.dict_spot.value(forKey: "zipcode") as? String
         
-        
-        //        addressField.text = AppState.sharedInstance.activeSpot.address
-        //        townField.text = AppState.sharedInstance.activeSpot.town
-        //        stateField.text = AppState.sharedInstance.activeSpot.state
-        //        zipField.text = AppState.sharedInstance.activeSpot.zipCode
-        
         if AppState.sharedInstance.dict_spot.count == 0{
            nextButton.isEnabled = false
         }
