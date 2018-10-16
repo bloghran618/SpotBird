@@ -37,6 +37,7 @@
 		B7CD91E920F8298F00CFF016 /* SpotTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CD91E820F8298F00CFF016 /* SpotTableViewCell.swift */; };
 		B7CD91EB20F82C6100CFF016 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CD91EA20F82C6100CFF016 /* ShareViewController.swift */; };
 		B7CF24F120BCBB3000722933 /* YouViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CF24F020BCBB3000722933 /* YouViewController.swift */; };
+		B7D3B2D62172644500ADBAD4 /* Reservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D3B2D52172644500ADBAD4 /* Reservation.swift */; };
 		B7F9425920FD903D001B421E /* SpotImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F9425820FD903D001B421E /* SpotImageViewController.swift */; };
 		BBA6049CE74020DC683BC5B6 /* Pods_SpotbirdparkingTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAF59DF2ADFBA1A8A49A61F /* Pods_SpotbirdparkingTests.framework */; };
 /* End PBXBuildFile section */
@@ -91,6 +92,7 @@
 		B7CD91E820F8298F00CFF016 /* SpotTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotTableViewCell.swift; sourceTree = "<group>"; };
 		B7CD91EA20F82C6100CFF016 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		B7CF24F020BCBB3000722933 /* YouViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouViewController.swift; sourceTree = "<group>"; };
+		B7D3B2D52172644500ADBAD4 /* Reservation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reservation.swift; sourceTree = "<group>"; };
 		B7F9425820FD903D001B421E /* SpotImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotImageViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -155,7 +157,11 @@
 				B7826C932147582100616275 /* User.swift */,
 				B7445D66212B967C0063F58D /* Spot.swift */,
 				B7A86B4A20C0E9DB00041C61 /* Car.swift */,
+				B7D3B2D52172644500ADBAD4 /* Reservation.swift */,
 				B7141A4C20ED1DAF005B54D3 /* MyAPIClient.swift */,
+				0426E0342164F5050017E88B /* CustomInfoWindow.swift */,
+				0406E62921620AD900C3E97B /* Login_ViewController.swift */,
+				04E63847216211AD003EAC28 /* Signup_ViewController.swift */,
 				B71F2DE72086CDA800F47274 /* FirstViewController.swift */,
 				B7364D0720B65F120081F40F /* ProfileTableViewController.swift */,
 				B7364D0520B65B390081F40F /* ProfileTableOption.swift */,
@@ -172,12 +178,9 @@
 				B72D8BE320D0B6BE0038310F /* CheckBox.swift */,
 				B71F2DEB2086CDA800F47274 /* Main.storyboard */,
 				0426E0322164F4FE0017E88B /* CustomInfoWindow.xib */,
-				0426E0342164F5050017E88B /* CustomInfoWindow.swift */,
 				B71F2DEE2086CDAA00F47274 /* Assets.xcassets */,
 				B71F2DF02086CDAA00F47274 /* LaunchScreen.storyboard */,
 				B71F2DF32086CDAA00F47274 /* Info.plist */,
-				0406E62921620AD900C3E97B /* Login_ViewController.swift */,
-				04E63847216211AD003EAC28 /* Signup_ViewController.swift */,
 			);
 			path = Spotbirdparking;
 			sourceTree = "<group>";
@@ -413,6 +416,7 @@
 				B72D8BE420D0B6BE0038310F /* CheckBox.swift in Sources */,
 				B7F9425920FD903D001B421E /* SpotImageViewController.swift in Sources */,
 				B7364D0820B65F120081F40F /* ProfileTableViewController.swift in Sources */,
+				B7D3B2D62172644500ADBAD4 /* Reservation.swift in Sources */,
 				B7A669D82134EC030057A283 /* AppState.swift in Sources */,
 				B7CD91E920F8298F00CFF016 /* SpotTableViewCell.swift in Sources */,
 				B71F2DE82086CDA800F47274 /* FirstViewController.swift in Sources */,
