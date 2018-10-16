@@ -22,12 +22,9 @@ class CarsDefinitionViewController: UIViewController, UITextFieldDelegate, UIIma
     var car: Car?
     var CarImagePicker = UIImagePickerController()
     var refArtists: DatabaseReference!
-    var dict = NSDictionary()
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         
         self.hideKeyboardWhenTappedAround()
         
@@ -38,51 +35,26 @@ class CarsDefinitionViewController: UIViewController, UITextFieldDelegate, UIIma
         CarImagePicker.delegate = self
         Image.isUserInteractionEnabled = true
         
-        
-        print(dict)
-        if dict.count > 0 {
-            
-            let makecar = dict.value(forKey: "make") as! String
-            let modelcar = dict.value(forKey: "model") as! String
-            let yearcar = dict.value(forKey: "year") as! String
-            let imagecar = dict.value(forKey: "image") as! String
-            let defaultcar = dict.value(forKey: "default") as! Bool
-            
-            Make.text = makecar
-            Model.text = modelcar
-            Year.text = yearcar
-            Image?.sd_setImage(with: URL(string: imagecar), placeholderImage: UIImage(named: "placeholder.png"))
-            
-            if defaultcar == true {
-                Default.isChecked = true
-            }
-            else {
-                Default.isChecked = false
-            }
-            
+        // Set up the views if editing an existing Car
+        if let car = car {
+            navigationItem.title = "Edit Car"
+           
+            Image.sd_setImage(with: URL(string: car.carImage!), placeholderImage: UIImage(named: "placeholder.png"))
+            Make.text = car.make
+            Model.text = car.model
+            Year.text = car.year
+            Default.isChecked = car.isDefault ?? false
         }
         else {
             Image.image = UIImage(named: "EmptyCar")
             Default.isChecked = true
         }
-        // Set up the views if editing an existing Car
-        //        if let car = car {
-        //            navigationItem.title = "Edit Car"
-        //            Image.image = car.carImage
-        //            Make.text = car.make
-        //            Model.text = car.model
-        //            Year.text = car.year
-        //            Default.isChecked = car.isDefault ?? false
-        //        }
-        //        else {
-        //            Image.image = UIImage(named: "EmptyCar")
-        //            Default.isChecked = true
-        //        }
         
         updateSaveButtonState()
         
         // Do any additional setup after loading the view.
     }
+   
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -233,24 +205,13 @@ class CarsDefinitionViewController: UIViewController, UITextFieldDelegate, UIIma
         }
         
         guard let image = Image.image else { return }
-        //        var imageData1 =  Data(UIImagePNGRepresentation(image)! )
-        //         print("***** Uncompressed Size \(imageData1.description) **** ")
-        
         guard let imageData = UIImageJPEGRepresentation(image, 0.5) else { return }
-        
-        
-        
-        //imageData = UIImageJPEGRepresentation(image!, 0.025)!
         print("***** Compressed Size \(imageData.description) **** ")
-        
         let uploadImageRef = imageReference.child(randomStringWithLength(length: 5) as String)
-        
         let uploadTask = uploadImageRef.putData(imageData, metadata: nil) { (metadata, error) in
             print("UPLOAD TASK FINISHED")
             print(metadata ?? "NO METADATA")
             print(error ?? "NO ERROR")
-            
-            
             
             uploadImageRef.downloadURL(completion: { (url, error) in
                 if let error = error {
@@ -281,37 +242,12 @@ class CarsDefinitionViewController: UIViewController, UITextFieldDelegate, UIIma
             })
             
         }
-        
         uploadTask.observe(.progress) { (snapshot) in
             print(snapshot.progress ?? "NO MORE PROGRESS")
         }
         
         uploadTask.resume()
-        
-        //        refArtists = Database.database().reference().child("Cars");
-        //        let key = refArtists.childByAutoId().key
-        //
-        //        let cars = ["id":key,
-        //                    "make": Make.text ?? "",
-        //                    "model": Model.text ?? "",
-        //                     "year": Year.text ?? "",
-        //                     "image":base64
-        //            ] as [String : Any]
-        //
-        //        refArtists.child(key).setValue(cars)
-        
-        //        var image = Image.image
-        //        if image == nil {
-        //            image = UIImage(named: "EmptyCar")
-        //        }
-        //        let make = Make.text ?? ""
-        //        let model = Model.text ?? ""
-        //        let year = Year.text ?? ""
-        //        let defaultval = Default.isChecked
-        //
-        //        car = Car(make: make, model: model, year: year, carImage: image!, isDefault: defaultval)
-        //        print(car)
-    }
+     }
     
     func randomStringWithLength(length: Int) -> NSString {
         let characters: NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
@@ -324,7 +260,6 @@ class CarsDefinitionViewController: UIViewController, UITextFieldDelegate, UIIma
         }
         return randomString
     }
-    
     public func setCar(thisCar: Car) {
         self.car = thisCar
     }

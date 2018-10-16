@@ -11,7 +11,7 @@ import UIKit
 class CustomInfoWindow: UIView {
 
     
-       @IBOutlet var btn_dr: UIButton!
+    @IBOutlet var btn_dr: UIButton!
     @IBOutlet var img: UIImageView!
     @IBOutlet var imgBg: UIImageView!
     @IBOutlet var lblTitle: UILabel!

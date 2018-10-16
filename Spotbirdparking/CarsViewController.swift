@@ -14,7 +14,6 @@ class CarsViewController: UIViewController, UITableViewDataSource {
     
     @IBOutlet weak var CarsTable: UITableView!
     @IBOutlet weak var AddCarButton: UIButton!
-    //    var cars = [Car]()
     
     var refArtists: DatabaseReference!
     var arr:NSMutableArray = NSMutableArray()
@@ -23,23 +22,13 @@ class CarsViewController: UIViewController, UITableViewDataSource {
         super.viewDidLoad()
         
         CarsTable.dataSource = self
+      
         
-        //        if AppState.sharedInstance.user.cars.count == 0 {
-        //            AppState.sharedInstance.user.cars = [
-        //                Car(make: "Tesla", model: "Roadster", year: "2018", carImage: UIImage(named: "EmptyCar")!, isDefault: true)
-        //                ] as! [Car]
-        //        }
-         refArtists = Database.database().reference().child("Cars");
+        refArtists = Database.database().reference().child("Cars");
         refArtists.observe(DataEventType.value, with: { (snapshot) in
-            
-            if snapshot.childrenCount > 0 {
-                
+             if snapshot.childrenCount > 0 {
                 for artists in snapshot.children.allObjects as! [DataSnapshot] {
-                    
                     let snapshotValue = snapshot.value as! NSDictionary
-                    
-                    print(snapshotValue.count)
-                    
                     if snapshotValue.count>0{
                         self.arr.removeAllObjects()
                         for (theKey, theValue) in snapshotValue {
@@ -47,105 +36,69 @@ class CarsViewController: UIViewController, UITableViewDataSource {
                             self.arr.add(theValue)
                         }
                     }
+                    for i in 0..<self.arr.count {
+                        let cardict = self.arr.object(at: i) as! NSDictionary
+                        print(cardict)
+                        if AppState.sharedInstance.user.cars.count == 0 {
+                        AppState.sharedInstance.user.cars = [
+                            Car(make:cardict.value(forKey: "make") as! String, model: cardict.value(forKey: "model") as! String, year: cardict.value(forKey: "year") as! String, carImage: cardict.value(forKey: "image") as! String, userid:cardict.value(forKey: "id") as! String, isDefault: cardict.value(forKey: "default") as! Bool)] as! [Car]
+                           }
+                     }
                     
-                    
-                    
-                    print(self.arr)
-                    print(self.arr.count)
+                   
                     self.CarsTable.reloadData()
-                    
-                    
+                    }
                 }
-            }
-        })
+           })
         
         self.CarsTable.rowHeight = 100
-        
-        navigationItem.rightBarButtonItem = editButtonItem
+        if AppState.sharedInstance.user.cars.count != 0{
+         navigationItem.rightBarButtonItem = editButtonItem
+        }
+       
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return arr.count
+        return AppState.sharedInstance.user.cars.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CarCell", for: indexPath) as? CarsTableViewCell
         
-        let car = arr[indexPath.row] as! NSDictionary
-        print(car)
-        let makecar = car.value(forKey: "make") as! String
-        let modelcar = car.value(forKey: "model") as! String
-        let yearcar = car.value(forKey: "year") as! String
-        let imagecar = car.value(forKey: "image") as! String
-        let defaultcar = car.value(forKey: "default") as! Bool
+        let car = AppState.sharedInstance.user.cars[indexPath.row]
         
-        cell?.MakeModel.text = makecar + "  \(modelcar)"
-        cell?.YearLabel.text = yearcar
-        cell?.imageView?.sd_setImage(with: URL(string: imagecar), placeholderImage: UIImage(named: "placeholder.png"))
-        
-        if defaultcar == true {
+        cell?.MakeModel.text = car.make + " "  + car.model
+        cell?.YearLabel.text = car.year
+       // cell?.imageView?.image = car.carImage
+        cell?.imageView?.sd_setImage(with: URL(string: car.carImage!), placeholderImage: UIImage(named: "placeholder.png"))
+        if car.isDefault! {
             cell?.Default.image = UIImage(named: "DefaultCar")
         }
         else {
             cell?.Default.image = UIImage(named: "white")
         }
-        
-        
-        
-        //        let cars = ["id":"",
-        //                    "make":self.Make.text!,
-        //                    "model":self.Model.text!,
-        //                    "year": self.Year.text!,
-        //                    "image": fullURL
-        //        ]
-        
-        //        cell?.MakeModel.text = car.make + " "  + car.model
-        //        cell?.YearLabel.text = car.year
-        //        cell?.imageView?.image = car.carImage
-        //        if car.isDefault! {
-        //            cell?.Default.image = UIImage(named: "DefaultCar")
-        //        }
-        //        else {
-        //            cell?.Default.image = UIImage(named: "white")
-        //        }
         return cell!
     }
-    
-    override func setEditing(_ editing: Bool, animated: Bool) {
+   
+     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         CarsTable.setEditing(editing, animated: animated)
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
-            //            // Delete the row from the data source
-            //            AppState.sharedInstance.user.cars.remove(at: indexPath.row)
-            //
-            //            //            (carIndex: 0)
-            
-            //            refArtists = Database.database().reference().child("Cars");
-            //            refArtists.child("-LNKqhdDoiOOLkXZsOwm").setValue(nil)
-            
-            let id = (arr.object(at: indexPath.row) as! NSDictionary).value(forKey: "id")
-            let makes = (arr.object(at: indexPath.row) as! NSDictionary).value(forKey: "make") as! String
-            let models = (arr.object(at: indexPath.row) as! NSDictionary).value(forKey: "model") as! String
-            let years = (arr.object(at: indexPath.row) as! NSDictionary).value(forKey: "year") as! String
-            let url = (arr.object(at: indexPath.row) as! NSDictionary).value(forKey: "image") as! String
-            print(url)
-            
-            
+            let db_car = AppState.sharedInstance.user.cars[indexPath.row]
+            let url = db_car.carImage!
             let start = url.index(url.startIndex, offsetBy: 80)
             let end = url.index(url.endIndex, offsetBy: -53)
             let range = start..<end
             let imgname = url[range]
+            print(db_car.carImage)
             print(imgname)
-            
             
             let pictureRef = Storage.storage().reference().child("car/\(imgname)")
             pictureRef.delete { error in
@@ -156,37 +109,22 @@ class CarsViewController: UIViewController, UITableViewDataSource {
                 }
             }
             
-            
-            let ref = Database.database().reference().child("Cars").queryOrdered(byChild: "id").queryEqual(toValue : id)
-            
+            let ref = Database.database().reference().child("Cars").queryOrdered(byChild: "id").queryEqual(toValue : db_car.userid!)
             ref.observe(.value, with:{ (snapshot: DataSnapshot) in
                 for snap in snapshot.children {
                     print(snap as! DataSnapshot)
                     print((snap as! DataSnapshot).key)
                     print((snap as! DataSnapshot).value)
                     
-        let dict = ((snap as! DataSnapshot).value) as! NSDictionary
-                    
-                    
-           if  makes == dict.value(forKey: "make") as! String
-             && models == dict.value(forKey: "model") as! String && years == dict.value(forKey: "year") as! String {
-                    
-                    
+            let Db_dict = ((snap as! DataSnapshot).value) as! NSDictionary
+             if  db_car.make == Db_dict.value(forKey: "make") as! String
+                && db_car.model == Db_dict.value(forKey: "model") as! String && db_car.year == Db_dict.value(forKey: "year") as? String {
                     self.refArtists = Database.database().reference().child("Cars");
                     self.refArtists.child((snap as! DataSnapshot).key).setValue(nil)
-                    
-                    
-                }
+                  }
                 }
             })
-            
-            
-            
-            
-            print(arr.object(at: indexPath.row))
-            
-            arr.removeObject(at: indexPath.row)
-            
+            AppState.sharedInstance.user.cars.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
             CarsTable.reloadData()
         } else if editingStyle == .insert {
@@ -219,6 +157,7 @@ class CarsViewController: UIViewController, UITableViewDataSource {
             CarsTable.reloadData()
         }
     }
+        
     
     //MARK: Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -239,10 +178,8 @@ class CarsViewController: UIViewController, UITableViewDataSource {
                 fatalError("The selected cell is not being displayed by the table")
             }
             
-            // let selectedCar = AppState.sharedInstance.user.cars[indexPath.row]
-            // carsDefinitionViewController.car = selectedCar
-            
-            carsDefinitionViewController.dict  = arr.object(at: indexPath.row) as! NSDictionary
+            let selectedCar = AppState.sharedInstance.user.cars[indexPath.row]
+            carsDefinitionViewController.car = selectedCar
             
         default:
             print("Unexpected Segue Identifier: \(segue.identifier ?? "")")

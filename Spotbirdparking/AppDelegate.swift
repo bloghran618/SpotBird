@@ -13,6 +13,7 @@ import Alamofire
 import Firebase
 import GoogleMaps
 import GooglePlaces
+import IQKeyboardManagerSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate{
@@ -21,15 +22,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-//    AIzaSyBXzbFQ7U9PRS-vrl5RR6es5qOeZ4KuKSg
-//        GMSServices.provideAPIKey("AIzaSyCCPLZoH8d2j7rMFcDufb3S3ueUvO-c8vU")
-        GMSServices.provideAPIKey("AIzaSyBXzbFQ7U9PRS-vrl5RR6es5qOeZ4KuKSg")
+        //keybord manag
+        IQKeyboardManager.sharedManager().enable = true
+        IQKeyboardManager.sharedManager().enableAutoToolbar = true
+        IQKeyboardManager.sharedManager().shouldShowToolbarPlaceholder = true
+
         
-        
-        GMSPlacesClient.provideAPIKey("AIzaSyCvFxAOvA246L6Syk7Cl426254C-sMJGxk")
+        GMSServices.provideAPIKey("AIzaSyCCPLZoH8d2j7rMFcDufb3S3ueUvO-c8vU")
+        GMSPlacesClient.provideAPIKey("AIzaSyCCPLZoH8d2j7rMFcDufb3S3ueUvO-c8vU")
        
-        
-        
         FirebaseApp.configure()
     
         // Set up Stripe keys
@@ -47,12 +48,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         
         print(UserDefaults.standard.value(forKey: "logindata"))
         
-
-        
         if UserDefaults.standard.value(forKey: "logindata") as? NSDictionary != nil{
         let dict = UserDefaults.standard.value(forKey: "logindata") as? NSDictionary
             AppState.sharedInstance.userid = dict?.value(forKey: "id") as! String
-       print( AppState.sharedInstance.userid)
+         print( AppState.sharedInstance.userid)
             let appDelegate = UIApplication.shared.delegate! as! AppDelegate
               let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let initialViewController = storyboard.instantiateViewController(withIdentifier: "myTabbarControllerID")

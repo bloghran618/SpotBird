@@ -26,10 +26,7 @@ class SpotImageViewController: UIViewController, UITextViewDelegate, UIImagePick
         
         spotImagePicker.delegate = self
         spotImageView.isUserInteractionEnabled = true
-        
-//        spotImageView.image = AppState.sharedInstance.activeSpot.spotImage
-//        spotDescription.text = AppState.sharedInstance.activeSpot.description
-        
+       
         let strurl = AppState.sharedInstance.dict_spot.value(forKey: "image") as? String
       
         if strurl?.count != nil{

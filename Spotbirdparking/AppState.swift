@@ -13,7 +13,9 @@ import Firebase
 class AppState {
     static let sharedInstance = AppState()
     
-   
+   var lat:Double  = Double()
+    var long:Double  = Double()
+    
     var userid = ""
     var dict_spot: NSMutableDictionary = [:]
     var user: User
