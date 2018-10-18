@@ -19,7 +19,100 @@ class AddressViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-       // AppState.sharedInstance.activeSpot.pringSpotCliffNotes()
+        AppState.sharedInstance.activeSpot.pringSpotCliffNotes()
+        
+        self.addressField.delegate = self
+        self.townField.delegate = self
+        self.stateField.delegate = self
+        self.zipField.delegate = self
+        
+        self.hideKeyboardWhenTappedAround()
+        
+        addressField.text = AppState.sharedInstance.activeSpot.address
+        townField.text = AppState.sharedInstance.activeSpot.town
+        stateField.text = AppState.sharedInstance.activeSpot.state
+        zipField.text = AppState.sharedInstance.activeSpot.zipCode
+        
+        if addressField.text == "" {
+            nextButton.isEnabled = false
+        }
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+    // Behavior when you hit return on keyboard
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if textField == addressField {
+            self.addressField.resignFirstResponder()
+            AppState.sharedInstance.activeSpot.address = addressField.text!
+        }
+        else if textField == townField {
+            self.townField.resignFirstResponder()
+            AppState.sharedInstance.activeSpot.town = townField.text!
+        }
+        else if textField == stateField {
+            self.stateField.resignFirstResponder()
+            AppState.sharedInstance.activeSpot.state = stateField.text!
+        }
+        else if textField == zipField {
+            self.zipField.resignFirstResponder()
+            AppState.sharedInstance.activeSpot.zipCode = zipField.text!
+        }
+        
+        if AppState.sharedInstance.activeSpot.address != "" {
+            nextButton.isEnabled = true
+        }
+        else {
+            nextButton.isEnabled = false
+        }
+        return true
+    }
+    
+    // Behavior when you click outside of the text box
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        if textField == addressField {
+            self.addressField.resignFirstResponder()
+            AppState.sharedInstance.activeSpot.address = addressField.text!
+        }
+        else if textField == townField {
+            self.townField.resignFirstResponder()
+            AppState.sharedInstance.activeSpot.town = townField.text!
+        }
+        else if textField == stateField {
+            self.stateField.resignFirstResponder()
+            AppState.sharedInstance.activeSpot.state = stateField.text!
+        }
+        else if textField == zipField {
+            self.zipField.resignFirstResponder()
+            AppState.sharedInstance.activeSpot.zipCode = zipField.text!
+        }
+        
+        if AppState.sharedInstance.activeSpot.address != "" {
+            nextButton.isEnabled = true
+        }
+        else {
+            nextButton.isEnabled = false
+        }
+    }
+    
+}
+
+    
+    
+    
+    /*
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        
+        addressField.autocorrectionType  = .no
+        townField.autocorrectionType = .no
+        stateField.autocorrectionType = .no
+        zipField.autocorrectionType = .no
+         // AppState.sharedInstance.activeSpot.pringSpotCliffNotes()
         
         self.addressField.delegate = self
         self.townField.delegate = self
@@ -138,3 +231,4 @@ class AddressViewController: UIViewController, UITextFieldDelegate {
     }
     
 }
+   */

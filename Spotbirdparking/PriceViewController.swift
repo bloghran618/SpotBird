@@ -31,10 +31,16 @@ class PriceViewController: UIViewController, UITextFieldDelegate,CLLocationManag
     
     override func viewDidLoad() {
         super.viewDidLoad()
- AppState.sharedInstance.dict_spot.setValue(AppState.sharedInstance.lat, forKey: "user_lat")
-            AppState.sharedInstance.dict_spot.setValue(AppState.sharedInstance.long, forKey: "user_long")
-            
-       // }
+        
+        hourlyPricing.autocorrectionType  = .no
+        dailyPricing.autocorrectionType = .no
+        weeklyPricing.autocorrectionType = .no
+        monthlyPricing.autocorrectionType = .no
+       
+        AppState.sharedInstance.dict_spot.setValue(AppState.sharedInstance.lat, forKey: "user_lat")
+        AppState.sharedInstance.dict_spot.setValue(AppState.sharedInstance.long, forKey: "user_long")
+        
+        // }
         
         
         self.hideKeyboardWhenTappedAround()
@@ -43,7 +49,7 @@ class PriceViewController: UIViewController, UITextFieldDelegate,CLLocationManag
         weeklyPricing.keyboardType = UIKeyboardType.decimalPad
         monthlyPricing.keyboardType = UIKeyboardType.decimalPad
         
-       AppState.sharedInstance.dict_spot.setValue(weeklyPricingOn.isOn, forKey: "switch_weekly")
+        AppState.sharedInstance.dict_spot.setValue(weeklyPricingOn.isOn, forKey: "switch_weekly")
         AppState.sharedInstance.dict_spot.setValue(monthlyPricingOn.isOn, forKey: "switch_monthly")
         weeklyPricingOn.addTarget(self, action: #selector(weeklyPricingSwitchChanged), for: UIControlEvents.valueChanged)
         monthlyPricingOn.addTarget(self, action: #selector(monthlyPricingSwitchChanged), for: UIControlEvents.valueChanged)
@@ -72,10 +78,10 @@ class PriceViewController: UIViewController, UITextFieldDelegate,CLLocationManag
             AppState.sharedInstance.dict_spot.setValue(hourlyPricing.text!, forKey: "hourlyPricing")
         }
         else if (textField == dailyPricing) {
-             AppState.sharedInstance.dict_spot.setValue(dailyPricing.text!, forKey: "dailyPricing")
+            AppState.sharedInstance.dict_spot.setValue(dailyPricing.text!, forKey: "dailyPricing")
         }
         else if (textField == weeklyPricing) {
-             AppState.sharedInstance.dict_spot.setValue(weeklyPricing.text!, forKey: "weeklyPricing")
+            AppState.sharedInstance.dict_spot.setValue(weeklyPricing.text!, forKey: "weeklyPricing")
         }
         else if (textField == monthlyPricing) {
             AppState.sharedInstance.dict_spot.setValue(monthlyPricing.text!, forKey: "monthlyPricing")
@@ -84,7 +90,7 @@ class PriceViewController: UIViewController, UITextFieldDelegate,CLLocationManag
     
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         if (textField == hourlyPricing) {
-             AppState.sharedInstance.dict_spot.setValue(hourlyPricing.text!, forKey: "hourlyPricing")
+            AppState.sharedInstance.dict_spot.setValue(hourlyPricing.text!, forKey: "hourlyPricing")
         }
         else if (textField == dailyPricing) {
             AppState.sharedInstance.dict_spot.setValue(dailyPricing.text!, forKey: "dailyPricing")
@@ -93,7 +99,7 @@ class PriceViewController: UIViewController, UITextFieldDelegate,CLLocationManag
             AppState.sharedInstance.dict_spot.setValue(weeklyPricing.text!, forKey: "weeklyPricing")
         }
         else if (textField == monthlyPricing) {
-             AppState.sharedInstance.dict_spot.setValue(monthlyPricing.text!, forKey: "monthlyPricing")
+            AppState.sharedInstance.dict_spot.setValue(monthlyPricing.text!, forKey: "monthlyPricing")
         }
         return true
     }
@@ -114,14 +120,14 @@ class PriceViewController: UIViewController, UITextFieldDelegate,CLLocationManag
             weeklyPricing.text = weeklyPricingString
         }
         else {
-          weeklyPricing.text = ""
+            weeklyPricing.text = ""
         }
         
         weeklyPricing.isEnabled = switchState.isOn
     }
     
     @objc func monthlyPricingSwitchChanged(switchState: UISwitch) {
-         AppState.sharedInstance.dict_spot.setValue(switchState.isOn, forKey: "switch_monthly")
+        AppState.sharedInstance.dict_spot.setValue(switchState.isOn, forKey: "switch_monthly")
         
         if switchState.isOn {
             AppState.sharedInstance.dict_spot.setValue(monthlyPricingString, forKey: "monthlyPricing")
@@ -181,9 +187,9 @@ class PriceViewController: UIViewController, UITextFieldDelegate,CLLocationManag
                     let fullURL = url
                     print(fullURL)
                     self.refArtists = Database.database().reference().child("Spots");
-                     let key = self.refArtists.childByAutoId().key
-                     print( AppState.sharedInstance.dict_spot)
-                     let spots = ["id":AppState.sharedInstance.userid,
+                    let key = self.refArtists.childByAutoId().key
+                    print( AppState.sharedInstance.dict_spot)
+                    let spots = ["id":AppState.sharedInstance.userid,
                                  "image":fullURL,
                                  "description":AppState.sharedInstance.dict_spot.value(forKey: "address") as! String,
                                  "address":AppState.sharedInstance.dict_spot.value(forKey: "address") as! String,
@@ -193,25 +199,18 @@ class PriceViewController: UIViewController, UITextFieldDelegate,CLLocationManag
                                  
                                  "monStartTime":AppState.sharedInstance.dict_spot.value(forKey: "monStartTime") as! String,
                                  "monEndTime":AppState.sharedInstance.dict_spot.value(forKey: "monEndTime") as! String,
-                                 
-                                 "tueStartTime":AppState.sharedInstance.dict_spot.value(forKey: "tueStartTime") as! String,
+                                  "tueStartTime":AppState.sharedInstance.dict_spot.value(forKey: "tueStartTime") as! String,
                                  "tueEndTime":AppState.sharedInstance.dict_spot.value(forKey: "tueEndTime") as! String,
-                                 
                                  "wedStartTime":AppState.sharedInstance.dict_spot.value(forKey: "wedStartTime") as! String,
                                  "wedEndTime":AppState.sharedInstance.dict_spot.value(forKey: "wedEndTime") as! String,
-                                 
                                  "thuStartTime":AppState.sharedInstance.dict_spot.value(forKey: "thuStartTime") as! String,
                                  "thuEndTime":AppState.sharedInstance.dict_spot.value(forKey: "thuEndTime") as! String,
-                                 
                                  "friStartTime":AppState.sharedInstance.dict_spot.value(forKey: "friStartTime") as! String,
                                  "friEndTime":AppState.sharedInstance.dict_spot.value(forKey: "friEndTime") as! String,
-                                 
                                  "satStartTime":AppState.sharedInstance.dict_spot.value(forKey: "satStartTime") as! String,
                                  "satEndTime":AppState.sharedInstance.dict_spot.value(forKey: "satEndTime") as! String,
-                                 
-                                 "sunStartTime":AppState.sharedInstance.dict_spot.value(forKey: "sunStartTime") as! String,
+                                  "sunStartTime":AppState.sharedInstance.dict_spot.value(forKey: "sunStartTime") as! String,
                                  "sunEndTime":AppState.sharedInstance.dict_spot.value(forKey: "sunEndTime") as! String,
-                                 
                                  "dailyPricing":AppState.sharedInstance.dict_spot.value(forKey: "dailyPricing") as! String,
                                  "hourlyPricing":AppState.sharedInstance.dict_spot.value(forKey: "hourlyPricing") as! String,
                                  "weeklyPricing":AppState.sharedInstance.dict_spot.value(forKey: "weeklyPricing") as! String,
@@ -219,8 +218,15 @@ class PriceViewController: UIViewController, UITextFieldDelegate,CLLocationManag
                                  "switch_weekly":AppState.sharedInstance.dict_spot.value(forKey: "switch_weekly") as! Bool,
                                  "switch_monthly":AppState.sharedInstance.dict_spot.value(forKey: "switch_monthly") as! Bool,
                                  "user_lat":AppState.sharedInstance.dict_spot.value(forKey: "user_lat") as!  NSNumber,
-                                 "user_long":AppState.sharedInstance.dict_spot.value(forKey: "user_long") as!  NSNumber
-                        ] as [String : Any]
+                                 "user_long":AppState.sharedInstance.dict_spot.value(forKey: "user_long") as!  NSNumber,
+                                 "monswitch":AppState.sharedInstance.dict_spot.value(forKey: "monswitch") as! Bool,
+                                 "tueswitch":AppState.sharedInstance.dict_spot.value(forKey: "tueswitch") as! Bool,
+                                 "wedswitch":AppState.sharedInstance.dict_spot.value(forKey: "wedswitch") as! Bool,
+                                 "thuswitch":AppState.sharedInstance.dict_spot.value(forKey: "thuswitch") as! Bool,
+                                 "friswitch":AppState.sharedInstance.dict_spot.value(forKey: "friswitch") as! Bool,
+                                 "satswitch":AppState.sharedInstance.dict_spot.value(forKey: "satswitch") as! Bool,
+                                 "sunswitch":AppState.sharedInstance.dict_spot.value(forKey: "sunswitch") as! Bool,
+                                 ] as [String : Any]
                     
                     
                     self.refArtists.child(key!).setValue(spots)

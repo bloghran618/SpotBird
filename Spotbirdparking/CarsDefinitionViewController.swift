@@ -23,6 +23,8 @@ class CarsDefinitionViewController: UIViewController, UITextFieldDelegate, UIIma
     var CarImagePicker = UIImagePickerController()
     var refArtists: DatabaseReference!
     
+    var add = ""
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -39,11 +41,12 @@ class CarsDefinitionViewController: UIViewController, UITextFieldDelegate, UIIma
         if let car = car {
             navigationItem.title = "Edit Car"
            
-            Image.sd_setImage(with: URL(string: car.carImage!), placeholderImage: UIImage(named: "placeholder.png"))
+            Image.sd_setImage(with: URL(string: car.carImage), placeholderImage: UIImage(named: "placeholder.png"))
             Make.text = car.make
             Model.text = car.model
             Year.text = car.year
             Default.isChecked = car.isDefault ?? false
+            print(car.car_uid)
         }
         else {
             Image.image = UIImage(named: "EmptyCar")
@@ -199,7 +202,79 @@ class CarsDefinitionViewController: UIViewController, UITextFieldDelegate, UIIma
         guard let button = sender as? UIBarButtonItem, button === saveButton else {
             return
         }
+        print(car?.car_uid)
         
+        if car?.car_uid == nil {
+              self.addnewcar()
+            
+        }else {
+       
+    self.refArtists = Database.database().reference().child("User").child(AppState.sharedInstance.userid)
+        
+        refArtists.child("Cars").observeSingleEvent(of: .value, with: { (snapshot) in
+            print(self.car?.car_uid)
+            print(snapshot)
+            
+            if snapshot.hasChild((self.car?.car_uid)!){
+                //Update CAr
+                self.Update_car()
+             }else{
+                // Add New CAr
+                self.addnewcar()
+            }
+            })
+        }
+       }
+    
+     //Update CAr
+    func Update_car()
+    {
+        let img_url = car?.carImage
+        print(img_url)
+//        let startIndex = img_url?.index((img_url?.startIndex)!, offsetBy: 81)
+//        let endIndex = img_url?.index((img_url?.startIndex)!, offsetBy: 85)
+//        let imgname =  String(img_url![startIndex...endIndex])
+//        print(imgname)
+        
+    
+        var imageReference: StorageReference {
+            return Storage.storage().reference().child("car")
+        }
+        
+        guard let imageData = UIImageJPEGRepresentation(Image.image!, 0.5) else { return }
+        let uploadImageRef = imageReference.child(String("imgname"))
+        
+        let uploadTask = uploadImageRef.putData(imageData, metadata: nil) { (metadata, error) in
+            print("UPLOAD TASK FINISHED")
+            print(metadata ?? "NO METADATA")
+            print(error ?? "NO ERROR")
+            
+            uploadImageRef.downloadURL(completion: { (url, error) in
+                if let error = error {
+                    print(error.localizedDescription)
+                    return
+                }
+                if let url = url?.absoluteString {
+                    let fullURL = url
+                    print(fullURL)
+ 
+                    let ref = Database.database().reference().child("User").child(AppState.sharedInstance.userid).child("Cars").child((self.car?.car_uid)!)
+                    
+                    ref.updateChildValues([
+                        "make":self.Make.text!,
+                        "model":self.Model.text!,
+                        "year": self.Year.text!,
+                        "image": fullURL,
+                        "default": self.Default.isChecked])
+                    }
+            })
+        }
+        
+    }
+    
+    // Add New CAr
+    func addnewcar()
+    {
         var imageReference: StorageReference {
             return Storage.storage().reference().child("car")
         }
@@ -222,20 +297,20 @@ class CarsDefinitionViewController: UIViewController, UITextFieldDelegate, UIIma
                     let fullURL = url
                     print(fullURL)
                     
-              self.refArtists = Database.database().reference().child("Cars");
-//
-                  let key = self.refArtists.childByAutoId().key
+                    self.refArtists = Database.database().reference().child("User").child(AppState.sharedInstance.userid).child("Cars");
                     
-                  let cars = ["id":AppState.sharedInstance.userid,
-                                "make":self.Make.text!,
-                                "model":self.Model.text!,
-                                "year": self.Year.text!,
-                                "image": fullURL,
-                                "default": self.Default.isChecked
+                    let key = self.refArtists.childByAutoId().key
+                    
+                    let cars = [  "make":self.Make.text!,
+                                  "model":self.Model.text!,
+                                  "year": self.Year.text!,
+                                  "image": fullURL,
+                                  "default": self.Default.isChecked
                         
                         ] as [String : Any]
                     
                     self.refArtists.child(key!).setValue(cars)
+                    
                     
                 }
                 
@@ -247,7 +322,8 @@ class CarsDefinitionViewController: UIViewController, UITextFieldDelegate, UIIma
         }
         
         uploadTask.resume()
-     }
+    }
+    
     
     func randomStringWithLength(length: Int) -> NSString {
         let characters: NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"

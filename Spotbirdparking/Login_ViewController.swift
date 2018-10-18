@@ -19,6 +19,10 @@ class Login_ViewController: UIViewController {
    
     override func viewDidLoad() {
         super.viewDidLoad()
+        txt_uname.autocorrectionType  = .no
+        txt_pass.autocorrectionType = .no
+                  view.endEditing(true)
+      
    }
 
     override func didReceiveMemoryWarning() {

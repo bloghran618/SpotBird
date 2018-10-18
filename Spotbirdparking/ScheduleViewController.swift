@@ -58,6 +58,21 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        monStartTime.autocorrectionType  = .no
+        monEndTime.autocorrectionType = .no
+        tueStartTime.autocorrectionType = .no
+        tueEndTime.autocorrectionType = .no
+        wedStartTime.autocorrectionType  = .no
+        wedEndTime.autocorrectionType = .no
+        thuStartTime.autocorrectionType = .no
+        thuEndTime.autocorrectionType = .no
+        friStartTime.autocorrectionType  = .no
+        friEndTime.autocorrectionType = .no
+        satStartTime.autocorrectionType = .no
+        satEndTime.autocorrectionType = .no
+        sunStartTime.autocorrectionType = .no
+        sunEndTime.autocorrectionType = .no
+        
          monStartTime.text = monstart
          monEndTime.text = monend
          tueStartTime.text = tuestart
@@ -167,36 +182,38 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate{
         sunEndTime.inputView = sunEndDatePicker
         
         sunSwitch.addTarget(self, action: #selector(sunSwitchStateChanged), for: UIControlEvents.valueChanged)
+        
+          AppState.sharedInstance.dict_spot.setValue(monSwitch.isOn, forKey: "monswitch")
+          AppState.sharedInstance.dict_spot.setValue(tueSwitch.isOn, forKey: "tueswitch")
+          AppState.sharedInstance.dict_spot.setValue(wedSwitch.isOn, forKey: "wedswitch")
+          AppState.sharedInstance.dict_spot.setValue(thuSwitch.isOn, forKey: "thuswitch")
+          AppState.sharedInstance.dict_spot.setValue(friSwitch.isOn, forKey: "friswitch")
+          AppState.sharedInstance.dict_spot.setValue(satSwitch.isOn, forKey: "satswitch")
+          AppState.sharedInstance.dict_spot.setValue(sunSwitch.isOn, forKey: "sunswitch")
 
         
         AppState.sharedInstance.dict_spot.setValue("12:00 PM", forKey: "monStartTime")
         AppState.sharedInstance.dict_spot.setValue("12:00 AM", forKey: "monEndTime")
-        
         AppState.sharedInstance.dict_spot.setValue("12:00 PM", forKey: "tueStartTime")
         AppState.sharedInstance.dict_spot.setValue("12:00 AM", forKey: "tueEndTime")
-        
         AppState.sharedInstance.dict_spot.setValue("12:00 PM", forKey: "wedStartTime")
         AppState.sharedInstance.dict_spot.setValue("12:00 AM", forKey: "wedEndTime")
-        
         AppState.sharedInstance.dict_spot.setValue("12:00 PM", forKey: "thuStartTime")
         AppState.sharedInstance.dict_spot.setValue("12:00 AM", forKey: "thuEndTime")
-        
         AppState.sharedInstance.dict_spot.setValue("12:00 PM", forKey: "friStartTime")
         AppState.sharedInstance.dict_spot.setValue("12:00 AM", forKey: "friEndTime")
-        
         AppState.sharedInstance.dict_spot.setValue("12:00 PM", forKey: "satStartTime")
         AppState.sharedInstance.dict_spot.setValue("12:00 AM", forKey: "satEndTime")
-        
         AppState.sharedInstance.dict_spot.setValue("12:00 PM", forKey: "sunStartTime")
         AppState.sharedInstance.dict_spot.setValue("12:00 AM", forKey: "sunEndTime")
         
         AppState.sharedInstance.activeSpot.pringSpotCliffNotes()
-        
+        print(AppState.sharedInstance.dict_spot)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+      
     }
  
     

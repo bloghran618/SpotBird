@@ -36,6 +36,12 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
         profilePhoto.isUserInteractionEnabled = true
         profilePhoto.addGestureRecognizer(tapGestureRecognizer)
+        
+        txt_fname.autocorrectionType  = .no
+        txt_lname.autocorrectionType = .no
+        txt_username.autocorrectionType = .no
+        txt_pass.autocorrectionType = .no
+   
     }
     
     @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
@@ -109,6 +115,7 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
                     self.present(alertController, animated: true, completion: nil)
                 }
                 else {
+                       self.view.endEditing(true)
                     self.save_newuser()
                      }
                 
@@ -186,15 +193,13 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
                            "image":""]
             print(newuser)
             self.refArtists.child(key!).setValue(newuser)
+              self.getlogin(id: key!)
             
-            let vc = self.storyboard?.instantiateViewController(withIdentifier: "Login_ViewController") as! Login_ViewController
-            self.present(vc, animated: true, completion: nil)
-            
-        }
+       }
          else {
             
             var imageReference: StorageReference {
-                return Storage.storage().reference().child("User")
+                return Storage.storage().reference().child("User/")
             }
             guard let imageData = UIImageJPEGRepresentation(profilePhoto.image!, 0.5) else { return }
             let uploadImageRef = imageReference.child(randomStringWithLength(length: 5) as String)
@@ -222,16 +227,38 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
                                        "image":fullURL]
                         print(newuser)
                         self.refArtists.child(key!).setValue(newuser)
+                        self.getlogin(id: key!)
                         
-                        let vc = self.storyboard?.instantiateViewController(withIdentifier: "Login_ViewController") as! Login_ViewController
-                        self.present(vc, animated: true, completion: nil)
-                        
-                    }
+                   }
                 })
             }
             
          }
     }
+    
+    func getlogin(id:String){
+        
+      self.refArtists = Database.database().reference().child("User").child(id);
+        
+        refArtists.observe(DataEventType.value, with: { (snapshot) in
+            if snapshot.childrenCount > 0 {
+                for artists in snapshot.children.allObjects as! [DataSnapshot] {
+                    let snapshotValue = snapshot.value as! NSDictionary
+                    print(snapshotValue)
+                    AppState.sharedInstance.userid = snapshotValue.value(forKey: "id") as! String
+                    UserDefaults.standard.setValue(snapshotValue, forKey: "logindata")
+                    UserDefaults.standard.synchronize()
+                    let appDelegate = UIApplication.shared.delegate! as! AppDelegate
+                    
+                    let initialViewController = self.storyboard!.instantiateViewController(withIdentifier: "myTabbarControllerID")
+                    appDelegate.window?.rootViewController = initialViewController
+                    appDelegate.window?.makeKeyAndVisible()
+                    
+                }
+            }
+        })
+     }
+    
     
     func randomStringWithLength(length: Int) -> NSString {
         let characters: NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"

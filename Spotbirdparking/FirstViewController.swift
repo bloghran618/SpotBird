@@ -67,15 +67,15 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         searchBar.delegate = self
              tblLoction.isHidden = true
     searchBar.resignFirstResponder()
+    
+    print(AppState.sharedInstance.userid)
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
     }
 
-    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print("1245788995623")
         self.beginSearching(searchText: searchText)
     }
     
@@ -267,7 +267,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         userlongitude = (location?.coordinate.longitude)!
         AppState.sharedInstance.lat = userlatitude
         AppState.sharedInstance.long = userlongitude
-        //  print(location?.coordinate)
+         print(location?.coordinate)
         let camera = GMSCameraPosition.camera(withLatitude: (location?.coordinate.latitude)!, longitude: (location?.coordinate.longitude)!, zoom:12)
         
         //  self.mapView.animate(to: camera)
