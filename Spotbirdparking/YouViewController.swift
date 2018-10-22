@@ -20,10 +20,17 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     var ProfileImagePicker = UIImagePickerController()
     var strurl = ""
     var dict = NSDictionary()
+     var hud : MBProgressHUD = MBProgressHUD()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        getuserprofile()
+        
+        profilePhoto.layer.borderWidth = 1
+        profilePhoto.layer.masksToBounds = false
+        profilePhoto.layer.cornerRadius = profilePhoto.frame.height/2
+        profilePhoto.clipsToBounds = true
+        
+        
         self.hideKeyboardWhenTappedAround()
         firstName.delegate = self
         lastName.delegate = self
@@ -32,7 +39,9 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         
         let camera = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveprofile))
         self.navigationItem.rightBarButtonItem = camera
-     }
+        
+        getuserprofile() // Get user data
+    }
     
     // get user data
     func getuserprofile(){
@@ -48,7 +57,7 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
                     AppState.sharedInstance.user.firstName = (self.dict.value(forKey: "fname") as? String)!
                     AppState.sharedInstance.user.lastName = (self.dict.value(forKey: "lname") as? String)!
                     AppState.sharedInstance.user.profileImage = (self.dict.value(forKey: "image") as? String)!
-                   
+                    
                     
                     self.firstName.text = AppState.sharedInstance.user.firstName
                     self.lastName.text = AppState.sharedInstance.user.lastName
@@ -61,13 +70,30 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
                 }
             }
         })
-     }
+    }
     
     // udapte user profile
     @objc func saveprofile(){
         
-          var imageview = UIImageView()
-          var imgname = ""
+        if firstName.text == ""
+        {
+            let alert = UIAlertController(title: "Spotbirdparking", message: "Enter First Name", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }else if lastName.text == ""
+        {
+            let alert = UIAlertController(title: "Spotbirdparking", message: "Enter Last Name", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+        else{
+        let alertController = UIAlertController(title: "Error", message: "Incorrect Password..", preferredStyle: .alert)
+        let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        alertController.addAction(defaultAction)
+        self.present(alertController, animated: true, completion: nil)
+        
+        var imageview = UIImageView()
+        var imgname = ""
         var imageReference: StorageReference {
             return Storage.storage().reference().child("User")
         }
@@ -76,27 +102,12 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
             strurl = AppState.sharedInstance.user.profileImage
             imageview.sd_setImage(with: URL(string: strurl), placeholderImage: UIImage(named: "placeholder.png"))
             print(strurl)
-//            let start = strurl.index(strurl.startIndex, offsetBy: 81)
-//            let end = strurl.index(strurl.endIndex, offsetBy: -53)
-//            let range = start..<end
-//            imgname = String(strurl[range])
-            
             let startIndex = strurl.index(strurl.startIndex, offsetBy: 81)
             let endIndex = strurl.index(strurl.startIndex, offsetBy: 85)
-           imgname =  String(strurl[startIndex...endIndex])
-            print(imgname)
-            
-            
-            
+            imgname =  String(strurl[startIndex...endIndex])
         }
-        
-        print(AppState.sharedInstance.user.profileImage)
-        
-       
         if profilePhoto.image == #imageLiteral(resourceName: "EmptyProfile"){
-            
             let str = "User/" + AppState.sharedInstance.userid
-            print(str)
             let ref = Database.database().reference().child(str)
             
             ref.updateChildValues([
@@ -112,10 +123,6 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
             let uploadImageRef = imageReference.child(String(imgname))
             
             let uploadTask = uploadImageRef.putData(imageData, metadata: nil) { (metadata, error) in
-                print("UPLOAD TASK FINISHED")
-                print(metadata ?? "NO METADATA")
-                print(error ?? "NO ERROR")
-                
                 uploadImageRef.downloadURL(completion: { (url, error) in
                     if let error = error {
                         print(error.localizedDescription)
@@ -143,15 +150,13 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
             }
             
             
-         }
+        }
             
         else {
             let pictureRef = Storage.storage().reference().child("User/\(imgname)")
             pictureRef.delete { error in
                 if let error = error {
-                    print("// Uh-oh, an error occurred!")
                 } else {
-                    print("File deleted successfully")
                     guard let imageData = UIImageJPEGRepresentation(self.profilePhoto.image!, 0.5) else { return }
                     let uploadImageRef = imageReference.child(self.randomStringWithLength(length: 5) as String)
                     
@@ -186,9 +191,10 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
                     }
                 }
             }
-           
-          }
-      }
+            
+        }
+        }
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -196,11 +202,11 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     }
     
     @IBAction func firstNameValueChanged(_ sender: UITextField) {
-         //AppState.sharedInstance.user.setFirstName(name: sender.text!)
-       }
+        //AppState.sharedInstance.user.setFirstName(name: sender.text!)
+    }
     
     @IBAction func lastNameValueChanged(_ sender: UITextField) {
-       // AppState.sharedInstance.user.setLastName(name: sender.text!)
+        // AppState.sharedInstance.user.setLastName(name: sender.text!)
     }
     
     func checkGalleryPermission() {
@@ -264,8 +270,8 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     
     @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [AnyHashable: Any]) {
         let chosenImage = info[UIImagePickerControllerOriginalImage]
-       // AppState.sharedInstance.user.profileImage = (chosenImage as! UIImage)
-       // AppState.sharedInstance.user.setProfileImage(profile: chosenImage as! UIImage)
+        // AppState.sharedInstance.user.profileImage = (chosenImage as! UIImage)
+        // AppState.sharedInstance.user.setProfileImage(profile: chosenImage as! UIImage)
         self.profilePhoto!.image = (chosenImage as! UIImage)
         picker.dismiss(animated: true, completion: nil)
     }
@@ -299,6 +305,8 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
             let appDomain = Bundle.main.bundleIdentifier!
             UserDefaults.standard.removePersistentDomain(forName: appDomain)
             UserDefaults.standard.synchronize()
+            AppState.sharedInstance.user.cars.removeAll()
+            AppState.sharedInstance.spots.removeAll()
             let vc = self.storyboard!.instantiateViewController(withIdentifier: "Login_ViewController") as! Login_ViewController
             self.present(vc, animated: true, completion: nil)
         }

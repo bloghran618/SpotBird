@@ -24,14 +24,9 @@ class CarsViewController: UIViewController, UITableViewDataSource {
         super.viewDidLoad()
         
         CarsTable.dataSource = self
-      
-        
-      //  refArtists = Database.database().reference().child("User").child(AppState.sharedInstance.userid).child("Car");  .child(AppState.sharedInstance.userid);
-        
         self.refArtists = Database.database().reference().child("User").child(AppState.sharedInstance.userid).child("Cars")
-        
         refArtists.observe(DataEventType.value, with: { (snapshot) in
-            
+
             if snapshot.childrenCount > 0 {
                 AppState.sharedInstance.user.cars.removeAll()
                 for artists in snapshot.children.allObjects as! [DataSnapshot] {
@@ -46,8 +41,7 @@ class CarsViewController: UIViewController, UITableViewDataSource {
         if AppState.sharedInstance.user.cars.count != 0{
          navigationItem.rightBarButtonItem = editButtonItem
         }
-       
-    }
+     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -84,6 +78,7 @@ class CarsViewController: UIViewController, UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let db_car = AppState.sharedInstance.user.cars[indexPath.row]
+            print(db_car.car_uid)
             let url = db_car.carImage
             let start = url.index(url.startIndex, offsetBy: 80)
             let end = url.index(url.endIndex, offsetBy: -53)
@@ -100,23 +95,24 @@ class CarsViewController: UIViewController, UITableViewDataSource {
                     // File deleted successfully
                 }
             }
+         
+            self.refArtists = Database.database().reference().child("User").child(AppState.sharedInstance.userid)
             
-            let ref = Database.database().reference().child("User").queryOrdered(byChild: "id").queryEqual(toValue : AppState.sharedInstance.userid)
-            ref.observe(.value, with:{ (snapshot: DataSnapshot) in
-                for snap in snapshot.children {
-//                    print(snap as! DataSnapshot)
-//                    print((snap as! DataSnapshot).key)
-//                    print((snap as! DataSnapshot).value)
-                    
-          //  let Db_dict = ((snap as! DataSnapshot).value) as! NSDictionary
-         //    if  db_car.make == Db_dict.value(forKey: "make") as! String
-         //       && db_car.model == Db_dict.value(forKey: "model") as! String && db_car.year == Db_dict.value(forKey: "year") as? String {
-                  //  self.refArtists = Database.database().reference().child("Cars");
-                    self.refArtists = Database.database().reference().child("User").child(AppState.sharedInstance.userid).child("Cars")
-                    self.refArtists.child((snap as! DataSnapshot).key).setValue(nil)
-                 // }
+            refArtists.child("Cars").observeSingleEvent(of: .value, with: { (snapshot) in
+                print(self.car?.car_uid)
+                print(snapshot)
+                print(snapshot as! DataSnapshot)
+                print((snapshot as! DataSnapshot).key)
+                print((snapshot as! DataSnapshot).value)
+                
+             if snapshot.hasChild((db_car.car_uid)!){
+             self.refArtists = Database.database().reference().child("User").child(AppState.sharedInstance.userid).child("Cars")
+                    self.refArtists.child(db_car.car_uid!).setValue(nil)
+                }else{
+                    print("jewsasassasass")
                 }
             })
+            
             AppState.sharedInstance.user.cars.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
             CarsTable.reloadData()
@@ -181,3 +177,5 @@ class CarsViewController: UIViewController, UITableViewDataSource {
         }
     }
  }
+
+

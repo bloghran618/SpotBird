@@ -30,22 +30,23 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     var arrspot:NSMutableArray = NSMutableArray()
     var timer = Timer()  // time
     var five = 0
- 
+    
     @IBOutlet weak var tblLoction: UITableView!
     var arrPlaces = NSMutableArray(capacity: 100)
     let operationQueue = OperationQueue()
     let currentLat = 51.5033640
     let currentLong = -0.1276250
-   // var LocationDataDelegate : LocationData! = nil
+    // var LocationDataDelegate : LocationData! = nil
     var tblLocation : UITableView!
- //   var lblNodata = UILabel()
+    //   var lblNodata = UILabel()
+     var hud : MBProgressHUD = MBProgressHUD()
     
-   override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         //scheduledTimerWithTimeInterval()  // time
-    searchBar.backgroundColor = UIColor.clear
-        
-        //  getlatlong()
+        searchBar.backgroundColor = UIColor.clear
+       
+        getlatlong()
         self.mapView.delegate = self
         self.locationManager.delegate = self
         self.locationManager.requestAlwaysAuthorization()
@@ -58,23 +59,18 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         mapView.settings.myLocationButton = true
         
         mapView.padding = UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 20)
-//        lblNodata.frame = CGRect(x: 0, y: 80, width:
-//            self.view.frame.size.width, height: self.view.frame.size.height-60)
-        //lblNodata.text = "Please enter text to get your location"
-    //    self.view.addSubview(lblNodata)
         searchBar.placeholder = "Search here"
- //      lblNodata.textAlignment = .center
         searchBar.delegate = self
-             tblLoction.isHidden = true
-    searchBar.resignFirstResponder()
-    
-    print(AppState.sharedInstance.userid)
+        tblLoction.isHidden = true
+        searchBar.resignFirstResponder()
+        
+        print(AppState.sharedInstance.userid)
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
     }
-
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         self.beginSearching(searchText: searchText)
     }
@@ -84,9 +80,9 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             
             self.arrPlaces.removeAllObjects()
             tblLoction.isHidden = true
-             searchBar.resignFirstResponder()
-              iToast.makeText("Please enter text to get your location").show()
-          //  lblNodata.isHidden = false
+            searchBar.resignFirstResponder()
+            iToast.makeText("Please enter text to get your location").show()
+            //  lblNodata.isHidden = false
             return
         }
         
@@ -104,7 +100,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                 let features = searchResult.value(forKey: "results") as! NSArray
                 self.arrPlaces.removeAllObjects()
                 self.arrPlaces = NSMutableArray(capacity: 100)
-             
+                
                 
                 print(features.count)
                 for jk in 0...features.count-1
@@ -116,16 +112,14 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                     if self.arrPlaces.count != 0
                     {
                         self.tblLoction.isHidden = false
-               
-                       // self.lblNodata.isHidden = true
-                       self.tblLoction.reloadData()
-                        print("if if if if if if if if if if if if if if if if if")
+                        
+                        // self.lblNodata.isHidden = true
+                        self.tblLoction.reloadData()
                     }
                     else
-            {           print("else else else else else else else else else else else")
+                    {
                         self.tblLoction.isHidden = true
-                       // self.lblNodata.isHidden = false
-                      iToast.makeText("Location Not Found").show()
+                        iToast.makeText("Location Not Found").show()
                         self.tblLoction.reloadData()
                     }
                 });
@@ -137,9 +131,9 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     func googlePlacesResult(input: String, completion: @escaping (_ result: NSArray) -> Void) {
         let searchWordProtection = input.replacingOccurrences(of: " ", with: "");        if searchWordProtection.characters.count != 0 {
             let urlString = NSString(format: "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=%@&types=establishment|geocode&location=%@,%@&radius=&language=en&key=AIzaSyCvFxAOvA246L6Syk7Cl426254C-sMJGxk",input,"\(AppState.sharedInstance.lat)","\(AppState.sharedInstance.long)")
-           // print(urlString)
+            // print(urlString)
             let url = NSURL(string: urlString.addingPercentEscapes(using: String.Encoding.utf8.rawValue)!)
-          //  print(url!)
+            //  print(url!)
             let defaultConfigObject = URLSessionConfiguration.default
             let delegateFreeSession = URLSession(configuration: defaultConfigObject, delegate: nil, delegateQueue: OperationQueue.main)
             let request = NSURLRequest(url: url! as URL)
@@ -154,10 +148,6 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                         let status = jSONresult["status"] as! String
                         if status == "NOT_FOUND" || status == "REQUEST_DENIED"
                         {
-//                            let userInfo:NSDictionary = ["error": jSONresult["status"]!]
-//                            print(userInfo)
-//                            let newError = NSError(domain: "API Error", code: 666, userInfo: (userInfo as! NSDictionary as! [String : Any]))
-                        // let arr:NSArray = [newError]
                             iToast.makeText("Location Not Found").show()
                             let arr:NSArray = NSArray()
                             completion(arr)
@@ -193,43 +183,24 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         let tblCell = tableView.dequeueReusableCell(withIdentifier: "locationCell")
         if arrPlaces.count > 0{
             let dict = self.arrPlaces.object(at: indexPath.row) as! NSDictionary
-        tblCell?.textLabel?.text = dict.value(forKey: "description") as? String
-        tblCell?.textLabel?.numberOfLines = 0
-        tblCell?.textLabel?.sizeToFit()
+            tblCell?.textLabel?.text = dict.value(forKey: "description") as? String
+            tblCell?.textLabel?.numberOfLines = 0
+            tblCell?.textLabel?.sizeToFit()
         }
         return tblCell!
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
     {
-//        if LocationDataDelegate != nil
-//        {
-//            let dict = arrPlaces.object(at: indexPath.row) as! NSDictionary
-//            print(dict.value(forKey: "terms") as! NSArray)
-//            let ArrSelected = dict.value(forKey: "terms") as! NSArray
-//            LocationDataDelegate.didSelectLocationData(LocationData: ArrSelected)
-//        }
-//        self.dismiss(animated: true, completion: nil)
+        
     }
-
-    //    func scheduledTimerWithTimeInterval(){
-    //        // Scheduling timer to Call the function "updateCounting" with the interval of 1 seconds
-    //        timer = Timer.scheduledTimer(timeInterval: 5, target: self, selector: #selector(self.updateCounting), userInfo: nil, repeats: true)
-    //    }
-    //
-    //    @objc func updateCounting(){
-    //        NSLog("counting..")
-    //
-    //
-    //    }
-    
-
     func getlatlong(){
         five = 0
-        //   AppState.sharedInstance.userid == ""
+        //  AppState.sharedInstance.userid == ""
         
-        refArtists = Database.database().reference().child("Spots");
+        refArtists = Database.database().reference().child("All_Spots");
         refArtists.observe(DataEventType.value, with: { (snapshot) in
+            
             
             if snapshot.childrenCount > 0 {
                 for artists in snapshot.children.allObjects as! [DataSnapshot] {
@@ -241,8 +212,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                             //   print(theValue)
                             self.arrspot.add(theValue)
                         }
-                        // print(self.arrspot)
-                        //  print(self.arrspot.count)
+                        print(self.arrspot)
+                        print(self.arrspot.count)
                         self.loadEventsToMap(lat: self.userlatitude, long: self.userlongitude)
                     }
                 }
@@ -267,19 +238,14 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         userlongitude = (location?.coordinate.longitude)!
         AppState.sharedInstance.lat = userlatitude
         AppState.sharedInstance.long = userlongitude
-         print(location?.coordinate)
+        print(location?.coordinate)
         let camera = GMSCameraPosition.camera(withLatitude: (location?.coordinate.latitude)!, longitude: (location?.coordinate.longitude)!, zoom:12)
         
         //  self.mapView.animate(to: camera)
         mapView.camera = camera
         five = 0
         getlatlong()
-        
-        
         self.locationManager.stopUpdatingLocation()
-        
-      
-        
     }
     
     
@@ -340,6 +306,9 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     
     // MARK:_ Load Marker to map :-  Spot
     func loadEventsToMap(lat:Double,long:Double){
+        
+        print(arrspot.count)
+        print(arrspot)
         
         for i in 0..<arrspot.count {
             
@@ -474,14 +443,10 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     
     //MARK:_ GMSAutocompleteViewController
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
-        //        print("Place name: \(place.name)")
-        //        print("Place name: \(place.coordinate)")
-        //        print("Place address: \(String(describing: place.formattedAddress))")
-        //        print("Place attributions: \(String(describing: place.attributions))")
         dismiss(animated: true, completion: nil)
         
         let cordinate:[String: CLLocationCoordinate2D] = ["cordinate": place.coordinate]
-          mapView.clear()
+        mapView.clear()
         
         var markerView = UIImageView()
         markerView = UIImageView(image: UIImage.init(named: "current_location_icon"))
@@ -517,7 +482,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
     }
     
- 
+    
     
 }
 

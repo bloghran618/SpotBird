@@ -17,7 +17,7 @@ class Spot {
     var state: String
     var zipCode: String
     
-    //var spotImage: UIImage
+    var spotImage1: UIImage
     var spotImage: String
     var description: String
     
@@ -55,8 +55,10 @@ class Spot {
     var index: Int
     var approved: Bool
     
+   var spot_id: String
     
-    init?(address: String, town: String, state: String, zipCode: String,spotImage: String, description: String, monStartTime: String, monEndTime: String, tueStartTime: String, tueEndTime: String, wedStartTime: String, wedEndTime: String, thuStartTime: String, thuEndTime: String, friStartTime: String, friEndTime: String, satStartTime: String, satEndTime: String, sunStartTime: String, sunEndTime: String, monOn: Bool, tueOn: Bool, wedOn: Bool, thuOn: Bool, friOn: Bool, satOn: Bool, sunOn: Bool, hourlyPricing: String, dailyPricing: String, weeklyPricing: String, monthlyPricing: String, weeklyOn: Bool, monthlyOn: Bool, index: Int, approved: Bool) {
+    
+    init?(address: String, town: String, state: String, zipCode: String,spotImage: String, description: String, monStartTime: String, monEndTime: String, tueStartTime: String, tueEndTime: String, wedStartTime: String, wedEndTime: String, thuStartTime: String, thuEndTime: String, friStartTime: String, friEndTime: String, satStartTime: String, satEndTime: String, sunStartTime: String, sunEndTime: String, monOn: Bool, tueOn: Bool, wedOn: Bool, thuOn: Bool, friOn: Bool, satOn: Bool, sunOn: Bool, hourlyPricing: String, dailyPricing: String, weeklyPricing: String, monthlyPricing: String, weeklyOn: Bool, monthlyOn: Bool, index: Int, approved: Bool,spotImages:UIImage,spots_id:String) {
         
         self.address = address
         self.town = town
@@ -64,6 +66,7 @@ class Spot {
         self.zipCode = zipCode
         
         self.spotImage = spotImage
+        spotImage1 = spotImages
         self.description = description
         
         self.monStartTime = monStartTime
@@ -99,6 +102,7 @@ class Spot {
         
         self.index = index
         self.approved = approved
+        spot_id = spots_id
     }
    
     /*

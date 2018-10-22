@@ -9,7 +9,7 @@
 import UIKit
 
 class ScheduleViewController: UIViewController, UITextFieldDelegate{
-
+    
     @IBOutlet weak var monSwitch: UISwitch!
     @IBOutlet weak var monStartTime: UITextField!
     @IBOutlet weak var monEndTime: UITextField!
@@ -55,39 +55,9 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate{
     
     private var datePicker: UIDatePicker?
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        monStartTime.autocorrectionType  = .no
-        monEndTime.autocorrectionType = .no
-        tueStartTime.autocorrectionType = .no
-        tueEndTime.autocorrectionType = .no
-        wedStartTime.autocorrectionType  = .no
-        wedEndTime.autocorrectionType = .no
-        thuStartTime.autocorrectionType = .no
-        thuEndTime.autocorrectionType = .no
-        friStartTime.autocorrectionType  = .no
-        friEndTime.autocorrectionType = .no
-        satStartTime.autocorrectionType = .no
-        satEndTime.autocorrectionType = .no
-        sunStartTime.autocorrectionType = .no
-        sunEndTime.autocorrectionType = .no
-        
-         monStartTime.text = monstart
-         monEndTime.text = monend
-         tueStartTime.text = tuestart
-         tueEndTime.text = tueend
-         wedStartTime.text = wedstart
-         wedEndTime.text = wedend
-         thuStartTime.text = thustart
-         thuEndTime.text = thustart
-         friStartTime.text = fristart
-         friEndTime.text = friend
-         satStartTime.text = satstart
-         satEndTime.text = satend
-         sunStartTime.text = sunstart
-         sunEndTime.text = sunend
-       
         
         self.hideKeyboardWhenTappedAround()
         
@@ -183,82 +153,71 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate{
         
         sunSwitch.addTarget(self, action: #selector(sunSwitchStateChanged), for: UIControlEvents.valueChanged)
         
-          AppState.sharedInstance.dict_spot.setValue(monSwitch.isOn, forKey: "monswitch")
-          AppState.sharedInstance.dict_spot.setValue(tueSwitch.isOn, forKey: "tueswitch")
-          AppState.sharedInstance.dict_spot.setValue(wedSwitch.isOn, forKey: "wedswitch")
-          AppState.sharedInstance.dict_spot.setValue(thuSwitch.isOn, forKey: "thuswitch")
-          AppState.sharedInstance.dict_spot.setValue(friSwitch.isOn, forKey: "friswitch")
-          AppState.sharedInstance.dict_spot.setValue(satSwitch.isOn, forKey: "satswitch")
-          AppState.sharedInstance.dict_spot.setValue(sunSwitch.isOn, forKey: "sunswitch")
-
+        monStartTime.text = AppState.sharedInstance.activeSpot.monStartTime
+        monEndTime.text = AppState.sharedInstance.activeSpot.monEndTime
+        tueStartTime.text = AppState.sharedInstance.activeSpot.tueStartTime
+        tueEndTime.text = AppState.sharedInstance.activeSpot.tueEndTime
+        wedStartTime.text = AppState.sharedInstance.activeSpot.wedStartTime
+        wedEndTime.text = AppState.sharedInstance.activeSpot.wedEndTime
+        thuStartTime.text = AppState.sharedInstance.activeSpot.thuStartTime
+        thuEndTime.text = AppState.sharedInstance.activeSpot.thuEndTime
+        friStartTime.text = AppState.sharedInstance.activeSpot.friStartTime
+        friEndTime.text = AppState.sharedInstance.activeSpot.friEndTime
+        satStartTime.text = AppState.sharedInstance.activeSpot.satStartTime
+        satEndTime.text = AppState.sharedInstance.activeSpot.satEndTime
+        sunStartTime.text = AppState.sharedInstance.activeSpot.sunStartTime
+        sunEndTime.text = AppState.sharedInstance.activeSpot.sunEndTime
         
-        AppState.sharedInstance.dict_spot.setValue("12:00 PM", forKey: "monStartTime")
-        AppState.sharedInstance.dict_spot.setValue("12:00 AM", forKey: "monEndTime")
-        AppState.sharedInstance.dict_spot.setValue("12:00 PM", forKey: "tueStartTime")
-        AppState.sharedInstance.dict_spot.setValue("12:00 AM", forKey: "tueEndTime")
-        AppState.sharedInstance.dict_spot.setValue("12:00 PM", forKey: "wedStartTime")
-        AppState.sharedInstance.dict_spot.setValue("12:00 AM", forKey: "wedEndTime")
-        AppState.sharedInstance.dict_spot.setValue("12:00 PM", forKey: "thuStartTime")
-        AppState.sharedInstance.dict_spot.setValue("12:00 AM", forKey: "thuEndTime")
-        AppState.sharedInstance.dict_spot.setValue("12:00 PM", forKey: "friStartTime")
-        AppState.sharedInstance.dict_spot.setValue("12:00 AM", forKey: "friEndTime")
-        AppState.sharedInstance.dict_spot.setValue("12:00 PM", forKey: "satStartTime")
-        AppState.sharedInstance.dict_spot.setValue("12:00 AM", forKey: "satEndTime")
-        AppState.sharedInstance.dict_spot.setValue("12:00 PM", forKey: "sunStartTime")
-        AppState.sharedInstance.dict_spot.setValue("12:00 AM", forKey: "sunEndTime")
+        monSwitch.setOn(AppState.sharedInstance.activeSpot.monOn, animated: true)
+        tueSwitch.setOn(AppState.sharedInstance.activeSpot.tueOn, animated: true)
+        wedSwitch.setOn(AppState.sharedInstance.activeSpot.wedOn, animated: true)
+        thuSwitch.setOn(AppState.sharedInstance.activeSpot.thuOn, animated: true)
+        friSwitch.setOn(AppState.sharedInstance.activeSpot.friOn, animated: true)
+        satSwitch.setOn(AppState.sharedInstance.activeSpot.satOn, animated: true)
+        sunSwitch.setOn(AppState.sharedInstance.activeSpot.sunOn, animated: true)
         
         AppState.sharedInstance.activeSpot.pringSpotCliffNotes()
-        print(AppState.sharedInstance.dict_spot)
+        
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-      
+        // Dispose of any resources that can be recreated.
     }
- 
-    
-    // Monday
+   // Monday
     @objc func monStartDatePickerValueChanged(_ sender: UIDatePicker) {
-//        let DatePickerView: UIDatePicker = UIDatePicker()
+        //        let DatePickerView: UIDatePicker = UIDatePicker()
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         dateFormatter.dateFormat = "hh:mm a"
-
-         AppState.sharedInstance.dict_spot.setValue(dateFormatter.string(from: sender.date), forKey: "monStartTime")
-         monStartTime.text = AppState.sharedInstance.dict_spot.value(forKey: "monStartTime") as? String
-        
+        AppState.sharedInstance.activeSpot.monStartTime = dateFormatter.string(from: sender.date)
+        monStartTime.text = AppState.sharedInstance.activeSpot.monStartTime
     }
     
     @objc func monEndDatePickerValueChanged(_ sender: UIDatePicker) {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSTIX")
         dateFormatter.dateFormat = "hh:mm a"
-
-        AppState.sharedInstance.dict_spot.setValue(dateFormatter.string(from: sender.date), forKey: "monEndTime")
-        monEndTime.text  = AppState.sharedInstance.dict_spot.value(forKey: "monEndTime") as? String
+        AppState.sharedInstance.activeSpot.monEndTime = dateFormatter.string(from: sender.date)
+        monEndTime.text = AppState.sharedInstance.activeSpot.monEndTime
     }
     
     @objc func monSwitchStateChanged(switchState: UISwitch) {
-
-        AppState.sharedInstance.dict_spot.setValue(switchState.isOn, forKey: "monswitch")
+        AppState.sharedInstance.activeSpot.monOn = switchState.isOn
         
         if switchState.isOn {
-
-              AppState.sharedInstance.dict_spot.setValue("12:00 PM", forKey: "monStartTime")
-             AppState.sharedInstance.dict_spot.setValue("12:00 AM", forKey: "monEndTime")
-    
+            AppState.sharedInstance.activeSpot.monStartTime = "12:00 AM"
+            AppState.sharedInstance.activeSpot.monEndTime = "12:00 PM"
         }
         else {
-
-            AppState.sharedInstance.dict_spot.setValue("", forKey: "monStartTime")
-            AppState.sharedInstance.dict_spot.setValue("", forKey: "monEndTime")
+            AppState.sharedInstance.activeSpot.monStartTime = ""
+            AppState.sharedInstance.activeSpot.monEndTime = ""
         }
         
-
-        monStartTime.isEnabled = ((AppState.sharedInstance.dict_spot.value(forKey: "monswitch") as? String) != nil)
-        monEndTime.isEnabled = ((AppState.sharedInstance.dict_spot.value(forKey: "monswitch") as? String) != nil)
-        monStartTime.text = AppState.sharedInstance.dict_spot.value(forKey: "monStartTime") as? String
-        monEndTime.text  = AppState.sharedInstance.dict_spot.value(forKey: "monEndTime") as? String
+        monStartTime.isEnabled = AppState.sharedInstance.activeSpot.monOn
+        monEndTime.isEnabled = AppState.sharedInstance.activeSpot.monOn
+        monStartTime.text = AppState.sharedInstance.activeSpot.monStartTime
+        monEndTime.text = AppState.sharedInstance.activeSpot.monEndTime
     }
     
     
@@ -268,40 +227,34 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate{
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         dateFormatter.dateFormat = "hh:mm a"
- AppState.sharedInstance.dict_spot.setValue(dateFormatter.string(from: sender.date), forKey: "tueStartTime")
-        tueStartTime.text  = AppState.sharedInstance.dict_spot.value(forKey: "tueStartTime") as? String
+        AppState.sharedInstance.activeSpot.tueStartTime = dateFormatter.string(from: sender.date)
+        tueStartTime.text = AppState.sharedInstance.activeSpot.tueStartTime
     }
     
     @objc func tueEndDatePickerValueChanged(_ sender: UIDatePicker) {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSTIX")
         dateFormatter.dateFormat = "hh:mm a"
-
-        AppState.sharedInstance.dict_spot.setValue(dateFormatter.string(from: sender.date), forKey: "tueEndTime")
-       tueEndTime.text  = AppState.sharedInstance.dict_spot.value(forKey: "tueEndTime") as? String
+        AppState.sharedInstance.activeSpot.tueEndTime = dateFormatter.string(from: sender.date)
+        tueEndTime.text = AppState.sharedInstance.activeSpot.tueEndTime
     }
     
     @objc func tueSwitchStateChanged(switchState: UISwitch) {
-      //  AppState.sharedInstance.activeSpot.tueOn = switchState.isOnnce.dict_spot.setValue(switchState.isOn, forKey: "tueswitch")
+        AppState.sharedInstance.activeSpot.tueOn = switchState.isOn
         
         if switchState.isOn {
-
-            AppState.sharedInstance.dict_spot.setValue("12:00 PM", forKey: "tueStartTime")
-            AppState.sharedInstance.dict_spot.setValue("12:00 AM", forKey: "tueEndTime")
+            AppState.sharedInstance.activeSpot.tueStartTime = "12:00 AM"
+            AppState.sharedInstance.activeSpot.tueEndTime = "12:00 PM"
         }
         else {
-//            AppState.sharedInstance.activeSpot.tueStartTime = ""
-//            AppState.sharedInstance.activeSpot.tueEndTime = ""
-            AppState.sharedInstance.dict_spot.setValue("12:00 PM", forKey: "tueStartTime")
-            AppState.sharedInstance.dict_spot.setValue("12:00 AM", forKey: "tueEndTime")
+            AppState.sharedInstance.activeSpot.tueStartTime = ""
+            AppState.sharedInstance.activeSpot.tueEndTime = ""
         }
         
-
-        
-        tueStartTime.isEnabled = (AppState.sharedInstance.dict_spot.value(forKey: "tueswitch") as? Bool)!
-        tueEndTime.isEnabled = (AppState.sharedInstance.dict_spot.value(forKey: "tueswitch") as? Bool)!
-        tueStartTime.text = AppState.sharedInstance.dict_spot.value(forKey: "tueStartTime") as? String
-        tueEndTime.text  = AppState.sharedInstance.dict_spot.value(forKey: "tueEndTime") as? String
+        tueStartTime.isEnabled = AppState.sharedInstance.activeSpot.tueOn
+        tueEndTime.isEnabled = AppState.sharedInstance.activeSpot.tueOn
+        tueStartTime.text = AppState.sharedInstance.activeSpot.tueStartTime
+        tueEndTime.text = AppState.sharedInstance.activeSpot.tueEndTime
     }
     
     // Wednesday
@@ -310,41 +263,34 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate{
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         dateFormatter.dateFormat = "hh:mm a"
-//        AppState.sharedInstance.activeSpot.wedStartTime = dateFormatter.string(from: sender.date)
-//        wedStartTime.text = AppState.sharedInstance.activeSpot.wedStartTime
-        
-        AppState.sharedInstance.dict_spot.setValue(dateFormatter.string(from: sender.date), forKey: "wedStartTime")
-        wedStartTime.text  = AppState.sharedInstance.dict_spot.value(forKey: "wedStartTime") as? String
+        AppState.sharedInstance.activeSpot.wedStartTime = dateFormatter.string(from: sender.date)
+        wedStartTime.text = AppState.sharedInstance.activeSpot.wedStartTime
     }
     
     @objc func wedEndDatePickerValueChanged(_ sender: UIDatePicker) {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSTIX")
         dateFormatter.dateFormat = "hh:mm a"
-  AppState.sharedInstance.dict_spot.setValue(dateFormatter.string(from: sender.date), forKey: "wedEndTime")
-        wedEndTime.text  = AppState.sharedInstance.dict_spot.value(forKey: "wedEndTime") as? String
+        AppState.sharedInstance.activeSpot.wedEndTime = dateFormatter.string(from: sender.date)
+        wedEndTime.text = AppState.sharedInstance.activeSpot.wedEndTime
     }
     
     @objc func wedSwitchStateChanged(switchState: UISwitch) {
-      //  AppState.sharedInstance.activeSpot.wedOn = switchState.isOn
-    AppState.sharedInstance.dict_spot.setValue(switchState.isOn, forKey: "wedswitch")
+        AppState.sharedInstance.activeSpot.wedOn = switchState.isOn
         
         if switchState.isOn {
-//            AppState.sharedInstance.activeSpot.wedStartTime = "12:00 AM"
-//            AppState.sharedInstance.activeSpot.wedEndTime = "12:00 PM"
-            AppState.sharedInstance.dict_spot.setValue("12:00 PM", forKey: "wedStartTime")
-            AppState.sharedInstance.dict_spot.setValue("12:00 AM", forKey: "wedEndTime")
+            AppState.sharedInstance.activeSpot.wedStartTime = "12:00 AM"
+            AppState.sharedInstance.activeSpot.wedEndTime = "12:00 PM"
         }
         else {
-
-            AppState.sharedInstance.dict_spot.setValue("", forKey: "wedStartTime")
-            AppState.sharedInstance.dict_spot.setValue("", forKey: "wedEndTime")
+            AppState.sharedInstance.activeSpot.wedStartTime = ""
+            AppState.sharedInstance.activeSpot.wedEndTime = ""
         }
-
-        wedStartTime.isEnabled = (AppState.sharedInstance.dict_spot.value(forKey: "wedswitch")  as? Bool)!
-        wedEndTime.isEnabled = (AppState.sharedInstance.dict_spot.value(forKey: "wedswitch")  as? Bool)!
-        wedStartTime.text = AppState.sharedInstance.dict_spot.value(forKey: "wedStartTime") as? String
-        wedEndTime.text  = AppState.sharedInstance.dict_spot.value(forKey: "wedEndTime") as? String
+        
+        wedStartTime.isEnabled = AppState.sharedInstance.activeSpot.wedOn
+        wedEndTime.isEnabled = AppState.sharedInstance.activeSpot.wedOn
+        wedStartTime.text = AppState.sharedInstance.activeSpot.wedStartTime
+        wedEndTime.text = AppState.sharedInstance.activeSpot.wedEndTime
     }
     
     // Thursday
@@ -353,42 +299,34 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate{
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         dateFormatter.dateFormat = "hh:mm a"
-//        AppState.sharedInstance.activeSpot.thuStartTime = dateFormatter.string(from: sender.date)
-//        thuStartTime.text = AppState.sharedInstance.activeSpot.thuStartTime
-        AppState.sharedInstance.dict_spot.setValue(dateFormatter.string(from: sender.date), forKey: "thuStartTime")
-        thuStartTime.text  = AppState.sharedInstance.dict_spot.value(forKey: "thuStartTime") as? String
+        AppState.sharedInstance.activeSpot.thuStartTime = dateFormatter.string(from: sender.date)
+        thuStartTime.text = AppState.sharedInstance.activeSpot.thuStartTime
     }
     
     @objc func thuEndDatePickerValueChanged(_ sender: UIDatePicker) {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSTIX")
         dateFormatter.dateFormat = "hh:mm a"
-//        AppState.sharedInstance.activeSpot.thuEndTime = dateFormatter.string(from: sender.date)
-//        thuEndTime.text = AppState.sharedInstance.activeSpot.thuEndTime
-        AppState.sharedInstance.dict_spot.setValue(dateFormatter.string(from: sender.date), forKey: "thuEndTime")
-        thuEndTime.text  = AppState.sharedInstance.dict_spot.value(forKey: "thuEndTime") as? String
+        AppState.sharedInstance.activeSpot.thuEndTime = dateFormatter.string(from: sender.date)
+        thuEndTime.text = AppState.sharedInstance.activeSpot.thuEndTime
     }
     
     @objc func thuSwitchStateChanged(switchState: UISwitch) {
-
-         AppState.sharedInstance.dict_spot.setValue(switchState.isOn, forKey: "thuswitch")
+        AppState.sharedInstance.activeSpot.thuOn = switchState.isOn
         
         if switchState.isOn {
-
-            AppState.sharedInstance.dict_spot.setValue("12:00 PM", forKey: "thuStartTime")
-            AppState.sharedInstance.dict_spot.setValue("12:00 AM", forKey: "thuEndTime")
+            AppState.sharedInstance.activeSpot.thuStartTime = "12:00 AM"
+            AppState.sharedInstance.activeSpot.thuEndTime = "12:00 PM"
         }
         else {
-
-            AppState.sharedInstance.dict_spot.setValue("", forKey: "thuStartTime")
-            AppState.sharedInstance.dict_spot.setValue("", forKey: "thuEndTime")
+            AppState.sharedInstance.activeSpot.thuStartTime = ""
+            AppState.sharedInstance.activeSpot.thuEndTime = ""
         }
         
-
-        thuStartTime.isEnabled = (AppState.sharedInstance.dict_spot.value(forKey: "thuswitch")  as? Bool)!
-        thuEndTime.isEnabled = (AppState.sharedInstance.dict_spot.value(forKey: "thuswitch")  as? Bool)!
-        thuStartTime.text = AppState.sharedInstance.dict_spot.value(forKey: "thuStartTime") as? String
-        thuEndTime.text = AppState.sharedInstance.dict_spot.value(forKey: "thuEndTime") as? String
+        thuStartTime.isEnabled = AppState.sharedInstance.activeSpot.thuOn
+        thuEndTime.isEnabled = AppState.sharedInstance.activeSpot.thuOn
+        thuStartTime.text = AppState.sharedInstance.activeSpot.thuStartTime
+        thuEndTime.text = AppState.sharedInstance.activeSpot.thuEndTime
     }
     
     // Friday
@@ -397,41 +335,34 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate{
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         dateFormatter.dateFormat = "hh:mm a"
-//        AppState.sharedInstance.activeSpot.friStartTime = dateFormatter.string(from: sender.date)
-//        friStartTime.text = AppState.sharedInstance.activeSpot.friStartTime
-        AppState.sharedInstance.dict_spot.setValue(dateFormatter.string(from: sender.date), forKey: "friStartTime")
-        friStartTime.text = AppState.sharedInstance.dict_spot.value(forKey: "friStartTime") as? String
+        AppState.sharedInstance.activeSpot.friStartTime = dateFormatter.string(from: sender.date)
+        friStartTime.text = AppState.sharedInstance.activeSpot.friStartTime
     }
     
     @objc func friEndDatePickerValueChanged(_ sender: UIDatePicker) {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSTIX")
         dateFormatter.dateFormat = "hh:mm a"
-//        AppState.sharedInstance.activeSpot.friEndTime = dateFormatter.string(from: sender.date)
-//        friEndTime.text = AppState.sharedInstance.activeSpot.friEndTime
-        AppState.sharedInstance.dict_spot.setValue(dateFormatter.string(from: sender.date), forKey: "friEndTime")
-        friEndTime.text = AppState.sharedInstance.dict_spot.value(forKey: "friEndTime") as? String
+        AppState.sharedInstance.activeSpot.friEndTime = dateFormatter.string(from: sender.date)
+        friEndTime.text = AppState.sharedInstance.activeSpot.friEndTime
     }
     
     @objc func friSwitchStateChanged(switchState: UISwitch) {
-
-        AppState.sharedInstance.dict_spot.setValue(switchState.isOn, forKey: "friswitch")
+        AppState.sharedInstance.activeSpot.friOn = switchState.isOn
         
         if switchState.isOn {
-
-            AppState.sharedInstance.dict_spot.setValue("12:00 PM", forKey: "friStartTime")
-            AppState.sharedInstance.dict_spot.setValue("12:00 AM", forKey: "friEndTime")
+            AppState.sharedInstance.activeSpot.friStartTime = "12:00 AM"
+            AppState.sharedInstance.activeSpot.friEndTime = "12:00 PM"
         }
         else {
-
-            AppState.sharedInstance.dict_spot.setValue("", forKey: "friStartTime")
-            AppState.sharedInstance.dict_spot.setValue("", forKey: "friEndTime")
+            AppState.sharedInstance.activeSpot.friStartTime = ""
+            AppState.sharedInstance.activeSpot.friEndTime = ""
         }
         
-        friStartTime.isEnabled = (AppState.sharedInstance.dict_spot.value(forKey: "friswitch")  as? Bool)!
-        friEndTime.isEnabled = (AppState.sharedInstance.dict_spot.value(forKey: "friswitch") as? Bool)!
-        friStartTime.text = AppState.sharedInstance.dict_spot.value(forKey: "friStartTime") as? String
-        friEndTime.text = AppState.sharedInstance.dict_spot.value(forKey: "friEndTime") as? String
+        friStartTime.isEnabled = AppState.sharedInstance.activeSpot.friOn
+        friEndTime.isEnabled = AppState.sharedInstance.activeSpot.friOn
+        friStartTime.text = AppState.sharedInstance.activeSpot.friStartTime
+        friEndTime.text = AppState.sharedInstance.activeSpot.friEndTime
     }
     
     // Saturday
@@ -440,41 +371,34 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate{
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         dateFormatter.dateFormat = "hh:mm a"
-     //   AppState.sharedInstance.activeSpot.satStartTime = dateFormatter.string(from: sender.date)
-        //satStartTime.text = AppState.sharedInstance.activeSpot.satStartTime
-        
-        AppState.sharedInstance.dict_spot.setValue(dateFormatter.string(from: sender.date), forKey: "satStartTime")
-        friStartTime.text = AppState.sharedInstance.dict_spot.value(forKey: "satStartTime") as? String
+        AppState.sharedInstance.activeSpot.satStartTime = dateFormatter.string(from: sender.date)
+        satStartTime.text = AppState.sharedInstance.activeSpot.satStartTime
     }
     
     @objc func satEndDatePickerValueChanged(_ sender: UIDatePicker) {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSTIX")
         dateFormatter.dateFormat = "hh:mm a"
-
-        AppState.sharedInstance.dict_spot.setValue(dateFormatter.string(from: sender.date), forKey: "satEndTime")
-        satEndTime.text = AppState.sharedInstance.dict_spot.value(forKey: "satEndTime") as? String
+        AppState.sharedInstance.activeSpot.satEndTime = dateFormatter.string(from: sender.date)
+        satEndTime.text = AppState.sharedInstance.activeSpot.satEndTime
     }
     
     @objc func satSwitchStateChanged(switchState: UISwitch) {
-      //  AppState.sharedInstance.activeSpot.satOn = switchState.isOn
-           AppState.sharedInstance.dict_spot.setValue(switchState.isOn, forKey: "satswitch")
+        AppState.sharedInstance.activeSpot.satOn = switchState.isOn
         
         if switchState.isOn {
-
-      AppState.sharedInstance.dict_spot.setValue("12:00 PM", forKey: "satStartTime")
-      AppState.sharedInstance.dict_spot.setValue("12:00 AM", forKey: "satEndTime")
+            AppState.sharedInstance.activeSpot.satStartTime = "12:00 AM"
+            AppState.sharedInstance.activeSpot.satEndTime = "12:00 PM"
         }
         else {
-
-            AppState.sharedInstance.dict_spot.setValue("", forKey: "satStartTime")
-            AppState.sharedInstance.dict_spot.setValue("", forKey: "satEndTime")
+            AppState.sharedInstance.activeSpot.satStartTime = ""
+            AppState.sharedInstance.activeSpot.satEndTime = ""
         }
-
-        satStartTime.isEnabled = (AppState.sharedInstance.dict_spot.value(forKey: "satswitch") as? Bool)!
-        satEndTime.isEnabled = (AppState.sharedInstance.dict_spot.value(forKey: "satswitch") as? Bool)!
-        satStartTime.text = AppState.sharedInstance.dict_spot.value(forKey: "satStartTime") as? String
-        satEndTime.text = AppState.sharedInstance.dict_spot.value(forKey: "satEndTime") as? String
+        
+        satStartTime.isEnabled = AppState.sharedInstance.activeSpot.satOn
+        satEndTime.isEnabled = AppState.sharedInstance.activeSpot.satOn
+        satStartTime.text = AppState.sharedInstance.activeSpot.satStartTime
+        satEndTime.text = AppState.sharedInstance.activeSpot.satEndTime
     }
     
     // Sunday
@@ -483,42 +407,34 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate{
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         dateFormatter.dateFormat = "hh:mm a"
-//        AppState.sharedInstance.activeSpot.sunStartTime = dateFormatter.string(from: sender.date)
-//        sunStartTime.text = AppState.sharedInstance.activeSpot.sunStartTime
-        
-        AppState.sharedInstance.dict_spot.setValue(dateFormatter.string(from: sender.date), forKey: "sunStartTime")
-        sunStartTime.text = AppState.sharedInstance.dict_spot.value(forKey: "sunStartTime") as? String
+        AppState.sharedInstance.activeSpot.sunStartTime = dateFormatter.string(from: sender.date)
+        sunStartTime.text = AppState.sharedInstance.activeSpot.sunStartTime
     }
     
     @objc func sunEndDatePickerValueChanged(_ sender: UIDatePicker) {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSTIX")
         dateFormatter.dateFormat = "hh:mm a"
-//        AppState.sharedInstance.activeSpot.sunEndTime = dateFormatter.string(from: sender.date)
-//        sunEndTime.text = AppState.sharedInstance.activeSpot.sunEndTime
-        AppState.sharedInstance.dict_spot.setValue(dateFormatter.string(from: sender.date), forKey: "sunEndTime")
-        sunEndTime.text = AppState.sharedInstance.dict_spot.value(forKey: "sunEndTime") as! String
+        AppState.sharedInstance.activeSpot.sunEndTime = dateFormatter.string(from: sender.date)
+        sunEndTime.text = AppState.sharedInstance.activeSpot.sunEndTime
     }
     
     @objc func sunSwitchStateChanged(switchState: UISwitch) {
-     //   AppState.sharedInstance.activeSpot.sunOn = switchState.isOn
-        
-          AppState.sharedInstance.dict_spot.setValue(switchState.isOn, forKey: "sunswitch")
+        AppState.sharedInstance.activeSpot.sunOn = switchState.isOn
         
         if switchState.isOn {
-  AppState.sharedInstance.dict_spot.setValue("12:00 PM", forKey: "sunStartTime")
-              AppState.sharedInstance.dict_spot.setValue("12:00 AM", forKey: "sunEndTime")
+            AppState.sharedInstance.activeSpot.sunStartTime = "12:00 AM"
+            AppState.sharedInstance.activeSpot.sunEndTime = "12:00 PM"
         }
         else {
-
-            AppState.sharedInstance.dict_spot.setValue("", forKey: "sunStartTime")
-            AppState.sharedInstance.dict_spot.setValue("", forKey: "sunEndTime")
+            AppState.sharedInstance.activeSpot.sunStartTime = ""
+            AppState.sharedInstance.activeSpot.sunEndTime = ""
         }
         
-        sunStartTime.isEnabled = AppState.sharedInstance.dict_spot.value(forKey: "sunswitch") as! Bool
-        sunEndTime.isEnabled = AppState.sharedInstance.dict_spot.value(forKey: "sunswitch") as! Bool
-        sunStartTime.text = AppState.sharedInstance.dict_spot.value(forKey: "sunStartTime") as? String
-        sunEndTime.text = AppState.sharedInstance.dict_spot.value(forKey: "sunEndTime") as? String
+        sunStartTime.isEnabled = AppState.sharedInstance.activeSpot.sunOn
+        sunEndTime.isEnabled = AppState.sharedInstance.activeSpot.sunOn
+        sunStartTime.text = AppState.sharedInstance.activeSpot.sunStartTime
+        sunEndTime.text = AppState.sharedInstance.activeSpot.sunEndTime
     }
-
+    
 }

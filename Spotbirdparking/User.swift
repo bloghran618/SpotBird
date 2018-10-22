@@ -56,6 +56,9 @@ class User {
         }
         return
     }
+    
+    
+    
      /*
     public func setFirstName(name: String) {
         self.firstName = name
