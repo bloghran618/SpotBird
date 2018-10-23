@@ -17,7 +17,7 @@ target 'Spotbirdparking' do
   pod 'GooglePlacePicker'
   pod 'GooglePlaces'
   pod 'IQKeyboardManagerSwift', '~> 5.0'
-  
+  pod 'JTAppleCalendar', '~> 7.0'  
 
 
   target 'SpotbirdparkingTests' do
