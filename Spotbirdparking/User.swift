@@ -14,10 +14,11 @@ class User {
     
     var firstName: String
     var lastName: String
-    var profileImage: UIImage?
+    var profileImage: String
     var cars: [Car]
     
-    init?(firstName: String, lastName: String, profileImage: UIImage, cars: [Car]) {
+    
+    init?(firstName: String, lastName: String, profileImage: String, cars: [Car]) {
         self.firstName = firstName
         self.lastName = lastName
         self.profileImage = profileImage
@@ -27,7 +28,7 @@ class User {
     init() {
         self.firstName = ""
         self.lastName = ""
-        self.profileImage = UIImage.init(named: "empytProfile")
+        self.profileImage = ""
         self.cars = []
         }
     
@@ -56,19 +57,23 @@ class User {
         return
     }
     
+    
+    
+     /*
     public func setFirstName(name: String) {
         self.firstName = name
-        let firstNameRef = AppState.appStateRoot.child("user").child("firstName")
+        let firstNameRef = AppState.appStateRoot.child("User/").child(AppState.sharedInstance.userid)
         firstNameRef.setValue(name)
     }
     
     public func setLastName(name: String) {
         self.lastName = name
-        let lastNameRef = AppState.appStateRoot.child("user").child("lastName")
+        let lastNameRef = AppState.appStateRoot.child("User/").child(AppState.sharedInstance.userid)
         lastNameRef.setValue(name)
     }
     
-    public func setProfileImage(profile: UIImage) {
+   
+    public func setProfileImage(profile: str) {
         var data = Data()
         data = UIImagePNGRepresentation(profile)!
         let filePath = "profilePicture"
@@ -92,5 +97,7 @@ class User {
         
         self.profileImage = profile
     }
+    
+    */
     
 }

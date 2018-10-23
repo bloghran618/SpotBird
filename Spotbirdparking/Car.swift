@@ -13,13 +13,13 @@ class Car {
     var make: String
     var model: String
     var year: String?
-  //  var carImage: UIImage?
-    var carImage: String?
+//  var carImage: UIImage?
+    var carImage: String
     var isDefault: Bool?
-    var userid: String?
-
-    
-    init?(make: String, model: String, year: String, carImage: String,userid: String, isDefault: Bool) {
+    var car_uid: String?
+   
+   
+    init?(make: String, model: String, year: String, carImage: String, isDefault: Bool,car_id:String) {
         // Make sure make and model are defined
         if make.isEmpty || model.isEmpty {
             return nil
@@ -30,6 +30,7 @@ class Car {
         self.year = year
         self.carImage = carImage
         self.isDefault = isDefault
-        self.userid = userid
+        car_uid = car_id
+       
     }
 }

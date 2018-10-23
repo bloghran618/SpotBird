@@ -16,9 +16,13 @@ class Login_ViewController: UIViewController {
     @IBOutlet weak var txt_pass: UITextField!
 
    var refArtists: DatabaseReference!
-   
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        txt_uname.autocorrectionType  = .no
+        txt_pass.autocorrectionType = .no
+                  view.endEditing(true)
+      
    }
 
     override func didReceiveMemoryWarning() {
@@ -31,9 +35,9 @@ class Login_ViewController: UIViewController {
     }
     
 @IBAction func btn_login(_ sender: Any) {
-        
+          showHud(message: "Login")
         let ref = Database.database().reference().child("User").queryOrdered(byChild: "uname").queryEqual(toValue : txt_uname.text!)
-        ref.observe(.value, with:{ (snapshot: DataSnapshot) in
+           ref.observe(.value, with:{ (snapshot: DataSnapshot) in
             
          if snapshot.exists()  {
                 
@@ -51,6 +55,7 @@ class Login_ViewController: UIViewController {
 //                        //let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
 //                        let defaultAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) {
 //                            UIAlertAction in
+                      self.hideHUD()
                             let appDelegate = UIApplication.shared.delegate! as! AppDelegate
                             
                             let initialViewController = self.storyboard!.instantiateViewController(withIdentifier: "myTabbarControllerID")
@@ -62,6 +67,7 @@ class Login_ViewController: UIViewController {
 //                        self.present(alertController, animated: true, completion: nil)
                         
                     }else {
+                        
                         let alertController = UIAlertController(title: "Error", message: "Incorrect Password..", preferredStyle: .alert)
                        let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
                          alertController.addAction(defaultAction)
@@ -71,6 +77,7 @@ class Login_ViewController: UIViewController {
                 }
             }
             else {
+           
                 let alertController = UIAlertController(title: "Error", message: "Incorrect User Name.", preferredStyle: .alert)
                  let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
                 alertController.addAction(defaultAction)
@@ -78,6 +85,7 @@ class Login_ViewController: UIViewController {
             }
         })
       }
+  
   
 
 }

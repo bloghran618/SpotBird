@@ -25,75 +25,68 @@ class PriceViewController: UIViewController, UITextFieldDelegate,CLLocationManag
     let dailyPricingString = "7.00"
     let weeklyPricingString = "35.00"
     let monthlyPricingString = "105.00"
+    var controller = " "
     
     var refArtists: DatabaseReference!
     var locationManager = CLLocationManager()
+ 
     
     override func viewDidLoad() {
         super.viewDidLoad()
- AppState.sharedInstance.dict_spot.setValue(AppState.sharedInstance.lat, forKey: "user_lat")
-            AppState.sharedInstance.dict_spot.setValue(AppState.sharedInstance.long, forKey: "user_long")
-            
-       // }
-        
         
         self.hideKeyboardWhenTappedAround()
+        
         hourlyPricing.keyboardType = UIKeyboardType.decimalPad
         dailyPricing.keyboardType = UIKeyboardType.decimalPad
         weeklyPricing.keyboardType = UIKeyboardType.decimalPad
         monthlyPricing.keyboardType = UIKeyboardType.decimalPad
         
-       AppState.sharedInstance.dict_spot.setValue(weeklyPricingOn.isOn, forKey: "switch_weekly")
-        AppState.sharedInstance.dict_spot.setValue(monthlyPricingOn.isOn, forKey: "switch_monthly")
+        AppState.sharedInstance.activeSpot.applyCalculatedPricing()
+        hourlyPricing.text = AppState.sharedInstance.activeSpot.hourlyPricing
+        dailyPricing.text = AppState.sharedInstance.activeSpot.dailyPricing
+        weeklyPricing.text = AppState.sharedInstance.activeSpot.weeklyPricing
+        monthlyPricing.text = AppState.sharedInstance.activeSpot.monthlyPricing
+        
         weeklyPricingOn.addTarget(self, action: #selector(weeklyPricingSwitchChanged), for: UIControlEvents.valueChanged)
         monthlyPricingOn.addTarget(self, action: #selector(monthlyPricingSwitchChanged), for: UIControlEvents.valueChanged)
         
         AppState.sharedInstance.activeSpot.pringSpotCliffNotes()
+        
         // Do any additional setup after loading the view.
-        
-        hourlyPricing.text = hourlyPricingString
-        dailyPricing.text = dailyPricingString
-        weeklyPricing.text = weeklyPricingString
-        monthlyPricing.text = monthlyPricingString
-        
-        AppState.sharedInstance.dict_spot.setValue(hourlyPricingString, forKey: "hourlyPricing")
-        AppState.sharedInstance.dict_spot.setValue(dailyPricingString, forKey: "dailyPricing")
-        AppState.sharedInstance.dict_spot.setValue(weeklyPricingString, forKey: "weeklyPricing")
-        AppState.sharedInstance.dict_spot.setValue(monthlyPricingString, forKey: "monthlyPricing")
     }
-    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
         if (textField == hourlyPricing) {
-            AppState.sharedInstance.dict_spot.setValue(hourlyPricing.text!, forKey: "hourlyPricing")
+            AppState.sharedInstance.activeSpot.hourlyPricing = hourlyPricing.text!
         }
         else if (textField == dailyPricing) {
-             AppState.sharedInstance.dict_spot.setValue(dailyPricing.text!, forKey: "dailyPricing")
+            AppState.sharedInstance.activeSpot.dailyPricing = dailyPricing.text!
         }
         else if (textField == weeklyPricing) {
-             AppState.sharedInstance.dict_spot.setValue(weeklyPricing.text!, forKey: "weeklyPricing")
+            AppState.sharedInstance.activeSpot.weeklyPricing = weeklyPricing.text!
         }
         else if (textField == monthlyPricing) {
-            AppState.sharedInstance.dict_spot.setValue(monthlyPricing.text!, forKey: "monthlyPricing")
+            AppState.sharedInstance.activeSpot.monthlyPricing = monthlyPricing.text!
         }
     }
     
     func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
         if (textField == hourlyPricing) {
-             AppState.sharedInstance.dict_spot.setValue(hourlyPricing.text!, forKey: "hourlyPricing")
+            AppState.sharedInstance.activeSpot.hourlyPricing = hourlyPricing.text!
         }
         else if (textField == dailyPricing) {
-            AppState.sharedInstance.dict_spot.setValue(dailyPricing.text!, forKey: "dailyPricing")
+            AppState.sharedInstance.activeSpot.dailyPricing = dailyPricing.text!
         }
         else if (textField == weeklyPricing) {
-            AppState.sharedInstance.dict_spot.setValue(weeklyPricing.text!, forKey: "weeklyPricing")
+            AppState.sharedInstance.activeSpot.weeklyPricing = weeklyPricing.text!
         }
         else if (textField == monthlyPricing) {
-             AppState.sharedInstance.dict_spot.setValue(monthlyPricing.text!, forKey: "monthlyPricing")
+            AppState.sharedInstance.activeSpot.monthlyPricing = monthlyPricing.text!
         }
         return true
     }
@@ -107,64 +100,172 @@ class PriceViewController: UIViewController, UITextFieldDelegate,CLLocationManag
     }
     
     @objc func weeklyPricingSwitchChanged(switchState: UISwitch) {
-        AppState.sharedInstance.dict_spot.setValue(switchState.isOn, forKey: "switch_weekly")
+        AppState.sharedInstance.activeSpot.weeklyOn = switchState.isOn
         
         if switchState.isOn {
-            AppState.sharedInstance.dict_spot.setValue(weeklyPricingString, forKey: "weeklyPricing")
-            weeklyPricing.text = weeklyPricingString
+            AppState.sharedInstance.activeSpot.weeklyPricing = AppState.sharedInstance.activeSpot.calculateReccomendedPricing()[2]
+            weeklyPricing.text = AppState.sharedInstance.activeSpot.weeklyPricing
         }
         else {
-          weeklyPricing.text = ""
+            AppState.sharedInstance.activeSpot.weeklyPricing = ""
+            weeklyPricing.text = ""
         }
         
         weeklyPricing.isEnabled = switchState.isOn
     }
     
     @objc func monthlyPricingSwitchChanged(switchState: UISwitch) {
-         AppState.sharedInstance.dict_spot.setValue(switchState.isOn, forKey: "switch_monthly")
+        AppState.sharedInstance.activeSpot.monthlyOn = switchState.isOn
         
         if switchState.isOn {
-            AppState.sharedInstance.dict_spot.setValue(monthlyPricingString, forKey: "monthlyPricing")
-            monthlyPricing.text = monthlyPricingString
-            
+            AppState.sharedInstance.activeSpot.monthlyPricing = AppState.sharedInstance.activeSpot.calculateReccomendedPricing()[3]
+            monthlyPricing.text = AppState.sharedInstance.activeSpot.monthlyPricing
         }
         else {
-            AppState.sharedInstance.dict_spot.setValue("", forKey: "monthlyPricing")
+            AppState.sharedInstance.activeSpot.monthlyPricing = ""
             monthlyPricing.text = ""
         }
         
         monthlyPricing.isEnabled = switchState.isOn
     }
     
-    /*
-     // MARK: - Navigation
-     
-     // In a storyboard-based application, you will often want to do a little preparation before navigation
-     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-     // Get the new view controller using segue.destinationViewController.
-     // Pass the selected object to the new view controller.
-     }
-     */
-    
     @IBAction func postSpot(_ sender: Any) {
-        print(AppState.sharedInstance.dict_spot)
+        
+        if AppState.sharedInstance.activeSpot.spot_id == ""
+        {
+            // ADD NEW SPOTS
+            Add_newSpotS()
+        }
+        else {
+            self.refArtists = Database.database().reference().child("User").child(AppState.sharedInstance.userid)
+            
+            refArtists.child("MySpots").observeSingleEvent(of: .value, with: { (snapshot) in
+                print(AppState.sharedInstance.activeSpot.spot_id)
+                print(snapshot)
+                
+                if snapshot.hasChild(AppState.sharedInstance.activeSpot.spot_id){
+                    // Update SPOTS
+                    self.Update_SpotS()
+                }else{
+                    // ADD NEW SPOTS
+                    self.Add_newSpotS()
+                }
+            })
+        }
+    }
+    
+    // Update SPOTS
+    func Update_SpotS()
+    {
+        showHud(message: "Update")
+        let img_url = (AppState.sharedInstance.activeSpot.spotImage)
+        print(img_url)
+        let startIndex = img_url.index((img_url.startIndex), offsetBy: 80)
+        let endIndex = img_url.index((img_url.startIndex), offsetBy: 84)
+        let imgname =  String(img_url[startIndex...endIndex])
+        print(imgname)
         
         var Image = UIImageView()
-        Image.image = AppState.sharedInstance.dict_spot.value(forKey: "image") as! UIImage
+        Image.image = AppState.sharedInstance.activeSpot.spotImage1
+        
+        
+        var imageReference: StorageReference {
+            return Storage.storage().reference().child("spot")
+        }
+        
+        guard let imageData = UIImageJPEGRepresentation(Image.image!, 0.5) else { return }
+        let uploadImageRef = imageReference.child(String(imgname))
+        
+        let uploadTask = uploadImageRef.putData(imageData, metadata: nil) { (metadata, error) in
+            print("UPLOAD TASK FINISHED")
+            print(metadata ?? "NO METADATA")
+            print(error ?? "NO ERROR")
+            
+            uploadImageRef.downloadURL(completion: { (url, error) in
+                if let error = error {
+                    print(error.localizedDescription)
+                    return
+                }
+                if let url = url?.absoluteString {
+                    let fullURL = url
+                    print(fullURL)
+                    // Public
+                    self.refArtists = Database.database().reference().child("All_Spots").child(AppState.sharedInstance.userid).child(AppState.sharedInstance.activeSpot.spot_id)
+                    self.updatequery(data:  self.refArtists,url: fullURL)
+                    
+                    // Private
+                    self.refArtists = Database.database().reference().child("User").child(AppState.sharedInstance.userid).child("MySpots").child(AppState.sharedInstance.activeSpot.spot_id);
+                    self.updatequery(data:  self.refArtists,url: fullURL)
+                    
+                }
+            })
+        }
+  }
+    
+    func updatequery(data:DatabaseReference,url:String) {
+        
+        self.refArtists.updateChildValues([
+            "image":url,
+            "description":AppState.sharedInstance.activeSpot.description,
+            "address":AppState.sharedInstance.activeSpot.address,
+            "city":AppState.sharedInstance.activeSpot.town,
+            "state":AppState.sharedInstance.activeSpot.state,
+            "zipcode":AppState.sharedInstance.activeSpot.zipCode,
+            
+            "monStartTime":AppState.sharedInstance.activeSpot.monStartTime,
+            "monEndTime":AppState.sharedInstance.activeSpot.monEndTime,
+            "tueStartTime":AppState.sharedInstance.activeSpot.tueStartTime,
+            "tueEndTime":AppState.sharedInstance.activeSpot.tueEndTime,
+            "wedStartTime":AppState.sharedInstance.activeSpot.wedStartTime,
+            "wedEndTime":AppState.sharedInstance.activeSpot.wedEndTime,
+            "thuStartTime":AppState.sharedInstance.activeSpot.thuStartTime,
+            "thuEndTime":AppState.sharedInstance.activeSpot.thuEndTime,
+            "friStartTime":AppState.sharedInstance.activeSpot.friStartTime,
+            "friEndTime":AppState.sharedInstance.activeSpot.friEndTime,
+            "satStartTime":AppState.sharedInstance.activeSpot.satStartTime,
+            "satEndTime":AppState.sharedInstance.activeSpot.satEndTime,
+            "sunStartTime":AppState.sharedInstance.activeSpot.sunStartTime,
+            "sunEndTime":AppState.sharedInstance.activeSpot.sunEndTime,
+            "dailyPricing":AppState.sharedInstance.activeSpot.dailyPricing,
+            "hourlyPricing":AppState.sharedInstance.activeSpot.hourlyPricing,
+            "weeklyPricing":AppState.sharedInstance.activeSpot.hourlyPricing,
+            "monthlyPricing":AppState.sharedInstance.activeSpot.hourlyPricing,
+            "switch_weekly":AppState.sharedInstance.activeSpot.weeklyOn,
+            "switch_monthly":AppState.sharedInstance.activeSpot.monthlyOn,
+            "user_lat":AppState.sharedInstance.lat,
+            "user_long":AppState.sharedInstance.long,
+            "monswitch":AppState.sharedInstance.activeSpot.monOn,
+            "tueswitch":AppState.sharedInstance.activeSpot.tueOn,
+            "wedswitch":AppState.sharedInstance.activeSpot.wedOn,
+            "thuswitch":AppState.sharedInstance.activeSpot.thuOn,
+            "friswitch":AppState.sharedInstance.activeSpot.friOn,
+            "satswitch":AppState.sharedInstance.activeSpot.satOn,
+            "sunswitch":AppState.sharedInstance.activeSpot.sunOn,
+            ]){
+                (error:Error?, ref:DatabaseReference) in
+                if let error = error {
+                    print("Data could not be Update: \(error).")
+                     self.hideHUD()
+                } else {
+                    print("Data Update successfully!")
+                self.hideHUD()
+                }
+        }
+     }
+    
+    // ADD NEW SPOTS
+    func Add_newSpotS()
+    {
+        showHud(message: "Save")
+        var Image = UIImageView()
+        Image.image = AppState.sharedInstance.activeSpot.spotImage1
         
         var imageReference: StorageReference {
             return Storage.storage().reference().child("spot")
         }
         
         guard let image = Image.image else { return }
-        //        var imageData1 =  Data(UIImagePNGRepresentation(image)! )
-        //         print("***** Uncompressed Size \(imageData1.description) **** ")
-        
         guard let imageData = UIImageJPEGRepresentation(image, 0.5) else { return }
-        
-        //imageData = UIImageJPEGRepresentation(image!, 0.025)!
-        print("***** Compressed Size \(imageData.description) **** ")
-        
         let uploadImageRef = imageReference.child(randomStringWithLength(length: 5) as String)
         
         let uploadTask = uploadImageRef.putData(imageData, metadata: nil) { (metadata, error) in
@@ -180,55 +281,68 @@ class PriceViewController: UIViewController, UITextFieldDelegate,CLLocationManag
                 if let url = url?.absoluteString {
                     let fullURL = url
                     print(fullURL)
-                    self.refArtists = Database.database().reference().child("Spots");
-                     let key = self.refArtists.childByAutoId().key
-                     print( AppState.sharedInstance.dict_spot)
-                     let spots = ["id":AppState.sharedInstance.userid,
+                      self.refArtists = Database.database().reference().child("All_Spots")
+                    let key = self.refArtists.childByAutoId().key
+                    
+                    let spots = ["id":key,
                                  "image":fullURL,
-                                 "description":AppState.sharedInstance.dict_spot.value(forKey: "address") as! String,
-                                 "address":AppState.sharedInstance.dict_spot.value(forKey: "address") as! String,
-                                 "city":AppState.sharedInstance.dict_spot.value(forKey: "city") as! String,
-                                 "state":AppState.sharedInstance.dict_spot.value(forKey: "state") as! String,
-                                 "zipcode":AppState.sharedInstance.dict_spot.value(forKey: "zipcode") as! String,
+                                 "description":AppState.sharedInstance.activeSpot.description,
+                                 "address":AppState.sharedInstance.activeSpot.address,
+                                 "city":AppState.sharedInstance.activeSpot.town,
+                                 "state":AppState.sharedInstance.activeSpot.state,
+                                 "zipcode":AppState.sharedInstance.activeSpot.zipCode,
                                  
-                                 "monStartTime":AppState.sharedInstance.dict_spot.value(forKey: "monStartTime") as! String,
-                                 "monEndTime":AppState.sharedInstance.dict_spot.value(forKey: "monEndTime") as! String,
-                                 
-                                 "tueStartTime":AppState.sharedInstance.dict_spot.value(forKey: "tueStartTime") as! String,
-                                 "tueEndTime":AppState.sharedInstance.dict_spot.value(forKey: "tueEndTime") as! String,
-                                 
-                                 "wedStartTime":AppState.sharedInstance.dict_spot.value(forKey: "wedStartTime") as! String,
-                                 "wedEndTime":AppState.sharedInstance.dict_spot.value(forKey: "wedEndTime") as! String,
-                                 
-                                 "thuStartTime":AppState.sharedInstance.dict_spot.value(forKey: "thuStartTime") as! String,
-                                 "thuEndTime":AppState.sharedInstance.dict_spot.value(forKey: "thuEndTime") as! String,
-                                 
-                                 "friStartTime":AppState.sharedInstance.dict_spot.value(forKey: "friStartTime") as! String,
-                                 "friEndTime":AppState.sharedInstance.dict_spot.value(forKey: "friEndTime") as! String,
-                                 
-                                 "satStartTime":AppState.sharedInstance.dict_spot.value(forKey: "satStartTime") as! String,
-                                 "satEndTime":AppState.sharedInstance.dict_spot.value(forKey: "satEndTime") as! String,
-                                 
-                                 "sunStartTime":AppState.sharedInstance.dict_spot.value(forKey: "sunStartTime") as! String,
-                                 "sunEndTime":AppState.sharedInstance.dict_spot.value(forKey: "sunEndTime") as! String,
-                                 
-                                 "dailyPricing":AppState.sharedInstance.dict_spot.value(forKey: "dailyPricing") as! String,
-                                 "hourlyPricing":AppState.sharedInstance.dict_spot.value(forKey: "hourlyPricing") as! String,
-                                 "weeklyPricing":AppState.sharedInstance.dict_spot.value(forKey: "weeklyPricing") as! String,
-                                 "monthlyPricing":AppState.sharedInstance.dict_spot.value(forKey: "monthlyPricing") as! String,
-                                 "switch_weekly":AppState.sharedInstance.dict_spot.value(forKey: "switch_weekly") as! Bool,
-                                 "switch_monthly":AppState.sharedInstance.dict_spot.value(forKey: "switch_monthly") as! Bool,
-                                 "user_lat":AppState.sharedInstance.dict_spot.value(forKey: "user_lat") as!  NSNumber,
-                                 "user_long":AppState.sharedInstance.dict_spot.value(forKey: "user_long") as!  NSNumber
-                        ] as [String : Any]
+                                 "monStartTime":AppState.sharedInstance.activeSpot.monStartTime,
+                                 "monEndTime":AppState.sharedInstance.activeSpot.monEndTime,
+                                 "tueStartTime":AppState.sharedInstance.activeSpot.tueStartTime,
+                                 "tueEndTime":AppState.sharedInstance.activeSpot.tueEndTime,
+                                 "wedStartTime":AppState.sharedInstance.activeSpot.wedStartTime,
+                                 "wedEndTime":AppState.sharedInstance.activeSpot.wedEndTime,
+                                 "thuStartTime":AppState.sharedInstance.activeSpot.thuStartTime,
+                                 "thuEndTime":AppState.sharedInstance.activeSpot.thuEndTime,
+                                 "friStartTime":AppState.sharedInstance.activeSpot.friStartTime,
+                                 "friEndTime":AppState.sharedInstance.activeSpot.friEndTime,
+                                 "satStartTime":AppState.sharedInstance.activeSpot.satStartTime,
+                                 "satEndTime":AppState.sharedInstance.activeSpot.satEndTime,
+                                 "sunStartTime":AppState.sharedInstance.activeSpot.sunStartTime,
+                                 "sunEndTime":AppState.sharedInstance.activeSpot.sunEndTime,
+                                 "dailyPricing":AppState.sharedInstance.activeSpot.dailyPricing,
+                                 "hourlyPricing":AppState.sharedInstance.activeSpot.hourlyPricing,
+                                 "weeklyPricing":AppState.sharedInstance.activeSpot.hourlyPricing,
+                                 "monthlyPricing":AppState.sharedInstance.activeSpot.hourlyPricing,
+                                 "switch_weekly":AppState.sharedInstance.activeSpot.weeklyOn,
+                                 "switch_monthly":AppState.sharedInstance.activeSpot.monthlyOn,
+                                 "user_lat":AppState.sharedInstance.lat,
+                                 "user_long":AppState.sharedInstance.long,
+                                 "monswitch":AppState.sharedInstance.activeSpot.monOn,
+                                 "tueswitch":AppState.sharedInstance.activeSpot.tueOn,
+                                 "wedswitch":AppState.sharedInstance.activeSpot.wedOn,
+                                 "thuswitch":AppState.sharedInstance.activeSpot.thuOn,
+                                 "friswitch":AppState.sharedInstance.activeSpot.friOn,
+                                 "satswitch":AppState.sharedInstance.activeSpot.satOn,
+                                 "sunswitch":AppState.sharedInstance.activeSpot.sunOn,
+                                 ] as [String : Any]
                     
+                    print(spots)
                     
+                    self.refArtists = Database.database().reference().child("All_Spots")
                     self.refArtists.child(key!).setValue(spots)
                     
+                    self.refArtists = Database.database().reference().child("User").child(AppState.sharedInstance.userid).child("MySpots");
+                    self.refArtists.child(key!).setValue(spots){
+                        (error:Error?, ref:DatabaseReference) in
+                        if let error = error {
+                            print("Data could not be saved: \(error).")
+                             self.hideHUD()
+                        } else {
+                            print("Data saved successfully!")
+                         self.hideHUD()
+                           
+                        }
+                    }
+                    
                 }
-                
-            })
-            
+             })
         }
         
         uploadTask.observe(.progress) { (snapshot) in
@@ -236,12 +350,10 @@ class PriceViewController: UIViewController, UITextFieldDelegate,CLLocationManag
         }
         
         uploadTask.resume()
-        
-        
-        //        AppState.sharedInstance.addActiveSpot()
         let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController];
         self.navigationController!.popToViewController(viewControllers[viewControllers.count - 5], animated: true);
     }
+    
     
     func randomStringWithLength(length: Int) -> NSString {
         let characters: NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
@@ -254,6 +366,6 @@ class PriceViewController: UIViewController, UITextFieldDelegate,CLLocationManag
         }
         return randomString
     }
-    
-    
+
 }
+

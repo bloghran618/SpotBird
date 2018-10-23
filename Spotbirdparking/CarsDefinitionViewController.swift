@@ -10,6 +10,7 @@ import UIKit
 import Photos
 import Firebase
 
+
 class CarsDefinitionViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet weak var Image: UIImageView!
@@ -22,6 +23,7 @@ class CarsDefinitionViewController: UIViewController, UITextFieldDelegate, UIIma
     var car: Car?
     var CarImagePicker = UIImagePickerController()
     var refArtists: DatabaseReference!
+    var add = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -39,11 +41,12 @@ class CarsDefinitionViewController: UIViewController, UITextFieldDelegate, UIIma
         if let car = car {
             navigationItem.title = "Edit Car"
            
-            Image.sd_setImage(with: URL(string: car.carImage!), placeholderImage: UIImage(named: "placeholder.png"))
+            Image.sd_setImage(with: URL(string: car.carImage), placeholderImage: UIImage(named: "placeholder.png"))
             Make.text = car.make
             Model.text = car.model
             Year.text = car.year
             Default.isChecked = car.isDefault ?? false
+            print(car.car_uid)
         }
         else {
             Image.image = UIImage(named: "EmptyCar")
@@ -51,8 +54,8 @@ class CarsDefinitionViewController: UIViewController, UITextFieldDelegate, UIIma
         }
         
         updateSaveButtonState()
+    
         
-        // Do any additional setup after loading the view.
     }
    
     
@@ -97,20 +100,6 @@ class CarsDefinitionViewController: UIViewController, UITextFieldDelegate, UIIma
         alert.addAction(UIAlertAction(title: "Gallery", style: .default, handler: { _ in self.openGallery()}))
         alert.addAction(UIAlertAction.init(title: "Cancel", style: .default, handler: nil))
         
-        /*If you want work actionsheet on ipad
-         then you have to use popoverPresentationController to present the actionsheet,
-         otherwise app will crash on iPad */
-        //TODO: Edit this block for UITapGestureRecognizer rather than button
-        /*
-         switch UIDevice.current.userInterfaceIdiom {
-         case .pad:
-         alert.popoverPresentationController?.sourceView = sender
-         alert.popoverPresentationController?.sourceRect = sender.bounds
-         alert.popoverPresentationController?.permittedArrowDirections = .up
-         default:
-         break
-         }
-         */
         self.present(alert, animated: true, completion: nil)
     }
     
@@ -200,6 +189,87 @@ class CarsDefinitionViewController: UIViewController, UITextFieldDelegate, UIIma
             return
         }
         
+        
+        if car?.car_uid == nil {
+          self.addnewcar()
+         }else {
+       
+    self.refArtists = Database.database().reference().child("User").child(AppState.sharedInstance.userid)
+        
+        refArtists.child("Cars").observeSingleEvent(of: .value, with: { (snapshot) in
+            print(self.car?.car_uid)
+            print(snapshot)
+            
+            if snapshot.hasChild((self.car?.car_uid)!){
+                //Update CAr
+               self.Update_car()
+             }else{
+                // Add New CAr
+                self.addnewcar()
+            }
+            })
+        }
+       }
+    
+     //Update CAr
+    func Update_car()
+    {
+        showHud(message: "Update")
+        let img_url = (car?.carImage)!
+        print(img_url)
+        let startIndex = img_url.index((img_url.startIndex), offsetBy: 80)
+        let endIndex = img_url.index((img_url.startIndex), offsetBy: 84)
+        let imgname =  String(img_url[startIndex...endIndex])
+        print(imgname)
+        
+    
+        var imageReference: StorageReference {
+            return Storage.storage().reference().child("car")
+        }
+        
+        guard let imageData = UIImageJPEGRepresentation(Image.image!, 0.5) else { return }
+        let uploadImageRef = imageReference.child(String(imgname))
+        
+        let uploadTask = uploadImageRef.putData(imageData, metadata: nil) { (metadata, error) in
+            print("UPLOAD TASK FINISHED")
+            print(metadata ?? "NO METADATA")
+            print(error ?? "NO ERROR")
+            
+            uploadImageRef.downloadURL(completion: { (url, error) in
+                if let error = error {
+                    print(error.localizedDescription)
+                    return
+                }
+                if let url = url?.absoluteString {
+                    let fullURL = url
+                    print(fullURL)
+ 
+                    let ref = Database.database().reference().child("User").child(AppState.sharedInstance.userid).child("Cars").child((self.car?.car_uid)!)
+                    
+                    ref.updateChildValues([
+                        "make":self.Make.text!,
+                        "model":self.Model.text!,
+                        "year": self.Year.text!,
+                        "image": fullURL,
+                        "default": self.Default.isChecked]){
+                            (error:Error?, ref:DatabaseReference) in
+                            if let error = error {
+                                print("Data could not be Update: \(error).")
+                                 self.hideHUD()
+                            } else {
+                                print("Data Update successfully!")
+                                self.hideHUD()
+                            }
+                    }
+                    }
+            })
+        }
+      }
+    
+    // Add New CAr
+    func addnewcar()
+    {
+        showHud(message: "Save")
         var imageReference: StorageReference {
             return Storage.storage().reference().child("car")
         }
@@ -222,20 +292,29 @@ class CarsDefinitionViewController: UIViewController, UITextFieldDelegate, UIIma
                     let fullURL = url
                     print(fullURL)
                     
-              self.refArtists = Database.database().reference().child("Cars");
-//
-                  let key = self.refArtists.childByAutoId().key
+                self.refArtists = Database.database().reference().child("User").child(AppState.sharedInstance.userid).child("Cars");
                     
-                  let cars = ["id":AppState.sharedInstance.userid,
-                                "make":self.Make.text!,
-                                "model":self.Model.text!,
-                                "year": self.Year.text!,
-                                "image": fullURL,
-                                "default": self.Default.isChecked
-                        
-                        ] as [String : Any]
+                    let key = self.refArtists.childByAutoId().key
                     
-                    self.refArtists.child(key!).setValue(cars)
+                    let cars = [  "make":self.Make.text!,
+                                  "model":self.Model.text!,
+                                  "year": self.Year.text!,
+                                  "image": fullURL,
+                                  "default": self.Default.isChecked
+                               ] as [String : Any]
+                    
+                    self.refArtists.child(key!).setValue(cars){
+                        (error:Error?, ref:DatabaseReference) in
+                        if let error = error {
+                            print("Data could not be saved: \(error).")
+                            self.hideHUD()
+                        } else {
+                            print("Data saved successfully!")
+                  self.hideHUD()
+                        }
+                    }
+                 
+                    
                     
                 }
                 
@@ -247,7 +326,8 @@ class CarsDefinitionViewController: UIViewController, UITextFieldDelegate, UIIma
         }
         
         uploadTask.resume()
-     }
+    }
+    
     
     func randomStringWithLength(length: Int) -> NSString {
         let characters: NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
@@ -263,5 +343,9 @@ class CarsDefinitionViewController: UIViewController, UITextFieldDelegate, UIIma
     public func setCar(thisCar: Car) {
         self.car = thisCar
     }
+   
+    
+   
+    
     
 }
