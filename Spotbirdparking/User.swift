@@ -57,6 +57,55 @@ class User {
         return
     }
     
+    // Get database to car
+    public func Get_UserProfile() {
+    var refArtists: DatabaseReference!
+        let ref = Database.database().reference().child("User").queryOrdered(byChild: "id").queryEqual(toValue : AppState.sharedInstance.userid)
+        ref.observe(.value, with:{ (snapshot: DataSnapshot) in
+            if snapshot.exists() {
+                
+                for snap in snapshot.children {
+                    let dict = ((snap as! DataSnapshot).value) as! NSDictionary
+                   
+                    
+                    AppState.sharedInstance.user.firstName = (dict.value(forKey: "fname") as? String)!
+                    AppState.sharedInstance.user.lastName = (dict.value(forKey: "lname") as? String)!
+                    AppState.sharedInstance.user.profileImage = (dict.value(forKey: "image") as? String)!
+                    
+                    
+                
+                  
+                }
+            }
+        })
+        
+    }
+
+    
+    // Get database to car
+   public func GetCar() {
+        
+      var refArtists: DatabaseReference!
+        
+        refArtists = Database.database().reference().child("User").child(AppState.sharedInstance.userid).child("Cars")
+        refArtists.observe(DataEventType.value, with: { (snapshot) in
+            
+            if snapshot.childrenCount > 0 {
+                AppState.sharedInstance.user.cars.removeAll()
+                for artists in snapshot.children.allObjects as! [DataSnapshot] {
+                    let snapshotValue = ((snapshot.value as! NSDictionary).value(forKey: (artists as! DataSnapshot).key)) as! NSDictionary
+                    AppState.sharedInstance.user.cars.append(Car(make: snapshotValue.value(forKey: "make") as! String, model: snapshotValue.value(forKey: "model") as! String, year: snapshotValue.value(forKey: "year") as! String, carImage: snapshotValue.value(forKey: "image") as! String, isDefault: snapshotValue.value(forKey: "default") as! Bool,car_id:(artists as! DataSnapshot).key)!)
+                    
+                }
+            }
+        })
+    }
+    
+    // Set database to car
+    func SetCar() {
+        
+    }
+    
     
     
      /*

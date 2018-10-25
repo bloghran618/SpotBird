@@ -40,38 +40,22 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         let camera = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveprofile))
         self.navigationItem.rightBarButtonItem = camera
         
-        getuserprofile() // Get user data
+       AppState.sharedInstance.user.Get_UserProfile()
     }
     
-    // get user data
-    func getuserprofile(){
-        print(AppState.sharedInstance.userid)
-        let ref = Database.database().reference().child("User").queryOrdered(byChild: "id").queryEqual(toValue : AppState.sharedInstance.userid)
-        ref.observe(.value, with:{ (snapshot: DataSnapshot) in
-            if snapshot.exists() {
-                
-                for snap in snapshot.children {
-                    self.dict = ((snap as! DataSnapshot).value) as! NSDictionary
-                    print(self.dict)
-                    
-                    AppState.sharedInstance.user.firstName = (self.dict.value(forKey: "fname") as? String)!
-                    AppState.sharedInstance.user.lastName = (self.dict.value(forKey: "lname") as? String)!
-                    AppState.sharedInstance.user.profileImage = (self.dict.value(forKey: "image") as? String)!
-                    
-                    
-                    self.firstName.text = AppState.sharedInstance.user.firstName
-                    self.lastName.text = AppState.sharedInstance.user.lastName
-                    if AppState.sharedInstance.user.profileImage == ""{
-                        self.profilePhoto.image = #imageLiteral(resourceName: "EmptyProfile")
-                    }
-                    else{
-                        self.profilePhoto.sd_setImage(with: URL(string: AppState.sharedInstance.user.profileImage), placeholderImage: #imageLiteral(resourceName: "Profile"))
-                    }
-                }
-            }
-        })
+      override func viewDidAppear(_ animated: Bool) {
+        if AppState.sharedInstance.user.profileImage == ""{
+            self.profilePhoto.image = #imageLiteral(resourceName: "EmptyProfile")
+        }
+        else{
+            self.profilePhoto.sd_setImage(with: URL(string: AppState.sharedInstance.user.profileImage), placeholderImage: #imageLiteral(resourceName: "Profile"))
+        }
+        self.firstName.text = AppState.sharedInstance.user.firstName
+        self.lastName.text = AppState.sharedInstance.user.lastName
+        
     }
     
+   
     // udapte user profile
     @objc func saveprofile(){
         

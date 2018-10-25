@@ -28,7 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         IQKeyboardManager.sharedManager().shouldShowToolbarPlaceholder = true
 
         GMSServices.provideAPIKey("AIzaSyCvFxAOvA246L6Syk7Cl426254C-sMJGxk")
-        GMSPlacesClient.provideAPIKey("AIzaSyCCPLZoH8d2j7rMFcDufb3S3ueUvO-c8vU")
+        GMSPlacesClient.provideAPIKey("AIzaSyCvFxAOvA246L6Syk7Cl426254C-sMJGxk")
         
         FirebaseApp.configure()
         

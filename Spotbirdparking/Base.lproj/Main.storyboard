@@ -37,28 +37,6 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="kPS-O1-N8n">
-                                <rect key="frame" x="0.0" y="81" width="375" height="322"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="322" id="DAN-p7-YDG"/>
-                                </constraints>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="locationCell" id="3FG-N1-hqf">
-                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3FG-N1-hqf" id="tcR-Mr-bOj">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                    </tableViewCell>
-                                </prototypes>
-                                <connections>
-                                    <outlet property="dataSource" destination="9pv-A4-QxB" id="7eU-1d-S6D"/>
-                                    <outlet property="delegate" destination="9pv-A4-QxB" id="zcc-Eh-Xpe"/>
-                                </connections>
-                            </tableView>
                             <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="Yt0-df-fld">
                                 <rect key="frame" x="0.0" y="25" width="375" height="56"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -71,23 +49,30 @@
                                     <outlet property="delegate" destination="9pv-A4-QxB" id="y6A-My-Llq"/>
                                 </connections>
                             </searchBar>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y8d-dc-NVe">
+                                <rect key="frame" x="0.0" y="25" width="375" height="56"/>
+                                <connections>
+                                    <action selector="autocompleteClicked:" destination="9pv-A4-QxB" eventType="touchUpInside" id="NWz-HF-plm"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="centerX" secondItem="KQZ-1w-vlD" secondAttribute="centerX" id="6BV-lF-sBN"/>
                             <constraint firstItem="Yt0-df-fld" firstAttribute="trailing" secondItem="QiO-Ac-YKT" secondAttribute="trailing" id="886-0y-dyk"/>
                             <constraint firstItem="QiO-Ac-YKT" firstAttribute="top" secondItem="tsR-hK-woN" secondAttribute="top" id="GMf-BR-UGR"/>
+                            <constraint firstItem="Y8d-dc-NVe" firstAttribute="centerX" secondItem="Yt0-df-fld" secondAttribute="centerX" id="ITu-dr-oM9"/>
                             <constraint firstItem="Yt0-df-fld" firstAttribute="top" secondItem="PQr-Ze-W5v" secondAttribute="top" constant="5" id="JBJ-71-Nx3"/>
-                            <constraint firstItem="kPS-O1-N8n" firstAttribute="trailing" secondItem="PQr-Ze-W5v" secondAttribute="trailing" id="Nfw-xS-aTu"/>
-                            <constraint firstItem="kPS-O1-N8n" firstAttribute="top" secondItem="Yt0-df-fld" secondAttribute="bottom" id="Scx-yz-Dkf"/>
                             <constraint firstItem="QiO-Ac-YKT" firstAttribute="bottom" secondItem="PQr-Ze-W5v" secondAttribute="bottom" id="UQl-cQ-uHF"/>
+                            <constraint firstItem="Y8d-dc-NVe" firstAttribute="height" secondItem="Yt0-df-fld" secondAttribute="height" id="ar2-IR-iym"/>
                             <constraint firstItem="A5M-7J-77L" firstAttribute="top" secondItem="KQZ-1w-vlD" secondAttribute="bottom" constant="8" symbolic="YES" id="cfb-er-3JN"/>
                             <constraint firstItem="A5M-7J-77L" firstAttribute="centerX" secondItem="KQZ-1w-vlD" secondAttribute="centerX" id="e1l-AV-tCB"/>
                             <constraint firstAttribute="centerY" secondItem="KQZ-1w-vlD" secondAttribute="centerY" id="exm-UA-ej4"/>
                             <constraint firstItem="QiO-Ac-YKT" firstAttribute="trailing" secondItem="PQr-Ze-W5v" secondAttribute="trailing" id="g5P-Zu-NwF"/>
                             <constraint firstItem="Yt0-df-fld" firstAttribute="leading" secondItem="QiO-Ac-YKT" secondAttribute="leading" id="je3-k4-ANk"/>
                             <constraint firstItem="QiO-Ac-YKT" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" id="lax-3f-WQY"/>
-                            <constraint firstItem="kPS-O1-N8n" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" id="svi-CO-CJa"/>
+                            <constraint firstItem="Y8d-dc-NVe" firstAttribute="centerY" secondItem="Yt0-df-fld" secondAttribute="centerY" id="oMR-yR-I4N"/>
+                            <constraint firstItem="Y8d-dc-NVe" firstAttribute="width" secondItem="Yt0-df-fld" secondAttribute="width" id="qAh-J9-lu5"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="PQr-Ze-W5v"/>
                     </view>
@@ -95,10 +80,18 @@
                     <connections>
                         <outlet property="mapView" destination="QiO-Ac-YKT" id="Jlv-cB-HSB"/>
                         <outlet property="searchBar" destination="Yt0-df-fld" id="DnL-6d-vxC"/>
-                        <outlet property="tblLoction" destination="kPS-O1-N8n" id="Zzt-Cd-I40"/>
+                        <outlet property="searchDisplayController" destination="PWz-Br-3k2" id="IA7-gx-Gyn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W5J-7L-Pyd" sceneMemberID="firstResponder"/>
+                <searchDisplayController id="PWz-Br-3k2">
+                    <connections>
+                        <outlet property="delegate" destination="9pv-A4-QxB" id="2po-gg-Mit"/>
+                        <outlet property="searchContentsController" destination="9pv-A4-QxB" id="3d6-Xp-33r"/>
+                        <outlet property="searchResultsDataSource" destination="9pv-A4-QxB" id="mru-oX-rey"/>
+                        <outlet property="searchResultsDelegate" destination="9pv-A4-QxB" id="TsX-iM-Cut"/>
+                    </connections>
+                </searchDisplayController>
             </objects>
             <point key="canvasLocation" x="645.60000000000002" y="-476.31184407796104"/>
         </scene>

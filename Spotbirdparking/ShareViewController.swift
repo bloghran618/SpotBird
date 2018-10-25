@@ -28,10 +28,8 @@ class ShareViewController: UIViewController, UITableViewDataSource {
         super.viewDidLoad()
         self.spotTable.dataSource = self
         self.spotTable.rowHeight = 100
-      // navigationItem.rightBarButtonItem = editButtonItem
-     // Fatch DATABASE
-
-        fetchdata()
+       AppState.sharedInstance.activeSpot.getSpots()
+        
      }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -122,70 +120,7 @@ class ShareViewController: UIViewController, UITableViewDataSource {
        return true
     }
     
-    // Fatch Data
-    func fetchdata() {
-        
-        refArtists = Database.database().reference().child("User").child(AppState.sharedInstance.userid).child("MySpots");
-        refArtists.observe(DataEventType.value, with: { (snapshot) in
-            
-            if snapshot.childrenCount > 0 {
-                AppState.sharedInstance.spots.removeAll()
-                for artists in snapshot.children.allObjects as! [DataSnapshot] {
-                    let snapshotValue = ((snapshot.value as! NSDictionary).value(forKey: (artists as! DataSnapshot).key)) as! NSDictionary
-                    
-                    AppState.sharedInstance.spots.append(Spot(address: snapshotValue.value(forKey: "address") as!
-                        String, town: snapshotValue.value(forKey: "city") as! String,
-                                state: snapshotValue.value(forKey: "state") as! String,
-                                zipCode:(snapshotValue.value(forKey: "zipcode") as? String)!,
-                                
-                                spotImage: snapshotValue.value(forKey: "image") as! String,
-                                description: snapshotValue.value(forKey: "description") as! String,
-                                
-                                monStartTime: snapshotValue.value(forKey: "monStartTime") as! String,
-                                monEndTime: snapshotValue.value(forKey: "monEndTime") as! String,
-                                tueStartTime:(snapshotValue.value(forKey: "tueStartTime") as? String)!,
-                                tueEndTime: snapshotValue.value(forKey: "tueEndTime") as! String,
-                                wedStartTime: snapshotValue.value(forKey: "wedStartTime") as! String,
-                                wedEndTime: snapshotValue.value(forKey: "wedEndTime") as! String,
-                                thuStartTime: snapshotValue.value(forKey: "thuStartTime") as! String,
-                                thuEndTime: snapshotValue.value(forKey: "tueEndTime") as! String,
-                                friStartTime: snapshotValue.value(forKey: "friStartTime") as! String,
-                                friEndTime: snapshotValue.value(forKey: "friEndTime") as! String,
-                                satStartTime: snapshotValue.value(forKey: "satStartTime") as! String,
-                                satEndTime: snapshotValue.value(forKey: "satEndTime") as! String,
-                                sunStartTime: snapshotValue.value(forKey: "sunStartTime") as! String,
-                                sunEndTime: snapshotValue.value(forKey: "sunEndTime") as! String,
-                                
-                                monOn: snapshotValue.value(forKey: "monswitch") as! Bool,
-                                tueOn:snapshotValue.value(forKey: "tueswitch") as! Bool,
-                                wedOn: snapshotValue.value(forKey: "wedswitch") as! Bool,
-                                thuOn: snapshotValue.value(forKey: "thuswitch") as! Bool,
-                                friOn: snapshotValue.value(forKey: "friswitch") as! Bool,
-                                satOn: snapshotValue.value(forKey: "satswitch") as! Bool,
-                                sunOn: snapshotValue.value(forKey: "sunswitch") as! Bool,
-                                
-                                hourlyPricing: snapshotValue.value(forKey: "hourlyPricing") as! String,
-                                dailyPricing: snapshotValue.value(forKey: "dailyPricing") as! String,
-                                weeklyPricing: snapshotValue.value(forKey: "weeklyPricing") as! String,
-                                monthlyPricing: snapshotValue.value(forKey: "monthlyPricing") as! String,
-                                
-                                weeklyOn: snapshotValue.value(forKey: "switch_weekly") as! Bool,
-                                monthlyOn: snapshotValue.value(forKey: "switch_monthly") as! Bool,
-                                index: -1,
-                                approved:false, spotImages: UIImage.init(named: "white")!, spots_id: (artists as! DataSnapshot).key)!)
-               
-                }
-                if AppState.sharedInstance.spots.count > 0 {
-                    self.navigationItem.rightBarButtonItem = self.editButtonItem
-                }
-                
-                self.spotTable.reloadData()
-            }
-          
-        })
-    }
-    
-    //MARK: Navigation
+   //MARK: Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         super.prepare(for: segue, sender: sender)
         switch(segue.identifier ?? "") {
