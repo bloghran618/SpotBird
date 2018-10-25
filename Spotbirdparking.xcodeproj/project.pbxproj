@@ -30,6 +30,8 @@
 		B7364D0620B65B390081F40F /* ProfileTableOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7364D0520B65B390081F40F /* ProfileTableOption.swift */; };
 		B7364D0820B65F120081F40F /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7364D0720B65F120081F40F /* ProfileTableViewController.swift */; };
 		B7445D67212B967C0063F58D /* Spot.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7445D66212B967C0063F58D /* Spot.swift */; };
+		B74DE6EE2178100F0049A31B /* ReservationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74DE6ED2178100F0049A31B /* ReservationsViewController.swift */; };
+		B74DE6F0217810610049A31B /* ReservationViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74DE6EF217810610049A31B /* ReservationViewCell.swift */; };
 		B75AE7B920C496B40069A151 /* CarsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75AE7B820C496B40069A151 /* CarsTableViewCell.swift */; };
 		B75AE7BB20C4B63D0069A151 /* CarsDefinitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75AE7BA20C4B63D0069A151 /* CarsDefinitionViewController.swift */; };
 		B77D9346211A807700D505BD /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77D9345211A807700D505BD /* ScheduleViewController.swift */; };
@@ -92,6 +94,8 @@
 		B7364D0520B65B390081F40F /* ProfileTableOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableOption.swift; sourceTree = "<group>"; };
 		B7364D0720B65F120081F40F /* ProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
 		B7445D66212B967C0063F58D /* Spot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spot.swift; sourceTree = "<group>"; };
+		B74DE6ED2178100F0049A31B /* ReservationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationsViewController.swift; sourceTree = "<group>"; };
+		B74DE6EF217810610049A31B /* ReservationViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationViewCell.swift; sourceTree = "<group>"; };
 		B75AE7B820C496B40069A151 /* CarsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarsTableViewCell.swift; sourceTree = "<group>"; };
 		B75AE7BA20C4B63D0069A151 /* CarsDefinitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarsDefinitionViewController.swift; sourceTree = "<group>"; };
 		B77D9345211A807700D505BD /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
@@ -199,6 +203,8 @@
 				B7F9425820FD903D001B421E /* SpotImageViewController.swift */,
 				B77D9345211A807700D505BD /* ScheduleViewController.swift */,
 				B702B111212E361D004B3EF1 /* PriceViewController.swift */,
+				B74DE6ED2178100F0049A31B /* ReservationsViewController.swift */,
+				B74DE6EF217810610049A31B /* ReservationViewCell.swift */,
 				B72D8BE320D0B6BE0038310F /* CheckBox.swift */,
 				B71F2DEB2086CDA800F47274 /* Main.storyboard */,
 				0426E0322164F4FE0017E88B /* CustomInfoWindow.xib */,
@@ -368,6 +374,7 @@
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/JTAppleCalendar/JTAppleCalendar.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/Stripe/Stripe.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
@@ -379,6 +386,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JTAppleCalendar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Stripe.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
@@ -436,6 +444,7 @@
 				B7CD91EB20F82C6100CFF016 /* ShareViewController.swift in Sources */,
 				0426E0352164F5060017E88B /* CustomInfoWindow.swift in Sources */,
 				B71F2DE62086CDA800F47274 /* AppDelegate.swift in Sources */,
+				B74DE6EE2178100F0049A31B /* ReservationsViewController.swift in Sources */,
 				04E63848216211AD003EAC28 /* Signup_ViewController.swift in Sources */,
 				B7445D67212B967C0063F58D /* Spot.swift in Sources */,
 				B75AE7BB20C4B63D0069A151 /* CarsDefinitionViewController.swift in Sources */,
@@ -459,6 +468,7 @@
 				B7B67FE320C34A7400A13FD0 /* CarsViewController.swift in Sources */,
 				0406E62A21620AD900C3E97B /* Login_ViewController.swift in Sources */,
 				B7A35D4120F5AA4500E4B566 /* AddressViewController.swift in Sources */,
+				B74DE6F0217810610049A31B /* ReservationViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
