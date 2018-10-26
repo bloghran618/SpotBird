@@ -68,42 +68,7 @@ class CarsViewController: UIViewController, UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let db_car = AppState.sharedInstance.user.cars[indexPath.row]
-            print(db_car.car_uid)
-            let url = db_car.carImage
-            let start = url.index(url.startIndex, offsetBy: 80)
-            let end = url.index(url.endIndex, offsetBy: -53)
-            let range = start..<end
-            let imgname = url[range]
-            print(db_car.carImage)
-            print(imgname)
-            
-            let pictureRef = Storage.storage().reference().child("car/\(imgname)")
-            pictureRef.delete { error in
-                if let error = error {
-                    // Uh-oh, an error occurred!
-                } else {
-                    // File deleted successfully
-                }
-            }
-            
-            self.refArtists = Database.database().reference().child("User").child(AppState.sharedInstance.userid)
-            
-            refArtists.child("Cars").observeSingleEvent(of: .value, with: { (snapshot) in
-                print(self.car?.car_uid)
-                print(snapshot)
-                print(snapshot as! DataSnapshot)
-                print((snapshot as! DataSnapshot).key)
-                print((snapshot as! DataSnapshot).value)
-                
-                if snapshot.hasChild((db_car.car_uid)!){
-                    self.refArtists = Database.database().reference().child("User").child(AppState.sharedInstance.userid).child("Cars")
-                    self.refArtists.child(db_car.car_uid!).setValue(nil)
-                }else{
-                    print("jewsasassasass")
-                }
-            })
-            
-            AppState.sharedInstance.user.cars.remove(at: indexPath.row)
+            AppState.sharedInstance.user.Delete_car(car_dict: db_car, index: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
             CarsTable.reloadData()
         } else if editingStyle == .insert {

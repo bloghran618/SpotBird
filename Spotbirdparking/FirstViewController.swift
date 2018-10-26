@@ -62,6 +62,16 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         searchBar.placeholder = "Search here"
         searchBar.delegate = self
         searchBar.resignFirstResponder()
+        
+        method(arg: true, completion: { (success) -> Void in
+            print("Second line of code executed")
+            if success { // this will be equal to whatever value is set in this method call
+                print("true")
+            } else {
+                print("false")
+            }
+        })
+        
         }
     
      @IBAction func autocompleteClicked(_ sender: UIButton) {
@@ -78,10 +88,15 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             if snapshot.childrenCount > 0 {
                 for artists in snapshot.children.allObjects as! [DataSnapshot] {
                     let snapshotValue = snapshot.value as! NSDictionary
-                    // print(snapshotValue.count)
-                    if snapshotValue.count>0{
+                     print(snapshotValue)
+                    
+        let dictdata = ((snapshot.value as! NSDictionary).value(forKey: (artists as! DataSnapshot).key)) as! NSDictionary
+        print(dictdata)
+                    
+                    
+                    if dictdata.count>0{
                         self.arrspot.removeAllObjects()
-                        for (theKey, theValue) in snapshotValue {
+                        for (theKey, theValue) in dictdata {
                             //   print(theValue)
                             self.arrspot.add(theValue)
                         }
@@ -334,5 +349,12 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
     }
     
+    func method(arg: Bool, completion: (Bool) -> ()) {
+        print("First line of code executed")
+        completion(arg)
+    }
+
+    
 }
+
 

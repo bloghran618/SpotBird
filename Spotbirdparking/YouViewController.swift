@@ -10,12 +10,12 @@ import Firebase
 import FirebaseAuth
 import Photos
 
-
 class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet weak var profilePhoto: UIImageView!
     @IBOutlet weak var firstName: UITextField!
     @IBOutlet weak var lastName: UITextField!
+       var original_pic = UIImageView()
     
     var ProfileImagePicker = UIImagePickerController()
     var strurl = ""
@@ -29,8 +29,6 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         profilePhoto.layer.masksToBounds = false
         profilePhoto.layer.cornerRadius = profilePhoto.frame.height/2
         profilePhoto.clipsToBounds = true
-        
-        
         self.hideKeyboardWhenTappedAround()
         firstName.delegate = self
         lastName.delegate = self
@@ -41,21 +39,22 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         self.navigationItem.rightBarButtonItem = camera
         
        AppState.sharedInstance.user.Get_UserProfile()
-    }
-    
-      override func viewDidAppear(_ animated: Bool) {
+        
         if AppState.sharedInstance.user.profileImage == ""{
             self.profilePhoto.image = #imageLiteral(resourceName: "EmptyProfile")
         }
         else{
             self.profilePhoto.sd_setImage(with: URL(string: AppState.sharedInstance.user.profileImage), placeholderImage: #imageLiteral(resourceName: "Profile"))
+            original_pic.sd_setImage(with: URL(string: AppState.sharedInstance.user.profileImage), placeholderImage: #imageLiteral(resourceName: "Profile"))
         }
-        self.firstName.text = AppState.sharedInstance.user.firstName
-        self.lastName.text = AppState.sharedInstance.user.lastName
-        
+      
     }
     
-   
+      override func viewDidAppear(_ animated: Bool) {
+        self.firstName.text = AppState.sharedInstance.user.firstName
+        self.lastName.text = AppState.sharedInstance.user.lastName
+       }
+    
     // udapte user profile
     @objc func saveprofile(){
         
@@ -71,113 +70,19 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
             self.present(alert, animated: true, completion: nil)
         }
         else{
-        let alertController = UIAlertController(title: "Error", message: "Incorrect Password..", preferredStyle: .alert)
-        let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-        alertController.addAction(defaultAction)
-        self.present(alertController, animated: true, completion: nil)
-        
-        var imageview = UIImageView()
-        var imgname = ""
-        var imageReference: StorageReference {
-            return Storage.storage().reference().child("User")
-        }
-        
-        if AppState.sharedInstance.user.profileImage != "" {
-            strurl = AppState.sharedInstance.user.profileImage
-            imageview.sd_setImage(with: URL(string: strurl), placeholderImage: UIImage(named: "placeholder.png"))
-            print(strurl)
-            let startIndex = strurl.index(strurl.startIndex, offsetBy: 81)
-            let endIndex = strurl.index(strurl.startIndex, offsetBy: 85)
-            imgname =  String(strurl[startIndex...endIndex])
-        }
-        if profilePhoto.image == #imageLiteral(resourceName: "EmptyProfile"){
-            let str = "User/" + AppState.sharedInstance.userid
-            let ref = Database.database().reference().child(str)
-            
-            ref.updateChildValues([
-                "fname":firstName.text,
-                "lname":lastName.text!,
-                "image":""
-                ])
-        }
-            
-        else if profilePhoto.image == imageview.image{
-            
-            guard let imageData = UIImageJPEGRepresentation(profilePhoto.image!, 0.5) else { return }
-            let uploadImageRef = imageReference.child(String(imgname))
-            
-            let uploadTask = uploadImageRef.putData(imageData, metadata: nil) { (metadata, error) in
-                uploadImageRef.downloadURL(completion: { (url, error) in
-                    if let error = error {
-                        print(error.localizedDescription)
-                        return
-                    }
-                    if let url = url?.absoluteString {
-                        let fullURL = url
-                        print(fullURL)
-                        
-                        let str = "User/" + AppState.sharedInstance.userid
-                        print(str)
-                        let ref = Database.database().reference().child(str)
-                        
-                        ref.updateChildValues([
-                            "fname":self.firstName.text,
-                            "lname":self.lastName.text!,
-                            "image":fullURL
-                            ])
-                    }
-                })
+            // Save user profile
+            if profilePhoto.image == #imageLiteral(resourceName: "EmptyProfile"){
+              AppState.sharedInstance.user.Set_UserProfile(change: "nil")
+            }
+            else if original_pic.image == profilePhoto.image{
+              AppState.sharedInstance.user.Set_UserProfile(change: "same")
+            }
+            else{
+                AppState.sharedInstance.user.Set_UserProfile(change: "change")
             }
             
-            uploadTask.observe(.progress) { (snapshot) in
-                print(snapshot.progress ?? "NO MORE PROGRESS")
-            }
-            
-            
-        }
-            
-        else {
-            let pictureRef = Storage.storage().reference().child("User/\(imgname)")
-            pictureRef.delete { error in
-                if let error = error {
-                } else {
-                    guard let imageData = UIImageJPEGRepresentation(self.profilePhoto.image!, 0.5) else { return }
-                    let uploadImageRef = imageReference.child(self.randomStringWithLength(length: 5) as String)
-                    
-                    let uploadTask = uploadImageRef.putData(imageData, metadata: nil) { (metadata, error) in
-                        print("UPLOAD TASK FINISHED")
-                        print(metadata ?? "NO METADATA")
-                        print(error ?? "NO ERROR")
-                        
-                        uploadImageRef.downloadURL(completion: { (url, error) in
-                            if let error = error {
-                                print(error.localizedDescription)
-                                return
-                            }
-                            if let url = url?.absoluteString {
-                                let fullURL = url
-                                print(fullURL)
-                                
-                                let str = "User/" + AppState.sharedInstance.userid
-                                print(str)
-                                let ref = Database.database().reference().child(str)
-                                
-                                ref.updateChildValues([
-                                    "fname":self.firstName.text,
-                                    "lname":self.lastName.text!,
-                                    "image":fullURL
-                                    ])
-                            }
-                        })
-                    }
-                    uploadTask.observe(.progress) { (snapshot) in
-                        print(snapshot.progress ?? "NO MORE PROGRESS")
-                    }
-                }
-            }
-            
-        }
-        }
+           
+           }
     }
     
     override func didReceiveMemoryWarning() {
@@ -186,11 +91,11 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     }
     
     @IBAction func firstNameValueChanged(_ sender: UITextField) {
-        //AppState.sharedInstance.user.setFirstName(name: sender.text!)
+        AppState.sharedInstance.user.firstName = sender.text!
     }
     
     @IBAction func lastNameValueChanged(_ sender: UITextField) {
-        // AppState.sharedInstance.user.setLastName(name: sender.text!)
+        AppState.sharedInstance.user.lastName = sender.text!
     }
     
     func checkGalleryPermission() {
@@ -256,6 +161,7 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         let chosenImage = info[UIImagePickerControllerOriginalImage]
         // AppState.sharedInstance.user.profileImage = (chosenImage as! UIImage)
         // AppState.sharedInstance.user.setProfileImage(profile: chosenImage as! UIImage)
+        AppState.sharedInstance.user.New_img.image = (chosenImage as! UIImage)
         self.profilePhoto!.image = (chosenImage as! UIImage)
         picker.dismiss(animated: true, completion: nil)
     }
@@ -270,17 +176,7 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         return true
     }
     
-    func randomStringWithLength(length: Int) -> NSString {
-        let characters: NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-        let randomString: NSMutableString = NSMutableString(capacity: length)
-        
-        for i in 0..<length {
-            let len = UInt32(characters.length)
-            let rand = arc4random_uniform(len)
-            randomString.appendFormat("%C", characters.character(at: Int(rand)))
-        }
-        return randomString
-    }
+  
     
     @IBAction func btn_Logout(_ sender: Any) {
         let alertController = UIAlertController(title: "Spotbirdparking", message: "Are you sur you want to logout!", preferredStyle: UIAlertControllerStyle.alert)

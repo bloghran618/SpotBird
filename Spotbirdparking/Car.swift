@@ -35,8 +35,6 @@ class Car {
         car_uid = car_id
         
     }
-    
-    
-   
-    
 }
+
+

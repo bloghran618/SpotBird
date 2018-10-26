@@ -50,7 +50,9 @@ class AppState {
     }
 }
 
-extension UIViewController {
+public class Loader:UIViewController {
+    
+    
     func showHud(message: String) {
         let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
         hud?.labelText = message
@@ -60,4 +62,45 @@ extension UIViewController {
     func hideHUD() {
         MBProgressHUD.hide(for: self.view, animated: true)
     }
+  
 }
+
+
+open class Spinner {
+    
+    internal static var spinner: UIActivityIndicatorView?
+    open static var style: UIActivityIndicatorViewStyle = .whiteLarge
+    //open static var baseBackColor = UIColor.black.withAlphaComponent(0.5)
+    open static var baseBackColor = UIColor.black.withAlphaComponent(0.2)
+    open static var baseColor = UIColor.red
+    
+    open static func start(style: UIActivityIndicatorViewStyle = style, backColor: UIColor = baseBackColor, baseColor: UIColor = baseColor) {
+        NotificationCenter.default.addObserver(self, selector: #selector(update), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+        if spinner == nil, let window = UIApplication.shared.keyWindow {
+            let frame = UIScreen.main.bounds
+            spinner = UIActivityIndicatorView(frame: frame)
+            spinner!.backgroundColor = backColor
+            spinner!.activityIndicatorViewStyle = style
+            spinner?.color = baseColor
+            window.addSubview(spinner!)
+            spinner!.startAnimating()
+        }
+    }
+    
+    open static func stop() {
+        if spinner != nil {
+            spinner!.stopAnimating()
+            spinner!.removeFromSuperview()
+            spinner = nil
+        }
+    }
+    
+    @objc open static func update() {
+        if spinner != nil {
+            stop()
+            start()
+        }
+    }
+}
+
+

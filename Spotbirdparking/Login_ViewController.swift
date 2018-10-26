@@ -34,7 +34,8 @@ class Login_ViewController: UIViewController {
     }
     
     @IBAction func btn_login(_ sender: Any) {
-        showHud(message: "Login")
+   Spinner.start()
+    
         let ref = Database.database().reference().child("User").queryOrdered(byChild: "uname").queryEqual(toValue : txt_uname.text!)
         ref.observe(.value, with:{ (snapshot: DataSnapshot) in
             
@@ -54,7 +55,7 @@ class Login_ViewController: UIViewController {
                         //                        //let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
                         //                        let defaultAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) {
                         //                            UIAlertAction in
-                        self.hideHUD()
+                       Spinner.start()
                         let appDelegate = UIApplication.shared.delegate! as! AppDelegate
                         
                         let initialViewController = self.storyboard!.instantiateViewController(withIdentifier: "myTabbarControllerID")
@@ -66,7 +67,7 @@ class Login_ViewController: UIViewController {
                         //                        self.present(alertController, animated: true, completion: nil)
                         
                     }else {
-                        
+                          Spinner.start()
                         let alertController = UIAlertController(title: "Error", message: "Incorrect Password..", preferredStyle: .alert)
                         let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
                         alertController.addAction(defaultAction)
@@ -76,7 +77,7 @@ class Login_ViewController: UIViewController {
                 }
             }
             else {
-                
+                   Spinner.start()
                 let alertController = UIAlertController(title: "Error", message: "Incorrect User Name.", preferredStyle: .alert)
                 let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
                 alertController.addAction(defaultAction)

@@ -29,8 +29,7 @@ class ShareViewController: UIViewController, UITableViewDataSource {
         self.spotTable.dataSource = self
         self.spotTable.rowHeight = 100
        AppState.sharedInstance.activeSpot.getSpots()
-        
-     }
+    }
     
     override func viewDidAppear(_ animated: Bool) {
      self.spotTable.reloadData()
@@ -64,57 +63,15 @@ class ShareViewController: UIViewController, UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
          if editingStyle == .delete {
                 
-                  let spot_dict = AppState.sharedInstance.spots[indexPath.row]
-                let url = spot_dict.spotImage
-                
-//                let id = (arrspot.object(at: indexPath.row) as! NSDictionary).value(forKey: "id")
-//                let url = (arrspot.object(at: indexPath.row) as! NSDictionary).value(forKey: "image") as! String
-//                print(url)
-                
-                let start = url.index(url.startIndex, offsetBy: 80)
-                let end = url.index(url.endIndex, offsetBy: -53)
-                let range = start..<end
-                let imgname = url[range]
-                print(imgname)
-                
-                
-                let pictureRef = Storage.storage().reference().child("spot//\(imgname)")
-                pictureRef.delete { error in
-                    if let error = error {
-                        // Uh-oh, an error occurred!
-                    } else {
-                        // File deleted successfully
-                    }
-                }
-                self.refArtists = Database.database().reference().child("User").child(AppState.sharedInstance.userid)
-
-                refArtists.child("MySpots").observeSingleEvent(of: .value, with: { (snapshot) in
-                    print(spot_dict.spot_id)
-                    print(snapshot)
-                    print(snapshot as! DataSnapshot)
-                    print((snapshot as! DataSnapshot).key)
-                    print((snapshot as! DataSnapshot).value)
-
-                    if snapshot.hasChild((spot_dict.spot_id)){
-                        self.refArtists = Database.database().reference().child("User").child(AppState.sharedInstance.userid).child("MySpots")
-                        self.refArtists.child(spot_dict.spot_id).setValue(nil)
-                        
-                        self.refArtists = Database.database().reference().child("All_Spots")
-                        self.refArtists.child(spot_dict.spot_id).setValue(nil)
-                    }else{
-                        print("jewsasassasass")
-                    }
-                })
-                
-                
-                
-                AppState.sharedInstance.spots.remove(at: indexPath.row)
-                tableView.deleteRows(at: [indexPath], with: .fade)
+            let spot_dict = AppState.sharedInstance.spots[indexPath.row]
+            AppState.sharedInstance.activeSpot.Delete_Spots(spot_dict: spot_dict, index: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            tableView.reloadData()
+           
             } else if editingStyle == .insert {
                 // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
             }
-       
-    }
+     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
        return true
