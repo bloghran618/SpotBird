@@ -307,8 +307,12 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     // MARK:_ Load Marker to map :-  Spot
     func loadEventsToMap(lat:Double,long:Double){
         
-        print(arrspot.count)
-        print(arrspot)
+        print("arrspotcount \(arrspot.count)")
+        print("arrspot \(arrspot)|")
+        print("This is a string")
+        
+        print(arrspot.object(at: 0))
+        print(CLLocationDegrees(truncating: (arrspot.object(at: 1) as! NSDictionary).value(forKey: "user_lat") as! NSNumber))
         
         for i in 0..<arrspot.count {
             
