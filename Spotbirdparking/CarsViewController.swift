@@ -19,29 +19,22 @@ class CarsViewController: UIViewController, UITableViewDataSource {
     var arr:NSMutableArray = NSMutableArray()
     var key:NSMutableArray = NSMutableArray()
     var car: Car?
-  
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         CarsTable.dataSource = self
-        self.refArtists = Database.database().reference().child("User").child(AppState.sharedInstance.userid).child("Cars")
-        refArtists.observe(DataEventType.value, with: { (snapshot) in
-
-            if snapshot.childrenCount > 0 {
-                AppState.sharedInstance.user.cars.removeAll()
-                for artists in snapshot.children.allObjects as! [DataSnapshot] {
-                    let snapshotValue = ((snapshot.value as! NSDictionary).value(forKey: (artists as! DataSnapshot).key)) as! NSDictionary
-                    AppState.sharedInstance.user.cars.append(Car(make: snapshotValue.value(forKey: "make") as! String, model: snapshotValue.value(forKey: "model") as! String, year: snapshotValue.value(forKey: "year") as! String, carImage: snapshotValue.value(forKey: "image") as! String, isDefault: snapshotValue.value(forKey: "default") as! Bool,car_id:(artists as! DataSnapshot).key)!)
-                   self.CarsTable.reloadData()
-                    }
-                }
-           })
-        
         self.CarsTable.rowHeight = 100
+         AppState.sharedInstance.user.GetCar()
         if AppState.sharedInstance.user.cars.count != 0{
-         navigationItem.rightBarButtonItem = editButtonItem
+            navigationItem.rightBarButtonItem = editButtonItem
+            CarsTable.reloadData()
         }
-     }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        CarsTable.reloadData()
+        
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -53,13 +46,10 @@ class CarsViewController: UIViewController, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CarCell", for: indexPath) as? CarsTableViewCell
-        
-        let car = AppState.sharedInstance.user.cars[indexPath.row]
-    
-        
+         let car = AppState.sharedInstance.user.cars[indexPath.row]
         cell?.MakeModel.text = car.make + " "  + car.model
         cell?.YearLabel.text = car.year
-       // cell?.imageView?.image = car.carImage
+        // cell?.imageView?.image = car.carImage
         cell?.imageView?.sd_setImage(with: URL(string: car.carImage), placeholderImage: UIImage(named: "placeholder.png"))
         if car.isDefault! {
             cell?.Default.image = UIImage(named: "DefaultCar")
@@ -69,8 +59,8 @@ class CarsViewController: UIViewController, UITableViewDataSource {
         }
         return cell!
     }
-   
-     override func setEditing(_ editing: Bool, animated: Bool) {
+    
+    override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         CarsTable.setEditing(editing, animated: animated)
     }
@@ -78,42 +68,7 @@ class CarsViewController: UIViewController, UITableViewDataSource {
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
             let db_car = AppState.sharedInstance.user.cars[indexPath.row]
-            print(db_car.car_uid)
-            let url = db_car.carImage
-            let start = url.index(url.startIndex, offsetBy: 80)
-            let end = url.index(url.endIndex, offsetBy: -53)
-            let range = start..<end
-            let imgname = url[range]
-            print(db_car.carImage)
-            print(imgname)
-            
-            let pictureRef = Storage.storage().reference().child("car/\(imgname)")
-            pictureRef.delete { error in
-                if let error = error {
-                    // Uh-oh, an error occurred!
-                } else {
-                    // File deleted successfully
-                }
-            }
-         
-            self.refArtists = Database.database().reference().child("User").child(AppState.sharedInstance.userid)
-            
-            refArtists.child("Cars").observeSingleEvent(of: .value, with: { (snapshot) in
-                print(self.car?.car_uid)
-                print(snapshot)
-                print(snapshot as! DataSnapshot)
-                print((snapshot as! DataSnapshot).key)
-                print((snapshot as! DataSnapshot).value)
-                
-             if snapshot.hasChild((db_car.car_uid)!){
-             self.refArtists = Database.database().reference().child("User").child(AppState.sharedInstance.userid).child("Cars")
-                    self.refArtists.child(db_car.car_uid!).setValue(nil)
-                }else{
-                    print("jewsasassasass")
-                }
-            })
-            
-            AppState.sharedInstance.user.cars.remove(at: indexPath.row)
+            AppState.sharedInstance.user.Delete_car(car_dict: db_car, index: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
             CarsTable.reloadData()
         } else if editingStyle == .insert {
@@ -122,7 +77,7 @@ class CarsViewController: UIViewController, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-         return true
+        return true
     }
     
     //MARK: Actions
@@ -145,7 +100,6 @@ class CarsViewController: UIViewController, UITableViewDataSource {
             CarsTable.reloadData()
         }
     }
-        
     
     //MARK: Navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -176,6 +130,6 @@ class CarsViewController: UIViewController, UITableViewDataSource {
             print("Unexpected Segue Identifier: \(segue.identifier ?? "")")
         }
     }
- }
+}
 
 

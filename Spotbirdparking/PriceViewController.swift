@@ -131,6 +131,15 @@ class PriceViewController: UIViewController, UITextFieldDelegate,CLLocationManag
     
     @IBAction func postSpot(_ sender: Any) {
         
+        if AppState.sharedInstance.activeSpot.spot_id == "" {
+         AppState.sharedInstance.activeSpot.Save_Spot(SpotID:"")
+        }else{
+           AppState.sharedInstance.activeSpot.Save_Spot(SpotID:AppState.sharedInstance.activeSpot.spot_id)
+        }
+        
+        
+        /*
+        
         if AppState.sharedInstance.activeSpot.spot_id == ""
         {
             // ADD NEW SPOTS
@@ -152,12 +161,13 @@ class PriceViewController: UIViewController, UITextFieldDelegate,CLLocationManag
                 }
             })
         }
+        */
     }
     
     // Update SPOTS
     func Update_SpotS()
     {
-        showHud(message: "Update")
+        
         let img_url = (AppState.sharedInstance.activeSpot.spotImage)
         print(img_url)
         let startIndex = img_url.index((img_url.startIndex), offsetBy: 80)
@@ -245,10 +255,10 @@ class PriceViewController: UIViewController, UITextFieldDelegate,CLLocationManag
                 (error:Error?, ref:DatabaseReference) in
                 if let error = error {
                     print("Data could not be Update: \(error).")
-                     self.hideHUD()
+                   
                 } else {
                     print("Data Update successfully!")
-                self.hideHUD()
+             
                 }
         }
      }
@@ -256,7 +266,7 @@ class PriceViewController: UIViewController, UITextFieldDelegate,CLLocationManag
     // ADD NEW SPOTS
     func Add_newSpotS()
     {
-        showHud(message: "Save")
+      
         var Image = UIImageView()
         Image.image = AppState.sharedInstance.activeSpot.spotImage1
         
@@ -333,11 +343,9 @@ class PriceViewController: UIViewController, UITextFieldDelegate,CLLocationManag
                         (error:Error?, ref:DatabaseReference) in
                         if let error = error {
                             print("Data could not be saved: \(error).")
-                             self.hideHUD()
+                           
                         } else {
                             print("Data saved successfully!")
-                         self.hideHUD()
-                           
                         }
                     }
                     
@@ -353,7 +361,6 @@ class PriceViewController: UIViewController, UITextFieldDelegate,CLLocationManag
         let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController];
         self.navigationController!.popToViewController(viewControllers[viewControllers.count - 5], animated: true);
     }
-    
     
     func randomStringWithLength(length: Int) -> NSString {
         let characters: NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"

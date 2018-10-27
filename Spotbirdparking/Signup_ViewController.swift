@@ -106,7 +106,7 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
             self.present(alert, animated: true, completion: nil)
         }
         else {
-            
+                Spinner.start()
         let ref = Database.database().reference()
         ref.child("User").queryOrdered(byChild: "uname").queryEqual(toValue: txt_username.text)
             .observeSingleEvent(of: .value, with: {(snapshot: DataSnapshot) in
@@ -186,7 +186,7 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
     
     func save_newuser()
     {
-        showHud(message: "SignUp")
+       
         if profilePhoto.image == #imageLiteral(resourceName: "EmptyProfile")
         {
             self.refArtists = Database.database().reference().child("User");
@@ -254,9 +254,8 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
                     AppState.sharedInstance.userid = snapshotValue.value(forKey: "id") as! String
                     UserDefaults.standard.setValue(snapshotValue, forKey: "logindata")
                     UserDefaults.standard.synchronize()
+                    Spinner.stop()
                     let appDelegate = UIApplication.shared.delegate! as! AppDelegate
-                    
-                      self.hideHUD()
                     let initialViewController = self.storyboard!.instantiateViewController(withIdentifier: "myTabbarControllerID")
                     appDelegate.window?.rootViewController = initialViewController
                     appDelegate.window?.makeKeyAndVisible()

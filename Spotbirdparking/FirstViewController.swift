@@ -13,8 +13,9 @@ import Firebase
 import Photos
 import GooglePlaces
 import GooglePlacePicker
+import GooglePlaces
 
-class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapViewDelegate,UISearchBarDelegate,GMSAutocompleteViewControllerDelegate,UITableViewDelegate,UITableViewDataSource{
+class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapViewDelegate,UISearchBarDelegate,GMSAutocompleteViewControllerDelegate{
     
     @IBOutlet var mapView: GMSMapView!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -30,22 +31,21 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     var arrspot:NSMutableArray = NSMutableArray()
     var timer = Timer()  // time
     var five = 0
-    
-    @IBOutlet weak var tblLoction: UITableView!
-    var arrPlaces = NSMutableArray(capacity: 100)
+     var arrPlaces = NSMutableArray(capacity: 100)
     let operationQueue = OperationQueue()
     let currentLat = 51.5033640
     let currentLong = -0.1276250
-    // var LocationDataDelegate : LocationData! = nil
+ // var LocationDataDelegate : LocationData! = nil
     var tblLocation : UITableView!
-    //   var lblNodata = UILabel()
-     var hud : MBProgressHUD = MBProgressHUD()
+//  var lblNodata = UILabel()
+    var hud : MBProgressHUD = MBProgressHUD()
+    var placesClient: GMSPlacesClient!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //scheduledTimerWithTimeInterval()  // time
         searchBar.backgroundColor = UIColor.clear
-       
+        
         getlatlong()
         self.mapView.delegate = self
         self.locationManager.delegate = self
@@ -61,160 +61,60 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         mapView.padding = UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 20)
         searchBar.placeholder = "Search here"
         searchBar.delegate = self
-        tblLoction.isHidden = true
         searchBar.resignFirstResponder()
         
-        print(AppState.sharedInstance.userid)
-    }
-    
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.resignFirstResponder()
-    }
-    
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        self.beginSearching(searchText: searchText)
-    }
-    
-    func beginSearching(searchText:String) {
-        if searchText.count == 0 {
-            
-            self.arrPlaces.removeAllObjects()
-            tblLoction.isHidden = true
-            searchBar.resignFirstResponder()
-            iToast.makeText("Please enter text to get your location").show()
-            //  lblNodata.isHidden = false
-            return
-        }
-        
-        operationQueue.addOperation { () -> Void in
-            self.forwardGeoCoding(searchText: searchText)
-        }
-    }
-    
-    //MARK: - Search place from Google -
-    func forwardGeoCoding(searchText:String) {
-        googlePlacesResult(input: searchText) { (result) -> Void in
-            let searchResult:NSDictionary = ["keyword":searchText,"results":result]
-            if result.count > 0
-            {
-                let features = searchResult.value(forKey: "results") as! NSArray
-                self.arrPlaces.removeAllObjects()
-                self.arrPlaces = NSMutableArray(capacity: 100)
-                
-                
-                print(features.count)
-                for jk in 0...features.count-1
-                {
-                    let dict = features.object(at: jk) as! NSDictionary
-                    self.arrPlaces.add(dict)
-                }
-                DispatchQueue.main.async(execute: {
-                    if self.arrPlaces.count != 0
-                    {
-                        self.tblLoction.isHidden = false
-                        
-                        // self.lblNodata.isHidden = true
-                        self.tblLoction.reloadData()
-                    }
-                    else
-                    {
-                        self.tblLoction.isHidden = true
-                        iToast.makeText("Location Not Found").show()
-                        self.tblLoction.reloadData()
-                    }
-                });
+        method(arg: true, completion: { (success) -> Void in
+            print("Second line of code executed")
+            if success { // this will be equal to whatever value is set in this method call
+                print("true")
+            } else {
+                print("false")
             }
-        }
-    }
-    
-    //MARK: - Google place API request -
-    func googlePlacesResult(input: String, completion: @escaping (_ result: NSArray) -> Void) {
-        let searchWordProtection = input.replacingOccurrences(of: " ", with: "");        if searchWordProtection.characters.count != 0 {
-            let urlString = NSString(format: "https://maps.googleapis.com/maps/api/place/autocomplete/json?input=%@&types=establishment|geocode&location=%@,%@&radius=&language=en&key=AIzaSyCvFxAOvA246L6Syk7Cl426254C-sMJGxk",input,"\(AppState.sharedInstance.lat)","\(AppState.sharedInstance.long)")
-            // print(urlString)
-            let url = NSURL(string: urlString.addingPercentEscapes(using: String.Encoding.utf8.rawValue)!)
-            //  print(url!)
-            let defaultConfigObject = URLSessionConfiguration.default
-            let delegateFreeSession = URLSession(configuration: defaultConfigObject, delegate: nil, delegateQueue: OperationQueue.main)
-            let request = NSURLRequest(url: url! as URL)
-            let task =  delegateFreeSession.dataTask(with: request as URLRequest, completionHandler:
-            {
-                (data, response, error) -> Void in
-                if let data = data
-                {
-                    do {
-                        let jSONresult = try JSONSerialization.jsonObject(with: data, options: JSONSerialization.ReadingOptions.allowFragments) as! [String:AnyObject]
-                        let results:NSArray = jSONresult["predictions"] as! NSArray
-                        let status = jSONresult["status"] as! String
-                        if status == "NOT_FOUND" || status == "REQUEST_DENIED"
-                        {
-                            iToast.makeText("Location Not Found").show()
-                            let arr:NSArray = NSArray()
-                            completion(arr)
-                            return
-                        }
-                        else
-                        {
-                            completion(results)
-                        }
-                    }
-                    catch
-                    {
-                        print("json error: \(error)")
-                        
-                    }
-                }
-                else if let error = error
-                {
-                    print(error)
-                }
-            })
-            task.resume()
-        }
+        })
         
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return arrPlaces.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell
-    {
-        let tblCell = tableView.dequeueReusableCell(withIdentifier: "locationCell")
-        if arrPlaces.count > 0{
-            let dict = self.arrPlaces.object(at: indexPath.row) as! NSDictionary
-            tblCell?.textLabel?.text = dict.value(forKey: "description") as? String
-            tblCell?.textLabel?.numberOfLines = 0
-            tblCell?.textLabel?.sizeToFit()
         }
-        return tblCell!
-    }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath)
-    {
-        
-    }
+     @IBAction func autocompleteClicked(_ sender: UIButton) {
+        let autocompleteController = GMSAutocompleteViewController()
+        autocompleteController.delegate = self
+        present(autocompleteController, animated: true, completion: nil)
+     }
+    
     func getlatlong(){
         five = 0
-        //  AppState.sharedInstance.userid == ""
-        
         refArtists = Database.database().reference().child("All_Spots");
         refArtists.observe(DataEventType.value, with: { (snapshot) in
-            
             
             if snapshot.childrenCount > 0 {
                 for artists in snapshot.children.allObjects as! [DataSnapshot] {
                     let snapshotValue = snapshot.value as! NSDictionary
-                    // print(snapshotValue.count)
-                    if snapshotValue.count>0{
+                     print(snapshotValue)
+                    
+        let dictdata = ((snapshot.value as! NSDictionary).value(forKey: (artists as! DataSnapshot).key)) as! NSDictionary
+        print(dictdata)
+                    
+                    
+                    if dictdata.count>0{
                         self.arrspot.removeAllObjects()
-                        for (theKey, theValue) in snapshotValue {
+                        for (theKey, theValue) in dictdata {
                             //   print(theValue)
                             self.arrspot.add(theValue)
                         }
                         print(self.arrspot)
                         print(self.arrspot.count)
-                        self.loadEventsToMap(lat: self.userlatitude, long: self.userlongitude)
+                        //self.loadEventsToMap(lat: self.userlatitude, long: self.userlongitude)
+                        for i in 0..<self.arrspot.count {
+                            let marker = GMSMarker()
+                            marker.position = CLLocationCoordinate2DMake(Double(truncating: (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "user_lat") as! NSNumber), Double(truncating: (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "user_long") as! NSNumber))
+                            marker.map = self.mapView
+                            marker.map = self.mapView
+                            let price = (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "hourlyPricing") as! String
+                            let doller = (price as NSString).integerValue
+                            marker.title = "$\(doller)"
+                       //     marker.snippet
+                            marker.infoWindowAnchor = CGPoint(x: 0.5, y: 0.2)
+                            marker.accessibilityLabel = "\(i)"
+                        }
                     }
                 }
             }
@@ -225,7 +125,6 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         let location = locations.last
-        
         self.CurrentLocMarker.position = (location?.coordinate)!
         self.CurrentLocMarker.title = "myLoc"
         var markerView = UIImageView()
@@ -252,6 +151,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error.localizedDescription)
     }
+   
     
     // MARK:- googleMapsDelegate
     func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
@@ -275,37 +175,15 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         mapView.selectedMarker = marker
         return true
     }
+   
     
-    func mapView(_ mapView: GMSMapView, markerInfoWindow marker: GMSMarker) -> UIView? {
-        
-        markerlatitude = marker.position.latitude
-        markerlongitude = marker.position.longitude
-        
-        let index:Int! = Int(marker.accessibilityLabel!)
-        let customInfoWindow = Bundle.main.loadNibNamed("CustomInfoWindow", owner: self, options: nil)?[0] as! CustomInfoWindow
-        customInfoWindow.lblTitle.text = (arrspot[index] as! NSDictionary).value(forKey: "address") as? String
-        customInfoWindow.lblDetail.text = ((arrspot[index] as! NSDictionary).value(forKey: "city") as? String)! + ((arrspot[index] as! NSDictionary).value(forKey: "state") as? String)!
-        
-        customInfoWindow.btn_dr.addTarget(self, action: #selector(self.bookbtn1(_:)), for: .touchUpInside);
-        self.setBorder(toLayer: customInfoWindow.imgBg.layer, borderColor: UIColor.clear, cornerRad: 30)
-        
-        customInfoWindow.imgBg.backgroundColor = UIColor.darkGray
-        //
-        //        customInfoWindow.img.backgroundColor =  UIColor.black
-        
-        return customInfoWindow
-    }
-    // marker action
-    @objc func bookbtn1(_ sender : UIButton){
-        
-    }
-    
-    func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
+      func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
         fetchMapData(lat: markerlatitude, long: markerlongitude)
     }
     
     // MARK:_ Load Marker to map :-  Spot
     func loadEventsToMap(lat:Double,long:Double){
+<<<<<<< HEAD
         
         print("arrspotcount \(arrspot.count)")
         print("arrspot \(arrspot)|")
@@ -315,6 +193,9 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         print(CLLocationDegrees(truncating: (arrspot.object(at: 1) as! NSDictionary).value(forKey: "user_lat") as! NSNumber))
         
         for i in 0..<arrspot.count {
+=======
+         for i in 0..<arrspot.count {
+>>>>>>> 6a708c4f9597bb31dd477ac90bba116bd81c79e0
             
             let coordinate₀ = CLLocation(latitude: CLLocationDegrees(truncating: (arrspot.object(at: i) as! NSDictionary).value(forKey: "user_lat") as! NSNumber), longitude:CLLocationDegrees(truncating: (arrspot.object(at: i) as! NSDictionary).value(forKey: "user_long") as! NSNumber))
             let coordinate₁ = CLLocation(latitude: lat, longitude: long)
@@ -330,13 +211,13 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                     let marker = GMSMarker()
                     
                     marker.position = CLLocationCoordinate2DMake(Double(truncating: (arrspot.object(at: i) as! NSDictionary).value(forKey: "user_lat") as! NSNumber), Double(truncating: (arrspot.object(at: i) as! NSDictionary).value(forKey: "user_long") as! NSNumber))
-                    
-                    
                     marker.map = self.mapView
                     marker.map = self.mapView
                     //   marker.icon = #imageLiteral(resourceName: "car")
-                    
-                    marker.snippet = "Test"
+                    let price = (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "hourlyPricing") as! String
+                    let doller = (price as NSString).integerValue
+                    marker.title = "$\(doller)"
+                    //     marker.snippet
                     marker.infoWindowAnchor = CGPoint(x: 0.5, y: 0.2)
                     marker.accessibilityLabel = "\(i)"
                 }
@@ -373,27 +254,23 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
+      // AIzaSyBXzbFQ7U9PRS-vrl5RR6es5qOeZ4KuKSg ,AIzaSyCvFxAOvA246L6Syk7Cl426254C-sMJGxk,AIzaSyC29rKRcHlAik1UyLD0jYtjC1KIXIRbEkA
     func fetchMapData(lat:Double,long:Double) {
-        
-        let directionURL = "https://maps.googleapis.com/maps/api/directions/json?" +
+         let directionURL = "https://maps.googleapis.com/maps/api/directions/json?" +
             "origin=\(userlatitude),\(userlongitude)&destination=\(lat),\(long)&" +
-        "key=AIzaSyAuvDkP5Eo-SRLVsadPd89b_nR_vn3cchM"
+        "key=AIzaSyCCPLZoH8d2j7rMFcDufb3S3ueUvO-c8vU"
+      
         
         Alamofire.request(directionURL).responseJSON
             { response in
-                
-                
-                
+                print(response)
                 if let JSON = response.result.value {
                     let mapResponse: [String: AnyObject] = JSON as! [String : AnyObject]
                     let routesArray = (mapResponse["routes"] as? Array) ?? []
                     let routes = (routesArray.first as? Dictionary<String, AnyObject>) ?? [:]
                     let overviewPolyline = (routes["overview_polyline"] as? Dictionary<String,AnyObject>) ?? [:]
                     let polypoints = (overviewPolyline["points"] as? String) ?? ""
-                    let line  = polypoints
-                    
-                    self.drawRoute(encodedString: line, animated: false)
+                    self.drawRoute(encodedString: polypoints, animated: false)
                 }
         }
     }
@@ -401,13 +278,11 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     func drawRoute(encodedString: String, animated: Bool) {
         
         if let path = GMSMutablePath(fromEncodedPath: encodedString) {
-            
             let polyline = GMSPolyline(path: path)
             polyline.strokeWidth = 5.0
-            // polyline.strokeColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
+         // polyline.strokeColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.5)
             polyline.strokeColor = UIColor.black
             polyline.map = mapView
-            
             if(animated){
                 self.animatePolylinePath(path: path)
             }
@@ -452,18 +327,18 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         let cordinate:[String: CLLocationCoordinate2D] = ["cordinate": place.coordinate]
         mapView.clear()
         
+        self.CurrentLocMarker.position = CLLocationCoordinate2DMake(place.coordinate.latitude, place.coordinate.longitude)
+        self.CurrentLocMarker.map = self.mapView
+        self.CurrentLocMarker.title = "myLoc"
         var markerView = UIImageView()
         markerView = UIImageView(image: UIImage.init(named: "current_location_icon"))
         markerView.frame.size.width = 30
         markerView.frame.size.height = 30
         self.CurrentLocMarker.iconView = markerView
-        self.CurrentLocMarker.map = self.mapView
-        
         let camera = GMSCameraPosition.camera(withLatitude: (place.coordinate.latitude), longitude: (place.coordinate.longitude), zoom:12)
-        
-        //  self.mapView.animate(to: camera)
-        mapView.camera = camera
-        five = 0
+         mapView.camera = camera
+        //self.mapView.animate(to: camera)
+         five = 0
         loadEventsToMap(lat: place.coordinate.latitude, long:place.coordinate.longitude)
         
     }
@@ -486,7 +361,12 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         UIApplication.shared.isNetworkActivityIndicatorVisible = false
     }
     
-    
+    func method(arg: Bool, completion: (Bool) -> ()) {
+        print("First line of code executed")
+        completion(arg)
+    }
+
     
 }
+
 

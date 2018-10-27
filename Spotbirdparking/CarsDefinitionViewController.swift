@@ -188,147 +188,24 @@ class CarsDefinitionViewController: UIViewController, UITextFieldDelegate, UIIma
         guard let button = sender as? UIBarButtonItem, button === saveButton else {
             return
         }
-        
-        
-        if car?.car_uid == nil {
-          self.addnewcar()
-         }else {
-       
-    self.refArtists = Database.database().reference().child("User").child(AppState.sharedInstance.userid)
-        
-        refArtists.child("Cars").observeSingleEvent(of: .value, with: { (snapshot) in
-            print(self.car?.car_uid)
-            print(snapshot)
-            
-            if snapshot.hasChild((self.car?.car_uid)!){
-                //Update CAr
-               self.Update_car()
-             }else{
-                // Add New CAr
-                self.addnewcar()
-            }
-            })
-        }
-       }
-    
-     //Update CAr
-    func Update_car()
-    {
-        showHud(message: "Update")
-        let img_url = (car?.carImage)!
-        print(img_url)
-        let startIndex = img_url.index((img_url.startIndex), offsetBy: 80)
-        let endIndex = img_url.index((img_url.startIndex), offsetBy: 84)
-        let imgname =  String(img_url[startIndex...endIndex])
-        print(imgname)
-        
-    
-        var imageReference: StorageReference {
-            return Storage.storage().reference().child("car")
-        }
-        
-        guard let imageData = UIImageJPEGRepresentation(Image.image!, 0.5) else { return }
-        let uploadImageRef = imageReference.child(String(imgname))
-        
-        let uploadTask = uploadImageRef.putData(imageData, metadata: nil) { (metadata, error) in
-            print("UPLOAD TASK FINISHED")
-            print(metadata ?? "NO METADATA")
-            print(error ?? "NO ERROR")
-            
-            uploadImageRef.downloadURL(completion: { (url, error) in
-                if let error = error {
-                    print(error.localizedDescription)
-                    return
-                }
-                if let url = url?.absoluteString {
-                    let fullURL = url
-                    print(fullURL)
- 
-                    let ref = Database.database().reference().child("User").child(AppState.sharedInstance.userid).child("Cars").child((self.car?.car_uid)!)
-                    
-                    ref.updateChildValues([
-                        "make":self.Make.text!,
-                        "model":self.Model.text!,
-                        "year": self.Year.text!,
-                        "image": fullURL,
-                        "default": self.Default.isChecked]){
-                            (error:Error?, ref:DatabaseReference) in
-                            if let error = error {
-                                print("Data could not be Update: \(error).")
-                                 self.hideHUD()
-                            } else {
-                                print("Data Update successfully!")
-                                self.hideHUD()
-                            }
-                    }
-                    }
-            })
-        }
-      }
-    
-    // Add New CAr
-    func addnewcar()
-    {
-        showHud(message: "Save")
-        var imageReference: StorageReference {
-            return Storage.storage().reference().child("car")
-        }
-        
         guard let image = Image.image else { return }
         guard let imageData = UIImageJPEGRepresentation(image, 0.5) else { return }
         print("***** Compressed Size \(imageData.description) **** ")
-        let uploadImageRef = imageReference.child(randomStringWithLength(length: 5) as String)
-        let uploadTask = uploadImageRef.putData(imageData, metadata: nil) { (metadata, error) in
-            print("UPLOAD TASK FINISHED")
-            print(metadata ?? "NO METADATA")
-            print(error ?? "NO ERROR")
+        
+        if car?.car_uid == nil{
+            // Add new car
+          AppState.sharedInstance.user.SetCar(car_uid: "", make: Make.text!, Model: Model.text!, year: Year.text!, setbool: Default.isChecked, image: Image.image!,strurl:"")
             
-            uploadImageRef.downloadURL(completion: { (url, error) in
-                if let error = error {
-                    print(error.localizedDescription)
-                    return
-                }
-                if let url = url?.absoluteString {
-                    let fullURL = url
-                    print(fullURL)
-                    
-                self.refArtists = Database.database().reference().child("User").child(AppState.sharedInstance.userid).child("Cars");
-                    
-                    let key = self.refArtists.childByAutoId().key
-                    
-                    let cars = [  "make":self.Make.text!,
-                                  "model":self.Model.text!,
-                                  "year": self.Year.text!,
-                                  "image": fullURL,
-                                  "default": self.Default.isChecked
-                               ] as [String : Any]
-                    
-                    self.refArtists.child(key!).setValue(cars){
-                        (error:Error?, ref:DatabaseReference) in
-                        if let error = error {
-                            print("Data could not be saved: \(error).")
-                            self.hideHUD()
-                        } else {
-                            print("Data saved successfully!")
-                  self.hideHUD()
-                        }
-                    }
-                 
-                    
-                    
-                }
-                
-            })
+         }
+        else{
+              // Update exist car
+           AppState.sharedInstance.user.SetCar(car_uid: (car?.car_uid)!, make: Make.text!, Model: Model.text!, year: Year.text!, setbool: Default.isChecked, image: Image.image!, strurl: (car?.carImage)!)
             
-        }
-        uploadTask.observe(.progress) { (snapshot) in
-            print(snapshot.progress ?? "NO MORE PROGRESS")
+          
         }
         
-        uploadTask.resume()
     }
-    
-    
+       
     func randomStringWithLength(length: Int) -> NSString {
         let characters: NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
         let randomString: NSMutableString = NSMutableString(capacity: length)
@@ -340,12 +217,9 @@ class CarsDefinitionViewController: UIViewController, UITextFieldDelegate, UIIma
         }
         return randomString
     }
+        
     public func setCar(thisCar: Car) {
         self.car = thisCar
     }
-   
-    
-   
-    
     
 }

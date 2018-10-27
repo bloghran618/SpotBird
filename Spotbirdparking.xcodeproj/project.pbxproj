@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		0406E62A21620AD900C3E97B /* Login_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0406E62921620AD900C3E97B /* Login_ViewController.swift */; };
+		041EC522217F42AA007DEC9C /* Custommarkerinfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 041EC521217F42AA007DEC9C /* Custommarkerinfo.xib */; };
+		041EC524217F44EA007DEC9C /* Custommarkerinfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041EC523217F44EA007DEC9C /* Custommarkerinfo.swift */; };
 		0426E0332164F4FF0017E88B /* CustomInfoWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0426E0322164F4FE0017E88B /* CustomInfoWindow.xib */; };
 		0426E0352164F5060017E88B /* CustomInfoWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0426E0342164F5050017E88B /* CustomInfoWindow.swift */; };
 		0426E0382164F97D0017E88B /* PriceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B702B111212E361D004B3EF1 /* PriceViewController.swift */; };
@@ -59,6 +61,8 @@
 /* Begin PBXFileReference section */
 		004FEE7D57FACF9250B89078 /* Pods_Spotbirdparking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Spotbirdparking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0406E62921620AD900C3E97B /* Login_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login_ViewController.swift; sourceTree = "<group>"; };
+		041EC521217F42AA007DEC9C /* Custommarkerinfo.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Custommarkerinfo.xib; sourceTree = "<group>"; };
+		041EC523217F44EA007DEC9C /* Custommarkerinfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Custommarkerinfo.swift; sourceTree = "<group>"; };
 		0426E0322164F4FE0017E88B /* CustomInfoWindow.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomInfoWindow.xib; sourceTree = "<group>"; };
 		0426E0342164F5050017E88B /* CustomInfoWindow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomInfoWindow.swift; sourceTree = "<group>"; };
 		043E033421746CF100134F78 /* Spotbirdparking-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Spotbirdparking-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -204,9 +208,11 @@
 				B72D8BE320D0B6BE0038310F /* CheckBox.swift */,
 				B71F2DEB2086CDA800F47274 /* Main.storyboard */,
 				0426E0322164F4FE0017E88B /* CustomInfoWindow.xib */,
+				041EC521217F42AA007DEC9C /* Custommarkerinfo.xib */,
 				B71F2DEE2086CDAA00F47274 /* Assets.xcassets */,
 				B71F2DF02086CDAA00F47274 /* LaunchScreen.storyboard */,
 				B71F2DF32086CDAA00F47274 /* Info.plist */,
+				041EC523217F44EA007DEC9C /* Custommarkerinfo.swift */,
 			);
 			path = Spotbirdparking;
 			sourceTree = "<group>";
@@ -316,6 +322,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				041EC522217F42AA007DEC9C /* Custommarkerinfo.xib in Resources */,
 				0426E0332164F4FF0017E88B /* CustomInfoWindow.xib in Resources */,
 				B71F2DF22086CDAA00F47274 /* LaunchScreen.storyboard in Resources */,
 				04B4D5952163BDF400F49505 /* GoogleService-Info.plist in Resources */,
@@ -449,6 +456,7 @@
 				B7A86B4B20C0E9DB00041C61 /* Car.swift in Sources */,
 				B72D8BE420D0B6BE0038310F /* CheckBox.swift in Sources */,
 				B7F9425920FD903D001B421E /* SpotImageViewController.swift in Sources */,
+				041EC524217F44EA007DEC9C /* Custommarkerinfo.swift in Sources */,
 				B7364D0820B65F120081F40F /* ProfileTableViewController.swift in Sources */,
 				B7D3B2D62172644500ADBAD4 /* Reservation.swift in Sources */,
 				B7A669D82134EC030057A283 /* AppState.swift in Sources */,

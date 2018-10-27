@@ -49,7 +49,10 @@ class AppState {
         self.activeSpot = Spot(address: " ", town: "", state: "", zipCode: " ", spotImage: " ", description: " ", monStartTime: "12:00 AM", monEndTime: "12:00 PM", tueStartTime: "12:00 AM", tueEndTime: "12:00 PM", wedStartTime: "12:00 AM", wedEndTime: "12:00 PM", thuStartTime: "12:00 AM", thuEndTime: "12:00 PM", friStartTime: "12:00 AM", friEndTime: "12:00 PM", satStartTime: "12:00 AM", satEndTime: "12:00 PM", sunStartTime: "12:00 AM", sunEndTime: "12:00 PM", monOn: true, tueOn: true, wedOn: true, thuOn: true, friOn: true, satOn: true, sunOn: true, hourlyPricing: " ", dailyPricing: " ", weeklyPricing: " ", monthlyPricing: "", weeklyOn: true, monthlyOn: true, index: -1, approved: false, spotImages: UIImage.init(named: "emptySpot")!, spots_id: "")!
     }
 }
-extension UIViewController {
+
+public class Loader:UIViewController {
+    
+    
     func showHud(message: String) {
         let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
         hud?.labelText = message
@@ -59,4 +62,45 @@ extension UIViewController {
     func hideHUD() {
         MBProgressHUD.hide(for: self.view, animated: true)
     }
+  
 }
+
+
+open class Spinner {
+    
+    internal static var spinner: UIActivityIndicatorView?
+    open static var style: UIActivityIndicatorViewStyle = .whiteLarge
+    //open static var baseBackColor = UIColor.black.withAlphaComponent(0.5)
+    open static var baseBackColor = UIColor.black.withAlphaComponent(0.2)
+    open static var baseColor = UIColor.red
+    
+    open static func start(style: UIActivityIndicatorViewStyle = style, backColor: UIColor = baseBackColor, baseColor: UIColor = baseColor) {
+        NotificationCenter.default.addObserver(self, selector: #selector(update), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)
+        if spinner == nil, let window = UIApplication.shared.keyWindow {
+            let frame = UIScreen.main.bounds
+            spinner = UIActivityIndicatorView(frame: frame)
+            spinner!.backgroundColor = backColor
+            spinner!.activityIndicatorViewStyle = style
+            spinner?.color = baseColor
+            window.addSubview(spinner!)
+            spinner!.startAnimating()
+        }
+    }
+    
+    open static func stop() {
+        if spinner != nil {
+            spinner!.stopAnimating()
+            spinner!.removeFromSuperview()
+            spinner = nil
+        }
+    }
+    
+    @objc open static func update() {
+        if spinner != nil {
+            stop()
+            start()
+        }
+    }
+}
+
+

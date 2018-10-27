@@ -8,17 +8,19 @@
 
 import Foundation
 import UIKit
+import Firebase
+import SDWebImage
 
 class Car {
     var make: String
     var model: String
     var year: String?
-//  var carImage: UIImage?
+    //  var carImage: UIImage?
     var carImage: String
     var isDefault: Bool?
     var car_uid: String?
-   
-   
+    
+    
     init?(make: String, model: String, year: String, carImage: String, isDefault: Bool,car_id:String) {
         // Make sure make and model are defined
         if make.isEmpty || model.isEmpty {
@@ -31,6 +33,8 @@ class Car {
         self.carImage = carImage
         self.isDefault = isDefault
         car_uid = car_id
-       
+        
     }
 }
+
+
