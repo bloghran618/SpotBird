@@ -183,7 +183,6 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     
     // MARK:_ Load Marker to map :-  Spot
     func loadEventsToMap(lat:Double,long:Double){
-<<<<<<< HEAD
         
         print("arrspotcount \(arrspot.count)")
         print("arrspot \(arrspot)|")
@@ -193,9 +192,6 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         print(CLLocationDegrees(truncating: (arrspot.object(at: 1) as! NSDictionary).value(forKey: "user_lat") as! NSNumber))
         
         for i in 0..<arrspot.count {
-=======
-         for i in 0..<arrspot.count {
->>>>>>> 6a708c4f9597bb31dd477ac90bba116bd81c79e0
             
             let coordinate₀ = CLLocation(latitude: CLLocationDegrees(truncating: (arrspot.object(at: i) as! NSDictionary).value(forKey: "user_lat") as! NSNumber), longitude:CLLocationDegrees(truncating: (arrspot.object(at: i) as! NSDictionary).value(forKey: "user_long") as! NSNumber))
             let coordinate₁ = CLLocation(latitude: lat, longitude: long)
