@@ -35,7 +35,7 @@ class Login_ViewController: UIViewController {
     
     @IBAction func btn_login(_ sender: Any) {
     
-      Spinner.start()
+    Spinner.start()
      let ref = Database.database().reference().child("User").queryOrdered(byChild: "uname").queryEqual(toValue : txt_uname.text!)
         ref.observe(.value, with:{ (snapshot: DataSnapshot) in
             
@@ -75,6 +75,12 @@ class Login_ViewController: UIViewController {
                     }
                     
                 }
+            }else{
+                     Spinner.stop()
+                let alertController = UIAlertController(title: "Error", message: "Incorrect UserName..", preferredStyle: .alert)
+                let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                alertController.addAction(defaultAction)
+                self.present(alertController, animated: true, completion: nil)
             }
            
         })
