@@ -33,7 +33,6 @@
 		B7364D0820B65F120081F40F /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7364D0720B65F120081F40F /* ProfileTableViewController.swift */; };
 		B7445D67212B967C0063F58D /* Spot.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7445D66212B967C0063F58D /* Spot.swift */; };
 		B74DE6EE2178100F0049A31B /* ReservationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74DE6ED2178100F0049A31B /* ReservationsViewController.swift */; };
-		B74DE6F0217810610049A31B /* ReservationViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74DE6EF217810610049A31B /* ReservationViewCell.swift */; };
 		B75AE7B920C496B40069A151 /* CarsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75AE7B820C496B40069A151 /* CarsTableViewCell.swift */; };
 		B75AE7BB20C4B63D0069A151 /* CarsDefinitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75AE7BA20C4B63D0069A151 /* CarsDefinitionViewController.swift */; };
 		B77D9346211A807700D505BD /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77D9345211A807700D505BD /* ScheduleViewController.swift */; };
@@ -42,6 +41,7 @@
 		B7A669D82134EC030057A283 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A669D72134EC030057A283 /* AppState.swift */; };
 		B7A86B4B20C0E9DB00041C61 /* Car.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A86B4A20C0E9DB00041C61 /* Car.swift */; };
 		B7B67FE320C34A7400A13FD0 /* CarsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7B67FE220C34A7400A13FD0 /* CarsViewController.swift */; };
+		B7BC7105218166AE00EE6F7A /* CustomCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7BC7104218166AE00EE6F7A /* CustomCell.swift */; };
 		B7CD91E920F8298F00CFF016 /* SpotTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CD91E820F8298F00CFF016 /* SpotTableViewCell.swift */; };
 		B7CD91EB20F82C6100CFF016 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CD91EA20F82C6100CFF016 /* ShareViewController.swift */; };
 		B7CF24F120BCBB3000722933 /* YouViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CF24F020BCBB3000722933 /* YouViewController.swift */; };
@@ -99,7 +99,6 @@
 		B7364D0720B65F120081F40F /* ProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
 		B7445D66212B967C0063F58D /* Spot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spot.swift; sourceTree = "<group>"; };
 		B74DE6ED2178100F0049A31B /* ReservationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationsViewController.swift; sourceTree = "<group>"; };
-		B74DE6EF217810610049A31B /* ReservationViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationViewCell.swift; sourceTree = "<group>"; };
 		B75AE7B820C496B40069A151 /* CarsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarsTableViewCell.swift; sourceTree = "<group>"; };
 		B75AE7BA20C4B63D0069A151 /* CarsDefinitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarsDefinitionViewController.swift; sourceTree = "<group>"; };
 		B77D9345211A807700D505BD /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
@@ -108,6 +107,7 @@
 		B7A669D72134EC030057A283 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		B7A86B4A20C0E9DB00041C61 /* Car.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Car.swift; sourceTree = "<group>"; };
 		B7B67FE220C34A7400A13FD0 /* CarsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarsViewController.swift; sourceTree = "<group>"; };
+		B7BC7104218166AE00EE6F7A /* CustomCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomCell.swift; sourceTree = "<group>"; };
 		B7CD91E820F8298F00CFF016 /* SpotTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotTableViewCell.swift; sourceTree = "<group>"; };
 		B7CD91EA20F82C6100CFF016 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		B7CF24F020BCBB3000722933 /* YouViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouViewController.swift; sourceTree = "<group>"; };
@@ -210,7 +210,7 @@
 				B77D9345211A807700D505BD /* ScheduleViewController.swift */,
 				B702B111212E361D004B3EF1 /* PriceViewController.swift */,
 				B74DE6ED2178100F0049A31B /* ReservationsViewController.swift */,
-				B74DE6EF217810610049A31B /* ReservationViewCell.swift */,
+				B7BC7104218166AE00EE6F7A /* CustomCell.swift */,
 				B72D8BE320D0B6BE0038310F /* CheckBox.swift */,
 				B71F2DEB2086CDA800F47274 /* Main.storyboard */,
 				0426E0322164F4FE0017E88B /* CustomInfoWindow.xib */,
@@ -458,6 +458,11 @@
 				B75AE7BB20C4B63D0069A151 /* CarsDefinitionViewController.swift in Sources */,
 				B77D9346211A807700D505BD /* ScheduleViewController.swift in Sources */,
 				B7364D0620B65B390081F40F /* ProfileTableOption.swift in Sources */,
+<<<<<<< HEAD
+=======
+				04453816217DC32400603094 /* MBProgressHUD.m in Sources */,
+				B7BC7105218166AE00EE6F7A /* CustomCell.swift in Sources */,
+>>>>>>> 44fcbcc759cc41cd8adb555f375edef3daefe973
 				0426E0382164F97D0017E88B /* PriceViewController.swift in Sources */,
 				B7A86B4B20C0E9DB00041C61 /* Car.swift in Sources */,
 				B72D8BE420D0B6BE0038310F /* CheckBox.swift in Sources */,
@@ -476,7 +481,6 @@
 				B7B67FE320C34A7400A13FD0 /* CarsViewController.swift in Sources */,
 				0406E62A21620AD900C3E97B /* Login_ViewController.swift in Sources */,
 				B7A35D4120F5AA4500E4B566 /* AddressViewController.swift in Sources */,
-				B74DE6F0217810610049A31B /* ReservationViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -638,8 +642,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 5746S7T9X5;
 				INFOPLIST_FILE = Spotbirdparking/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -647,6 +652,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = Spotbird.Spotbirdparking;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Spotbirdparking/Third_Partys/Spotbirdparking-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
@@ -660,8 +666,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 5746S7T9X5;
 				INFOPLIST_FILE = Spotbirdparking/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -669,6 +676,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = Spotbird.Spotbirdparking;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Spotbirdparking/Third_Partys/Spotbirdparking-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
