@@ -39,6 +39,7 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         self.navigationItem.rightBarButtonItem = camera
         
        AppState.sharedInstance.user.Get_UserProfile()
+       
         
         if AppState.sharedInstance.user.profileImage == ""{
             self.profilePhoto.image = #imageLiteral(resourceName: "EmptyProfile")
@@ -80,9 +81,7 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
             else{
                 AppState.sharedInstance.user.Set_UserProfile(change: "change")
             }
-            
-           
-           }
+        }
     }
     
     override func didReceiveMemoryWarning() {
@@ -196,7 +195,6 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         alertController.addAction(okAction)
         self.present(alertController, animated: true, completion: nil)
     }
-    
 }
 
 extension UIViewController {

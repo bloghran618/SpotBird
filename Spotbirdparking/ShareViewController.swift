@@ -28,7 +28,9 @@ class ShareViewController: UIViewController, UITableViewDataSource {
         super.viewDidLoad()
         self.spotTable.dataSource = self
         self.spotTable.rowHeight = 100
+
        AppState.sharedInstance.activeSpot.getSpots()
+     
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -62,10 +64,14 @@ class ShareViewController: UIViewController, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
          if editingStyle == .delete {
+            
+            
                 
             let spot_dict = AppState.sharedInstance.spots[indexPath.row]
             AppState.sharedInstance.activeSpot.Delete_Spots(spot_dict: spot_dict, index: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
+             
+                    
             tableView.reloadData()
            
             } else if editingStyle == .insert {
