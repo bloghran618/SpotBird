@@ -99,14 +99,14 @@ class Reservation {
     
     static func dateToString(date: Date) -> String {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyy-MM-dd HH:mm"  // this is the format for the date
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"  // this is the format for the date
         let myString = formatter.string(from: date)
         return myString
     }
     
     static func stringToDate(string: String) -> Date {
         let formatter = DateFormatter()
-        formatter.dateFormat = "yyy-MM-dd HH:mm"  // this is the format for the date
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"  // this is the format for the date
         let myDate = formatter.date(from: string)
         return myDate!
     }

@@ -35,6 +35,7 @@
 		B75AE7BB20C4B63D0069A151 /* CarsDefinitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75AE7BA20C4B63D0069A151 /* CarsDefinitionViewController.swift */; };
 		B77D9346211A807700D505BD /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77D9345211A807700D505BD /* ScheduleViewController.swift */; };
 		B7826C942147582100616275 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7826C932147582100616275 /* User.swift */; };
+		B79D514B218BDA4E001EFE1C /* ByDayResTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79D514A218BDA4E001EFE1C /* ByDayResTableViewCell.swift */; };
 		B7A35D4120F5AA4500E4B566 /* AddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A35D4020F5AA4500E4B566 /* AddressViewController.swift */; };
 		B7A669D82134EC030057A283 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A669D72134EC030057A283 /* AppState.swift */; };
 		B7A86B4B20C0E9DB00041C61 /* Car.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A86B4A20C0E9DB00041C61 /* Car.swift */; };
@@ -99,6 +100,7 @@
 		B75AE7BA20C4B63D0069A151 /* CarsDefinitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarsDefinitionViewController.swift; sourceTree = "<group>"; };
 		B77D9345211A807700D505BD /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
 		B7826C932147582100616275 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		B79D514A218BDA4E001EFE1C /* ByDayResTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ByDayResTableViewCell.swift; sourceTree = "<group>"; };
 		B7A35D4020F5AA4500E4B566 /* AddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressViewController.swift; sourceTree = "<group>"; };
 		B7A669D72134EC030057A283 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		B7A86B4A20C0E9DB00041C61 /* Car.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Car.swift; sourceTree = "<group>"; };
@@ -205,6 +207,7 @@
 				B702B111212E361D004B3EF1 /* PriceViewController.swift */,
 				B74DE6ED2178100F0049A31B /* ReservationsViewController.swift */,
 				B7BC7104218166AE00EE6F7A /* CustomCell.swift */,
+				B79D514A218BDA4E001EFE1C /* ByDayResTableViewCell.swift */,
 				B72D8BE320D0B6BE0038310F /* CheckBox.swift */,
 				B71F2DEB2086CDA800F47274 /* Main.storyboard */,
 				0426E0322164F4FE0017E88B /* CustomInfoWindow.xib */,
@@ -446,6 +449,7 @@
 				B71F2DE62086CDA800F47274 /* AppDelegate.swift in Sources */,
 				B74DE6EE2178100F0049A31B /* ReservationsViewController.swift in Sources */,
 				04E63848216211AD003EAC28 /* Signup_ViewController.swift in Sources */,
+				B79D514B218BDA4E001EFE1C /* ByDayResTableViewCell.swift in Sources */,
 				B7445D67212B967C0063F58D /* Spot.swift in Sources */,
 				B75AE7BB20C4B63D0069A151 /* CarsDefinitionViewController.swift in Sources */,
 				B77D9346211A807700D505BD /* ScheduleViewController.swift in Sources */,

@@ -548,20 +548,6 @@
                                                     <rect key="frame" x="0.0" y="0.0" width="97" height="102"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <subviews>
-                                                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xtu-5K-PUA">
-                                                            <rect key="frame" x="46.5" y="13" width="4" height="4"/>
-                                                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                            <color key="tintColor" red="0.69803921570000005" green="0.69803921570000005" blue="0.69803921570000005" alpha="1" colorSpace="calibratedRGB"/>
-                                                            <constraints>
-                                                                <constraint firstAttribute="height" constant="4" id="Mhw-6j-rn5"/>
-                                                                <constraint firstAttribute="width" constant="4" id="O86-zS-HIM"/>
-                                                            </constraints>
-                                                            <userDefinedRuntimeAttributes>
-                                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                                    <integer key="value" value="2"/>
-                                                                </userDefinedRuntimeAttribute>
-                                                            </userDefinedRuntimeAttributes>
-                                                        </view>
                                                         <view hidden="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Ca4-FG-2SP">
                                                             <rect key="frame" x="28" y="31" width="40" height="40"/>
                                                             <color key="backgroundColor" red="0.32549019607843138" green="0.73725490196078436" blue="0.43529411764705883" alpha="1" colorSpace="calibratedRGB"/>
@@ -573,6 +559,20 @@
                                                             <userDefinedRuntimeAttributes>
                                                                 <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                                                     <integer key="value" value="20"/>
+                                                                </userDefinedRuntimeAttribute>
+                                                            </userDefinedRuntimeAttributes>
+                                                        </view>
+                                                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xtu-5K-PUA">
+                                                            <rect key="frame" x="45.5" y="10" width="6" height="6"/>
+                                                            <color key="backgroundColor" red="0.32549019610000002" green="0.73725490199999999" blue="0.43529411759999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <color key="tintColor" red="0.69803921570000005" green="0.69803921570000005" blue="0.69803921570000005" alpha="1" colorSpace="calibratedRGB"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="6" id="D6E-iJ-zlM"/>
+                                                                <constraint firstAttribute="height" constant="6" id="Rha-BI-25a"/>
+                                                            </constraints>
+                                                            <userDefinedRuntimeAttributes>
+                                                                <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                                    <integer key="value" value="3"/>
                                                                 </userDefinedRuntimeAttribute>
                                                             </userDefinedRuntimeAttributes>
                                                         </view>
@@ -588,12 +588,13 @@
                                                     <constraint firstItem="Ca4-FG-2SP" firstAttribute="centerY" secondItem="oSd-1K-mYF" secondAttribute="centerY" id="45L-Ph-Tyb"/>
                                                     <constraint firstItem="GEf-ol-rKT" firstAttribute="centerY" secondItem="oSd-1K-mYF" secondAttribute="centerY" id="6lN-Dx-M3V"/>
                                                     <constraint firstItem="Ca4-FG-2SP" firstAttribute="centerX" secondItem="oSd-1K-mYF" secondAttribute="centerX" id="C3w-KA-TQV"/>
+                                                    <constraint firstItem="xtu-5K-PUA" firstAttribute="centerY" secondItem="oSd-1K-mYF" secondAttribute="centerY" constant="13" id="GNg-07-P9u"/>
                                                     <constraint firstItem="GEf-ol-rKT" firstAttribute="centerX" secondItem="oSd-1K-mYF" secondAttribute="centerX" id="JAr-Y9-Z43"/>
                                                     <constraint firstItem="xtu-5K-PUA" firstAttribute="centerX" secondItem="oSd-1K-mYF" secondAttribute="centerX" id="Qwz-Da-Pvd"/>
-                                                    <constraint firstItem="xtu-5K-PUA" firstAttribute="centerY" secondItem="oSd-1K-mYF" secondAttribute="centerY" constant="15" id="dkE-7n-BT2"/>
                                                 </constraints>
                                                 <connections>
                                                     <outlet property="dateLabel" destination="GEf-ol-rKT" id="uQ1-LJ-8T8"/>
+                                                    <outlet property="eventView" destination="xtu-5K-PUA" id="uHD-5O-wfn"/>
                                                     <outlet property="selectedView" destination="Ca4-FG-2SP" id="qp2-K6-9wx"/>
                                                 </connections>
                                             </collectionViewCell>
@@ -602,6 +603,16 @@
                                     <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="yOr-SJ-4pC">
                                         <rect key="frame" x="0.0" y="378.5" width="375" height="218"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <prototypes>
+                                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Ety-hb-b7q">
+                                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                                <autoresizingMask key="autoresizingMask"/>
+                                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Ety-hb-b7q" id="iHe-8U-ACm" customClass="ByDayResTableViewCell" customModule="Spotbirdparking" customModuleProvider="target">
+                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                </tableViewCellContentView>
+                                            </tableViewCell>
+                                        </prototypes>
                                     </tableView>
                                 </subviews>
                                 <constraints>
@@ -621,6 +632,7 @@
                     <connections>
                         <outlet property="calendarView" destination="kyT-N9-3MS" id="3n1-oa-wdL"/>
                         <outlet property="month" destination="xir-m0-zCB" id="YA2-4N-U1u"/>
+                        <outlet property="resByDayTable" destination="yOr-SJ-4pC" id="rgT-g4-igC"/>
                         <outlet property="year" destination="7d4-qr-gmp" id="WNQ-pd-BpD"/>
                     </connections>
                 </viewController>
