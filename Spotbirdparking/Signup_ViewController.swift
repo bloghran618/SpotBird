@@ -106,6 +106,7 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
             self.present(alert, animated: true, completion: nil)
         }
         else {
+       
                 Spinner.start()
         let ref = Database.database().reference()
         ref.child("User").queryOrdered(byChild: "uname").queryEqual(toValue: txt_username.text)
@@ -125,8 +126,10 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
                      }
                 
                     })
-          }
-    }
+            }
+        
+        }
+    
     
     func openCamera() {
         if(UIImagePickerController .isSourceTypeAvailable(UIImagePickerControllerSourceType.camera)) {

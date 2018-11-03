@@ -20,7 +20,6 @@ class Spot {
     var spotImage1: UIImage
     var spotImage: String
     var description: String
-    
     var monStartTime: String
     var monEndTime: String
     var tueStartTime: String
@@ -66,7 +65,7 @@ class Spot {
         self.zipCode = zipCode
         
         self.spotImage = spotImage
-        spotImage1 = spotImages
+        self.spotImage1 = spotImages
         self.description = description
         
         self.monStartTime = monStartTime
@@ -96,20 +95,14 @@ class Spot {
         self.dailyPricing = dailyPricing
         self.weeklyPricing = weeklyPricing
         self.monthlyPricing = monthlyPricing
-        
         self.weeklyOn = weeklyOn
         self.monthlyOn = monthlyOn
-        
         self.index = index
         self.approved = approved
-        spot_id = spots_id
+        self.spot_id = spots_id
     }
     
-   
-    
-  
-  func getSpots() {
-    
+   func getSpots() {
     
     self.refArtists = Database.database().reference().child("User").child(AppState.sharedInstance.userid).child("MySpots");
     self.refArtists.observe(DataEventType.value, with: { (snapshot) in
