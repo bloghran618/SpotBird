@@ -462,11 +462,8 @@
 				B75AE7BB20C4B63D0069A151 /* CarsDefinitionViewController.swift in Sources */,
 				B77D9346211A807700D505BD /* ScheduleViewController.swift in Sources */,
 				B7364D0620B65B390081F40F /* ProfileTableOption.swift in Sources */,
-<<<<<<< HEAD
-=======
 				04453816217DC32400603094 /* MBProgressHUD.m in Sources */,
-				B7BC7105218166AE00EE6F7A /* CustomCell.swift in Sources */,
->>>>>>> 44fcbcc759cc41cd8adb555f375edef3daefe973
+				B7BC7105218166AE00EE6F7A /* CustomCell.swift in Sources */, 
 				0426E0382164F97D0017E88B /* PriceViewController.swift in Sources */,
 				B7A86B4B20C0E9DB00041C61 /* Car.swift in Sources */,
 				B72D8BE420D0B6BE0038310F /* CheckBox.swift in Sources */,
