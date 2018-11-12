@@ -59,7 +59,7 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.hideKeyboardWhenTappedAround()
+      self.hideKeyboardWhenTappedAround()
         
         // Monday controls
         let monStartDatePicker = UIDatePicker()
@@ -176,14 +176,13 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate{
         satSwitch.setOn(AppState.sharedInstance.activeSpot.satOn, animated: true)
         sunSwitch.setOn(AppState.sharedInstance.activeSpot.sunOn, animated: true)
         
-        AppState.sharedInstance.activeSpot.pringSpotCliffNotes()
-        
-    }
+     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
    // Monday
     @objc func monStartDatePickerValueChanged(_ sender: UIDatePicker) {
         //        let DatePickerView: UIDatePicker = UIDatePicker()

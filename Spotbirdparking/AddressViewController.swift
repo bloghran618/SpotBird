@@ -19,9 +19,7 @@ class AddressViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        AppState.sharedInstance.activeSpot.pringSpotCliffNotes()
-        
-        self.addressField.delegate = self
+       self.addressField.delegate = self
         self.townField.delegate = self
         self.stateField.delegate = self
         self.zipField.delegate = self

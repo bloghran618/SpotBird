@@ -192,6 +192,8 @@ class CarsDefinitionViewController: UIViewController, UITextFieldDelegate, UIIma
         guard let imageData = UIImageJPEGRepresentation(image, 0.5) else { return }
         print("***** Compressed Size \(imageData.description) **** ")
         
+    
+        
         if car?.car_uid == nil{
             // Add new car
           AppState.sharedInstance.user.SetCar(car_uid: "", make: Make.text!, Model: Model.text!, year: Year.text!, setbool: Default.isChecked, image: Image.image!,strurl:"")
@@ -200,11 +202,10 @@ class CarsDefinitionViewController: UIViewController, UITextFieldDelegate, UIIma
         else{
               // Update exist car
            AppState.sharedInstance.user.SetCar(car_uid: (car?.car_uid)!, make: Make.text!, Model: Model.text!, year: Year.text!, setbool: Default.isChecked, image: Image.image!, strurl: (car?.carImage)!)
-            
-          
-        }
-        
-    }
+           }
+       }
+    
+   
        
     func randomStringWithLength(length: Int) -> NSString {
         let characters: NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"

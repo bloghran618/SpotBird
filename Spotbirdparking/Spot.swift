@@ -20,7 +20,6 @@ class Spot {
     var spotImage1: UIImage
     var spotImage: String
     var description: String
-    
     var monStartTime: String
     var monEndTime: String
     var tueStartTime: String
@@ -66,7 +65,7 @@ class Spot {
         self.zipCode = zipCode
         
         self.spotImage = spotImage
-        spotImage1 = spotImages
+        self.spotImage1 = spotImages
         self.description = description
         
         self.monStartTime = monStartTime
@@ -96,20 +95,14 @@ class Spot {
         self.dailyPricing = dailyPricing
         self.weeklyPricing = weeklyPricing
         self.monthlyPricing = monthlyPricing
-        
         self.weeklyOn = weeklyOn
         self.monthlyOn = monthlyOn
-        
         self.index = index
         self.approved = approved
-        spot_id = spots_id
+        self.spot_id = spots_id
     }
     
-   
-    
-  
-  func getSpots() {
-    
+   func getSpots() {
     
     self.refArtists = Database.database().reference().child("User").child(AppState.sharedInstance.userid).child("MySpots");
     self.refArtists.observe(DataEventType.value, with: { (snapshot) in
@@ -161,6 +154,8 @@ class Spot {
                             approved:false, spotImages: UIImage.init(named: "white")!, spots_id: (artists as! DataSnapshot).key)!)
                 
             }
+            
+             NotificationCenter.default.post(name: Notification.Name("Spots"), object: nil)
            
         }
         
@@ -204,6 +199,7 @@ class Spot {
     }
     
     func Save_Spot(SpotID:String){
+        print(SpotID)
         Spinner.start()
         print(AppState.sharedInstance.lat)
         print(AppState.sharedInstance.long)
@@ -269,8 +265,8 @@ class Spot {
                                  "sunEndTime":AppState.sharedInstance.activeSpot.sunEndTime,
                                  "dailyPricing":AppState.sharedInstance.activeSpot.dailyPricing,
                                  "hourlyPricing":AppState.sharedInstance.activeSpot.hourlyPricing,
-                                 "weeklyPricing":AppState.sharedInstance.activeSpot.hourlyPricing,
-                                 "monthlyPricing":AppState.sharedInstance.activeSpot.hourlyPricing,
+                                 "weeklyPricing":AppState.sharedInstance.activeSpot.weeklyPricing,
+                                 "monthlyPricing":AppState.sharedInstance.activeSpot.monthlyPricing,
                                  "switch_weekly":AppState.sharedInstance.activeSpot.weeklyOn,
                                  "switch_monthly":AppState.sharedInstance.activeSpot.monthlyOn,
                                  "user_lat":AppState.sharedInstance.lat,
@@ -297,6 +293,7 @@ class Spot {
                       
                         } else {
                             print("Data saved successfully!")
+                            self.getSpots()
                               Spinner.stop()
                         }
                     }
@@ -360,7 +357,7 @@ class Spot {
     
     func updatequery(data:DatabaseReference,url:String) {
         
-        self.refArtists.updateChildValues([
+   self.refArtists.updateChildValues([
             "image":url,
             "description":AppState.sharedInstance.activeSpot.description,
             "address":AppState.sharedInstance.activeSpot.address,
@@ -384,8 +381,8 @@ class Spot {
             "sunEndTime":AppState.sharedInstance.activeSpot.sunEndTime,
             "dailyPricing":AppState.sharedInstance.activeSpot.dailyPricing,
             "hourlyPricing":AppState.sharedInstance.activeSpot.hourlyPricing,
-            "weeklyPricing":AppState.sharedInstance.activeSpot.hourlyPricing,
-            "monthlyPricing":AppState.sharedInstance.activeSpot.hourlyPricing,
+            "weeklyPricing":AppState.sharedInstance.activeSpot.weeklyPricing,
+            "monthlyPricing":AppState.sharedInstance.activeSpot.monthlyPricing,
             "switch_weekly":AppState.sharedInstance.activeSpot.weeklyOn,
             "switch_monthly":AppState.sharedInstance.activeSpot.monthlyOn,
             "user_lat":AppState.sharedInstance.lat,
@@ -405,6 +402,7 @@ class Spot {
               
                 } else {
                     print("Data Update successfully!")
+                    self.getSpots()
                      Spinner.stop()
            
                 }
@@ -469,23 +467,23 @@ class Spot {
         
         return [hourlyPricingString, dailyPricingString, weeklyPricingString, monthlyPricingString]
     }
-    
-    func applyCalculatedPricing() {
-        var pricing = calculateReccomendedPricing()
-        self.hourlyPricing = pricing[0]
-        self.dailyPricing = pricing[1]
-        self.weeklyPricing = pricing[2]
-        self.monthlyPricing = pricing[3]
-    }
-    
-    // check in on the state of Spot
-    func pringSpotCliffNotes() {
-        print(self.address)
-        print(self.description)
-        print(self.monStartTime)
-        print(self.monEndTime)
-        print(self.hourlyPricing)
-    }
+//
+//    func applyCalculatedPricing() {
+//        var pricing = calculateReccomendedPricing()
+//        self.hourlyPricing = pricing[0]
+//        self.dailyPricing = pricing[1]
+//        self.weeklyPricing = pricing[2]
+//        self.monthlyPricing = pricing[3]
+//    }
+//    
+//    // check in on the state of Spot
+//    func pringSpotCliffNotes() {
+//        print(self.address)
+//        print(self.description)
+//        print(self.monStartTime)
+//        print(self.monEndTime)
+//        print(self.hourlyPricing)
+//    }
     
     func randomStringWithLength(length: Int) -> NSString {
         let characters: NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"

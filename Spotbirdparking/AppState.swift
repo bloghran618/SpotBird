@@ -9,20 +9,20 @@
 import Foundation
 import UIKit
 import Firebase
+import SystemConfiguration
+import SystemConfiguration
 
 
 class AppState {
     static let sharedInstance = AppState()
     
-   var lat:Double  = Double()
+    var lat:Double  = Double()
     var long:Double  = Double()
-    
-  
     var dict_spot: NSMutableDictionary = [:]
     var user: User
     var spots: [Spot]
     var activeSpot: Spot
-     var userid = ""
+    var userid = ""
     
     static let appStateRoot = Database.database().reference() // can change root
     let storageRef = Storage.storage().reference()
@@ -65,7 +65,7 @@ public class Loader:UIViewController {
   
 }
 
-
+// LOADING CLASS
 open class Spinner {
     
     internal static var spinner: UIActivityIndicatorView?
@@ -101,6 +101,8 @@ open class Spinner {
             start()
         }
     }
+    
 }
+
 
 

@@ -24,16 +24,25 @@ class CarsViewController: UIViewController, UITableViewDataSource {
         super.viewDidLoad()
         CarsTable.dataSource = self
         self.CarsTable.rowHeight = 100
+        
+        
          AppState.sharedInstance.user.GetCar()
-        if AppState.sharedInstance.user.cars.count != 0{
+        
+         if AppState.sharedInstance.user.cars.count != 0{
             navigationItem.rightBarButtonItem = editButtonItem
             CarsTable.reloadData()
         }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(CarsViewController.RefreshData(notification:)), name: Notification.Name("cars"), object: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         CarsTable.reloadData()
         
+    }
+    
+    @objc func RefreshData(notification: Notification) {
+        CarsTable.reloadData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -67,9 +76,12 @@ class CarsViewController: UIViewController, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
+    
             let db_car = AppState.sharedInstance.user.cars[indexPath.row]
             AppState.sharedInstance.user.Delete_car(car_dict: db_car, index: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
+                 
+            
             CarsTable.reloadData()
         } else if editingStyle == .insert {
             

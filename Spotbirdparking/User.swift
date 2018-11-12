@@ -226,6 +226,8 @@ class User {
                     AppState.sharedInstance.user.cars.append(Car(make: snapshotValue.value(forKey: "make") as! String, model: snapshotValue.value(forKey: "model") as! String, year: snapshotValue.value(forKey: "year") as! String, carImage: snapshotValue.value(forKey: "image") as! String, isDefault: snapshotValue.value(forKey: "default") as! Bool,car_id:(artists as! DataSnapshot).key)!)
                     
                 }
+                Spinner.stop()
+                NotificationCenter.default.post(name: Notification.Name("cars"), object: nil)
             }
         })
     }
@@ -304,6 +306,7 @@ class User {
                           
                              } else {
                                 print("Data Update successfully!")
+                                self.GetCar()
                           
                               }
                     }
@@ -359,7 +362,8 @@ class User {
                         
                         } else {
                             print("Data saved successfully!")
-                                      Spinner.stop()
+                            self.GetCar()
+                                    //  Spinner.stop()
                          }
                     }
                   }
