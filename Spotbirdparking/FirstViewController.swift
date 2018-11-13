@@ -28,6 +28,11 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     @IBOutlet weak var btn_book: UIButton!
     @IBOutlet weak var btn_dtls: UIButton!
     @IBOutlet weak var view_info: CustomView!
+<<<<<<< HEAD
+=======
+  
+    
+>>>>>>> f8def7c2def06cc437860ffbb11e730b37e99419
     
     var locationManager = CLLocationManager()
     let CurrentLocMarker = GMSMarker()
@@ -52,6 +57,11 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     let customView = UIView()
     var markerimg = UIImageView()
     let lbl_marker = UILabel()
+    var curruntlat : Double?
+    var curruntlong : Double?
+    
+    
+   
     var curruntlat : Double?
     var curruntlong : Double?
     
@@ -92,6 +102,10 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         })
     }
     
+<<<<<<< HEAD
+=======
+   
+>>>>>>> f8def7c2def06cc437860ffbb11e730b37e99419
     // MARK:_ BTn close
     @IBAction func btn_close(_ sender: UIButton) {
         view_info.isHidden = true
@@ -123,6 +137,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     
     // GET ALL SPOT ON MAP
     func getlatlong(){
+<<<<<<< HEAD
         
         five = 0
         refArtists = Database.database().reference().child("All_Spots");
@@ -172,13 +187,70 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                             
                             self.markerimg.addSubview(self.lbl_marker)
                             marker.iconView = self.customView
+=======
+        mapView.clear()
+ 
+            five = 0
+            refArtists = Database.database().reference().child("All_Spots");
+            refArtists.observe(DataEventType.value, with: { (snapshot) in
+                
+                if snapshot.childrenCount > 0 {
+                    self.arrspot.removeAllObjects()
+                    for artists in snapshot.children.allObjects as! [DataSnapshot] {
+                        let snapshotValue = snapshot.value as! NSDictionary
+                        print(snapshotValue)
+                        
+                        let dictdata = ((snapshot.value as! NSDictionary).value(forKey: (artists as! DataSnapshot).key)) as! NSDictionary
+                        print(dictdata)
+                        if dictdata.count>0{
+                            
+                            for (theKey, theValue) in dictdata {
+                                //   print(theValue)
+                                self.arrspot.add(theValue)
+                            }
+                            //self.loadEventsToMap(lat: self.userlatitude, long: self.userlongitude)
+>>>>>>> f8def7c2def06cc437860ffbb11e730b37e99419
                             
                         }
                     }
-                }
-            }
-        })
-    }
+                    
+                    for i in 0..<self.arrspot.count {
+                        print(self.arrspot)
+                        let marker = GMSMarker()
+                        marker.position = CLLocationCoordinate2DMake(Double(truncating: (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "user_lat") as! NSNumber), Double(truncating: (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "user_long") as! NSNumber))
+                        marker.map = self.mapView
+                        let price = (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "hourlyPricing") as! String
+                        let doller = (price as NSString).integerValue
+                        // marker.title = "$\(doller)"
+                        //   marker.snippet
+                        marker.infoWindowAnchor = CGPoint(x: 0.5, y: 0.2)
+                        marker.accessibilityLabel = "\(i)"
+                        
+                        var markerimg = UIImageView()
+                          let customView = UIView()
+                        
+                    customView.frame = CGRect.init(x: 0, y: 0, width: 60, height: 60)
+                        markerimg  = UIImageView(frame:CGRect(x:0, y:0, width:60, height:60));
+                        markerimg.image = UIImage(named:"markers")
+                        markerimg.backgroundColor = UIColor.clear
+                        customView.addSubview(markerimg)
+                        let lbl_marker = UILabel()
+                        lbl_marker.frame = CGRect(x: 0, y: (markerimg.frame.height/2)-25, width: markerimg.frame.width, height: 40)
+                         markerimg.addSubview(lbl_marker)
+                        
+                        lbl_marker.textAlignment = .center
+                        lbl_marker.numberOfLines = 1;
+                        lbl_marker.minimumScaleFactor = 0.5;
+                        lbl_marker.adjustsFontSizeToFitWidth = true;
+                        lbl_marker.text = "$\(doller)"
+                        lbl_marker.textColor = UIColor.black
+                        customView.backgroundColor = UIColor.clear
+                        marker.iconView = customView
+                       }
+                 }
+            })
+        }
+        
     
     // MARK:- locationManagerDelegate
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -227,6 +299,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         
+<<<<<<< HEAD
         if curruntlat == marker.position.latitude && curruntlong == marker.position.longitude{
             mapView.clear()
             locationManager.startUpdatingLocation()
@@ -243,15 +316,48 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             viewchange.addSubview(markerimg)
             //mapView.selectedMarker = marker
             marker.iconView = viewchange
+=======
+        let index:Int! = Int(marker.accessibilityLabel!)
+        
+        let price  = (arrspot.object(at: index) as! NSDictionary).value(forKey: "hourlyPricing") as?  String
+        let doller = (price! as NSString).integerValue
+        
+        if curruntlat == marker.position.latitude && curruntlong == marker.position.longitude{
+
+         mapView.clear()
+            locationManager.startUpdatingLocation()
+            view_info.isHidden = true
+            btn_close.isHidden = true
+                
+      }
+        else{
+            
+//            markerimg.image = #imageLiteral(resourceName: "marker_blue")
+//            let lbl_marker = UILabel()
+//            lbl_marker.frame = CGRect(x: 0, y: (self.markerimg.frame.height/2)-25, width: self.markerimg.frame.width, height: 40)
+//            lbl_marker.textColor = UIColor.white
+//            lbl_marker.text = "$\(doller)"
+//            self.markerimg.addSubview(lbl_marker)
+//
+//            viewchange.addSubview(markerimg)
+//            mapView.selectedMarker = marker
+            let imgdata = marker.iconView
+            imgdata?.backgroundColor = UIColor.red
+            marker.iconView = imgdata
+
+>>>>>>> f8def7c2def06cc437860ffbb11e730b37e99419
             view_info.isHidden = false
             btn_close.isHidden = false
         }
         curruntlat = marker.position.latitude
         curruntlong = marker.position.longitude
         
+<<<<<<< HEAD
         let index:Int! = Int(marker.accessibilityLabel!)
         let price  = (arrspot.object(at: index) as! NSDictionary).value(forKey: "hourlyPricing") as?  String
         let doller = (price! as NSString).integerValue
+=======
+>>>>>>> f8def7c2def06cc437860ffbb11e730b37e99419
         lbl_price.text = "$\(doller)"
         lbl_address.text = (arrspot.object(at: index) as! NSDictionary).value(forKey: "address") as?  String
         let imgurl = (arrspot.object(at: index) as! NSDictionary).value(forKey: "image") as!  String

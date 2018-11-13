@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spotbirdparking/SpotImageViewController.swift"
-            timestampString = "561902224.256725"
+            timestampString = "563725412.834675"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "100"
-            endingLineNumber = "100"
+            startingLineNumber = "98"
+            endingLineNumber = "98"
             landmarkName = "openCamera()"
             landmarkType = "7">
          </BreakpointContent>
@@ -74,28 +74,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spotbirdparking/SpotImageViewController.swift"
-            timestampString = "561902224.256758"
+            timestampString = "563725412.8347549"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "106"
-            endingLineNumber = "106"
+            startingLineNumber = "104"
+            endingLineNumber = "104"
             landmarkName = "openCamera()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Spotbirdparking/PriceViewController.swift"
-            timestampString = "562255341.063624"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "170"
-            endingLineNumber = "170"
-            landmarkName = "Update_SpotS()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -269,9 +253,9 @@
             timestampString = "562771384.4866821"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "370"
-            endingLineNumber = "370"
-            landmarkName = "addnewcar(car_uid:make:Model:year:setbool:carimage:)"
+            startingLineNumber = "218"
+            endingLineNumber = "218"
+            landmarkName = "GetCar()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -285,9 +269,25 @@
             timestampString = "562771384.486846"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "367"
-            endingLineNumber = "367"
-            landmarkName = "addnewcar(car_uid:make:Model:year:setbool:carimage:)"
+            startingLineNumber = "212"
+            endingLineNumber = "212"
+            landmarkName = "Save_Spot(SpotID:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Spotbirdparking/Spot.swift"
+            timestampString = "563728046.9953671"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "209"
+            endingLineNumber = "209"
+            landmarkName = "Save_Spot(SpotID:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

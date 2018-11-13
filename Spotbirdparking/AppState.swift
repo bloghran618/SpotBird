@@ -22,7 +22,10 @@ class AppState {
     var user: User
     var spots: [Spot]
     var activeSpot: Spot
+<<<<<<< HEAD
     var reservations: [Reservation]
+=======
+>>>>>>> f8def7c2def06cc437860ffbb11e730b37e99419
     var userid = ""
     
     static let appStateRoot = Database.database().reference() // can change root

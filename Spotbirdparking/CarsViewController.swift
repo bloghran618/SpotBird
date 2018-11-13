@@ -28,16 +28,26 @@ class CarsViewController: UIViewController, UITableViewDataSource {
         
          AppState.sharedInstance.user.GetCar()
         
+<<<<<<< HEAD
         
         if AppState.sharedInstance.user.cars.count != 0{
+=======
+         if AppState.sharedInstance.user.cars.count != 0{
+>>>>>>> f8def7c2def06cc437860ffbb11e730b37e99419
             navigationItem.rightBarButtonItem = editButtonItem
             CarsTable.reloadData()
         }
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(CarsViewController.RefreshData(notification:)), name: Notification.Name("cars"), object: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         CarsTable.reloadData()
         
+    }
+    
+    @objc func RefreshData(notification: Notification) {
+        CarsTable.reloadData()
     }
     
     override func didReceiveMemoryWarning() {
