@@ -12,10 +12,10 @@ import JTAppleCalendar
 class ReservationsViewController: UIViewController {
     
     @IBOutlet weak var calendarView: JTAppleCalendarView!
-    @IBOutlet weak var year: UILabel!
-    @IBOutlet weak var month: UILabel!
     @IBOutlet weak var resByDayTable: UITableView!
+    @IBOutlet weak var monthYearLabel: UILabel!
     
+    var resOnDay = [Reservation]()
     
     let currentDateSelectedViewColor = UIColor(red: 178, green: 178, blue: 178, alpha: 1)
     
@@ -25,15 +25,16 @@ class ReservationsViewController: UIViewController {
         super.viewDidLoad()
         
         // Temp data
-         let spot = Spot(address: "", town: "", state: "", zipCode: "", spotImage: "test", description: "<#T##String#>", monStartTime: "<#T##String#>", monEndTime: "<#T##String#>", tueStartTime: "<#T##String#>", tueEndTime: "<#T##String#>", wedStartTime: "<#T##String#>", wedEndTime: "<#T##String#>", thuStartTime: "<#T##String#>", thuEndTime: "<#T##String#>", friStartTime: "<#T##String#>", friEndTime: "<#T##String#>", satStartTime: "<#T##String#>", satEndTime: "<#T##String#>", sunStartTime: "<#T##String#>", sunEndTime: "<#T##String#>", monOn: true, tueOn: true, wedOn: true, thuOn: true, friOn: true, satOn: true, sunOn: true, hourlyPricing: "1", dailyPricing: "1.00", weeklyPricing: "3", monthlyPricing: "8", weeklyOn: true, monthlyOn: true, index: 0, approved: true, spotImages: UIImage(named: "test")!, spots_id: "<#T##String#>")
-        AppState.sharedInstance.reservations = [Reservation(startDateTime: "2018-01-18 12:00", endDateTime: "2018-01-18 13:00", parkOrRent: "Park", spot: spot!), Reservation(startDateTime: "2018-01-08 14:30", endDateTime: "2018-01-08 16:30", parkOrRent: "Park", spot: spot!), Reservation(startDateTime: "2018-01-05 14:30", endDateTime: "2018-01-08 16:30", parkOrRent: "Park", spot: spot!)] as! [Reservation]
-        
-        for res in AppState.sharedInstance.reservations {
-            print("Start Date: " + res.startDateTime)
-        }
+         let spot = Spot(address: "42 Ardmore Rd", town: "Philadelphia", state: "PA", zipCode: "00000", spotImage: "test", description: "<#T##String#>", monStartTime: "<#T##String#>", monEndTime: "<#T##String#>", tueStartTime: "<#T##String#>", tueEndTime: "<#T##String#>", wedStartTime: "<#T##String#>", wedEndTime: "<#T##String#>", thuStartTime: "<#T##String#>", thuEndTime: "<#T##String#>", friStartTime: "<#T##String#>", friEndTime: "<#T##String#>", satStartTime: "<#T##String#>", satEndTime: "<#T##String#>", sunStartTime: "<#T##String#>", sunEndTime: "<#T##String#>", monOn: true, tueOn: true, wedOn: true, thuOn: true, friOn: true, satOn: true, sunOn: true, hourlyPricing: "1", dailyPricing: "1.00", weeklyPricing: "3", monthlyPricing: "8", weeklyOn: true, monthlyOn: true, index: 0, approved: true, spotImages: UIImage(named: "test")!, spots_id: "<#T##String#>")
+        let spot2 = Spot(address: "1500 Micheal Plaza also an unreasonable amoutnt of text", town: "Philly", state: "PA", zipCode: "00000", spotImage: "Share", description: "<#T##String#>", monStartTime: "<#T##String#>", monEndTime: "<#T##String#>", tueStartTime: "<#T##String#>", tueEndTime: "<#T##String#>", wedStartTime: "<#T##String#>", wedEndTime: "<#T##String#>", thuStartTime: "<#T##String#>", thuEndTime: "<#T##String#>", friStartTime: "<#T##String#>", friEndTime: "<#T##String#>", satStartTime: "<#T##String#>", satEndTime: "<#T##String#>", sunStartTime: "<#T##String#>", sunEndTime: "<#T##String#>", monOn: true, tueOn: true, wedOn: true, thuOn: true, friOn: true, satOn: true, sunOn: true, hourlyPricing: "1", dailyPricing: "1.00", weeklyPricing: "3", monthlyPricing: "8", weeklyOn: true, monthlyOn: true, index: 0, approved: true, spotImages: UIImage(named: "Share")!, spots_id: "<#T##String#>")
+        AppState.sharedInstance.reservations = [Reservation(startDateTime: "2018-01-18 12:00", endDateTime: "2018-01-18 13:00", parkOrRent: "Park", spot: spot!), Reservation(startDateTime: "2018-01-08 14:30", endDateTime: "2018-01-08 16:30", parkOrRent: "Park", spot: spot2!), Reservation(startDateTime: "2018-01-05 14:30", endDateTime: "2018-01-08 16:30", parkOrRent: "Park", spot: spot!), Reservation(startDateTime: "2018-01-18 13:00", endDateTime: "2018-01-18 15:00", parkOrRent: "Rent", spot: spot2!)] as! [Reservation]
         
         calendarView.calendarDataSource = self
         calendarView.calendarDelegate = self
+        
+        self.resByDayTable.delegate = self
+        self.resByDayTable.dataSource = self
+        self.resByDayTable.rowHeight = 80
         
         setupCalendarView()
     
@@ -55,10 +56,11 @@ class ReservationsViewController: UIViewController {
         let date = visibleDates.monthDates.first!.date
         
         self.formatter.dateFormat = "yyyy"
-        self.year.text = self.formatter.string(from: date)
-        
+        let year = self.formatter.string(from: date)
         self.formatter.dateFormat = "MMMM"
-        self.month.text = self.formatter.string(from: date)
+        let month = self.formatter.string(from: date)
+        
+        self.monthYearLabel.text = month + " " + year
     }
     
     func handleCellTextColor(view: JTAppleCell?, cellState: CellState) {
@@ -100,6 +102,17 @@ class ReservationsViewController: UIViewController {
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+    
+    func getReservationsOnDay(date: Date) -> [Reservation] {
+        var reservations = [Reservation]()
+        
+        for res in AppState.sharedInstance.reservations {
+            if(checkReservationDateMatchesCell(reservationDate: res.startDateTime, cellDate: date)) {
+                reservations.append(res)
+            }
+        }
+        return reservations
     }
 }
 
@@ -147,6 +160,16 @@ extension ReservationsViewController: JTAppleCalendarViewDelegate {
             }
         }
         myCustomCell.eventView.isHidden = !isDateInRes
+        
+        // Take care of eventview color
+        if(isDateInRes) {
+            if(cellState.isSelected) {
+                myCustomCell.eventView.backgroundColor = UIColor.white
+            }
+            else {
+                myCustomCell.eventView.backgroundColor = UIColor.init(red: 83/255, green: 188/255, blue: 111/255, alpha: 1.0)
+            }
+        }
     }
     
     // Show view when selecting cell
@@ -157,6 +180,10 @@ extension ReservationsViewController: JTAppleCalendarViewDelegate {
         // change event view to white color
         guard let validCell = cell as? CustomCell else { return }
         validCell.eventView.backgroundColor = UIColor.white
+        
+        // change by-day reservations based on cell
+        self.resOnDay = getReservationsOnDay(date: date)
+        resByDayTable.reloadData()
     }
     
     // Hide view when deselecting cell
@@ -172,4 +199,34 @@ extension ReservationsViewController: JTAppleCalendarViewDelegate {
     func calendar(_ calendar: JTAppleCalendarView, didScrollToDateSegmentWith visibleDates: DateSegmentInfo) {
         setupViewsOfCalendar(from: visibleDates)
     }
+}
+
+extension ReservationsViewController: UITableViewDelegate, UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return resOnDay.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ResCell") as? ByDayResTableViewCell
+
+        let res = resOnDay[indexPath.row]
+
+        cell?.spotImageView.image = UIImage.init(named: res.spot.spotImage)
+        cell?.addressLabel.text = res.spot.address
+        cell?.cityStateLabel.text = res.spot.town + ", " + res.spot.state
+        cell?.timeLabel.text = "Begin: " + res.startDateTime
+        cell?.endTimeLabel.text = "Finish: " + res.startDateTime
+        
+        return cell!
+    }
+    
+//    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+//        print("A cell is selected")
+//        let cell = tableView.cellForRow(at: indexPath as IndexPath)
+//        cell!.backgroundColor = UIColor.init(red: 83/255, green: 188/255, blue: 111/255, alpha: 1.0)
+//    }
 }

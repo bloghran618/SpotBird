@@ -10,8 +10,13 @@ import UIKit
 
 class ByDayResTableViewCell: UITableViewCell {
     
+    @IBOutlet weak var spotImageView: UIImageView!
+    @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak var cityStateLabel: UILabel!
+    @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var endTimeLabel: UILabel!
+    @IBOutlet weak var navButton: UIButton!
     
-
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -21,6 +26,11 @@ class ByDayResTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
+    }
+    
+    @IBAction func navButtonClicked(_ sender: Any)
+    {
+        print("Nav button clicked")
     }
 
 }
