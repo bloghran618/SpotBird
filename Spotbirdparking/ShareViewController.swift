@@ -31,11 +31,6 @@ class ShareViewController: UIViewController, UITableViewDataSource {
 
        AppState.sharedInstance.activeSpot.getSpots()
      
-<<<<<<< HEAD
-=======
-        NotificationCenter.default.addObserver(self, selector: #selector(ShareViewController.RefreshData(notification:)), name: Notification.Name("Spots"), object: nil)
-        
->>>>>>> f8def7c2def06cc437860ffbb11e730b37e99419
     }
         @objc func RefreshData(notification: Notification) {
             self.spotTable.reloadData()

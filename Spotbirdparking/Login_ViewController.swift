@@ -5,7 +5,6 @@
 //  Created by mac on 01/10/18.
 //  Copyright © 2018 Spotbird. All rights reserved.
 //
-
 import UIKit
 import Firebase
 import FirebaseAuth
@@ -34,13 +33,9 @@ class Login_ViewController: UIViewController {
     }
     
     @IBAction func btn_login(_ sender: Any) {
-    
-<<<<<<< HEAD
-    Spinner.start()
-=======
-      Spinner.start()
->>>>>>> f8def7c2def06cc437860ffbb11e730b37e99419
-     let ref = Database.database().reference().child("User").queryOrdered(byChild: "uname").queryEqual(toValue : txt_uname.text!)
+        
+        Spinner.start()
+        let ref = Database.database().reference().child("User").queryOrdered(byChild: "uname").queryEqual(toValue : txt_uname.text!)
         ref.observe(.value, with:{ (snapshot: DataSnapshot) in
             
             if snapshot.exists()  {
@@ -59,7 +54,7 @@ class Login_ViewController: UIViewController {
                         //                        //let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
                         //                        let defaultAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) {
                         //                            UIAlertAction in
-                           Spinner.stop()
+                        Spinner.stop()
                         let appDelegate = UIApplication.shared.delegate! as! AppDelegate
                         
                         let initialViewController = self.storyboard!.instantiateViewController(withIdentifier: "myTabbarControllerID")
@@ -71,7 +66,7 @@ class Login_ViewController: UIViewController {
                         //                        self.present(alertController, animated: true, completion: nil)
                         
                     }else {
-                          Spinner.stop()
+                        Spinner.stop()
                         let alertController = UIAlertController(title: "Error", message: "Incorrect Password..", preferredStyle: .alert)
                         let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
                         alertController.addAction(defaultAction)
@@ -79,19 +74,10 @@ class Login_ViewController: UIViewController {
                     }
                     
                 }
-<<<<<<< HEAD
-            }else{
-                     Spinner.stop()
-                let alertController = UIAlertController(title: "Error", message: "Incorrect UserName..", preferredStyle: .alert)
-                let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-                alertController.addAction(defaultAction)
-                self.present(alertController, animated: true, completion: nil)
-=======
->>>>>>> f8def7c2def06cc437860ffbb11e730b37e99419
             }
-           
+            
         })
-     }
+    }
     
     
 }

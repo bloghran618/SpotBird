@@ -27,13 +27,8 @@ class CarsViewController: UIViewController, UITableViewDataSource {
         
         
          AppState.sharedInstance.user.GetCar()
-        
-<<<<<<< HEAD
-        
+                
         if AppState.sharedInstance.user.cars.count != 0{
-=======
-         if AppState.sharedInstance.user.cars.count != 0{
->>>>>>> f8def7c2def06cc437860ffbb11e730b37e99419
             navigationItem.rightBarButtonItem = editButtonItem
             CarsTable.reloadData()
         }
