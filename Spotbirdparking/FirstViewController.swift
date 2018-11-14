@@ -1045,7 +1045,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
  
  print(" CHANGE -\(SundayMain)")
  print(" CHANGE -\(Sundaystart24)")
- print(" CHANGE -\(Sundayend24)")
+ print(" CHANGE -\(Sundayend24)")v  kuauiabta tsfas
  
  
  
