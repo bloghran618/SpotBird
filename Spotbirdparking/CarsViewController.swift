@@ -25,10 +25,9 @@ class CarsViewController: UIViewController, UITableViewDataSource {
         CarsTable.dataSource = self
         self.CarsTable.rowHeight = 100
         
+        AppState.sharedInstance.user.GetCar()
         
-         AppState.sharedInstance.user.GetCar()
-        
-         if AppState.sharedInstance.user.cars.count != 0{
+        if AppState.sharedInstance.user.cars.count != 0{
             navigationItem.rightBarButtonItem = editButtonItem
             CarsTable.reloadData()
         }
@@ -36,10 +35,7 @@ class CarsViewController: UIViewController, UITableViewDataSource {
         NotificationCenter.default.addObserver(self, selector: #selector(CarsViewController.RefreshData(notification:)), name: Notification.Name("cars"), object: nil)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        CarsTable.reloadData()
-        
-    }
+   
     
     @objc func RefreshData(notification: Notification) {
         CarsTable.reloadData()
@@ -59,7 +55,9 @@ class CarsViewController: UIViewController, UITableViewDataSource {
         cell?.MakeModel.text = car.make + " "  + car.model
         cell?.YearLabel.text = car.year
         // cell?.imageView?.image = car.carImage
-        cell?.imageView?.sd_setImage(with: URL(string: car.carImage), placeholderImage: UIImage(named: "placeholder.png"))
+        
+        print(car.carImage)
+        cell?.imageView?.sd_setImage(with: URL(string: car.carImage), placeholderImage: UIImage(named: "Placeholder"))
         if car.isDefault! {
             cell?.Default.image = UIImage(named: "DefaultCar")
         }
@@ -81,8 +79,7 @@ class CarsViewController: UIViewController, UITableViewDataSource {
             AppState.sharedInstance.user.Delete_car(car_dict: db_car, index: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
                  
-            
-            CarsTable.reloadData()
+             CarsTable.reloadData()
         } else if editingStyle == .insert {
             
         }

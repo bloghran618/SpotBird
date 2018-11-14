@@ -23,7 +23,7 @@ class AppState {
     var spots: [Spot]
     var activeSpot: Spot
     var userid = ""
-    
+   
     static let appStateRoot = Database.database().reference() // can change root
     let storageRef = Storage.storage().reference()
     

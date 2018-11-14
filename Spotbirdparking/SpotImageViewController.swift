@@ -29,7 +29,7 @@ class SpotImageViewController: UIViewController, UITextViewDelegate, UIImagePick
          }
         else {
           if AppState.sharedInstance.activeSpot.spotImage.count != nil{
-                spotImageView.sd_setImage(with: URL(string: AppState.sharedInstance.activeSpot.spotImage), placeholderImage: UIImage(named: "placeholder.png"))
+                spotImageView.sd_setImage(with: URL(string: AppState.sharedInstance.activeSpot.spotImage), placeholderImage: UIImage(named: "Placeholder"))
             }else {
                 spotImageView.image = #imageLiteral(resourceName: "emptySpot")
             AppState.sharedInstance.activeSpot.spotImage1 =  spotImageView.image!
@@ -49,6 +49,13 @@ class SpotImageViewController: UIViewController, UITextViewDelegate, UIImagePick
         NotificationCenter.default.addObserver(self, selector: #selector(SpotImageViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(SpotImageViewController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+      
+        
+    }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

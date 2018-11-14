@@ -38,10 +38,10 @@ class ShareViewController: UIViewController, UITableViewDataSource {
             self.spotTable.reloadData()
         }
     
-    override func viewDidAppear(_ animated: Bool) {
-     self.spotTable.reloadData()
-        
-    }
+//    override func viewDidAppear(_ animated: Bool) {
+//     self.spotTable.reloadData()
+//
+//    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -49,6 +49,7 @@ class ShareViewController: UIViewController, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return AppState.sharedInstance.spots.count
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -56,7 +57,9 @@ class ShareViewController: UIViewController, UITableViewDataSource {
         let spot = AppState.sharedInstance.spots[indexPath.row]
         cell?.addressLabel.text = spot.address
         cell?.townCityZipLabel.text = spot.town + " " + spot.state + ", " + spot.zipCode
-        cell?.imageView?.sd_setImage(with: URL(string: spot.spotImage), placeholderImage: UIImage(named: "placeholder.png"))
+        
+        print(spot.spotImage)
+        cell?.imageView?.sd_setImage(with: URL(string: spot.spotImage), placeholderImage: UIImage(named: "Placeholder"))
         
         cell?.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
         return cell!
@@ -96,6 +99,7 @@ class ShareViewController: UIViewController, UITableViewDataSource {
         case "addSpotSegue":
             print("Add Spot")
             AppState.sharedInstance.activeSpot = Spot(address: "", town: "", state: "", zipCode: "", spotImage: "", description: "", monStartTime: "12:00 AM", monEndTime: "12:00 PM", tueStartTime: "12:00 AM", tueEndTime: "12:00 PM", wedStartTime: "12:00 AM", wedEndTime: "12:00 PM", thuStartTime: "12:00 AM", thuEndTime: "12:00 PM", friStartTime: "12:00 AM", friEndTime: "12:00 PM", satStartTime: "12:00 AM", satEndTime: "12:00 PM", sunStartTime: "12:00 AM", sunEndTime: "12:00 PM", monOn: true, tueOn: true, wedOn: true, thuOn: true, friOn: true, satOn: true, sunOn: true, hourlyPricing: "1.00", dailyPricing: "7.00", weeklyPricing: "35.00", monthlyPricing: "105.00", weeklyOn: true, monthlyOn: true, index: -1, approved: false, spotImages: UIImage.init(named: "emptySpot")!, spots_id: "")!
+         
             
         case "editSpotSegue":
             print("Edit Spot")
