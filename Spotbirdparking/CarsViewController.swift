@@ -38,6 +38,9 @@ class CarsViewController: UIViewController, UITableViewDataSource {
    
     
     @objc func RefreshData(notification: Notification) {
+        if AppState.sharedInstance.user.cars.count != 0{
+         navigationItem.rightBarButtonItem = editButtonItem
+        }
         CarsTable.reloadData()
     }
     

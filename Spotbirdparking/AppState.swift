@@ -16,6 +16,7 @@ import SystemConfiguration
 class AppState {
     static let sharedInstance = AppState()
     
+    
     var lat:Double  = Double()
     var long:Double  = Double()
     var dict_spot: NSMutableDictionary = [:]

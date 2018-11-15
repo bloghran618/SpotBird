@@ -65,7 +65,7 @@ class AddressViewController: UIViewController, UITextFieldDelegate {
             AppState.sharedInstance.activeSpot.zipCode = zipField.text!
         }
         
-        if AppState.sharedInstance.activeSpot.address != "" {
+        if ((AppState.sharedInstance.activeSpot.address != "") && (AppState.sharedInstance.activeSpot.town != "")) && ((AppState.sharedInstance.activeSpot.zipCode != "") && (AppState.sharedInstance.activeSpot.state != "")) {
             nextButton.isEnabled = true
         }
         else {
@@ -93,7 +93,7 @@ class AddressViewController: UIViewController, UITextFieldDelegate {
             AppState.sharedInstance.activeSpot.zipCode = zipField.text!
         }
         
-        if AppState.sharedInstance.activeSpot.address != "" {
+        if ((AppState.sharedInstance.activeSpot.address != "") && (AppState.sharedInstance.activeSpot.town != "")) && ((AppState.sharedInstance.activeSpot.zipCode != "") && (AppState.sharedInstance.activeSpot.state != "")) {
             nextButton.isEnabled = true
         }
         else {

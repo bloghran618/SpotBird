@@ -15,10 +15,10 @@ import GooglePlaces
 import GooglePlacePicker
 import GooglePlaces
 
-class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapViewDelegate,UISearchBarDelegate,GMSAutocompleteViewControllerDelegate{
+class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapViewDelegate,GMSAutocompleteViewControllerDelegate{
     
     @IBOutlet var mapView: GMSMapView!
-    @IBOutlet weak var searchBar: UISearchBar!
+
     
     // info window:-
     @IBOutlet weak var img_spot: UIImageView!
@@ -27,6 +27,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     @IBOutlet weak var btn_close: UIButton!
     @IBOutlet weak var btn_book: UIButton!
     @IBOutlet weak var btn_dtls: UIButton!
+     @IBOutlet weak var btn_search_click: UIButton!
+     @IBOutlet weak var btn_calander: UIButton!
     @IBOutlet weak var view_info: CustomView!
     
     // DATE SEARCHing
@@ -66,21 +68,27 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     var Userlat : Double?
     var Userlong : Double?
     
+    var cooridnates = CLLocationCoordinate2D()
+    
     var arr_search_spot:NSMutableArray = NSMutableArray()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //scheduledTimerWithTimeInterval()  // time
+        
+        btn_search_click.layer.cornerRadius = (btn_search_click.frame.height/2-6)
+        btn_search_click.layer.borderWidth = 1
+        
+        
+        
         img_spot.layer.borderWidth = 1
         img_spot.layer.masksToBounds = false
         img_spot.layer.cornerRadius = img_spot.frame.height/2
         img_spot.clipsToBounds = true
         view_info.isHidden = true
         btn_close.isHidden = true
-        searchBar.backgroundColor = UIColor.clear
-        
-        getlatlong()
+     
         self.mapView.delegate = self
         self.locationManager.delegate = self
         self.locationManager.requestAlwaysAuthorization()
@@ -89,14 +97,11 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         CurrentLocMarker.map = self.mapView
         self.locationManager.startMonitoringSignificantLocationChanges()
         self.locationManager.startUpdatingLocation()
-        mapView.isMyLocationEnabled = true
+      //  mapView.isMyLocationEnabled = true
         mapView.settings.myLocationButton = true
         
         mapView.padding = UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 20)
-        searchBar.placeholder = "Search here"
-        searchBar.delegate = self
-        searchBar.resignFirstResponder()
-        method(arg: true, completion: { (success) -> Void in
+         method(arg: true, completion: { (success) -> Void in
             print("Second line of code executed")
             if success { // this will be equal to whatever value is set in this method call
                 print("true")
@@ -108,34 +113,40 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         start_datepic.addTarget(self, action: #selector(startdatePickerChanged(picker:)), for: .valueChanged)
         end_datepic.addTarget(self, action: #selector(EnddatePickerChanged(picker:)), for: .valueChanged)
         dateFormatter.dateFormat = "MMM, dd, YYYY, H:mm:ss"
-        //dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
+      //dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
         dateFormatter.timeZone = TimeZone.current
         
+         start_datepic.minimumDate = Date()
+         end_datepic.minimumDate = Date()
+        
     }
+    
     // start date-
     @objc func startdatePickerChanged(picker: UIDatePicker) {
-        
         start_date = dateFormatter.string(from: picker.date)
-        let dt = dateFormatter.string(from: picker.date)
-        
     }
     
     // end date-
     @objc func EnddatePickerChanged(picker: UIDatePicker) {
-        
-        end_date = dateFormatter.string(from: picker.date)
+         end_date = dateFormatter.string(from: picker.date)
     }
     
     // MARK:_ BTn Date searching
     @IBAction func btn_Date_search(_ sender: UIButton) {
-        Date_VIew.isHidden = false
-        
+        view_info.isHidden = true
+        btn_close.isHidden = true
+       
+        if Date_VIew.isHidden == true{
+           Date_VIew.isHidden = false
+        }
+        else{
+          Date_VIew.isHidden = true
+        }
     }
     
     // MARK:_ BTn Date searching close
     @IBAction func btn_Date_search_close(_ sender: UIButton) {
         Date_VIew.isHidden = true
-        
     }
     
     // MARK:_ BTn Date searching Done
@@ -153,6 +164,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             
         }
         else{
+            arr_search_spot.removeAllObjects()
             
             if end_date == nil{
                 let addhour = calendar.date(byAdding: .hour, value: 3, to: start_datepic.date)
@@ -178,7 +190,6 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                 }
             }
            
-            
             var datedaydict = NSMutableDictionary()
             
             var arrsunday = [Date]()
@@ -568,25 +579,17 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     print(arr_search_spot)
                                 }
                             }
-                            
-                            
-                        }
-                        
-                    }
+                         }
+                     }
                 }
              }
             
             // Search Data load marker:-
            Search_Spot()
            }
-   
-        
-        
         
         Date_VIew.isHidden = true
     }
-    
-    
     
     
     // MARK:_ BTn close
@@ -613,6 +616,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     
     // MARK:_ BTn Autocomplete loation search
     @IBAction func autocompleteClicked(_ sender: UIButton) {
+        view_info.isHidden = true
         let autocompleteController = GMSAutocompleteViewController()
         autocompleteController.delegate = self
         present(autocompleteController, animated: true, completion: nil)
@@ -620,11 +624,22 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     
     // GET ALL SPOT ON MAP
     func getlatlong(){
-        mapView.clear()
-        
         five = 0
+        print("SAAas")
+        
         refArtists = Database.database().reference().child("All_Spots");
         refArtists.observe(DataEventType.value, with: { (snapshot) in
+            self.mapView.clear()
+            
+            self.CurrentLocMarker.position = self.cooridnates
+            self.CurrentLocMarker.title = "myLoc"
+            var markerView = UIImageView()
+            markerView = UIImageView(image: UIImage.init(named: "current_location_icon"))
+            markerView.frame.size.width = 30
+            markerView.frame.size.height = 30
+            self.CurrentLocMarker.iconView = markerView
+            self.CurrentLocMarker.map = self.mapView
+            
             
             if snapshot.childrenCount > 0 {
                 self.arrspot.removeAllObjects()
@@ -641,10 +656,11 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                             self.arrspot.add(theValue)
                         }
                         //self.loadEventsToMap(lat: self.userlatitude, long: self.userlongitude)
-                        
-                    }
+                     }
                 }
                 
+                print(self.arrspot.count)
+          
                 for i in 0..<self.arrspot.count {
                     print(self.arrspot)
                     let marker = GMSMarker()
@@ -671,9 +687,13 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                     
                     lbl_marker.textAlignment = .center
                     lbl_marker.numberOfLines = 1;
+                    
+                    lbl_marker.text = "$\(doller)"
+                    
                     lbl_marker.minimumScaleFactor = 0.5;
                     lbl_marker.adjustsFontSizeToFitWidth = true;
-                    lbl_marker.text = "$\(doller)"
+                    
+                    
                     lbl_marker.textColor = UIColor.black
                     customView.backgroundColor = UIColor.clear
                     marker.iconView = customView
@@ -685,8 +705,11 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     // MARK:- locationManagerDelegate
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
+        
         let location = locations.last
+        
         self.CurrentLocMarker.position = (location?.coordinate)!
+        cooridnates = (location?.coordinate)!
         self.CurrentLocMarker.title = "myLoc"
         var markerView = UIImageView()
         markerView = UIImageView(image: UIImage.init(named: "current_location_icon"))
@@ -703,7 +726,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         //  self.mapView.animate(to: camera)
         mapView.camera = camera
         five = 0
-        getlatlong()
+        
+         getlatlong()
         self.locationManager.stopUpdatingLocation()
     }
     
@@ -781,6 +805,9 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     
     // MARK:_ Load Marker to map :-  Spot
     func loadEventsToMap(lat:Double,long:Double){
+        
+       // mapView.isMyLocationEnabled  = false
+    
         for i in 0..<arrspot.count {
             
             let coordinate₀ = CLLocation(latitude: CLLocationDegrees(truncating: (arrspot.object(at: i) as! NSDictionary).value(forKey: "user_lat") as! NSNumber), longitude:CLLocationDegrees(truncating: (arrspot.object(at: i) as! NSDictionary).value(forKey: "user_long") as! NSNumber))
@@ -803,6 +830,32 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                     //     marker.snippet
                     marker.infoWindowAnchor = CGPoint(x: 0.5, y: 0.2)
                     marker.accessibilityLabel = "\(i)"
+                    
+                    
+                    var markerimg = UIImageView()
+                    let customView = UIView()
+                    
+                    customView.frame = CGRect.init(x: 0, y: 0, width: 60, height: 60)
+                    markerimg  = UIImageView(frame:CGRect(x:0, y:0, width:60, height:60));
+                    markerimg.image = UIImage(named:"markers")
+                    markerimg.backgroundColor = UIColor.clear
+                    customView.addSubview(markerimg)
+                    let lbl_marker = UILabel()
+                    lbl_marker.frame = CGRect(x: 0, y: (markerimg.frame.height/2)-25, width: markerimg.frame.width, height: 40)
+                    markerimg.addSubview(lbl_marker)
+                    
+                    lbl_marker.textAlignment = .center
+                    lbl_marker.numberOfLines = 1;
+                 
+                    lbl_marker.text = "$\(doller)"
+                    
+                    lbl_marker.minimumScaleFactor = 0.5;
+                    lbl_marker.adjustsFontSizeToFitWidth = true;
+                    
+                    lbl_marker.textColor = UIColor.black
+                    customView.backgroundColor = UIColor.clear
+                    marker.iconView = customView
+                    
                 }
             }
         }
@@ -814,6 +867,17 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         
         if arr_search_spot.count > 0 {
         mapView.clear()
+            
+            self.CurrentLocMarker.position = self.cooridnates
+            self.CurrentLocMarker.title = "myLoc"
+            var markerView = UIImageView()
+            markerView = UIImageView(image: UIImage.init(named: "current_location_icon"))
+            markerView.frame.size.width = 30
+            markerView.frame.size.height = 30
+            self.CurrentLocMarker.iconView = markerView
+            self.CurrentLocMarker.map = self.mapView
+            
+            
         for i in 0..<self.arr_search_spot.count {
       
             let marker = GMSMarker()
@@ -847,9 +911,10 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             lbl_marker.textColor = UIColor.black
             customView.backgroundColor = UIColor.clear
             marker.iconView = customView
-        }
+          }
         }
         else{
+            mapView.clear()
             let alertController = UIAlertController(title: "Spotbird", message: "Spot Not Found!", preferredStyle: .alert)
             let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
             alertController.addAction(defaultAction)

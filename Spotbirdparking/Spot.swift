@@ -104,6 +104,8 @@ class Spot {
     
    func getSpots() {
     
+    print(AppState.sharedInstance.userid)
+    
     self.refArtists = Database.database().reference().child("User").child(AppState.sharedInstance.userid).child("MySpots");
     self.refArtists.observe(DataEventType.value, with: { (snapshot) in
         
@@ -155,6 +157,8 @@ class Spot {
                 
             }
             
+            print(AppState.sharedInstance.spots.count)
+            
              NotificationCenter.default.post(name: Notification.Name("Spots"), object: nil)
            
         }
@@ -186,11 +190,22 @@ class Spot {
         refArtists.child("MySpots").observeSingleEvent(of: .value, with: { (snapshot) in
             if snapshot.hasChild((spot_dict.spot_id)){
                 self.refArtists = Database.database().reference().child("User").child(AppState.sharedInstance.userid).child("MySpots")
-                self.refArtists.child(spot_dict.spot_id).setValue(nil)
+                self.refArtists.child(spot_dict.spot_id).setValue(nil){
+                    (error:Error?, ref:DatabaseReference) in
+                    if let error = error {
+                        print("Spots could not be Delete: \(error).")
+                        Spinner.stop()
+                        
+                    } else {
+                         print("Spots Delete successfully!")
+                   self.refArtists = Database.database().reference().child("All_Spots").child(AppState.sharedInstance.userid)
+                   self.refArtists.child(spot_dict.spot_id).setValue(nil)
+                    Spinner.stop()
+                    
+                    }
+                }
                 
-                self.refArtists = Database.database().reference().child("All_Spots")
-                self.refArtists.child(spot_dict.spot_id).setValue(nil)
-            }else{
+             }else{
                 print("jewsasassasass")
             }
         })

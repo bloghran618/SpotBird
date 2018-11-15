@@ -48,6 +48,7 @@ class ShareViewController: UIViewController, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print(AppState.sharedInstance.spots.count)
     return AppState.sharedInstance.spots.count
         
     }
