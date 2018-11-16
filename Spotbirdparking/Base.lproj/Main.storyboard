@@ -8,6 +8,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -920,58 +921,107 @@
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="OVERHAUL!" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kHp-dy-6sE">
                                 <rect key="frame" x="8" y="72" width="359" height="43"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="43" id="Urj-xE-B4M"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="36"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Address" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JOB-zr-9L2">
-                                <rect key="frame" x="8" y="123" width="359" height="30"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="City" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hCh-sS-F9g">
-                                <rect key="frame" x="8" y="161" width="359" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="State" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fHa-CJ-w9T">
-                                <rect key="frame" x="8" y="199" width="351" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Zip Code" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="paw-Zx-dXj">
-                                <rect key="frame" x="8" y="237" width="351" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9il-V7-bWB" customClass="CustomView" customModule="Spotbirdparking" customModuleProvider="target">
+                                <rect key="frame" x="5" y="121" width="365" height="150"/>
+                                <subviews>
+                                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Address" textAlignment="natural" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="JOB-zr-9L2">
+                                        <rect key="frame" x="3" y="3" width="359" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="4Dl-S6-EpK"/>
+                                        </constraints>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="City" textAlignment="natural" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="hCh-sS-F9g">
+                                        <rect key="frame" x="3" y="41" width="359" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="4vS-ih-m1Q"/>
+                                        </constraints>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="State" textAlignment="natural" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="fHa-CJ-w9T">
+                                        <rect key="frame" x="3" y="79" width="359" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="DPV-o7-EoQ"/>
+                                        </constraints>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Zip Code" textAlignment="natural" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="paw-Zx-dXj">
+                                        <rect key="frame" x="3" y="117" width="359" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="JHM-H8-E9S"/>
+                                        </constraints>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="fHa-CJ-w9T" firstAttribute="top" secondItem="hCh-sS-F9g" secondAttribute="bottom" constant="8" id="CBK-oW-Oy0"/>
+                                    <constraint firstAttribute="trailing" secondItem="paw-Zx-dXj" secondAttribute="trailing" constant="3" id="ELR-bt-VWp"/>
+                                    <constraint firstAttribute="height" constant="150" id="FL7-zl-wka"/>
+                                    <constraint firstItem="hCh-sS-F9g" firstAttribute="top" secondItem="JOB-zr-9L2" secondAttribute="bottom" constant="8" id="SnK-Mz-Cpt"/>
+                                    <constraint firstItem="hCh-sS-F9g" firstAttribute="leading" secondItem="9il-V7-bWB" secondAttribute="leading" constant="3" id="WL9-OK-0yg"/>
+                                    <constraint firstAttribute="trailing" secondItem="hCh-sS-F9g" secondAttribute="trailing" constant="3" id="ZFG-hi-vqU"/>
+                                    <constraint firstItem="paw-Zx-dXj" firstAttribute="leading" secondItem="9il-V7-bWB" secondAttribute="leading" constant="3" id="aRB-qC-Dik"/>
+                                    <constraint firstAttribute="trailing" secondItem="fHa-CJ-w9T" secondAttribute="trailing" constant="3" id="ahE-P1-TBu"/>
+                                    <constraint firstItem="JOB-zr-9L2" firstAttribute="top" secondItem="9il-V7-bWB" secondAttribute="top" constant="3" id="dtE-wa-XSC"/>
+                                    <constraint firstAttribute="trailing" secondItem="JOB-zr-9L2" secondAttribute="trailing" constant="3" id="jcW-gT-eMe"/>
+                                    <constraint firstItem="paw-Zx-dXj" firstAttribute="top" secondItem="fHa-CJ-w9T" secondAttribute="bottom" constant="8" id="jtr-cT-cO0"/>
+                                    <constraint firstItem="fHa-CJ-w9T" firstAttribute="leading" secondItem="9il-V7-bWB" secondAttribute="leading" constant="3" id="m3i-sO-vt1"/>
+                                    <constraint firstItem="JOB-zr-9L2" firstAttribute="leading" secondItem="9il-V7-bWB" secondAttribute="leading" constant="3" id="ntF-LK-vBN"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IL1-y2-U6t" customClass="GMSMapView">
+                                <rect key="frame" x="0.0" y="277" width="375" height="338"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="kHp-dy-6sE" firstAttribute="top" secondItem="Kcz-IE-oF2" secondAttribute="top" constant="8" id="Aba-O6-4v0"/>
-                            <constraint firstItem="JOB-zr-9L2" firstAttribute="leading" secondItem="Kcz-IE-oF2" secondAttribute="leading" constant="8" id="MqS-Te-w3u"/>
-                            <constraint firstItem="Kcz-IE-oF2" firstAttribute="trailing" secondItem="JOB-zr-9L2" secondAttribute="trailing" constant="8" id="YBo-ki-dcW"/>
-                            <constraint firstItem="kHp-dy-6sE" firstAttribute="leading" secondItem="Kcz-IE-oF2" secondAttribute="leading" constant="8" id="f3Q-QC-NkJ"/>
-                            <constraint firstItem="JOB-zr-9L2" firstAttribute="top" secondItem="kHp-dy-6sE" secondAttribute="bottom" constant="8" id="nwa-Sa-RY5"/>
-                            <constraint firstItem="Kcz-IE-oF2" firstAttribute="trailing" secondItem="kHp-dy-6sE" secondAttribute="trailing" constant="8" id="u1b-y4-noH"/>
+                            <constraint firstItem="9il-V7-bWB" firstAttribute="top" secondItem="kHp-dy-6sE" secondAttribute="bottom" constant="6" id="5wb-Z6-NZx"/>
+                            <constraint firstItem="IL1-y2-U6t" firstAttribute="top" secondItem="9il-V7-bWB" secondAttribute="bottom" constant="6" id="CYR-Uc-yXj"/>
+                            <constraint firstItem="kHp-dy-6sE" firstAttribute="top" secondItem="Kcz-IE-oF2" secondAttribute="top" constant="8" id="Nrp-GO-za5"/>
+                            <constraint firstItem="Kcz-IE-oF2" firstAttribute="trailing" secondItem="kHp-dy-6sE" secondAttribute="trailing" constant="8" id="PdQ-2F-oJ2"/>
+                            <constraint firstItem="9il-V7-bWB" firstAttribute="leading" secondItem="Kcz-IE-oF2" secondAttribute="leading" constant="5" id="Rhb-Xy-xuX"/>
+                            <constraint firstItem="Kcz-IE-oF2" firstAttribute="bottom" secondItem="IL1-y2-U6t" secondAttribute="bottom" constant="3" id="aHj-PX-jds"/>
+                            <constraint firstItem="IL1-y2-U6t" firstAttribute="leading" secondItem="Kcz-IE-oF2" secondAttribute="leading" id="gMf-Tc-B4J"/>
+                            <constraint firstItem="kHp-dy-6sE" firstAttribute="leading" secondItem="Kcz-IE-oF2" secondAttribute="leading" constant="8" id="qSi-He-36g"/>
+                            <constraint firstItem="Kcz-IE-oF2" firstAttribute="trailing" secondItem="IL1-y2-U6t" secondAttribute="trailing" id="wiZ-mt-lh1"/>
+                            <constraint firstItem="Kcz-IE-oF2" firstAttribute="trailing" secondItem="9il-V7-bWB" secondAttribute="trailing" constant="5" id="zh1-1p-Aav"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Kcz-IE-oF2"/>
                     </view>
                     <navigationItem key="navigationItem" title="Address" id="qJ2-5Q-eD9">
-                        <barButtonItem key="rightBarButtonItem" title="Photo" id="Nde-2w-6fV">
-                            <connections>
-                                <segue destination="UfM-dX-UED" kind="push" identifier="imageSegue" id="uwV-in-ENC"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="Photo" id="Nde-2w-6fV">
+                                <connections>
+                                    <segue destination="UfM-dX-UED" kind="push" identifier="imageSegue" id="uwV-in-ENC"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem image="search_new" id="tQH-ab-hMv">
+                                <connections>
+                                    <action selector="Address_search:" destination="ely-Xp-6Le" id="a6G-IS-zWT"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="addressField" destination="JOB-zr-9L2" id="X3f-aX-C6b"/>
+                        <outlet property="mapView" destination="IL1-y2-U6t" id="2wd-UD-i6s"/>
                         <outlet property="nextButton" destination="Nde-2w-6fV" id="F6T-jg-J2e"/>
                         <outlet property="stateField" destination="fHa-CJ-w9T" id="ock-bu-g1V"/>
                         <outlet property="townField" destination="hCh-sS-F9g" id="aJJ-Rw-owB"/>

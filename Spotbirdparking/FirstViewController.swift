@@ -622,85 +622,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         present(autocompleteController, animated: true, completion: nil)
     }
     
-    // GET ALL SPOT ON MAP
-    func getlatlong(){
-        five = 0
-        print("SAAas")
-        
-        refArtists = Database.database().reference().child("All_Spots");
-        refArtists.observe(DataEventType.value, with: { (snapshot) in
-            self.mapView.clear()
-            
-            self.CurrentLocMarker.position = self.cooridnates
-            self.CurrentLocMarker.title = "myLoc"
-            var markerView = UIImageView()
-            markerView = UIImageView(image: UIImage.init(named: "current_location_icon"))
-            markerView.frame.size.width = 30
-            markerView.frame.size.height = 30
-            self.CurrentLocMarker.iconView = markerView
-            self.CurrentLocMarker.map = self.mapView
-            
-            
-            if snapshot.childrenCount > 0 {
-                self.arrspot.removeAllObjects()
-                for artists in snapshot.children.allObjects as! [DataSnapshot] {
-                    let snapshotValue = snapshot.value as! NSDictionary
-                    print(snapshotValue)
-                    
-                    let dictdata = ((snapshot.value as! NSDictionary).value(forKey: (artists as! DataSnapshot).key)) as! NSDictionary
-                    print(dictdata)
-                    if dictdata.count>0{
-                        
-                        for (theKey, theValue) in dictdata {
-                            //   print(theValue)
-                            self.arrspot.add(theValue)
-                        }
-                        //self.loadEventsToMap(lat: self.userlatitude, long: self.userlongitude)
-                     }
-                }
-                
-                print(self.arrspot.count)
-          
-                for i in 0..<self.arrspot.count {
-                    print(self.arrspot)
-                    let marker = GMSMarker()
-                    marker.position = CLLocationCoordinate2DMake(Double(truncating: (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "user_lat") as! NSNumber), Double(truncating: (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "user_long") as! NSNumber))
-                    marker.map = self.mapView
-                    let price = (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "hourlyPricing") as! String
-                    let doller = (price as NSString).integerValue
-                    // marker.title = "$\(doller)"
-                    //   marker.snippet
-                    marker.infoWindowAnchor = CGPoint(x: 0.5, y: 0.2)
-                    marker.accessibilityLabel = "\(i)"
-                    
-                    var markerimg = UIImageView()
-                    let customView = UIView()
-                    
-                    customView.frame = CGRect.init(x: 0, y: 0, width: 60, height: 60)
-                    markerimg  = UIImageView(frame:CGRect(x:0, y:0, width:60, height:60));
-                    markerimg.image = UIImage(named:"markers")
-                    markerimg.backgroundColor = UIColor.clear
-                    customView.addSubview(markerimg)
-                    let lbl_marker = UILabel()
-                    lbl_marker.frame = CGRect(x: 0, y: (markerimg.frame.height/2)-25, width: markerimg.frame.width, height: 40)
-                    markerimg.addSubview(lbl_marker)
-                    
-                    lbl_marker.textAlignment = .center
-                    lbl_marker.numberOfLines = 1;
-                    
-                    lbl_marker.text = "$\(doller)"
-                    
-                    lbl_marker.minimumScaleFactor = 0.5;
-                    lbl_marker.adjustsFontSizeToFitWidth = true;
-                    
-                    
-                    lbl_marker.textColor = UIColor.black
-                    customView.backgroundColor = UIColor.clear
-                    marker.iconView = customView
-                }
-            }
-        })
-    }
+    
     
     // MARK:- locationManagerDelegate
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -719,8 +641,6 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         self.CurrentLocMarker.map = self.mapView
         userlatitude = (location?.coordinate.latitude)!
         userlongitude = (location?.coordinate.longitude)!
-        AppState.sharedInstance.lat = userlatitude
-        AppState.sharedInstance.long = userlongitude
         print(location?.coordinate)
         let camera = GMSCameraPosition.camera(withLatitude: (location?.coordinate.latitude)!, longitude: (location?.coordinate.longitude)!, zoom:12)
         //  self.mapView.animate(to: camera)
@@ -803,6 +723,92 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         fetchMapData(lat: markerlatitude, long: markerlongitude)
     }
     
+    // GET ALL SPOT ON MAP
+    func getlatlong(){
+        five = 0
+        print("SAAas")
+        
+        refArtists = Database.database().reference().child("All_Spots");
+        refArtists.observe(DataEventType.value, with: { (snapshot) in
+            self.mapView.clear()
+            
+            self.CurrentLocMarker.position = self.cooridnates
+            self.CurrentLocMarker.title = "myLoc"
+            var markerView = UIImageView()
+            markerView = UIImageView(image: UIImage.init(named: "current_location_icon"))
+            markerView.frame.size.width = 30
+            markerView.frame.size.height = 30
+            self.CurrentLocMarker.iconView = markerView
+            self.CurrentLocMarker.map = self.mapView
+            
+            
+            if snapshot.childrenCount > 0 {
+                self.arrspot.removeAllObjects()
+                for artists in snapshot.children.allObjects as! [DataSnapshot] {
+                    let snapshotValue = snapshot.value as! NSDictionary
+                    print(snapshotValue)
+                    
+                    let dictdata = ((snapshot.value as! NSDictionary).value(forKey: (artists as! DataSnapshot).key)) as! NSDictionary
+                    print(dictdata)
+                    if dictdata.count>0{
+                        
+                        for (theKey, theValue) in dictdata {
+                            //   print(theValue)
+                            self.arrspot.add(theValue)
+                        }
+                        //self.loadEventsToMap(lat: self.userlatitude, long: self.userlongitude)
+                    }
+                }
+                
+                for i in 0..<self.arrspot.count {
+                    print(self.arrspot)
+                    let marker = GMSMarker()
+                    marker.position = CLLocationCoordinate2DMake(Double(truncating: (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "user_lat") as! NSNumber), Double(truncating: (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "user_long") as! NSNumber))
+                    marker.map = self.mapView
+                    let price = (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "hourlyPricing") as! String
+                    var doller = String()
+                    for (index, character) in price.enumerated() {
+                        if index < 4 {
+                            doller.append(character)
+                        }
+                        
+                    }
+                    
+                    print(doller)
+                    
+                    //  let doller = (price as NSString).integerValue
+                    // marker.title = "$\(doller)"
+                    //   marker.snippet
+                    marker.infoWindowAnchor = CGPoint(x: 0.5, y: 0.2)
+                    marker.accessibilityLabel = "\(i)"
+                    
+                    var markerimg = UIImageView()
+                    let customView = UIView()
+                    
+                    customView.frame = CGRect.init(x: 0, y: 0, width: 60, height: 60)
+                    markerimg  = UIImageView(frame:CGRect(x:0, y:0, width:60, height:60));
+                    markerimg.image = UIImage(named:"markers")
+                    markerimg.backgroundColor = UIColor.clear
+                    customView.addSubview(markerimg)
+                    let lbl_marker = UILabel()
+                    lbl_marker.frame = CGRect(x: 0, y: (markerimg.frame.height/2)-25, width: markerimg.frame.width, height: 40)
+                    markerimg.addSubview(lbl_marker)
+                    
+                    lbl_marker.textAlignment = .center
+                    lbl_marker.numberOfLines = 1;
+                    
+                    lbl_marker.text = "$\(doller)"
+                    lbl_marker.minimumScaleFactor = 0.5;
+                    lbl_marker.adjustsFontSizeToFitWidth = true;
+                    
+                    lbl_marker.textColor = UIColor.black
+                    customView.backgroundColor = UIColor.clear
+                    marker.iconView = customView
+                }
+            }
+        })
+    }
+    
     // MARK:_ Load Marker to map :-  Spot
     func loadEventsToMap(lat:Double,long:Double){
         
@@ -825,7 +831,16 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                     marker.map = self.mapView
                     
                     let price = (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "hourlyPricing") as! String
-                    let doller = (price as NSString).integerValue
+                    var doller = String()
+                    for (index, character) in price.enumerated() {
+                        if index < 4 {
+                            doller.append(character)
+                        }
+                        
+                    }
+                    
+                    print(doller)
+                  //  let doller = (price as NSString).integerValue
                     //marker.title = "$\(doller)"
                     //     marker.snippet
                     marker.infoWindowAnchor = CGPoint(x: 0.5, y: 0.2)
@@ -884,7 +899,16 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             marker.position = CLLocationCoordinate2DMake(Double(truncating: (self.arr_search_spot.object(at: i) as! NSDictionary).value(forKey: "user_lat") as! NSNumber), Double(truncating: (self.arr_search_spot.object(at: i) as! NSDictionary).value(forKey: "user_long") as! NSNumber))
             marker.map = self.mapView
             let price = (self.arr_search_spot.object(at: i) as! NSDictionary).value(forKey: "hourlyPricing") as! String
-            let doller = (price as NSString).integerValue
+            var doller = String()
+            for (index, character) in price.enumerated() {
+                if index < 4 {
+                    doller.append(character)
+                }
+                
+            }
+            
+            print(doller)
+           // let doller = (price as NSString).integerValue
             // marker.title = "$\(doller)"
             //   marker.snippet
             marker.infoWindowAnchor = CGPoint(x: 0.5, y: 0.2)
