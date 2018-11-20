@@ -41,7 +41,7 @@ class CarsDefinitionViewController: UIViewController, UITextFieldDelegate, UIIma
         if let car = car {
             navigationItem.title = "Edit Car"
            
-            Image.sd_setImage(with: URL(string: car.carImage), placeholderImage: UIImage(named: "placeholder.png"))
+            Image.sd_setImage(with: URL(string: car.carImage), placeholderImage: UIImage(named: "Placeholder"))
             Make.text = car.make
             Model.text = car.model
             Year.text = car.year

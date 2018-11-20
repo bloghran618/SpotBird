@@ -124,8 +124,10 @@ class PriceViewController: UIViewController, UITextFieldDelegate,CLLocationManag
         dailyPricing.resignFirstResponder()
         weeklyPricing.resignFirstResponder()
         monthlyPricing.resignFirstResponder()
-        self.navigationController?.popToRootViewController(animated: true)
-    
+        
+        let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController]
+        self.navigationController!.popToViewController(viewControllers[viewControllers.count - 5], animated: true)
+
         if AppState.sharedInstance.activeSpot.spot_id == "" {
          AppState.sharedInstance.activeSpot.Save_Spot(SpotID:"")
         }
