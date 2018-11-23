@@ -164,7 +164,16 @@ extension AddressViewController {
     if ((AppState.sharedInstance.activeSpot.address != "") && (AppState.sharedInstance.activeSpot.town != "")) && ((AppState.sharedInstance.activeSpot.zipCode != "") && (AppState.sharedInstance.activeSpot.state != "")) {
         
         let marker = GMSMarker()
-        marker.position = CLLocationCoordinate2D(latitude: AppState.sharedInstance.activeSpot.latitude, longitude: AppState.sharedInstance.activeSpot.longitude)
+        
+        let lat1 = AppState.sharedInstance.activeSpot.latitude
+        let long1 = AppState.sharedInstance.activeSpot.longitude
+        let lat = (lat1 as NSString).doubleValue
+        let long = (long1 as NSString).doubleValue
+        
+    //    marker.position = CLLocationCoordinate2DMake(lat, long)
+        
+        
+      marker.position = CLLocationCoordinate2D(latitude: lat, longitude: long)
         marker.map = self.mapView
         let price =  AppState.sharedInstance.activeSpot.hourlyPricing
         var doller = String()
@@ -196,7 +205,15 @@ extension AddressViewController {
         marker.iconView = customView
         
         if spotcamera == true {
-        let camera = GMSCameraPosition.camera(withLatitude: (AppState.sharedInstance.activeSpot.latitude), longitude: (AppState.sharedInstance.activeSpot.longitude), zoom:12)
+            
+            let lat1 = AppState.sharedInstance.activeSpot.latitude
+            let long1 = AppState.sharedInstance.activeSpot.longitude
+            let lat = (lat1 as NSString).doubleValue
+            let long = (long1 as NSString).doubleValue
+            
+           // marker.position = CLLocationCoordinate2DMake(lat, long)
+            
+        let camera = GMSCameraPosition.camera(withLatitude: lat, longitude: long, zoom:12)
         self.mapView.animate(to: camera)
         spotcamera = false
         }
@@ -235,9 +252,14 @@ extension AddressViewController {
         dismiss(animated: true, completion: nil)
         mapView.clear()
         spotcamera = true
-        AppState.sharedInstance.activeSpot.latitude = place.coordinate.latitude
-        AppState.sharedInstance.activeSpot.longitude = place.coordinate.longitude
- 
+        
+     
+        AppState.sharedInstance.activeSpot.latitude = String(place.coordinate.latitude)
+        AppState.sharedInstance.activeSpot.longitude =  String(place.coordinate.longitude)
+        
+        print(place.coordinate.latitude)
+        print(AppState.sharedInstance.activeSpot.latitude)
+        
         let cordinate:[String: CLLocationCoordinate2D] = ["cordinate": place.coordinate]
         
        let geocoder = GMSGeocoder()

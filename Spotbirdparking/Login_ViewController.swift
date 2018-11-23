@@ -68,13 +68,20 @@ class Login_ViewController: UIViewController {
                         
                     }else {
                           Spinner.stop()
-                        let alertController = UIAlertController(title: "Error", message: "Incorrect Password..", preferredStyle: .alert)
+                        let alertController = UIAlertController(title: "Error", message: "Incorrect Password.", preferredStyle: .alert)
                         let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
                         alertController.addAction(defaultAction)
                         self.present(alertController, animated: true, completion: nil)
                     }
                     
                 }
+            }
+            else{
+                Spinner.stop()
+                let alertController = UIAlertController(title: "Error", message: "Incorrect UserName.", preferredStyle: .alert)
+                let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                alertController.addAction(defaultAction)
+                self.present(alertController, animated: true, completion: nil)
             }
            
         })
