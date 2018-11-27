@@ -17,6 +17,9 @@ class Spot {
     var state: String
     var zipCode: String
     
+    var latitude: Double
+    var longitude: Double
+    
     var spotImage1: UIImage
     var spotImage: String
     var description: String
@@ -57,12 +60,14 @@ class Spot {
      var refArtists: DatabaseReference!
     
     
-    init?(address: String, town: String, state: String, zipCode: String,spotImage: String, description: String, monStartTime: String, monEndTime: String, tueStartTime: String, tueEndTime: String, wedStartTime: String, wedEndTime: String, thuStartTime: String, thuEndTime: String, friStartTime: String, friEndTime: String, satStartTime: String, satEndTime: String, sunStartTime: String, sunEndTime: String, monOn: Bool, tueOn: Bool, wedOn: Bool, thuOn: Bool, friOn: Bool, satOn: Bool, sunOn: Bool, hourlyPricing: String, dailyPricing: String, weeklyPricing: String, monthlyPricing: String, weeklyOn: Bool, monthlyOn: Bool, index: Int, approved: Bool,spotImages:UIImage,spots_id:String) {
+    init?(address: String, town: String, state: String, zipCode: String,spotImage: String, description: String, monStartTime: String, monEndTime: String, tueStartTime: String, tueEndTime: String, wedStartTime: String, wedEndTime: String, thuStartTime: String, thuEndTime: String, friStartTime: String, friEndTime: String, satStartTime: String, satEndTime: String, sunStartTime: String, sunEndTime: String, monOn: Bool, tueOn: Bool, wedOn: Bool, thuOn: Bool, friOn: Bool, satOn: Bool, sunOn: Bool, hourlyPricing: String, dailyPricing: String, weeklyPricing: String, monthlyPricing: String, weeklyOn: Bool, monthlyOn: Bool, index: Int, approved: Bool,spotImages:UIImage,spots_id:String,latitude:Double, longitude:Double) {
         
         self.address = address
         self.town = town
         self.state = state
         self.zipCode = zipCode
+        self.latitude = latitude
+        self.longitude = longitude
         
         self.spotImage = spotImage
         self.spotImage1 = spotImages
@@ -104,6 +109,8 @@ class Spot {
     
    func getSpots() {
     
+    print(AppState.sharedInstance.userid)
+    
     self.refArtists = Database.database().reference().child("User").child(AppState.sharedInstance.userid).child("MySpots");
     self.refArtists.observe(DataEventType.value, with: { (snapshot) in
         
@@ -111,6 +118,15 @@ class Spot {
             AppState.sharedInstance.spots.removeAll()
             for artists in snapshot.children.allObjects as! [DataSnapshot] {
                 let snapshotValue = ((snapshot.value as! NSDictionary).value(forKey: (artists as! DataSnapshot).key)) as! NSDictionary
+                
+              print(snapshotValue)
+                
+              let dblat = snapshotValue.value(forKey: "user_lat") as! NSNumber
+              let dblongitude =  snapshotValue.value(forKey: "user_long") as! NSNumber
+                
+//              let dblat = (lati as NSString).doubleValue
+//              let dblongitude = (logi as NSString).doubleValue
+                
                 
                 AppState.sharedInstance.spots.append(Spot(address: snapshotValue.value(forKey: "address") as!
                     String, town: snapshotValue.value(forKey: "city") as! String,
@@ -151,9 +167,11 @@ class Spot {
                             weeklyOn: snapshotValue.value(forKey: "switch_weekly") as! Bool,
                             monthlyOn: snapshotValue.value(forKey: "switch_monthly") as! Bool,
                             index: -1,
-                            approved:false, spotImages: UIImage.init(named: "white")!, spots_id: (artists as! DataSnapshot).key)!)
+                            approved:false, spotImages: UIImage.init(named: "white")!, spots_id: (artists ).key, latitude: Double(dblat), longitude: Double(dblongitude))!)
                 
             }
+            
+            print(AppState.sharedInstance.spots.count)
             
              NotificationCenter.default.post(name: Notification.Name("Spots"), object: nil)
            
@@ -186,11 +204,22 @@ class Spot {
         refArtists.child("MySpots").observeSingleEvent(of: .value, with: { (snapshot) in
             if snapshot.hasChild((spot_dict.spot_id)){
                 self.refArtists = Database.database().reference().child("User").child(AppState.sharedInstance.userid).child("MySpots")
-                self.refArtists.child(spot_dict.spot_id).setValue(nil)
+                self.refArtists.child(spot_dict.spot_id).setValue(nil){
+                    (error:Error?, ref:DatabaseReference) in
+                    if let error = error {
+                        print("Spots could not be Delete: \(error).")
+                        Spinner.stop()
+                        
+                    } else {
+                         print("Spots Delete successfully!")
+                   self.refArtists = Database.database().reference().child("All_Spots").child(AppState.sharedInstance.userid)
+                   self.refArtists.child(spot_dict.spot_id).setValue(nil)
+                    Spinner.stop()
+                    
+                    }
+                }
                 
-                self.refArtists = Database.database().reference().child("All_Spots")
-                self.refArtists.child(spot_dict.spot_id).setValue(nil)
-            }else{
+             }else{
                 print("jewsasassasass")
             }
         })
@@ -201,10 +230,7 @@ class Spot {
     func Save_Spot(SpotID:String){
         print(SpotID)
         Spinner.start()
-        print(AppState.sharedInstance.lat)
-        print(AppState.sharedInstance.long)
-    
-        if SpotID == ""{
+         if SpotID == ""{
         // ADD NEW SPOT
          New_Spot()
         }else{
@@ -241,6 +267,10 @@ class Spot {
                     self.refArtists = Database.database().reference().child("All_Spots")
                     let key = self.refArtists.childByAutoId().key
                     
+                    let Alat:String = String(format:"%f", AppState.sharedInstance.activeSpot.latitude)
+                    let Along:String = String(format:"%f", AppState.sharedInstance.activeSpot.longitude)
+                
+                    
                     let spots = ["id":key,
                                  "image":fullURL,
                                  "description":AppState.sharedInstance.activeSpot.description,
@@ -269,8 +299,8 @@ class Spot {
                                  "monthlyPricing":AppState.sharedInstance.activeSpot.monthlyPricing,
                                  "switch_weekly":AppState.sharedInstance.activeSpot.weeklyOn,
                                  "switch_monthly":AppState.sharedInstance.activeSpot.monthlyOn,
-                                 "user_lat":AppState.sharedInstance.lat,
-                                 "user_long":AppState.sharedInstance.long,
+                                 "user_lat":Alat,
+                                 "user_long":Along,
                                  "monswitch":AppState.sharedInstance.activeSpot.monOn,
                                  "tueswitch":AppState.sharedInstance.activeSpot.tueOn,
                                  "wedswitch":AppState.sharedInstance.activeSpot.wedOn,
@@ -357,6 +387,9 @@ class Spot {
     
     func updatequery(data:DatabaseReference,url:String) {
         
+        let Alat:String = String(format:"%f", AppState.sharedInstance.activeSpot.latitude)
+        let Along:String = String(format:"%f", AppState.sharedInstance.activeSpot.longitude)
+        
    self.refArtists.updateChildValues([
             "image":url,
             "description":AppState.sharedInstance.activeSpot.description,
@@ -385,8 +418,8 @@ class Spot {
             "monthlyPricing":AppState.sharedInstance.activeSpot.monthlyPricing,
             "switch_weekly":AppState.sharedInstance.activeSpot.weeklyOn,
             "switch_monthly":AppState.sharedInstance.activeSpot.monthlyOn,
-            "user_lat":AppState.sharedInstance.lat,
-            "user_long":AppState.sharedInstance.long,
+            "user_lat":Alat,
+            "user_long":Along,
             "monswitch":AppState.sharedInstance.activeSpot.monOn,
             "tueswitch":AppState.sharedInstance.activeSpot.tueOn,
             "wedswitch":AppState.sharedInstance.activeSpot.wedOn,

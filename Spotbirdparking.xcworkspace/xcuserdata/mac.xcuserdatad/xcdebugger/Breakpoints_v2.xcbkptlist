@@ -20,11 +20,27 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spotbirdparking/FirstViewController.swift"
-            timestampString = "563901163.563082"
+            timestampString = "564068413.630715"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "854"
-            endingLineNumber = "854"
+            startingLineNumber = "865"
+            endingLineNumber = "865"
+            landmarkName = "loadEventsToMap(lat:long:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Spotbirdparking/FirstViewController.swift"
+            timestampString = "564068413.63079"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "933"
+            endingLineNumber = "933"
             landmarkName = "Search_Spot()"
             landmarkType = "7">
          </BreakpointContent>
@@ -35,6 +51,7 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
+<<<<<<< HEAD
             filePath = "Spotbirdparking/Login_ViewController.swift"
             timestampString = "562771384.4870059"
             startingColumnNumber = "9223372036854775807"
@@ -74,6 +91,15 @@
             startingLineNumber = "72"
             endingLineNumber = "72"
             landmarkName = "btn_login(_:)"
+=======
+            filePath = "Spotbirdparking/FirstViewController.swift"
+            timestampString = "564068413.63087"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "817"
+            endingLineNumber = "817"
+            landmarkName = "loadEventsToMap(lat:long:)"
+>>>>>>> 4e37f054f25df6557873d6cc6f7caa0c4a0c10b3
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

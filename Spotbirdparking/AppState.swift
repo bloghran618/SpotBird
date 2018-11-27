@@ -16,8 +16,7 @@ import SystemConfiguration
 class AppState {
     static let sharedInstance = AppState()
     
-    var lat:Double  = Double()
-    var long:Double  = Double()
+    
     var dict_spot: NSMutableDictionary = [:]
     var user: User
     var spots: [Spot]
@@ -38,7 +37,7 @@ class AppState {
     init() {
         self.user = User()
         self.spots = []
-        self.activeSpot = Spot(address: " ", town: "", state: "", zipCode: " ", spotImage: " ", description: " ", monStartTime: "12:00 AM", monEndTime: "12:00 PM", tueStartTime: "12:00 AM", tueEndTime: "12:00 PM", wedStartTime: "12:00 AM", wedEndTime: "12:00 PM", thuStartTime: "12:00 AM", thuEndTime: "12:00 PM", friStartTime: "12:00 AM", friEndTime: "12:00 PM", satStartTime: "12:00 AM", satEndTime: "12:00 PM", sunStartTime: "12:00 AM", sunEndTime: "12:00 PM", monOn: true, tueOn: true, wedOn: true, thuOn: true, friOn: true, satOn: true, sunOn: true, hourlyPricing: " ", dailyPricing: " ", weeklyPricing: " ", monthlyPricing: "", weeklyOn: true, monthlyOn: true, index: -1, approved: false, spotImages: UIImage.init(named: "emptySpot")!, spots_id: "")!
+        self.activeSpot = Spot(address: " ", town: "", state: "", zipCode: " ", spotImage: " ", description: " ", monStartTime: "12:00 AM", monEndTime: "12:00 PM", tueStartTime: "12:00 AM", tueEndTime: "12:00 PM", wedStartTime: "12:00 AM", wedEndTime: "12:00 PM", thuStartTime: "12:00 AM", thuEndTime: "12:00 PM", friStartTime: "12:00 AM", friEndTime: "12:00 PM", satStartTime: "12:00 AM", satEndTime: "12:00 PM", sunStartTime: "12:00 AM", sunEndTime: "12:00 PM", monOn: true, tueOn: true, wedOn: true, thuOn: true, friOn: true, satOn: true, sunOn: true, hourlyPricing: " ", dailyPricing: " ", weeklyPricing: " ", monthlyPricing: "", weeklyOn: true, monthlyOn: true, index: -1, approved: false, spotImages: UIImage.init(named: "emptySpot")!, spots_id: "", latitude:10.0, longitude: 20.0)!
         self.reservations = []
     }
     
@@ -49,7 +48,9 @@ class AppState {
         else { // indicates we are in edit mode
             self.spots[self.activeSpot.index] = self.activeSpot
         }
-        self.activeSpot = Spot(address: " ", town: "", state: "", zipCode: " ", spotImage: " ", description: " ", monStartTime: "12:00 AM", monEndTime: "12:00 PM", tueStartTime: "12:00 AM", tueEndTime: "12:00 PM", wedStartTime: "12:00 AM", wedEndTime: "12:00 PM", thuStartTime: "12:00 AM", thuEndTime: "12:00 PM", friStartTime: "12:00 AM", friEndTime: "12:00 PM", satStartTime: "12:00 AM", satEndTime: "12:00 PM", sunStartTime: "12:00 AM", sunEndTime: "12:00 PM", monOn: true, tueOn: true, wedOn: true, thuOn: true, friOn: true, satOn: true, sunOn: true, hourlyPricing: " ", dailyPricing: " ", weeklyPricing: " ", monthlyPricing: "", weeklyOn: true, monthlyOn: true, index: -1, approved: false, spotImages: UIImage.init(named: "emptySpot")!, spots_id: "")!
+        self.activeSpot = Spot(address: " ", town: "", state: "", zipCode: " ", spotImage: " ", description: " ", monStartTime: "12:00 AM", monEndTime: "12:00 PM", tueStartTime: "12:00 AM", tueEndTime: "12:00 PM", wedStartTime: "12:00 AM", wedEndTime: "12:00 PM", thuStartTime: "12:00 AM", thuEndTime: "12:00 PM", friStartTime: "12:00 AM", friEndTime: "12:00 PM", satStartTime: "12:00 AM", satEndTime: "12:00 PM", sunStartTime: "12:00 AM", sunEndTime: "12:00 PM", monOn: true, tueOn: true, wedOn: true, thuOn: true, friOn: true, satOn: true, sunOn: true, hourlyPricing: " ", dailyPricing: " ", weeklyPricing: " ", monthlyPricing: "", weeklyOn: true, monthlyOn: true, index: -1, approved: false, spotImages: UIImage.init(named: "emptySpot")!, spots_id: "",latitude:22.7533, longitude:75.8937)!
+        
+        
     }
 }
 
