@@ -18,10 +18,6 @@ target 'Spotbirdparking' do
   pod 'GooglePlaces'
   pod 'IQKeyboardManagerSwift', '~> 5.0'
   pod 'JTAppleCalendar', '~> 7.0'  
-  pod 'FBSnapshotTestCase' , '~> 2.1.4'
-  pod 'DayDatePicker', :path => '../'
-
-
   target 'SpotbirdparkingTests' do
     inherit! :search_paths
     # Pods for testing
