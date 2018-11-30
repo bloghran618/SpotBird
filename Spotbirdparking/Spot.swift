@@ -17,8 +17,8 @@ class Spot {
     var state: String
     var zipCode: String
     
-    var latitude: Double
-    var longitude: Double
+    var latitude: String
+    var longitude: String
     
     var spotImage1: UIImage
     var spotImage: String
@@ -60,7 +60,7 @@ class Spot {
      var refArtists: DatabaseReference!
     
     
-    init?(address: String, town: String, state: String, zipCode: String,spotImage: String, description: String, monStartTime: String, monEndTime: String, tueStartTime: String, tueEndTime: String, wedStartTime: String, wedEndTime: String, thuStartTime: String, thuEndTime: String, friStartTime: String, friEndTime: String, satStartTime: String, satEndTime: String, sunStartTime: String, sunEndTime: String, monOn: Bool, tueOn: Bool, wedOn: Bool, thuOn: Bool, friOn: Bool, satOn: Bool, sunOn: Bool, hourlyPricing: String, dailyPricing: String, weeklyPricing: String, monthlyPricing: String, weeklyOn: Bool, monthlyOn: Bool, index: Int, approved: Bool,spotImages:UIImage,spots_id:String,latitude:Double, longitude:Double) {
+    init?(address: String, town: String, state: String, zipCode: String,spotImage: String, description: String, monStartTime: String, monEndTime: String, tueStartTime: String, tueEndTime: String, wedStartTime: String, wedEndTime: String, thuStartTime: String, thuEndTime: String, friStartTime: String, friEndTime: String, satStartTime: String, satEndTime: String, sunStartTime: String, sunEndTime: String, monOn: Bool, tueOn: Bool, wedOn: Bool, thuOn: Bool, friOn: Bool, satOn: Bool, sunOn: Bool, hourlyPricing: String, dailyPricing: String, weeklyPricing: String, monthlyPricing: String, weeklyOn: Bool, monthlyOn: Bool, index: Int, approved: Bool,spotImages:UIImage,spots_id:String,latitude:String, longitude:String) {
         
         self.address = address
         self.town = town
@@ -121,12 +121,55 @@ class Spot {
                 
               print(snapshotValue)
                 
-              let dblat = snapshotValue.value(forKey: "user_lat") as! NSNumber
-              let dblongitude =  snapshotValue.value(forKey: "user_long") as! NSNumber
+              let dblat = snapshotValue.value(forKey: "user_lat") as! String
+              let dblongitude =  snapshotValue.value(forKey: "user_long") as! String
                 
 //              let dblat = (lati as NSString).doubleValue
 //              let dblongitude = (logi as NSString).doubleValue
                 
+                /*
+                AppState.sharedInstance.spots.append(Spot(address: snapshotValue.value(forKey: "address") as!
+                    String, town: snapshotValue.value(forKey: "city") as! String,
+                            state: snapshotValue.value(forKey: "state") as! String,
+                            zipCode:(snapshotValue.value(forKey: "zipcode") as? String)!,
+                            
+                            spotImage: snapshotValue.value(forKey: "image") as! String,
+                            description: snapshotValue.value(forKey: "description") as! String,
+                            
+                            monStartTime: snapshotValue.value(forKey: "monStartTime") as! String,
+                            monEndTime: snapshotValue.value(forKey: "monEndTime") as! String,
+                            tueStartTime:(snapshotValue.value(forKey: "tueStartTime") as? String)!,
+                            tueEndTime: snapshotValue.value(forKey: "tueEndTime") as! String,
+                            wedStartTime: snapshotValue.value(forKey: "wedStartTime") as! String,
+                            wedEndTime: snapshotValue.value(forKey: "wedEndTime") as! String,
+                            thuStartTime: snapshotValue.value(forKey: "thuStartTime") as! String,
+                            thuEndTime: snapshotValue.value(forKey: "tueEndTime") as! String,
+                            friStartTime: snapshotValue.value(forKey: "friStartTime") as! String,
+                            friEndTime: snapshotValue.value(forKey: "friEndTime") as! String,
+                            satStartTime: snapshotValue.value(forKey: "satStartTime") as! String,
+                            satEndTime: snapshotValue.value(forKey: "satEndTime") as! String,
+                            sunStartTime: snapshotValue.value(forKey: "sunStartTime") as! String,
+                            sunEndTime: snapshotValue.value(forKey: "sunEndTime") as! String,
+                            
+                            monOn: snapshotValue.value(forKey: "monswitch") as! Bool,
+                            tueOn:snapshotValue.value(forKey: "tueswitch") as! Bool,
+                            wedOn: snapshotValue.value(forKey: "wedswitch") as! Bool,
+                            thuOn: snapshotValue.value(forKey: "thuswitch") as! Bool,
+                            friOn: snapshotValue.value(forKey: "friswitch") as! Bool,
+                            satOn: snapshotValue.value(forKey: "satswitch") as! Bool,
+                            sunOn: snapshotValue.value(forKey: "sunswitch") as! Bool,
+                            
+                            hourlyPricing: snapshotValue.value(forKey: "hourlyPricing") as! String,
+                            dailyPricing: snapshotValue.value(forKey: "dailyPricing") as! String,
+                            weeklyPricing: snapshotValue.value(forKey: "weeklyPricing") as! String,
+                            monthlyPricing: snapshotValue.value(forKey: "monthlyPricing") as! String,
+                            
+                            weeklyOn: snapshotValue.value(forKey: "switch_weekly") as! Bool,
+                            monthlyOn: snapshotValue.value(forKey: "switch_monthly") as! Bool,
+                            index: -1,
+                            approved:false, spotImages: UIImage.init(named: "white")!, spots_id: (artists ).key, latitude: dblat, longitude: dblongitude))
+                
+                */
                 
                 AppState.sharedInstance.spots.append(Spot(address: snapshotValue.value(forKey: "address") as!
                     String, town: snapshotValue.value(forKey: "city") as! String,
@@ -167,7 +210,9 @@ class Spot {
                             weeklyOn: snapshotValue.value(forKey: "switch_weekly") as! Bool,
                             monthlyOn: snapshotValue.value(forKey: "switch_monthly") as! Bool,
                             index: -1,
-                            approved:false, spotImages: UIImage.init(named: "white")!, spots_id: (artists ).key, latitude: Double(dblat), longitude: Double(dblongitude))!)
+                            approved:false, spotImages: UIImage.init(named: "white")!, spots_id: (artists ).key, latitude: dblat, longitude: dblongitude)!)
+                
+                
                 
             }
             
@@ -267,10 +312,6 @@ class Spot {
                     self.refArtists = Database.database().reference().child("All_Spots")
                     let key = self.refArtists.childByAutoId().key
                     
-                    let Alat:String = String(format:"%f", AppState.sharedInstance.activeSpot.latitude)
-                    let Along:String = String(format:"%f", AppState.sharedInstance.activeSpot.longitude)
-                
-                    
                     let spots = ["id":key,
                                  "image":fullURL,
                                  "description":AppState.sharedInstance.activeSpot.description,
@@ -299,8 +340,10 @@ class Spot {
                                  "monthlyPricing":AppState.sharedInstance.activeSpot.monthlyPricing,
                                  "switch_weekly":AppState.sharedInstance.activeSpot.weeklyOn,
                                  "switch_monthly":AppState.sharedInstance.activeSpot.monthlyOn,
-                                 "user_lat":Alat,
-                                 "user_long":Along,
+                                 
+                                 "user_lat":AppState.sharedInstance.activeSpot.latitude,
+                                 "user_long":AppState.sharedInstance.activeSpot.longitude,
+                                 
                                  "monswitch":AppState.sharedInstance.activeSpot.monOn,
                                  "tueswitch":AppState.sharedInstance.activeSpot.tueOn,
                                  "wedswitch":AppState.sharedInstance.activeSpot.wedOn,
@@ -387,8 +430,7 @@ class Spot {
     
     func updatequery(data:DatabaseReference,url:String) {
         
-        let Alat:String = String(format:"%f", AppState.sharedInstance.activeSpot.latitude)
-        let Along:String = String(format:"%f", AppState.sharedInstance.activeSpot.longitude)
+   
         
    self.refArtists.updateChildValues([
             "image":url,
@@ -418,8 +460,8 @@ class Spot {
             "monthlyPricing":AppState.sharedInstance.activeSpot.monthlyPricing,
             "switch_weekly":AppState.sharedInstance.activeSpot.weeklyOn,
             "switch_monthly":AppState.sharedInstance.activeSpot.monthlyOn,
-            "user_lat":Alat,
-            "user_long":Along,
+            "user_lat":AppState.sharedInstance.activeSpot.latitude,
+            "user_long":AppState.sharedInstance.activeSpot.longitude,
             "monswitch":AppState.sharedInstance.activeSpot.monOn,
             "tueswitch":AppState.sharedInstance.activeSpot.tueOn,
             "wedswitch":AppState.sharedInstance.activeSpot.wedOn,

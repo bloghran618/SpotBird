@@ -15,11 +15,9 @@ import GooglePlaces
 import GooglePlacePicker
 import GooglePlaces
 
-class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapViewDelegate,GMSAutocompleteViewControllerDelegate{
+class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapViewDelegate,GMSAutocompleteViewControllerDelegate,UIPickerViewDataSource,UIPickerViewDelegate{
     
     @IBOutlet var mapView: GMSMapView!
-
-    
     // info window:-
     @IBOutlet weak var img_spot: UIImageView!
     @IBOutlet weak var lbl_price: UILabel!
@@ -27,21 +25,18 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     @IBOutlet weak var btn_close: UIButton!
     @IBOutlet weak var btn_book: UIButton!
     @IBOutlet weak var btn_dtls: UIButton!
-     @IBOutlet weak var btn_search_click: UIButton!
-     @IBOutlet weak var btn_calander: UIButton!
+    @IBOutlet weak var btn_search_click: UIButton!
+    @IBOutlet weak var btn_calander: UIButton!
     @IBOutlet weak var view_info: CustomView!
 
     // DATE SEARCHing
     @IBOutlet weak var Date_VIew: UIView!
-    
     @IBOutlet weak var start_datepic: UIDatePicker!
     @IBOutlet weak var end_datepic: UIDatePicker!
     let dateFormatter = DateFormatter()
     
-    
-    var start_date : String?
-    var end_date : String?
-    
+    @IBOutlet weak var timpic1: UIPickerView!
+    @IBOutlet weak var timepic2: UIPickerView!
     
     var locationManager = CLLocationManager()
     let CurrentLocMarker = GMSMarker()
@@ -61,18 +56,20 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     var tblLocation : UITableView!
     var hud : MBProgressHUD = MBProgressHUD()
     var placesClient: GMSPlacesClient!
-    
 
     var curruntlat : Double?
     var curruntlong : Double?
-    
     var Userlat : Double?
     var Userlong : Double?
-    
     var cooridnates = CLLocationCoordinate2D()
-    
     var arr_search_spot:NSMutableArray = NSMutableArray()
+    var timearray = [String]()
+    var start_date:Date?
+    var end_date:Date?
     
+    var format1 = ""
+    var format2 = ""
+    let calendar = Calendar.current
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,7 +86,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         img_spot.clipsToBounds = true
         view_info.isHidden = true
         btn_close.isHidden = true
-     
+        
         self.mapView.delegate = self
         self.locationManager.delegate = self
         self.locationManager.requestAlwaysAuthorization()
@@ -98,11 +95,11 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         CurrentLocMarker.map = self.mapView
         self.locationManager.startMonitoringSignificantLocationChanges()
         self.locationManager.startUpdatingLocation()
-      //  mapView.isMyLocationEnabled = true
+        //  mapView.isMyLocationEnabled = true
         mapView.settings.myLocationButton = true
         
         mapView.padding = UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 20)
-         method(arg: true, completion: { (success) -> Void in
+        method(arg: true, completion: { (success) -> Void in
             print("Second line of code executed")
             if success { // this will be equal to whatever value is set in this method call
                 print("true")
@@ -114,34 +111,70 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         start_datepic.addTarget(self, action: #selector(startdatePickerChanged(picker:)), for: .valueChanged)
         end_datepic.addTarget(self, action: #selector(EnddatePickerChanged(picker:)), for: .valueChanged)
         dateFormatter.dateFormat = "MMM, dd, YYYY, H:mm:ss"
-      //dateFormatter.timeZone = TimeZone(abbreviation: "UTC")
-        dateFormatter.timeZone = TimeZone.current
         
-         start_datepic.minimumDate = Date()
-         end_datepic.minimumDate = Date()
+        timearrayset()
+    }
+    
+    func timearrayset()  {
+        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:a"
+        var stringdate = dateFormatter.string(from: Date())
+        
+        if stringdate.contains("PM"){
+            timearray.append("PM")
+            timearray.append("AM")
+            format1 = "PM"
+            format2 = "PM"
+        }
+        else{
+            timearray.append("AM")
+            timearray.append("PM")
+            format1 = "AM"
+            format2 = "AM"
+        }
         
     }
     
     // start date-
     @objc func startdatePickerChanged(picker: UIDatePicker) {
-        start_date = dateFormatter.string(from: picker.date)
-    }
+        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:a"
+      //   dateFormatter.dateFormat = "EEE, MMM d, yyyy - h:mm a"
+        var myStringafd = dateFormatter.string(from: picker.date)
+        
+        if format1 == "AM"{
+            let replaced = myStringafd.replacingOccurrences(of: "AM", with: "PM")
+            start_date = dateFormatter.date(from: replaced)!
+        }
+        else{
+            let replaced = myStringafd.replacingOccurrences(of: "PM", with: "AM")
+            start_date = dateFormatter.date(from: replaced)!
+        }
+      }
     
     // end date-
     @objc func EnddatePickerChanged(picker: UIDatePicker) {
-         end_date = dateFormatter.string(from: picker.date)
+      dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:a"
+        var str = dateFormatter.string(from: picker.date)
+        if format2 == "AM"{
+            let replaced = str.replacingOccurrences(of: "AM", with: "PM")
+            end_date = dateFormatter.date(from: str)!
+        }
+        else{
+            let replaced = str.replacingOccurrences(of: "PM", with: "AM")
+            end_date = dateFormatter.date(from: str)!
+        }
+        
     }
     
     // MARK:_ BTn Date searching
     @IBAction func btn_Date_search(_ sender: UIButton) {
         view_info.isHidden = true
         btn_close.isHidden = true
-       
+        
         if Date_VIew.isHidden == true{
-           Date_VIew.isHidden = false
+            Date_VIew.isHidden = false
         }
         else{
-          Date_VIew.isHidden = true
+            Date_VIew.isHidden = true
         }
     }
     
@@ -152,7 +185,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     
     // MARK:_ BTn Date searching Done
     @IBAction func btn_Date_search_done(_ sender: UIButton) {
-        let calendar = Calendar.current
+        
         if  start_date == nil{
             let alert = UIAlertController(title: "Spotbirdparking", message: "Please Select Start Date.", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
@@ -168,9 +201,13 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             arr_search_spot.removeAllObjects()
             
             if end_date == nil{
-                let addhour = calendar.date(byAdding: .hour, value: 3, to: start_datepic.date)
-                end_date = dateFormatter.string(from: addhour!)
+                print(start_date)
+                print(end_date)
                 
+                let addhour = calendar.date(byAdding: .hour, value: 3, to: start_date!)
+                end_date = addhour!
+                print(addhour)
+                print(end_date)
             }
             
             var arr_date = [Date]()
@@ -190,9 +227,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                     arr_day.append(dayInWeek)
                 }
             }
-           
             var datedaydict = NSMutableDictionary()
-            
             var arrsunday = [Date]()
             var arrmonday = [Date]()
             var arrtuesday = [Date]()
@@ -200,22 +235,22 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             var arrthuesday = [Date]()
             var arrfriday = [Date]()
             var arrsatarday = [Date]()
-         
+            
             for i in 0..<arr_date.count
             {
                 if arr_day[i] == ("Sunday")
                 {
-                 arrsunday.append(arr_date[i])
+                    arrsunday.append(arr_date[i])
                 }
                 if arr_day[i] == "Monday" {
-                  arrmonday.append(arr_date[i])
+                    arrmonday.append(arr_date[i])
                 }
                 if arr_day[i] == "Tuesday" {
-                 arrtuesday.append(arr_date[i])
-                 }
-                 if arr_day[i] == "Wednesday" {
-                   arrwednesday.append(arr_date[i])
-                 }
+                    arrtuesday.append(arr_date[i])
+                }
+                if arr_day[i] == "Wednesday" {
+                    arrwednesday.append(arr_date[i])
+                }
                 if arr_day[i] == "Thursday" {
                     arrthuesday.append(arr_date[i])
                 }
@@ -225,186 +260,204 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                 if arr_day[i] == "Saturday" {
                     arrsatarday.append(arr_date[i])
                 }
-             
-             // datedaydict.setValue(arr_date[i], forKey: arr_day[i])
-            
             }
             
             if arrsunday.count>0
             {
-               datedaydict.setValue(arrsunday, forKey: "Sunday")
+                datedaydict.setValue(arrsunday, forKey: "Sunday")
             }
             if arrmonday.count>0{
-               datedaydict.setValue(arrmonday, forKey: "Monday")
+                datedaydict.setValue(arrmonday, forKey: "Monday")
             }
             if arrtuesday.count>0 {
-               datedaydict.setValue(arrtuesday, forKey: "Tuesday")
+                datedaydict.setValue(arrtuesday, forKey: "Tuesday")
             }
             if arrwednesday.count>0 {
-               datedaydict.setValue(arrwednesday, forKey: "Wednesday")
+                datedaydict.setValue(arrwednesday, forKey: "Wednesday")
             }
             if arrthuesday.count>0 {
-               datedaydict.setValue(arrthuesday, forKey: "Thursday")
+                datedaydict.setValue(arrthuesday, forKey: "Thursday")
             }
             if arrfriday.count>0 {
-               datedaydict.setValue(arrfriday, forKey: "Friday")
+                datedaydict.setValue(arrfriday, forKey: "Friday")
             }
             if arrsatarday.count>0 {
-               datedaydict.setValue(arrsatarday, forKey: "Saturday")
+                datedaydict.setValue(arrsatarday, forKey: "Saturday")
             }
             
-            print(arr_date.count)
-            print(arr_day.count)
-            print(datedaydict)
-            
-            let formatter = DateFormatter()
-            formatter.dateFormat = "HH:mm a"
-            formatter.timeZone = TimeZone.current
-            
-            for i in 0..<arrspot.count{
-                
+          for i in 0..<arrspot.count{
                 for j in 0..<arr_day.count{
-                    
                     let dict_spot = arrspot.object(at: i) as! NSDictionary
+                    
+                    var localTimeZoneName: String { return TimeZone.current.identifier }
+                    print(localTimeZoneName)
+                    
+                    let CurrentTimeZone = NSTimeZone(abbreviation: "GMT")
+                    let SystemTimeZone = NSTimeZone.system as NSTimeZone
+                    
+//                    let CurrentTimeZone = TimeZone.current
+//                    let SystemTimeZone = NSTimeZone.system as NSTimeZone
+                    
+                    
                     if arr_day[j] == "Sunday" {
                         if (arrspot.object(at: i) as! NSDictionary).value(forKey: "sunswitch") as! Bool == true{
                             
                             let arrsun = datedaydict.value(forKey: "Sunday") as! NSArray
-                            print(arrsun)
-                            
                             for m in 0..<arrsun.count{
-                            let dateSunday =  arrsun[m] as! Date
-                             print(dateSunday)
-                            
-                           // let dateSunday =  datedaydict.value(forKey: "Sunday") as!  Date
-                            formatter.dateFormat = "HH.mm"
-                             let Sunday = formatter.string(from: dateSunday)
-                             print(Sunday)
-                            
-                            var sunStartTime =  dict_spot.value(forKey: "sunStartTime") as! String
-                            var sunEndTime =  dict_spot.value(forKey: "sunEndTime") as! String
-                            
-                            print(sunStartTime)
-                            
-                            formatter.dateFormat = "h:mm a"
-                            let datestart = formatter.date(from: sunStartTime)
-                            let dateend = formatter.date(from: sunEndTime)
-                            print(datestart)
-                            print(dateend)
-                            
-                            formatter.dateFormat = "HH.mm"
-                            let Start_Sunday = formatter.string(from: datestart!)
-                            let End_Sunday = formatter.string(from: dateend!)
-                            print(Start_Sunday)
-                            print(End_Sunday)
-                            
-                            
-                let SundayMain = (Sunday as NSString).floatValue
-                let Start = (Start_Sunday as NSString).floatValue
-                let End = (End_Sunday as NSString).floatValue
-                            
-               print(SundayMain)
-               print(Start)
-               print(End)
-                           
-                           
-                    if SundayMain > Start && SundayMain < End
-                    {
-                    arr_search_spot.add(arrspot.object(at: i))
-                    print(arr_search_spot)
-                        
+
+                                var sunStartTime =  dict_spot.value(forKey: "sunStartTime") as! String
+                                var sunEndTime =  dict_spot.value(forKey: "sunEndTime") as! String
+
+                                let timearr = sunStartTime.components(separatedBy: ":")
+                                let hour = Int(timearr[0])
+                                let minutestring =  (timearr[1])
+                                let arrminute = minutestring.components(separatedBy: " ")
+                                let minute =  Int(arrminute[0])
+                                let Start = Calendar.current.date(bySettingHour: hour!, minute: minute!, second: 0, of: Date())!
+
+                                let currentGMTOffset1: Int? = CurrentTimeZone?.secondsFromGMT(for: Start)
+                                let SystemGMTOffset1: Int = SystemTimeZone.secondsFromGMT(for: Start)
+                                let interval1 = TimeInterval((SystemGMTOffset1 - currentGMTOffset1!))
+                                let Munday_start = Date(timeInterval: interval1, since: Start)
+
+                                let timearr1 = sunEndTime.components(separatedBy: ":")
+                                let hour1 = Int(timearr1[0])
+                                let minutestring1 =  (timearr1[1])
+                                let arrminute1 = minutestring1.components(separatedBy: " ")
+                                let minute1 =  Int(arrminute1[0])
+                                let End = Calendar.current.date(bySettingHour: hour1!, minute: minute1!, second: 0, of: Date())!
+
+                                let currentGMTOffset2: Int? = CurrentTimeZone?.secondsFromGMT(for: End)
+                                let SystemGMTOffset2: Int = SystemTimeZone.secondsFromGMT(for: End)
+                                let interval2 = TimeInterval((SystemGMTOffset2 - currentGMTOffset2!))
+                                let Munday_end = Date(timeInterval: interval2, since: End)
+
+                                let currentGMTOffset3: Int? = CurrentTimeZone?.secondsFromGMT(for: start_date!)
+                                let SystemGMTOffset3: Int = SystemTimeZone.secondsFromGMT(for: start_date!)
+                                let interval3 = TimeInterval((SystemGMTOffset2 - currentGMTOffset2!))
+                                let user_start = Date(timeInterval: interval2, since: start_date!)
+
+                                let currentGMTOffset4: Int? = CurrentTimeZone?.secondsFromGMT(for: end_date!)
+                                let SystemGMTOffset4: Int = SystemTimeZone.secondsFromGMT(for: end_date!)
+                                let interval4 = TimeInterval((SystemGMTOffset4 - currentGMTOffset4!))
+                                let user_end = Date(timeInterval: interval4, since: end_date!)
+
+
+                                if user_start < Munday_start && user_end < Munday_end{
+                                    arr_search_spot.add(arrspot.object(at: i))
+                                }
+
+                            }
+                        }
                     }
-                            
-                }
-             }
-         }
-                    
+                
                     if arr_day[j] == "Monday" {
                         if (arrspot.object(at: i) as! NSDictionary).value(forKey: "monswitch") as! Bool == true{
                             
-                       let arrmun = datedaydict.value(forKey: "Monday") as! NSArray
-                            print(arrmun)
-                            
+                            let arrmun = datedaydict.value(forKey: "Monday") as! NSArray
                             for m in 0..<arrmun.count{
-                                let dateMunday =  arrmun[m] as! Date
-                                print(dateMunday)
                                 
-                                // let dateSunday =  datedaydict.value(forKey: "Sunday") as!  Date
-                                formatter.dateFormat = "HH.mm"
-                                let munday = formatter.string(from: dateMunday)
-                               
-                                let monStartTime =  dict_spot.value(forKey: "monStartTime")
-                                let monEndTime =  dict_spot.value(forKey: "monEndTime")
+                                let monStartTime =  dict_spot.value(forKey: "monStartTime") as! String
+                                let monEndTime =  dict_spot.value(forKey: "monEndTime")  as! String
                                 
-                                formatter.dateFormat = "h:mm a"
-                                let datestart = formatter.date(from: monStartTime as! String)
-                                let dateend = formatter.date(from: monEndTime as! String)
-                             
-                                formatter.dateFormat = "HH.mm"
-                                let Start_Munday = formatter.string(from: datestart!)
-                                let End_munday = formatter.string(from: dateend!)
-                               
-                                let mundaymain = (munday as NSString).floatValue
-                                let Start = (Start_Munday as NSString).floatValue
-                                let End = (End_munday as NSString).floatValue
+                                let timearr = monStartTime.components(separatedBy: ":")
+                                let hour = Int(timearr[0])
+                                let minutestring =  (timearr[1])
+                                let arrminute = minutestring.components(separatedBy: " ")
+                                let minute =  Int(arrminute[0])
+                                let Start = Calendar.current.date(bySettingHour: hour!, minute: minute!, second: 0, of: Date())!
                                 
-                                print(mundaymain)
-                                print(Start)
-                                print(End)
+                                let currentGMTOffset1: Int? = CurrentTimeZone?.secondsFromGMT(for: Start)
+                                let SystemGMTOffset1: Int = SystemTimeZone.secondsFromGMT(for: Start)
+                                let interval1 = TimeInterval((SystemGMTOffset1 - currentGMTOffset1!))
+                                let Munday_start = Date(timeInterval: interval1, since: Start)
                                 
+                                let timearr1 = monEndTime.components(separatedBy: ":")
+                                let hour1 = Int(timearr1[0])
+                                let minutestring1 =  (timearr1[1])
+                                let arrminute1 = minutestring1.components(separatedBy: " ")
+                                let minute1 =  Int(arrminute1[0])
+                                let End = Calendar.current.date(bySettingHour: hour1!, minute: minute1!, second: 0, of: Date())!
                                 
-                                if mundaymain > Start && mundaymain < End
-                                {
-                                    arr_search_spot.add(arrspot.object(at: i))
-                                    print(arr_search_spot)
-                                    
+                                let currentGMTOffset2: Int? = CurrentTimeZone?.secondsFromGMT(for: End)
+                                let SystemGMTOffset2: Int = SystemTimeZone.secondsFromGMT(for: End)
+                                let interval2 = TimeInterval((SystemGMTOffset2 - currentGMTOffset2!))
+                                let Munday_end = Date(timeInterval: interval2, since: End)
+                                
+                                let currentGMTOffset3: Int? = CurrentTimeZone?.secondsFromGMT(for: start_date!)
+                                let SystemGMTOffset3: Int = SystemTimeZone.secondsFromGMT(for: start_date!)
+                                let interval3 = TimeInterval((SystemGMTOffset2 - currentGMTOffset2!))
+                                let user_start = Date(timeInterval: interval2, since: start_date!)
+                                
+                                let currentGMTOffset4: Int? = CurrentTimeZone?.secondsFromGMT(for: end_date!)
+                                let SystemGMTOffset4: Int = SystemTimeZone.secondsFromGMT(for: end_date!)
+                                let interval4 = TimeInterval((SystemGMTOffset4 - currentGMTOffset4!))
+                                let user_end = Date(timeInterval: interval4, since: end_date!)
+                                
+                                if user_start < Munday_start {
+                                    print("Munday_start\(Munday_start)")
+                                }else{
+                                    print("Munday_start\(user_start)")
                                 }
                                 
+                                if user_end < Munday_end {
+                                    print("Munday_start\(Munday_end)")
+                                }
+                                else{
+                                    print("Munday_start\(user_end)")
+                                }
+                                
+                                if user_start < Munday_start && user_end < Munday_end{
+                                    arr_search_spot.add(arrspot.object(at: i))
+                                }
                             }
-                            
                         }
-                        
                     }
                     if arr_day[j] == "Tuesday" {
                         if (arrspot.object(at: i) as! NSDictionary).value(forKey: "tueswitch") as! Bool == true{
                             
-                          
-                            
                             let arrthue = datedaydict.value(forKey: "Tuesday") as! NSArray
-                            print(arrthue)
-                            
                             for m in 0..<arrthue.count{
-                                let dateTuesday =  arrthue[m] as! Date
-                                print(dateTuesday)
                                 
-                               formatter.dateFormat = "HH.mm"
-                                let Tuesday = formatter.string(from: dateTuesday)
+                                let tueStartTime =  dict_spot.value(forKey: "tueStartTime") as! String
+                                let tueEndTime =  dict_spot.value(forKey: "tueEndTime") as! String
                                 
-                                let tueStartTime =  dict_spot.value(forKey: "tueStartTime")
-                                let tueEndTime =  dict_spot.value(forKey: "tueEndTime")
+                                let timearr = tueStartTime.components(separatedBy: ":")
+                                let hour = Int(timearr[0])
+                                let minutestring =  (timearr[1])
+                                let arrminute = minutestring.components(separatedBy: " ")
+                                let minute =  Int(arrminute[0])
+                                let Start = Calendar.current.date(bySettingHour: hour!, minute: minute!, second: 0, of: Date())!
                                 
-                                formatter.dateFormat = "h:mm a"
-                                let datestart = formatter.date(from: tueStartTime as! String)
-                                let dateend = formatter.date(from: tueEndTime as! String)
+                                let currentGMTOffset1: Int? = CurrentTimeZone?.secondsFromGMT(for: Start)
+                                let SystemGMTOffset1: Int = SystemTimeZone.secondsFromGMT(for: Start)
+                                let interval1 = TimeInterval((SystemGMTOffset1 - currentGMTOffset1!))
+                                let Munday_start = Date(timeInterval: interval1, since: Start)
                                 
-                                formatter.dateFormat = "HH.mm"
-                                let Start_Tuesday = formatter.string(from: datestart!)
-                                let End_Tuesday = formatter.string(from: dateend!)
+                                let timearr1 = tueEndTime.components(separatedBy: ":")
+                                let hour1 = Int(timearr1[0])
+                                let minutestring1 =  (timearr1[1])
+                                let arrminute1 = minutestring1.components(separatedBy: " ")
+                                let minute1 =  Int(arrminute1[0])
+                                let End = Calendar.current.date(bySettingHour: hour1!, minute: minute1!, second: 0, of: Date())!
                                 
-                                let Tuesdaymain = (Tuesday as NSString).floatValue
-                                let Start = (Start_Tuesday as NSString).floatValue
-                                let End = (End_Tuesday as NSString).floatValue
+                                let currentGMTOffset2: Int? = CurrentTimeZone?.secondsFromGMT(for: End)
+                                let SystemGMTOffset2: Int = SystemTimeZone.secondsFromGMT(for: End)
+                                let interval2 = TimeInterval((SystemGMTOffset2 - currentGMTOffset2!))
+                                let Munday_end = Date(timeInterval: interval2, since: End)
                                 
-                                print(Tuesdaymain)
-                                print(Start)
-                                print(End)
+                                let currentGMTOffset3: Int? = CurrentTimeZone?.secondsFromGMT(for: start_date!)
+                                let SystemGMTOffset3: Int = SystemTimeZone.secondsFromGMT(for: start_date!)
+                                let interval3 = TimeInterval((SystemGMTOffset2 - currentGMTOffset2!))
+                                let user_start = Date(timeInterval: interval2, since: start_date!)
                                 
+                                let currentGMTOffset4: Int? = CurrentTimeZone?.secondsFromGMT(for: end_date!)
+                                let SystemGMTOffset4: Int = SystemTimeZone.secondsFromGMT(for: end_date!)
+                                let interval4 = TimeInterval((SystemGMTOffset4 - currentGMTOffset4!))
+                                let user_end = Date(timeInterval: interval4, since: end_date!)
                                 
-                                if Tuesdaymain > Start && Tuesdaymain < End
-                                {
+                                if user_start < Munday_start && user_end < Munday_end{
                                     arr_search_spot.add(arrspot.object(at: i))
-                                    print(arr_search_spot)
-                                    
                                 }
                                 
                             }
@@ -416,42 +469,49 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                         if (arrspot.object(at: i) as! NSDictionary).value(forKey: "wedswitch") as! Bool == true{
                             
                             let arrwed = datedaydict.value(forKey: "Wednesday") as! NSArray
-                            print(arrwed)
-                            
                             for m in 0..<arrwed.count{
-                                let datewed =  arrwed[m] as! Date
-                                print(datewed)
                                 
-                                formatter.dateFormat = "HH.mm"
-                                let wednesday = formatter.string(from: datewed)
+                                let wedStartTime =  dict_spot.value(forKey: "wedStartTime") as! String
+                                let wedEndTime =  dict_spot.value(forKey: "wedEndTime") as! String
                                 
-                                let wedStartTime =  dict_spot.value(forKey: "wedStartTime")
-                                let wedEndTime =  dict_spot.value(forKey: "wedEndTime")
+                                let timearr = wedStartTime.components(separatedBy: ":")
+                                let hour = Int(timearr[0])
+                                let minutestring =  (timearr[1])
+                                let arrminute = minutestring.components(separatedBy: " ")
+                                let minute =  Int(arrminute[0])
+                                let Start = Calendar.current.date(bySettingHour: hour!, minute: minute!, second: 0, of: Date())!
                                 
-                                formatter.dateFormat = "h:mm a"
-                                let datestart = formatter.date(from: wedStartTime as! String)
-                                let dateend = formatter.date(from: wedEndTime as! String)
+                                let currentGMTOffset1: Int? = CurrentTimeZone?.secondsFromGMT(for: Start)
+                                let SystemGMTOffset1: Int = SystemTimeZone.secondsFromGMT(for: Start)
+                                let interval1 = TimeInterval((SystemGMTOffset1 - currentGMTOffset1!))
+                                let Munday_start = Date(timeInterval: interval1, since: Start)
                                 
-                                formatter.dateFormat = "HH.mm"
-                                let Start_Wednesday = formatter.string(from: datestart!)
-                                let End_Wednesday = formatter.string(from: dateend!)
+                                let timearr1 = wedEndTime.components(separatedBy: ":")
+                                let hour1 = Int(timearr1[0])
+                                let minutestring1 =  (timearr1[1])
+                                let arrminute1 = minutestring1.components(separatedBy: " ")
+                                let minute1 =  Int(arrminute1[0])
+                                let End = Calendar.current.date(bySettingHour: hour1!, minute: minute1!, second: 0, of: Date())!
                                 
-                                let wednesdaymain = (wednesday as NSString).floatValue
-                                let Start = (Start_Wednesday as NSString).floatValue
-                                let End = (End_Wednesday as NSString).floatValue
+                                let currentGMTOffset2: Int? = CurrentTimeZone?.secondsFromGMT(for: End)
+                                let SystemGMTOffset2: Int = SystemTimeZone.secondsFromGMT(for: End)
+                                let interval2 = TimeInterval((SystemGMTOffset2 - currentGMTOffset2!))
+                                let Munday_end = Date(timeInterval: interval2, since: End)
                                 
-                                print(wednesdaymain)
-                                print(Start)
-                                print(End)
+                                let currentGMTOffset3: Int? = CurrentTimeZone?.secondsFromGMT(for: start_date!)
+                                let SystemGMTOffset3: Int = SystemTimeZone.secondsFromGMT(for: start_date!)
+                                let interval3 = TimeInterval((SystemGMTOffset2 - currentGMTOffset2!))
+                                let user_start = Date(timeInterval: interval2, since: start_date!)
+                                
+                                let currentGMTOffset4: Int? = CurrentTimeZone?.secondsFromGMT(for: end_date!)
+                                let SystemGMTOffset4: Int = SystemTimeZone.secondsFromGMT(for: end_date!)
+                                let interval4 = TimeInterval((SystemGMTOffset4 - currentGMTOffset4!))
+                                let user_end = Date(timeInterval: interval4, since: end_date!)
                                 
                                 
-                                if wednesdaymain > Start && wednesdaymain < End
-                                {
+                                if user_start < Munday_start && user_end < Munday_end{
                                     arr_search_spot.add(arrspot.object(at: i))
-                                    print(arr_search_spot)
-                                    
                                 }
-                                
                             }
                         }
                         
@@ -460,135 +520,151 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                         if (arrspot.object(at: i) as! NSDictionary).value(forKey: "thuswitch") as! Bool == true{
                             
                             let arrThu = datedaydict.value(forKey: "Thursday") as! NSArray
-                            print(arrThu)
-                            
                             for m in 0..<arrThu.count{
-                                let dateThu =  arrThu[m] as! Date
-                                print(dateThu)
+                                let thuStartTime =  dict_spot.value(forKey: "thuStartTime") as! String
+                                let thuEndTime =  dict_spot.value(forKey: "thuEndTime")  as! String
                                 
-                                formatter.dateFormat = "HH.mm"
-                                let Thursday = formatter.string(from: dateThu)
+                                let timearr = thuStartTime.components(separatedBy: ":")
+                                let hour = Int(timearr[0])
+                                let minutestring =  (timearr[1])
+                                let arrminute = minutestring.components(separatedBy: " ")
+                                let minute =  Int(arrminute[0])
+                                let Start = Calendar.current.date(bySettingHour: hour!, minute: minute!, second: 0, of: Date())!
                                 
-                                let thuStartTime =  dict_spot.value(forKey: "thuStartTime")
-                                let thuEndTime =  dict_spot.value(forKey: "thuEndTime")
+                                let currentGMTOffset1: Int? = CurrentTimeZone?.secondsFromGMT(for: Start)
+                                let SystemGMTOffset1: Int = SystemTimeZone.secondsFromGMT(for: Start)
+                                let interval1 = TimeInterval((SystemGMTOffset1 - currentGMTOffset1!))
+                                let Munday_start = Date(timeInterval: interval1, since: Start)
                                 
-                                formatter.dateFormat = "h:mm a"
-                                let datestart = formatter.date(from: thuStartTime as! String)
-                                let dateend = formatter.date(from: thuEndTime as! String)
+                                let timearr1 = thuEndTime.components(separatedBy: ":")
+                                let hour1 = Int(timearr1[0])
+                                let minutestring1 =  (timearr1[1])
+                                let arrminute1 = minutestring1.components(separatedBy: " ")
+                                let minute1 =  Int(arrminute1[0])
+                                let End = Calendar.current.date(bySettingHour: hour1!, minute: minute1!, second: 0, of: Date())!
                                 
-                                formatter.dateFormat = "HH.mm"
-                                let Start_Thursday = formatter.string(from: datestart!)
-                                let End_Thursday = formatter.string(from: dateend!)
+                                let currentGMTOffset2: Int? = CurrentTimeZone?.secondsFromGMT(for: End)
+                                let SystemGMTOffset2: Int = SystemTimeZone.secondsFromGMT(for: End)
+                                let interval2 = TimeInterval((SystemGMTOffset2 - currentGMTOffset2!))
+                                let Munday_end = Date(timeInterval: interval2, since: End)
                                 
-                                let wednesdaymain = (Thursday as NSString).floatValue
-                                let Start = (Start_Thursday as NSString).floatValue
-                                let End = (End_Thursday as NSString).floatValue
+                                let currentGMTOffset3: Int? = CurrentTimeZone?.secondsFromGMT(for: start_date!)
+                                let SystemGMTOffset3: Int = SystemTimeZone.secondsFromGMT(for: start_date!)
+                                let interval3 = TimeInterval((SystemGMTOffset2 - currentGMTOffset2!))
+                                let user_start = Date(timeInterval: interval2, since: start_date!)
                                 
-                                print(wednesdaymain)
-                                print(Start)
-                                print(End)
+                                let currentGMTOffset4: Int? = CurrentTimeZone?.secondsFromGMT(for: end_date!)
+                                let SystemGMTOffset4: Int = SystemTimeZone.secondsFromGMT(for: end_date!)
+                                let interval4 = TimeInterval((SystemGMTOffset4 - currentGMTOffset4!))
+                                let user_end = Date(timeInterval: interval4, since: end_date!)
                                 
                                 
-                                if wednesdaymain > Start && wednesdaymain < End
-                                {
+                                if user_start < Munday_start && user_end < Munday_end{
                                     arr_search_spot.add(arrspot.object(at: i))
-                                    print(arr_search_spot)
                                 }
                             }
-                         }
-                     }
+                        }
+                    }
                     if arr_day[j] == "Friday" {
                         if (arrspot.object(at: i) as! NSDictionary).value(forKey: "friswitch") as! Bool == true{
                             
-                           let arrFri = datedaydict.value(forKey: "Friday") as! NSArray
-                            print(arrFri)
-                            
+                            let arrFri = datedaydict.value(forKey: "Friday") as! NSArray
                             for m in 0..<arrFri.count{
-                                let dateFri =  arrFri[m] as! Date
-                                print(dateFri)
+                                let friStartTime =  dict_spot.value(forKey: "friStartTime") as! String
+                                let friEndTime =  dict_spot.value(forKey: "friEndTime") as! String
                                 
-                                formatter.dateFormat = "HH.mm"
-                                let Friday = formatter.string(from: dateFri)
+                                let timearr = friStartTime.components(separatedBy: ":")
+                                let hour = Int(timearr[0])
+                                let minutestring =  (timearr[1])
+                                let arrminute = minutestring.components(separatedBy: " ")
+                                let minute =  Int(arrminute[0])
+                                let Start = Calendar.current.date(bySettingHour: hour!, minute: minute!, second: 0, of: Date())!
                                 
-                                let friStartTime =  dict_spot.value(forKey: "friStartTime")
-                                let friEndTime =  dict_spot.value(forKey: "friEndTime")
+                                let currentGMTOffset1: Int? = CurrentTimeZone?.secondsFromGMT(for: Start)
+                                let SystemGMTOffset1: Int = SystemTimeZone.secondsFromGMT(for: Start)
+                                let interval1 = TimeInterval((SystemGMTOffset1 - currentGMTOffset1!))
+                                let Munday_start = Date(timeInterval: interval1, since: Start)
                                 
-                                formatter.dateFormat = "h:mm a"
-                                let datestart = formatter.date(from: friStartTime as! String)
-                                let dateend = formatter.date(from: friEndTime as! String)
+                                let timearr1 = friEndTime.components(separatedBy: ":")
+                                let hour1 = Int(timearr1[0])
+                                let minutestring1 =  (timearr1[1])
+                                let arrminute1 = minutestring1.components(separatedBy: " ")
+                                let minute1 =  Int(arrminute1[0])
+                                let End = Calendar.current.date(bySettingHour: hour1!, minute: minute1!, second: 0, of: Date())!
                                 
-                                formatter.dateFormat = "HH.mm"
-                                let Start_Friday = formatter.string(from: datestart!)
-                                let End_Friday = formatter.string(from: dateend!)
+                                let currentGMTOffset2: Int? = CurrentTimeZone?.secondsFromGMT(for: End)
+                                let SystemGMTOffset2: Int = SystemTimeZone.secondsFromGMT(for: End)
+                                let interval2 = TimeInterval((SystemGMTOffset2 - currentGMTOffset2!))
+                                let Munday_end = Date(timeInterval: interval2, since: End)
                                 
-                                let Fridaymain = (Friday as NSString).floatValue
-                                let Start = (Start_Friday as NSString).floatValue
-                                let End = (End_Friday as NSString).floatValue
+                                let currentGMTOffset3: Int? = CurrentTimeZone?.secondsFromGMT(for: start_date!)
+                                let SystemGMTOffset3: Int = SystemTimeZone.secondsFromGMT(for: start_date!)
+                                let interval3 = TimeInterval((SystemGMTOffset2 - currentGMTOffset2!))
+                                let user_start = Date(timeInterval: interval2, since: start_date!)
                                 
-                                print(Fridaymain)
-                                print(Start)
-                                print(End)
+                                let currentGMTOffset4: Int? = CurrentTimeZone?.secondsFromGMT(for: end_date!)
+                                let SystemGMTOffset4: Int = SystemTimeZone.secondsFromGMT(for: end_date!)
+                                let interval4 = TimeInterval((SystemGMTOffset4 - currentGMTOffset4!))
+                                let user_end = Date(timeInterval: interval4, since: end_date!)
                                 
-                                
-                                if Fridaymain > Start && Fridaymain < End
-                                {
+                                if user_start < Munday_start && user_end < Munday_end{
                                     arr_search_spot.add(arrspot.object(at: i))
-                                    print(arr_search_spot)
                                 }
                             }
-                            
                         }
-                     }
+                    }
                     if arr_day[j] == "Saturday" {
                         if (arrspot.object(at: i) as! NSDictionary).value(forKey: "satswitch") as! Bool == true{
-                            let monStartTime =  dict_spot.value(forKey: "satStartTime")
-                            let monEndTime =  dict_spot.value(forKey: "satEndTime")
-                            
                             let arrsat = datedaydict.value(forKey: "Saturday") as! NSArray
-                            print(arrsat)
-                            
                             for m in 0..<arrsat.count{
-                                let datesat =  arrsat[m] as! Date
-                                print(datesat)
+                                let satStartTime =  dict_spot.value(forKey: "satStartTime") as! String
+                                let satEndTime =  dict_spot.value(forKey: "satEndTime")  as! String
                                 
-                                formatter.dateFormat = "HH.mm"
-                                let Saturday = formatter.string(from: datesat)
+                                let timearr = satStartTime.components(separatedBy: ":")
+                                let hour = Int(timearr[0])
+                                let minutestring =  (timearr[1])
+                                let arrminute = minutestring.components(separatedBy: " ")
+                                let minute =  Int(arrminute[0])
+                                let Start = Calendar.current.date(bySettingHour: hour!, minute: minute!, second: 0, of: Date())!
                                 
-                                let satStartTime =  dict_spot.value(forKey: "satStartTime")
-                                let satEndTime =  dict_spot.value(forKey: "satEndTime")
+                                let currentGMTOffset1: Int? = CurrentTimeZone?.secondsFromGMT(for: Start)
+                                let SystemGMTOffset1: Int = SystemTimeZone.secondsFromGMT(for: Start)
+                                let interval1 = TimeInterval((SystemGMTOffset1 - currentGMTOffset1!))
+                                let Munday_start = Date(timeInterval: interval1, since: Start)
                                 
-                                formatter.dateFormat = "h:mm a"
-                                let datestart = formatter.date(from: satStartTime as! String)
-                                let dateend = formatter.date(from: satEndTime as! String)
+                                let timearr1 = satEndTime.components(separatedBy: ":")
+                                let hour1 = Int(timearr1[0])
+                                let minutestring1 =  (timearr1[1])
+                                let arrminute1 = minutestring1.components(separatedBy: " ")
+                                let minute1 =  Int(arrminute1[0])
+                                let End = Calendar.current.date(bySettingHour: hour1!, minute: minute1!, second: 0, of: Date())!
                                 
-                                formatter.dateFormat = "HH.mm"
-                                let Start_Friday = formatter.string(from: datestart!)
-                                let End_Friday = formatter.string(from: dateend!)
+                                let currentGMTOffset2: Int? = CurrentTimeZone?.secondsFromGMT(for: End)
+                                let SystemGMTOffset2: Int = SystemTimeZone.secondsFromGMT(for: End)
+                                let interval2 = TimeInterval((SystemGMTOffset2 - currentGMTOffset2!))
+                                let Munday_end = Date(timeInterval: interval2, since: End)
                                 
-                                let Saturdaymain = (Saturday as NSString).floatValue
-                                let Start = (Start_Friday as NSString).floatValue
-                                let End = (End_Friday as NSString).floatValue
+                                let currentGMTOffset3: Int? = CurrentTimeZone?.secondsFromGMT(for: start_date!)
+                                let SystemGMTOffset3: Int = SystemTimeZone.secondsFromGMT(for: start_date!)
+                                let interval3 = TimeInterval((SystemGMTOffset2 - currentGMTOffset2!))
+                                let user_start = Date(timeInterval: interval2, since: start_date!)
                                 
-                                print(Saturdaymain)
-                                print(Start)
-                                print(End)
+                                let currentGMTOffset4: Int? = CurrentTimeZone?.secondsFromGMT(for: end_date!)
+                                let SystemGMTOffset4: Int = SystemTimeZone.secondsFromGMT(for: end_date!)
+                                let interval4 = TimeInterval((SystemGMTOffset4 - currentGMTOffset4!))
+                                let user_end = Date(timeInterval: interval4, since: end_date!)
                                 
-                                
-                                if Saturdaymain > Start && Saturdaymain < End
-                                {
+                                if user_start < Munday_start && user_end < Munday_end{
                                     arr_search_spot.add(arrspot.object(at: i))
-                                    print(arr_search_spot)
                                 }
                             }
-                         }
-                     }
+                        }
+                    }
                 }
-             }
-            
+            }
             // Search Data load marker:-
-           Search_Spot()
-           }
-        
+            Search_Spot()
+        }
         Date_VIew.isHidden = true
     }
     
@@ -626,9 +702,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     // MARK:- locationManagerDelegate
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
-        
         let location = locations.last
-        
         self.CurrentLocMarker.position = (location?.coordinate)!
         cooridnates = (location?.coordinate)!
         self.CurrentLocMarker.title = "myLoc"
@@ -640,13 +714,12 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         self.CurrentLocMarker.map = self.mapView
         userlatitude = (location?.coordinate.latitude)!
         userlongitude = (location?.coordinate.longitude)!
-        print(location?.coordinate)
         let camera = GMSCameraPosition.camera(withLatitude: (location?.coordinate.latitude)!, longitude: (location?.coordinate.longitude)!, zoom:12)
         //  self.mapView.animate(to: camera)
         mapView.camera = camera
         five = 0
         
-         getlatlong()
+        getlatlong()
         self.locationManager.stopUpdatingLocation()
     }
     
@@ -706,18 +779,17 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
 //        }
             view_info.isHidden = false
             btn_close.isHidden = false
-        curruntlat = marker.position.latitude
-        curruntlong = marker.position.longitude
-        
-        lbl_price.text = "$\(doller)"
-        lbl_address.text = (arrspot.object(at: index) as! NSDictionary).value(forKey: "address") as?  String
-        let imgurl = (arrspot.object(at: index) as! NSDictionary).value(forKey: "image") as!  String
-        img_spot.sd_setImage(with: URL(string: imgurl), placeholderImage: #imageLiteral(resourceName: "Placeholder"))
-        
-    
-    }
+            curruntlat = marker.position.latitude
+            curruntlong = marker.position.longitude
+            
+            lbl_price.text = "$\(doller)"
+            lbl_address.text = (arrspot.object(at: index) as! NSDictionary).value(forKey: "address") as?  String
+            let imgurl = (arrspot.object(at: index) as! NSDictionary).value(forKey: "image") as!  String
+            img_spot.sd_setImage(with: URL(string: imgurl), placeholderImage: #imageLiteral(resourceName: "Placeholder"))
+         }
         return true
-}
+    }
+    
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
         fetchMapData(lat: markerlatitude, long: markerlongitude)
     }
@@ -725,8 +797,6 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     // GET ALL SPOT ON MAP
     func getlatlong(){
         five = 0
-        print("SAAas")
-        
         refArtists = Database.database().reference().child("All_Spots");
         refArtists.observe(DataEventType.value, with: { (snapshot) in
             self.mapView.clear()
@@ -745,64 +815,66 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                 self.arrspot.removeAllObjects()
                 for artists in snapshot.children.allObjects as! [DataSnapshot] {
                     let snapshotValue = snapshot.value as! NSDictionary
-                    print(snapshotValue)
-                    
                     let dictdata = ((snapshot.value as! NSDictionary).value(forKey: (artists as! DataSnapshot).key)) as! NSDictionary
-                    print(dictdata)
                     if dictdata.count>0{
                         
                         for (theKey, theValue) in dictdata {
-                            //   print(theValue)
+                            
                             self.arrspot.add(theValue)
                         }
                         //self.loadEventsToMap(lat: self.userlatitude, long: self.userlongitude)
                     }
                 }
-                
-                for i in 0..<self.arrspot.count {
-                    print(self.arrspot)
-                    let marker = GMSMarker()
-                    marker.position = CLLocationCoordinate2DMake(Double(truncating: (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "user_lat") as! NSNumber), Double(truncating: (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "user_long") as! NSNumber))
-                    marker.map = self.mapView
-                    let price = (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "hourlyPricing") as! String
-                    var doller = String()
-                    for (index, character) in price.enumerated() {
-                        if index < 4 {
-                            doller.append(character)
+                if self.arrspot.count > 0 {
+                    
+                    for i in 0 ..< self.arrspot.count {
+                        let marker = GMSMarker()
+                        
+                        let lat1 = (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "user_lat") as! String
+                        let long1 = (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "user_long") as! String
+                        let lat = (lat1 as NSString).doubleValue
+                        let long = (long1 as NSString).doubleValue
+                        
+                        marker.position = CLLocationCoordinate2DMake(lat, long)
+                        marker.map = self.mapView
+                        let price = (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "hourlyPricing") as! String
+                        var doller = String()
+                        for (index, character) in price.enumerated() {
+                            if index < 4 {
+                                doller.append(character)
+                            }
+                            
                         }
                         
+                        //  let doller = (price as NSString).integerValue
+                        // marker.title = "$\(doller)"
+                        //   marker.snippet
+                        marker.infoWindowAnchor = CGPoint(x: 0.5, y: 0.2)
+                        marker.accessibilityLabel = "\(i)"
+                        
+                        var markerimg = UIImageView()
+                        let customView = UIView()
+                        
+                        customView.frame = CGRect.init(x: 0, y: 0, width: 60, height: 60)
+                        markerimg  = UIImageView(frame:CGRect(x:0, y:0, width:60, height:60));
+                        markerimg.image = UIImage(named:"markers")
+                        markerimg.backgroundColor = UIColor.clear
+                        customView.addSubview(markerimg)
+                        let lbl_marker = UILabel()
+                        lbl_marker.frame = CGRect(x: 0, y: (markerimg.frame.height/2)-25, width: markerimg.frame.width, height: 40)
+                        markerimg.addSubview(lbl_marker)
+                        
+                        lbl_marker.textAlignment = .center
+                        lbl_marker.numberOfLines = 1;
+                        
+                        lbl_marker.text = "$\(doller)"
+                        lbl_marker.minimumScaleFactor = 0.5;
+                        lbl_marker.adjustsFontSizeToFitWidth = true;
+                        
+                        lbl_marker.textColor = UIColor.black
+                        customView.backgroundColor = UIColor.clear
+                        marker.iconView = customView
                     }
-                    
-                    print(doller)
-                    
-                    //  let doller = (price as NSString).integerValue
-                    // marker.title = "$\(doller)"
-                    //   marker.snippet
-                    marker.infoWindowAnchor = CGPoint(x: 0.5, y: 0.2)
-                    marker.accessibilityLabel = "\(i)"
-                    
-                    var markerimg = UIImageView()
-                    let customView = UIView()
-                    
-                    customView.frame = CGRect.init(x: 0, y: 0, width: 60, height: 60)
-                    markerimg  = UIImageView(frame:CGRect(x:0, y:0, width:60, height:60));
-                    markerimg.image = UIImage(named:"markers")
-                    markerimg.backgroundColor = UIColor.clear
-                    customView.addSubview(markerimg)
-                    let lbl_marker = UILabel()
-                    lbl_marker.frame = CGRect(x: 0, y: (markerimg.frame.height/2)-25, width: markerimg.frame.width, height: 40)
-                    markerimg.addSubview(lbl_marker)
-                    
-                    lbl_marker.textAlignment = .center
-                    lbl_marker.numberOfLines = 1;
-                    
-                    lbl_marker.text = "$\(doller)"
-                    lbl_marker.minimumScaleFactor = 0.5;
-                    lbl_marker.adjustsFontSizeToFitWidth = true;
-                    
-                    lbl_marker.textColor = UIColor.black
-                    customView.backgroundColor = UIColor.clear
-                    marker.iconView = customView
                 }
             }
         })
@@ -811,11 +883,18 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     // MARK:_ Load Marker to map :-  Spot
     func loadEventsToMap(lat:Double,long:Double){
         
-       // mapView.isMyLocationEnabled  = false
-    
+        // mapView.isMyLocationEnabled  = false
+        
         for i in 0..<arrspot.count {
             
-            let coordinate₀ = CLLocation(latitude: CLLocationDegrees(truncating: (arrspot.object(at: i) as! NSDictionary).value(forKey: "user_lat") as! NSNumber), longitude:CLLocationDegrees(truncating: (arrspot.object(at: i) as! NSDictionary).value(forKey: "user_long") as! NSNumber))
+            let lat1 = (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "user_lat") as! String
+            let long1 = (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "user_long") as! String
+            let lats = (lat1 as NSString).doubleValue
+            let longs = (long1 as NSString).doubleValue
+            let coordinate₀ = CLLocation(latitude: CLLocationDegrees(lats), longitude:CLLocationDegrees(longs))
+            
+            
+            //            let coordinate₀ = CLLocation(latitude: CLLocationDegrees(truncating: (arrspot.object(at: i) as! NSDictionary).value(forKey: "user_lat") as! NSNumber), longitude:CLLocationDegrees(truncating: (arrspot.object(at: i) as! NSDictionary).value(forKey: "user_long") as! NSNumber))
             let coordinate₁ = CLLocation(latitude: lat, longitude: long)
             let distacneinKM = (coordinate₀.distance(from: coordinate₁)/1000)
             if distacneinKM < 5 {
@@ -825,7 +904,13 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                 if five < 5 {
                     
                     let marker = GMSMarker()
-                    marker.position = CLLocationCoordinate2DMake(Double(truncating: (arrspot.object(at: i) as! NSDictionary).value(forKey: "user_lat") as! NSNumber), Double(truncating: (arrspot.object(at: i) as! NSDictionary).value(forKey: "user_long") as! NSNumber))
+                    
+                    let lat1 = (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "user_lat") as! String
+                    let long1 = (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "user_long") as! String
+                    let lat = (lat1 as NSString).doubleValue
+                    let long = (long1 as NSString).doubleValue
+                    
+                    marker.position = CLLocationCoordinate2DMake(lat, long)
                     marker.map = self.mapView
                     marker.map = self.mapView
                     
@@ -837,14 +922,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                         }
                         
                     }
-                    
-                    print(doller)
-                  //  let doller = (price as NSString).integerValue
-                    //marker.title = "$\(doller)"
-                    //     marker.snippet
                     marker.infoWindowAnchor = CGPoint(x: 0.5, y: 0.2)
                     marker.accessibilityLabel = "\(i)"
-                    
                     
                     var markerimg = UIImageView()
                     let customView = UIView()
@@ -860,12 +939,9 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                     
                     lbl_marker.textAlignment = .center
                     lbl_marker.numberOfLines = 1;
-                 
                     lbl_marker.text = "$\(doller)"
-                    
                     lbl_marker.minimumScaleFactor = 0.5;
                     lbl_marker.adjustsFontSizeToFitWidth = true;
-                    
                     lbl_marker.textColor = UIColor.black
                     customView.backgroundColor = UIColor.clear
                     marker.iconView = customView
@@ -880,7 +956,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     func Search_Spot() {
         
         if arr_search_spot.count > 0 {
-        mapView.clear()
+            mapView.clear()
             
             self.CurrentLocMarker.position = self.cooridnates
             self.CurrentLocMarker.title = "myLoc"
@@ -891,50 +967,49 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             self.CurrentLocMarker.iconView = markerView
             self.CurrentLocMarker.map = self.mapView
             
-            
-        for i in 0..<self.arr_search_spot.count {
-      
-            let marker = GMSMarker()
-            marker.position = CLLocationCoordinate2DMake(Double(truncating: (self.arr_search_spot.object(at: i) as! NSDictionary).value(forKey: "user_lat") as! NSNumber), Double(truncating: (self.arr_search_spot.object(at: i) as! NSDictionary).value(forKey: "user_long") as! NSNumber))
-            marker.map = self.mapView
-            let price = (self.arr_search_spot.object(at: i) as! NSDictionary).value(forKey: "hourlyPricing") as! String
-            var doller = String()
-            for (index, character) in price.enumerated() {
-                if index < 4 {
-                    doller.append(character)
-                }
+            for i in 0..<self.arr_search_spot.count {
                 
+                let marker = GMSMarker()
+                let lat1 = (self.arr_search_spot.object(at: i) as! NSDictionary).value(forKey: "user_lat") as! String
+                let long1 = (self.arr_search_spot.object(at: i) as! NSDictionary).value(forKey: "user_long") as! String
+                let lat = (lat1 as NSString).doubleValue
+                let long = (long1 as NSString).doubleValue
+                
+                marker.position = CLLocationCoordinate2DMake(lat, long)
+                marker.map = self.mapView
+                let price = (self.arr_search_spot.object(at: i) as! NSDictionary).value(forKey: "hourlyPricing") as! String
+                var doller = String()
+                for (index, character) in price.enumerated() {
+                    if index < 4 {
+                        doller.append(character)
+                    }
+                }
+                // let doller = (price as NSString).integerValue
+                // marker.title = "$\(doller)"
+                //   marker.snippet
+                marker.infoWindowAnchor = CGPoint(x: 0.5, y: 0.2)
+                marker.accessibilityLabel = "\(i)"
+                
+                var markerimg = UIImageView()
+                let customView = UIView()
+                
+                customView.frame = CGRect.init(x: 0, y: 0, width: 60, height: 60)
+                markerimg  = UIImageView(frame:CGRect(x:0, y:0, width:60, height:60));
+                markerimg.image = UIImage(named:"markers")
+                markerimg.backgroundColor = UIColor.clear
+                customView.addSubview(markerimg)
+                let lbl_marker = UILabel()
+                lbl_marker.frame = CGRect(x: 0, y: (markerimg.frame.height/2)-25, width: markerimg.frame.width, height: 40)
+                markerimg.addSubview(lbl_marker)
+                lbl_marker.textAlignment = .center
+                lbl_marker.numberOfLines = 1;
+                lbl_marker.minimumScaleFactor = 0.5;
+                lbl_marker.adjustsFontSizeToFitWidth = true;
+                lbl_marker.text = "$\(doller)"
+                lbl_marker.textColor = UIColor.black
+                customView.backgroundColor = UIColor.clear
+                marker.iconView = customView
             }
-            
-            print(doller)
-           // let doller = (price as NSString).integerValue
-            // marker.title = "$\(doller)"
-            //   marker.snippet
-            marker.infoWindowAnchor = CGPoint(x: 0.5, y: 0.2)
-            marker.accessibilityLabel = "\(i)"
-            
-            var markerimg = UIImageView()
-            let customView = UIView()
-            
-            customView.frame = CGRect.init(x: 0, y: 0, width: 60, height: 60)
-            markerimg  = UIImageView(frame:CGRect(x:0, y:0, width:60, height:60));
-            markerimg.image = UIImage(named:"markers")
-            markerimg.backgroundColor = UIColor.clear
-            customView.addSubview(markerimg)
-            let lbl_marker = UILabel()
-            lbl_marker.frame = CGRect(x: 0, y: (markerimg.frame.height/2)-25, width: markerimg.frame.width, height: 40)
-            markerimg.addSubview(lbl_marker)
-            
-            lbl_marker.textAlignment = .center
-            lbl_marker.numberOfLines = 1;
-            lbl_marker.minimumScaleFactor = 0.5;
-            lbl_marker.adjustsFontSizeToFitWidth = true;
-             lbl_marker.text = "$\(doller)"
-           
-            lbl_marker.textColor = UIColor.black
-            customView.backgroundColor = UIColor.clear
-            marker.iconView = customView
-          }
         }
         else{
             mapView.clear()
@@ -943,7 +1018,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             alertController.addAction(defaultAction)
             self.present(alertController, animated: true, completion: nil)
         }
-     }
+    }
     
     func draw(_ rect: CGRect ,img : UIImageView) {
         
@@ -983,7 +1058,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         
         Alamofire.request(directionURL).responseJSON
             { response in
-                print(response)
+                
                 if let JSON = response.result.value {
                     let mapResponse: [String: AnyObject] = JSON as! [String : AnyObject]
                     let routesArray = (mapResponse["routes"] as? Array) ?? []
@@ -1049,7 +1124,6 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         self.CurrentLocMarker.position = CLLocationCoordinate2DMake(place.coordinate.latitude, place.coordinate.longitude)
         Userlat = place.coordinate.latitude
         Userlong = place.coordinate.longitude
-        
         self.CurrentLocMarker.map = self.mapView
         self.CurrentLocMarker.title = "myLoc"
         var markerView = UIImageView()
@@ -1083,8 +1157,42 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     }
     
     func method(arg: Bool, completion: (Bool) -> ()) {
-        print("First line of code executed")
         completion(arg)
+    }
+    
+    
+    // UIPICKERVIEW:_
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return timearray.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int){
+        if pickerView == timpic1{
+            format1 = timearray[row]
+        }
+        if pickerView == timpic1{
+            format2 = timearray[row]
+        }
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        return timearray[row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+        var pickerLabel = view as? UILabel;
+        if (pickerLabel == nil)
+        {
+            pickerLabel = UILabel()
+            pickerLabel?.font = UIFont(name: "Montserrat", size: 14)
+            pickerLabel?.textAlignment = NSTextAlignment.left
+        }
+        pickerLabel?.text = "     \(timearray[row])"
+        return pickerLabel!;
     }
 }
 
