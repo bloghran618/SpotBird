@@ -52,8 +52,8 @@ class SpotImageViewController: UIViewController, UITextViewDelegate, UIImagePick
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-      
-        
+      spotDescription.autocorrectionType = .no
+    spotDescription.resignFirstResponder()
     }
     
     

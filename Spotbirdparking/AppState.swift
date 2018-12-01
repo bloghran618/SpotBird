@@ -71,7 +71,7 @@ open class Spinner {
     open static var style: UIActivityIndicatorViewStyle = .whiteLarge
     //open static var baseBackColor = UIColor.black.withAlphaComponent(0.5)
     open static var baseBackColor = UIColor.black.withAlphaComponent(0.2)
-    open static var baseColor = UIColor.red
+    open static var baseColor = UIColor.black
     
     open static func start(style: UIActivityIndicatorViewStyle = style, backColor: UIColor = baseBackColor, baseColor: UIColor = baseColor) {
         NotificationCenter.default.addObserver(self, selector: #selector(update), name: NSNotification.Name.UIDeviceOrientationDidChange, object: nil)

@@ -14,7 +14,6 @@
 		0426E0352164F5060017E88B /* CustomInfoWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0426E0342164F5050017E88B /* CustomInfoWindow.swift */; };
 		0426E0382164F97D0017E88B /* PriceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B702B111212E361D004B3EF1 /* PriceViewController.swift */; };
 		043E033721746CF300134F78 /* iToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 043E033521746CF300134F78 /* iToast.m */; };
-		043F54C6218B23E9008DBFB9 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 043F54C4218B23E8008DBFB9 /* MBProgressHUD.m */; };
 		044217B52189BDF700946D91 /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044217B42189BDF600946D91 /* CustomView.swift */; };
 		044217B72189BE2200946D91 /* Screen Shot 2018-10-31 at 4.07.08 PM.png in Resources */ = {isa = PBXBuildFile; fileRef = 044217B62189BE2100946D91 /* Screen Shot 2018-10-31 at 4.07.08 PM.png */; };
 		04B4D5952163BDF400F49505 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04B4D5942163BDF400F49505 /* GoogleService-Info.plist */; };
@@ -70,8 +69,6 @@
 		043E033421746CF100134F78 /* Spotbirdparking-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Spotbirdparking-Bridging-Header.h"; sourceTree = "<group>"; };
 		043E033521746CF300134F78 /* iToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iToast.m; sourceTree = "<group>"; };
 		043E033621746CF300134F78 /* iToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iToast.h; sourceTree = "<group>"; };
-		043F54C4218B23E8008DBFB9 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
-		043F54C5218B23E9008DBFB9 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		044217B42189BDF600946D91 /* CustomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
 		044217B62189BE2100946D91 /* Screen Shot 2018-10-31 at 4.07.08 PM.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Screen Shot 2018-10-31 at 4.07.08 PM.png"; sourceTree = "<group>"; };
 		04B4D5942163BDF400F49505 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -139,8 +136,6 @@
 		043E033321746CDD00134F78 /* Third_Partys */ = {
 			isa = PBXGroup;
 			children = (
-				043F54C5218B23E9008DBFB9 /* MBProgressHUD.h */,
-				043F54C4218B23E8008DBFB9 /* MBProgressHUD.m */,
 				044217B62189BE2100946D91 /* Screen Shot 2018-10-31 at 4.07.08 PM.png */,
 				044217B42189BDF600946D91 /* CustomView.swift */,
 				043E033621746CF300134F78 /* iToast.h */,
@@ -454,7 +449,6 @@
 				B74DE6EE2178100F0049A31B /* ReservationsViewController.swift in Sources */,
 				04E63848216211AD003EAC28 /* Signup_ViewController.swift in Sources */,
 				B7445D67212B967C0063F58D /* Spot.swift in Sources */,
-				043F54C6218B23E9008DBFB9 /* MBProgressHUD.m in Sources */,
 				B75AE7BB20C4B63D0069A151 /* CarsDefinitionViewController.swift in Sources */,
 				B77D9346211A807700D505BD /* ScheduleViewController.swift in Sources */,
 				B7364D0620B65B390081F40F /* ProfileTableOption.swift in Sources */,

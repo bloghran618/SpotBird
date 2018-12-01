@@ -38,10 +38,12 @@ class ShareViewController: UIViewController, UITableViewDataSource {
             self.spotTable.reloadData()
         }
     
-//    override func viewDidAppear(_ animated: Bool) {
-//     self.spotTable.reloadData()
-//
-//    }
+    override func viewDidAppear(_ animated: Bool) {
+        if AppState.sharedInstance.spots.count > 0 {
+        navigationItem.rightBarButtonItem = editButtonItem
+        }
+
+    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -73,9 +75,6 @@ class ShareViewController: UIViewController, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
          if editingStyle == .delete {
-            
-            
-                
             let spot_dict = AppState.sharedInstance.spots[indexPath.row]
             AppState.sharedInstance.activeSpot.Delete_Spots(spot_dict: spot_dict, index: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
