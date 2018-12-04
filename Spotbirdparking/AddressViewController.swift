@@ -253,7 +253,6 @@ extension AddressViewController {
         mapView.clear()
         spotcamera = true
         
-     
         AppState.sharedInstance.activeSpot.latitude = String(place.coordinate.latitude)
         AppState.sharedInstance.activeSpot.longitude =  String(place.coordinate.longitude)
         
@@ -267,18 +266,28 @@ extension AddressViewController {
             
           //Add this line
                 if let address = response!.firstResult() {
+                print(address)
                     
               let lines = address.lines! as [String]
                 print(lines)
                 print(address.thoroughfare)
+                print(address.country)
+                print(address.locality)
+                print(address.postalCode)
+                print(address.subLocality)
+                    
                     if address.thoroughfare == nil{
+                        if address.subLocality != nil{
                       self.addressField.text = address.subLocality
                         AppState.sharedInstance.activeSpot.address = address.subLocality!
+                        }
                     }
                     else{
                         if address.thoroughfare == "Unnamed Road"{
+                            if address.subLocality != nil{
                             self.addressField.text = address.subLocality
                             AppState.sharedInstance.activeSpot.address = address.subLocality!
+                            }
                         }else{
                       self.addressField.text = address.thoroughfare
                      AppState.sharedInstance.activeSpot.address = address.thoroughfare!
@@ -288,7 +297,6 @@ extension AddressViewController {
                 self.townField.text = address.locality
                 self.stateField.text = address.administrativeArea
                 self.zipField.text = address.postalCode
-                    
                     
                 AppState.sharedInstance.activeSpot.town = address.locality!
                 AppState.sharedInstance.activeSpot.state = address.administrativeArea!

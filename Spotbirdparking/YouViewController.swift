@@ -35,8 +35,8 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         ProfileImagePicker.delegate = self
         profilePhoto.isUserInteractionEnabled = true
         
-        let camera = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveprofile))
-        self.navigationItem.rightBarButtonItem = camera
+      
+       
         
        AppState.sharedInstance.user.Get_UserProfile()
        
@@ -52,6 +52,8 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     }
     
       override func viewDidAppear(_ animated: Bool) {
+        print(AppState.sharedInstance.user.firstName)
+        print(AppState.sharedInstance.user.firstName)
         self.firstName.text = AppState.sharedInstance.user.firstName
         self.lastName.text = AppState.sharedInstance.user.lastName
        }
@@ -132,6 +134,7 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         alert.addAction(UIAlertAction(title: "Gallery", style: .default, handler: { _ in self.openGallery()}))
         alert.addAction(UIAlertAction.init(title: "Cancel", style: .default, handler: nil))
         self.present(alert, animated: true, completion: nil)
+       
     }
     
     func openCamera() {
@@ -163,17 +166,26 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         AppState.sharedInstance.user.New_img.image = (chosenImage as! UIImage)
         self.profilePhoto!.image = (chosenImage as! UIImage)
         picker.dismiss(animated: true, completion: nil)
+        show_save()
     }
     
     @objc func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         picker.dismiss(animated: true, completion: nil)
+        show_save()
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        show_save()
         firstName.resignFirstResponder()
         lastName.resignFirstResponder()
         return true
     }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+     show_save()
+        
+    }
+    
     
   
     
@@ -195,6 +207,10 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         alertController.addAction(okAction)
         self.present(alertController, animated: true, completion: nil)
     }
+    func show_save()  {
+        let camera = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveprofile))
+        self.navigationItem.rightBarButtonItem = camera
+    }
 }
 
 extension UIViewController {
@@ -207,4 +223,6 @@ extension UIViewController {
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
+    
+   
 }

@@ -73,6 +73,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        dismissKeyboard()
         //scheduledTimerWithTimeInterval()  // time
         
         btn_search_click.layer.cornerRadius = (btn_search_click.frame.height/2-6)
@@ -95,7 +96,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         CurrentLocMarker.map = self.mapView
         self.locationManager.startMonitoringSignificantLocationChanges()
         self.locationManager.startUpdatingLocation()
-        //  mapView.isMyLocationEnabled = true
+     //   mapView.isMyLocationEnabled = true
         mapView.settings.myLocationButton = true
         
         mapView.padding = UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 20)
@@ -113,6 +114,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         dateFormatter.dateFormat = "MMM, dd, YYYY, H:mm:ss"
         
         timearrayset()
+      start_datepic.minimumDate = Date()
+      end_datepic.minimumDate = Date()
     }
     
     func timearrayset()  {
@@ -186,29 +189,57 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     // MARK:_ BTn Date searching Done
     @IBAction func btn_Date_search_done(_ sender: UIButton) {
         
-        if  start_date == nil{
-            let alert = UIAlertController(title: "Spotbirdparking", message: "Please Select Start Date.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
+        if start_date == nil {
+        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:a"
+        var myStringafd = dateFormatter.string(from: start_datepic.date)
+        
+        if format1 == "AM"{
+            let replaced = myStringafd.replacingOccurrences(of: "AM", with: "PM")
+            start_date = dateFormatter.date(from: replaced)!
         }
-        else if start_datepic.date > end_datepic.date {
+        else{
+            let replaced = myStringafd.replacingOccurrences(of: "PM", with: "AM")
+            start_date = dateFormatter.date(from: replaced)!
+        }
+        print(start_date)
+        }
+        if end_date == nil{
+            print(start_date)
+            print(end_date)
+            
+            let addhour = calendar.date(byAdding: .hour, value: 3, to: start_date!)
+            end_date = addhour!
+            print(addhour)
+            print(end_date)
+        }
+        
+        var dateorder = ""
+        switch start_date!.compare(end_date!) {
+        case .orderedAscending:
+            print("orderedAscending")
+            dateorder = "orderedAscending"
+             break
+            
+        case .orderedDescending:
+             print("orderedDescending")
+             dateorder = "orderedDescending"
+             break;
+            
+        case .orderedSame:
+             print("orderedSame")
+             dateorder = "orderedSame"
+             break
+        }
+       
+        
+        if dateorder != "orderedAscending" {
             let alert = UIAlertController(title: "Spotbirdparking", message: "Start date greater than End date.", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
-            
+
         }
         else{
             arr_search_spot.removeAllObjects()
-            
-            if end_date == nil{
-                print(start_date)
-                print(end_date)
-                
-                let addhour = calendar.date(byAdding: .hour, value: 3, to: start_date!)
-                end_date = addhour!
-                print(addhour)
-                print(end_date)
-            }
             
             var arr_date = [Date]()
             var arr_day = [String]()
@@ -298,7 +329,6 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
 //                    let CurrentTimeZone = TimeZone.current
 //                    let SystemTimeZone = NSTimeZone.system as NSTimeZone
                     
-                    
                     if arr_day[j] == "Sunday" {
                         if (arrspot.object(at: i) as! NSDictionary).value(forKey: "sunswitch") as! Bool == true{
                             
@@ -350,8 +380,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                             }
                         }
                     }
-                
-                    if arr_day[j] == "Monday" {
+                   if arr_day[j] == "Monday" {
                         if (arrspot.object(at: i) as! NSDictionary).value(forKey: "monswitch") as! Bool == true{
                             
                             let arrmun = datedaydict.value(forKey: "Monday") as! NSArray
@@ -796,11 +825,17 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     
     // GET ALL SPOT ON MAP
     func getlatlong(){
+        var weekday = [String]()
+        let dateformats = DateFormatter()
+        dateformats.timeZone = TimeZone.current
+        dateformats.dateFormat  = "EEEE"
+        let dayInWeek = dateformats.string(from: Date())
+        print(dayInWeek)
+        
         five = 0
         refArtists = Database.database().reference().child("All_Spots");
         refArtists.observe(DataEventType.value, with: { (snapshot) in
             self.mapView.clear()
-            
             self.CurrentLocMarker.position = self.cooridnates
             self.CurrentLocMarker.title = "myLoc"
             var markerView = UIImageView()
@@ -809,7 +844,6 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             markerView.frame.size.height = 30
             self.CurrentLocMarker.iconView = markerView
             self.CurrentLocMarker.map = self.mapView
-            
             
             if snapshot.childrenCount > 0 {
                 self.arrspot.removeAllObjects()
@@ -820,64 +854,168 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                         
                         for (theKey, theValue) in dictdata {
                             
-                            self.arrspot.add(theValue)
+                            print(theKey)
+                            print(theValue)
+                        
+                           self.arrspot.add(theValue)
+                          
                         }
                         //self.loadEventsToMap(lat: self.userlatitude, long: self.userlongitude)
                     }
                 }
+                
+                var spot_array:NSMutableArray = NSMutableArray()
                 if self.arrspot.count > 0 {
+                   
                     
                     for i in 0 ..< self.arrspot.count {
-                        let marker = GMSMarker()
                         
-                        let lat1 = (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "user_lat") as! String
-                        let long1 = (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "user_long") as! String
-                        let lat = (lat1 as NSString).doubleValue
-                        let long = (long1 as NSString).doubleValue
-                        
-                        marker.position = CLLocationCoordinate2DMake(lat, long)
-                        marker.map = self.mapView
-                        let price = (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "hourlyPricing") as! String
-                        var doller = String()
-                        for (index, character) in price.enumerated() {
-                            if index < 4 {
-                                doller.append(character)
+                        if dayInWeek == "Monday"{
+                            if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "monswitch") as! Bool == true{
+                            self.get_todaySpots(tag: i)
+                            }
+                            if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "tueswitch") as! Bool == true{
+                             self.get_todaySpots(tag: i)
+                            }
+                            if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "wedswitch") as! Bool == true{
+                               self.get_todaySpots(tag: i)
+                            }
+                            if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "thuswitch") as! Bool == true{
+                            self.get_todaySpots(tag: i)
+                            }
+                            if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "friswitch") as! Bool == true{
+                          self.get_todaySpots(tag: i)
+                            }
+                            if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "satswitch") as! Bool == true{
+                             self.get_todaySpots(tag: i)
+                            }
+                            if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "sunswitch") as! Bool == true{
+                              self.get_todaySpots(tag: i)
+                            }
+                        }
+                        else if dayInWeek == "Tuesday"{
+                            if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "tueswitch") as! Bool == true{
+                              self.get_todaySpots(tag: i)
+                            }
+                            if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "wedswitch") as! Bool == true{
+                             self.get_todaySpots(tag: i)
+                            }
+                            if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "thuswitch") as! Bool == true{
+                             self.get_todaySpots(tag: i)
+                            }
+                            if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "friswitch") as! Bool == true{
+                               self.get_todaySpots(tag: i)
+                            }
+                            if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "satswitch") as! Bool == true{
+                                self.get_todaySpots(tag: i)
+                            }
+                            if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "sunswitch") as! Bool == true{
+                              self.get_todaySpots(tag: i)
+                            }
+                        }
+                        else if dayInWeek == "Wednesday"{
+                                
+                                if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "wedswitch") as! Bool == true{
+                                   self.get_todaySpots(tag: i)
+                                }
+                                if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "thuswitch") as! Bool == true{
+                                     self.get_todaySpots(tag: i)
+                                }
+                                if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "friswitch") as! Bool == true{
+                                  self.get_todaySpots(tag: i)
+                                }
+                                if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "satswitch") as! Bool == true{
+                                    self.get_todaySpots(tag: i)
+                                }
+                                if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "sunswitch") as! Bool == true{
+                                         self.get_todaySpots(tag: i)
                             }
                             
                         }
-                        
-                        //  let doller = (price as NSString).integerValue
-                        // marker.title = "$\(doller)"
-                        //   marker.snippet
-                        marker.infoWindowAnchor = CGPoint(x: 0.5, y: 0.2)
-                        marker.accessibilityLabel = "\(i)"
-                        
-                        var markerimg = UIImageView()
-                        let customView = UIView()
-                        
-                        customView.frame = CGRect.init(x: 0, y: 0, width: 60, height: 60)
-                        markerimg  = UIImageView(frame:CGRect(x:0, y:0, width:60, height:60));
-                        markerimg.image = UIImage(named:"markers")
-                        markerimg.backgroundColor = UIColor.clear
-                        customView.addSubview(markerimg)
-                        let lbl_marker = UILabel()
-                        lbl_marker.frame = CGRect(x: 0, y: (markerimg.frame.height/2)-25, width: markerimg.frame.width, height: 40)
-                        markerimg.addSubview(lbl_marker)
-                        
-                        lbl_marker.textAlignment = .center
-                        lbl_marker.numberOfLines = 1;
-                        
-                        lbl_marker.text = "$\(doller)"
-                        lbl_marker.minimumScaleFactor = 0.5;
-                        lbl_marker.adjustsFontSizeToFitWidth = true;
-                        
-                        lbl_marker.textColor = UIColor.black
-                        customView.backgroundColor = UIColor.clear
-                        marker.iconView = customView
-                    }
+                        else if dayInWeek == "Thursday"{
+                                    if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "thuswitch") as! Bool == true{
+                                         self.get_todaySpots(tag: i)
+                                    }
+                                    if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "friswitch") as! Bool == true{
+                                            self.get_todaySpots(tag: i)
+                                    }
+                                    if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "satswitch") as! Bool == true{
+                                             self.get_todaySpots(tag: i)
+                                    }
+                                    if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "sunswitch") as! Bool == true{
+                                            self.get_todaySpots(tag: i)
+                            }
+                            
+                        }
+                        else if dayInWeek == "Friday"{
+                                        if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "friswitch") as! Bool == true{
+                                             self.get_todaySpots(tag: i)
+                                        }
+                                        if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "satswitch") as! Bool == true{
+                                           self.get_todaySpots(tag: i)
+                                        }
+                                        if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "sunswitch") as! Bool == true{
+                                              self.get_todaySpots(tag: i)
+                                        }
+                        }
+                        else if dayInWeek == "Saturday"{
+                                            if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "satswitch") as! Bool == true{
+                                                  self.get_todaySpots(tag: i)
+                                            }
+                                            if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "sunswitch") as! Bool == true{
+                                                self.get_todaySpots(tag: i)
+                                            }
+                         }
+                        else {
+                       if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "sunswitch") as! Bool == true{
+                        self.get_todaySpots(tag: i)
+                            
+                        }
+                        }
+                     }
                 }
-            }
+              }
         })
+    }
+    
+    func get_todaySpots(tag:Int)
+    {
+        let marker = GMSMarker()
+        let lat1 = (self.arrspot.object(at: tag) as! NSDictionary).value(forKey: "user_lat") as! String
+        let long1 = (self.arrspot.object(at: tag) as! NSDictionary).value(forKey: "user_long") as! String
+        let lat = (lat1 as NSString).doubleValue
+        let long = (long1 as NSString).doubleValue
+        marker.position = CLLocationCoordinate2DMake(lat, long)
+        marker.map = self.mapView
+        let price = (self.arrspot.object(at: tag) as! NSDictionary).value(forKey: "hourlyPricing") as! String
+        var doller = String()
+        for (index, character) in price.enumerated() {
+            if index < 4 {
+                doller.append(character)
+            }
+        }
+        marker.infoWindowAnchor = CGPoint(x: 0.5, y: 0.2)
+        marker.accessibilityLabel = "\(tag)"
+        
+        var markerimg = UIImageView()
+        let customView = UIView()
+        customView.frame = CGRect.init(x: 0, y: 0, width: 60, height: 60)
+        markerimg  = UIImageView(frame:CGRect(x:0, y:0, width:60, height:60));
+        markerimg.image = UIImage(named:"markers")
+        markerimg.backgroundColor = UIColor.clear
+        customView.addSubview(markerimg)
+        let lbl_marker = UILabel()
+        lbl_marker.frame = CGRect(x: 0, y: (markerimg.frame.height/2)-25, width: markerimg.frame.width, height: 40)
+        markerimg.addSubview(lbl_marker)
+        
+        lbl_marker.textAlignment = .center
+        lbl_marker.numberOfLines = 1;
+        lbl_marker.text = "$\(doller)"
+        lbl_marker.minimumScaleFactor = 0.5;
+        lbl_marker.adjustsFontSizeToFitWidth = true;
+        lbl_marker.textColor = UIColor.black
+        customView.backgroundColor = UIColor.clear
+        marker.iconView = customView
     }
     
     // MARK:_ Load Marker to map :-  Spot

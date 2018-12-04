@@ -14,7 +14,6 @@
 		0426E0352164F5060017E88B /* CustomInfoWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0426E0342164F5050017E88B /* CustomInfoWindow.swift */; };
 		0426E0382164F97D0017E88B /* PriceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B702B111212E361D004B3EF1 /* PriceViewController.swift */; };
 		043E033721746CF300134F78 /* iToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 043E033521746CF300134F78 /* iToast.m */; };
-		043F54C6218B23E9008DBFB9 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 043F54C4218B23E8008DBFB9 /* MBProgressHUD.m */; };
 		044217B52189BDF700946D91 /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044217B42189BDF600946D91 /* CustomView.swift */; };
 		044217B72189BE2200946D91 /* Screen Shot 2018-10-31 at 4.07.08 PM.png in Resources */ = {isa = PBXBuildFile; fileRef = 044217B62189BE2100946D91 /* Screen Shot 2018-10-31 at 4.07.08 PM.png */; };
 		04B4D5952163BDF400F49505 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04B4D5942163BDF400F49505 /* GoogleService-Info.plist */; };
@@ -71,8 +70,6 @@
 		043E033421746CF100134F78 /* Spotbirdparking-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Spotbirdparking-Bridging-Header.h"; sourceTree = "<group>"; };
 		043E033521746CF300134F78 /* iToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iToast.m; sourceTree = "<group>"; };
 		043E033621746CF300134F78 /* iToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iToast.h; sourceTree = "<group>"; };
-		043F54C4218B23E8008DBFB9 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
-		043F54C5218B23E9008DBFB9 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		044217B42189BDF600946D91 /* CustomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
 		044217B62189BE2100946D91 /* Screen Shot 2018-10-31 at 4.07.08 PM.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Screen Shot 2018-10-31 at 4.07.08 PM.png"; sourceTree = "<group>"; };
 		04B4D5942163BDF400F49505 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -141,8 +138,6 @@
 		043E033321746CDD00134F78 /* Third_Partys */ = {
 			isa = PBXGroup;
 			children = (
-				043F54C5218B23E9008DBFB9 /* MBProgressHUD.h */,
-				043F54C4218B23E8008DBFB9 /* MBProgressHUD.m */,
 				044217B62189BE2100946D91 /* Screen Shot 2018-10-31 at 4.07.08 PM.png */,
 				044217B42189BDF600946D91 /* CustomView.swift */,
 				043E033621746CF300134F78 /* iToast.h */,
@@ -385,6 +380,7 @@
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/JTAppleCalendar/JTAppleCalendar.framework",
+				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/Stripe/Stripe.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
@@ -397,6 +393,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JTAppleCalendar.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Stripe.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
@@ -458,12 +455,10 @@
 				04E63848216211AD003EAC28 /* Signup_ViewController.swift in Sources */,
 				B79D514B218BDA4E001EFE1C /* ByDayResTableViewCell.swift in Sources */,
 				B7445D67212B967C0063F58D /* Spot.swift in Sources */,
-				043F54C6218B23E9008DBFB9 /* MBProgressHUD.m in Sources */,
 				B75AE7BB20C4B63D0069A151 /* CarsDefinitionViewController.swift in Sources */,
 				B77D9346211A807700D505BD /* ScheduleViewController.swift in Sources */,
 				B7364D0620B65B390081F40F /* ProfileTableOption.swift in Sources */,
-				04453816217DC32400603094 /* MBProgressHUD.m in Sources */,
-				B7BC7105218166AE00EE6F7A /* CustomCell.swift in Sources */, 
+				B7BC7105218166AE00EE6F7A /* CustomCell.swift in Sources */,
 				0426E0382164F97D0017E88B /* PriceViewController.swift in Sources */,
 				B7A86B4B20C0E9DB00041C61 /* Car.swift in Sources */,
 				B72D8BE420D0B6BE0038310F /* CheckBox.swift in Sources */,
@@ -645,7 +640,15 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				COPY_HEADERS_RUN_UNIFDEF = NO;
 				DEVELOPMENT_TEAM = 5746S7T9X5;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)/**",
+					"${PODS_ROOT}/Firebase/CoreOnly/Sources",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/Firebase\"",
+					"\"${PODS_ROOT}/Headers/Public/FirebaseAuthInterop\"",
+				);
 				INFOPLIST_FILE = Spotbirdparking/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -658,6 +661,11 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = (
+					"$(inherited)/**",
+					"${PODS_ROOT}/**",
+					"\"${PODS_ROOT}/BuildHeaders\"/**",
+				);
 			};
 			name = Debug;
 		};
@@ -669,7 +677,15 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
+				COPY_HEADERS_RUN_UNIFDEF = NO;
 				DEVELOPMENT_TEAM = 5746S7T9X5;
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)/**",
+					"${PODS_ROOT}/Firebase/CoreOnly/Sources",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/Firebase\"",
+					"\"${PODS_ROOT}/Headers/Public/FirebaseAuthInterop\"",
+				);
 				INFOPLIST_FILE = Spotbirdparking/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -681,6 +697,11 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Spotbirdparking/Third_Partys/Spotbirdparking-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				USER_HEADER_SEARCH_PATHS = (
+					"$(inherited)/**",
+					"${PODS_ROOT}/**",
+					"\"${PODS_ROOT}/BuildHeaders\"/**",
+				);
 			};
 			name = Release;
 		};
