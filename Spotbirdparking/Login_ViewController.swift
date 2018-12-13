@@ -44,6 +44,7 @@ class Login_ViewController: UIViewController {
                     
                     let dict = ((snap as! DataSnapshot).value) as! NSDictionary
                     print(dict)
+                    print(dict)
                     if self.txt_pass.text! == dict.value(forKey: "pass") as! String {
                         //self.id =  ((snap as! DataSnapshot).key)
                         AppState.sharedInstance.userid = dict.value(forKey: "id") as! String
