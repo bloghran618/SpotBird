@@ -60,7 +60,8 @@ class CarsViewController: UIViewController, UITableViewDataSource {
         // cell?.imageView?.image = car.carImage
         
         print(car.carImage)
-        cell?.imageView?.sd_setImage(with: URL(string: car.carImage), placeholderImage: UIImage(named: "Placeholder"))
+       // cell?.imageView?.sd_setImage(with: URL(string: car.carImage), placeholderImage: UIImage(named: "Placeholder"))
+        cell?.ImageName.sd_setImage(with: URL(string: car.carImage), placeholderImage: UIImage(named: "Placeholder"))
         if car.isDefault! {
             cell?.Default.image = UIImage(named: "DefaultCar")
         }

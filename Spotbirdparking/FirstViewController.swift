@@ -79,8 +79,6 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         btn_search_click.layer.cornerRadius = (btn_search_click.frame.height/2-6)
         btn_search_click.layer.borderWidth = 1
         
-        
-        
         img_spot.layer.borderWidth = 1
         img_spot.layer.masksToBounds = false
         img_spot.layer.cornerRadius = img_spot.frame.height/2
@@ -120,7 +118,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     
     func timearrayset()  {
         dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:a"
-        var stringdate = dateFormatter.string(from: Date())
+        let stringdate = dateFormatter.string(from: Date())
         
         if stringdate.contains("PM"){
             timearray.append("PM")
@@ -133,9 +131,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             timearray.append("PM")
             format1 = "AM"
             format2 = "AM"
-        }
-        
-    }
+           }
+      }
     
     // start date-
     @objc func startdatePickerChanged(picker: UIDatePicker) {
@@ -825,6 +822,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     
     // GET ALL SPOT ON MAP
     func getlatlong(){
+     Spinner.start()
+        
         var weekday = [String]()
         let dateformats = DateFormatter()
         dateformats.timeZone = TimeZone.current
@@ -835,6 +834,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         five = 0
         refArtists = Database.database().reference().child("All_Spots");
         refArtists.observe(DataEventType.value, with: { (snapshot) in
+            
             self.mapView.clear()
             self.CurrentLocMarker.position = self.cooridnates
             self.CurrentLocMarker.title = "myLoc"
@@ -867,8 +867,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                 var spot_array:NSMutableArray = NSMutableArray()
                 if self.arrspot.count > 0 {
                    
-                    
-                    for i in 0 ..< self.arrspot.count {
+                     for i in 0 ..< self.arrspot.count {
                         
                         if dayInWeek == "Monday"{
                             if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "monswitch") as! Bool == true{
@@ -973,10 +972,14 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                         }
                         }
                      }
+                     Spinner.stop()
                 }
               }
-        })
-    }
+            else{
+               Spinner.stop()
+            }
+         })
+     }
     
     func get_todaySpots(tag:Int)
     {
@@ -1022,7 +1025,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     func loadEventsToMap(lat:Double,long:Double){
         
         // mapView.isMyLocationEnabled  = false
-        
+      Spinner.start()
         for i in 0..<arrspot.count {
             
             let lat1 = (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "user_lat") as! String
@@ -1031,8 +1034,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             let longs = (long1 as NSString).doubleValue
             let coordinate₀ = CLLocation(latitude: CLLocationDegrees(lats), longitude:CLLocationDegrees(longs))
             
-            
-            //            let coordinate₀ = CLLocation(latitude: CLLocationDegrees(truncating: (arrspot.object(at: i) as! NSDictionary).value(forKey: "user_lat") as! NSNumber), longitude:CLLocationDegrees(truncating: (arrspot.object(at: i) as! NSDictionary).value(forKey: "user_long") as! NSNumber))
+           //  let coordinate₀ = CLLocation(latitude: CLLocationDegrees(truncating: (arrspot.object(at: i) as! NSDictionary).value(forKey: "user_lat") as! NSNumber), longitude:CLLocationDegrees(truncating: (arrspot.object(at: i) as! NSDictionary).value(forKey: "user_long") as! NSNumber))
             let coordinate₁ = CLLocation(latitude: lat, longitude: long)
             let distacneinKM = (coordinate₀.distance(from: coordinate₁)/1000)
             if distacneinKM < 5 {
@@ -1085,8 +1087,14 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                     marker.iconView = customView
                     
                 }
+              //  Spinner.stop()
             }
-        }
+            else{
+          //    Spinner.stop()
+                
+             }
+         }
+         Spinner.stop()
     }
     
     
