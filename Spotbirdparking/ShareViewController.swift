@@ -29,40 +29,46 @@ class ShareViewController: UIViewController, UITableViewDataSource {
         self.spotTable.dataSource = self
         self.spotTable.rowHeight = 100
 
-       AppState.sharedInstance.activeSpot.getSpots()
+         AppState.sharedInstance.activeSpot.getSpots()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(ShareViewController.RefreshData(notification:)), name: Notification.Name("Spots"), object: nil)
+        
      
     }
-        @objc func RefreshData(notification: Notification) {
-            self.spotTable.reloadData()
-        }
     
-    override func viewDidAppear(_ animated: Bool) {
-        if AppState.sharedInstance.spots.count > 0 {
-        navigationItem.rightBarButtonItem = editButtonItem
-        }
-
+    @objc func RefreshData(notification: Notification) {
+        // AppState.sharedInstance.activeSpot.getSpots()
+        print(AppState.sharedInstance.spots.count)
+        self.spotTable.reloadData()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if AppState.sharedInstance.spots.count > 0 {
+            navigationItem.rightBarButtonItem = editButtonItem
+        }
+        self.spotTable.reloadData()
+    
+    }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(AppState.sharedInstance.spots.count)
-    return AppState.sharedInstance.spots.count
-        
+     return AppState.sharedInstance.spots.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SpotCell", for: indexPath) as? SpotTableViewCell
         let spot = AppState.sharedInstance.spots[indexPath.row]
-        cell?.addressLabel.text = spot.address
+         cell?.addressLabel.text = spot.address
         cell?.townCityZipLabel.text = spot.town + " " + spot.state + ", " + spot.zipCode
-        
-        print(spot.spotImage)
-        cell?.imageView?.sd_setImage(with: URL(string: spot.spotImage), placeholderImage: UIImage(named: "Placeholder"))
-        
+     // cell!.imageView?.sd_setImage(with: URL(string: spot.spotImage), placeholderImage: UIImage(named: "Placeholder"))
+        cell!.spotImageView?.sd_setImage(with: URL(string: spot.spotImage), placeholderImage: UIImage(named: "Placeholder"))
         cell?.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
+        
         return cell!
     }
     
@@ -77,7 +83,6 @@ class ShareViewController: UIViewController, UITableViewDataSource {
             AppState.sharedInstance.activeSpot.Delete_Spots(spot_dict: spot_dict, index: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
              
-                    
             tableView.reloadData()
            
             } else if editingStyle == .insert {

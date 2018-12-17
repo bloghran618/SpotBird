@@ -38,6 +38,19 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     @IBOutlet weak var timpic1: UIPickerView!
     @IBOutlet weak var timepic2: UIPickerView!
     
+    fileprivate lazy var dateFormatter2: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd h:mm a"
+        formatter.timeZone = TimeZone.current
+        return formatter
+    }()
+    
+    fileprivate lazy var dateFormatter1: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.timeZone = TimeZone.current
+        return formatter
+    }()
     var locationManager = CLLocationManager()
     let CurrentLocMarker = GMSMarker()
     var timerAnimation: Timer!
@@ -114,12 +127,14 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         timearrayset()
       start_datepic.minimumDate = Date()
       end_datepic.minimumDate = Date()
+        // list load
+         AppState.sharedInstance.activeSpot.getSpots()
     }
     
     func timearrayset()  {
         dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:a"
         let stringdate = dateFormatter.string(from: Date())
-        
+    
         if stringdate.contains("PM"){
             timearray.append("PM")
             timearray.append("AM")
@@ -138,31 +153,69 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     @objc func startdatePickerChanged(picker: UIDatePicker) {
         dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:a"
       //   dateFormatter.dateFormat = "EEE, MMM d, yyyy - h:mm a"
-        var myStringafd = dateFormatter.string(from: picker.date)
+        let myStringafd = dateFormatter2.string(from: picker.date)
+        if myStringafd.contains("AM")
+        {
+            if format1 == "AM"
+            {
+                start_date = dateFormatter2.date(from: myStringafd)!
+            }else
+            {
+                let replaced = myStringafd.replacingOccurrences(of: "AM", with: "PM")
+                start_date = dateFormatter2.date(from: replaced)!
+            }
+            print(start_date!)
+        }else
+        {
+            if format1 == "PM"
+            {
+                start_date = dateFormatter2.date(from: myStringafd)!
+
+            }else
+            {
+                let replaced = myStringafd.replacingOccurrences(of: "PM", with: "AM")
+                start_date = dateFormatter2.date(from: replaced)!
+            }
+            print(start_date!)
+            
+         }
         
-        if format1 == "AM"{
-            let replaced = myStringafd.replacingOccurrences(of: "AM", with: "PM")
-            start_date = dateFormatter.date(from: replaced)!
-        }
-        else{
-            let replaced = myStringafd.replacingOccurrences(of: "PM", with: "AM")
-            start_date = dateFormatter.date(from: replaced)!
-        }
+       
+        
+        
       }
     
     // end date-
     @objc func EnddatePickerChanged(picker: UIDatePicker) {
       dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:a"
-        var str = dateFormatter.string(from: picker.date)
-        if format2 == "AM"{
-            let replaced = str.replacingOccurrences(of: "AM", with: "PM")
-            end_date = dateFormatter.date(from: str)!
-        }
-        else{
-            let replaced = str.replacingOccurrences(of: "PM", with: "AM")
-            end_date = dateFormatter.date(from: str)!
+        var str = dateFormatter2.string(from: picker.date)
+        
+        if str.contains("AM")
+        {
+            if format2 == "AM"
+            {
+                end_date = dateFormatter2.date(from: str)!
+            }else
+            {
+                let replaced = str.replacingOccurrences(of: "AM", with: "PM")
+                end_date = dateFormatter2.date(from: replaced)!
+            }
+            print(end_date!)
+        }else
+        {
+            if format2 == "PM"
+            {
+                end_date = dateFormatter2.date(from: str)!
+                
+            }else
+            {
+                let replaced = str.replacingOccurrences(of: "PM", with: "AM")
+                end_date = dateFormatter2.date(from: replaced)!
+            }
+            print(end_date!)
         }
         
+       
     }
     
     // MARK:_ BTn Date searching
@@ -186,21 +239,23 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     // MARK:_ BTn Date searching Done
     @IBAction func btn_Date_search_done(_ sender: UIButton) {
         
-        if start_date == nil {
-        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:a"
-        var myStringafd = dateFormatter.string(from: start_datepic.date)
+         var firsttime = Bool()
         
-        if format1 == "AM"{
-            let replaced = myStringafd.replacingOccurrences(of: "AM", with: "PM")
-            start_date = dateFormatter.date(from: replaced)!
+        
+        dateFormatter.dateFormat = "EEE, MMM d, yyyy - h:mm a"
+        let today = dateFormatter2.string(from: Date())
+        var timesymbol = ""
+        if today.contains("AM") {
+            timesymbol = "AM"
         }
         else{
-            let replaced = myStringafd.replacingOccurrences(of: "PM", with: "AM")
-            start_date = dateFormatter.date(from: replaced)!
+            timesymbol = "PM"
         }
-        print(start_date)
-        }
-        if end_date == nil{
+        
+        
+       
+        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:a"
+        if start_date != nil &&  end_date == nil{
             print(start_date)
             print(end_date)
             
@@ -209,41 +264,120 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             print(addhour)
             print(end_date)
         }
-        
-        var dateorder = ""
-        switch start_date!.compare(end_date!) {
-        case .orderedAscending:
-            print("orderedAscending")
-            dateorder = "orderedAscending"
-             break
-            
-        case .orderedDescending:
-             print("orderedDescending")
-             dateorder = "orderedDescending"
-             break;
-            
-        case .orderedSame:
-             print("orderedSame")
-             dateorder = "orderedSame"
-             break
+      
+        if start_date == nil{
+            let alert = UIAlertController(title: "Spotbirdparking", message: "Select Start date.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
         }
-       
-        
-        if dateorder != "orderedAscending" {
+         else if start_date! >= end_date!
+        {
+             firsttime = start_date!.time > (end_date!.time)
             let alert = UIAlertController(title: "Spotbirdparking", message: "Start date greater than End date.", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
-
+            
         }
-        else{
-            arr_search_spot.removeAllObjects()
+        else if firsttime == true
+        {
+            let firsttime = start_date!.time > (end_date!.time)
+            let alert = UIAlertController(title: "Spotbirdparking", message: "Start time greater than End time.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            
+        }
+       
+         else{
+            
+            print(start_date)
+            print(end_date)
+            
+            let myStringafd = dateFormatter2.string(from: start_date!)
+            if myStringafd.contains("AM")
+            {
+                if format1 == "AM"
+                {
+                    start_date = dateFormatter2.date(from: myStringafd)!
+                }else
+                {
+                    let replaced = myStringafd.replacingOccurrences(of: "AM", with: "PM")
+                    start_date = dateFormatter2.date(from: replaced)!
+                }
+                print(start_date!)
+            }else
+            {
+                if format1 == "PM"
+                {
+                    start_date = dateFormatter2.date(from: myStringafd)!
+                    
+                }else
+                {
+                    let replaced = myStringafd.replacingOccurrences(of: "PM", with: "AM")
+                    start_date = dateFormatter2.date(from: replaced)!
+                }
+                print(start_date!)
+            }
+            
+            
+            var str = dateFormatter2.string(from: end_date!)
+            
+            if str.contains("AM")
+            {
+                if format2 == "AM"
+                {
+                    end_date = dateFormatter2.date(from: str)!
+                }else
+                {
+                    let replaced = str.replacingOccurrences(of: "AM", with: "PM")
+                    end_date = dateFormatter2.date(from: replaced)!
+                }
+                print(end_date!)
+            }
+           
+            else
+            {
+                if format2 == "PM"
+                {
+                    end_date = dateFormatter2.date(from: str)!
+                    
+                }else
+                {
+                    let replaced = str.replacingOccurrences(of: "PM", with: "AM")
+                    end_date = dateFormatter2.date(from: replaced)!
+                }
+                print(end_date!)
+            }
+            
+            print(start_date)
+            print(end_date)
+            
+            
+            dateFormatter.dateFormat = "EEE, MMM d, yyyy - h:mm a"
+            let localtime1 = dateFormatter2.string(from: start_date!)
+            let localtime2 = dateFormatter2.string(from: end_date!)
+            
+            print(localtime1)
+            print(localtime2)
+         
+            
+            start_date = dateconvert(userdate: start_date!)
+            end_date = dateconvert(userdate: end_date!)
+            
+           arr_search_spot.removeAllObjects()
             
             var arr_date = [Date]()
             var arr_day = [String]()
-            while start_datepic.date <= end_datepic.date {
-                arr_date.append(start_datepic.date)
-                start_datepic.date = calendar.date(byAdding: .day, value: 1, to: start_datepic.date)!
+            var date = start_datepic.date
+            while date <= end_datepic.date{
+               arr_date.append(date)
+               date = calendar.date(byAdding: .day, value: 1, to: date)!
             }
+//            while start_datepic.date >= end_datepic.date {
+//                arr_date.append(start_datepic.date)
+//                i += 1
+//                print(i)
+//               // start_datepic.date = calendar.date(byAdding: .day, value: 1, to: start_datepic.date)!
+//            }
             if arr_date.count>0 {
                 for i in 0..<arr_date.count{
                     let dateformats = DateFormatter()
@@ -251,7 +385,6 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                     dateformats.timeZone = TimeZone.current
                     dateformats.dateFormat  = "EEEE"       //"EE" to get short style
                     let dayInWeek = dateformats.string(from: arr_date[i])
-                    
                     arr_day.append(dayInWeek)
                 }
             }
@@ -313,6 +446,10 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                 datedaydict.setValue(arrsatarday, forKey: "Saturday")
             }
             
+            print(arr_day)
+            print(datedaydict)
+            
+            
           for i in 0..<arrspot.count{
                 for j in 0..<arr_day.count{
                     let dict_spot = arrspot.object(at: i) as! NSDictionary
@@ -320,60 +457,38 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                     var localTimeZoneName: String { return TimeZone.current.identifier }
                     print(localTimeZoneName)
                     
-                    let CurrentTimeZone = NSTimeZone(abbreviation: "GMT")
-                    let SystemTimeZone = NSTimeZone.system as NSTimeZone
-                    
-//                    let CurrentTimeZone = TimeZone.current
-//                    let SystemTimeZone = NSTimeZone.system as NSTimeZone
-                    
-                    if arr_day[j] == "Sunday" {
+                     if arr_day[j] == "Sunday" {
                         if (arrspot.object(at: i) as! NSDictionary).value(forKey: "sunswitch") as! Bool == true{
                             
                             let arrsun = datedaydict.value(forKey: "Sunday") as! NSArray
                             for m in 0..<arrsun.count{
 
-                                var sunStartTime =  dict_spot.value(forKey: "sunStartTime") as! String
-                                var sunEndTime =  dict_spot.value(forKey: "sunEndTime") as! String
-
-                                let timearr = sunStartTime.components(separatedBy: ":")
-                                let hour = Int(timearr[0])
-                                let minutestring =  (timearr[1])
-                                let arrminute = minutestring.components(separatedBy: " ")
-                                let minute =  Int(arrminute[0])
-                                let Start = Calendar.current.date(bySettingHour: hour!, minute: minute!, second: 0, of: Date())!
-
-                                let currentGMTOffset1: Int? = CurrentTimeZone?.secondsFromGMT(for: Start)
-                                let SystemGMTOffset1: Int = SystemTimeZone.secondsFromGMT(for: Start)
-                                let interval1 = TimeInterval((SystemGMTOffset1 - currentGMTOffset1!))
-                                let Munday_start = Date(timeInterval: interval1, since: Start)
-
-                                let timearr1 = sunEndTime.components(separatedBy: ":")
-                                let hour1 = Int(timearr1[0])
-                                let minutestring1 =  (timearr1[1])
-                                let arrminute1 = minutestring1.components(separatedBy: " ")
-                                let minute1 =  Int(arrminute1[0])
-                                let End = Calendar.current.date(bySettingHour: hour1!, minute: minute1!, second: 0, of: Date())!
-
-                                let currentGMTOffset2: Int? = CurrentTimeZone?.secondsFromGMT(for: End)
-                                let SystemGMTOffset2: Int = SystemTimeZone.secondsFromGMT(for: End)
-                                let interval2 = TimeInterval((SystemGMTOffset2 - currentGMTOffset2!))
-                                let Munday_end = Date(timeInterval: interval2, since: End)
-
-                                let currentGMTOffset3: Int? = CurrentTimeZone?.secondsFromGMT(for: start_date!)
-                                let SystemGMTOffset3: Int = SystemTimeZone.secondsFromGMT(for: start_date!)
-                                let interval3 = TimeInterval((SystemGMTOffset2 - currentGMTOffset2!))
-                                let user_start = Date(timeInterval: interval2, since: start_date!)
-
-                                let currentGMTOffset4: Int? = CurrentTimeZone?.secondsFromGMT(for: end_date!)
-                                let SystemGMTOffset4: Int = SystemTimeZone.secondsFromGMT(for: end_date!)
-                                let interval4 = TimeInterval((SystemGMTOffset4 - currentGMTOffset4!))
-                                let user_end = Date(timeInterval: interval4, since: end_date!)
-
-
-                                if user_start < Munday_start && user_end < Munday_end{
+                                let sunStartTime = dateconvertServer(userdate: dict_spot.value(forKey: "sunStartTime") as! String)
+                                let sunEndTime = dateconvertServer(userdate: dict_spot.value(forKey: "sunEndTime")  as! String)
+                                
+                                print(start_date)    // user
+                                print(end_date)      // user
+                                print(sunStartTime) //server
+                                print(sunEndTime)   // server
+                                
+                                let statr_server = dateFormatter2.string(from: sunStartTime)
+                                let end_server = dateFormatter2.string(from: sunEndTime)
+                                
+                                print(statr_server)
+                                print(end_server)
+                                
+                                let firsttime = start_date!.time >= (sunStartTime.time)
+                                let secondtime = end_date!.time <= (sunEndTime.time)
+                                
+                                print(firsttime)
+                                print(secondtime)
+                                
+                                
+                                if firsttime == true && secondtime == true{
+                                    print("yes")
                                     arr_search_spot.add(arrspot.object(at: i))
                                 }
-
+                                
                             }
                         }
                     }
@@ -383,59 +498,28 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                             let arrmun = datedaydict.value(forKey: "Monday") as! NSArray
                             for m in 0..<arrmun.count{
                                 
-                                let monStartTime =  dict_spot.value(forKey: "monStartTime") as! String
-                                let monEndTime =  dict_spot.value(forKey: "monEndTime")  as! String
+                                let Munday_start = dateconvertServer(userdate: dict_spot.value(forKey: "monStartTime") as! String)
+                               let Munday_end = dateconvertServer(userdate: dict_spot.value(forKey: "monEndTime")  as! String)
                                 
-                                let timearr = monStartTime.components(separatedBy: ":")
-                                let hour = Int(timearr[0])
-                                let minutestring =  (timearr[1])
-                                let arrminute = minutestring.components(separatedBy: " ")
-                                let minute =  Int(arrminute[0])
-                                let Start = Calendar.current.date(bySettingHour: hour!, minute: minute!, second: 0, of: Date())!
+                                print(start_date)    // user
+                                print(end_date)      // user
+                                print(Munday_start) //server
+                                print(Munday_end)   // server
                                 
-                                let currentGMTOffset1: Int? = CurrentTimeZone?.secondsFromGMT(for: Start)
-                                let SystemGMTOffset1: Int = SystemTimeZone.secondsFromGMT(for: Start)
-                                let interval1 = TimeInterval((SystemGMTOffset1 - currentGMTOffset1!))
-                                let Munday_start = Date(timeInterval: interval1, since: Start)
                                 
-                                let timearr1 = monEndTime.components(separatedBy: ":")
-                                let hour1 = Int(timearr1[0])
-                                let minutestring1 =  (timearr1[1])
-                                let arrminute1 = minutestring1.components(separatedBy: " ")
-                                let minute1 =  Int(arrminute1[0])
-                                let End = Calendar.current.date(bySettingHour: hour1!, minute: minute1!, second: 0, of: Date())!
                                 
-                                let currentGMTOffset2: Int? = CurrentTimeZone?.secondsFromGMT(for: End)
-                                let SystemGMTOffset2: Int = SystemTimeZone.secondsFromGMT(for: End)
-                                let interval2 = TimeInterval((SystemGMTOffset2 - currentGMTOffset2!))
-                                let Munday_end = Date(timeInterval: interval2, since: End)
+                                let firsttime = start_date!.time >= (Munday_start.time)
+                                let secondtime = end_date!.time <= (Munday_end.time)
                                 
-                                let currentGMTOffset3: Int? = CurrentTimeZone?.secondsFromGMT(for: start_date!)
-                                let SystemGMTOffset3: Int = SystemTimeZone.secondsFromGMT(for: start_date!)
-                                let interval3 = TimeInterval((SystemGMTOffset2 - currentGMTOffset2!))
-                                let user_start = Date(timeInterval: interval2, since: start_date!)
+                                print(firsttime)
+                                print(secondtime)
                                 
-                                let currentGMTOffset4: Int? = CurrentTimeZone?.secondsFromGMT(for: end_date!)
-                                let SystemGMTOffset4: Int = SystemTimeZone.secondsFromGMT(for: end_date!)
-                                let interval4 = TimeInterval((SystemGMTOffset4 - currentGMTOffset4!))
-                                let user_end = Date(timeInterval: interval4, since: end_date!)
                                 
-                                if user_start < Munday_start {
-                                    print("Munday_start\(Munday_start)")
-                                }else{
-                                    print("Munday_start\(user_start)")
-                                }
-                                
-                                if user_end < Munday_end {
-                                    print("Munday_start\(Munday_end)")
-                                }
-                                else{
-                                    print("Munday_start\(user_end)")
-                                }
-                                
-                                if user_start < Munday_start && user_end < Munday_end{
+                                if firsttime == true && secondtime == true{
+                                    print("yes")
                                     arr_search_spot.add(arrspot.object(at: i))
                                 }
+                              
                             }
                         }
                     }
@@ -445,46 +529,32 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                             let arrthue = datedaydict.value(forKey: "Tuesday") as! NSArray
                             for m in 0..<arrthue.count{
                                 
-                                let tueStartTime =  dict_spot.value(forKey: "tueStartTime") as! String
-                                let tueEndTime =  dict_spot.value(forKey: "tueEndTime") as! String
+                                let tueStartTime = dateconvertServer(userdate: dict_spot.value(forKey: "tueStartTime") as! String)
+                                let tueEndTime = dateconvertServer(userdate: dict_spot.value(forKey: "tueEndTime")  as! String)
                                 
-                                let timearr = tueStartTime.components(separatedBy: ":")
-                                let hour = Int(timearr[0])
-                                let minutestring =  (timearr[1])
-                                let arrminute = minutestring.components(separatedBy: " ")
-                                let minute =  Int(arrminute[0])
-                                let Start = Calendar.current.date(bySettingHour: hour!, minute: minute!, second: 0, of: Date())!
+                                print(start_date)    // user
+                                print(end_date)      // user
+                                print(tueStartTime) //server
+                                print(tueEndTime)   // server
                                 
-                                let currentGMTOffset1: Int? = CurrentTimeZone?.secondsFromGMT(for: Start)
-                                let SystemGMTOffset1: Int = SystemTimeZone.secondsFromGMT(for: Start)
-                                let interval1 = TimeInterval((SystemGMTOffset1 - currentGMTOffset1!))
-                                let Munday_start = Date(timeInterval: interval1, since: Start)
+                                let statr_server = dateFormatter2.string(from: tueStartTime)
+                                let end_server = dateFormatter2.string(from: tueEndTime)
                                 
-                                let timearr1 = tueEndTime.components(separatedBy: ":")
-                                let hour1 = Int(timearr1[0])
-                                let minutestring1 =  (timearr1[1])
-                                let arrminute1 = minutestring1.components(separatedBy: " ")
-                                let minute1 =  Int(arrminute1[0])
-                                let End = Calendar.current.date(bySettingHour: hour1!, minute: minute1!, second: 0, of: Date())!
+                                print(statr_server)
+                                print(end_server)
                                 
-                                let currentGMTOffset2: Int? = CurrentTimeZone?.secondsFromGMT(for: End)
-                                let SystemGMTOffset2: Int = SystemTimeZone.secondsFromGMT(for: End)
-                                let interval2 = TimeInterval((SystemGMTOffset2 - currentGMTOffset2!))
-                                let Munday_end = Date(timeInterval: interval2, since: End)
+                                let firsttime = start_date!.time >= (tueStartTime.time)
+                                let secondtime = end_date!.time <= (tueEndTime.time)
                                 
-                                let currentGMTOffset3: Int? = CurrentTimeZone?.secondsFromGMT(for: start_date!)
-                                let SystemGMTOffset3: Int = SystemTimeZone.secondsFromGMT(for: start_date!)
-                                let interval3 = TimeInterval((SystemGMTOffset2 - currentGMTOffset2!))
-                                let user_start = Date(timeInterval: interval2, since: start_date!)
+                                print(firsttime)
+                                print(secondtime)
                                 
-                                let currentGMTOffset4: Int? = CurrentTimeZone?.secondsFromGMT(for: end_date!)
-                                let SystemGMTOffset4: Int = SystemTimeZone.secondsFromGMT(for: end_date!)
-                                let interval4 = TimeInterval((SystemGMTOffset4 - currentGMTOffset4!))
-                                let user_end = Date(timeInterval: interval4, since: end_date!)
                                 
-                                if user_start < Munday_start && user_end < Munday_end{
+                                if firsttime == true && secondtime == true{
+                                    print("yes")
                                     arr_search_spot.add(arrspot.object(at: i))
                                 }
+                                
                                 
                             }
                             
@@ -497,47 +567,33 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                             let arrwed = datedaydict.value(forKey: "Wednesday") as! NSArray
                             for m in 0..<arrwed.count{
                                 
-                                let wedStartTime =  dict_spot.value(forKey: "wedStartTime") as! String
-                                let wedEndTime =  dict_spot.value(forKey: "wedEndTime") as! String
+                                let wedStartTime = dateconvertServer(userdate: dict_spot.value(forKey: "wedStartTime") as! String)
+                                let wedEndTime = dateconvertServer(userdate: dict_spot.value(forKey: "wedEndTime")  as! String)
                                 
-                                let timearr = wedStartTime.components(separatedBy: ":")
-                                let hour = Int(timearr[0])
-                                let minutestring =  (timearr[1])
-                                let arrminute = minutestring.components(separatedBy: " ")
-                                let minute =  Int(arrminute[0])
-                                let Start = Calendar.current.date(bySettingHour: hour!, minute: minute!, second: 0, of: Date())!
+                                print(start_date)    // user
+                                print(end_date)      // user
+                                print(wedStartTime) //server
+                                print(wedEndTime)   // server
                                 
-                                let currentGMTOffset1: Int? = CurrentTimeZone?.secondsFromGMT(for: Start)
-                                let SystemGMTOffset1: Int = SystemTimeZone.secondsFromGMT(for: Start)
-                                let interval1 = TimeInterval((SystemGMTOffset1 - currentGMTOffset1!))
-                                let Munday_start = Date(timeInterval: interval1, since: Start)
+                                let statr_server = dateFormatter2.string(from: wedStartTime)
+                                let end_server = dateFormatter2.string(from: wedEndTime)
                                 
-                                let timearr1 = wedEndTime.components(separatedBy: ":")
-                                let hour1 = Int(timearr1[0])
-                                let minutestring1 =  (timearr1[1])
-                                let arrminute1 = minutestring1.components(separatedBy: " ")
-                                let minute1 =  Int(arrminute1[0])
-                                let End = Calendar.current.date(bySettingHour: hour1!, minute: minute1!, second: 0, of: Date())!
+                                print(statr_server)
+                                print(end_server)
                                 
-                                let currentGMTOffset2: Int? = CurrentTimeZone?.secondsFromGMT(for: End)
-                                let SystemGMTOffset2: Int = SystemTimeZone.secondsFromGMT(for: End)
-                                let interval2 = TimeInterval((SystemGMTOffset2 - currentGMTOffset2!))
-                                let Munday_end = Date(timeInterval: interval2, since: End)
+                                let firsttime = start_date!.time >= (wedStartTime.time)
+                                let secondtime = end_date!.time <= (wedEndTime.time)
                                 
-                                let currentGMTOffset3: Int? = CurrentTimeZone?.secondsFromGMT(for: start_date!)
-                                let SystemGMTOffset3: Int = SystemTimeZone.secondsFromGMT(for: start_date!)
-                                let interval3 = TimeInterval((SystemGMTOffset2 - currentGMTOffset2!))
-                                let user_start = Date(timeInterval: interval2, since: start_date!)
-                                
-                                let currentGMTOffset4: Int? = CurrentTimeZone?.secondsFromGMT(for: end_date!)
-                                let SystemGMTOffset4: Int = SystemTimeZone.secondsFromGMT(for: end_date!)
-                                let interval4 = TimeInterval((SystemGMTOffset4 - currentGMTOffset4!))
-                                let user_end = Date(timeInterval: interval4, since: end_date!)
+                                print(firsttime)
+                                print(secondtime)
                                 
                                 
-                                if user_start < Munday_start && user_end < Munday_end{
+                                if firsttime == true && secondtime == true{
+                                    print("yes")
                                     arr_search_spot.add(arrspot.object(at: i))
                                 }
+                                
+                               
                             }
                         }
                         
@@ -547,47 +603,32 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                             
                             let arrThu = datedaydict.value(forKey: "Thursday") as! NSArray
                             for m in 0..<arrThu.count{
-                                let thuStartTime =  dict_spot.value(forKey: "thuStartTime") as! String
-                                let thuEndTime =  dict_spot.value(forKey: "thuEndTime")  as! String
+                                let thuStartTime = dateconvertServer(userdate: dict_spot.value(forKey: "thuStartTime") as! String)
+                                let thuEndTime = dateconvertServer(userdate: dict_spot.value(forKey: "thuEndTime")  as! String)
                                 
-                                let timearr = thuStartTime.components(separatedBy: ":")
-                                let hour = Int(timearr[0])
-                                let minutestring =  (timearr[1])
-                                let arrminute = minutestring.components(separatedBy: " ")
-                                let minute =  Int(arrminute[0])
-                                let Start = Calendar.current.date(bySettingHour: hour!, minute: minute!, second: 0, of: Date())!
+                                print(start_date)    // user
+                                print(end_date)      // user
+                                print(thuStartTime) //server
+                                print(thuEndTime)   // server
                                 
-                                let currentGMTOffset1: Int? = CurrentTimeZone?.secondsFromGMT(for: Start)
-                                let SystemGMTOffset1: Int = SystemTimeZone.secondsFromGMT(for: Start)
-                                let interval1 = TimeInterval((SystemGMTOffset1 - currentGMTOffset1!))
-                                let Munday_start = Date(timeInterval: interval1, since: Start)
+                                let statr_server = dateFormatter2.string(from: thuStartTime)
+                                let end_server = dateFormatter2.string(from: thuEndTime)
                                 
-                                let timearr1 = thuEndTime.components(separatedBy: ":")
-                                let hour1 = Int(timearr1[0])
-                                let minutestring1 =  (timearr1[1])
-                                let arrminute1 = minutestring1.components(separatedBy: " ")
-                                let minute1 =  Int(arrminute1[0])
-                                let End = Calendar.current.date(bySettingHour: hour1!, minute: minute1!, second: 0, of: Date())!
+                                print(statr_server)
+                                print(end_server)
                                 
-                                let currentGMTOffset2: Int? = CurrentTimeZone?.secondsFromGMT(for: End)
-                                let SystemGMTOffset2: Int = SystemTimeZone.secondsFromGMT(for: End)
-                                let interval2 = TimeInterval((SystemGMTOffset2 - currentGMTOffset2!))
-                                let Munday_end = Date(timeInterval: interval2, since: End)
+                                let firsttime = start_date!.time >= (thuStartTime.time)
+                                let secondtime = end_date!.time <= (thuEndTime.time)
                                 
-                                let currentGMTOffset3: Int? = CurrentTimeZone?.secondsFromGMT(for: start_date!)
-                                let SystemGMTOffset3: Int = SystemTimeZone.secondsFromGMT(for: start_date!)
-                                let interval3 = TimeInterval((SystemGMTOffset2 - currentGMTOffset2!))
-                                let user_start = Date(timeInterval: interval2, since: start_date!)
-                                
-                                let currentGMTOffset4: Int? = CurrentTimeZone?.secondsFromGMT(for: end_date!)
-                                let SystemGMTOffset4: Int = SystemTimeZone.secondsFromGMT(for: end_date!)
-                                let interval4 = TimeInterval((SystemGMTOffset4 - currentGMTOffset4!))
-                                let user_end = Date(timeInterval: interval4, since: end_date!)
+                                print(firsttime)
+                                print(secondtime)
                                 
                                 
-                                if user_start < Munday_start && user_end < Munday_end{
+                                if firsttime == true && secondtime == true{
+                                    print("yes")
                                     arr_search_spot.add(arrspot.object(at: i))
                                 }
+                                
                             }
                         }
                     }
@@ -596,46 +637,34 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                             
                             let arrFri = datedaydict.value(forKey: "Friday") as! NSArray
                             for m in 0..<arrFri.count{
-                                let friStartTime =  dict_spot.value(forKey: "friStartTime") as! String
-                                let friEndTime =  dict_spot.value(forKey: "friEndTime") as! String
                                 
-                                let timearr = friStartTime.components(separatedBy: ":")
-                                let hour = Int(timearr[0])
-                                let minutestring =  (timearr[1])
-                                let arrminute = minutestring.components(separatedBy: " ")
-                                let minute =  Int(arrminute[0])
-                                let Start = Calendar.current.date(bySettingHour: hour!, minute: minute!, second: 0, of: Date())!
+                                let friStartTime = dateconvertServer(userdate: dict_spot.value(forKey: "friStartTime") as! String)
+                                let friEndTime = dateconvertServer(userdate: dict_spot.value(forKey: "friEndTime")  as! String)
                                 
-                                let currentGMTOffset1: Int? = CurrentTimeZone?.secondsFromGMT(for: Start)
-                                let SystemGMTOffset1: Int = SystemTimeZone.secondsFromGMT(for: Start)
-                                let interval1 = TimeInterval((SystemGMTOffset1 - currentGMTOffset1!))
-                                let Munday_start = Date(timeInterval: interval1, since: Start)
+                                print(start_date)    // user
+                                print(end_date)      // user
+                                print(friStartTime) //server
+                                print(friEndTime)   // server
                                 
-                                let timearr1 = friEndTime.components(separatedBy: ":")
-                                let hour1 = Int(timearr1[0])
-                                let minutestring1 =  (timearr1[1])
-                                let arrminute1 = minutestring1.components(separatedBy: " ")
-                                let minute1 =  Int(arrminute1[0])
-                                let End = Calendar.current.date(bySettingHour: hour1!, minute: minute1!, second: 0, of: Date())!
+                                let statr_server = dateFormatter2.string(from: friStartTime)
+                                let end_server = dateFormatter2.string(from: friEndTime)
                                 
-                                let currentGMTOffset2: Int? = CurrentTimeZone?.secondsFromGMT(for: End)
-                                let SystemGMTOffset2: Int = SystemTimeZone.secondsFromGMT(for: End)
-                                let interval2 = TimeInterval((SystemGMTOffset2 - currentGMTOffset2!))
-                                let Munday_end = Date(timeInterval: interval2, since: End)
+                                print(statr_server)
+                                print(end_server)
                                 
-                                let currentGMTOffset3: Int? = CurrentTimeZone?.secondsFromGMT(for: start_date!)
-                                let SystemGMTOffset3: Int = SystemTimeZone.secondsFromGMT(for: start_date!)
-                                let interval3 = TimeInterval((SystemGMTOffset2 - currentGMTOffset2!))
-                                let user_start = Date(timeInterval: interval2, since: start_date!)
+                                let firsttime = start_date!.time >= (friStartTime.time)
+                                let secondtime = end_date!.time <= (friEndTime.time)
                                 
-                                let currentGMTOffset4: Int? = CurrentTimeZone?.secondsFromGMT(for: end_date!)
-                                let SystemGMTOffset4: Int = SystemTimeZone.secondsFromGMT(for: end_date!)
-                                let interval4 = TimeInterval((SystemGMTOffset4 - currentGMTOffset4!))
-                                let user_end = Date(timeInterval: interval4, since: end_date!)
+                                print(firsttime)
+                                print(secondtime)
                                 
-                                if user_start < Munday_start && user_end < Munday_end{
+                                
+                                if firsttime == true && secondtime == true{
+                                    print("yes")
                                     arr_search_spot.add(arrspot.object(at: i))
                                 }
+                                
+                               
                             }
                         }
                     }
@@ -643,46 +672,33 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                         if (arrspot.object(at: i) as! NSDictionary).value(forKey: "satswitch") as! Bool == true{
                             let arrsat = datedaydict.value(forKey: "Saturday") as! NSArray
                             for m in 0..<arrsat.count{
-                                let satStartTime =  dict_spot.value(forKey: "satStartTime") as! String
-                                let satEndTime =  dict_spot.value(forKey: "satEndTime")  as! String
+                                let satStartTime = dateconvertServer(userdate: dict_spot.value(forKey: "satStartTime") as! String)
+                                let satEndTime = dateconvertServer(userdate: dict_spot.value(forKey: "satEndTime")  as! String)
                                 
-                                let timearr = satStartTime.components(separatedBy: ":")
-                                let hour = Int(timearr[0])
-                                let minutestring =  (timearr[1])
-                                let arrminute = minutestring.components(separatedBy: " ")
-                                let minute =  Int(arrminute[0])
-                                let Start = Calendar.current.date(bySettingHour: hour!, minute: minute!, second: 0, of: Date())!
+                                print(start_date)    // user
+                                print(end_date)      // user
+                                print(satStartTime) //server
+                                print(satEndTime)   // server
                                 
-                                let currentGMTOffset1: Int? = CurrentTimeZone?.secondsFromGMT(for: Start)
-                                let SystemGMTOffset1: Int = SystemTimeZone.secondsFromGMT(for: Start)
-                                let interval1 = TimeInterval((SystemGMTOffset1 - currentGMTOffset1!))
-                                let Munday_start = Date(timeInterval: interval1, since: Start)
+                                let statr_server = dateFormatter2.string(from: satStartTime)
+                                let end_server = dateFormatter2.string(from: satEndTime)
                                 
-                                let timearr1 = satEndTime.components(separatedBy: ":")
-                                let hour1 = Int(timearr1[0])
-                                let minutestring1 =  (timearr1[1])
-                                let arrminute1 = minutestring1.components(separatedBy: " ")
-                                let minute1 =  Int(arrminute1[0])
-                                let End = Calendar.current.date(bySettingHour: hour1!, minute: minute1!, second: 0, of: Date())!
+                                print(statr_server)
+                                print(end_server)
                                 
-                                let currentGMTOffset2: Int? = CurrentTimeZone?.secondsFromGMT(for: End)
-                                let SystemGMTOffset2: Int = SystemTimeZone.secondsFromGMT(for: End)
-                                let interval2 = TimeInterval((SystemGMTOffset2 - currentGMTOffset2!))
-                                let Munday_end = Date(timeInterval: interval2, since: End)
+                                let firsttime = start_date!.time >= (satStartTime.time)
+                                let secondtime = end_date!.time <= (satEndTime.time)
                                 
-                                let currentGMTOffset3: Int? = CurrentTimeZone?.secondsFromGMT(for: start_date!)
-                                let SystemGMTOffset3: Int = SystemTimeZone.secondsFromGMT(for: start_date!)
-                                let interval3 = TimeInterval((SystemGMTOffset2 - currentGMTOffset2!))
-                                let user_start = Date(timeInterval: interval2, since: start_date!)
+                                print(firsttime)
+                                print(secondtime)
                                 
-                                let currentGMTOffset4: Int? = CurrentTimeZone?.secondsFromGMT(for: end_date!)
-                                let SystemGMTOffset4: Int = SystemTimeZone.secondsFromGMT(for: end_date!)
-                                let interval4 = TimeInterval((SystemGMTOffset4 - currentGMTOffset4!))
-                                let user_end = Date(timeInterval: interval4, since: end_date!)
                                 
-                                if user_start < Munday_start && user_end < Munday_end{
+                                if firsttime == true && secondtime == true{
+                                    print("yes")
                                     arr_search_spot.add(arrspot.object(at: i))
                                 }
+                                
+                                
                             }
                         }
                     }
@@ -690,7 +706,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             }
             // Search Data load marker:-
             Search_Spot()
-        }
+            }
         Date_VIew.isHidden = true
     }
     
@@ -856,10 +872,9 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                             
                             print(theKey)
                             print(theValue)
-                        
-                           self.arrspot.add(theValue)
-                          
-                        }
+                          self.arrspot.add(theValue)
+                            
+                          }
                         //self.loadEventsToMap(lat: self.userlatitude, long: self.userlongitude)
                     }
                 }
@@ -867,110 +882,44 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                 var spot_array:NSMutableArray = NSMutableArray()
                 if self.arrspot.count > 0 {
                    
-                     for i in 0 ..< self.arrspot.count {
+                     for tag in 0 ..< self.arrspot.count {
+                        let marker = GMSMarker()
+                        let lat1 = (self.arrspot.object(at: tag) as! NSDictionary).value(forKey: "user_lat") as! String
+                        let long1 = (self.arrspot.object(at: tag) as! NSDictionary).value(forKey: "user_long") as! String
+                        let lat = (lat1 as NSString).doubleValue
+                        let long = (long1 as NSString).doubleValue
+                        marker.position = CLLocationCoordinate2DMake(lat, long)
+                        marker.map = self.mapView
+                        let price = (self.arrspot.object(at: tag) as! NSDictionary).value(forKey: "hourlyPricing") as! String
+                        var doller = String()
+                        for (index, character) in price.enumerated() {
+                            if index < 4 {
+                                doller.append(character)
+                            }
+                        }
+                        marker.infoWindowAnchor = CGPoint(x: 0.5, y: 0.2)
+                        marker.accessibilityLabel = "\(tag)"
                         
-                        if dayInWeek == "Monday"{
-                            if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "monswitch") as! Bool == true{
-                            self.get_todaySpots(tag: i)
-                            }
-                            if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "tueswitch") as! Bool == true{
-                             self.get_todaySpots(tag: i)
-                            }
-                            if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "wedswitch") as! Bool == true{
-                               self.get_todaySpots(tag: i)
-                            }
-                            if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "thuswitch") as! Bool == true{
-                            self.get_todaySpots(tag: i)
-                            }
-                            if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "friswitch") as! Bool == true{
-                          self.get_todaySpots(tag: i)
-                            }
-                            if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "satswitch") as! Bool == true{
-                             self.get_todaySpots(tag: i)
-                            }
-                            if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "sunswitch") as! Bool == true{
-                              self.get_todaySpots(tag: i)
-                            }
-                        }
-                        else if dayInWeek == "Tuesday"{
-                            if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "tueswitch") as! Bool == true{
-                              self.get_todaySpots(tag: i)
-                            }
-                            if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "wedswitch") as! Bool == true{
-                             self.get_todaySpots(tag: i)
-                            }
-                            if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "thuswitch") as! Bool == true{
-                             self.get_todaySpots(tag: i)
-                            }
-                            if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "friswitch") as! Bool == true{
-                               self.get_todaySpots(tag: i)
-                            }
-                            if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "satswitch") as! Bool == true{
-                                self.get_todaySpots(tag: i)
-                            }
-                            if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "sunswitch") as! Bool == true{
-                              self.get_todaySpots(tag: i)
-                            }
-                        }
-                        else if dayInWeek == "Wednesday"{
-                                
-                                if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "wedswitch") as! Bool == true{
-                                   self.get_todaySpots(tag: i)
-                                }
-                                if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "thuswitch") as! Bool == true{
-                                     self.get_todaySpots(tag: i)
-                                }
-                                if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "friswitch") as! Bool == true{
-                                  self.get_todaySpots(tag: i)
-                                }
-                                if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "satswitch") as! Bool == true{
-                                    self.get_todaySpots(tag: i)
-                                }
-                                if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "sunswitch") as! Bool == true{
-                                         self.get_todaySpots(tag: i)
-                            }
-                            
-                        }
-                        else if dayInWeek == "Thursday"{
-                                    if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "thuswitch") as! Bool == true{
-                                         self.get_todaySpots(tag: i)
-                                    }
-                                    if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "friswitch") as! Bool == true{
-                                            self.get_todaySpots(tag: i)
-                                    }
-                                    if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "satswitch") as! Bool == true{
-                                             self.get_todaySpots(tag: i)
-                                    }
-                                    if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "sunswitch") as! Bool == true{
-                                            self.get_todaySpots(tag: i)
-                            }
-                            
-                        }
-                        else if dayInWeek == "Friday"{
-                                        if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "friswitch") as! Bool == true{
-                                             self.get_todaySpots(tag: i)
-                                        }
-                                        if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "satswitch") as! Bool == true{
-                                           self.get_todaySpots(tag: i)
-                                        }
-                                        if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "sunswitch") as! Bool == true{
-                                              self.get_todaySpots(tag: i)
-                                        }
-                        }
-                        else if dayInWeek == "Saturday"{
-                                            if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "satswitch") as! Bool == true{
-                                                  self.get_todaySpots(tag: i)
-                                            }
-                                            if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "sunswitch") as! Bool == true{
-                                                self.get_todaySpots(tag: i)
-                                            }
-                         }
-                        else {
-                       if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "sunswitch") as! Bool == true{
-                        self.get_todaySpots(tag: i)
-                            
-                        }
-                        }
+                        var markerimg = UIImageView()
+                        let customView = UIView()
+                        customView.frame = CGRect.init(x: 0, y: 0, width: 60, height: 60)
+                        markerimg  = UIImageView(frame:CGRect(x:0, y:0, width:60, height:60));
+                        markerimg.image = UIImage(named:"markers")
+                        markerimg.backgroundColor = UIColor.clear
+                        customView.addSubview(markerimg)
+                        let lbl_marker = UILabel()
+                        lbl_marker.frame = CGRect(x: 0, y: (markerimg.frame.height/2)-25, width: markerimg.frame.width, height: 40)
+                        markerimg.addSubview(lbl_marker)
+                        
+                        lbl_marker.textAlignment = .center
+                        lbl_marker.numberOfLines = 1;
+                        lbl_marker.text = "$\(doller)"
+                        lbl_marker.minimumScaleFactor = 0.5;
+                        lbl_marker.adjustsFontSizeToFitWidth = true;
+                        lbl_marker.textColor = UIColor.black
+                        customView.backgroundColor = UIColor.clear
+                        marker.iconView = customView
+                        
                      }
                      Spinner.stop()
                 }
@@ -1317,14 +1266,17 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int){
+        let today = Date()
+        
         if pickerView == timpic1{
             format1 = timearray[row]
         }
-        if pickerView == timpic1{
+        if pickerView == timepic2{
             format2 = timearray[row]
         }
     }
     
+   
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return timearray[row]
     }
@@ -1340,8 +1292,77 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         pickerLabel?.text = "     \(timearray[row])"
         return pickerLabel!;
     }
+    
+    func dateconvertServer(userdate:String) -> Date {
+        
+        let timearr = userdate.components(separatedBy: ":")
+        let hour = Int(timearr[0])
+        let minutestring =  (timearr[1])
+        let arrminute = minutestring.components(separatedBy: " ")
+        let minute =  Int(arrminute[0])
+        let Start = Calendar.current.date(bySettingHour: hour!, minute: minute!, second: 0, of: Date())!
+        
+        let CurrentTimeZone = NSTimeZone(abbreviation: "GMT")
+        let SystemTimeZone = NSTimeZone.system as NSTimeZone
+        let currentGMTOffset: Int? = CurrentTimeZone?.secondsFromGMT(for: Start)
+        let SystemGMTOffset: Int = SystemTimeZone.secondsFromGMT(for: Start)
+        let interval = TimeInterval((SystemGMTOffset - currentGMTOffset!))
+        let userdata = Date(timeInterval: interval, since: Start)
+        
+        return userdata
+        
+    }
+    
+    func dateconvert(userdate:Date) -> Date{
+        let CurrentTimeZone = NSTimeZone(abbreviation: "GMT")
+        let SystemTimeZone = NSTimeZone.system as NSTimeZone
+        let currentGMTOffset: Int? = CurrentTimeZone?.secondsFromGMT(for: userdate)
+        let SystemGMTOffset: Int = SystemTimeZone.secondsFromGMT(for: userdate)
+        let interval = TimeInterval((SystemGMTOffset - currentGMTOffset!))
+        let userdata = Date(timeInterval: interval, since: userdate)
+        
+        return userdata
+    }
+    
 }
 
+extension Date {
+    var time: Time {
+        return Time(self)
+    }
+    
+    
+}
+
+
+/*
+ else if start_date == Date(){
+ let myStringafd = dateFormatter2.string(from: start_date!)
+ if timesymbol == "PM"{
+ if myStringafd.contains("AM"){
+ 
+ let alert = UIAlertController(title: "Spotbirdparking", message: "Invalid Start Time.", preferredStyle: .alert)
+ alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+ self.present(alert, animated: true, completion: nil)
+ }
+ }
+ 
+ }
+ else  if end_date == Date(){
+ let myStringafd = dateFormatter2.string(from: end_date!)
+ if timesymbol == "PM"{
+ if myStringafd.contains("AM"){
+ let alert = UIAlertController(title: "Spotbirdparking", message: "Invalid End Time.", preferredStyle: .alert)
+ alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+ self.present(alert, animated: true, completion: nil)
+ }
+ }
+ 
+ }
+ 
+ 
+ 
+ */
 
 //                            let Sundaystart = formatter.string(from: datestart!)
 //                            print(Sundaystart)
@@ -1424,3 +1445,84 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
 //                        print(Sundayend_)
 
 
+//dateFormatter.dateFormat = "dd-MM-yyyy"
+//var Munday_start = dateFormatter.string(from: start_date!)
+//print(Munday_start)
+//
+//dateFormatter.dateFormat = "dd-MM-yyyy"
+//var Munday_end = dateFormatter.string(from: end_date!)
+//print(Munday_end)
+
+
+
+//   MUNDAY : -
+
+/*
+
+let timearr = monStartTime.components(separatedBy: ":")
+let hour = Int(timearr[0])
+let minutestring =  (timearr[1])
+let arrminute = minutestring.components(separatedBy: " ")
+let minute =  Int(arrminute[0])
+let Start = Calendar.current.date(bySettingHour: hour!, minute: minute!, second: 0, of: Date())!
+
+let currentGMTOffset1: Int? = CurrentTimeZone?.secondsFromGMT(for: Start)
+let SystemGMTOffset1: Int = SystemTimeZone.secondsFromGMT(for: Start)
+let interval1 = TimeInterval((SystemGMTOffset1 - currentGMTOffset1!))
+let Munday_start = Date(timeInterval: interval1, since: Start)
+
+let timearr1 = monEndTime.components(separatedBy: ":")
+let hour1 = Int(timearr1[0])
+let minutestring1 =  (timearr1[1])
+let arrminute1 = minutestring1.components(separatedBy: " ")
+let minute1 =  Int(arrminute1[0])
+let End = Calendar.current.date(bySettingHour: hour1!, minute: minute1!, second: 0, of: Date())!
+
+let currentGMTOffset2: Int? = CurrentTimeZone?.secondsFromGMT(for: End)
+let SystemGMTOffset2: Int = SystemTimeZone.secondsFromGMT(for: End)
+let interval2 = TimeInterval((SystemGMTOffset2 - currentGMTOffset2!))
+let Munday_end = Date(timeInterval: interval2, since: End)
+
+//
+//                                let currentGMTOffset3: Int? = CurrentTimeZone?.secondsFromGMT(for: start_date!)
+//                                let SystemGMTOffset3: Int = SystemTimeZone.secondsFromGMT(for: start_date!)
+//                                let interval3 = TimeInterval((SystemGMTOffset2 - currentGMTOffset2!))
+//                                let user_start = Date(timeInterval: interval2, since: start_date!)
+//
+//                                let currentGMTOffset4: Int? = CurrentTimeZone?.secondsFromGMT(for: end_date!)
+//                                let SystemGMTOffset4: Int = SystemTimeZone.secondsFromGMT(for: end_date!)
+//                                let interval4 = TimeInterval((SystemGMTOffset4 - currentGMTOffset4!))
+//                                let user_end = Date(timeInterval: interval4, since: end_date!)
+//
+//                                if user_start < Munday_start {
+//                                    print("Munday_start\(Munday_start)")
+//                                }else{
+//                                    print("Munday_start\(user_start)")
+//                                }
+//
+//                                if user_end < Munday_end {
+//                                    print("Munday_start\(Munday_end)")
+//                                }
+//                                else{
+//                                    print("Munday_start\(user_end)")
+//                                }
+//
+//                                print(user_start)   // user
+//                                print(user_end)     // user
+//                                print(Munday_start) // server
+//                                print(Munday_end)   // server
+
+//                                let monStartTime =  dict_spot.value(forKey: "monStartTime") as! String
+//                                let monEndTime =  dict_spot.value(forKey: "monEndTime")  as! String
+
+//                                let s = dateFormatter1.string(from:start_datepic.date)
+//                                let s1 = dateFormatter1.string(from:start_datepic.date)
+//                                let str = s + " \(monStartTime)"
+//                                let str1 =  s1 + " \(monEndTime)"
+//                                print(str)
+//                                print(str1)
+//                                let time1 = dateFormatter2.date(from:str)
+//                                let time2 = dateFormatter2.date(from:str1)
+
+
+*/

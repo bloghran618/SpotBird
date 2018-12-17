@@ -23,6 +23,7 @@ class AppState {
     var activeSpot: Spot
     var reservations: [Reservation]
     var userid = ""
+     var change = ""
    
     static let appStateRoot = Database.database().reference() // can change root
     let storageRef = Storage.storage().reference()

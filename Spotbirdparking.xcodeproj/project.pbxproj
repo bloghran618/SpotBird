@@ -17,6 +17,7 @@
 		044217B52189BDF700946D91 /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044217B42189BDF600946D91 /* CustomView.swift */; };
 		044217B72189BE2200946D91 /* Screen Shot 2018-10-31 at 4.07.08 PM.png in Resources */ = {isa = PBXBuildFile; fileRef = 044217B62189BE2100946D91 /* Screen Shot 2018-10-31 at 4.07.08 PM.png */; };
 		04B4D5952163BDF400F49505 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04B4D5942163BDF400F49505 /* GoogleService-Info.plist */; };
+		04CE142E21C5257A00338DEE /* Timeclass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CE142D21C5257A00338DEE /* Timeclass.swift */; };
 		04E63848216211AD003EAC28 /* Signup_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E63847216211AD003EAC28 /* Signup_ViewController.swift */; };
 		04E6384A2162722F003EAC28 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E638492162722F003EAC28 /* CoreLocation.framework */; };
 		5FF0A639CF1B4D96F7FBA93E /* Pods_Spotbirdparking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 004FEE7D57FACF9250B89078 /* Pods_Spotbirdparking.framework */; };
@@ -73,6 +74,7 @@
 		044217B42189BDF600946D91 /* CustomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
 		044217B62189BE2100946D91 /* Screen Shot 2018-10-31 at 4.07.08 PM.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Screen Shot 2018-10-31 at 4.07.08 PM.png"; sourceTree = "<group>"; };
 		04B4D5942163BDF400F49505 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		04CE142D21C5257A00338DEE /* Timeclass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timeclass.swift; sourceTree = "<group>"; };
 		04E63847216211AD003EAC28 /* Signup_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signup_ViewController.swift; sourceTree = "<group>"; };
 		04E638492162722F003EAC28 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		0E75364D0721806783610271 /* Pods-SpotbirdparkingTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpotbirdparkingTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SpotbirdparkingTests/Pods-SpotbirdparkingTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -143,6 +145,7 @@
 				043E033621746CF300134F78 /* iToast.h */,
 				043E033521746CF300134F78 /* iToast.m */,
 				043E033421746CF100134F78 /* Spotbirdparking-Bridging-Header.h */,
+				04CE142D21C5257A00338DEE /* Timeclass.swift */,
 			);
 			path = Third_Partys;
 			sourceTree = "<group>";
@@ -475,6 +478,7 @@
 				B75AE7B920C496B40069A151 /* CarsTableViewCell.swift in Sources */,
 				B7141A4D20ED1DAF005B54D3 /* MyAPIClient.swift in Sources */,
 				B7B67FE320C34A7400A13FD0 /* CarsViewController.swift in Sources */,
+				04CE142E21C5257A00338DEE /* Timeclass.swift in Sources */,
 				0406E62A21620AD900C3E97B /* Login_ViewController.swift in Sources */,
 				B7A35D4120F5AA4500E4B566 /* AddressViewController.swift in Sources */,
 			);

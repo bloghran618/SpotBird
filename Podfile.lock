@@ -96,7 +96,7 @@ DEPENDENCIES:
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
-  - Firebase/Storage
+  - Firebase/Storage (~> 5.0)
   - GoogleMaps
   - GooglePlacePicker
   - GooglePlaces
@@ -155,6 +155,6 @@ SPEC CHECKSUMS:
   SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
   Stripe: db29ad197c74aca6fb981e4e8355cf7ebd0fca5a
 
-PODFILE CHECKSUM: ce6b4447180f6ae9cea905bc6f2ad44d4d6bdc10
+PODFILE CHECKSUM: 28239f5ef698a5677a8c9708e4d48d99598c375a
 
 COCOAPODS: 1.5.3

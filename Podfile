@@ -10,7 +10,7 @@ target 'Spotbirdparking' do
   pod 'Alamofire'
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
-  pod 'Firebase/Storage'
+  pod 'Firebase/Storage', '~> 5.0'
   pod 'Firebase/Database'
   pod 'SDWebImage'
   pod 'GoogleMaps'

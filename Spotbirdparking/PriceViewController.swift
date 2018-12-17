@@ -127,6 +127,8 @@ class PriceViewController: UIViewController, UITextFieldDelegate,CLLocationManag
         
         let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController]
         self.navigationController!.popToViewController(viewControllers[viewControllers.count - 5], animated: true)
+        
+       AppState.sharedInstance.change = "change"
 
         if AppState.sharedInstance.activeSpot.spot_id == "" {
          AppState.sharedInstance.activeSpot.Save_Spot(SpotID:"")
@@ -134,6 +136,7 @@ class PriceViewController: UIViewController, UITextFieldDelegate,CLLocationManag
         else{
          AppState.sharedInstance.activeSpot.Save_Spot(SpotID:AppState.sharedInstance.activeSpot.spot_id)
         }
+        
      }
 }
 
