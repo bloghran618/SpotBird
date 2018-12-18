@@ -39,7 +39,8 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
             ProfileTableOption(option: "Cars", description: "Create and set default cars", logoImageName: "EmptyCar"),
             ProfileTableOption(option: "Payment", description: "Manage your payment options", logoImageName: "dollarSign"),
             ProfileTableOption(option: "List", description: "Share your spot", logoImageName: "Share"),
-            ProfileTableOption(option: "Test Stripe", description: "To be torn down later", logoImageName: "test")
+            ProfileTableOption(option: "Test Stripe", description: "To be torn down later", logoImageName: "test"),
+            ProfileTableOption(option: "Enable Payouts", description: "Authorize payouts to bank account", logoImageName: "downarrow.png")
         ]
     }
     
@@ -94,6 +95,9 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
 //            // Present payment methods view controller
 //            let navigationController = UINavigationController(rootViewController: paymentMethodsViewController)
 //            present(navigationController, animated: true)
+        }
+        else if profileOptions![(indexPath as NSIndexPath).row].option == "Enable Payouts" {
+            self.performSegue(withIdentifier: "Payouts", sender: self)
         }
     }
     
