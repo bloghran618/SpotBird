@@ -436,7 +436,23 @@ class User {
     }
     
     
+    // Set token
+    func setaccountToken(accountToken:String)  {
+    AppState.sharedInstance.accountToken = accountToken
+     }
     
+    func setcustomerToken(customerToken:String)  {
+        AppState.sharedInstance.customerToken = customerToken
+    }
+    
+     // get token
+    func getaccountToken() ->String   {
+        return AppState.sharedInstance.accountToken
+    }
+    
+    func getcustomerToken(customerToken:String) ->String  {
+        return AppState.sharedInstance.customerToken
+    }
     
     
     /*

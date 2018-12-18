@@ -24,6 +24,8 @@ class AppState {
     var reservations: [Reservation]
     var userid = ""
      var change = ""
+    var accountToken = String()
+    var customerToken = String()
    
     static let appStateRoot = Database.database().reference() // can change root
     let storageRef = Storage.storage().reference()
