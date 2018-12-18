@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="88Y-zQ-ULl">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="88Y-zQ-ULl">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -362,6 +362,166 @@
             </objects>
             <point key="canvasLocation" x="742" y="-344"/>
         </scene>
+        <!--Enable Payouts-->
+        <scene sceneID="cqm-bR-7te">
+            <objects>
+                <viewController title="Enable Payouts" id="Mzv-un-pCS" customClass="PayoutsViewController" customModule="Spotbirdparking" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="wcz-IE-gPY">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Cj-sV-WHh">
+                                <rect key="frame" x="0.0" y="64" width="375" height="554"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="97G-pw-h7U">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="678.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZX3-2P-wRr">
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3aQ-Iu-wxH">
+                                                <rect key="frame" x="0.0" y="24.5" width="375" height="30"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Last" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="M8Q-ef-3hg">
+                                                <rect key="frame" x="0.0" y="58.5" width="375" height="30"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K85-h1-EtI">
+                                                <rect key="frame" x="0.0" y="92.5" width="375" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Line 1" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AU6-fW-nwj">
+                                                <rect key="frame" x="0.0" y="117" width="375" height="30"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Line 2" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dK6-Eg-tb3">
+                                                <rect key="frame" x="0.0" y="151" width="375" height="30"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="City" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="unY-hW-K6I">
+                                                <rect key="frame" x="0.0" y="185" width="375" height="30"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="State" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xIE-e0-V17">
+                                                <rect key="frame" x="0.0" y="219" width="375" height="30"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                                <connections>
+                                                    <outlet property="delegate" destination="Mzv-un-pCS" id="bbB-kM-enK"/>
+                                                </connections>
+                                            </textField>
+                                            <pickerView hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D4r-s4-Sye">
+                                                <rect key="frame" x="0.0" y="251" width="375" height="0.0"/>
+                                                <connections>
+                                                    <outlet property="dataSource" destination="Mzv-un-pCS" id="md3-et-P63"/>
+                                                    <outlet property="delegate" destination="Mzv-un-pCS" id="4cu-cP-XVy"/>
+                                                </connections>
+                                            </pickerView>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Zip" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Umc-gM-Ja1">
+                                                <rect key="frame" x="0.0" y="253" width="375" height="30"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date of Birth" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xSH-bI-JSU">
+                                                <rect key="frame" x="0.0" y="287" width="375" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" useCurrentDate="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vst-Cx-5e0">
+                                                <rect key="frame" x="0.0" y="311.5" width="375" height="216"/>
+                                                <date key="date" timeIntervalSinceReferenceDate="-189290029.272735">
+                                                    <!--1995-01-02 03:26:10 +0000-->
+                                                </date>
+                                            </datePicker>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last 4 Digits Social Security Nubmer" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CZp-Zn-6Lf">
+                                                <rect key="frame" x="0.0" y="531.5" width="375" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Last 4" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3hk-jN-Av3">
+                                                <rect key="frame" x="0.0" y="556" width="375" height="30"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Account Info" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zAm-FB-lWl">
+                                                <rect key="frame" x="0.0" y="590" width="375" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Routing Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cXq-hl-nzw">
+                                                <rect key="frame" x="0.0" y="614.5" width="375" height="30"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Account Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9Jt-Pz-SAD">
+                                                <rect key="frame" x="0.0" y="648.5" width="375" height="30"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="97G-pw-h7U" firstAttribute="top" secondItem="2Cj-sV-WHh" secondAttribute="top" id="81u-3O-sKv"/>
+                                    <constraint firstAttribute="trailing" secondItem="97G-pw-h7U" secondAttribute="trailing" id="Zt8-YM-FfO"/>
+                                    <constraint firstItem="97G-pw-h7U" firstAttribute="width" secondItem="2Cj-sV-WHh" secondAttribute="width" id="dgo-Lf-Kd1"/>
+                                    <constraint firstAttribute="bottom" secondItem="97G-pw-h7U" secondAttribute="bottom" id="fXW-Xb-QaM"/>
+                                    <constraint firstItem="97G-pw-h7U" firstAttribute="leading" secondItem="2Cj-sV-WHh" secondAttribute="leading" id="qMF-2g-iRk"/>
+                                </constraints>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="2Cj-sV-WHh" firstAttribute="leading" secondItem="dvK-bx-SqO" secondAttribute="leading" id="BzS-X2-oMw"/>
+                            <constraint firstItem="dvK-bx-SqO" firstAttribute="bottom" secondItem="2Cj-sV-WHh" secondAttribute="bottom" id="Okw-bc-nXn"/>
+                            <constraint firstItem="dvK-bx-SqO" firstAttribute="trailing" secondItem="2Cj-sV-WHh" secondAttribute="trailing" id="drT-R8-StJ"/>
+                            <constraint firstItem="2Cj-sV-WHh" firstAttribute="top" secondItem="dvK-bx-SqO" secondAttribute="top" id="ig2-QP-0wK"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="dvK-bx-SqO"/>
+                    </view>
+                    <connections>
+                        <outlet property="accountNumberField" destination="9Jt-Pz-SAD" id="y7q-aJ-EM6"/>
+                        <outlet property="cityAddressField" destination="unY-hW-K6I" id="HXc-ww-cNt"/>
+                        <outlet property="dateOfBirthDatePicker" destination="Vst-Cx-5e0" id="X0t-0w-QAI"/>
+                        <outlet property="firstNameField" destination="3aQ-Iu-wxH" id="DtS-Fr-fpT"/>
+                        <outlet property="last4SocialField" destination="3hk-jN-Av3" id="Fqx-nZ-f2s"/>
+                        <outlet property="lastNameField" destination="M8Q-ef-3hg" id="WzB-u7-RA1"/>
+                        <outlet property="line1AddressField" destination="AU6-fW-nwj" id="EJi-nu-0xs"/>
+                        <outlet property="line2AddressField" destination="dK6-Eg-tb3" id="iuf-c6-pKu"/>
+                        <outlet property="routingNumberField" destination="cXq-hl-nzw" id="euj-Wn-VlE"/>
+                        <outlet property="stateAddressField" destination="xIE-e0-V17" id="cob-TT-qbo"/>
+                        <outlet property="stateDropDown" destination="D4r-s4-Sye" id="Ja4-2i-1JF"/>
+                        <outlet property="zipAddressField" destination="Umc-gM-Ja1" id="uGO-lf-jSi"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="O0g-9Y-AEM" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1545" y="-1057"/>
+        </scene>
         <!--ProfileTableViewContorller-->
         <scene sceneID="jy6-GF-F9x">
             <objects>
@@ -405,6 +565,7 @@
                         <segue destination="g1R-Fe-m4C" kind="show" identifier="You" id="qfj-IF-I7j"/>
                         <segue destination="JUt-VR-hJv" kind="show" identifier="Cars" id="SWG-Zv-ggL"/>
                         <segue destination="E72-Yy-gA8" kind="show" identifier="Share" id="Jfy-1G-W2m"/>
+                        <segue destination="Mzv-un-pCS" kind="show" identifier="Payouts" id="e8T-ZO-Z6H"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ovw-0h-ibs" userLabel="First Responder" sceneMemberID="firstResponder"/>

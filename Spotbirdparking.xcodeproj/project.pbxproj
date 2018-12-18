@@ -29,6 +29,7 @@
 		B71F2DF22086CDAA00F47274 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B71F2DF02086CDAA00F47274 /* LaunchScreen.storyboard */; };
 		B71F2DFD2086CDAA00F47274 /* SpotbirdparkingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71F2DFC2086CDAA00F47274 /* SpotbirdparkingTests.swift */; };
 		B72D8BE420D0B6BE0038310F /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = B72D8BE320D0B6BE0038310F /* CheckBox.swift */; };
+		B735CB9621C8A2EA00946C73 /* PayoutsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B735CB9521C8A2EA00946C73 /* PayoutsViewController.swift */; };
 		B7364D0620B65B390081F40F /* ProfileTableOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7364D0520B65B390081F40F /* ProfileTableOption.swift */; };
 		B7364D0820B65F120081F40F /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7364D0720B65F120081F40F /* ProfileTableViewController.swift */; };
 		B7445D67212B967C0063F58D /* Spot.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7445D66212B967C0063F58D /* Spot.swift */; };
@@ -95,6 +96,7 @@
 		B71F2DFC2086CDAA00F47274 /* SpotbirdparkingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotbirdparkingTests.swift; sourceTree = "<group>"; };
 		B71F2DFE2086CDAA00F47274 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B72D8BE320D0B6BE0038310F /* CheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
+		B735CB9521C8A2EA00946C73 /* PayoutsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayoutsViewController.swift; sourceTree = "<group>"; };
 		B7364D0520B65B390081F40F /* ProfileTableOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableOption.swift; sourceTree = "<group>"; };
 		B7364D0720B65F120081F40F /* ProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
 		B7445D66212B967C0063F58D /* Spot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spot.swift; sourceTree = "<group>"; };
@@ -209,6 +211,7 @@
 				B7F9425820FD903D001B421E /* SpotImageViewController.swift */,
 				B77D9345211A807700D505BD /* ScheduleViewController.swift */,
 				B702B111212E361D004B3EF1 /* PriceViewController.swift */,
+				B735CB9521C8A2EA00946C73 /* PayoutsViewController.swift */,
 				B74DE6ED2178100F0049A31B /* ReservationsViewController.swift */,
 				B7BC7104218166AE00EE6F7A /* CustomCell.swift */,
 				B79D514A218BDA4E001EFE1C /* ByDayResTableViewCell.swift */,
@@ -460,6 +463,7 @@
 				B7445D67212B967C0063F58D /* Spot.swift in Sources */,
 				B75AE7BB20C4B63D0069A151 /* CarsDefinitionViewController.swift in Sources */,
 				B77D9346211A807700D505BD /* ScheduleViewController.swift in Sources */,
+				B735CB9621C8A2EA00946C73 /* PayoutsViewController.swift in Sources */,
 				B7364D0620B65B390081F40F /* ProfileTableOption.swift in Sources */,
 				B7BC7105218166AE00EE6F7A /* CustomCell.swift in Sources */,
 				0426E0382164F97D0017E88B /* PriceViewController.swift in Sources */,
