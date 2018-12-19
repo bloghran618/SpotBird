@@ -35,7 +35,7 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
         super.viewDidLoad()
         
         profileOptions = [
-            ProfileTableOption(option: "You", description: "Tell us about yourself", logoImageName: "EmptyProfile"),
+            ProfileTableOption(option: "You", description: "Tell us about yourself", logoImageName: "youImage"),
             ProfileTableOption(option: "Cars", description: "Create and set default cars", logoImageName: "EmptyCar"),
             ProfileTableOption(option: "Payment", description: "Manage your payment options", logoImageName: "dollarSign"),
             ProfileTableOption(option: "List", description: "Share your spot", logoImageName: "Share"),
