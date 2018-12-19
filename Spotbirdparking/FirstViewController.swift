@@ -120,10 +120,10 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         dateFormatter.dateFormat = "MMM, dd, YYYY, H:mm:ss"
         
         timearrayset()
-      start_datepic.minimumDate = Date()
-      end_datepic.minimumDate = Date()
+        start_datepic.minimumDate = Date()
+        end_datepic.minimumDate = Date()
         // list load
-         AppState.sharedInstance.activeSpot.getSpots()
+        AppState.sharedInstance.activeSpot.getSpots()
     }
     
     func timearrayset()  {
