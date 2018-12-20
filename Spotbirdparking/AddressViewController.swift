@@ -67,6 +67,11 @@ class AddressViewController: UIViewController, UITextFieldDelegate,CLLocationMan
         super.viewWillAppear(animated)
         self.mapView.layer.borderWidth = 1
         self.mapView.layer.borderColor = UIColor(red:222/255, green:225/255, blue:227/255, alpha: 1).cgColor
+        
+        let date = Date()
+        
+        
+        
       }
     
     // Button Search :-
@@ -329,7 +334,7 @@ func viewController(_ viewController: GMSAutocompleteViewController, didAutocomp
        }
     
         self.locationManager.startUpdatingLocation()
-       self.nextButton.isEnabled = false
+       self.nextButton.isEnabled = true
       }
     
     func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {

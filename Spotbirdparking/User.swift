@@ -61,17 +61,16 @@ class User {
             cars[0].isDefault = true
         }
         return
-    }
+     }
     
     //TODO: Fill this in
 //    public func setReservations(reservation: [Reservation]) {
 //
 //    }
-//    
+  
 //    public func getReservations() -> [Reservation] {
 //
 //    }
-    
     
     // Get database to car
     public func Get_UserProfile() {
