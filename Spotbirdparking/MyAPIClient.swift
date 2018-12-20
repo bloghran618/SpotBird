@@ -14,6 +14,7 @@ class MyAPIClient: NSObject, STPEphemeralKeyProvider {
     
     static let sharedClient = MyAPIClient()
     var baseURLString: String? = "https://stripe-example-backend619.herokuapp.com/"
+//    var baseURLString: String? = "https://spotbird-stripe-backend-bloughran618.herokuapp.com/"
     var baseURL: URL {
         if let urlString = self.baseURLString, let url = URL(string: urlString) {
             return url
