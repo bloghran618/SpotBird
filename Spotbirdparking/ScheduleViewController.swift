@@ -40,20 +40,29 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate{
     
     let monstart = "12:00 PM"
     let monend = " 12:00 AM"
+    
     let tuestart = "12:00 PM"
     let tueend = "12:00 AM"
+    
     let wedstart = "12:00 PM"
     let wedend = "12:00 AM"
+    
     let thustart = "12:00 PM"
     let thuend = "12:00 AM"
+    
     let fristart = "12:00 PM"
     let friend = "12:00 AM"
+    
     let satstart = "12:00 PM"
     let satend = "12:00 AM"
+    
     let sunstart = "12:00 PM"
     let sunend = "12:00 AM"
     
     private var datePicker: UIDatePicker?
+    
+    let dateFormatter = DateFormatter()
+   
     
     
     override func viewDidLoad() {
@@ -176,27 +185,24 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate{
         satSwitch.setOn(AppState.sharedInstance.activeSpot.satOn, animated: true)
         sunSwitch.setOn(AppState.sharedInstance.activeSpot.sunOn, animated: true)
         
+        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
+        dateFormatter.dateFormat = "hh:mm a"
+        print(AppState.sharedInstance.activeSpot.thuStartTime)
+        print(AppState.sharedInstance.activeSpot.thuEndTime)
+        
      }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
    // Monday
     @objc func monStartDatePickerValueChanged(_ sender: UIDatePicker) {
-        //        let DatePickerView: UIDatePicker = UIDatePicker()
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        dateFormatter.dateFormat = "hh:mm a"
         AppState.sharedInstance.activeSpot.monStartTime = dateFormatter.string(from: sender.date)
         monStartTime.text = AppState.sharedInstance.activeSpot.monStartTime
     }
     
     @objc func monEndDatePickerValueChanged(_ sender: UIDatePicker) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "en_US_POSTIX")
-        dateFormatter.dateFormat = "hh:mm a"
         AppState.sharedInstance.activeSpot.monEndTime = dateFormatter.string(from: sender.date)
         monEndTime.text = AppState.sharedInstance.activeSpot.monEndTime
     }
@@ -222,19 +228,12 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate{
     
     // Tuesday
     @objc func tueStartDatePickerValueChanged(_ sender: UIDatePicker) {
-        //        let DatePickerView: UIDatePicker = UIDatePicker()
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        dateFormatter.dateFormat = "hh:mm a"
         AppState.sharedInstance.activeSpot.tueStartTime = dateFormatter.string(from: sender.date)
         tueStartTime.text = AppState.sharedInstance.activeSpot.tueStartTime
     }
     
     @objc func tueEndDatePickerValueChanged(_ sender: UIDatePicker) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "en_US_POSTIX")
-        dateFormatter.dateFormat = "hh:mm a"
-        AppState.sharedInstance.activeSpot.tueEndTime = dateFormatter.string(from: sender.date)
+         AppState.sharedInstance.activeSpot.tueEndTime = dateFormatter.string(from: sender.date)
         tueEndTime.text = AppState.sharedInstance.activeSpot.tueEndTime
     }
     
@@ -258,19 +257,12 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate{
     
     // Wednesday
     @objc func wedStartDatePickerValueChanged(_ sender: UIDatePicker) {
-        //        let DatePickerView: UIDatePicker = UIDatePicker()
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        dateFormatter.dateFormat = "hh:mm a"
         AppState.sharedInstance.activeSpot.wedStartTime = dateFormatter.string(from: sender.date)
         wedStartTime.text = AppState.sharedInstance.activeSpot.wedStartTime
     }
     
     @objc func wedEndDatePickerValueChanged(_ sender: UIDatePicker) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "en_US_POSTIX")
-        dateFormatter.dateFormat = "hh:mm a"
-        AppState.sharedInstance.activeSpot.wedEndTime = dateFormatter.string(from: sender.date)
+         AppState.sharedInstance.activeSpot.wedEndTime = dateFormatter.string(from: sender.date)
         wedEndTime.text = AppState.sharedInstance.activeSpot.wedEndTime
     }
     
@@ -294,18 +286,11 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate{
     
     // Thursday
     @objc func thuStartDatePickerValueChanged(_ sender: UIDatePicker) {
-        //        let DatePickerView: UIDatePicker = UIDatePicker()
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        dateFormatter.dateFormat = "hh:mm a"
         AppState.sharedInstance.activeSpot.thuStartTime = dateFormatter.string(from: sender.date)
         thuStartTime.text = AppState.sharedInstance.activeSpot.thuStartTime
     }
     
     @objc func thuEndDatePickerValueChanged(_ sender: UIDatePicker) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "en_US_POSTIX")
-        dateFormatter.dateFormat = "hh:mm a"
         AppState.sharedInstance.activeSpot.thuEndTime = dateFormatter.string(from: sender.date)
         thuEndTime.text = AppState.sharedInstance.activeSpot.thuEndTime
     }
@@ -330,18 +315,11 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate{
     
     // Friday
     @objc func friStartDatePickerValueChanged(_ sender: UIDatePicker) {
-        //        let DatePickerView: UIDatePicker = UIDatePicker()
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        dateFormatter.dateFormat = "hh:mm a"
         AppState.sharedInstance.activeSpot.friStartTime = dateFormatter.string(from: sender.date)
         friStartTime.text = AppState.sharedInstance.activeSpot.friStartTime
     }
     
     @objc func friEndDatePickerValueChanged(_ sender: UIDatePicker) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "en_US_POSTIX")
-        dateFormatter.dateFormat = "hh:mm a"
         AppState.sharedInstance.activeSpot.friEndTime = dateFormatter.string(from: sender.date)
         friEndTime.text = AppState.sharedInstance.activeSpot.friEndTime
     }
@@ -366,18 +344,11 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate{
     
     // Saturday
     @objc func satStartDatePickerValueChanged(_ sender: UIDatePicker) {
-        //        let DatePickerView: UIDatePicker = UIDatePicker()
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        dateFormatter.dateFormat = "hh:mm a"
         AppState.sharedInstance.activeSpot.satStartTime = dateFormatter.string(from: sender.date)
         satStartTime.text = AppState.sharedInstance.activeSpot.satStartTime
     }
     
     @objc func satEndDatePickerValueChanged(_ sender: UIDatePicker) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "en_US_POSTIX")
-        dateFormatter.dateFormat = "hh:mm a"
         AppState.sharedInstance.activeSpot.satEndTime = dateFormatter.string(from: sender.date)
         satEndTime.text = AppState.sharedInstance.activeSpot.satEndTime
     }
@@ -402,18 +373,11 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate{
     
     // Sunday
     @objc func sunStartDatePickerValueChanged(_ sender: UIDatePicker) {
-        //        let DatePickerView: UIDatePicker = UIDatePicker()
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX")
-        dateFormatter.dateFormat = "hh:mm a"
         AppState.sharedInstance.activeSpot.sunStartTime = dateFormatter.string(from: sender.date)
         sunStartTime.text = AppState.sharedInstance.activeSpot.sunStartTime
     }
     
     @objc func sunEndDatePickerValueChanged(_ sender: UIDatePicker) {
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "en_US_POSTIX")
-        dateFormatter.dateFormat = "hh:mm a"
         AppState.sharedInstance.activeSpot.sunEndTime = dateFormatter.string(from: sender.date)
         sunEndTime.text = AppState.sharedInstance.activeSpot.sunEndTime
     }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="88Y-zQ-ULl">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="88Y-zQ-ULl">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -116,7 +116,7 @@
                                         </date>
                                     </datePicker>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K1h-2H-jBz">
-                                        <rect key="frame" x="223" y="57.5" width="100" height="216"/>
+                                        <rect key="frame" x="224" y="57.5" width="99" height="216"/>
                                         <color key="backgroundColor" red="0.0" green="0.47058823529999999" blue="0.52156862749999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="tintColor" red="0.0" green="0.47058823529411764" blue="0.52156862745098043" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
@@ -125,7 +125,7 @@
                                         </connections>
                                     </pickerView>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mCf-3K-Sne">
-                                        <rect key="frame" x="223" y="297" width="100" height="216"/>
+                                        <rect key="frame" x="224" y="297" width="99" height="216"/>
                                         <color key="backgroundColor" red="0.0" green="0.47058823529999999" blue="0.52156862749999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="tintColor" red="0.0" green="0.47058823529999999" blue="0.52156862749999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <connections>
@@ -141,7 +141,7 @@
                                     <constraint firstItem="mCf-3K-Sne" firstAttribute="leading" secondItem="K1h-2H-jBz" secondAttribute="leading" id="6LE-UW-wHf"/>
                                     <constraint firstAttribute="trailing" secondItem="NDz-9g-HdA" secondAttribute="trailing" constant="-46" id="A5Z-cO-drn"/>
                                     <constraint firstAttribute="trailing" secondItem="zPI-A6-UFv" secondAttribute="trailing" constant="-46" id="JoU-a7-AGN"/>
-                                    <constraint firstItem="K1h-2H-jBz" firstAttribute="leading" secondItem="czQ-MO-hkx" secondAttribute="leading" constant="223" id="MM1-wU-fUb"/>
+                                    <constraint firstItem="K1h-2H-jBz" firstAttribute="leading" secondItem="czQ-MO-hkx" secondAttribute="leading" constant="224" id="MM1-wU-fUb"/>
                                     <constraint firstItem="LiC-XT-Ter" firstAttribute="centerX" secondItem="czQ-MO-hkx" secondAttribute="centerX" id="OKM-Uf-5Qk"/>
                                     <constraint firstItem="mCf-3K-Sne" firstAttribute="height" secondItem="K1h-2H-jBz" secondAttribute="height" id="Pww-M6-OSn"/>
                                     <constraint firstAttribute="trailing" secondItem="MnO-zb-khj" secondAttribute="trailing" constant="2" id="TeX-oR-feY"/>
@@ -2216,7 +2216,7 @@
     </scenes>
     <resources>
         <image name="EmptyProfile" width="552" height="552"/>
-        <image name="Profile" width="25" height="25"/>
+        <image name="Profile" width="37" height="37"/>
         <image name="Reservations" width="25" height="25"/>
         <image name="addButton" width="376" height="379"/>
         <image name="cal_new" width="25" height="23"/>

@@ -120,10 +120,10 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         dateFormatter.dateFormat = "MMM, dd, YYYY, H:mm:ss"
         
         timearrayset()
-      start_datepic.minimumDate = Date()
-      end_datepic.minimumDate = Date()
+        start_datepic.minimumDate = Date()
+        end_datepic.minimumDate = Date()
         // list load
-         AppState.sharedInstance.activeSpot.getSpots()
+        AppState.sharedInstance.activeSpot.getSpots()
     }
     
     func timearrayset()  {
@@ -522,26 +522,19 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                 let sunStartTime = dateconvertServer(userdate: dict_spot.value(forKey: "sunStartTime") as! String)
                                 let sunEndTime = dateconvertServer(userdate: dict_spot.value(forKey: "sunEndTime")  as! String)
                                 
-                                print(start_date)    // user
-                                print(end_date)      // user
-                                print(sunStartTime) //server
-                                print(sunEndTime)   // server
+                                let server_start1 = datetotime(userdate: sunStartTime)
+                                let server_end1 = datetotime(userdate: sunEndTime)
+                                print("server   - \(server_start1)")     // server
+                                print("server     - \(server_end1)")     // server
                                 
-                                let statr_server = dateFormatter2.string(from: sunStartTime)
-                                let end_server = dateFormatter2.string(from: sunEndTime)
+                                let user_start = datetotime(userdate: start_date!)
+                                let user_end = datetotime(userdate: end_date!)
                                 
-                                print(statr_server)
-                                print(end_server)
-                                
-                                let firsttime = start_date!.time >= (sunStartTime.time)
-                                let secondtime = end_date!.time <= (sunEndTime.time)
-                                
-                                print(firsttime)
-                                print(secondtime)
+                                print("user_start   - \(user_start)")     // user
+                                print("user_end     - \(user_end)")     // user
                                 
                                 
-                                if firsttime == true && secondtime == true{
-                                    print("yes")
+                                if user_start >= server_start1 && user_end <= server_end1{
                                     arr_search_spot.add(arrspot.object(at: i))
                                 }
                                 
@@ -557,22 +550,19 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                 let Munday_start = dateconvertServer(userdate: dict_spot.value(forKey: "monStartTime") as! String)
                                let Munday_end = dateconvertServer(userdate: dict_spot.value(forKey: "monEndTime")  as! String)
                                 
-                                print(start_date)    // user
-                                print(end_date)      // user
-                                print(Munday_start) //server
-                                print(Munday_end)   // server
+                                let server_start1 = datetotime(userdate: Munday_start)
+                                let server_end1 = datetotime(userdate: Munday_end)
+                                print("server   - \(server_start1)")     // server
+                                print("server     - \(server_end1)")     // server
+                                
+                                let user_start = datetotime(userdate: start_date!)
+                                let user_end = datetotime(userdate: end_date!)
+                                
+                                print("user_start   - \(user_start)")     // user
+                                print("user_end     - \(user_end)")     // user
                                 
                                 
-                                
-                                let firsttime = start_date!.time >= (Munday_start.time)
-                                let secondtime = end_date!.time <= (Munday_end.time)
-                                
-                                print(firsttime)
-                                print(secondtime)
-                                
-                                
-                                if firsttime == true && secondtime == true{
-                                    print("yes")
+                                if user_start >= server_start1 && user_end <= server_end1{
                                     arr_search_spot.add(arrspot.object(at: i))
                                 }
                               
@@ -588,29 +578,20 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                 let tueStartTime = dateconvertServer(userdate: dict_spot.value(forKey: "tueStartTime") as! String)
                                 let tueEndTime = dateconvertServer(userdate: dict_spot.value(forKey: "tueEndTime")  as! String)
                                 
-                                print(start_date)    // user
-                                print(end_date)      // user
-                                print(tueStartTime) //server
-                                print(tueEndTime)   // server
+                               
+                                let server_start1 = datetotime(userdate: tueStartTime)
+                                let server_end1 = datetotime(userdate: tueEndTime)
+                                print("server   - \(server_start1)")     // server
+                                print("server     - \(server_end1)")     // server
                                 
-                                let statr_server = dateFormatter2.string(from: tueStartTime)
-                                let end_server = dateFormatter2.string(from: tueEndTime)
+                                let user_start = datetotime(userdate: start_date!)
+                                let user_end = datetotime(userdate: end_date!)
                                 
-                                print("statr_server\(statr_server)")
-                                print("end_server\(end_server)")
-                                
-                                let firsttime = start_date!.time >= (tueStartTime.time)
-                                let secondtime = end_date!.time <= (tueEndTime.time)
-                                
-                                print(firsttime)
-                                print(secondtime)
+                                print("user_start   - \(user_start)")     // user
+                                print("user_end     - \(user_end)")     // user
                                 
                                 
-                                
-                                
-                                
-                                if firsttime == true && secondtime == true{
-                                    print("yes")
+                                if user_start >= server_start1 && user_end <= server_end1{
                                     arr_search_spot.add(arrspot.object(at: i))
                                 }
                                 
@@ -629,59 +610,49 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                      let wedStartTime = dateconvertServer(userdate: dict_spot.value(forKey: "wedStartTime") as! String)
                      let wedEndTime = dateconvertServer(userdate: dict_spot.value(forKey: "wedEndTime")  as! String)
                                 
-                                print(start_date)    // user
-                                print(end_date)      // user
+                                let server_start1 = datetotime(userdate: wedStartTime)
+                                let server_end1 = datetotime(userdate: wedEndTime)
+                                print("server   - \(server_start1)")     // server
+                                print("server     - \(server_end1)")     // server
                                 
-                                print(wedStartTime) //server
-                                print(wedEndTime)   // server
+                                let user_start = datetotime(userdate: start_date!)
+                                let user_end = datetotime(userdate: end_date!)
+                                
+                                print("user_start   - \(user_start)")     // user
+                                print("user_end     - \(user_end)")     // user
                                 
                                 
-                                let firsttime = start_date!.time >= (wedStartTime.time)
-                                let secondtime = end_date!.time <= (wedEndTime.time)
-                                print(firsttime)
-                                print(secondtime)
-                                
-                                if firsttime == true && secondtime == true{
-                                    print("yes")
+                                if user_start >= server_start1 && user_end <= server_end1{
                                     arr_search_spot.add(arrspot.object(at: i))
                                 }
-                              
-                               
-                            }
+                             }
                         }
-                        
-                    }
+                     }
                     if arr_day[j] == "Thursday" {
                         if (arrspot.object(at: i) as! NSDictionary).value(forKey: "thuswitch") as! Bool == true{
                             
-                            let arrThu = datedaydict.value(forKey: "Thursday") as! NSArray
-                            for m in 0..<arrThu.count{
-                                let thuStartTime = dateconvertServer(userdate: dict_spot.value(forKey: "thuStartTime") as! String)
-                                let thuEndTime = dateconvertServer(userdate: dict_spot.value(forKey: "thuEndTime")  as! String)
-                                
-                                print(start_date)    // user
-                                print(end_date)      // user
-                                print(thuStartTime) //server
-                                print(thuEndTime)   // server
-                                
-                                let statr_server = dateFormatter2.string(from: thuStartTime)
-                                let end_server = dateFormatter2.string(from: thuEndTime)
-                                
-                                print(statr_server)
-                                print(end_server)
-                                
-                                let firsttime = start_date!.time >= (thuStartTime.time)
-                                let secondtime = end_date!.time <= (thuEndTime.time)
-                                
-                                print(firsttime)
-                                print(secondtime)
-                                
-                                
-                                if firsttime == true && secondtime == true{
-                                    print("yes")
-                                    arr_search_spot.add(arrspot.object(at: i))
-                                }
-                                
+                        let arrThu = datedaydict.value(forKey: "Thursday") as! NSArray
+                        for m in 0..<arrThu.count{
+                             
+                        let thuStartTime = dateconvertServer(userdate: dict_spot.value(forKey: "thuStartTime") as! String)
+                        let thuEndTime = dateconvertServer(userdate: dict_spot.value(forKey: "thuEndTime")  as! String)
+                      
+                            let server_start1 = datetotime(userdate: thuStartTime)
+                            let server_end1 = datetotime(userdate: thuEndTime)
+                            print("server   - \(server_start1)")     // server
+                            print("server     - \(server_end1)")     // server
+                            
+                            let user_start = datetotime(userdate: start_date!)
+                            let user_end = datetotime(userdate: end_date!)
+                            
+                            print("user_start   - \(user_start)")     // user
+                            print("user_end     - \(user_end)")     // user
+                            
+                            
+                            if user_start >= server_start1 && user_end <= server_end1{
+                                arr_search_spot.add(arrspot.object(at: i))
+                            }
+                            
                             }
                         }
                     }
@@ -694,26 +665,19 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                 let friStartTime = dateconvertServer(userdate: dict_spot.value(forKey: "friStartTime") as! String)
                                 let friEndTime = dateconvertServer(userdate: dict_spot.value(forKey: "friEndTime")  as! String)
                                 
-                                print(start_date)    // user
-                                print(end_date)      // user
-                                print(friStartTime) //server
-                                print(friEndTime)   // server
+                                let server_start1 = datetotime(userdate: friStartTime)
+                                let server_end1 = datetotime(userdate: friEndTime)
+                                print("server   - \(server_start1)")     // server
+                                print("server     - \(server_end1)")     // server
                                 
-                                let statr_server = dateFormatter2.string(from: friStartTime)
-                                let end_server = dateFormatter2.string(from: friEndTime)
+                                let user_start = datetotime(userdate: start_date!)
+                                let user_end = datetotime(userdate: end_date!)
                                 
-                                print(statr_server)
-                                print(end_server)
-                                
-                                let firsttime = start_date!.time >= (friStartTime.time)
-                                let secondtime = end_date!.time <= (friEndTime.time)
-                                
-                                print(firsttime)
-                                print(secondtime)
+                                print("user_start   - \(user_start)")     // user
+                                print("user_end     - \(user_end)")     // user
                                 
                                 
-                                if firsttime == true && secondtime == true{
-                                    print("yes")
+                                if user_start >= server_start1 && user_end <= server_end1{
                                     arr_search_spot.add(arrspot.object(at: i))
                                 }
                                 
@@ -728,26 +692,19 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                 let satStartTime = dateconvertServer(userdate: dict_spot.value(forKey: "satStartTime") as! String)
                                 let satEndTime = dateconvertServer(userdate: dict_spot.value(forKey: "satEndTime")  as! String)
                                 
-                                print(start_date)    // user
-                                print(end_date)      // user
-                                print(satStartTime) //server
-                                print(satEndTime)   // server
+                                let server_start1 = datetotime(userdate: satStartTime)
+                                let server_end1 = datetotime(userdate: satEndTime)
+                                print("server   - \(server_start1)")     // server
+                                print("server     - \(server_end1)")     // server
                                 
-                                let statr_server = dateFormatter2.string(from: satStartTime)
-                                let end_server = dateFormatter2.string(from: satEndTime)
+                                let user_start = datetotime(userdate: start_date!)
+                                let user_end = datetotime(userdate: end_date!)
                                 
-                                print(statr_server)
-                                print(end_server)
-                                
-                                let firsttime = start_date!.time >= (satStartTime.time)
-                                let secondtime = end_date!.time <= (satEndTime.time)
-                                
-                                print(firsttime)
-                                print(secondtime)
+                                print("user_start   - \(user_start)")     // user
+                                print("user_end     - \(user_end)")     // user
                                 
                                 
-                                if firsttime == true && secondtime == true{
-                                    print("yes")
+                                if user_start >= server_start1 && user_end <= server_end1{
                                     arr_search_spot.add(arrspot.object(at: i))
                                 }
                                 
@@ -757,6 +714,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                     }
                 }
             }
+        print(arr_search_spot)
             // Search Data load marker:-
             Search_Spot()
           Date_VIew.isHidden = true
@@ -1347,19 +1305,101 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     }
     
     func dateconvertServer(userdate:String) -> Date {
+        var today:Date?
+        let endIndex1 = userdate.index(userdate.endIndex, offsetBy: -6)
+        let str1 = userdate.substring(to: endIndex1)
+        let str2 = userdate.dropFirst(6)
+        let serverdate = "\(str1).\(str2)"
+        
+        print(serverdate)  // 12:AM
         
         let timearr = userdate.components(separatedBy: ":")
         let hour = Int(timearr[0])
         let minutestring =  (timearr[1])
         let arrminute = minutestring.components(separatedBy: " ")
         let minute =  Int(arrminute[0])
-        let Start = Calendar.current.date(bySettingHour: hour!, minute: minute!, second: 0, of: Date())!
+        
+        if serverdate.contains("12.AM"){ // 00:00
+        today = Calendar.current.date(bySettingHour: 24, minute: minute!, second: 0, of: Date())!
+        }
+        if serverdate.contains("01.AM"){  // 01:00
+         today = Calendar.current.date(bySettingHour: 01, minute: minute!, second: 0, of: Date())!
+        }
+        if serverdate.contains("02.AM"){ // 02:00
+         today = Calendar.current.date(bySettingHour: 02, minute: minute!, second: 0, of: Date())!
+        }
+        if serverdate.contains("03.AM"){ // 03:00
+        today = Calendar.current.date(bySettingHour: 03, minute: minute!, second: 0, of: Date())!
+        }
+        if serverdate.contains("04.AM"){ // 04:00
+        today = Calendar.current.date(bySettingHour: 04, minute: minute!, second: 0, of: Date())!
+        }
+        if serverdate.contains("05.AM"){ // 05:00
+         today = Calendar.current.date(bySettingHour: 05, minute: minute!, second: 0, of: Date())!
+        }
+        if serverdate.contains("06.AM"){  // 06:00
+         today = Calendar.current.date(bySettingHour: 06, minute: minute!, second: 0, of: Date())!
+        }
+        if serverdate.contains("07.AM"){  // 07:00
+         today = Calendar.current.date(bySettingHour: 07, minute: minute!, second: 0, of: Date())!
+        }
+        if serverdate.contains("08.AM"){  // 08:00
+         today = Calendar.current.date(bySettingHour: 08, minute: minute!, second: 0, of: Date())!
+        }
+        if serverdate.contains("09.AM"){  // 09:00
+        today = Calendar.current.date(bySettingHour: 09, minute: minute!, second: 0, of: Date())!
+        }
+        if serverdate.contains("10.AM"){  // 10:00
+         today = Calendar.current.date(bySettingHour: 10, minute: minute!, second: 0, of: Date())!
+        }
+        if serverdate.contains("11.AM"){  // 11:00
+        today = Calendar.current.date(bySettingHour: 11, minute: minute!, second: 0, of: Date())!
+        }
+        if serverdate.contains("12.PM"){  // 12:00
+            today = Calendar.current.date(bySettingHour: 12, minute: minute!, second: 0, of: Date())!
+        }
+        if serverdate.contains("01.PM"){  // 13:00
+           today = Calendar.current.date(bySettingHour: 13, minute: minute!, second: 0, of: Date())!
+        }
+        if serverdate.contains("02.PM"){   // 14:00
+            today = Calendar.current.date(bySettingHour: 14, minute: minute!, second: 0, of: Date())!
+        }
+        if serverdate.contains("03.PM"){   // 15:00
+        today = Calendar.current.date(bySettingHour: 15, minute: minute!, second: 0, of: Date())!
+        }
+        if serverdate.contains("04.PM"){   // 16:00
+        today = Calendar.current.date(bySettingHour: 16, minute: minute!, second: 0, of: Date())!
+        }
+        if serverdate.contains("05.PM"){   // 17:00
+        today = Calendar.current.date(bySettingHour: 17, minute: minute!, second: 0, of: Date())!
+        }
+        if serverdate.contains("06.PM"){   // 18:00
+        today = Calendar.current.date(bySettingHour: 18, minute: minute!, second: 0, of: Date())!
+        }
+        if serverdate.contains("07.PM"){   // 19:00
+        today = Calendar.current.date(bySettingHour: 19, minute: minute!, second: 0, of: Date())!
+        }
+        if serverdate.contains("08.PM"){   // 20:00
+        today = Calendar.current.date(bySettingHour: 20, minute: minute!, second: 0, of: Date())!
+        }
+        if serverdate.contains("09.PM"){  // 21:00
+        today = Calendar.current.date(bySettingHour: 21, minute: minute!, second: 0, of: Date())!
+        }
+        if serverdate.contains("10.PM"){  // 22:00
+        today = Calendar.current.date(bySettingHour: 22, minute: minute!, second: 0, of: Date())!
+        }
+        if serverdate.contains("11.PM"){  // 23:00
+        today = Calendar.current.date(bySettingHour: 23, minute: minute!, second: 0, of: Date())!
+        }
+        
+        print(today)
+        
         let CurrentTimeZone = NSTimeZone(abbreviation: "UTC")
         let SystemTimeZone = NSTimeZone.system as NSTimeZone
-        let currentGMTOffset: Int? = CurrentTimeZone?.secondsFromGMT(for: Start)
-        let SystemGMTOffset: Int = SystemTimeZone.secondsFromGMT(for: Start)
+        let currentGMTOffset: Int? = CurrentTimeZone?.secondsFromGMT(for: today!)
+        let SystemGMTOffset: Int = SystemTimeZone.secondsFromGMT(for: today!)
         let interval = TimeInterval((SystemGMTOffset - currentGMTOffset!))
-        let userdata = Date(timeInterval: interval, since: Start)
+        let userdata = Date(timeInterval: interval, since: today!)
         
        return userdata
         
@@ -1375,6 +1415,18 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         return userdata
     }
     
+    func datetotime(userdate:Date) -> String{
+    
+    print(userdate)
+        
+    dateFormatter.timeZone = NSTimeZone(abbreviation: "UTC") as! TimeZone
+    dateFormatter.amSymbol = "AM"
+    dateFormatter.pmSymbol = "PM"
+    dateFormatter.dateFormat = "HH"
+    let time = dateFormatter.string(from: userdate) //pass Date here
+    print(time)
+    return time
+    }
     
     
 }
@@ -1389,7 +1441,5 @@ extension Date {
         case OrderedSame
         case OrderedDescending
     }
-    
-    
 }
 

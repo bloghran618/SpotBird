@@ -67,6 +67,11 @@ class AddressViewController: UIViewController, UITextFieldDelegate,CLLocationMan
         super.viewWillAppear(animated)
         self.mapView.layer.borderWidth = 1
         self.mapView.layer.borderColor = UIColor(red:222/255, green:225/255, blue:227/255, alpha: 1).cgColor
+        
+        let date = Date()
+        
+        
+        
       }
     
     // Button Search :-
@@ -248,35 +253,66 @@ extension AddressViewController {
     }
     
     //MARK:_ GMSAutocompleteViewController
-    func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
+func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
         dismiss(animated: true, completion: nil)
         mapView.clear()
         spotcamera = true
-        
         AppState.sharedInstance.activeSpot.latitude = String(place.coordinate.latitude)
         AppState.sharedInstance.activeSpot.longitude =  String(place.coordinate.longitude)
+    var makeaddress = String()
         
-        print(place.coordinate.latitude)
-        print(AppState.sharedInstance.activeSpot.latitude)
+    for component in place.addressComponents!  {
+        print("type   -\(component.type)")
+         print("name   -\(component.name)")
         
+        if component.type == "street_number" {
+            makeaddress.append("\(component.name),")
+        }
+        if component.type == "route" {
+          makeaddress.append("\(component.name),")
+        }
+        if component.type == "neighborhood" {
+          makeaddress.append("\(component.name),")
+        }
+        
+      if component.type == "locality" {
+        self.townField.text = component.name
+        AppState.sharedInstance.activeSpot.town = component.name
+        }
+        if component.type == "administrative_area_level_1" {
+        self.stateField.text = component.name
+        AppState.sharedInstance.activeSpot.state = component.name
+        }
+        if component.type == "postal_code" {
+        self.zipField.text = component.name
+        AppState.sharedInstance.activeSpot.zipCode = component.name
+        }
+        
+    }
+        
+        if makeaddress.last == ","
+        {
+            makeaddress.removeLast()
+        }
+    self.addressField.text = makeaddress
+    
+    if makeaddress == "" {
         let cordinate:[String: CLLocationCoordinate2D] = ["cordinate": place.coordinate]
-        
-       let geocoder = GMSGeocoder()
+        let geocoder = GMSGeocoder()
             geocoder.reverseGeocodeCoordinate(place.coordinate) { response , error in
             
           //Add this line
                 if let address = response!.firstResult() {
                 print(address)
+                 
+                    if AppState.sharedInstance.activeSpot.zipCode == ""{
+                        self.zipField.text = address.postalCode!
+                        AppState.sharedInstance.activeSpot.zipCode = address.postalCode!
+                    }
                     
-              let lines = address.lines! as [String]
-                print(lines)
-                print(address.thoroughfare)
-                print(address.country)
-                print(address.locality)
-                print(address.postalCode)
-                print(address.subLocality)
                     
-                    if address.thoroughfare == nil{
+               let lines = address.lines! as [String]
+               if address.thoroughfare == nil{
                         if address.subLocality != nil{
                       self.addressField.text = address.subLocality
                         AppState.sharedInstance.activeSpot.address = address.subLocality!
@@ -293,24 +329,12 @@ extension AddressViewController {
                      AppState.sharedInstance.activeSpot.address = address.thoroughfare!
                     }
                     }
-                   
-                self.townField.text = address.locality
-                self.stateField.text = address.administrativeArea
-                self.zipField.text = address.postalCode
-                    
-                AppState.sharedInstance.activeSpot.town = address.locality!
-                AppState.sharedInstance.activeSpot.state = address.administrativeArea!
-                AppState.sharedInstance.activeSpot.zipCode = address.postalCode!
-                self.locationManager.startUpdatingLocation()
-                    
-                    if ((AppState.sharedInstance.activeSpot.address != "") && (AppState.sharedInstance.activeSpot.town != "")) && ((AppState.sharedInstance.activeSpot.zipCode != "") && (AppState.sharedInstance.activeSpot.state != "")) {
-                        self.nextButton.isEnabled = true
-                    }
-                    else {
-                        self.nextButton.isEnabled = false
-                    }
-                }
-            }
+                  }
+              }
+       }
+    
+        self.locationManager.startUpdatingLocation()
+       self.nextButton.isEnabled = true
       }
     
     func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
