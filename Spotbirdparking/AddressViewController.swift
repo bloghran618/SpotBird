@@ -144,8 +144,6 @@ class AddressViewController: UIViewController, UITextFieldDelegate,CLLocationMan
 // ADD NEW FUNCTIONALITY MAP : -
 extension AddressViewController {
     
-    
-    
     // MARK:- locationManagerDelegate
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
@@ -263,16 +261,16 @@ func viewController(_ viewController: GMSAutocompleteViewController, didAutocomp
         
     for component in place.addressComponents!  {
         print("type   -\(component.type)")
-         print("name   -\(component.name)")
+         print("name   -\(component.name) ")
         
         if component.type == "street_number" {
-            makeaddress.append("\(component.name),")
+            makeaddress.append("\(component.name) ")
         }
         if component.type == "route" {
-          makeaddress.append("\(component.name),")
+          makeaddress.append("\(component.name) ")
         }
         if component.type == "neighborhood" {
-          makeaddress.append("\(component.name),")
+          makeaddress.append("\(component.name) ")
         }
         
       if component.type == "locality" {
@@ -290,13 +288,10 @@ func viewController(_ viewController: GMSAutocompleteViewController, didAutocomp
         
     }
         
-        if makeaddress.last == ","
-        {
-            makeaddress.removeLast()
-        }
-    self.addressField.text = makeaddress
     
-    if makeaddress == "" {
+    self.addressField.text = makeaddress
+    AppState.sharedInstance.activeSpot.address = makeaddress
+    
         let cordinate:[String: CLLocationCoordinate2D] = ["cordinate": place.coordinate]
         let geocoder = GMSGeocoder()
             geocoder.reverseGeocodeCoordinate(place.coordinate) { response , error in
@@ -311,10 +306,12 @@ func viewController(_ viewController: GMSAutocompleteViewController, didAutocomp
                     }
                     
                     
-               let lines = address.lines! as [String]
+            let lines = address.lines! as [String]
+             if makeaddress == ""{
+                    
                if address.thoroughfare == nil{
                         if address.subLocality != nil{
-                      self.addressField.text = address.subLocality
+                       self.addressField.text = address.subLocality
                         AppState.sharedInstance.activeSpot.address = address.subLocality!
                         }
                     }
@@ -329,9 +326,10 @@ func viewController(_ viewController: GMSAutocompleteViewController, didAutocomp
                      AppState.sharedInstance.activeSpot.address = address.thoroughfare!
                     }
                     }
+                    }
                   }
               }
-       }
+       
     
         self.locationManager.startUpdatingLocation()
        self.nextButton.isEnabled = true

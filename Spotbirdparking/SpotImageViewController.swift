@@ -21,6 +21,9 @@ class SpotImageViewController: UIViewController, UITextViewDelegate, UIImagePick
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print(AppState.sharedInstance.activeSpot.address)
+        print(AppState.sharedInstance.activeSpot.state)
+        
        spotImagePicker.delegate = self
         spotImageView.isUserInteractionEnabled = true
         
