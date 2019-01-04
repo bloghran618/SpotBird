@@ -78,6 +78,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     var format1 = ""
     var format2 = ""
     let calendar = Calendar.current
+    var endChange = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -147,6 +148,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     // start date-
     @objc func startdatePickerChanged(picker: UIDatePicker) {
         
+       
+        /*
         print(picker.date)
        
         let myStringafd = dateFormatter2.string(from: picker.date)
@@ -178,7 +181,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             
          }
         
-        print(start_date)
+        print(start_date)  */
         
 //        dateFormatter.dateFormat = "EEE, MMM d, yyyy - h:mm a"
 //        dateFormatter.timeZone = NSTimeZone.local
@@ -204,6 +207,9 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     
     // end date-
     @objc func EnddatePickerChanged(picker: UIDatePicker) {
+        
+        endChange = true
+     /*
       dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:a"
         var str = dateFormatter2.string(from: picker.date)
         
@@ -231,7 +237,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             }
             print(end_date!)
         }
-        
+         */
+      
        
     }
     
@@ -260,12 +267,10 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     @IBAction func btn_Date_search_done(_ sender: UIButton) {
         
         var time1 = Bool()
-        var time2 = Bool()
-    
+       
         // start date time check today
-        if start_date != nil{
-            
-            let myStringafd = dateFormatter2.string(from: start_date!)
+            let myStringafd = dateFormatter2.string(from: start_datepic.date)
+            print(myStringafd)
             if myStringafd.contains("AM")
             {
                 if format1 == "AM"
@@ -290,34 +295,24 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                 }
                 print(start_date!)
             }
-            
-        let startint = dateconvert(userdate: start_date!)
-        let today1 = dateconvert(userdate: Date())
-        print(startint)
-        print(today1)
-            
-            let dateComparisionResult: ComparisonResult = startint.compare(today1)
-            print(dateComparisionResult)
-            
-            
-            if dateComparisionResult == ComparisonResult.orderedAscending
-            {
-                time1 = true
-            }
-            else if dateComparisionResult == ComparisonResult.orderedDescending
-            {
-               //time1 = false
-                
-            }
-            
-  
-            
-       }
+        
+      if (datetostring(dates: start_date!)) == (datetostring(dates: Date())) {
+        
+         let usertime = datetotime(userdate: dateconvert(userdate: start_date!))
+         print(usertime)
+        
+        let Datesystmem = datetotime(userdate: dateconvert(userdate: Date()))
+        print(Datesystmem)
+        
+        if usertime != Datesystmem && usertime < Datesystmem {
+            time1 = true
+        }
+     }
         
         print(time1)
         var firsttime = Bool()
         dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:a"
-        if start_date != nil &&  end_date == nil{
+        if endChange == false {
             print(start_date)
             print(end_date)
             
@@ -328,8 +323,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         }
         
         // End date time check today
-        if end_date != nil{
-            var str = dateFormatter2.string(from: end_date!)
+        if endChange == true {
+            var str = dateFormatter2.string(from: end_datepic.date)
             
             if str.contains("AM")
             {
@@ -357,69 +352,34 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                 }
                 print(end_date!)
             }
-            let startint = dateconvert(userdate: end_date!)
-            let today1 = dateconvert(userdate: Date())
-            let dateComparisionResult: ComparisonResult = startint.compare(today1)
-            print(dateComparisionResult)
             
-            
-            if dateComparisionResult == ComparisonResult.orderedAscending
-            {
-                time2 = true
-            }
-            else if dateComparisionResult == ComparisonResult.orderedDescending
-            {
-                //time1 = false
-                
-            }
         }
         
-    if start_date == nil{
-            let alert = UIAlertController(title: "Spotbirdparking", message: "Select an Appropriate Start date.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-        }
-         else if time1 == true{
+        start_date = dateconvert(userdate: start_date!)
+        end_date = dateconvert(userdate: end_date!)
+    
+        if time1 == true{
               time1 = false
               let alert = UIAlertController(title: "Spotbirdparking", message: "Invalid Start TIME", preferredStyle: .alert)
               alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
               self.present(alert, animated: true, completion: nil)
          }
-         else if start_date! >= end_date!
-        {
-             firsttime = start_date!.time > (end_date!.time)
+         else if (datetostring(dates: end_date!))  < (datetostring(dates: start_date!)) && (datetostring(dates: start_date!)) != (datetostring(dates: end_date!))
+         {
             let alert = UIAlertController(title: "Spotbirdparking", message: "Start date greater than End date.", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
-            
         }
-        else if time2 == true{
-            time2 = false
-            let alert = UIAlertController(title: "Spotbirdparking", message: "Invalid End TIME", preferredStyle: .alert)
+        else if (datetostring(dates: end_date!)) == (datetostring(dates: start_date!)) && end_date!.time < start_date!.time {
+            let alert = UIAlertController(title: "Spotbirdparking", message: "End Time greater than Start date.", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
-        }
-        else if firsttime == true
-        {
-            let firsttime = start_date!.time > (end_date!.time)
-            let alert = UIAlertController(title: "Spotbirdparking", message: "Start time greater than End time.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-            
         }
        else{
-        
             dateFormatter.dateFormat = "EEE, MMM d, yyyy - h:mm a"
             let localtime1 = dateFormatter2.string(from: start_date!)
             let localtime2 = dateFormatter2.string(from: end_date!)
-            
-            print(localtime1)
-            print(localtime2)
-         
-            start_date = dateconvert(userdate: start_date!)
-            end_date = dateconvert(userdate: end_date!)
-        
-           arr_search_spot.removeAllObjects()
+            arr_search_spot.removeAllObjects()
             
             var arr_date = [Date]()
             var arr_day = [String]()
@@ -428,12 +388,6 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                arr_date.append(date)
                date = calendar.date(byAdding: .day, value: 1, to: date)!
             }
-//            while start_datepic.date >= end_datepic.date {
-//                arr_date.append(start_datepic.date)
-//                i += 1
-//                print(i)
-//               // start_datepic.date = calendar.date(byAdding: .day, value: 1, to: start_datepic.date)!
-//            }
             if arr_date.count>0 {
                 for i in 0..<arr_date.count{
                     let dateformats = DateFormatter()
@@ -578,7 +532,6 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                 let tueStartTime = dateconvertServer(userdate: dict_spot.value(forKey: "tueStartTime") as! String)
                                 let tueEndTime = dateconvertServer(userdate: dict_spot.value(forKey: "tueEndTime")  as! String)
                                 
-                               
                                 let server_start1 = datetotime(userdate: tueStartTime)
                                 let server_end1 = datetotime(userdate: tueEndTime)
                                 print("server   - \(server_start1)")     // server
@@ -590,17 +543,12 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                 print("user_start   - \(user_start)")     // user
                                 print("user_end     - \(user_end)")     // user
                                 
-                                
                                 if user_start >= server_start1 && user_end <= server_end1{
                                     arr_search_spot.add(arrspot.object(at: i))
                                 }
-                                
-                                
-                            }
-                            
+                             }
                         }
-                        
-                    }
+                     }
                     if arr_day[j] == "Wednesday" {
                         if (arrspot.object(at: i) as! NSDictionary).value(forKey: "wedswitch") as! Bool == true{
                             
@@ -620,7 +568,6 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                 
                                 print("user_start   - \(user_start)")     // user
                                 print("user_end     - \(user_end)")     // user
-                                
                                 
                                 if user_start >= server_start1 && user_end <= server_end1{
                                     arr_search_spot.add(arrspot.object(at: i))
@@ -648,12 +595,10 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                             print("user_start   - \(user_start)")     // user
                             print("user_end     - \(user_end)")     // user
                             
-                            
                             if user_start >= server_start1 && user_end <= server_end1{
                                 arr_search_spot.add(arrspot.object(at: i))
                             }
-                            
-                            }
+                          }
                         }
                     }
                     if arr_day[j] == "Friday" {
@@ -661,9 +606,14 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                             
                             let arrFri = datedaydict.value(forKey: "Friday") as! NSArray
                             for m in 0..<arrFri.count{
+                               
+                                print(dict_spot.value(forKey: "friStartTime") as! String)
+                                print(dict_spot.value(forKey: "friEndTime")  as! String)
                                 
                                 let friStartTime = dateconvertServer(userdate: dict_spot.value(forKey: "friStartTime") as! String)
                                 let friEndTime = dateconvertServer(userdate: dict_spot.value(forKey: "friEndTime")  as! String)
+                                print(friStartTime)
+                                print(friEndTime)
                                 
                                 let server_start1 = datetotime(userdate: friStartTime)
                                 let server_end1 = datetotime(userdate: friEndTime)
@@ -676,12 +626,9 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                 print("user_start   - \(user_start)")     // user
                                 print("user_end     - \(user_end)")     // user
                                 
-                                
                                 if user_start >= server_start1 && user_end <= server_end1{
                                     arr_search_spot.add(arrspot.object(at: i))
                                 }
-                                
-                               
                             }
                         }
                     }
@@ -703,12 +650,9 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                 print("user_start   - \(user_start)")     // user
                                 print("user_end     - \(user_end)")     // user
                                 
-                                
                                 if user_start >= server_start1 && user_end <= server_end1{
                                     arr_search_spot.add(arrspot.object(at: i))
                                 }
-                                
-                                
                             }
                         }
                     }
@@ -719,6 +663,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             Search_Spot()
           Date_VIew.isHidden = true
          }
+        endChange = false
        }
     
     
@@ -799,7 +744,6 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         
         if  Userlat != marker.position.latitude && Userlong != marker.position.longitude{
-        
         let index:Int! = Int(marker.accessibilityLabel!)
         let price  = (arrspot.object(at: index) as! NSDictionary).value(forKey: "hourlyPricing") as?  String
         let doller = (price! as NSString).integerValue
@@ -849,8 +793,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     
     // GET ALL SPOT ON MAP
     func getlatlong(){
-     Spinner.start()
         
+        Spinner.start()
         var weekday = [String]()
         let dateformats = DateFormatter()
         dateformats.timeZone = TimeZone.current
@@ -880,11 +824,9 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                     if dictdata.count>0{
                         
                         for (theKey, theValue) in dictdata {
-                            
                             print(theKey)
                             print(theValue)
-                          self.arrspot.add(theValue)
-                            
+                            self.arrspot.add(theValue)
                           }
                         //self.loadEventsToMap(lat: self.userlatitude, long: self.userlongitude)
                     }
@@ -1320,7 +1262,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         let minute =  Int(arrminute[0])
         
         if serverdate.contains("12.AM"){ // 00:00
-        today = Calendar.current.date(bySettingHour: 24, minute: minute!, second: 0, of: Date())!
+        today = Calendar.current.date(bySettingHour: 00, minute: minute!, second: 0, of: Date())!
         }
         if serverdate.contains("01.AM"){  // 01:00
          today = Calendar.current.date(bySettingHour: 01, minute: minute!, second: 0, of: Date())!
@@ -1426,6 +1368,15 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     let time = dateFormatter.string(from: userdate) //pass Date here
     print(time)
     return time
+    }
+    
+    
+    func datetostring(dates:Date) -> Date{
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        let myString = formatter.string(from: dates)
+        let yourDate = formatter.date(from: myString)
+        return yourDate!
     }
     
     
