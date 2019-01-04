@@ -17,6 +17,7 @@ class SpotImageViewController: UIViewController, UITextViewDelegate, UIImagePick
     
     let defaultImage = "addButton"
     var spotImagePicker = UIImagePickerController()
+    let descriptionText = "Clearly explain how someone may park in your spot"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -42,7 +43,7 @@ class SpotImageViewController: UIViewController, UITextViewDelegate, UIImagePick
         
         self.spotDescription.delegate = self
         if(AppState.sharedInstance.activeSpot.description == "") {
-            spotDescription.text = "Enter Spot Desccription Here"
+            spotDescription.text = self.descriptionText
             spotDescription.textColor = UIColor.lightGray
         }
         
@@ -143,7 +144,7 @@ class SpotImageViewController: UIViewController, UITextViewDelegate, UIImagePick
     
     func textViewDidEndEditing(_ textView: UITextView) {
         if spotDescription.text.isEmpty {
-            spotDescription.text = "Enter Spot Desccription Here"
+            spotDescription.text = self.descriptionText
             spotDescription.textColor = UIColor.lightGray
         }
         spotDescription.resignFirstResponder()
@@ -153,7 +154,7 @@ class SpotImageViewController: UIViewController, UITextViewDelegate, UIImagePick
     
     func textViewShouldEndEditing(_ textView: UITextView) -> Bool {
         if spotDescription.text.isEmpty {
-            spotDescription.text = "Enter Spot Description Here"
+            spotDescription.text = self.descriptionText
             spotDescription.textColor = UIColor.lightGray
         }
         spotDescription.resignFirstResponder()

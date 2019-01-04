@@ -219,6 +219,7 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
     
     func paymentContext(_ paymentContext: STPPaymentContext, didFailToLoadWithError error: Error) {
         print("run didFailToLoadWithError paymentContext()")
+        print("Error: \(error)")
         let alertController = UIAlertController(
             title: "Error",
             message: error.localizedDescription,

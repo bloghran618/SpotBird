@@ -13,8 +13,13 @@ import Alamofire
 class MyAPIClient: NSObject, STPEphemeralKeyProvider {
     
     static let sharedClient = MyAPIClient()
+    
+    // Ruby example backend
     var baseURLString: String? = "https://stripe-example-backend619.herokuapp.com/"
-//    var baseURLString: String? = "https://spotbird-stripe-backend-bloughran618.herokuapp.com/"
+    
+    // Python my backend
+//    var baseURLString: String? = "https://spotbird-backend-bloughran618.herokuapp.com/"
+    
     var baseURL: URL {
         if let urlString = self.baseURLString, let url = URL(string: urlString) {
             return url
@@ -49,10 +54,10 @@ class MyAPIClient: NSObject, STPEphemeralKeyProvider {
     
     func createCustomerKey(withAPIVersion apiVersion: String, completion: @escaping STPJSONResponseCompletionBlock) {
         print("run createCustomerKey()")
+        print("API Version: \(apiVersion)")
         let url = self.baseURL.appendingPathComponent("ephemeral_keys")
-        Alamofire.request(url, method: .post, parameters: [
-            "api_version": apiVersion,
-            ])
+        print(url)
+        Alamofire.request(url, method: .post, parameters: ["api_version": apiVersion])
             .validate(statusCode: 200..<300)
             .responseJSON { responseJSON in
                 switch responseJSON.result {
