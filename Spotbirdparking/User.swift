@@ -18,7 +18,7 @@ class User {
     var New_img = UIImageView()
     var imgname = ""
     var accounttoken = String()
-    var custmertoken = String()
+    var customertoken = String()
     
      var refArtists: DatabaseReference!
    
@@ -448,11 +448,11 @@ class User {
     
     }
     
-    // Set custmerToken token
-    func setcustmerToken(custmerToken:String)  {
+    // Set customerToken token
+    func setcustomerToken(customerToken:String)  {
         refArtists = Database.database().reference().child("User").child(AppState.sharedInstance.userid)
         refArtists.updateChildValues([
-            "custmerToken":custmerToken
+            "customerToken":customerToken
             ])
         
     }
@@ -477,20 +477,21 @@ class User {
                     if let val = dict["accountToken"] {
                      completion(dict.value(forKey: "accountToken") as! String)
                     }
-                  }
                 }
-            })
-          }
-    // getcustmerToken
-    func getcustmerToken(completion: @escaping (_ keys: String) -> Void) {
+            }
+        })
+    }
+    
+    // getcustomerToken
+    func getcustomerToken(completion: @escaping (_ keys: String) -> Void) {
         let ref = Database.database().reference().child("User").queryOrdered(byChild: "id").queryEqual(toValue : AppState.sharedInstance.userid)
         ref.observe(.value, with:{ (snapshot: DataSnapshot) in
             if snapshot.exists() {
                 for snap in snapshot.children {
                     let dict = ((snap as! DataSnapshot).value) as! NSDictionary
                     print(dict)
-                    if let val = dict["custmerToken"] {
-                        completion(dict.value(forKey: "custmerToken") as! String)
+                    if let val = dict["customerToken"] {
+                        completion(dict.value(forKey: "customerToken") as! String)
                     }
                 }
             }
