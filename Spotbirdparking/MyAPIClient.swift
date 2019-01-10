@@ -53,12 +53,31 @@ class MyAPIClient: NSObject, STPEphemeralKeyProvider {
     }
     
     func createCustomerKey(withAPIVersion apiVersion: String, completion: @escaping STPJSONResponseCompletionBlock) {
-        print("run createCustomerKey()")
+        print("run createCustomerKey()")        
         print("API Version: \(apiVersion)")
+        
+        AppState.sharedInstance.user.setaccountToken(accountToken: "12345678")
+        AppState.sharedInstance.user.setcustomerToken(customerToken: "1234")
+        print("Account Token?")
+        AppState.sharedInstance.user.getaccountToken{ (A_token) in
+            print("Account Token: \(A_token)")
+        }
+        print("End account token")
+        print("Customer Token?")
+        AppState.sharedInstance.user.getcustomerToken{ (C_token) in
+            print("Customer Token: \(C_token)")
+        }
+        print("End customer token")
+        
+        //get customer ID
+
+        let customerID = "cus_EJ7d4agT0aeHwi"
         let url = self.baseURL.appendingPathComponent("ephemeral_keys")
         print(url)
-            
-        Alamofire.request(url, method: .post, parameters: ["api_version": apiVersion])
+        
+        Alamofire.request(url, method: .post, parameters: [
+            "api_version": apiVersion,
+            "customer_id": customerID])
             .validate(statusCode: 200..<300)
             .responseJSON { responseJSON in
                 switch responseJSON.result {
@@ -70,9 +89,4 @@ class MyAPIClient: NSObject, STPEphemeralKeyProvider {
         }
         print("end createCustomerKey")
     }
-    
-    func createCustomer() {
-        
-    }
-    
 }

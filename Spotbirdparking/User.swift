@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import Firebase
+import Alamofire
 
 class User {
     
@@ -496,6 +497,35 @@ class User {
                 }
             }
         })
+    }
+    
+    // Create a new customer ID in Stripe
+    func createCustomerID() {
+        print("Create Customer ID!!!")
+        var baseURLString: String = "https://spotbird-backend-bloughran618.herokuapp.com/customer_id"
+//        let url = baseURLString.appendingPathComponent("customer_id")
+        Alamofire.request(baseURLString, method: .post, parameters: nil, encoding: JSONEncoding.default)
+            // validate status code from flask
+            .validate(statusCode: 200..<300)
+            // determine success or failure
+            .responseJSON { responseJSON in
+                switch responseJSON.result {
+                case .success:
+                    print("example success")
+                case .failure:
+                    let status = responseJSON.response?.statusCode
+                    print("error with response status: \(status)")
+                }
+                //to get JSON return value
+                if let result = responseJSON.result.value {
+                    let JSON = result as! NSDictionary
+                    print("Response: \(JSON)")
+                    let customer_id_from_flask = JSON["customer_id"] ?? ""
+                    print("Customer ID: \(JSON["customer_id"] ?? "")")
+                    // set Customer Token to flask value
+                    AppState.sharedInstance.user.setcustomerToken(customerToken: customer_id_from_flask as! String)
+                }
+        }
     }
      
 
