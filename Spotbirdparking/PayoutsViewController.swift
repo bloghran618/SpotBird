@@ -67,5 +67,46 @@ class PayoutsViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         }
     }
     
-
+    @IBAction func submitInfo(_ sender: Any) {
+        print("Lets submit some info!")
+        let firstName = firstNameField.text
+        let lastName = lastNameField.text
+        let line1Address = line1AddressField.text
+        let line2Address = line2AddressField.text
+        let cityAddress = cityAddressField.text
+        let stateAddress = stateAddressField.text
+        let zipAddress = zipAddressField.text
+        
+        var dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd"
+        let dateOfBirthDay = dateFormatter.string(from: dateOfBirthDatePicker.date)
+        dateFormatter.dateFormat = "M"
+        let dateOfBirthMonth = dateFormatter.string(from: dateOfBirthDatePicker.date)
+        dateFormatter.dateFormat = "yyyy"
+        let dateOfBirthYear = dateFormatter.string(from: dateOfBirthDatePicker.date)
+        
+        let last4Social = last4SocialField.text
+        let routingNumber = routingNumberField.text
+        let accountNumber = accountNumberField.text
+        
+        var params: [String: String] = [
+            "first_name": firstName ?? "",
+            "last_name": lastName ?? "",
+            "line_1_address": line1Address ?? "",
+            "line_2_address": line2Address ?? "",
+            "city_address": cityAddress ?? "",
+            "state_address": stateAddress ?? "",
+            "zip_address": zipAddress ?? "",
+            "dob_day": dateOfBirthDay,
+            "dob_month": dateOfBirthMonth,
+            "dob_year": dateOfBirthYear,
+            "last_4_social": last4Social ?? "",
+            "routing_number": routingNumber ?? "",
+            "account_number": accountNumber ?? ""
+            ]
+        
+        print(params)
+        
+    }
+    
 }
