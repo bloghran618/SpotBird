@@ -52,26 +52,27 @@ class MyAPIClient: NSObject, STPEphemeralKeyProvider {
         }
     }
     
+    // Get an ephemeral key from the python backend for the customer object
     func createCustomerKey(withAPIVersion apiVersion: String, completion: @escaping STPJSONResponseCompletionBlock) {
         print("run createCustomerKey()")        
         print("API Version: \(apiVersion)")
         
-        AppState.sharedInstance.user.setaccountToken(accountToken: "12345678")
-        AppState.sharedInstance.user.setcustomerToken(customerToken: "1234")
-        print("Account Token?")
-        AppState.sharedInstance.user.getaccountToken{ (A_token) in
-            print("Account Token: \(A_token)")
-        }
-        print("End account token")
-        print("Customer Token?")
-        AppState.sharedInstance.user.getcustomerToken{ (C_token) in
-            print("Customer Token: \(C_token)")
-        }
-        print("End customer token")
+//        AppState.sharedInstance.user.setaccountToken(accountToken: "12345678")
+//        AppState.sharedInstance.user.setcustomerToken(customerToken: "1234")
+//        print("Account Token?")
+//        AppState.sharedInstance.user.getaccountToken{ (A_token) in
+//            print("Account Token here: \(A_token)")
+//        }
+//        print("End account token")
+//        print("Customer Token?")
+//        AppState.sharedInstance.user.getcustomerToken{ (C_token) in
+//            print("Customer Token here: \(C_token)")
+//        }
+//        print("End customer token")
         
-        //get customer ID
-
-        let customerID = "cus_EJ7d4agT0aeHwi"
+        // Change to db customer ID once we get that working
+//        let customerID = AppState.sharedInstance.user.customertoken
+        let customerID = "cus_ELvzL3KA1gpi9U"
         let url = self.baseURL.appendingPathComponent("ephemeral_keys")
         print(url)
         
@@ -88,5 +89,65 @@ class MyAPIClient: NSObject, STPEphemeralKeyProvider {
                 }
         }
         print("end createCustomerKey")
+    }
+    
+    // Create a new customer ID in Stripe
+    // run with MyAPIClient.sharedClient.createCustomerID()
+    func createCustomerID() {
+        print("Create Customer ID!!!")
+        let url = self.baseURL.appendingPathComponent("customer_id")
+        //        let url = baseURLString.appendingPathComponent("customer_id")
+        Alamofire.request(url, method: .post, parameters: nil, encoding: JSONEncoding.default)
+            // validate status code from flask
+            .validate(statusCode: 200..<300)
+            // determine success or failure
+            .responseJSON { responseJSON in
+                switch responseJSON.result {
+                case .success:
+                    print("example customer success")
+                case .failure:
+                    let status = responseJSON.response?.statusCode
+                    print("customer error with response status: \(status)")
+                }
+                //to get JSON return value
+                if let result = responseJSON.result.value {
+                    let JSON = result as! NSDictionary
+                    print("Response: \(JSON)")
+                    let customer_id_from_flask = JSON["customer_id"] ?? ""
+                    print("Customer ID: \(JSON["customer_id"] ?? "")")
+                    // set Customer Token to flask value
+                    AppState.sharedInstance.user.setcustomerToken(customerToken: customer_id_from_flask as! String)
+                }
+        }
+    }
+    
+    // Create a new account ID in Stripe
+    // run with createAccountID()
+    func createAccountID() {
+        print("Create Account ID!!!")
+        let url = self.baseURL.appendingPathComponent("account_id")
+        //        let url = baseURLString.appendingPathComponent("customer_id")
+        Alamofire.request(url, method: .post, parameters: nil, encoding: JSONEncoding.default)
+            // validate status code from flask
+            .validate(statusCode: 200..<300)
+            // determine success or failure
+            .responseJSON { responseJSON in
+                switch responseJSON.result {
+                case .success:
+                    print("example account success")
+                case .failure:
+                    let status = responseJSON.response?.statusCode
+                    print("account error with response status: \(status)")
+                }
+                //to get JSON return value
+                if let result = responseJSON.result.value {
+                    let JSON = result as! NSDictionary
+                    print("Response: \(JSON)")
+                    let account_id_from_flask = JSON["account_id"] ?? ""
+                    print("Account ID: \(JSON["account_id"] ?? "")")
+                    // set Customer Token to flask value
+                    AppState.sharedInstance.user.setaccountToken(accountToken: account_id_from_flask as! String)
+                }
+        }
     }
 }

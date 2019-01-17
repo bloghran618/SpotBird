@@ -83,9 +83,10 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // DEBUG:
-        AppState.sharedInstance.user.createCustomerID()
-        
+        //debug:
+        MyAPIClient.sharedClient.createCustomerID()
+        MyAPIClient.sharedClient.createAccountID()
+                
         dismissKeyboard()
         //scheduledTimerWithTimeInterval()  // time
         

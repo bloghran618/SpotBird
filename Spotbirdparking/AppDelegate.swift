@@ -66,6 +66,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
             self.window?.makeKeyAndVisible()
         }
         
+        print("Initializer first name: \(AppState.sharedInstance.user.firstName)")
+        print("Initializer last name: \(AppState.sharedInstance.user.lastName)")
+        print("Initializer Customer ID: \(AppState.sharedInstance.user.customertoken)")
+        print("Initializer Account ID: \(AppState.sharedInstance.user.accounttoken)")
+
         return true
     }
     

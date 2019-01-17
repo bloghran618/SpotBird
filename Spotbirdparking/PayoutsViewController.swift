@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Stripe
 
 class PayoutsViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource, UITextFieldDelegate {
 
@@ -35,8 +36,14 @@ class PayoutsViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         self.last4SocialField.keyboardType = UIKeyboardType.numberPad
         self.routingNumberField.keyboardType = UIKeyboardType.numberPad
         self.accountNumberField.keyboardType = UIKeyboardType.numberPad
-        
-        print(states.count)
+    
+        // set first and last name fields if available
+        if(AppState.sharedInstance.user.firstName != "") {
+            self.firstNameField.text = AppState.sharedInstance.user.firstName
+        }
+        if(AppState.sharedInstance.user.lastName != "") {
+            self.lastNameField.text = AppState.sharedInstance.user.lastName
+        }
     }
     
     public func numberOfComponents(in pickerView: UIPickerView) -> Int{
@@ -76,7 +83,6 @@ class PayoutsViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         let cityAddress = cityAddressField.text
         let stateAddress = stateAddressField.text
         let zipAddress = zipAddressField.text
-        
         var dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd"
         let dateOfBirthDay = dateFormatter.string(from: dateOfBirthDatePicker.date)
@@ -84,7 +90,6 @@ class PayoutsViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         let dateOfBirthMonth = dateFormatter.string(from: dateOfBirthDatePicker.date)
         dateFormatter.dateFormat = "yyyy"
         let dateOfBirthYear = dateFormatter.string(from: dateOfBirthDatePicker.date)
-        
         let last4Social = last4SocialField.text
         let routingNumber = routingNumberField.text
         let accountNumber = accountNumberField.text
@@ -107,6 +112,26 @@ class PayoutsViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         
         print(params)
         
+        //TODO: form validation here
+        
+        var bankAccount = STPBankAccountParams()
+        bankAccount.accountHolderName = "\(firstName) \(lastName)"
+        bankAccount.country = "US"
+        bankAccount.currency = "USD"
+        bankAccount.accountHolderType = STPBankAccountHolderType(rawValue: 0)! //??
+        bankAccount.accountNumber = accountNumber
+        bankAccount.routingNumber = routingNumber
+        
+        print("Account Nubmer: \(bankAccount.accountNumber)")
+        print("Routing Nubmer: \(bankAccount.routingNumber)")
+        
+        
+        
     }
+    
+//    func createToken(withBankAccount bankAccount: STPBankAccountParams, completion: STPTokenCompletionBlock? = nil) {
+//        NSDictionary params = [STPFormEncoder dictionaryForObject:bankAccount]
+//        [self createTokenWithParameters:params completion:completion]
+//    }
     
 }
