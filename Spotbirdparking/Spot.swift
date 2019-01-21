@@ -16,6 +16,7 @@ class Spot {
     var town: String
     var state: String
     var zipCode: String
+    var spot_type: String
     
     var latitude: String
     var longitude: String
@@ -60,7 +61,7 @@ class Spot {
     var refArtists: DatabaseReference!
     
     
-    init?(address: String, town: String, state: String, zipCode: String,spotImage: String, description: String, monStartTime: String, monEndTime: String, tueStartTime: String, tueEndTime: String, wedStartTime: String, wedEndTime: String, thuStartTime: String, thuEndTime: String, friStartTime: String, friEndTime: String, satStartTime: String, satEndTime: String, sunStartTime: String, sunEndTime: String, monOn: Bool, tueOn: Bool, wedOn: Bool, thuOn: Bool, friOn: Bool, satOn: Bool, sunOn: Bool, hourlyPricing: String, dailyPricing: String, weeklyPricing: String, monthlyPricing: String, weeklyOn: Bool, monthlyOn: Bool, index: Int, approved: Bool,spotImages:UIImage,spots_id:String,latitude:String, longitude:String) {
+    init?(address: String, town: String, state: String, zipCode: String,spotImage: String, description: String, monStartTime: String, monEndTime: String, tueStartTime: String, tueEndTime: String, wedStartTime: String, wedEndTime: String, thuStartTime: String, thuEndTime: String, friStartTime: String, friEndTime: String, satStartTime: String, satEndTime: String, sunStartTime: String, sunEndTime: String, monOn: Bool, tueOn: Bool, wedOn: Bool, thuOn: Bool, friOn: Bool, satOn: Bool, sunOn: Bool, hourlyPricing: String, dailyPricing: String, weeklyPricing: String, monthlyPricing: String, weeklyOn: Bool, monthlyOn: Bool, index: Int, approved: Bool,spotImages:UIImage,spots_id:String,latitude:String, longitude:String,spottype:String) {
         
         self.address = address
         self.town = town
@@ -68,6 +69,8 @@ class Spot {
         self.zipCode = zipCode
         self.latitude = latitude
         self.longitude = longitude
+        
+        self.spot_type = spottype
         
         self.spotImage = spotImage
         self.spotImage1 = spotImages
@@ -163,7 +166,7 @@ class Spot {
                                 weeklyOn: snapshotValue.value(forKey: "switch_weekly") as! Bool,
                                 monthlyOn: snapshotValue.value(forKey: "switch_monthly") as! Bool,
                                 index: -1,
-                                approved:false, spotImages: UIImage.init(named: "white")!, spots_id: (artists ).key, latitude: dblat, longitude: dblongitude)!)
+                                approved:false, spotImages: UIImage.init(named: "white")!, spots_id: (artists ).key, latitude: dblat, longitude: dblongitude, spottype: snapshotValue.value(forKey: "spot_type") as! String)!)
                     
                     
                     
@@ -308,6 +311,7 @@ class Spot {
                                  "friswitch":AppState.sharedInstance.activeSpot.friOn,
                                  "satswitch":AppState.sharedInstance.activeSpot.satOn,
                                  "sunswitch":AppState.sharedInstance.activeSpot.sunOn,
+                                 "spot_type":AppState.sharedInstance.activeSpot.spot_type,
                                  ] as [String : Any]
                     
                     print(spots)
@@ -424,6 +428,7 @@ class Spot {
             "friswitch":AppState.sharedInstance.activeSpot.friOn,
             "satswitch":AppState.sharedInstance.activeSpot.satOn,
             "sunswitch":AppState.sharedInstance.activeSpot.sunOn,
+            "spot_type":AppState.sharedInstance.activeSpot.spot_type,
             ]){
                 (error:Error?, ref:DatabaseReference) in
                 if let error = error {

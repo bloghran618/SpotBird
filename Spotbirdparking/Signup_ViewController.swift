@@ -16,6 +16,7 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
     @IBOutlet weak var profilePhoto: UIImageView!
     @IBOutlet weak var txt_fname: UITextField!
     @IBOutlet weak var txt_lname: UITextField!
+     @IBOutlet weak var txt_email: UITextField!
     @IBOutlet weak var txt_username: UITextField!
     @IBOutlet weak var txt_pass: UITextField!
     @IBOutlet weak var Btn_newuser: UIButton!
@@ -84,6 +85,12 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
         }else if txt_lname.text == ""
         {
             let alert = UIAlertController(title: "Spotbirdparking", message: "Enter Last Name", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+        else if txt_email.text == ""
+        {
+            let alert = UIAlertController(title: "Spotbirdparking", message: "Enter Email", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
@@ -199,7 +206,8 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
                            "lname":self.txt_lname.text!,
                            "uname":self.txt_username.text!,
                            "pass":self.txt_pass.text!,
-                           "image":""]
+                           "image":"",
+                           "email":txt_email.text!]
             print(newuser)
             self.refArtists.child(key!).setValue(newuser)
               self.getlogin(id: key!)

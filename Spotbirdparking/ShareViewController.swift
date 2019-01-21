@@ -23,13 +23,14 @@ class ShareViewController: UIViewController, UITableViewDataSource {
     var arrspot:NSMutableArray = NSMutableArray()
     var arrspotAll:NSMutableArray = NSMutableArray()
     var hud : MBProgressHUD = MBProgressHUD()
+   
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.spotTable.dataSource = self
         self.spotTable.rowHeight = 100
 
-         AppState.sharedInstance.activeSpot.getSpots()
+      //  AppState.sharedInstance.activeSpot.getSpots()
         
         NotificationCenter.default.addObserver(self, selector: #selector(ShareViewController.RefreshData(notification:)), name: Notification.Name("Spots"), object: nil)
         
@@ -48,6 +49,21 @@ class ShareViewController: UIViewController, UITableViewDataSource {
             navigationItem.rightBarButtonItem = editButtonItem
         }
         self.spotTable.reloadData()
+        
+        
+        for i in 0..<AppState.sharedInstance.spots.count{
+            let spot = AppState.sharedInstance.spots[i]
+             AppState.sharedInstance.user.avg1 = AppState.sharedInstance.user.avg1 + (spot.hourlyPricing as NSString).integerValue
+             AppState.sharedInstance.user.avg2 = AppState.sharedInstance.user.avg2 + (spot.dailyPricing as NSString).integerValue
+             AppState.sharedInstance.user.avg3 = AppState.sharedInstance.user.avg3 + (spot.weeklyPricing as NSString).integerValue
+             AppState.sharedInstance.user.avg4 =  AppState.sharedInstance.user.avg4 + (spot.monthlyPricing as NSString).integerValue
+           
+        }
+        
+        AppState.sharedInstance.user.avg1 = AppState.sharedInstance.user.avg1/AppState.sharedInstance.spots.count
+        AppState.sharedInstance.user.avg2  = AppState.sharedInstance.user.avg2/AppState.sharedInstance.spots.count
+        AppState.sharedInstance.user.avg3 = AppState.sharedInstance.user.avg3/AppState.sharedInstance.spots.count
+        AppState.sharedInstance.user.avg4 = AppState.sharedInstance.user.avg4/AppState.sharedInstance.spots.count
     
     }
     
@@ -101,7 +117,7 @@ class ShareViewController: UIViewController, UITableViewDataSource {
             
         case "addSpotSegue":
             print("Add Spot")
-            AppState.sharedInstance.activeSpot = Spot(address: "", town: "", state: "", zipCode: "", spotImage: "", description: "", monStartTime: "12:00 AM", monEndTime: "12:00 PM", tueStartTime: "12:00 AM", tueEndTime: "12:00 PM", wedStartTime: "12:00 AM", wedEndTime: "12:00 PM", thuStartTime: "12:00 AM", thuEndTime: "12:00 PM", friStartTime: "12:00 AM", friEndTime: "12:00 PM", satStartTime: "12:00 AM", satEndTime: "12:00 PM", sunStartTime: "12:00 AM", sunEndTime: "12:00 PM", monOn: true, tueOn: true, wedOn: true, thuOn: true, friOn: true, satOn: true, sunOn: true, hourlyPricing: "1.00", dailyPricing: "7.00", weeklyPricing: "35.00", monthlyPricing: "105.00", weeklyOn: true, monthlyOn: true, index: -1, approved: false, spotImages: UIImage.init(named: "emptySpot")!, spots_id: "", latitude: "0",longitude: "0")!
+            AppState.sharedInstance.activeSpot = Spot(address: "", town: "", state: "", zipCode: "", spotImage: "", description: "", monStartTime: "12:00 AM", monEndTime: "12:00 PM", tueStartTime: "12:00 AM", tueEndTime: "12:00 PM", wedStartTime: "12:00 AM", wedEndTime: "12:00 PM", thuStartTime: "12:00 AM", thuEndTime: "12:00 PM", friStartTime: "12:00 AM", friEndTime: "12:00 PM", satStartTime: "12:00 AM", satEndTime: "12:00 PM", sunStartTime: "12:00 AM", sunEndTime: "12:00 PM", monOn: true, tueOn: true, wedOn: true, thuOn: true, friOn: true, satOn: true, sunOn: true, hourlyPricing: "1.00", dailyPricing: "7.00", weeklyPricing: "35.00", monthlyPricing: "105.00", weeklyOn: true, monthlyOn: true, index: -1, approved: false, spotImages: UIImage.init(named: "emptySpot")!, spots_id: "", latitude: "0",longitude: "0", spottype: "")!
          
             
         case "editSpotSegue":
@@ -119,7 +135,7 @@ class ShareViewController: UIViewController, UITableViewDataSource {
             let activedict = AppState.sharedInstance.spots[indexPath.row]
             print(activedict.thuEndTime)
             
-            AppState.sharedInstance.activeSpot = Spot(address: activedict.address, town: activedict.town, state: activedict.state, zipCode: activedict.zipCode, spotImage: activedict.spotImage, description: activedict.description, monStartTime: activedict.monStartTime, monEndTime: activedict.monEndTime, tueStartTime: activedict.tueStartTime, tueEndTime: activedict.tueEndTime, wedStartTime: activedict.wedStartTime, wedEndTime: activedict.wedEndTime, thuStartTime: activedict.thuStartTime, thuEndTime: activedict.thuEndTime, friStartTime: activedict.friStartTime, friEndTime: activedict.friEndTime, satStartTime: activedict.satStartTime, satEndTime:activedict.satEndTime, sunStartTime: activedict.sunStartTime, sunEndTime: activedict.sunEndTime, monOn: activedict.monOn, tueOn: activedict.tueOn, wedOn: activedict.wedOn, thuOn: activedict.thuOn, friOn: activedict.friOn, satOn: activedict.satOn, sunOn: activedict.sunOn, hourlyPricing: activedict.hourlyPricing, dailyPricing: activedict.dailyPricing, weeklyPricing: activedict.weeklyPricing, monthlyPricing: activedict.monthlyPricing, weeklyOn: activedict.weeklyOn, monthlyOn: activedict.monthlyOn, index: activedict.index, approved: activedict.approved, spotImages:activedict.spotImage1, spots_id: activedict.spot_id, latitude: activedict.latitude, longitude: activedict.longitude)!
+            AppState.sharedInstance.activeSpot = Spot(address: activedict.address, town: activedict.town, state: activedict.state, zipCode: activedict.zipCode, spotImage: activedict.spotImage, description: activedict.description, monStartTime: activedict.monStartTime, monEndTime: activedict.monEndTime, tueStartTime: activedict.tueStartTime, tueEndTime: activedict.tueEndTime, wedStartTime: activedict.wedStartTime, wedEndTime: activedict.wedEndTime, thuStartTime: activedict.thuStartTime, thuEndTime: activedict.thuEndTime, friStartTime: activedict.friStartTime, friEndTime: activedict.friEndTime, satStartTime: activedict.satStartTime, satEndTime:activedict.satEndTime, sunStartTime: activedict.sunStartTime, sunEndTime: activedict.sunEndTime, monOn: activedict.monOn, tueOn: activedict.tueOn, wedOn: activedict.wedOn, thuOn: activedict.thuOn, friOn: activedict.friOn, satOn: activedict.satOn, sunOn: activedict.sunOn, hourlyPricing: activedict.hourlyPricing, dailyPricing: activedict.dailyPricing, weeklyPricing: activedict.weeklyPricing, monthlyPricing: activedict.monthlyPricing, weeklyOn: activedict.weeklyOn, monthlyOn: activedict.monthlyOn, index: activedict.index, approved: activedict.approved, spotImages:activedict.spotImage1, spots_id: activedict.spot_id, latitude: activedict.latitude, longitude: activedict.longitude, spottype: activedict.spot_type)!
           
             
            // AppState.sharedInstance.activeSpot = AppState.sharedInstance.spots[indexPath.row]

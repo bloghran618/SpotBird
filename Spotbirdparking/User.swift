@@ -21,10 +21,13 @@ class User {
     var accounttoken = String()
     var customertoken = String()
     
-     var refArtists: DatabaseReference!
+    var avg1 = Int()
+    var avg2 = Int()
+    var avg3 = Int()
+    var avg4 = Int()
    
-    
-    
+    var refArtists: DatabaseReference!
+   
     init?(firstName: String, lastName: String, profileImage: String, cars: [Car]) {
         self.firstName = firstName
         self.lastName = lastName
@@ -84,15 +87,23 @@ class User {
                     let dict = ((snap as! DataSnapshot).value) as! NSDictionary
                     
                     
-                    AppState.sharedInstance.user.firstName = (dict.value(forKey: "fname") as? String)!
-                    AppState.sharedInstance.user.lastName = (dict.value(forKey: "lname") as? String)!
+                    let logindata = ["fname":dict.value(forKey: "fname") as! String,"id":dict.value(forKey: "id") as! String,"image":dict.value(forKey: "image") as! String,"lname":dict.value(forKey: "lname") as! String,"uname":dict.value(forKey: "uname") as! String,"email":dict.value(forKey: "email") as! String]
+                    
+                    
+                    UserDefaults.standard.setValue(logindata, forKey: "logindata")
+                    UserDefaults.standard.synchronize()
+                    let data_login = UserDefaults.standard.value(forKey: "logindata") as! NSDictionary
+                    print(data_login)
+                    
+                    AppState.sharedInstance.user.firstName = (data_login.value(forKey: "fname") as? String)!
+                    AppState.sharedInstance.user.lastName = (data_login.value(forKey: "lname") as? String)!
                     AppState.sharedInstance.user.profileImage = (dict.value(forKey: "image") as? String)!
                     
                     if AppState.sharedInstance.user.profileImage != "" {
                         let strurl = AppState.sharedInstance.user.profileImage
                         let startIndex = strurl.index(strurl.startIndex, offsetBy: 81)
                         let endIndex = strurl.index(strurl.startIndex, offsetBy: 85)
-                        self.imgname =  String(strurl[startIndex...endIndex])
+                        AppState.sharedInstance.user.imgname =  String(strurl[startIndex...endIndex])
                     }
                     
                 }
@@ -124,6 +135,7 @@ class User {
                         
                     } else {
                         print("Data saved successfully!")
+                        self.Get_UserProfile()  //
                         Spinner.stop()
                     }
             }
@@ -167,6 +179,7 @@ class User {
                                         
                                     } else {
                                         print("Data saved successfully!")
+                                         self.Get_UserProfile()  //
                                         Spinner.stop()
                                     }
                                 }
@@ -213,6 +226,7 @@ class User {
                                 
                             } else {
                                 print("Data saved successfully!")
+                                 self.Get_UserProfile()  //
                                 Spinner.stop()
                             }
                         }

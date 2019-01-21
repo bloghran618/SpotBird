@@ -35,10 +35,7 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         ProfileImagePicker.delegate = self
         profilePhoto.isUserInteractionEnabled = true
         
-      
-       
-        
-       AppState.sharedInstance.user.Get_UserProfile()
+       // AppState.sharedInstance.user.Get_UserProfile()
        
         
         if AppState.sharedInstance.user.profileImage == ""{

@@ -51,6 +51,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
             let dict = UserDefaults.standard.value(forKey: "logindata") as? NSDictionary
             AppState.sharedInstance.userid = dict?.value(forKey: "id") as! String
             print( AppState.sharedInstance.userid)
+            AppState.sharedInstance.user.firstName = (dict?.value(forKey: "fname") as? String)!
+            AppState.sharedInstance.user.lastName = (dict?.value(forKey: "lname") as? String)!
+            AppState.sharedInstance.user.profileImage = (dict?.value(forKey: "image") as? String)!
+            
+            if AppState.sharedInstance.user.profileImage != "" {
+                let strurl = AppState.sharedInstance.user.profileImage
+                let startIndex = strurl.index(strurl.startIndex, offsetBy: 81)
+                let endIndex = strurl.index(strurl.startIndex, offsetBy: 85)
+                AppState.sharedInstance.user.imgname =  String(strurl[startIndex...endIndex])
+            }
+            
+            
+            
             let appDelegate = UIApplication.shared.delegate! as! AppDelegate
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let initialViewController = storyboard.instantiateViewController(withIdentifier: "myTabbarControllerID")

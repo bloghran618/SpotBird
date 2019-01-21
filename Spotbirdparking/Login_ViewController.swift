@@ -43,28 +43,55 @@ class Login_ViewController: UIViewController {
                 for snap in snapshot.children {
                     
                     let dict = ((snap as! DataSnapshot).value) as! NSDictionary
-                    print(dict)
-                    print(dict)
-                    if self.txt_pass.text! == dict.value(forKey: "pass") as! String {
-                        //self.id =  ((snap as! DataSnapshot).key)
+                   
+                   if self.txt_pass.text! == dict.value(forKey: "pass") as! String {
+                        let id = ((snap as! DataSnapshot).key)
                         AppState.sharedInstance.userid = dict.value(forKey: "id") as! String
-                        UserDefaults.standard.setValue(dict, forKey: "logindata")
+                        
+                      print(dict)
+                    
+                    if let val = dict["MySpots"] {
+                        var array =  NSMutableArray()
+                        let dictspot =  dict.value(forKey: "MySpots") as! NSDictionary
+                        print(dictspot)
+                        let keys = dictspot.allKeys
+                        print(keys)
+                        
+                        for i in 0..<keys.count {
+                            let indexdict =  dictspot.value(forKey: keys[i] as! String) as!  NSDictionary
+                            print(indexdict)
+                            array.add(indexdict)
+                         }
+                          print(array)
+                        // make model class data
+                         self.Myspots(spotarray: array, key: id)
+                    }
+                    
+                    let logindata = ["fname":dict.value(forKey: "fname") as! String,"id":dict.value(forKey: "id") as! String,"image":dict.value(forKey: "image") as! String,"lname":dict.value(forKey: "lname") as! String,"uname":dict.value(forKey: "uname") as! String,"email":dict.value(forKey: "email") as! String]
+                        
+                        UserDefaults.standard.setValue(logindata, forKey: "logindata")
                         UserDefaults.standard.synchronize()
-                        //                        let alertController = UIAlertController(title: "Right", message: "success", preferredStyle: .alert)
-                        //
-                        //                        //let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-                        //                        let defaultAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default) {
-                        //                            UIAlertAction in
+                        let data_login = UserDefaults.standard.value(forKey: "logindata") as! NSDictionary
+                        print(data_login)
+                        
+                        AppState.sharedInstance.user.customertoken = data_login.value(forKey: "customerToken") as? String ?? ""
+                        AppState.sharedInstance.user.accounttoken = data_login.value(forKey: "accountToken") as? String ?? ""
+                        AppState.sharedInstance.user.firstName = (data_login.value(forKey: "fname") as? String)!
+                        AppState.sharedInstance.user.lastName = (data_login.value(forKey: "lname") as? String)!
+                        AppState.sharedInstance.user.profileImage = (dict.value(forKey: "image") as? String)!
+                        
+                        if AppState.sharedInstance.user.profileImage != "" {
+                            let strurl = AppState.sharedInstance.user.profileImage
+                            let startIndex = strurl.index(strurl.startIndex, offsetBy: 81)
+                            let endIndex = strurl.index(strurl.startIndex, offsetBy: 85)
+                            AppState.sharedInstance.user.imgname =  String(strurl[startIndex...endIndex])
+                        }
+                        
                         Spinner.stop()
                         let appDelegate = UIApplication.shared.delegate! as! AppDelegate
-                        
                         let initialViewController = self.storyboard!.instantiateViewController(withIdentifier: "myTabbarControllerID")
                         appDelegate.window?.rootViewController = initialViewController
                         appDelegate.window?.makeKeyAndVisible()
-                        //                        }
-                        //                        alertController.addAction(defaultAction)
-                        //
-                        //                        self.present(alertController, animated: true, completion: nil)
                         
                     }else {
                         Spinner.stop()
@@ -73,11 +100,72 @@ class Login_ViewController: UIViewController {
                         alertController.addAction(defaultAction)
                         self.present(alertController, animated: true, completion: nil)
                     }
-                    
                 }
+            }
+            else{
+                  Spinner.stop()
+                let alertController = UIAlertController(title: "Spotbird", message: "Record Not Found..", preferredStyle: .alert)
+                let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                alertController.addAction(defaultAction)
+                self.present(alertController, animated: true, completion: nil)
             }
         })
     }
+    
+    
+    
+    func Myspots(spotarray:NSArray,key:String) {
+        
+        for i in 0..<spotarray.count{
+            let snapshotValue = spotarray.object(at: i) as! NSDictionary
+            
+            let dblat = snapshotValue.value(forKey: "user_lat") as! String
+            let dblongitude =  snapshotValue.value(forKey: "user_long") as! String
+            
+            AppState.sharedInstance.spots.append(Spot(address: snapshotValue.value(forKey: "address") as!
+                String, town: snapshotValue.value(forKey: "city") as! String,
+                        state: snapshotValue.value(forKey: "state") as! String,
+                        zipCode:(snapshotValue.value(forKey: "zipcode") as? String)!,
+                        
+                        spotImage: snapshotValue.value(forKey: "image") as! String,
+                        description: snapshotValue.value(forKey: "description") as! String,
+                        
+                        monStartTime: snapshotValue.value(forKey: "monStartTime") as! String,
+                        monEndTime: snapshotValue.value(forKey: "monEndTime") as! String,
+                        tueStartTime:(snapshotValue.value(forKey: "tueStartTime") as? String)!,
+                        tueEndTime: snapshotValue.value(forKey: "tueEndTime") as! String,
+                        wedStartTime: snapshotValue.value(forKey: "wedStartTime") as! String,
+                        wedEndTime: snapshotValue.value(forKey: "wedEndTime") as! String,
+                        thuStartTime: snapshotValue.value(forKey: "thuStartTime") as! String,
+                        thuEndTime: snapshotValue.value(forKey: "thuEndTime") as! String,
+                        friStartTime: snapshotValue.value(forKey: "friStartTime") as! String,
+                        friEndTime: snapshotValue.value(forKey: "friEndTime") as! String,
+                        satStartTime: snapshotValue.value(forKey: "satStartTime") as! String,
+                        satEndTime: snapshotValue.value(forKey: "satEndTime") as! String,
+                        sunStartTime: snapshotValue.value(forKey: "sunStartTime") as! String,
+                        sunEndTime: snapshotValue.value(forKey: "sunEndTime") as! String,
+                        
+                        monOn: snapshotValue.value(forKey: "monswitch") as! Bool,
+                        tueOn:snapshotValue.value(forKey: "tueswitch") as! Bool,
+                        wedOn: snapshotValue.value(forKey: "wedswitch") as! Bool,
+                        thuOn: snapshotValue.value(forKey: "thuswitch") as! Bool,
+                        friOn: snapshotValue.value(forKey: "friswitch") as! Bool,
+                        satOn: snapshotValue.value(forKey: "satswitch") as! Bool,
+                        sunOn: snapshotValue.value(forKey: "sunswitch") as! Bool,
+                        
+                        hourlyPricing: snapshotValue.value(forKey: "hourlyPricing") as! String,
+                        dailyPricing: snapshotValue.value(forKey: "dailyPricing") as! String,
+                        weeklyPricing: snapshotValue.value(forKey: "weeklyPricing") as! String,
+                        monthlyPricing: snapshotValue.value(forKey: "monthlyPricing") as! String,
+                        
+                        weeklyOn: snapshotValue.value(forKey: "switch_weekly") as! Bool,
+                        monthlyOn: snapshotValue.value(forKey: "switch_monthly") as! Bool,
+                        index: -1,
+                        approved:false, spotImages: UIImage.init(named: "white")!, spots_id: key, latitude: dblat, longitude: dblongitude, spottype: snapshotValue.value(forKey: "spot_type") as! String)!)
+        }
+        
+    }
+    
     
     
 }

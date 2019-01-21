@@ -31,6 +31,11 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
 
     // DATE SEARCHing
     @IBOutlet weak var Date_VIew: UIView!
+    @IBOutlet weak var lbl1: UILabel!
+    @IBOutlet weak var lbl2: UILabel!
+    @IBOutlet weak var btn_cancel: UIButton!
+    @IBOutlet weak var btn_done: UIButton!
+    
     @IBOutlet weak var start_datepic: UIDatePicker!
     @IBOutlet weak var end_datepic: UIDatePicker!
     let dateFormatter = DateFormatter()
@@ -127,10 +132,36 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         
         timearrayset()
         start_datepic.minimumDate = Date()
-        end_datepic.minimumDate = Date()
+        end_datepic.minimumDate = calendar.date(byAdding: .hour, value: 3, to:  Date())
         // list load
         AppState.sharedInstance.activeSpot.getSpots()
-    }
+        
+        
+        Date_VIew.layer.cornerRadius = 5;
+        Date_VIew.layer.masksToBounds = true;
+        Date_VIew.layer.borderWidth = 1
+        Date_VIew.layer.borderColor = UIColor.blue.cgColor
+        
+        btn_cancel.layer.cornerRadius = 5;
+        btn_cancel.layer.masksToBounds = true;
+        btn_cancel.layer.borderWidth = 2
+        btn_cancel.layer.borderColor = UIColor.darkGray.cgColor
+        
+        btn_done.layer.cornerRadius = 5;
+        btn_done.layer.masksToBounds = true;
+        btn_done.layer.borderWidth = 2
+        btn_done.layer.borderColor = UIColor.darkGray.cgColor
+        
+        lbl1.layer.cornerRadius = 5;
+        lbl1.layer.masksToBounds = true;
+        lbl1.layer.borderWidth = 2
+        lbl1.layer.borderColor = UIColor.darkGray.cgColor
+        
+        lbl2.layer.cornerRadius = 5;
+        lbl2.layer.masksToBounds = true;
+        lbl2.layer.borderWidth = 2
+        lbl2.layer.borderColor = UIColor.darkGray.cgColor
+      }
     
     func timearrayset()  {
         dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:a"
@@ -252,7 +283,12 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         view_info.isHidden = true
         btn_close.isHidden = true
         if Date_VIew.isHidden == true{
-            Date_VIew.isHidden = false
+        // Date_VIew.isHidden = false
+            
+            UIView.transition(with: Date_VIew, duration: 0.3, options: .transitionCurlDown, animations: {
+                self.Date_VIew.isHidden = false
+            })
+            
         }
         else{
             Date_VIew.isHidden = true

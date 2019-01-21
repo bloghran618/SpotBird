@@ -16,13 +16,20 @@ import GooglePlaces
 import GooglePlacePicker
 import GooglePlaces
 
+
 class AddressViewController: UIViewController, UITextFieldDelegate,CLLocationManagerDelegate,GMSMapViewDelegate,GMSAutocompleteViewControllerDelegate{
     
-    @IBOutlet weak var addressField: UITextField!
-    @IBOutlet weak var townField: UITextField!
-    @IBOutlet weak var stateField: UITextField!
-    @IBOutlet weak var zipField: UITextField!
+    @IBOutlet weak var txt_email: UITextField!
+    @IBOutlet weak var btn_spot_type: UIButton!
+    @IBOutlet weak var view_btm: UIView!
     @IBOutlet weak var nextButton: UIBarButtonItem!
+    
+    @IBOutlet weak var btn1: UIButton!
+    @IBOutlet weak var btn2: UIButton!
+    @IBOutlet weak var btn3: UIButton!
+    @IBOutlet weak var bnt4: UIButton!
+    @IBOutlet weak var view_types: UIView!
+    
     
     // MApview Outlets
     @IBOutlet var mapView: GMSMapView!
@@ -31,7 +38,10 @@ class AddressViewController: UIViewController, UITextFieldDelegate,CLLocationMan
     let CurrentLocMarker = GMSMarker()
     
     var spotcamera = false
-   
+    
+    var type = ""
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -45,34 +55,129 @@ class AddressViewController: UIViewController, UITextFieldDelegate,CLLocationMan
         self.locationManager.startMonitoringSignificantLocationChanges()
         self.locationManager.startUpdatingLocation()
         
-        self.addressField.delegate = self
-        self.townField.delegate = self
-        self.stateField.delegate = self
-        self.zipField.delegate = self
+        self.txt_email.delegate = self
         
         self.hideKeyboardWhenTappedAround()
         
-        addressField.text = AppState.sharedInstance.activeSpot.address
-        townField.text = AppState.sharedInstance.activeSpot.town
-        stateField.text = AppState.sharedInstance.activeSpot.state
-        zipField.text = AppState.sharedInstance.activeSpot.zipCode
+        
+        txt_email.layer.borderWidth = 2
+        txt_email.layer.borderColor = UIColor.cyan.cgColor
+        
+        view_btm.layer.cornerRadius = 5
+        view_btm.layer.masksToBounds = true
+        view_btm.layer.borderWidth = 1
+        view_btm.layer.borderColor = UIColor.black.cgColor
+        nextButton.isEnabled = false
         
         
-     if ((AppState.sharedInstance.activeSpot.address == "") && (AppState.sharedInstance.activeSpot.town == "")) && ((AppState.sharedInstance.activeSpot.zipCode == "") && (AppState.sharedInstance.activeSpot.state == "")) {
+        
+        view_types.layer.cornerRadius = 6
+        view_types.layer.masksToBounds = true
+        view_types.layer.borderWidth = 1
+        view_types.layer.borderColor = UIColor.black.cgColor
+        
+        
+       
+        
+        if ((AppState.sharedInstance.activeSpot.address == "") && (AppState.sharedInstance.activeSpot.town == "")) && ((AppState.sharedInstance.activeSpot.zipCode == "") && (AppState.sharedInstance.activeSpot.state == "")) {
             nextButton.isEnabled = false
-         }
-     }
+        }
+        else{
+            nextButton.isEnabled = true
+        }
+        
+        txt_email.text = (UserDefaults.standard.value(forKey: "logindata") as! NSDictionary).value(forKey: "email") as? String
+        
+        if AppState.sharedInstance.activeSpot.spot_type == ""{
+            borders(button: btn1)
+            borders(button: btn2)
+            borders(button: btn3)
+            borders(button: bnt4)
+        }
+        else if AppState.sharedInstance.activeSpot.spot_type == "Garage"{
+            btn1.setTitleColor(UIColor.white, for: .normal)
+            btn1.layer.backgroundColor = UIColor.black.cgColor
+            borders(button: btn2)
+            borders(button: btn3)
+            borders(button: bnt4)
+        }
+        else if AppState.sharedInstance.activeSpot.spot_type == "Lot"{
+            btn3.setTitleColor(UIColor.white, for: .normal)
+            btn3.layer.backgroundColor = UIColor.black.cgColor
+            borders(button: btn1)
+            borders(button: btn2)
+            borders(button: bnt4)
+        }
+        else if AppState.sharedInstance.activeSpot.spot_type == "Street"{
+            btn2.setTitleColor(UIColor.white, for: .normal)
+            btn2.layer.backgroundColor = UIColor.black.cgColor
+            borders(button: btn1)
+            borders(button: btn3)
+            borders(button: bnt4)
+        }else{
+            bnt4.setTitleColor(UIColor.white, for: .normal)
+            bnt4.layer.backgroundColor = UIColor.black.cgColor
+            borders(button: btn1)
+            borders(button: btn3)
+            borders(button: btn2)
+        }
+        
+    }
+    
+    func borders(button:UIButton){
+        button.layer.cornerRadius = 5
+        button.layer.masksToBounds = true
+        button.layer.borderWidth = 1
+        button.layer.borderColor = UIColor.black.cgColor
+        button.layer.backgroundColor = UIColor.white.cgColor
+        button.setTitleColor(UIColor.black, for: .normal)
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.mapView.layer.borderWidth = 1
         self.mapView.layer.borderColor = UIColor(red:222/255, green:225/255, blue:227/255, alpha: 1).cgColor
         
-        let date = Date()
+    }
+    
+    
+    
+    // select Spot type -
+    @IBAction func btn_TYPE(_ sender: Any) {
         
-        
-        
-      }
+        if (sender as AnyObject).titleLabel?.text == "Garage"{
+            btn1.setTitleColor(UIColor.white, for: .normal)
+            btn1.layer.backgroundColor = UIColor.black.cgColor
+            type = "Garage"
+            borders(button: btn2)
+            borders(button: btn3)
+            borders(button: bnt4)
+        }
+        else if (sender as AnyObject).titleLabel?.text == "Lot"{
+            btn3.setTitleColor(UIColor.white, for: .normal)
+            btn3.layer.backgroundColor = UIColor.black.cgColor
+            type = "Lot"
+            borders(button: btn1)
+            borders(button: btn2)
+            borders(button: bnt4)
+        }
+        else if (sender as AnyObject).titleLabel?.text == "Street"{
+            btn2.setTitleColor(UIColor.white, for: .normal)
+            btn2.layer.backgroundColor = UIColor.black.cgColor
+            type = "Street"
+            borders(button: btn1)
+            borders(button: btn3)
+            borders(button: bnt4)
+        }else{
+            bnt4.setTitleColor(UIColor.white, for: .normal)
+            bnt4.layer.backgroundColor = UIColor.black.cgColor
+            type = "Other"
+            borders(button: btn1)
+            borders(button: btn3)
+            borders(button: btn2)
+        }
+        AppState.sharedInstance.activeSpot.spot_type = type
+    }
     
     // Button Search :-
     @IBAction func Address_search(_ sender: Any) {
@@ -87,57 +192,15 @@ class AddressViewController: UIViewController, UITextFieldDelegate,CLLocationMan
     
     // Behavior when you hit return on keyboard
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if textField == addressField {
-            self.addressField.resignFirstResponder()
-            AppState.sharedInstance.activeSpot.address = addressField.text!
-        }
-        else if textField == townField {
-            self.townField.resignFirstResponder()
-            AppState.sharedInstance.activeSpot.town = townField.text!
-        }
-        else if textField == stateField {
-            self.stateField.resignFirstResponder()
-            AppState.sharedInstance.activeSpot.state = stateField.text!
-        }
-        else if textField == zipField {
-            self.zipField.resignFirstResponder()
-            AppState.sharedInstance.activeSpot.zipCode = zipField.text!
-        }
         
-        if ((AppState.sharedInstance.activeSpot.address != "") && (AppState.sharedInstance.activeSpot.town != "")) && ((AppState.sharedInstance.activeSpot.zipCode != "") && (AppState.sharedInstance.activeSpot.state != "")) {
-            nextButton.isEnabled = true
-        }
-        else {
-            nextButton.isEnabled = false
-        }
+        nextButton.isEnabled = false
+        
         return true
     }
     
     // Behavior when you click outside of the text box
     func textFieldDidEndEditing(_ textField: UITextField) {
-        if textField == addressField {
-            self.addressField.resignFirstResponder()
-            AppState.sharedInstance.activeSpot.address = addressField.text!
-        }
-        else if textField == townField {
-            self.townField.resignFirstResponder()
-            AppState.sharedInstance.activeSpot.town = townField.text!
-        }
-        else if textField == stateField {
-            self.stateField.resignFirstResponder()
-            AppState.sharedInstance.activeSpot.state = stateField.text!
-        }
-        else if textField == zipField {
-            self.zipField.resignFirstResponder()
-            AppState.sharedInstance.activeSpot.zipCode = zipField.text!
-        }
         
-        if ((AppState.sharedInstance.activeSpot.address != "") && (AppState.sharedInstance.activeSpot.town != "")) && ((AppState.sharedInstance.activeSpot.zipCode != "") && (AppState.sharedInstance.activeSpot.state != "")) {
-            nextButton.isEnabled = true
-        }
-        else {
-            nextButton.isEnabled = false
-        }
     }
 }
 
@@ -148,7 +211,6 @@ extension AddressViewController {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         let location = locations.last
-        
         self.CurrentLocMarker.position = (location?.coordinate)!
         self.CurrentLocMarker.title = "myLoc"
         var markerView = UIImageView()
@@ -159,71 +221,13 @@ extension AddressViewController {
         self.CurrentLocMarker.map = self.mapView
         
         if spotcamera == false {
-        let camera = GMSCameraPosition.camera(withLatitude: (location?.coordinate.latitude)!, longitude: (location?.coordinate.longitude)!, zoom:12)
-        self.mapView.animate(to: camera)
+            let camera = GMSCameraPosition.camera(withLatitude: (location?.coordinate.latitude)!, longitude: (location?.coordinate.longitude)!, zoom:12)
+            self.mapView.animate(to: camera)
         }
-         self.locationManager.stopUpdatingLocation()
-        
-    if ((AppState.sharedInstance.activeSpot.address != "") && (AppState.sharedInstance.activeSpot.town != "")) && ((AppState.sharedInstance.activeSpot.zipCode != "") && (AppState.sharedInstance.activeSpot.state != "")) {
-        
-        let marker = GMSMarker()
-        
-        let lat1 = AppState.sharedInstance.activeSpot.latitude
-        let long1 = AppState.sharedInstance.activeSpot.longitude
-        let lat = (lat1 as NSString).doubleValue
-        let long = (long1 as NSString).doubleValue
-        
-    //    marker.position = CLLocationCoordinate2DMake(lat, long)
-        
-        
-      marker.position = CLLocationCoordinate2D(latitude: lat, longitude: long)
-        marker.map = self.mapView
-        let price =  AppState.sharedInstance.activeSpot.hourlyPricing
-        var doller = String()
-        for (index, character) in price.enumerated() {
-            if index < 4 {
-                doller.append(character)
-            }
-        }
-        var markerimg = UIImageView()
-        let customView = UIView()
-        customView.frame = CGRect.init(x: 0, y: 0, width: 60, height: 60)
-        markerimg  = UIImageView(frame:CGRect(x:0, y:0, width:60, height:60));
-        markerimg.image = UIImage(named:"markers")
-        markerimg.backgroundColor = UIColor.clear
-        customView.addSubview(markerimg)
-        let lbl_marker = UILabel()
-        lbl_marker.frame = CGRect(x: 0, y: (markerimg.frame.height/2)-25, width: markerimg.frame.width, height: 40)
-        markerimg.addSubview(lbl_marker)
-        lbl_marker.textAlignment = .center
-        lbl_marker.numberOfLines = 1;
-        
-        
-        lbl_marker.text = "$\(doller)"
-        
-        lbl_marker.minimumScaleFactor = 0.5;
-        lbl_marker.adjustsFontSizeToFitWidth = true;
-        lbl_marker.textColor = UIColor.black
-        customView.backgroundColor = UIColor.clear
-        marker.iconView = customView
-        
-        if spotcamera == true {
-            
-            let lat1 = AppState.sharedInstance.activeSpot.latitude
-            let long1 = AppState.sharedInstance.activeSpot.longitude
-            let lat = (lat1 as NSString).doubleValue
-            let long = (long1 as NSString).doubleValue
-            
-           // marker.position = CLLocationCoordinate2DMake(lat, long)
-            
-        let camera = GMSCameraPosition.camera(withLatitude: lat, longitude: long, zoom:12)
-        self.mapView.animate(to: camera)
-        spotcamera = false
-        }
+        self.locationManager.stopUpdatingLocation()
     }
- }
     
-   func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print(error.localizedDescription)
     }
     
@@ -233,7 +237,7 @@ extension AddressViewController {
     }
     
     func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
-    
+        
     }
     
     func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
@@ -243,7 +247,7 @@ extension AddressViewController {
     }
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-      return true
+        return true
     }
     
     func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
@@ -251,89 +255,99 @@ extension AddressViewController {
     }
     
     //MARK:_ GMSAutocompleteViewController
-func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
+    func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
         dismiss(animated: true, completion: nil)
-        mapView.clear()
+        
         spotcamera = true
         AppState.sharedInstance.activeSpot.latitude = String(place.coordinate.latitude)
         AppState.sharedInstance.activeSpot.longitude =  String(place.coordinate.longitude)
-    var makeaddress = String()
+        var makeaddress = String()
         
-    for component in place.addressComponents!  {
-        print("type   -\(component.type)")
-         print("name   -\(component.name) ")
-        
-        if component.type == "street_number" {
-            makeaddress.append("\(component.name) ")
-        }
-        if component.type == "route" {
-          makeaddress.append("\(component.name) ")
-        }
-        if component.type == "neighborhood" {
-          makeaddress.append("\(component.name) ")
-        }
-        
-      if component.type == "locality" {
-        self.townField.text = component.name
-        AppState.sharedInstance.activeSpot.town = component.name
-        }
-        if component.type == "administrative_area_level_1" {
-        self.stateField.text = component.name
-        AppState.sharedInstance.activeSpot.state = component.name
-        }
-        if component.type == "postal_code" {
-        self.zipField.text = component.name
-        AppState.sharedInstance.activeSpot.zipCode = component.name
-        }
-        
-    }
-        
-    
-    self.addressField.text = makeaddress
-    AppState.sharedInstance.activeSpot.address = makeaddress
-    
-        let cordinate:[String: CLLocationCoordinate2D] = ["cordinate": place.coordinate]
-        let geocoder = GMSGeocoder()
-            geocoder.reverseGeocodeCoordinate(place.coordinate) { response , error in
+        for component in place.addressComponents!  {
             
-          //Add this line
+            
+            if component.type == "street_number" {
+                makeaddress.append("\(component.name),")
+            }
+            if component.type == "route" {
+                makeaddress.append("\(component.name),")
+            }
+            if component.type == "neighborhood" {
+                makeaddress.append("\(component.name),")
+            }
+            
+            if component.type == "locality" {
+                
+                AppState.sharedInstance.activeSpot.town = component.name
+            }
+            if component.type == "administrative_area_level_1" {
+                
+                AppState.sharedInstance.activeSpot.state = component.name
+            }
+            if component.type == "postal_code" {
+                
+                AppState.sharedInstance.activeSpot.zipCode = component.name
+            }
+            
+        }
+        
+        if makeaddress.last == ","
+        {
+            makeaddress.removeLast()
+        }
+        
+        
+        if makeaddress == "" {
+            let cordinate:[String: CLLocationCoordinate2D] = ["cordinate": place.coordinate]
+            let geocoder = GMSGeocoder()
+            geocoder.reverseGeocodeCoordinate(place.coordinate) { response , error in
+                
+                //Add this line
                 if let address = response!.firstResult() {
-                print(address)
-                 
+                    print(address)
+                    
                     if AppState.sharedInstance.activeSpot.zipCode == ""{
-                        self.zipField.text = address.postalCode!
+                        
                         AppState.sharedInstance.activeSpot.zipCode = address.postalCode!
                     }
-                    
-                    
-            let lines = address.lines! as [String]
-             if makeaddress == ""{
-                    
-               if address.thoroughfare == nil{
+                    let lines = address.lines! as [String]
+                    if address.thoroughfare == nil{
                         if address.subLocality != nil{
-                       self.addressField.text = address.subLocality
-                        AppState.sharedInstance.activeSpot.address = address.subLocality!
+                            
+                            AppState.sharedInstance.activeSpot.address = address.subLocality!
                         }
                     }
                     else{
                         if address.thoroughfare == "Unnamed Road"{
                             if address.subLocality != nil{
-                            self.addressField.text = address.subLocality
-                            AppState.sharedInstance.activeSpot.address = address.subLocality!
+                                
+                                AppState.sharedInstance.activeSpot.address = address.subLocality!
                             }
                         }else{
-                      self.addressField.text = address.thoroughfare
-                     AppState.sharedInstance.activeSpot.address = address.thoroughfare!
+                            AppState.sharedInstance.activeSpot.address = address.thoroughfare!
+                        }
                     }
-                    }
-                    }
-                  }
-              }
-       
-    
-        self.locationManager.startUpdatingLocation()
-       self.nextButton.isEnabled = true
-      }
+                }
+            }
+        }
+        
+        
+        mapView.clear()
+        self.CurrentLocMarker.position = (place.coordinate)
+        self.CurrentLocMarker.title = AppState.sharedInstance.activeSpot.town
+        var markerView = UIImageView()
+        markerView = UIImageView(image: UIImage.init(named: "current_location_icon"))
+        markerView.frame.size.width = 30
+        markerView.frame.size.height = 30
+        self.CurrentLocMarker.iconView = markerView
+        self.CurrentLocMarker.map = self.mapView
+        
+        let camera = GMSCameraPosition.camera(withLatitude: (place.coordinate.latitude), longitude: (place.coordinate.longitude), zoom:12)
+        //  self.mapView.animate(to: camera)
+        mapView.camera = camera
+        
+        self.nextButton.isEnabled = true
+    }
     
     func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
         print("Error: ", error.localizedDescription)
@@ -357,5 +371,5 @@ func viewController(_ viewController: GMSAutocompleteViewController, didAutocomp
         print("First line of code executed")
         completion(arg)
     }
- }
+}
 
