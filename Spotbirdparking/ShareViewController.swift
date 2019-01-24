@@ -60,10 +60,12 @@ class ShareViewController: UIViewController, UITableViewDataSource {
            
         }
         
-        AppState.sharedInstance.user.avg1 = AppState.sharedInstance.user.avg1/AppState.sharedInstance.spots.count
-        AppState.sharedInstance.user.avg2  = AppState.sharedInstance.user.avg2/AppState.sharedInstance.spots.count
-        AppState.sharedInstance.user.avg3 = AppState.sharedInstance.user.avg3/AppState.sharedInstance.spots.count
-        AppState.sharedInstance.user.avg4 = AppState.sharedInstance.user.avg4/AppState.sharedInstance.spots.count
+        if AppState.sharedInstance.spots.count != 0 {
+            AppState.sharedInstance.user.avg1 = AppState.sharedInstance.user.avg1/AppState.sharedInstance.spots.count
+            AppState.sharedInstance.user.avg2  = AppState.sharedInstance.user.avg2/AppState.sharedInstance.spots.count
+            AppState.sharedInstance.user.avg3 = AppState.sharedInstance.user.avg3/AppState.sharedInstance.spots.count
+            AppState.sharedInstance.user.avg4 = AppState.sharedInstance.user.avg4/AppState.sharedInstance.spots.count
+        }
     
     }
     
