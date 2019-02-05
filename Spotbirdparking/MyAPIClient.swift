@@ -122,7 +122,7 @@ class MyAPIClient: NSObject, STPEphemeralKeyProvider {
     }
     
     // Create a new account ID in Stripe
-    // run with createAccountID()
+    // run with MyAPIClient.sharedClient.createAccountID()
     func createAccountID() {
         print("Create Account ID!!!")
         let url = self.baseURL.appendingPathComponent("account_id")
@@ -147,6 +147,53 @@ class MyAPIClient: NSObject, STPEphemeralKeyProvider {
                     print("Account ID: \(JSON["account_id"] ?? "")")
                     // set Customer Token to flask value
                     AppState.sharedInstance.user.setaccountToken(accountToken: account_id_from_flask as! String)
+                }
+        }
+    }
+    
+    // Add tokenized connect account info to the user Stripe account
+    // Run with MyAPIClient.sharedClient.addConnectInfoToken(token)
+    func addConnectAccountInfoToken(token: STPToken) {
+        
+        // get accountID from user object
+        let accountID = "acct_1DvaPmDZCtueSval"
+        
+        let url = self.baseURL.appendingPathComponent("add_connect_info")
+        
+        Alamofire.request(url, method: .post, parameters: [
+            "account_id": accountID,
+            "info_token": token])
+            .validate(statusCode: 200..<300)
+            .responseJSON { responseJSON in
+                switch responseJSON.result {
+                case .success(let json):
+                    print("Successfully added account params token")
+                case .failure(let error):
+                    print("Failed due to error: \(error.localizedDescription)")
+                }
+        }
+    }
+    
+    
+    // Add tokenized bank account info to the user Stripe account
+    // Run with MyAPIClient.sharedClient.addAccountToken(token)
+    func addAccountToken(token: STPToken) {
+        
+        // get accountID from user object
+        let accountID = "acct_1DvaPmDZCtueSval"
+        
+        let url = self.baseURL.appendingPathComponent("add_bank_info")
+        
+        Alamofire.request(url, method: .post, parameters: [
+            "account_id": accountID,
+            "account_token": token])
+            .validate(statusCode: 200..<300)
+            .responseJSON { responseJSON in
+                switch responseJSON.result {
+                case .success(let json):
+                    print("Successfully added bank account token")
+                case .failure(let error):
+                    print("Failed due to error: \(error.localizedDescription)")
                 }
         }
     }

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="88Y-zQ-ULl">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="88Y-zQ-ULl">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -380,7 +380,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="97G-pw-h7U">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="751.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="1027"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZX3-2P-wRr">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="20.5"/>
@@ -388,44 +388,74 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First Name is Required" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="31U-Fu-Jpm">
+                                                <rect key="frame" x="0.0" y="24.5" width="375" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3aQ-Iu-wxH">
-                                                <rect key="frame" x="0.0" y="24.5" width="375" height="30"/>
+                                                <rect key="frame" x="0.0" y="49" width="375" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last Name is Required" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CKL-l5-sp9">
+                                                <rect key="frame" x="0.0" y="83" width="375" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Last" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="M8Q-ef-3hg">
-                                                <rect key="frame" x="0.0" y="58.5" width="375" height="30"/>
+                                                <rect key="frame" x="0.0" y="107.5" width="375" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K85-h1-EtI">
-                                                <rect key="frame" x="0.0" y="92.5" width="375" height="20.5"/>
+                                                <rect key="frame" x="0.0" y="141.5" width="375" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Line 1 is Required" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ilP-84-ayq">
+                                                <rect key="frame" x="0.0" y="166" width="375" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Line 1" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="AU6-fW-nwj">
-                                                <rect key="frame" x="0.0" y="117" width="375" height="30"/>
+                                                <rect key="frame" x="0.0" y="190.5" width="375" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Line 2" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dK6-Eg-tb3">
-                                                <rect key="frame" x="0.0" y="151" width="375" height="30"/>
+                                                <rect key="frame" x="0.0" y="224.5" width="375" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="City is Required" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5bs-Zb-bL1">
+                                                <rect key="frame" x="0.0" y="258.5" width="375" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="City" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="unY-hW-K6I">
-                                                <rect key="frame" x="0.0" y="185" width="375" height="30"/>
+                                                <rect key="frame" x="0.0" y="283" width="375" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="State is Required" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mEa-Xx-yrX">
+                                                <rect key="frame" x="0.0" y="317" width="375" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="State" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xIE-e0-V17">
-                                                <rect key="frame" x="0.0" y="219" width="375" height="30"/>
+                                                <rect key="frame" x="0.0" y="341.5" width="375" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
@@ -434,62 +464,86 @@
                                                 </connections>
                                             </textField>
                                             <pickerView hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D4r-s4-Sye">
-                                                <rect key="frame" x="0.0" y="251" width="375" height="0.0"/>
+                                                <rect key="frame" x="0.0" y="373.5" width="375" height="0.0"/>
                                                 <connections>
                                                     <outlet property="dataSource" destination="Mzv-un-pCS" id="md3-et-P63"/>
                                                     <outlet property="delegate" destination="Mzv-un-pCS" id="4cu-cP-XVy"/>
                                                 </connections>
                                             </pickerView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Zip is Required" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CJA-66-sQy">
+                                                <rect key="frame" x="0.0" y="375.5" width="375" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Zip" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Umc-gM-Ja1">
-                                                <rect key="frame" x="0.0" y="253" width="375" height="30"/>
+                                                <rect key="frame" x="0.0" y="400" width="375" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date of Birth" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xSH-bI-JSU">
-                                                <rect key="frame" x="0.0" y="287" width="375" height="20.5"/>
+                                                <rect key="frame" x="0.0" y="434" width="375" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" useCurrentDate="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vst-Cx-5e0">
-                                                <rect key="frame" x="0.0" y="311.5" width="375" height="216"/>
+                                                <rect key="frame" x="0.0" y="458.5" width="375" height="216"/>
                                                 <date key="date" timeIntervalSinceReferenceDate="-189290029.272735">
                                                     <!--1995-01-02 03:26:10 +0000-->
                                                 </date>
                                             </datePicker>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last 4 Social is Required" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G9s-al-3Lu">
+                                                <rect key="frame" x="0.0" y="678.5" width="375" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last 4 Digits Social Security Nubmer" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CZp-Zn-6Lf">
-                                                <rect key="frame" x="0.0" y="531.5" width="375" height="20.5"/>
+                                                <rect key="frame" x="0.0" y="703" width="375" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Last 4" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="3hk-jN-Av3">
-                                                <rect key="frame" x="0.0" y="556" width="375" height="30"/>
+                                                <rect key="frame" x="0.0" y="727.5" width="375" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Account Info" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zAm-FB-lWl">
-                                                <rect key="frame" x="0.0" y="590" width="375" height="20.5"/>
+                                                <rect key="frame" x="0.0" y="761.5" width="375" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Routing Number is Required" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ddb-d9-mhs">
+                                                <rect key="frame" x="0.0" y="786" width="375" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Routing Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cXq-hl-nzw">
-                                                <rect key="frame" x="0.0" y="614.5" width="375" height="30"/>
+                                                <rect key="frame" x="0.0" y="810.5" width="375" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Account Number is Required" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xVn-1R-MxM">
+                                                <rect key="frame" x="0.0" y="844.5" width="375" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Account Number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9Jt-Pz-SAD">
-                                                <rect key="frame" x="0.0" y="648.5" width="375" height="30"/>
+                                                <rect key="frame" x="0.0" y="869" width="375" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y9K-Xx-Fs0">
-                                                <rect key="frame" x="0.0" y="682.5" width="375" height="50"/>
+                                                <rect key="frame" x="0.0" y="903" width="375" height="50"/>
                                                 <color key="backgroundColor" red="0.20000000000000001" green="0.79607843140000001" blue="0.35294117650000001" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="50" id="CCi-mE-zV0"/>
@@ -501,8 +555,21 @@
                                                     <action selector="submitInfo:" destination="Mzv-un-pCS" eventType="touchUpInside" id="LZe-0K-7k5"/>
                                                 </connections>
                                             </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Hitting submit implies acceptance of account" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xXt-Cm-pLw">
+                                                <rect key="frame" x="0.0" y="957" width="375" height="17"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HUA-wr-qaH">
+                                                <rect key="frame" x="0.0" y="978" width="375" height="30"/>
+                                                <state key="normal" title="Terms and Conditions"/>
+                                                <connections>
+                                                    <action selector="termsAndConditionsButton:" destination="Mzv-un-pCS" eventType="touchUpInside" id="PIw-la-byZ"/>
+                                                </connections>
+                                            </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LOb-Jn-ois">
-                                                <rect key="frame" x="0.0" y="736.5" width="375" height="15"/>
+                                                <rect key="frame" x="0.0" y="1012" width="375" height="15"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="15" id="QuA-YZ-C4F"/>
@@ -531,17 +598,27 @@
                     </view>
                     <connections>
                         <outlet property="accountNumberField" destination="9Jt-Pz-SAD" id="y7q-aJ-EM6"/>
+                        <outlet property="accountNumberValidation" destination="xVn-1R-MxM" id="a2R-iy-bZh"/>
+                        <outlet property="addressLine1Validation" destination="ilP-84-ayq" id="gPV-HS-cmM"/>
                         <outlet property="cityAddressField" destination="unY-hW-K6I" id="HXc-ww-cNt"/>
+                        <outlet property="cityValidation" destination="5bs-Zb-bL1" id="dqk-e0-P7d"/>
                         <outlet property="dateOfBirthDatePicker" destination="Vst-Cx-5e0" id="X0t-0w-QAI"/>
                         <outlet property="firstNameField" destination="3aQ-Iu-wxH" id="DtS-Fr-fpT"/>
+                        <outlet property="firstNameValidation" destination="31U-Fu-Jpm" id="SaY-NK-dEd"/>
                         <outlet property="last4SocialField" destination="3hk-jN-Av3" id="Fqx-nZ-f2s"/>
+                        <outlet property="last4SocialValidation" destination="G9s-al-3Lu" id="Ds1-ou-Abc"/>
                         <outlet property="lastNameField" destination="M8Q-ef-3hg" id="WzB-u7-RA1"/>
+                        <outlet property="lastNameValidation" destination="CKL-l5-sp9" id="7Ed-jm-lfX"/>
                         <outlet property="line1AddressField" destination="AU6-fW-nwj" id="EJi-nu-0xs"/>
                         <outlet property="line2AddressField" destination="dK6-Eg-tb3" id="iuf-c6-pKu"/>
                         <outlet property="routingNumberField" destination="cXq-hl-nzw" id="euj-Wn-VlE"/>
+                        <outlet property="routingNumberValidation" destination="Ddb-d9-mhs" id="wWP-0I-l0S"/>
                         <outlet property="stateAddressField" destination="xIE-e0-V17" id="cob-TT-qbo"/>
                         <outlet property="stateDropDown" destination="D4r-s4-Sye" id="Ja4-2i-1JF"/>
+                        <outlet property="stateValidation" destination="mEa-Xx-yrX" id="Orp-a9-ZVm"/>
+                        <outlet property="termsLabel" destination="xXt-Cm-pLw" id="yBy-7s-jaW"/>
                         <outlet property="zipAddressField" destination="Umc-gM-Ja1" id="uGO-lf-jSi"/>
+                        <outlet property="zipValidation" destination="CJA-66-sQy" id="5En-Fz-iDc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O0g-9Y-AEM" userLabel="First Responder" sceneMemberID="firstResponder"/>
