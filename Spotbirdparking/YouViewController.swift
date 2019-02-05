@@ -195,6 +195,11 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
             UserDefaults.standard.synchronize()
             AppState.sharedInstance.user.cars.removeAll()
             AppState.sharedInstance.spots.removeAll()
+            AppState.sharedInstance.user.customertoken = ""
+            AppState.sharedInstance.user.accounttoken =  ""
+            AppState.sharedInstance.user.firstName = ""
+            AppState.sharedInstance.user.lastName = ""
+            AppState.sharedInstance.user.profileImage = ""
             let vc = self.storyboard!.instantiateViewController(withIdentifier: "Login_ViewController") as! Login_ViewController
             self.present(vc, animated: true, completion: nil)
         }

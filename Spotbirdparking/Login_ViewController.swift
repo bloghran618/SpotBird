@@ -67,6 +67,26 @@ class Login_ViewController: UIViewController {
                          self.Myspots(spotarray: array, key: id)
                     }
                     
+                    if let val = dict["Cars"] {
+                        var array =  NSMutableArray()
+                        let dictspot =  dict.value(forKey: "Cars") as! NSDictionary
+                        print(dictspot)
+                        let keys = dictspot.allKeys
+                        print(keys)
+                        
+                        for i in 0..<keys.count {
+                            let indexdict =  dictspot.value(forKey: keys[i] as! String) as!  NSDictionary
+                            print(indexdict)
+                            array.add(indexdict)
+                        }
+                        print(array)
+                        // make model class data
+                        self.MyCars(carsarray: array, key: id)
+                    }
+                    
+                    
+                    
+                    
                     let logindata = ["fname":dict.value(forKey: "fname") as! String,"id":dict.value(forKey: "id") as! String,"image":dict.value(forKey: "image") as! String,"lname":dict.value(forKey: "lname") as! String,"uname":dict.value(forKey: "uname") as! String,"email":dict.value(forKey: "email") as! String]
                         
                         UserDefaults.standard.setValue(logindata, forKey: "logindata")
@@ -166,6 +186,14 @@ class Login_ViewController: UIViewController {
         
     }
     
+       // MY CARS _
+       func MyCars(carsarray:NSArray,key:String) {
+        for i in 0..<carsarray.count{
+            let snapshotValue = carsarray.object(at: i) as! NSDictionary
+        
+          AppState.sharedInstance.user.cars.append(Car(make: snapshotValue.value(forKey: "make") as! String, model: snapshotValue.value(forKey: "model") as! String, year: snapshotValue.value(forKey: "year") as! String, carImage: snapshotValue.value(forKey: "image") as! String, isDefault: snapshotValue.value(forKey: "default") as! Bool,car_id:key)!)
+        }
+       }
     
     
 }
