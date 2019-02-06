@@ -20,27 +20,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spotbirdparking/FirstViewController.swift"
-            timestampString = "570632919.925981"
+            timestampString = "571064702.636614"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "310"
-            endingLineNumber = "310"
-            landmarkName = "btn_Date_search_done(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Spotbirdparking/FirstViewController.swift"
-            timestampString = "570632919.926793"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "933"
-            endingLineNumber = "933"
+            startingLineNumber = "935"
+            endingLineNumber = "935"
             landmarkName = "get_todaySpots(tag:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -52,11 +36,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spotbirdparking/FirstViewController.swift"
-            timestampString = "570632919.927344"
+            timestampString = "571064702.636663"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "971"
-            endingLineNumber = "971"
+            startingLineNumber = "973"
+            endingLineNumber = "973"
             landmarkName = "loadEventsToMap(lat:long:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -68,11 +52,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spotbirdparking/FirstViewController.swift"
-            timestampString = "570632919.92782"
+            timestampString = "571064702.636699"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1214"
-            endingLineNumber = "1214"
+            startingLineNumber = "1216"
+            endingLineNumber = "1216"
             landmarkName = "viewController(_:didAutocompleteWith:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -84,11 +68,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spotbirdparking/FirstViewController.swift"
-            timestampString = "570632919.928362"
+            timestampString = "571064702.636732"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1047"
-            endingLineNumber = "1047"
+            startingLineNumber = "1049"
+            endingLineNumber = "1049"
             landmarkName = "Search_Spot()"
             landmarkType = "7">
          </BreakpointContent>
@@ -99,13 +83,109 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "Spotbirdparking/PriceViewController.swift"
-            timestampString = "570026256.583971"
+            filePath = "Spotbirdparking/FirstViewController.swift"
+            timestampString = "571064702.636763"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "66"
-            endingLineNumber = "66"
-            landmarkName = "viewDidLoad()"
+            startingLineNumber = "980"
+            endingLineNumber = "980"
+            landmarkName = "loadEventsToMap(lat:long:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Spotbirdparking/FirstViewController.swift"
+            timestampString = "571064702.636793"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "621"
+            endingLineNumber = "621"
+            landmarkName = "btn_Date_search_done(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Spotbirdparking/FirstViewController.swift"
+            timestampString = "571064702.6368231"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "468"
+            endingLineNumber = "468"
+            landmarkName = "btn_Date_search_done(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Spotbirdparking/AddressViewController.swift"
+            timestampString = "571063609.822086"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "143"
+            endingLineNumber = "143"
+            landmarkName = "btn_TYPE(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Spotbirdparking/AddressViewController.swift"
+            timestampString = "571063609.822523"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "152"
+            endingLineNumber = "152"
+            landmarkName = "btn_TYPE(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Spotbirdparking/Login_ViewController.swift"
+            timestampString = "571068869.0635149"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "194"
+            endingLineNumber = "194"
+            landmarkName = "MyCars(carsarray:key:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Spotbirdparking/Login_ViewController.swift"
+            timestampString = "571068869.063818"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "139"
+            endingLineNumber = "139"
+            landmarkName = "Myspots(spotarray:key:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

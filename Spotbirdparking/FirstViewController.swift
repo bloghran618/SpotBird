@@ -135,6 +135,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         end_datepic.minimumDate = calendar.date(byAdding: .hour, value: 3, to:  Date())
         // list load
         AppState.sharedInstance.activeSpot.getSpots()
+       
         
         
         Date_VIew.layer.cornerRadius = 5;
@@ -617,6 +618,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                         }
                      }
                     if arr_day[j] == "Thursday" {
+                       
                         if (arrspot.object(at: i) as! NSDictionary).value(forKey: "thuswitch") as! Bool == true{
                             
                         let arrThu = datedaydict.value(forKey: "Thursday") as! NSArray

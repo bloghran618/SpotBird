@@ -77,7 +77,7 @@ class AddressViewController: UIViewController, UITextFieldDelegate,CLLocationMan
         view_types.layer.borderColor = UIColor.black.cgColor
         
         
-       
+        
         
         if ((AppState.sharedInstance.activeSpot.address == "") && (AppState.sharedInstance.activeSpot.town == "")) && ((AppState.sharedInstance.activeSpot.zipCode == "") && (AppState.sharedInstance.activeSpot.state == "")) {
             nextButton.isEnabled = false
@@ -89,37 +89,19 @@ class AddressViewController: UIViewController, UITextFieldDelegate,CLLocationMan
         txt_email.text = (UserDefaults.standard.value(forKey: "logindata") as! NSDictionary).value(forKey: "email") as? String
         
         if AppState.sharedInstance.activeSpot.spot_type == ""{
-            borders(button: btn1)
-            borders(button: btn2)
-            borders(button: btn3)
-            borders(button: bnt4)
+           
         }
         else if AppState.sharedInstance.activeSpot.spot_type == "Garage"{
-            btn1.setTitleColor(UIColor.white, for: .normal)
-            btn1.layer.backgroundColor = UIColor.black.cgColor
-            borders(button: btn2)
-            borders(button: btn3)
-            borders(button: bnt4)
-        }
-        else if AppState.sharedInstance.activeSpot.spot_type == "Lot"{
-            btn3.setTitleColor(UIColor.white, for: .normal)
-            btn3.layer.backgroundColor = UIColor.black.cgColor
-            borders(button: btn1)
-            borders(button: btn2)
-            borders(button: bnt4)
+           btn1.setImage(UIImage.init(named: "garageParkingSelected"), for: .normal)
         }
         else if AppState.sharedInstance.activeSpot.spot_type == "Street"{
-            btn2.setTitleColor(UIColor.white, for: .normal)
-            btn2.layer.backgroundColor = UIColor.black.cgColor
-            borders(button: btn1)
-            borders(button: btn3)
-            borders(button: bnt4)
-        }else{
-            bnt4.setTitleColor(UIColor.white, for: .normal)
-            bnt4.layer.backgroundColor = UIColor.black.cgColor
-            borders(button: btn1)
-            borders(button: btn3)
-            borders(button: btn2)
+            btn2.setImage(UIImage.init(named: "streetParkingSelected"), for: .normal)
+        }
+        else if AppState.sharedInstance.activeSpot.spot_type == "Lot"{
+          btn3.setImage(UIImage.init(named: "lotParkingSelected"), for: .normal)
+        }
+        else{
+             bnt4.setImage(UIImage.init(named: "drivewayParkingSelected"), for: .normal)
         }
         
     }
@@ -140,41 +122,43 @@ class AddressViewController: UIViewController, UITextFieldDelegate,CLLocationMan
         
     }
     
-    
-    
     // select Spot type -
     @IBAction func btn_TYPE(_ sender: Any) {
         
+// garageParking, garageParkingSelected, streetParking, streetParkingSelected, lotParking, lotParkingSelected, drivewayParking, drivewayParkingSelected
+      
+        
         if (sender as AnyObject).titleLabel?.text == "Garage"{
-            btn1.setTitleColor(UIColor.white, for: .normal)
-            btn1.layer.backgroundColor = UIColor.black.cgColor
             type = "Garage"
-            borders(button: btn2)
-            borders(button: btn3)
-            borders(button: bnt4)
-        }
-        else if (sender as AnyObject).titleLabel?.text == "Lot"{
-            btn3.setTitleColor(UIColor.white, for: .normal)
-            btn3.layer.backgroundColor = UIColor.black.cgColor
-            type = "Lot"
-            borders(button: btn1)
-            borders(button: btn2)
-            borders(button: bnt4)
+            btn1.setImage(UIImage.init(named: "garageParkingSelected"), for: .normal)
+            
+            btn2.setImage(UIImage.init(named: "streetParking"), for: .normal)
+            btn3.setImage(UIImage.init(named: "lotParking"), for: .normal)
+            bnt4.setImage(UIImage.init(named: "drivewayParking"), for: .normal)
         }
         else if (sender as AnyObject).titleLabel?.text == "Street"{
-            btn2.setTitleColor(UIColor.white, for: .normal)
-            btn2.layer.backgroundColor = UIColor.black.cgColor
             type = "Street"
-            borders(button: btn1)
-            borders(button: btn3)
-            borders(button: bnt4)
-        }else{
-            bnt4.setTitleColor(UIColor.white, for: .normal)
-            bnt4.layer.backgroundColor = UIColor.black.cgColor
+            btn2.setImage(UIImage.init(named: "streetParkingSelected"), for: .normal)
+            
+            btn3.setImage(UIImage.init(named: "lotParking"), for: .normal)
+            bnt4.setImage(UIImage.init(named: "drivewayParking"), for: .normal)
+            btn1.setImage(UIImage.init(named: "garageParking"), for: .normal)
+        }
+        else if (sender as AnyObject).titleLabel?.text == "Lot"{
+            type = "Lot"
+            btn3.setImage(UIImage.init(named: "lotParkingSelected"), for: .normal)
+            
+            bnt4.setImage(UIImage.init(named: "drivewayParking"), for: .normal)
+            btn1.setImage(UIImage.init(named: "garageParking"), for: .normal)
+            btn2.setImage(UIImage.init(named: "streetParking"), for: .normal)
+        }
+        else{
             type = "Other"
-            borders(button: btn1)
-            borders(button: btn3)
-            borders(button: btn2)
+            bnt4.setImage(UIImage.init(named: "drivewayParkingSelected"), for: .normal)
+            
+            btn1.setImage(UIImage.init(named: "garageParking"), for: .normal)
+            btn2.setImage(UIImage.init(named: "streetParking"), for: .normal)
+             btn3.setImage(UIImage.init(named: "lotParking"), for: .normal)
         }
         AppState.sharedInstance.activeSpot.spot_type = type
     }
@@ -194,7 +178,6 @@ class AddressViewController: UIViewController, UITextFieldDelegate,CLLocationMan
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
         nextButton.isEnabled = false
-        
         return true
     }
     
