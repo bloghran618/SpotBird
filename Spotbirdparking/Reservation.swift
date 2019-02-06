@@ -12,10 +12,8 @@ class Reservation {
     
     var startDateTime: String
     var endDateTime: String
-    
     var parkOrRent: String // will always be "Park" or "Rent"
     var price: String
-    
     var spot: Spot
     
     init?(startDateTime: String, endDateTime: String, parkOrRent: String, spot: Spot) {

@@ -20,6 +20,7 @@ class User {
     var imgname = ""
     var accounttoken = String()
     var customertoken = String()
+    var reservations: [Reservation]
     
     var avg1 = Int()
     var avg2 = Int()
@@ -28,11 +29,12 @@ class User {
    
     var refArtists: DatabaseReference!
    
-    init?(firstName: String, lastName: String, profileImage: String, cars: [Car]) {
+    init?(firstName: String, lastName: String, profileImage: String, cars: [Car], reservations: [Reservation]) {
         self.firstName = firstName
         self.lastName = lastName
         self.profileImage = profileImage
         self.cars = cars
+        self.reservations = reservations
     }
     
     init() {
@@ -40,6 +42,7 @@ class User {
         self.lastName = ""
         self.profileImage = ""
         self.cars = []
+        self.reservations = []
     }
     
     public func manageOneDefaultCar(carIndex: Int) {
