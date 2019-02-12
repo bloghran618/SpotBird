@@ -60,8 +60,8 @@ class AddressViewController: UIViewController, UITextFieldDelegate,CLLocationMan
         self.hideKeyboardWhenTappedAround()
         
         
-        txt_email.layer.borderWidth = 2
-        txt_email.layer.borderColor = UIColor.cyan.cgColor
+//        txt_email.layer.borderWidth = 2
+//        txt_email.layer.borderColor = UIColor.cyan.cgColor
         
         view_btm.layer.cornerRadius = 5
         view_btm.layer.masksToBounds = true
@@ -325,7 +325,7 @@ extension AddressViewController {
         self.CurrentLocMarker.iconView = markerView
         self.CurrentLocMarker.map = self.mapView
         
-        let camera = GMSCameraPosition.camera(withLatitude: (place.coordinate.latitude), longitude: (place.coordinate.longitude), zoom:12)
+        let camera = GMSCameraPosition.camera(withLatitude: (place.coordinate.latitude), longitude: (place.coordinate.longitude), zoom:16)
         //  self.mapView.animate(to: camera)
         mapView.camera = camera
         
