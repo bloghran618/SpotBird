@@ -181,7 +181,7 @@ class Login_ViewController: UIViewController {
                         weeklyOn: snapshotValue.value(forKey: "switch_weekly") as! Bool,
                         monthlyOn: snapshotValue.value(forKey: "switch_monthly") as! Bool,
                         index: -1,
-                        approved:false, spotImages: UIImage.init(named: "white")!, spots_id: key, latitude: dblat, longitude: dblongitude, spottype: snapshotValue.value(forKey: "spot_type") as! String)!)
+                        approved:false, spotImages: UIImage.init(named: "white")!, spots_id: key, latitude: dblat, longitude: dblongitude, spottype: snapshotValue.value(forKey: "spot_type") as! String, owner_id: snapshotValue.value(forKey: "owner_id") as! String)!)
         }
         
     }

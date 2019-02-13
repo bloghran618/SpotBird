@@ -71,26 +71,23 @@ class PriceViewController: UIViewController, UITextFieldDelegate,CLLocationManag
         //        weeklyPricing.keyboardType = UIKeyboardType.decimalPad
         //        monthlyPricing.keyboardType = UIKeyboardType.decimalPad
         
-       
-        Slide1.minimumValue = 4
-        Slide1.maximumValue = 7
         
-        Slide2.minimumValue = 119
-        Slide2.maximumValue = 191
+        Slide1.minimumValue = 5
+        Slide1.maximumValue = 8
         
-        Slide3.minimumValue = 839
-        Slide3.maximumValue = 1343
+        Slide2.minimumValue = 120
+        Slide2.maximumValue = 192
         
-        Slide4.minimumValue = 3599
-        Slide4.maximumValue = 5759
+        Slide3.minimumValue = 840
+        Slide3.maximumValue = 1344
+        
+        Slide4.minimumValue = 3600
+        Slide4.maximumValue = 5760
         
         Slide1.value = Float(AppState.sharedInstance.activeSpot.hourlyPricing)!
         Slide2.value = Float(AppState.sharedInstance.activeSpot.dailyPricing)!
         Slide3.value = Float(AppState.sharedInstance.activeSpot.weeklyPricing)!
         Slide4.value = Float(AppState.sharedInstance.activeSpot.monthlyPricing)!
-        
-        
-        
         
         
         lbl1_price.text = "$ \(AppState.sharedInstance.activeSpot.hourlyPricing)"
@@ -125,25 +122,25 @@ class PriceViewController: UIViewController, UITextFieldDelegate,CLLocationManag
     }
     
     @IBAction func Slide1(_ sender: Any) {
-         let index = String(format: "%.2f", ((Slide1!.value + 0.1)))
+        let index = String(format: "%.2f", ((Slide1!.value)))
         AppState.sharedInstance.activeSpot.hourlyPricing = index
         value1 = "101"
         lbl1_price.text = "$ \(AppState.sharedInstance.activeSpot.hourlyPricing)"
+       
     }
     
     
     @IBAction func Slide2(_ sender: Any) {
-        let index = String(format: "%.2f", ((Slide2!.value + 0.1)))
-        
+         let index = String(format: "%.2f", ((Slide2!.value)))
         AppState.sharedInstance.activeSpot.dailyPricing = index
         value2 = "102"
         lbl2_price.text = "$ \(AppState.sharedInstance.activeSpot.dailyPricing)"
         
-       
+        
     }
     
     @IBAction func Slide3(_ sender: Any) {
-      let index = String(format: "%.2f", ((Slide3!.value + 0.1)))
+         let index = String(format: "%.2f", ((Slide3!.value)))
         AppState.sharedInstance.activeSpot.weeklyPricing = index
         value2 = "103"
         lbl3_price.text = "$ \(AppState.sharedInstance.activeSpot.weeklyPricing)"
@@ -151,7 +148,7 @@ class PriceViewController: UIViewController, UITextFieldDelegate,CLLocationManag
     }
     
     @IBAction func Slide4(_ sender: Any) {
-        let index = String(format: "%.2f", ((Slide4!.value + 0.1)))
+         let index = String(format: "%.2f", ((Slide4!.value)))
         AppState.sharedInstance.activeSpot.monthlyPricing = index
         value2 = "104"
         lbl4_price.text = "$ \(AppState.sharedInstance.activeSpot.monthlyPricing)"

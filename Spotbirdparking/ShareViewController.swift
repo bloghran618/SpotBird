@@ -119,7 +119,7 @@ class ShareViewController: UIViewController, UITableViewDataSource {
             
         case "addSpotSegue":
             print("Add Spot")
-            AppState.sharedInstance.activeSpot = Spot(address: "", town: "", state: "", zipCode: "", spotImage: "", description: "", monStartTime: "12:00 AM", monEndTime: "12:00 PM", tueStartTime: "12:00 AM", tueEndTime: "12:00 PM", wedStartTime: "12:00 AM", wedEndTime: "12:00 PM", thuStartTime: "12:00 AM", thuEndTime: "12:00 PM", friStartTime: "12:00 AM", friEndTime: "12:00 PM", satStartTime: "12:00 AM", satEndTime: "12:00 PM", sunStartTime: "12:00 AM", sunEndTime: "12:00 PM", monOn: true, tueOn: true, wedOn: true, thuOn: true, friOn: true, satOn: true, sunOn: true, hourlyPricing: "1.00", dailyPricing: "7.00", weeklyPricing: "35.00", monthlyPricing: "105.00", weeklyOn: true, monthlyOn: true, index: -1, approved: false, spotImages: UIImage.init(named: "emptySpot")!, spots_id: "", latitude: "0",longitude: "0", spottype: "")!
+            AppState.sharedInstance.activeSpot = Spot(address: "", town: "", state: "", zipCode: "", spotImage: "", description: "", monStartTime: "12:00 AM", monEndTime: "12:00 PM", tueStartTime: "12:00 AM", tueEndTime: "12:00 PM", wedStartTime: "12:00 AM", wedEndTime: "12:00 PM", thuStartTime: "12:00 AM", thuEndTime: "12:00 PM", friStartTime: "12:00 AM", friEndTime: "12:00 PM", satStartTime: "12:00 AM", satEndTime: "12:00 PM", sunStartTime: "12:00 AM", sunEndTime: "12:00 PM", monOn: true, tueOn: true, wedOn: true, thuOn: true, friOn: true, satOn: true, sunOn: true, hourlyPricing: "0", dailyPricing: "0", weeklyPricing: "0", monthlyPricing: "0", weeklyOn: true, monthlyOn: true, index: -1, approved: false, spotImages: UIImage.init(named: "emptySpot")!, spots_id: "", latitude: "0",longitude: "0", spottype: "", owner_id: "")!
          
             
         case "editSpotSegue":
@@ -130,23 +130,22 @@ class ShareViewController: UIViewController, UITableViewDataSource {
             guard let selectedSpotCell = sender as? SpotTableViewCell else {
                 fatalError("Unexpected sender: \(sender ?? "")")
             }
-            
             guard let indexPath = spotTable.indexPath(for: selectedSpotCell) else {
                 fatalError("The selected cell is not being displayed by the table")
             }
             let activedict = AppState.sharedInstance.spots[indexPath.row]
-            print(activedict.thuEndTime)
+        //  print(activedict.thuEndTime)
             
-            AppState.sharedInstance.activeSpot = Spot(address: activedict.address, town: activedict.town, state: activedict.state, zipCode: activedict.zipCode, spotImage: activedict.spotImage, description: activedict.description, monStartTime: activedict.monStartTime, monEndTime: activedict.monEndTime, tueStartTime: activedict.tueStartTime, tueEndTime: activedict.tueEndTime, wedStartTime: activedict.wedStartTime, wedEndTime: activedict.wedEndTime, thuStartTime: activedict.thuStartTime, thuEndTime: activedict.thuEndTime, friStartTime: activedict.friStartTime, friEndTime: activedict.friEndTime, satStartTime: activedict.satStartTime, satEndTime:activedict.satEndTime, sunStartTime: activedict.sunStartTime, sunEndTime: activedict.sunEndTime, monOn: activedict.monOn, tueOn: activedict.tueOn, wedOn: activedict.wedOn, thuOn: activedict.thuOn, friOn: activedict.friOn, satOn: activedict.satOn, sunOn: activedict.sunOn, hourlyPricing: activedict.hourlyPricing, dailyPricing: activedict.dailyPricing, weeklyPricing: activedict.weeklyPricing, monthlyPricing: activedict.monthlyPricing, weeklyOn: activedict.weeklyOn, monthlyOn: activedict.monthlyOn, index: activedict.index, approved: activedict.approved, spotImages:activedict.spotImage1, spots_id: activedict.spot_id, latitude: activedict.latitude, longitude: activedict.longitude, spottype: activedict.spot_type)!
+            AppState.sharedInstance.activeSpot = Spot(address: activedict.address, town: activedict.town, state: activedict.state, zipCode: activedict.zipCode, spotImage: activedict.spotImage, description: activedict.description, monStartTime: activedict.monStartTime, monEndTime: activedict.monEndTime, tueStartTime: activedict.tueStartTime, tueEndTime: activedict.tueEndTime, wedStartTime: activedict.wedStartTime, wedEndTime: activedict.wedEndTime, thuStartTime: activedict.thuStartTime, thuEndTime: activedict.thuEndTime, friStartTime: activedict.friStartTime, friEndTime: activedict.friEndTime, satStartTime: activedict.satStartTime, satEndTime:activedict.satEndTime, sunStartTime: activedict.sunStartTime, sunEndTime: activedict.sunEndTime, monOn: activedict.monOn, tueOn: activedict.tueOn, wedOn: activedict.wedOn, thuOn: activedict.thuOn, friOn: activedict.friOn, satOn: activedict.satOn, sunOn: activedict.sunOn, hourlyPricing: activedict.hourlyPricing, dailyPricing: activedict.dailyPricing, weeklyPricing: activedict.weeklyPricing, monthlyPricing: activedict.monthlyPricing, weeklyOn: activedict.weeklyOn, monthlyOn: activedict.monthlyOn, index: activedict.index, approved: activedict.approved, spotImages:activedict.spotImage1, spots_id: activedict.spot_id, latitude: activedict.latitude, longitude: activedict.longitude, spottype: activedict.spot_type, owner_id: activedict.owner_ids)!
           
-            
-           // AppState.sharedInstance.activeSpot = AppState.sharedInstance.spots[indexPath.row]
+            // AppState.sharedInstance.activeSpot = AppState.sharedInstance.spots[indexPath.row]
           //  AppState.sharedInstance.activeSpot.index = indexPath.row
            
         default:
             print("Unexpected Segue Identifier: \(segue.identifier ?? "")")
         }
     }
+    
     func progressBar(){
         hud = MBProgressHUD.showAdded(to: self.view, animated: true)
         hud.mode = MBProgressHUDMode.indeterminate

@@ -12,6 +12,7 @@ import Firebase
 import SDWebImage
 
 class Spot {
+    var owner_ids: String
     var address: String
     var town: String
     var state: String
@@ -61,8 +62,10 @@ class Spot {
     var refArtists: DatabaseReference!
     
     
-    init?(address: String, town: String, state: String, zipCode: String,spotImage: String, description: String, monStartTime: String, monEndTime: String, tueStartTime: String, tueEndTime: String, wedStartTime: String, wedEndTime: String, thuStartTime: String, thuEndTime: String, friStartTime: String, friEndTime: String, satStartTime: String, satEndTime: String, sunStartTime: String, sunEndTime: String, monOn: Bool, tueOn: Bool, wedOn: Bool, thuOn: Bool, friOn: Bool, satOn: Bool, sunOn: Bool, hourlyPricing: String, dailyPricing: String, weeklyPricing: String, monthlyPricing: String, weeklyOn: Bool, monthlyOn: Bool, index: Int, approved: Bool,spotImages:UIImage,spots_id:String,latitude:String, longitude:String,spottype:String) {
+    init?(address: String, town: String, state: String, zipCode: String,spotImage: String, description: String, monStartTime: String, monEndTime: String, tueStartTime: String, tueEndTime: String, wedStartTime: String, wedEndTime: String, thuStartTime: String, thuEndTime: String, friStartTime: String, friEndTime: String, satStartTime: String, satEndTime: String, sunStartTime: String, sunEndTime: String, monOn: Bool, tueOn: Bool, wedOn: Bool, thuOn: Bool, friOn: Bool, satOn: Bool, sunOn: Bool, hourlyPricing: String, dailyPricing: String, weeklyPricing: String, monthlyPricing: String, weeklyOn: Bool, monthlyOn: Bool, index: Int, approved: Bool,spotImages:UIImage,spots_id:String,latitude:String, longitude:String,spottype:String,owner_id:String) {
         
+        
+        self.owner_ids = owner_id
         self.address = address
         self.town = town
         self.state = state
@@ -166,7 +169,7 @@ class Spot {
                                 weeklyOn: snapshotValue.value(forKey: "switch_weekly") as! Bool,
                                 monthlyOn: snapshotValue.value(forKey: "switch_monthly") as! Bool,
                                 index: -1,
-                                approved:false, spotImages: UIImage.init(named: "white")!, spots_id: (artists ).key, latitude: dblat, longitude: dblongitude, spottype: snapshotValue.value(forKey: "spot_type") as! String)!)
+                                approved:false, spotImages: UIImage.init(named: "white")!, spots_id: (artists ).key, latitude: dblat, longitude: dblongitude, spottype: snapshotValue.value(forKey: "spot_type") as! String, owner_id: snapshotValue.value(forKey: "owner_id") as! String)!)
                     
                     
                     
@@ -312,6 +315,7 @@ class Spot {
                                  "satswitch":AppState.sharedInstance.activeSpot.satOn,
                                  "sunswitch":AppState.sharedInstance.activeSpot.sunOn,
                                  "spot_type":AppState.sharedInstance.activeSpot.spot_type,
+                                 "owner_id":AppState.sharedInstance.userid
                                  ] as [String : Any]
                     
                     print(spots)
@@ -444,56 +448,6 @@ class Spot {
         }
     }
     
-    
-    /*
-     
-     init() {
-     
-     self.address = ""
-     self.town = ""
-     self.state = ""
-     self.zipCode = ""
-     
-     // self.spotImage = UIImage.init(named: "emptySpot")!
-     self.spotImage = ""
-     self.description = ""
-     
-     self.monStartTime = "12:00 AM"
-     self.monEndTime = "12:00 PM"
-     self.tueStartTime = "12:00 AM"
-     self.tueEndTime = "12:00 PM"
-     self.wedStartTime = "12:00 AM"
-     self.wedEndTime = "12:00 PM"
-     self.thuStartTime = "12:00 AM"
-     self.thuEndTime = "12:00 PM"
-     self.friStartTime = "12:00 AM"
-     self.friEndTime = "12:00 PM"
-     self.satStartTime = "12:00 AM"
-     self.satEndTime = "12:00 PM"
-     self.sunStartTime = "12:00 AM"
-     self.sunEndTime = "12:00 PM"
-     
-     self.monOn = true
-     self.tueOn = true
-     self.wedOn = true
-     self.thuOn = true
-     self.friOn = true
-     self.satOn = true
-     self.sunOn = true
-     
-     self.hourlyPricing = ""
-     self.dailyPricing = ""
-     self.weeklyPricing = ""
-     self.monthlyPricing = ""
-     
-     self.weeklyOn = true
-     self.monthlyOn = true
-     
-     self.index = -1
-     self.approved = false
-     }
-     */
-    
     func calculateReccomendedPricing() -> Array<String> {
         let hourlyPricingString = "1.00"
         let dailyPricingString = "7.00"
@@ -502,6 +456,7 @@ class Spot {
         
         return [hourlyPricingString, dailyPricingString, weeklyPricingString, monthlyPricingString]
     }
+    
     //
     //    func applyCalculatedPricing() {
     //        var pricing = calculateReccomendedPricing()
@@ -510,7 +465,7 @@ class Spot {
     //        self.weeklyPricing = pricing[2]
     //        self.monthlyPricing = pricing[3]
     //    }
-    //
+    
     //    // check in on the state of Spot
     //    func pringSpotCliffNotes() {
     //        print(self.address)

@@ -675,7 +675,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_HEADERS_RUN_UNIFDEF = NO;
-				DEVELOPMENT_TEAM = 5746S7T9X5;
+				DEVELOPMENT_TEAM = SUP487L3XC;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)/**",
 					"${PODS_ROOT}/Firebase/CoreOnly/Sources",
@@ -712,7 +712,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_HEADERS_RUN_UNIFDEF = NO;
-				DEVELOPMENT_TEAM = 5746S7T9X5;
+				DEVELOPMENT_TEAM = SUP487L3XC;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)/**",
 					"${PODS_ROOT}/Firebase/CoreOnly/Sources",

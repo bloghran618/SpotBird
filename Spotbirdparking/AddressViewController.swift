@@ -153,7 +153,7 @@ class AddressViewController: UIViewController, UITextFieldDelegate,CLLocationMan
             btn2.setImage(UIImage.init(named: "streetParking"), for: .normal)
         }
         else{
-            type = "Other"
+            type = "Driveway"
             bnt4.setImage(UIImage.init(named: "drivewayParkingSelected"), for: .normal)
             
             btn1.setImage(UIImage.init(named: "garageParking"), for: .normal)
@@ -326,9 +326,8 @@ extension AddressViewController {
         self.CurrentLocMarker.map = self.mapView
         
         let camera = GMSCameraPosition.camera(withLatitude: (place.coordinate.latitude), longitude: (place.coordinate.longitude), zoom:16)
-        //  self.mapView.animate(to: camera)
+    //  self.mapView.animate(to: camera)
         mapView.camera = camera
-        
         self.nextButton.isEnabled = true
     }
     

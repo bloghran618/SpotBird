@@ -8,6 +8,10 @@
 
 import UIKit
 
+@objc protocol User_navDelegates{
+    func navigateLocation(cell:ByDayResTableViewCell)
+}
+
 class ByDayResTableViewCell: UITableViewCell {
     
     @IBOutlet weak var spotImageView: UIImageView!
@@ -16,6 +20,8 @@ class ByDayResTableViewCell: UITableViewCell {
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var endTimeLabel: UILabel!
     @IBOutlet weak var navButton: UIButton!
+    
+     var delegate:User_navDelegates?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -31,6 +37,7 @@ class ByDayResTableViewCell: UITableViewCell {
     @IBAction func navButtonClicked(_ sender: Any)
     {
         print("Nav button clicked")
+           delegate?.navigateLocation(cell: self)
     }
 
 }

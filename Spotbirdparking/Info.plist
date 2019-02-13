@@ -56,8 +56,13 @@
 	<key>NSCameraUsageDescription</key>
 	<string>Allow you to take photos for profile, car or spot</string>
     <key>NSLocationUsageDescription</key>
-    <string></string>
+    <string>Use Location</string>
     <key>NSLocationWhenInUseUsageDescription</key>
-    <string></string>
+    <string>Use Location</string>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+        <string>comgooglemaps</string>
+        <string>comgooglemaps-x-callback</string>
+    </array>
 </dict>
 </plist>
