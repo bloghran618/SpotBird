@@ -12,6 +12,8 @@ import Firebase
 import SDWebImage
 
 class Spot {
+    
+    var Email: String
     var owner_ids: String
     var address: String
     var town: String
@@ -62,9 +64,10 @@ class Spot {
     var refArtists: DatabaseReference!
     
     
-    init?(address: String, town: String, state: String, zipCode: String,spotImage: String, description: String, monStartTime: String, monEndTime: String, tueStartTime: String, tueEndTime: String, wedStartTime: String, wedEndTime: String, thuStartTime: String, thuEndTime: String, friStartTime: String, friEndTime: String, satStartTime: String, satEndTime: String, sunStartTime: String, sunEndTime: String, monOn: Bool, tueOn: Bool, wedOn: Bool, thuOn: Bool, friOn: Bool, satOn: Bool, sunOn: Bool, hourlyPricing: String, dailyPricing: String, weeklyPricing: String, monthlyPricing: String, weeklyOn: Bool, monthlyOn: Bool, index: Int, approved: Bool,spotImages:UIImage,spots_id:String,latitude:String, longitude:String,spottype:String,owner_id:String) {
+    init?(address: String, town: String, state: String, zipCode: String,spotImage: String, description: String, monStartTime: String, monEndTime: String, tueStartTime: String, tueEndTime: String, wedStartTime: String, wedEndTime: String, thuStartTime: String, thuEndTime: String, friStartTime: String, friEndTime: String, satStartTime: String, satEndTime: String, sunStartTime: String, sunEndTime: String, monOn: Bool, tueOn: Bool, wedOn: Bool, thuOn: Bool, friOn: Bool, satOn: Bool, sunOn: Bool, hourlyPricing: String, dailyPricing: String, weeklyPricing: String, monthlyPricing: String, weeklyOn: Bool, monthlyOn: Bool, index: Int, approved: Bool,spotImages:UIImage,spots_id:String,latitude:String, longitude:String,spottype:String,owner_id:String,Email:String) {
         
         
+        self.Email = Email
         self.owner_ids = owner_id
         self.address = address
         self.town = town
@@ -169,17 +172,11 @@ class Spot {
                                 weeklyOn: snapshotValue.value(forKey: "switch_weekly") as! Bool,
                                 monthlyOn: snapshotValue.value(forKey: "switch_monthly") as! Bool,
                                 index: -1,
-                                approved:false, spotImages: UIImage.init(named: "white")!, spots_id: (artists ).key, latitude: dblat, longitude: dblongitude, spottype: snapshotValue.value(forKey: "spot_type") as! String, owner_id: snapshotValue.value(forKey: "owner_id") as! String)!)
-                    
-                    
-                    
-                }
+                                approved:false, spotImages: UIImage.init(named: "white")!, spots_id: (artists ).key, latitude: dblat, longitude: dblongitude, spottype: snapshotValue.value(forKey: "spot_type") as! String, owner_id: snapshotValue.value(forKey: "owner_id") as! String, Email: snapshotValue.value(forKey: "Email") as! String)!)
+                     }
                 
                 print(AppState.sharedInstance.spots.count)
-                
-               
-                
-            }
+              }
             
         })
         if AppState.sharedInstance.change == "change" {
@@ -315,7 +312,8 @@ class Spot {
                                  "satswitch":AppState.sharedInstance.activeSpot.satOn,
                                  "sunswitch":AppState.sharedInstance.activeSpot.sunOn,
                                  "spot_type":AppState.sharedInstance.activeSpot.spot_type,
-                                 "owner_id":AppState.sharedInstance.userid
+                                 "owner_id":AppState.sharedInstance.userid,
+                                 "Email":AppState.sharedInstance.activeSpot.Email,
                                  ] as [String : Any]
                     
                     print(spots)
@@ -433,6 +431,7 @@ class Spot {
             "satswitch":AppState.sharedInstance.activeSpot.satOn,
             "sunswitch":AppState.sharedInstance.activeSpot.sunOn,
             "spot_type":AppState.sharedInstance.activeSpot.spot_type,
+            "Email":AppState.sharedInstance.activeSpot.Email
             ]){
                 (error:Error?, ref:DatabaseReference) in
                 if let error = error {

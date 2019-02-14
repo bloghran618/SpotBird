@@ -46,9 +46,9 @@ class ReservationsViewController: UIViewController,GMSMapViewDelegate,CLLocation
         super.viewDidLoad()
         
         // Temp data
-        let spot = Spot(address: "42 Ardmore Rd", town: "Philadelphia", state: "PA", zipCode: "00000", spotImage: "test", description: "<#T##String#>", monStartTime: "<#T##String#>", monEndTime: "<#T##String#>", tueStartTime: "<#T##String#>", tueEndTime: "<#T##String#>", wedStartTime: "<#T##String#>", wedEndTime: "<#T##String#>", thuStartTime: "<#T##String#>", thuEndTime: "<#T##String#>", friStartTime: "<#T##String#>", friEndTime: "<#T##String#>", satStartTime: "<#T##String#>", satEndTime: "<#T##String#>", sunStartTime: "<#T##String#>", sunEndTime: "<#T##String#>", monOn: true, tueOn: true, wedOn: true, thuOn: true, friOn: true, satOn: true, sunOn: true, hourlyPricing: "1", dailyPricing: "1.00", weeklyPricing: "3", monthlyPricing: "8", weeklyOn: true, monthlyOn: true, index: 0, approved: true, spotImages: UIImage(named: "test")!, spots_id: "AppState.sharedInstance.userid", latitude: "20.0", longitude: "50.0", spottype: "", owner_id: "")
+        let spot = Spot(address: "42 Ardmore Rd", town: "Philadelphia", state: "PA", zipCode: "00000", spotImage: "test", description: "<#T##String#>", monStartTime: "<#T##String#>", monEndTime: "<#T##String#>", tueStartTime: "<#T##String#>", tueEndTime: "<#T##String#>", wedStartTime: "<#T##String#>", wedEndTime: "<#T##String#>", thuStartTime: "<#T##String#>", thuEndTime: "<#T##String#>", friStartTime: "<#T##String#>", friEndTime: "<#T##String#>", satStartTime: "<#T##String#>", satEndTime: "<#T##String#>", sunStartTime: "<#T##String#>", sunEndTime: "<#T##String#>", monOn: true, tueOn: true, wedOn: true, thuOn: true, friOn: true, satOn: true, sunOn: true, hourlyPricing: "1", dailyPricing: "1.00", weeklyPricing: "3", monthlyPricing: "8", weeklyOn: true, monthlyOn: true, index: 0, approved: true, spotImages: UIImage(named: "test")!, spots_id: "AppState.sharedInstance.userid", latitude: "20.0", longitude: "50.0", spottype: "", owner_id: "", Email: (UserDefaults.standard.value(forKey: "logindata") as! NSDictionary).value(forKey: "email") as? String ?? "")
         
-        let spot2 = Spot(address: "1500 Micheal Plaza also an unreasonable amoutnt of text", town: "Philly", state: "PA", zipCode: "00000", spotImage: "Share", description: "<#T##String#>", monStartTime: "<#T##String#>", monEndTime: "<#T##String#>", tueStartTime: "<#T##String#>", tueEndTime: "<#T##String#>", wedStartTime: "<#T##String#>", wedEndTime: "<#T##String#>", thuStartTime: "<#T##String#>", thuEndTime: "<#T##String#>", friStartTime: "<#T##String#>", friEndTime: "<#T##String#>", satStartTime: "<#T##String#>", satEndTime: "<#T##String#>", sunStartTime: "<#T##String#>", sunEndTime: "<#T##String#>", monOn: true, tueOn: true, wedOn: true, thuOn: true, friOn: true, satOn: true, sunOn: true, hourlyPricing: "1", dailyPricing: "1.00", weeklyPricing: "3", monthlyPricing: "8", weeklyOn: true, monthlyOn: true, index: 0, approved: true, spotImages: UIImage(named: "Share")!, spots_id: "<#T##String#>", latitude: "20.1", longitude: "50.1", spottype: "", owner_id: "")
+        let spot2 = Spot(address: "1500 Micheal Plaza also an unreasonable amoutnt of text", town: "Philly", state: "PA", zipCode: "00000", spotImage: "Share", description: "<#T##String#>", monStartTime: "<#T##String#>", monEndTime: "<#T##String#>", tueStartTime: "<#T##String#>", tueEndTime: "<#T##String#>", wedStartTime: "<#T##String#>", wedEndTime: "<#T##String#>", thuStartTime: "<#T##String#>", thuEndTime: "<#T##String#>", friStartTime: "<#T##String#>", friEndTime: "<#T##String#>", satStartTime: "<#T##String#>", satEndTime: "<#T##String#>", sunStartTime: "<#T##String#>", sunEndTime: "<#T##String#>", monOn: true, tueOn: true, wedOn: true, thuOn: true, friOn: true, satOn: true, sunOn: true, hourlyPricing: "1", dailyPricing: "1.00", weeklyPricing: "3", monthlyPricing: "8", weeklyOn: true, monthlyOn: true, index: 0, approved: true, spotImages: UIImage(named: "Share")!, spots_id: "<#T##String#>", latitude: "20.1", longitude: "50.1", spottype: "", owner_id: "", Email: (UserDefaults.standard.value(forKey: "logindata") as! NSDictionary).value(forKey: "email") as? String ?? "")
         
         AppState.sharedInstance.user.reservations = [Reservation(startDateTime: "2019-01-18 12:00", endDateTime: "2019-01-18 13:00", parkOrRent: "Park", spot: spot!), Reservation(startDateTime: "2019-01-08 14:30", endDateTime: "2019-01-08 16:30", parkOrRent: "Park", spot: spot2!), Reservation(startDateTime: "2019-01-05 14:30", endDateTime: "2019-01-08 16:30", parkOrRent: "Park", spot: spot!), Reservation(startDateTime: "2019-01-18 13:00", endDateTime: "2019-01-18 15:00", parkOrRent: "Rent", spot: spot2!)] as! [Reservation]
         
@@ -62,20 +62,13 @@ class ReservationsViewController: UIViewController,GMSMapViewDelegate,CLLocation
         setupCalendarView()
         
        
-        mapView.isHidden = true
-         btn_back.isHidden = true
+//        mapView.isHidden = true
+//         btn_back.isHidden = true
         
+        setView(view: mapView, hidden: true)
+        setView(view: btn_back, hidden: true)
         
-        self.mapView.delegate = self
-        self.locationManager.delegate = self
-        self.locationManager.requestAlwaysAuthorization()
-        self.locationManager.requestWhenInUseAuthorization()
-        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        CurrentLocMarker.map = self.mapView
-        self.locationManager.startMonitoringSignificantLocationChanges()
-        //self.locationManager.startUpdatingLocation()
-        //   mapView.isMyLocationEnabled = true
-        mapView.settings.myLocationButton = true
+      
     }
     
     func setupCalendarView() {
@@ -154,8 +147,8 @@ class ReservationsViewController: UIViewController,GMSMapViewDelegate,CLLocation
     
     @IBAction func BAck(_ sender: Any)
     {
-        mapView.isHidden = true
-        btn_back.isHidden = true
+        setView(view: mapView, hidden: true)
+        setView(view: btn_back, hidden: true)
     }
 }
 
@@ -278,17 +271,19 @@ extension ReservationsViewController: UITableViewDelegate, UITableViewDataSource
          spotlatitude =  (res.spot.latitude as NSString).doubleValue
          spotlatitude = (res.spot.longitude as NSString).doubleValue
         
-         self.locationManager.startUpdatingLocation()
-         Spot_cooridnates = CLLocationCoordinate2DMake(spotlatitude, spotlatitude)
+        Spot_cooridnates = CLLocationCoordinate2DMake(spotlatitude, spotlatitude)
         
-        
-        //       if (UIApplication.shared.canOpenURL(NSURL(string:"comgooglemaps://")! as URL)) {
-        //            UIApplication.shared.openURL(NSURL(string:
-        //                "comgooglemaps://?saddr=&daddr=\(lat),\(long)&directionsmode=driving")! as URL)
-        //
-        //        } else {
-        //            NSLog("Can't use comgooglemaps://");
-        //        }
+        self.mapView.delegate = self
+        self.locationManager.delegate = self
+        self.locationManager.requestAlwaysAuthorization()
+        self.locationManager.requestWhenInUseAuthorization()
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        CurrentLocMarker.map = self.mapView
+        self.locationManager.startMonitoringSignificantLocationChanges()
+        self.locationManager.startUpdatingLocation()
+   //   mapView.isMyLocationEnabled = true
+        mapView.settings.myLocationButton = true
+       
     }
     
     
@@ -314,12 +309,13 @@ extension ReservationsViewController: UITableViewDelegate, UITableViewDataSource
    // let camera = GMSCameraPosition.camera(withLatitude: (location?.coordinate.latitude)!, longitude: (location?.coordinate.longitude)!, zoom:12)
      // self.mapView.animate(to: camera)
  //   mapView.camera = camera
-        mapView.isHidden = false
-         btn_back.isHidden = false
+        setView(view: mapView, hidden: false)
+        setView(view: btn_back, hidden: false)
         
-        self.locationManager.stopUpdatingLocation()
+     
         Spinner.start()
        getPolylineRoute(from:  (location?.coordinate)!, to: Spot_cooridnates)
+           self.locationManager.stopUpdatingLocation()
     }
     
     
@@ -395,6 +391,13 @@ extension ReservationsViewController: UITableViewDelegate, UITableViewDataSource
         polyline.strokeWidth = 3.0
         polyline.strokeColor = UIColor.red
         polyline.map = mapView // Your map view
+    }
+    
+    
+    func setView(view: UIView, hidden: Bool) {
+        UIView.transition(with: view, duration: 0.5, options: .transitionCrossDissolve, animations: {
+            view.isHidden = hidden
+        })
     }
     
 }

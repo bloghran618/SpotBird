@@ -36,11 +36,8 @@ class AddressViewController: UIViewController, UITextFieldDelegate,CLLocationMan
     
     var locationManager = CLLocationManager()
     let CurrentLocMarker = GMSMarker()
-    
     var spotcamera = false
-    
     var type = ""
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,25 +56,18 @@ class AddressViewController: UIViewController, UITextFieldDelegate,CLLocationMan
         
         self.hideKeyboardWhenTappedAround()
         
-        
-//        txt_email.layer.borderWidth = 2
-//        txt_email.layer.borderColor = UIColor.cyan.cgColor
+        //        txt_email.layer.borderWidth = 2
+        //        txt_email.layer.borderColor = UIColor.cyan.cgColor
         
         view_btm.layer.cornerRadius = 5
         view_btm.layer.masksToBounds = true
         view_btm.layer.borderWidth = 1
         view_btm.layer.borderColor = UIColor.black.cgColor
         nextButton.isEnabled = false
-        
-        
-        
         view_types.layer.cornerRadius = 6
         view_types.layer.masksToBounds = true
         view_types.layer.borderWidth = 1
         view_types.layer.borderColor = UIColor.black.cgColor
-        
-        
-        
         
         if ((AppState.sharedInstance.activeSpot.address == "") && (AppState.sharedInstance.activeSpot.town == "")) && ((AppState.sharedInstance.activeSpot.zipCode == "") && (AppState.sharedInstance.activeSpot.state == "")) {
             nextButton.isEnabled = false
@@ -86,22 +76,29 @@ class AddressViewController: UIViewController, UITextFieldDelegate,CLLocationMan
             nextButton.isEnabled = true
         }
         
-        txt_email.text = (UserDefaults.standard.value(forKey: "logindata") as! NSDictionary).value(forKey: "email") as? String
+        if AppState.sharedInstance.activeSpot.Email != ""{
+            txt_email.text = AppState.sharedInstance.activeSpot.Email
+        }
+        else{
+            txt_email.text = (UserDefaults.standard.value(forKey: "logindata") as! NSDictionary).value(forKey: "email") as? String
+        }
+        
+        AppState.sharedInstance.activeSpot.Email = (txt_email.text)!
         
         if AppState.sharedInstance.activeSpot.spot_type == ""{
-           
+            
         }
         else if AppState.sharedInstance.activeSpot.spot_type == "Garage"{
-           btn1.setImage(UIImage.init(named: "garageParkingSelected"), for: .normal)
+            btn1.setImage(UIImage.init(named: "garageParkingSelected"), for: .normal)
         }
         else if AppState.sharedInstance.activeSpot.spot_type == "Street"{
             btn2.setImage(UIImage.init(named: "streetParkingSelected"), for: .normal)
         }
         else if AppState.sharedInstance.activeSpot.spot_type == "Lot"{
-          btn3.setImage(UIImage.init(named: "lotParkingSelected"), for: .normal)
+            btn3.setImage(UIImage.init(named: "lotParkingSelected"), for: .normal)
         }
         else{
-             bnt4.setImage(UIImage.init(named: "drivewayParkingSelected"), for: .normal)
+            bnt4.setImage(UIImage.init(named: "drivewayParkingSelected"), for: .normal)
         }
         
     }
@@ -125,8 +122,8 @@ class AddressViewController: UIViewController, UITextFieldDelegate,CLLocationMan
     // select Spot type -
     @IBAction func btn_TYPE(_ sender: Any) {
         
-// garageParking, garageParkingSelected, streetParking, streetParkingSelected, lotParking, lotParkingSelected, drivewayParking, drivewayParkingSelected
-      
+        // garageParking, garageParkingSelected, streetParking, streetParkingSelected, lotParking, lotParkingSelected, drivewayParking, drivewayParkingSelected
+        
         
         if (sender as AnyObject).titleLabel?.text == "Garage"{
             type = "Garage"
@@ -158,7 +155,7 @@ class AddressViewController: UIViewController, UITextFieldDelegate,CLLocationMan
             
             btn1.setImage(UIImage.init(named: "garageParking"), for: .normal)
             btn2.setImage(UIImage.init(named: "streetParking"), for: .normal)
-             btn3.setImage(UIImage.init(named: "lotParking"), for: .normal)
+            btn3.setImage(UIImage.init(named: "lotParking"), for: .normal)
         }
         AppState.sharedInstance.activeSpot.spot_type = type
     }
@@ -279,7 +276,6 @@ extension AddressViewController {
             makeaddress.removeLast()
         }
         
-        
         if makeaddress == "" {
             let cordinate:[String: CLLocationCoordinate2D] = ["cordinate": place.coordinate]
             let geocoder = GMSGeocoder()
@@ -326,7 +322,7 @@ extension AddressViewController {
         self.CurrentLocMarker.map = self.mapView
         
         let camera = GMSCameraPosition.camera(withLatitude: (place.coordinate.latitude), longitude: (place.coordinate.longitude), zoom:16)
-    //  self.mapView.animate(to: camera)
+        //  self.mapView.animate(to: camera)
         mapView.camera = camera
         self.nextButton.isEnabled = true
     }
