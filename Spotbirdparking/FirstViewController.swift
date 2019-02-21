@@ -85,6 +85,10 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     let calendar = Calendar.current
     var endChange = false
     
+    // initialize highlighted spot to null
+//    var highlightedSpot: Spot(address: "", town: "", state: "", zipCode: "", spotImage: "", description: "", monStartTime: "", monEndTime: "", tueStartTime: "", tueEndTime: "", wedStartTime: "", wedEndTime: "", thuStartTime: "", thuEndTime: "", friStartTime: "", friEndTime: "", satStartTime: "", satEndTime: "", sunStartTime: "", sunEndTime: "", monOn: false, tueOn: false, wedOn: false, thuOn: false, friOn: false, satOn: false, sunOn: false, hourlyPricing: "", dailyPricing: "", weeklyPricing: "", monthlyPricing: "", weeklyOn: false, monthlyOn: false, index: 0, approved: false, spotImages: UIImage(named: "white")!, spots_id: "", latitude: "", longitude: "", spottype: "", owner_id: "", Email: "")?
+    var highlightedSpot: Spot!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -788,6 +792,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         
         if  Userlat != marker.position.latitude && Userlong != marker.position.longitude{
         let index:Int! = Int(marker.accessibilityLabel!)
+            print("Index is: \(String(index))")
         let price  = (arrspot.object(at: index) as! NSDictionary).value(forKey: "hourlyPricing") as?  String
         let doller = (price! as NSString).integerValue
 
@@ -826,7 +831,54 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             lbl_address.text = (arrspot.object(at: index) as! NSDictionary).value(forKey: "address") as?  String
             let imgurl = (arrspot.object(at: index) as! NSDictionary).value(forKey: "image") as!  String
             img_spot.sd_setImage(with: URL(string: imgurl), placeholderImage: #imageLiteral(resourceName: "Placeholder"))
+            
+            // specify which spot is highlighted
+            // Should I do this asynchronously?
+            self.highlightedSpot = Spot(address: ((arrspot.object(at: index) as! NSDictionary).value(forKey: "address") as?  String) ?? "",
+                                        town: (arrspot.object(at: index) as! NSDictionary).value(forKey: "city") as?  String ?? "",
+                                        state: (arrspot.object(at: index) as! NSDictionary).value(forKey: "state") as?  String ?? "",
+                                        zipCode: (arrspot.object(at: index) as! NSDictionary).value(forKey: "zipcode") as?  String ?? "",
+                                        spotImage: (arrspot.object(at: index) as! NSDictionary).value(forKey: "image") as?  String ?? "",
+                                        description: (arrspot.object(at: index) as! NSDictionary).value(forKey: "description") as?  String ?? "",
+                                        monStartTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "monStartTime") as?  String ?? "",
+                                        monEndTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "monEndTime") as?  String ?? "",
+                                        tueStartTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "tueStartTime") as?  String ?? "",
+                                        tueEndTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "tueEndTime") as?  String ?? "",
+                                        wedStartTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "wedStartTime") as?  String ?? "",
+                                        wedEndTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "wedEndTime") as?  String ?? "",
+                                        thuStartTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "thuStartTime") as?  String ?? "",
+                                        thuEndTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "thuEndTime") as?  String ?? "",
+                                        friStartTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "friStartTime") as?  String ?? "",
+                                        friEndTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "friEndTime") as?  String ?? "",
+                                        satStartTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "satStartTime") as?  String ?? "",
+                                        satEndTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "satEndTime") as?  String ?? "",
+                                        sunStartTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "sunStartTime") as?  String ?? "",
+                                        sunEndTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "sunEndTime") as?  String ?? "",
+                                        monOn: (arrspot.object(at: index) as! NSDictionary).value(forKey: "monSwitch") as?  Bool ?? false,
+                                        tueOn: (arrspot.object(at: index) as! NSDictionary).value(forKey: "tueSwitch") as?  Bool ?? false,
+                                        wedOn: (arrspot.object(at: index) as! NSDictionary).value(forKey: "wedSwitch") as?  Bool ?? false,
+                                        thuOn: (arrspot.object(at: index) as! NSDictionary).value(forKey: "thuSwitch") as?  Bool ?? false,
+                                        friOn: (arrspot.object(at: index) as! NSDictionary).value(forKey: "friSwitch") as?  Bool ?? false,
+                                        satOn: (arrspot.object(at: index) as! NSDictionary).value(forKey: "satSwitch") as?  Bool ?? false,
+                                        sunOn: (arrspot.object(at: index) as! NSDictionary).value(forKey: "sunSwitch") as?  Bool ?? false,
+                                        hourlyPricing: (arrspot.object(at: index) as! NSDictionary).value(forKey: "hourlyPricing") as?  String ?? "",
+                                        dailyPricing: (arrspot.object(at: index) as! NSDictionary).value(forKey: "dailyPricing") as?  String ?? "",
+                                        weeklyPricing: (arrspot.object(at: index) as! NSDictionary).value(forKey: "weeklyPricing") as?  String ?? "",
+                                        monthlyPricing: (arrspot.object(at: index) as! NSDictionary).value(forKey: "monthlyPricing") as?  String ?? "",
+                                        weeklyOn: (arrspot.object(at: index) as! NSDictionary).value(forKey: "weeklyOn") as?  Bool ?? false,
+                                        monthlyOn: (arrspot.object(at: index) as! NSDictionary).value(forKey: "monthlyOn") as?  Bool ?? false,
+                                        index: index,
+                                        approved: true,
+                                        spotImages: img_spot.image ?? UIImage(named: "white")!,
+                                        spots_id: (arrspot.object(at: index) as! NSDictionary).value(forKey: "id") as?  String ?? "",
+                                        latitude: (arrspot.object(at: index) as! NSDictionary).value(forKey: "latitude") as?  String ?? "",
+                                        longitude: (arrspot.object(at: index) as! NSDictionary).value(forKey: "longitude") as?  String ?? "",
+                                        spottype: (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as?  String ?? "",
+                                        owner_id: (arrspot.object(at: index) as! NSDictionary).value(forKey: "owner_id") as?  String ?? "",
+                                        Email: (arrspot.object(at: index) as! NSDictionary).value(forKey: "Email") as?  String ?? "")
          }
+        print("Address is: \(self.highlightedSpot.address)")
+        print("Email is: \(self.highlightedSpot.Email)")
         return true
     }
     

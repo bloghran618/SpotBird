@@ -172,7 +172,7 @@ class Spot {
                                 weeklyOn: snapshotValue.value(forKey: "switch_weekly") as! Bool,
                                 monthlyOn: snapshotValue.value(forKey: "switch_monthly") as! Bool,
                                 index: -1,
-                                approved:false, spotImages: UIImage.init(named: "white")!, spots_id: (artists ).key, latitude: dblat, longitude: dblongitude, spottype: snapshotValue.value(forKey: "spot_type") as! String, owner_id: snapshotValue.value(forKey: "owner_id") as! String, Email: snapshotValue.value(forKey: "Email") as! String)!)
+                                approved:false, spotImages: UIImage.init(named: "white")!, spots_id: (artists ).key, latitude: dblat, longitude: dblongitude, spottype: snapshotValue.value(forKey: "spot_type") as! String, owner_id: snapshotValue.value(forKey: "owner_id") as! String, Email: snapshotValue.value(forKey: "Email") as? String ?? "")!)
                      }
                 
                 print(AppState.sharedInstance.spots.count)
