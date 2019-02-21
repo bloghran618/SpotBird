@@ -30,6 +30,8 @@ class AddressViewController: UIViewController, UITextFieldDelegate,CLLocationMan
     @IBOutlet weak var bnt4: UIButton!
     @IBOutlet weak var view_types: UIView!
     
+     @IBOutlet weak var btn_searchADD: UIButton!
+    
     
     // MApview Outlets
     @IBOutlet var mapView: GMSMapView!
@@ -41,6 +43,10 @@ class AddressViewController: UIViewController, UITextFieldDelegate,CLLocationMan
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        btn_searchADD.layer.cornerRadius = 2
+        btn_searchADD.layer.borderColor = UIColor.blue.cgColor
+        btn_searchADD.layer.borderWidth = 1
         
         self.mapView.delegate = self
         self.locationManager.delegate = self

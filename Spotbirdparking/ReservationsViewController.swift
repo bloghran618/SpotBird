@@ -325,7 +325,12 @@ extension ReservationsViewController: UITableViewDelegate, UITableViewDataSource
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config)
         
+        // 22.9623
+        // 76.0508
+        
         let url = URL(string: "https://maps.googleapis.com/maps/api/directions/json?origin=\(source.latitude),\(source.longitude)&destination=\(destination.latitude),\(destination.longitude)&sensor=true&mode=driving&key=AIzaSyCvFxAOvA246L6Syk7Cl426254C-sMJGxk")!
+        
+       // let url = URL(string: "https://maps.googleapis.com/maps/api/directions/json?origin=\(source.latitude),\(source.longitude)&destination=\(22.9623),\(76.0508)&sensor=true&mode=driving&key=AIzaSyCvFxAOvA246L6Syk7Cl426254C-sMJGxk")!
         
         let task = session.dataTask(with: url, completionHandler: {
             (data, response, error) in
@@ -348,24 +353,40 @@ extension ReservationsViewController: UITableViewDelegate, UITableViewDataSource
                             let overview_polyline = routes[0] as? NSDictionary
                             let dictPolyline = overview_polyline?["overview_polyline"] as? NSDictionary
                             
-                            let points = dictPolyline?.object(forKey: "points") as? String
-                            
-                            self.showPath(polyStr: points!)
+                            let points = dictPolyline?.object(forKey: "points") as! String
                             
                             DispatchQueue.main.async {
-                                Spinner.stop()
-                                
+                                  Spinner.stop()
+                            let path = GMSPath(fromEncodedPath: points)
+                            let polyline = GMSPolyline(path: path)
+                            polyline.strokeColor = .black
+                            polyline.strokeWidth = 5.0
+                            polyline.map = self.mapView
                                 let bounds = GMSCoordinateBounds(coordinate: source, coordinate: destination)
                                 let update = GMSCameraUpdate.fit(bounds, with: UIEdgeInsetsMake(170, 30, 30, 30))
                                 self.mapView!.moveCamera(update)
+                                
+                                
+                                let camera = GMSCameraPosition.camera(withLatitude: (source.latitude), longitude: (source.longitude), zoom:10)
+                                  self.mapView.animate(to: camera)
+                               
+                                
                             }
+                            
+//                            DispatchQueue.main.async {
+//                                Spinner.stop()
+//
+//                                let bounds = GMSCoordinateBounds(coordinate: source, coordinate: destination)
+//                                let update = GMSCameraUpdate.fit(bounds, with: UIEdgeInsetsMake(170, 30, 30, 30))
+//                                self.mapView!.moveCamera(update)
+//                            }
                         }
                         else {
                             DispatchQueue.main.async {
                                 
                                  Spinner.stop()
                                 
-                                let alertController = UIAlertController(title: "Error", message: json["error_message"] as? String, preferredStyle: .alert)
+                                let alertController = UIAlertController(title: "Error", message: json["status"] as? String, preferredStyle: .alert)
                                 let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
                                 alertController.addAction(defaultAction)
                                 self.present(alertController, animated: true, completion: nil)
@@ -385,13 +406,7 @@ extension ReservationsViewController: UITableViewDelegate, UITableViewDataSource
         task.resume()
     }
     
-    func showPath(polyStr :String){
-        let path = GMSPath(fromEncodedPath: polyStr)
-        let polyline = GMSPolyline(path: path)
-        polyline.strokeWidth = 3.0
-        polyline.strokeColor = UIColor.red
-        polyline.map = mapView // Your map view
-    }
+   
     
     
     func setView(view: UIView, hidden: Bool) {

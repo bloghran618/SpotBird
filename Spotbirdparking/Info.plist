@@ -57,12 +57,16 @@
 	<string>Allow you to take photos for profile, car or spot</string>
     <key>NSLocationUsageDescription</key>
     <string>Use Location</string>
-    <key>NSLocationWhenInUseUsageDescription</key>
-    <string>Use Location</string>
     <key>LSApplicationQueriesSchemes</key>
     <array>
         <string>comgooglemaps</string>
         <string>comgooglemaps-x-callback</string>
     </array>
+    <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+    <string>Description</string>
+    <key>NSLocationAlwaysUsageDescription</key>
+    <string>Will you allow this app to always know your location?</string>
+    <key>NSLocationWhenInUseUsageDescription</key>
+    <string>Do you allow this app to know your current location?</string>
 </dict>
 </plist>
