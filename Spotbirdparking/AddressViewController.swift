@@ -23,14 +23,12 @@ class AddressViewController: UIViewController, UITextFieldDelegate,CLLocationMan
     @IBOutlet weak var btn_spot_type: UIButton!
     @IBOutlet weak var view_btm: UIView!
     @IBOutlet weak var nextButton: UIBarButtonItem!
-    
     @IBOutlet weak var btn1: UIButton!
     @IBOutlet weak var btn2: UIButton!
     @IBOutlet weak var btn3: UIButton!
     @IBOutlet weak var bnt4: UIButton!
     @IBOutlet weak var view_types: UIView!
-    
-     @IBOutlet weak var btn_searchADD: UIButton!
+    @IBOutlet weak var btn_searchADD: UIButton!
     
     
     // MApview Outlets
@@ -130,7 +128,6 @@ class AddressViewController: UIViewController, UITextFieldDelegate,CLLocationMan
         
         // garageParking, garageParkingSelected, streetParking, streetParkingSelected, lotParking, lotParkingSelected, drivewayParking, drivewayParkingSelected
         
-        
         if (sender as AnyObject).titleLabel?.text == "Garage"{
             type = "Garage"
             btn1.setImage(UIImage.init(named: "garageParkingSelected"), for: .normal)
@@ -207,7 +204,7 @@ extension AddressViewController {
         self.CurrentLocMarker.map = self.mapView
         
         if spotcamera == false {
-            let camera = GMSCameraPosition.camera(withLatitude: (location?.coordinate.latitude)!, longitude: (location?.coordinate.longitude)!, zoom:12)
+            let camera = GMSCameraPosition.camera(withLatitude: (location?.coordinate.latitude)!, longitude: (location?.coordinate.longitude)!, zoom:16)
             self.mapView.animate(to: camera)
         }
         self.locationManager.stopUpdatingLocation()
@@ -251,7 +248,6 @@ extension AddressViewController {
         
         for component in place.addressComponents!  {
             
-            
             if component.type == "street_number" {
                 makeaddress.append("\(component.name),")
             }
@@ -261,21 +257,18 @@ extension AddressViewController {
             if component.type == "neighborhood" {
                 makeaddress.append("\(component.name),")
             }
-            
             if component.type == "locality" {
-                
                 AppState.sharedInstance.activeSpot.town = component.name
-            }
+             }
             if component.type == "administrative_area_level_1" {
-                
                 AppState.sharedInstance.activeSpot.state = component.name
             }
             if component.type == "postal_code" {
-                
                 AppState.sharedInstance.activeSpot.zipCode = component.name
             }
             
         }
+        print(makeaddress)
         
         if makeaddress.last == ","
         {
@@ -300,6 +293,7 @@ extension AddressViewController {
                         if address.subLocality != nil{
                             
                             AppState.sharedInstance.activeSpot.address = address.subLocality!
+                             self.title = "\(AppState.sharedInstance.activeSpot.address) \(AppState.sharedInstance.activeSpot.town)"
                         }
                     }
                     else{
@@ -307,15 +301,16 @@ extension AddressViewController {
                             if address.subLocality != nil{
                                 
                                 AppState.sharedInstance.activeSpot.address = address.subLocality!
+                                 self.title  = "\(AppState.sharedInstance.activeSpot.address) \(AppState.sharedInstance.activeSpot.town)"
                             }
                         }else{
                             AppState.sharedInstance.activeSpot.address = address.thoroughfare!
+                             self.title  = "\(AppState.sharedInstance.activeSpot.address) \(AppState.sharedInstance.activeSpot.town)"
                         }
                     }
                 }
             }
         }
-        
         
         mapView.clear()
         self.CurrentLocMarker.position = (place.coordinate)
@@ -331,6 +326,7 @@ extension AddressViewController {
         //  self.mapView.animate(to: camera)
         mapView.camera = camera
         self.nextButton.isEnabled = true
+       
     }
     
     func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
