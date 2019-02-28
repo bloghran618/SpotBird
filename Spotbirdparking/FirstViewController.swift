@@ -92,10 +92,10 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //debug:
-        MyAPIClient.sharedClient.createCustomerID()
-        MyAPIClient.sharedClient.createAccountID()
-                
+         AppState.sharedInstance.activeSpot.getSpots()
+        
+     
+        
         dismissKeyboard()
         //scheduledTimerWithTimeInterval()  // time
         
@@ -138,9 +138,6 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         start_datepic.minimumDate = Date()
         end_datepic.minimumDate = calendar.date(byAdding: .hour, value: 3, to:  Date())
         // list load
-        AppState.sharedInstance.activeSpot.getSpots()
-       
-        
         
         Date_VIew.layer.cornerRadius = 5;
         Date_VIew.layer.masksToBounds = true;
@@ -167,6 +164,13 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         lbl2.layer.borderWidth = 2
         lbl2.layer.borderColor = UIColor.darkGray.cgColor
       }
+    
+     func viewWillAppear(animated: Bool) {
+        //debug:
+        MyAPIClient.sharedClient.createCustomerID()
+        MyAPIClient.sharedClient.createAccountID()
+        super.viewWillAppear(animated)
+    }
     
     func timearrayset()  {
         dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:a"
@@ -763,9 +767,9 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         //  self.mapView.animate(to: camera)
         mapView.camera = camera
         five = 0
-        
+         self.locationManager.stopUpdatingLocation()
         getlatlong()
-        self.locationManager.stopUpdatingLocation()
+       
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

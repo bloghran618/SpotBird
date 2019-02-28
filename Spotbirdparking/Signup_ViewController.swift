@@ -129,6 +129,7 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
                 }
                 else {
                        self.view.endEditing(true)
+                    Spinner.start()
                     self.save_newuser()
                      }
                 
@@ -209,8 +210,19 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
                            "image":"",
                            "email":txt_email.text!]
             print(newuser)
-            self.refArtists.child(key!).setValue(newuser)
-              self.getlogin(id: key!)
+            self.refArtists.child(key!).setValue(newuser){
+                (error:Error?, ref:DatabaseReference) in
+                if let error = error {
+                    print("Data could not be saved: \(error).")
+                    Spinner.stop()
+                    
+                } else {
+                    Spinner.stop()
+                    self.getlogin(id: key!)
+                    print("Data saved successfully!")
+                    
+                }
+            }
             
        }
          else {
@@ -243,8 +255,20 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
                                        "pass":self.txt_pass.text!,
                                        "image":fullURL]
                         print(newuser)
-                        self.refArtists.child(key!).setValue(newuser)
-                        self.getlogin(id: key!)
+                        self.refArtists.child(key!).setValue(newuser){
+                            (error:Error?, ref:DatabaseReference) in
+                            if let error = error {
+                                print("Data could not be saved: \(error).")
+                                Spinner.stop()
+                                
+                            } else {
+                                 Spinner.stop()
+                                 self.getlogin(id: key!)
+                                print("Data saved successfully!")
+                               
+                            }
+                        }
+                       
                         
                    }
                 })
