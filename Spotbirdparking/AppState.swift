@@ -25,7 +25,7 @@ class AppState {
     var userid = ""
      var change = ""
        
-    static let appStateRoot = Database.database().reference() // can change root
+    let appStateRoot = Database.database().reference() // can change root
     let storageRef = Storage.storage().reference()
     
     init?(user: User, spots: [Spot], activeSpot: Spot, reservations: [Reservation]) {

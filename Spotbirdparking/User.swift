@@ -70,10 +70,10 @@ class User {
         return
      }
     
-    //TODO: Fill this in
-//    public func setReservations(reservation: [Reservation]) {
-//
-//    }
+    // Set a reservation with the owner of a spot
+    public func setReservation(reservation: [Reservation]) {
+        
+    }
   
 //    public func getReservations() -> [Reservation] {
 //

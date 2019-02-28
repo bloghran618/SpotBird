@@ -201,20 +201,7 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
     
     func paymentContextDidChange(_ paymentContext: STPPaymentContext) {
         print("run paymentContextDidChange()")
-//        self.paymentRow.loading = paymentContext.loading
-//        if let paymentMethod = paymentContext.selectedPaymentMethod {
-//            self.paymentRow.detail = paymentMethod.label
-//        }
-//        else {
-//            self.paymentRow.detail = "Select Payment"
-//        }
-//        if let shippingMethod = paymentContext.selectedShippingMethod {
-//            self.shippingRow.detail = shippingMethod.label
-//        }
-//        else {
-//            self.shippingRow.detail = "Enter \(self.shippingString) Info"
-//        }
-//        self.totalRow.detail = self.numberFormatter.string(from: NSNumber(value: Float(self.paymentContext.paymentAmount)/100))!
+
     }
     
     func paymentContext(_ paymentContext: STPPaymentContext, didFailToLoadWithError error: Error) {

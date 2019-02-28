@@ -15,7 +15,14 @@ class MyAPIClient: NSObject, STPEphemeralKeyProvider {
     static let sharedClient = MyAPIClient()
     
     // Ruby example backend
-//    var baseURLString: String? = "https://stripe-example-backend619.herokuapp.com/"
+    var oldURLString: String? = "https://stripe-example-backend619.herokuapp.com/"
+    var oldURL: URL {
+        if let urlString = self.oldURLString, let url = URL(string: urlString) {
+            return url
+        } else {
+            fatalError()
+        }
+    }
     
     // Python my backend
     var baseURLString: String? = "https://spotbird-backend-bloughran618.herokuapp.com/"
@@ -34,7 +41,8 @@ class MyAPIClient: NSObject, STPEphemeralKeyProvider {
                         shippingMethod: PKShippingMethod?,
                         completion: @escaping STPErrorBlock) {
         print("Run completeCharge()")
-        let url = self.baseURL.appendingPathComponent("charge")
+        let url = self.oldURL.appendingPathComponent("charge")
+        print("This is the URL we are using: \(url)")
         var params: [String: Any] = [
             "source": result.source.stripeID,
             "amount": amount,
@@ -50,6 +58,26 @@ class MyAPIClient: NSObject, STPEphemeralKeyProvider {
                     completion(error)
                 }
         }
+    }
+    
+    // Purchase a spot with
+    func spotPurchase(sourceID: String, destinationID: String, amount: Int, completion: @escaping STPJSONResponseCompletionBlock) {
+        let url = self.baseURL.appendingPathComponent("spot_purchase")
+        
+        Alamofire.request(url, method: .post, parameters: [
+            "source_id": sourceID,
+            "destination_id": destinationID,
+            "amount": amount])
+            .validate(statusCode: 200..<300)
+            .responseJSON { responseJSON in
+                switch responseJSON.result {
+                case .success(let json):
+                    completion(json as? [String: AnyObject], nil)
+                case .failure(let error):
+                    completion(nil, error)
+                }
+        }
+        
     }
     
     // Get an ephemeral key from the python backend for the customer object

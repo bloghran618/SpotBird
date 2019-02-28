@@ -15,8 +15,9 @@ class Reservation {
     var parkOrRent: String // will always be "Park" or "Rent"
     var price: String
     var spot: Spot
+    var parkerID: String
     
-    init?(startDateTime: String, endDateTime: String, parkOrRent: String, spot: Spot) {
+    init?(startDateTime: String, endDateTime: String, parkOrRent: String, spot: Spot, parkerID: String) {
         self.startDateTime = startDateTime
         self.endDateTime = endDateTime
         
@@ -25,6 +26,8 @@ class Reservation {
         
         let doublePrice = Reservation.calcPrice(startDateTimeString: startDateTime, endDateTimeString: endDateTime, spot: spot)
         self.price = String(format: "%.2f", doublePrice)
+        
+        self.parkerID = parkerID
     }
     
     static func calcPrice(startDateTimeString: String, endDateTimeString: String, spot: Spot) -> Double {

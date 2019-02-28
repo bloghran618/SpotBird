@@ -14,8 +14,9 @@ import Photos
 import GooglePlaces
 import GooglePlacePicker
 import GooglePlaces
+import Stripe
 
-class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapViewDelegate,GMSAutocompleteViewControllerDelegate,UIPickerViewDataSource,UIPickerViewDelegate{
+class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapViewDelegate,GMSAutocompleteViewControllerDelegate,UIPickerViewDataSource,UIPickerViewDelegate, STPPaymentContextDelegate{
     
     @IBOutlet var mapView: GMSMapView!
     // info window:-
@@ -86,8 +87,18 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     var endChange = false
     
     // initialize highlighted spot to null
-//    var highlightedSpot: Spot(address: "", town: "", state: "", zipCode: "", spotImage: "", description: "", monStartTime: "", monEndTime: "", tueStartTime: "", tueEndTime: "", wedStartTime: "", wedEndTime: "", thuStartTime: "", thuEndTime: "", friStartTime: "", friEndTime: "", satStartTime: "", satEndTime: "", sunStartTime: "", sunEndTime: "", monOn: false, tueOn: false, wedOn: false, thuOn: false, friOn: false, satOn: false, sunOn: false, hourlyPricing: "", dailyPricing: "", weeklyPricing: "", monthlyPricing: "", weeklyOn: false, monthlyOn: false, index: 0, approved: false, spotImages: UIImage(named: "white")!, spots_id: "", latitude: "", longitude: "", spottype: "", owner_id: "", Email: "")?
     var highlightedSpot: Spot!
+    
+    // Stripe setup
+    var profileOptions: [ProfileTableOption]?
+    let cellIdentifier = "profileTableCell"
+    
+    let config = STPPaymentConfiguration.shared()
+    let customerContext = STPCustomerContext(keyProvider: MyAPIClient.sharedClient)
+    
+    let paymentContext = STPPaymentContext(customerContext: STPCustomerContext(keyProvider: MyAPIClient.sharedClient))
+    
+//    let stripePublishableKey = "pk_test_TV3DNqRM8DCQJEcvMGpayRRj"
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -730,10 +741,64 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     
     // MARK:_ BTn booknow
     @IBAction func btn_booknow(_ sender: UIButton) {
-        let alertController = UIAlertController(title: "Spotbirdparking", message: "Not Available...!", preferredStyle: .alert)
-        let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-        alertController.addAction(defaultAction)
-        self.present(alertController, animated: true, completion: nil)
+//        let alertController = UIAlertController(title: "Spotbirdparking", message: "Not Available...!", preferredStyle: .alert)
+//        let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+//        alertController.addAction(defaultAction)
+//        self.present(alertController, animated: true, completion: nil)
+        
+        // debug line, should be removed
+        print("Lets do some booking!")
+
+        // create reservation to be sent to the parker
+        let parkerReservation = Reservation(
+            startDateTime: Reservation.dateToString(date: start_datepic.date),
+            endDateTime: Reservation.dateToString(date: end_datepic.date),
+            parkOrRent: "Park",
+            spot: self.highlightedSpot,
+            parkerID: AppState.sharedInstance.userid
+            )
+        
+        // create reservation to be sent to the spot owner
+        let ownerReservation = Reservation(
+            startDateTime: Reservation.dateToString(date: start_datepic.date),
+            endDateTime: Reservation.dateToString(date: end_datepic.date),
+            parkOrRent: "Rent",
+            spot: self.highlightedSpot,
+            parkerID: AppState.sharedInstance.userid
+        )
+        
+        // get source for payment
+        let source = AppState.sharedInstance.user.customertoken
+    
+        // get destination for payment
+        let ownerID = self.highlightedSpot.owner_ids
+        AppState.sharedInstance.appStateRoot.child("User").child(ownerID).observeSingleEvent(of: .value, with: { (snapshot) in
+            let userDict = snapshot.value as! [String: Any]
+            let destination = userDict["accountToken"] as! String
+            print("Destination is: \(destination)")
+            
+            // get integer value for amount for payment
+            let amount = Int((NumberFormatter().number(from: (parkerReservation?.price)!)!.floatValue) * 100)
+            print("Amount: \(amount)")
+            
+            // make payment
+            self.setPaymentContext(price: amount)
+            self.paymentContext.requestPayment()
+            //            MyAPIClient.sharedClient.spotPurchase(sourceID: source, destinationID: destination, amount: amount)
+//            { (token, error) in
+//                if let error = error {
+//                    print(error)
+//                    let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
+//                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+//                    self.present(alert, animated: true, completion: nil)
+//                }
+//                else {
+//                    print("We have sent a payment")
+//                }
+//            }
+        })
+        
+        print("Some quick debug/learning")
     }
     
     // MARK:_ BTn Autocomplete loation search
@@ -877,8 +942,11 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                         owner_id: (arrspot.object(at: index) as! NSDictionary).value(forKey: "owner_id") as?  String ?? "",
                                         Email: (arrspot.object(at: index) as! NSDictionary).value(forKey: "Email") as?  String ?? "")
          }
+        
+        // debug lines, can get rid of eventually
         print("Address is: \(self.highlightedSpot.address)")
         print("Email is: \(self.highlightedSpot.Email)")
+        
         return true
     }
     
@@ -1472,6 +1540,72 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         let myString = formatter.string(from: dates)
         let yourDate = formatter.date(from: myString)
         return yourDate!
+    }
+    
+    
+    // MARK: STPPaymentContextDelegate
+    
+    func paymentContext(_ paymentContext: STPPaymentContext, didCreatePaymentResult paymentResult: STPPaymentResult, completion: @escaping STPErrorBlock) {
+        print("run didCreatePaymentResult paymentContext()")
+        MyAPIClient.sharedClient.completeCharge(paymentResult,
+                                                amount: self.paymentContext.paymentAmount,
+                                                shippingAddress: self.paymentContext.shippingAddress,
+                                                shippingMethod: self.paymentContext.selectedShippingMethod,
+                                                completion: completion)
+    }
+    
+    func paymentContext(_ paymentContext: STPPaymentContext, didFinishWith status: STPPaymentStatus, error: Error?) {
+        print("run didFinishWith paymentContext()")
+        let title: String
+        let message: String
+        switch status {
+        case .error:
+            title = "Error"
+            message = error?.localizedDescription ?? ""
+        case .success:
+            title = "Success"
+            message = "You bought a SPOT!"
+        case .userCancellation:
+            return
+        }
+        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+        alertController.addAction(action)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func paymentContextDidChange(_ paymentContext: STPPaymentContext) {
+        print("run paymentContextDidChange()")
+        
+    }
+    
+    func paymentContext(_ paymentContext: STPPaymentContext, didFailToLoadWithError error: Error) {
+        print("run didFailToLoadWithError paymentContext()")
+        print("Error: \(error)")
+        let alertController = UIAlertController(
+            title: "Error",
+            message: error.localizedDescription,
+            preferredStyle: .alert
+        )
+        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
+            // Need to assign to _ because optional binding loses @discardableResult value
+            // https://bugs.swift.org/browse/SR-1681
+            _ = self.navigationController?.popViewController(animated: true)
+        })
+        let retry = UIAlertAction(title: "Retry", style: .default, handler: { action in
+            self.paymentContext.retryLoading()
+        })
+        alertController.addAction(cancel)
+        alertController.addAction(retry)
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    func setPaymentContext(price: Int) {
+        self.paymentContext.delegate = self
+        self.paymentContext.hostViewController = self
+        self.paymentContext.paymentAmount = price
+        print(self.paymentContext.paymentAmount)
+        print(self.paymentContext.hostViewController)
     }
     
     
