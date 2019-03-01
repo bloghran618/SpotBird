@@ -389,6 +389,13 @@ class Spot {
                 }
             })
         }
+        
+        let str = "User/" + AppState.sharedInstance.userid
+        print(str)
+        let ref = Database.database().reference().child(str)
+        
+        ref.updateChildValues([
+            "email":AppState.sharedInstance.activeSpot.Email])
     }
     
     func updatequery(data:DatabaseReference,url:String) {

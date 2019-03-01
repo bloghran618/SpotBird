@@ -60,8 +60,8 @@ class AddressViewController: UIViewController, UITextFieldDelegate,CLLocationMan
         
         self.hideKeyboardWhenTappedAround()
         
-        //        txt_email.layer.borderWidth = 2
-        //        txt_email.layer.borderColor = UIColor.cyan.cgColor
+        //   txt_email.layer.borderWidth = 2
+        //   txt_email.layer.borderColor = UIColor.cyan.cgColor
         
         view_btm.layer.cornerRadius = 5
         view_btm.layer.masksToBounds = true
@@ -177,14 +177,25 @@ class AddressViewController: UIViewController, UITextFieldDelegate,CLLocationMan
     // Behavior when you hit return on keyboard
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         
-        nextButton.isEnabled = false
+       // nextButton.isEnabled = false
         return true
     }
     
     // Behavior when you click outside of the text box
     func textFieldDidEndEditing(_ textField: UITextField) {
-        
+        if textField.text != ""{
+             AppState.sharedInstance.activeSpot.Email = textField.text!
+       }
     }
+    
+    func isValidEmail(testStr:String) -> Bool {
+        let emailRegEx = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        
+        let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
+        return emailTest.evaluate(with: testStr)
+    }
+    
+    
 }
 
 // ADD NEW FUNCTIONALITY MAP : -
@@ -259,7 +270,7 @@ extension AddressViewController {
             }
             if component.type == "locality" {
                 AppState.sharedInstance.activeSpot.town = component.name
-             }
+            }
             if component.type == "administrative_area_level_1" {
                 AppState.sharedInstance.activeSpot.state = component.name
             }
@@ -293,7 +304,8 @@ extension AddressViewController {
                         if address.subLocality != nil{
                             
                             AppState.sharedInstance.activeSpot.address = address.subLocality!
-                             self.title = "\(AppState.sharedInstance.activeSpot.address) \(AppState.sharedInstance.activeSpot.town)"
+                            // self.title = "\(AppState.sharedInstance.activeSpot.address) \(AppState.sharedInstance.activeSpot.town)"
+                            self.btn_searchADD.setTitle("\(AppState.sharedInstance.activeSpot.address) \(AppState.sharedInstance.activeSpot.town)", for: .normal)
                         }
                     }
                     else{
@@ -301,11 +313,17 @@ extension AddressViewController {
                             if address.subLocality != nil{
                                 
                                 AppState.sharedInstance.activeSpot.address = address.subLocality!
-                                 self.title  = "\(AppState.sharedInstance.activeSpot.address) \(AppState.sharedInstance.activeSpot.town)"
+                                //    self.title  = "\(AppState.sharedInstance.activeSpot.address) \(AppState.sharedInstance.activeSpot.town)"
+                                self.btn_searchADD.setTitle("\(AppState.sharedInstance.activeSpot.address) \(AppState.sharedInstance.activeSpot.town)", for: .normal)
+                            }
+                            else{
+                                AppState.sharedInstance.activeSpot.address = address.locality!
+                                self.btn_searchADD.setTitle("\(AppState.sharedInstance.activeSpot.address)", for: .normal)
                             }
                         }else{
                             AppState.sharedInstance.activeSpot.address = address.thoroughfare!
-                             self.title  = "\(AppState.sharedInstance.activeSpot.address) \(AppState.sharedInstance.activeSpot.town)"
+                            //  self.title  = "\(AppState.sharedInstance.activeSpot.address) \(AppState.sharedInstance.activeSpot.town)"
+                            self.btn_searchADD.setTitle("\(AppState.sharedInstance.activeSpot.address) \(AppState.sharedInstance.activeSpot.town)", for: .normal)
                         }
                     }
                 }
@@ -325,8 +343,10 @@ extension AddressViewController {
         let camera = GMSCameraPosition.camera(withLatitude: (place.coordinate.latitude), longitude: (place.coordinate.longitude), zoom:16)
         //  self.mapView.animate(to: camera)
         mapView.camera = camera
-        self.nextButton.isEnabled = true
-       
+        
+        if txt_email.text != ""{
+            self.nextButton.isEnabled = true
+        }
     }
     
     func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
