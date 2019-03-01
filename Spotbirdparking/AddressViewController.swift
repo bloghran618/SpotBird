@@ -194,13 +194,10 @@ class AddressViewController: UIViewController, UITextFieldDelegate,CLLocationMan
         let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailTest.evaluate(with: testStr)
     }
-    
-    
 }
 
 // ADD NEW FUNCTIONALITY MAP : -
 extension AddressViewController {
-    
     // MARK:- locationManagerDelegate
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
@@ -279,13 +276,14 @@ extension AddressViewController {
             }
             
         }
-        print(makeaddress)
         
         if makeaddress.last == ","
         {
             makeaddress.removeLast()
+            AppState.sharedInstance.activeSpot.address =  makeaddress
+            self.btn_searchADD.setTitle("\(AppState.sharedInstance.activeSpot.address)", for: .normal)
         }
-        
+       
         if makeaddress == "" {
             let cordinate:[String: CLLocationCoordinate2D] = ["cordinate": place.coordinate]
             let geocoder = GMSGeocoder()
