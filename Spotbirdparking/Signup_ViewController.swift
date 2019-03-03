@@ -16,7 +16,7 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
     @IBOutlet weak var profilePhoto: UIImageView!
     @IBOutlet weak var txt_fname: UITextField!
     @IBOutlet weak var txt_lname: UITextField!
-     @IBOutlet weak var txt_email: UITextField!
+    @IBOutlet weak var txt_email: UITextField!
     @IBOutlet weak var txt_username: UITextField!
     @IBOutlet weak var txt_pass: UITextField!
     @IBOutlet weak var Btn_newuser: UIButton!
@@ -31,7 +31,7 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
         profilePhoto.layer.masksToBounds = false
         profilePhoto.layer.cornerRadius = profilePhoto.frame.height/2
         profilePhoto.clipsToBounds = true
-    
+        
         txt_fname.delegate = self
         txt_lname.delegate = self
         txt_pass.delegate = self
@@ -47,7 +47,7 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
         txt_lname.autocorrectionType = .no
         txt_username.autocorrectionType = .no
         txt_pass.autocorrectionType = .no
-   
+        
     }
     
     @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
@@ -62,15 +62,15 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
         alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { _ in self.openCamera()}))
         alert.addAction(UIAlertAction(title: "Gallery", style: .default, handler: { _ in self.openGallery()}))
         alert.addAction(UIAlertAction.init(title: "Cancel", style: .default, handler: nil))
-       
+        
         self.present(alert, animated: true, completion: nil)
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-   }
+    }
     
-      @IBAction func btn_login(_ sender: Any) {
+    @IBAction func btn_login(_ sender: Any) {
         let vc = self.storyboard?.instantiateViewController(withIdentifier: "Login_ViewController") as! Login_ViewController
         self.present(vc, animated: true, completion: nil)
     }
@@ -113,30 +113,32 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
             self.present(alert, animated: true, completion: nil)
         }
         else {
-       
-                Spinner.start()
-        let ref = Database.database().reference()
-        ref.child("User").queryOrdered(byChild: "uname").queryEqual(toValue: txt_username.text)
-            .observeSingleEvent(of: .value, with: {(snapshot: DataSnapshot) in
-                
-                if snapshot.exists() {
-                    let alertController = UIAlertController(title: "Spotbirdparking", message: "User Name already exist ", preferredStyle: .alert)
+            
+            Spinner.start()
+            let ref = Database.database().reference()
+            ref.child("User").queryOrdered(byChild: "uname").queryEqual(toValue: txt_username.text)
+                .observeSingleEvent(of: .value, with: {(snapshot: DataSnapshot) in
                     
-                    let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-                    alertController.addAction(defaultAction)
+                    if snapshot.exists() {
+                        Spinner.stop()
+                        self.view.endEditing(true)
+                        let alertController = UIAlertController(title: "Spotbirdparking", message: "User Name already exist ", preferredStyle: .alert)
+                        
+                        let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                        alertController.addAction(defaultAction)
+                        
+                        self.present(alertController, animated: true, completion: nil)
+                    }
+                    else {
+                        self.view.endEditing(true)
+                        Spinner.start()
+                        self.save_newuser()
+                    }
                     
-                    self.present(alertController, animated: true, completion: nil)
-                }
-                else {
-                       self.view.endEditing(true)
-                    Spinner.start()
-                    self.save_newuser()
-                     }
-                
-                    })
-            }
-        
+                })
         }
+        
+    }
     
     
     func openCamera() {
@@ -164,7 +166,7 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
         let chosenImage = info[UIImagePickerControllerOriginalImage]
         self.profilePhoto.image = chosenImage as? UIImage
         
-         picker.dismiss(animated: true, completion: nil)
+        picker.dismiss(animated: true, completion: nil)
     }
     
     @objc func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
@@ -197,7 +199,7 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
     
     func save_newuser()
     {
-       
+        
         if profilePhoto.image == #imageLiteral(resourceName: "EmptyProfile")
         {
             self.refArtists = Database.database().reference().child("User");
@@ -224,8 +226,8 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
                 }
             }
             
-       }
-         else {
+        }
+        else {
             
             var imageReference: StorageReference {
                 return Storage.storage().reference().child("User/")
@@ -262,24 +264,24 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
                                 Spinner.stop()
                                 
                             } else {
-                                 Spinner.stop()
-                                 self.getlogin(id: key!)
+                                Spinner.stop()
+                                self.getlogin(id: key!)
                                 print("Data saved successfully!")
-                               
+                                
                             }
                         }
-                       
                         
-                   }
+                        
+                    }
                 })
             }
             
-         }
+        }
     }
     
     func getlogin(id:String){
         
-      self.refArtists = Database.database().reference().child("User").child(id);
+        self.refArtists = Database.database().reference().child("User").child(id);
         
         refArtists.observe(DataEventType.value, with: { (snapshot) in
             if snapshot.childrenCount > 0 {
@@ -298,7 +300,7 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
                 }
             }
         })
-     }
+    }
     
     
     func randomStringWithLength(length: Int) -> NSString {
@@ -313,10 +315,10 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-     return true
+        return true
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {
     }
-   
+    
 }
