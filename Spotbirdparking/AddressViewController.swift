@@ -280,7 +280,7 @@ extension AddressViewController {
         if makeaddress.last == ","
         {
             makeaddress.removeLast()
-            AppState.sharedInstance.activeSpot.address =  makeaddress
+            AppState.sharedInstance.activeSpot.address =  makeaddress.replacingOccurrences(of: ",", with: "")
             self.btn_searchADD.setTitle("\(AppState.sharedInstance.activeSpot.address)", for: .normal)
         }
        
@@ -303,7 +303,8 @@ extension AddressViewController {
                             
                             AppState.sharedInstance.activeSpot.address = address.subLocality!
                             // self.title = "\(AppState.sharedInstance.activeSpot.address) \(AppState.sharedInstance.activeSpot.town)"
-                            self.btn_searchADD.setTitle("\(AppState.sharedInstance.activeSpot.address) \(AppState.sharedInstance.activeSpot.town)", for: .normal)
+                            let addressfull = "\(AppState.sharedInstance.activeSpot.address) \(AppState.sharedInstance.activeSpot.town)"
+                            self.btn_searchADD.setTitle("\(addressfull.replacingOccurrences(of: ",", with: ""))", for: .normal)
                         }
                     }
                     else{
@@ -312,16 +313,22 @@ extension AddressViewController {
                                 
                                 AppState.sharedInstance.activeSpot.address = address.subLocality!
                                 //    self.title  = "\(AppState.sharedInstance.activeSpot.address) \(AppState.sharedInstance.activeSpot.town)"
-                                self.btn_searchADD.setTitle("\(AppState.sharedInstance.activeSpot.address) \(AppState.sharedInstance.activeSpot.town)", for: .normal)
+                                //   self.btn_searchADD.setTitle("\(AppState.sharedInstance.activeSpot.address) \(AppState.sharedInstance.activeSpot.town)", for: .normal)
+                                let addressfull = "\(AppState.sharedInstance.activeSpot.address) \(AppState.sharedInstance.activeSpot.town)"
+                                self.btn_searchADD.setTitle("\(addressfull.replacingOccurrences(of: ",", with: ""))", for: .normal)
                             }
                             else{
                                 AppState.sharedInstance.activeSpot.address = address.locality!
-                                self.btn_searchADD.setTitle("\(AppState.sharedInstance.activeSpot.address)", for: .normal)
+                                //  self.btn_searchADD.setTitle("\(AppState.sharedInstance.activeSpot.address)", for: .normal)
+                                let addressfull = "\(AppState.sharedInstance.activeSpot.address)"
+                                self.btn_searchADD.setTitle("\(addressfull.replacingOccurrences(of: ",", with: ""))", for: .normal)
                             }
                         }else{
                             AppState.sharedInstance.activeSpot.address = address.thoroughfare!
                             //  self.title  = "\(AppState.sharedInstance.activeSpot.address) \(AppState.sharedInstance.activeSpot.town)"
-                            self.btn_searchADD.setTitle("\(AppState.sharedInstance.activeSpot.address) \(AppState.sharedInstance.activeSpot.town)", for: .normal)
+                            let addressfull = "\(AppState.sharedInstance.activeSpot.address) \(AppState.sharedInstance.activeSpot.town)"
+                            self.btn_searchADD.setTitle("\(addressfull.replacingOccurrences(of: ",", with: ""))", for: .normal)
+                            
                         }
                     }
                 }

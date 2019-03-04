@@ -17,6 +17,7 @@ class PriceViewController: UIViewController, UITextFieldDelegate,CLLocationManag
     //    @IBOutlet weak var dailyPricing: UITextField!
     //    @IBOutlet weak var weeklyPricing: UITextField!
     //    @IBOutlet weak var monthlyPricing: UITextField!
+    
     @IBOutlet weak var weeklyPricingOn: UISwitch!
     @IBOutlet weak var monthlyPricingOn: UISwitch!
     @IBOutlet weak var lbl1: UILabel!
@@ -24,14 +25,8 @@ class PriceViewController: UIViewController, UITextFieldDelegate,CLLocationManag
     @IBOutlet weak var lbl3: UILabel!
     @IBOutlet weak var lbl4: UILabel!
     @IBOutlet weak var Slide1: UISlider!
-   
-    
     @IBOutlet weak var lbl1_mini: UILabel!
-    
-    
     @IBOutlet weak var lbl1_max: UILabel!
-    
-    
     @IBOutlet weak var lbl1_price: UILabel!
     @IBOutlet weak var lbl2_price: UILabel!
     @IBOutlet weak var lbl3_price: UILabel!
@@ -45,7 +40,6 @@ class PriceViewController: UIViewController, UITextFieldDelegate,CLLocationManag
     var value2 = ""
     var value3 = ""
     var value4 = ""
-    
     var sw1 = ""
     var sw2 = ""
     
@@ -66,27 +60,35 @@ class PriceViewController: UIViewController, UITextFieldDelegate,CLLocationManag
         //        monthlyPricing.keyboardType = UIKeyboardType.decimalPad
         
         
+        let alert = UIAlertController.init(title: "Spotprice", message: AppState.sharedInstance.activeSpot.basePricing, preferredStyle: .alert)
+          let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        alert.addAction(defaultAction)
+        self.present(alert, animated: true, completion: nil)
+        
         Slide1.minimumValue = 5
         Slide1.maximumValue = 8
         
+        lbl1_price.text = "$ 5"
+        if AppState.sharedInstance.activeSpot.basePricing != ""{
+            Slide1.value = Float(AppState.sharedInstance.activeSpot.basePricing)!
+            lbl1_price.text =  AppState.sharedInstance.activeSpot.basePricing
+        }
         
-        
-        Slide1.value = Float(AppState.sharedInstance.activeSpot.hourlyPricing)!
         
         lbl1_price.text = "$ \(AppState.sharedInstance.activeSpot.hourlyPricing)"
         lbl2_price.text = "$ \(AppState.sharedInstance.activeSpot.dailyPricing)"
         
         if AppState.sharedInstance.activeSpot.weeklyOn == true{
-         lbl3_price.text = "$ \(AppState.sharedInstance.activeSpot.weeklyPricing)"
+            lbl3_price.text = "$ \(AppState.sharedInstance.activeSpot.weeklyPricing)"
         }
         else{
-          lbl3_price.isHidden = true
+            lbl3_price.isHidden = true
         }
         
-         if AppState.sharedInstance.activeSpot.monthlyOn == true{
+        if AppState.sharedInstance.activeSpot.monthlyOn == true{
             lbl4_price.text = "$ \(AppState.sharedInstance.activeSpot.monthlyPricing)"
-         }
-         else{
+        }
+        else{
             lbl4_price.isHidden = true
         }
         
@@ -117,48 +119,52 @@ class PriceViewController: UIViewController, UITextFieldDelegate,CLLocationManag
         
         let value = (10/100)*(index as NSString).floatValue
         
-      //  let value = (index as NSString).floatValue
+        //  let value = (index as NSString).floatValue
+        
+        // base price
+        AppState.sharedInstance.activeSpot.basePricing = index
+        lbl1_price.text =  AppState.sharedInstance.activeSpot.basePricing
         
         let hr =  24 * value + (index as NSString).floatValue
         let week =   168 * value + (index as NSString).floatValue
         let month =  730.001 * value + (index as NSString).floatValue
-
+        
         print(hr)
         print(week)
         print(month)
-
-         lbl2_price.text = "$\(String(format: "%.2f", ((hr))))"
-         lbl3_price.text = "$\(String(format: "%.2f", ((week))))"
-         lbl4_price.text = "$\(String(format: "%.2f", ((month))))"
-      
-     }
+        
+        lbl2_price.text = "$\(String(format: "%.2f", ((hr))))"
+        lbl3_price.text = "$\(String(format: "%.2f", ((week))))"
+        lbl4_price.text = "$\(String(format: "%.2f", ((month))))"
+        
+    }
     
     /*
-    @IBAction func Slide2(_ sender: Any) {
-         let index = String(format: "%.2f", ((Slide2!.value)))
-        AppState.sharedInstance.activeSpot.dailyPricing = index
-        value2 = "102"
-        lbl2_price.text = "$ \(AppState.sharedInstance.activeSpot.dailyPricing)"
-        
-        
-    }
-    
-    @IBAction func Slide3(_ sender: Any) {
-         let index = String(format: "%.2f", ((Slide3!.value)))
-        AppState.sharedInstance.activeSpot.weeklyPricing = index
-        value2 = "103"
-        lbl3_price.text = "$ \(AppState.sharedInstance.activeSpot.weeklyPricing)"
-        
-    }
-    
-    @IBAction func Slide4(_ sender: Any) {
-         let index = String(format: "%.2f", ((Slide4!.value)))
-        AppState.sharedInstance.activeSpot.monthlyPricing = index
-        value2 = "104"
-        lbl4_price.text = "$ \(AppState.sharedInstance.activeSpot.monthlyPricing)"
-        
-    }
-    */
+     @IBAction func Slide2(_ sender: Any) {
+     let index = String(format: "%.2f", ((Slide2!.value)))
+     AppState.sharedInstance.activeSpot.dailyPricing = index
+     value2 = "102"
+     lbl2_price.text = "$ \(AppState.sharedInstance.activeSpot.dailyPricing)"
+     
+     
+     }
+     
+     @IBAction func Slide3(_ sender: Any) {
+     let index = String(format: "%.2f", ((Slide3!.value)))
+     AppState.sharedInstance.activeSpot.weeklyPricing = index
+     value2 = "103"
+     lbl3_price.text = "$ \(AppState.sharedInstance.activeSpot.weeklyPricing)"
+     
+     }
+     
+     @IBAction func Slide4(_ sender: Any) {
+     let index = String(format: "%.2f", ((Slide4!.value)))
+     AppState.sharedInstance.activeSpot.monthlyPricing = index
+     value2 = "104"
+     lbl4_price.text = "$ \(AppState.sharedInstance.activeSpot.monthlyPricing)"
+     
+     }
+     */
     
     
     //    @IBAction func sliderValueChanged(_ sender: TNSlider) {
@@ -236,20 +242,20 @@ class PriceViewController: UIViewController, UITextFieldDelegate,CLLocationManag
             AppState.sharedInstance.activeSpot.weeklyPricing = AppState.sharedInstance.activeSpot.calculateReccomendedPricing()[2]
             //   weeklyPricing.text = AppState.sharedInstance.activeSpot.weeklyPricing
             sw1 = "on"
-             lbl3_price.isHidden = false
+            lbl3_price.isHidden = false
             
         }
         else {
             AppState.sharedInstance.activeSpot.weeklyPricing = ""
             //   weeklyPricing.text = ""
             sw1 = "off"
-              lbl3_price.isHidden = true
+            lbl3_price.isHidden = true
         }
         
         // weeklyPricing.isEnabled = switchState.isOn
         
-       // Slide3.isEnabled  = switchState.isOn
-       // lbl3_price.isHidden = switchState.isOn
+        // Slide3.isEnabled  = switchState.isOn
+        // lbl3_price.isHidden = switchState.isOn
     }
     
     @objc func monthlyPricingSwitchChanged(switchState: UISwitch) {
@@ -267,7 +273,7 @@ class PriceViewController: UIViewController, UITextFieldDelegate,CLLocationManag
             lbl4_price.isHidden = true
         }
         //  monthlyPricing.isEnabled = switchState.isOn
-     //   Slide4.isEnabled  = switchState.isOn
+        //   Slide4.isEnabled  = switchState.isOn
         // lbl4_price.isHidden = switchState.isOn
     }
     
@@ -281,7 +287,7 @@ class PriceViewController: UIViewController, UITextFieldDelegate,CLLocationManag
             AppState.sharedInstance.activeSpot.hourlyPricing = String(Float(Slide1.value))
         }
         if value2 == ""{
-           // AppState.sharedInstance.activeSpot.dailyPricing = String(Float(Slide2.value))
+            // AppState.sharedInstance.activeSpot.dailyPricing = String(Float(Slide2.value))
             AppState.sharedInstance.activeSpot.dailyPricing = lbl2_price.text!
         }
         
@@ -291,7 +297,7 @@ class PriceViewController: UIViewController, UITextFieldDelegate,CLLocationManag
         }
         else{
             if value3 == ""{
-               // AppState.sharedInstance.activeSpot.weeklyPricing = String(format: "%.2f", ((Slide3!.value )))
+                // AppState.sharedInstance.activeSpot.weeklyPricing = String(format: "%.2f", ((Slide3!.value )))
                 AppState.sharedInstance.activeSpot.weeklyPricing = lbl3_price.text!
             }
         }
@@ -301,10 +307,12 @@ class PriceViewController: UIViewController, UITextFieldDelegate,CLLocationManag
         }
         else{
             if value4 == ""{
-            //    AppState.sharedInstance.activeSpot.monthlyPricing = String(format: "%.2f", ((Slide4!.value )))
-                  AppState.sharedInstance.activeSpot.monthlyPricing = lbl4_price.text!
+                //    AppState.sharedInstance.activeSpot.monthlyPricing = String(format: "%.2f", ((Slide4!.value )))
+                AppState.sharedInstance.activeSpot.monthlyPricing = lbl4_price.text!
             }
         }
+        
+        AppState.sharedInstance.activeSpot.basePricing = lbl1_price.text!
         
         let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController]
         self.navigationController!.popToViewController(viewControllers[viewControllers.count - 5], animated: true)
