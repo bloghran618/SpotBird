@@ -84,7 +84,7 @@ class AddressViewController: UIViewController, UITextFieldDelegate,CLLocationMan
             txt_email.text = AppState.sharedInstance.activeSpot.Email
         }
         else{
-            txt_email.text = (UserDefaults.standard.value(forKey: "logindata") as! NSDictionary).value(forKey: "email") as? String
+            txt_email.text = (UserDefaults.standard.value(forKey: "logindata") as! NSDictionary).value(forKey: "") as? String
         }
         
         AppState.sharedInstance.activeSpot.Email = (txt_email.text)!
