@@ -123,7 +123,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         self.mapView.delegate = self
         self.locationManager.delegate = self
         self.locationManager.requestAlwaysAuthorization()
-        self.locationManager.requestWhenInUseAuthorization()
+        //self.locationManager.requestWhenInUseAuthorization()
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         CurrentLocMarker.map = self.mapView
         self.locationManager.startMonitoringSignificantLocationChanges()
@@ -944,7 +944,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                         longitude: (arrspot.object(at: index) as! NSDictionary).value(forKey: "longitude") as?  String ?? "",
                                         spottype: (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as?  String ?? "",
                                         owner_id: (arrspot.object(at: index) as! NSDictionary).value(forKey: "owner_id") as?  String ?? "",
-                                        Email: (arrspot.object(at: index) as! NSDictionary).value(forKey: "Email") as?  String ?? "")
+                                        Email: (arrspot.object(at: index) as! NSDictionary).value(forKey: "Email") as?  String ?? "", baseprice: (arrspot.object(at: index) as! NSDictionary).value(forKey: "basePricing") as?  String ?? "")
          }
         
         // debug lines, can get rid of eventually
