@@ -87,7 +87,10 @@ class Login_ViewController: UIViewController {
                     
                     
                     
-                    let logindata = ["fname":dict.value(forKey: "fname") as! String,"id":dict.value(forKey: "id") as! String,"image":dict.value(forKey: "image") as! String,"lname":dict.value(forKey: "lname") as! String,"uname":dict.value(forKey: "uname") as! String,"email":dict.value(forKey: "email") as! String]
+                    let logindata = ["fname":dict.value(forKey: "fname") as!String,"id":dict.value(forKey: "id") as! String,"image":dict.value(forKey: "image") as! String,"lname":dict.value(forKey: "lname") as! String,"uname":dict.value(forKey: "uname") as! String,"email":dict.value(forKey: "email") as! String,"customerToken":dict.value(forKey:"CustomerToken") as! String,"accountToken":dict.value(forKey:"accountToken" )]
+                    
+                    print("Last name 1: \(AppState.sharedInstance.user.lastName)")
+                    print("Customer Token 1: \(AppState.sharedInstance.user.customertoken)")
                         
                         UserDefaults.standard.setValue(logindata, forKey: "logindata")
                         UserDefaults.standard.synchronize()
@@ -99,6 +102,9 @@ class Login_ViewController: UIViewController {
                         AppState.sharedInstance.user.firstName = (data_login.value(forKey: "fname") as? String)!
                         AppState.sharedInstance.user.lastName = (data_login.value(forKey: "lname") as? String)!
                         AppState.sharedInstance.user.profileImage = (dict.value(forKey: "image") as? String)!
+                    
+                    print("Last name 2: \(AppState.sharedInstance.user.lastName)")
+                    print("Customer Token 2: \(AppState.sharedInstance.user.customertoken)")
                         
                         if AppState.sharedInstance.user.profileImage != "" {
                             let strurl = AppState.sharedInstance.user.profileImage

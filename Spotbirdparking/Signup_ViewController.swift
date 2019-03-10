@@ -199,6 +199,8 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
     
     func save_newuser()
     {
+        let customerToken = MyAPIClient.sharedClient.createCustomerID()
+        let accountToken = MyAPIClient.sharedClient.createAccountID()
         
         if profilePhoto.image == #imageLiteral(resourceName: "EmptyProfile")
         {
@@ -210,7 +212,9 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
                            "uname":self.txt_username.text!,
                            "pass":self.txt_pass.text!,
                            "image":"",
-                           "email":txt_email.text!]
+                           "email":txt_email.text!,
+                           "customerToken": customerToken,
+                           "accountToken": accountToken]
             print(newuser)
             self.refArtists.child(key!).setValue(newuser){
                 (error:Error?, ref:DatabaseReference) in
@@ -255,7 +259,9 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
                                        "lname":self.txt_lname.text!,
                                        "uname":self.txt_username.text!,
                                        "pass":self.txt_pass.text!,
-                                       "image":fullURL]
+                                       "image":fullURL,
+                                       "customerToken": customerToken,
+                                       "accountToken": accountToken]
                         print(newuser)
                         self.refArtists.child(key!).setValue(newuser){
                             (error:Error?, ref:DatabaseReference) in

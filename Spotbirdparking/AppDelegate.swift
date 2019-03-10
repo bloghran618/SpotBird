@@ -54,6 +54,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
             AppState.sharedInstance.user.firstName = (dict?.value(forKey: "fname") as? String)!
             AppState.sharedInstance.user.lastName = (dict?.value(forKey: "lname") as? String)!
             AppState.sharedInstance.user.profileImage = (dict?.value(forKey: "image") as? String)!
+            AppState.sharedInstance.user.customertoken = (dict?.value(forKey: "customerToken") as? String)!
+            AppState.sharedInstance.user.accounttoken = (dict?.value(forKey: "accountToken") as? String)!
+
             
             if AppState.sharedInstance.user.profileImage != "" {
                 let strurl = AppState.sharedInstance.user.profileImage

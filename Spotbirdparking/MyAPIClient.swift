@@ -41,11 +41,12 @@ class MyAPIClient: NSObject, STPEphemeralKeyProvider {
                         shippingMethod: PKShippingMethod?,
                         completion: @escaping STPErrorBlock) {
         print("Run completeCharge()")
-        let url = self.oldURL.appendingPathComponent("charge")
+        let url = self.baseURL.appendingPathComponent("charge")
         print("This is the URL we are using: \(url)")
         var params: [String: Any] = [
             "source": result.source.stripeID,
             "amount": amount,
+            "customer_token": AppState.sharedInstance.user.customertoken
         ]
         params["shipping"] = STPAddress.shippingInfoForCharge(with: shippingAddress, shippingMethod: shippingMethod)
         Alamofire.request(url, method: .post, parameters: params)
@@ -60,6 +61,7 @@ class MyAPIClient: NSObject, STPEphemeralKeyProvider {
         }
     }
     
+    // will probably be deleted eventually
     // Purchase a spot with
     func spotPurchase(sourceID: String, destinationID: String, amount: Int, completion: @escaping STPJSONResponseCompletionBlock) {
         let url = self.baseURL.appendingPathComponent("spot_purchase")
@@ -99,8 +101,10 @@ class MyAPIClient: NSObject, STPEphemeralKeyProvider {
 //        print("End customer token")
         
         // Change to db customer ID once we get that working
-//        let customerID = AppState.sharedInstance.user.customertoken
-        let customerID = "cus_ELvzL3KA1gpi9U"
+        let customerID = AppState.sharedInstance.user.customertoken
+        print("CustomerToken: \(customerID)")
+        print("Last Name: \(AppState.sharedInstance.user.lastName)")
+//        let customerID = "cus_ELvzL3KA1gpi9U"
         let url = self.baseURL.appendingPathComponent("ephemeral_keys")
         print(url)
         
@@ -121,7 +125,7 @@ class MyAPIClient: NSObject, STPEphemeralKeyProvider {
     
     // Create a new customer ID in Stripe
     // run with MyAPIClient.sharedClient.createCustomerID()
-    func createCustomerID() {
+    func createCustomerID() -> String {
         print("Create Customer ID!!!")
         let url = self.baseURL.appendingPathComponent("customer_id")
         //        let url = baseURLString.appendingPathComponent("customer_id")
@@ -147,11 +151,12 @@ class MyAPIClient: NSObject, STPEphemeralKeyProvider {
                     AppState.sharedInstance.user.setcustomerToken(customerToken: customer_id_from_flask as! String)
                 }
         }
+        return AppState.sharedInstance.user.customertoken
     }
     
     // Create a new account ID in Stripe
     // run with MyAPIClient.sharedClient.createAccountID()
-    func createAccountID() {
+    func createAccountID() -> String {
         print("Create Account ID!!!")
         let url = self.baseURL.appendingPathComponent("account_id")
         //        let url = baseURLString.appendingPathComponent("customer_id")
@@ -177,6 +182,7 @@ class MyAPIClient: NSObject, STPEphemeralKeyProvider {
                     AppState.sharedInstance.user.setaccountToken(accountToken: account_id_from_flask as! String)
                 }
         }
+        return AppState.sharedInstance.user.accounttoken
     }
     
     // Add tokenized connect account info to the user Stripe account
