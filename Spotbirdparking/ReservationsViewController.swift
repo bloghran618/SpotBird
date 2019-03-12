@@ -272,11 +272,11 @@ extension ReservationsViewController: UITableViewDelegate, UITableViewDataSource
         spotlongitude = (res.spot.longitude as NSString).doubleValue
         
         
-        let alertController = UIAlertController(title: "Alert!", message: "Choose Platform", preferredStyle: .alert)
+       // let alertController = UIAlertController(title: "Alert!", message: "Choose Platform", preferredStyle: .alert)
         
         // Create the actions
-        let okAction = UIAlertAction(title: "Google map with api ", style: UIAlertActionStyle.default) {
-            UIAlertAction in
+//        let okAction = UIAlertAction(title: "Google map with api ", style: UIAlertActionStyle.default) {
+//            UIAlertAction in
             self.Spot_cooridnates = CLLocationCoordinate2DMake(self.spotlatitude,self.spotlongitude)
             self.mapView.delegate = self
             self.locationManager.delegate = self
@@ -288,25 +288,25 @@ extension ReservationsViewController: UITableViewDelegate, UITableViewDataSource
             self.locationManager.startUpdatingLocation()
             //   mapView.isMyLocationEnabled = true
             self.mapView.settings.myLocationButton = true
-        }
-        let cancelAction = UIAlertAction(title: "google map", style: UIAlertActionStyle.cancel) {
-            UIAlertAction in
-            if (UIApplication.shared.canOpenURL(NSURL(string:"comgooglemaps://")! as URL)) {
-                UIApplication.shared.openURL(NSURL(string:
-                    "comgooglemaps://?saddr=&daddr=\(self.spotlatitude),\(self.spotlongitude)&directionsmode=driving")! as URL)
-                
-            } else {
-                NSLog("Can't use comgooglemaps://");
-                
-            }
-        }
+      //  }
+//        let cancelAction = UIAlertAction(title: "google map", style: UIAlertActionStyle.cancel) {
+//            UIAlertAction in
+//            if (UIApplication.shared.canOpenURL(NSURL(string:"comgooglemaps://")! as URL)) {
+//                UIApplication.shared.openURL(NSURL(string:
+//                    "comgooglemaps://?saddr=&daddr=\(self.spotlatitude),\(self.spotlongitude)&directionsmode=driving")! as URL)
+//
+//            } else {
+//                NSLog("Can't use comgooglemaps://");
+//
+//            }
+//        }
         
         // Add the actions
-        alertController.addAction(okAction)
-        alertController.addAction(cancelAction)
-        
-        // Present the controller
-        self.present(alertController, animated: true, completion: nil)
+//        alertController.addAction(okAction)
+//        alertController.addAction(cancelAction)
+//
+//        // Present the controller
+//        self.present(alertController, animated: true, completion: nil)
         
         
         
@@ -361,12 +361,11 @@ extension ReservationsViewController: UITableViewDelegate, UITableViewDataSource
         let config = URLSessionConfiguration.default
         let session = URLSession(configuration: config)
         
-        // 22.9623
-        // 76.0508
+      
         
         let url = URL(string: "https://maps.googleapis.com/maps/api/directions/json?origin=\(source.latitude),\(source.longitude)&destination=\(destination.latitude),\(destination.longitude)&sensor=true&mode=driving&key=AIzaSyCvFxAOvA246L6Syk7Cl426254C-sMJGxk")!
         
-        //let url = URL(string: "https://maps.googleapis.com/maps/api/directions/json?origin=\(source.latitude),\(source.longitude)&destination=\(22.9623),\(76.0508)&sensor=true&mode=driving&key=AIzaSyCvFxAOvA246L6Syk7Cl426254C-sMJGxk")!
+    //   let url = URL(string: "https://maps.googleapis.com/maps/api/directions/json?origin=\(source.latitude),\(source.longitude)&destination=\(22.9623),\(76.0508)&sensor=true&mode=driving&key=AIzaSyCvFxAOvA246L6Syk7Cl426254C-sMJGxk")!
         
         let task = session.dataTask(with: url, completionHandler: {
             (data, response, error) in
@@ -402,9 +401,14 @@ extension ReservationsViewController: UITableViewDelegate, UITableViewDataSource
                                 let update = GMSCameraUpdate.fit(bounds, with: UIEdgeInsetsMake(170, 30, 30, 30))
                                 self.mapView!.moveCamera(update)
                                 
+                                print(source)
+                                print(destination)
+                                
+                                
+                              // let spots = CLLocationCoordinate2DMake(22.9623,76.0508)
                                 
                                 let marker = GMSMarker()
-                                marker.position = self.Spot_cooridnates
+                                marker.position = destination
                                 // marker.title =
                                 var markerView = UIImageView()
                                 markerView = UIImageView(image: UIImage.init(named: "ext"))
@@ -412,6 +416,10 @@ extension ReservationsViewController: UITableViewDelegate, UITableViewDataSource
                                 markerView.frame.size.height = 30
                                 marker.iconView = markerView
                                 marker.map = self.mapView
+                                
+                                
+                               
+                                
                                 
                                 
                                 let camera = GMSCameraPosition.camera(withLatitude: (source.latitude), longitude: (source.longitude), zoom:10)

@@ -342,8 +342,8 @@ extension AddressViewController {
         markerView = UIImageView(image: UIImage.init(named: "current_location_icon"))
         markerView.frame.size.width = 30
         markerView.frame.size.height = 30
-        self.CurrentLocMarker.iconView = markerView
-        self.CurrentLocMarker.map = self.mapView
+//        self.CurrentLocMarker.iconView = markerView
+//        self.CurrentLocMarker.map = self.mapView
         
         let camera = GMSCameraPosition.camera(withLatitude: (place.coordinate.latitude), longitude: (place.coordinate.longitude), zoom:16)
         //  self.mapView.animate(to: camera)
