@@ -859,7 +859,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         
-        if  Userlat != marker.position.latitude && Userlong != marker.position.longitude{
+        print("We did tap a marker")
+        
         let index:Int! = Int(marker.accessibilityLabel!)
             print("Index is: \(String(index))")
         let price  = (arrspot.object(at: index) as! NSDictionary).value(forKey: "hourlyPricing") as?  String
@@ -891,6 +892,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
 //            view_info.isHidden = false
 //            btn_close.isHidden = false
 //        }
+            
             view_info.isHidden = false
             btn_close.isHidden = false
             curruntlat = marker.position.latitude
@@ -945,7 +947,6 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                         spottype: (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as?  String ?? "",
                                         owner_id: (arrspot.object(at: index) as! NSDictionary).value(forKey: "owner_id") as?  String ?? "",
                                         Email: (arrspot.object(at: index) as! NSDictionary).value(forKey: "Email") as?  String ?? "", baseprice: (arrspot.object(at: index) as! NSDictionary).value(forKey: "basePricing") as?  String ?? "")
-         }
         
         // debug lines, can get rid of eventually
         print("Address is: \(self.highlightedSpot.address)")
