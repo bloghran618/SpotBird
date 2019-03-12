@@ -47,16 +47,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         
         print(UserDefaults.standard.value(forKey: "logindata"))
         
-        if UserDefaults.standard.value(forKey: "logindata") as? NSDictionary != nil{
+        if UserDefaults.standard.value(forKey: "logindata") as? NSDictionary != nil {
             let dict = UserDefaults.standard.value(forKey: "logindata") as? NSDictionary
             AppState.sharedInstance.userid = dict?.value(forKey: "id") as! String
             print( AppState.sharedInstance.userid)
             AppState.sharedInstance.user.firstName = (dict?.value(forKey: "fname") as? String)!
             AppState.sharedInstance.user.lastName = (dict?.value(forKey: "lname") as? String)!
-            AppState.sharedInstance.user.profileImage = (dict?.value(forKey: "image") as? String)!
+            if  dict?.value(forKey: "image") != nil{
+                AppState.sharedInstance.user.customertoken = (dict?.value(forKey: "image") as? String)!
+            }
+            
+            if  dict?.value(forKey: "customerToken") != nil{
             AppState.sharedInstance.user.customertoken = (dict?.value(forKey: "customerToken") as? String)!
-            AppState.sharedInstance.user.accounttoken = (dict?.value(forKey: "accountToken") as? String)!
-
+            }
+            
+            if  dict?.value(forKey: "accountToken") != nil{
+             AppState.sharedInstance.user.accounttoken = (dict?.value(forKey: "accountToken") as? String)!
+            }
             
             if AppState.sharedInstance.user.profileImage != "" {
                 let strurl = AppState.sharedInstance.user.profileImage
@@ -64,8 +71,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
                 let endIndex = strurl.index(strurl.startIndex, offsetBy: 85)
                 AppState.sharedInstance.user.imgname =  String(strurl[startIndex...endIndex])
             }
-            
-            
             
             let appDelegate = UIApplication.shared.delegate! as! AppDelegate
             let storyboard = UIStoryboard(name: "Main", bundle: nil)

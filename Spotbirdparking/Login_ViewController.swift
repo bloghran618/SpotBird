@@ -21,6 +21,9 @@ class Login_ViewController: UIViewController {
         txt_uname.autocorrectionType  = .no
         txt_pass.autocorrectionType = .no
         view.endEditing(true)
+        
+        txt_uname.text = "bloughran618@gmail.com"
+        txt_pass.text = "SpotBird1234"
     }
     
     override func didReceiveMemoryWarning() {
@@ -84,10 +87,27 @@ class Login_ViewController: UIViewController {
                         self.MyCars(carsarray: array, key: id)
                     }
                     
+                    var logindata =  NSMutableDictionary()
+                    
+                    logindata.setValue(dict.value(forKey: "fname") as!String, forKey: "fname")
+                    logindata.setValue(dict.value(forKey: "id") as!String, forKey: "id")
+                    logindata.setValue(dict.value(forKey: "email") as!String, forKey: "email")
+                    logindata.setValue(dict.value(forKey: "lname") as!String, forKey: "lname")
+                    
+                    if dict.value(forKey: "image") != nil{
+                     logindata.setValue(dict.value(forKey: "image") as!String, forKey: "CustomerToken")
+                    }
+                    if dict.value(forKey: "CustomerToken") != nil{
+                        logindata.setValue(dict.value(forKey: "CustomerToken") as!String, forKey: "CustomerToken")
+                    }
+                    if dict.value(forKey: "accountToken") != nil{
+                        logindata.setValue(dict.value(forKey: "accountToken") as!String, forKey: "CustomerToken")
+                    }
+                    
+                   
                     
                     
-                    
-                    let logindata = ["fname":dict.value(forKey: "fname") as!String,"id":dict.value(forKey: "id") as! String,"image":dict.value(forKey: "image") as! String,"lname":dict.value(forKey: "lname") as! String,"uname":dict.value(forKey: "uname") as! String,"email":dict.value(forKey: "email") as! String,"customerToken":dict.value(forKey:"CustomerToken") as! String,"accountToken":dict.value(forKey:"accountToken" )]
+//                    let logindata = ["fname":dict.value(forKey: "fname") as!String,"id":dict.value(forKey: "id") as! String,"image":dict.value(forKey: "image") as? String,"lname":dict.value(forKey: "lname") as! String,"uname":dict.value(forKey: "uname") as! String,"email":dict.value(forKey: "email") as! String,"customerToken":dict.value(forKey:"CustomerToken") as? String,"accountToken":dict.value(forKey:"accountToken") as? String]
                     
                     print("Last name 1: \(AppState.sharedInstance.user.lastName)")
                     print("Customer Token 1: \(AppState.sharedInstance.user.customertoken)")

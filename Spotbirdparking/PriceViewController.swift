@@ -70,12 +70,17 @@ class PriceViewController: UIViewController, UITextFieldDelegate,CLLocationManag
         
         lbl1_price.text = "$ 5"
         if AppState.sharedInstance.activeSpot.basePricing != ""{
-            Slide1.value = Float(AppState.sharedInstance.activeSpot.basePricing)!
-            lbl1_price.text =  AppState.sharedInstance.activeSpot.basePricing
+            let basePRice = AppState.sharedInstance.activeSpot.basePricing.replacingOccurrences(of: "$", with: "")
+            print(basePRice)
+            Slide1.value = (basePRice as NSString).floatValue
+            
+            print(basePRice)
+            
+            lbl1_price.text =  "$\(Slide1.value)"
         }
         
         
-        lbl1_price.text = "$ \(AppState.sharedInstance.activeSpot.hourlyPricing)"
+       // lbl1_price.text = "$ \(AppState.sharedInstance.activeSpot.hourlyPricing)"
         lbl2_price.text = "$ \(AppState.sharedInstance.activeSpot.dailyPricing)"
         
         if AppState.sharedInstance.activeSpot.weeklyOn == true{
