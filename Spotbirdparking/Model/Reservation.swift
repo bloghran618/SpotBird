@@ -38,13 +38,17 @@ class Reservation {
         var price = 0.0
         
         // account the base price
+        if spot.basePricing != ""{
         price += Double(spot.basePricing)!
+        }
         
         // get the number of hours between end and start
         var timeDelta = endDateTime.hours(from: startDateTime)
         
+         if spot.basePricing != ""{
         // add ( # hours * base price * 0.1 ) to the price
         price += Double(timeDelta) * Double(spot.basePricing)! * 0.1
+        }
         
         // Price = base + ( base * hours parked * 0.1 )
         return price

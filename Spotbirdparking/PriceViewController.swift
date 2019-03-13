@@ -76,11 +76,10 @@ class PriceViewController: UIViewController, UITextFieldDelegate,CLLocationManag
             
             print(basePRice)
             
-            lbl1_price.text =  "$\(Slide1.value)"
+            lbl1_price.text =  "$\(basePRice)"
         }
         
-        
-       // lbl1_price.text = "$ \(AppState.sharedInstance.activeSpot.hourlyPricing)"
+        // lbl1_price.text = "$ \(AppState.sharedInstance.activeSpot.hourlyPricing)"
         lbl2_price.text = "$ \(AppState.sharedInstance.activeSpot.dailyPricing)"
         
         if AppState.sharedInstance.activeSpot.weeklyOn == true{
