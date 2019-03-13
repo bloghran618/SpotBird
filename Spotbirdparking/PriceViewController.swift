@@ -60,10 +60,10 @@ class PriceViewController: UIViewController, UITextFieldDelegate,CLLocationManag
         //        monthlyPricing.keyboardType = UIKeyboardType.decimalPad
         
         
-        let alert = UIAlertController.init(title: "Spotprice", message: AppState.sharedInstance.activeSpot.basePricing, preferredStyle: .alert)
-          let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-        alert.addAction(defaultAction)
-        self.present(alert, animated: true, completion: nil)
+//        let alert = UIAlertController.init(title: "Spotprice", message: AppState.sharedInstance.activeSpot.basePricing, preferredStyle: .alert)
+//          let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+//        alert.addAction(defaultAction)
+//        self.present(alert, animated: true, completion: nil)
         
         Slide1.minimumValue = 5
         Slide1.maximumValue = 8

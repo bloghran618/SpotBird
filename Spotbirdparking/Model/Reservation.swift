@@ -30,9 +30,30 @@ class Reservation {
         self.parkerID = parkerID
     }
     
+    // alogrithm to calculate the price of the spot based on the base price and the time duration
     static func calcPrice(startDateTimeString: String, endDateTimeString: String, spot: Spot) -> Double {
+        
         let startDateTime = stringToDate(string: startDateTimeString)
         let endDateTime = stringToDate(string: endDateTimeString)
+        var price = 0.0
+        
+        // account the base price
+        price += Double(spot.basePricing)!
+        
+        // get the number of hours between end and start
+        var timeDelta = endDateTime.hours(from: startDateTime)
+        
+        // add ( # hours * base price * 0.1 ) to the price
+        price += Double(timeDelta) * Double(spot.basePricing)! * 0.1
+        
+        // Price = base + ( base * hours parked * 0.1 )
+        return price
+    }
+    
+    // leftover algorithm for calculating the price based on monthly, weekly, daily and hourly prices, in case we decide to go back to this algorithm
+    func calcPriceMonthWeekDayHour(startDateTimeString: String, endDateTimeString: String, spot: Spot) -> Double {
+            let startDateTime = Reservation.stringToDate(string: startDateTimeString)
+            let endDateTime = Reservation.stringToDate(string: endDateTimeString)
         
         var price = 0.0 // price starts at 0
         

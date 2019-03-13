@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import MapKit
 
 @objc protocol User_navDelegates{
     func navigateLocation(cell:ByDayResTableViewCell)
@@ -38,6 +39,7 @@ class ByDayResTableViewCell: UITableViewCell {
     {
         print("Nav button clicked")
            delegate?.navigateLocation(cell: self)
+        
     }
 
 }

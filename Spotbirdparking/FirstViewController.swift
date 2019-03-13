@@ -745,10 +745,6 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     
     // MARK:_ BTn booknow
     @IBAction func btn_booknow(_ sender: UIButton) {
-//        let alertController = UIAlertController(title: "Spotbirdparking", message: "Not Available...!", preferredStyle: .alert)
-//        let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-//        alertController.addAction(defaultAction)
-//        self.present(alertController, animated: true, completion: nil)
         
         // debug line, should be removed
         print("Lets do some booking!")
@@ -783,7 +779,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             
             // get integer value for amount for payment
             let amount = Int((NumberFormatter().number(from: (parkerReservation?.price)!)!.floatValue) * 100)
-            print("Amount: \(amount)")
+            print("Price (cents): \(amount)")
             
             // make payment
             self.setPaymentContext(price: amount)
@@ -949,8 +945,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                         Email: (arrspot.object(at: index) as! NSDictionary).value(forKey: "Email") as?  String ?? "", baseprice: (arrspot.object(at: index) as! NSDictionary).value(forKey: "basePricing") as?  String ?? "")
         
         // debug lines, can get rid of eventually
-        print("Address is: \(self.highlightedSpot.address)")
-        print("Email is: \(self.highlightedSpot.Email)")
+        print("Highlighted Spot Address is: \(self.highlightedSpot.address)")
+        print("Highlighted Spot Email is: \(self.highlightedSpot.Email)")
         
         return true
     }
