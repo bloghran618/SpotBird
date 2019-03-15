@@ -43,8 +43,8 @@ class AddressViewController: UIViewController, UITextFieldDelegate,CLLocationMan
         super.viewDidLoad()
         
         btn_searchADD.layer.cornerRadius = 2
-        btn_searchADD.layer.borderColor = UIColor.blue.cgColor
-        btn_searchADD.layer.borderWidth = 1
+//        btn_searchADD.layer.borderColor = UIColor.blue.cgColor
+//        btn_searchADD.layer.borderWidth = 1
         
         self.mapView.delegate = self
         self.locationManager.delegate = self
@@ -65,14 +65,14 @@ class AddressViewController: UIViewController, UITextFieldDelegate,CLLocationMan
         
         view_btm.layer.cornerRadius = 5
         view_btm.layer.masksToBounds = true
-        view_btm.layer.borderWidth = 1
-        view_btm.layer.borderColor = UIColor.black.cgColor
+//        view_btm.layer.borderWidth = 1
+//        view_btm.layer.borderColor = UIColor.black.cgColor
         nextButton.isEnabled = false
         view_types.layer.cornerRadius = 6
         view_types.layer.masksToBounds = true
-        view_types.layer.borderWidth = 1
-        view_types.layer.borderColor = UIColor.black.cgColor
-        
+//        view_types.layer.borderWidth = 1
+//        view_types.layer.borderColor = UIColor.black.cgColor
+//
         if ((AppState.sharedInstance.activeSpot.address == "") && (AppState.sharedInstance.activeSpot.town == "")) && ((AppState.sharedInstance.activeSpot.zipCode == "") && (AppState.sharedInstance.activeSpot.state == "")) {
             nextButton.isEnabled = false
         }
@@ -118,8 +118,8 @@ class AddressViewController: UIViewController, UITextFieldDelegate,CLLocationMan
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.mapView.layer.borderWidth = 1
-        self.mapView.layer.borderColor = UIColor(red:222/255, green:225/255, blue:227/255, alpha: 1).cgColor
+//        self.mapView.layer.borderWidth = 1
+//        self.mapView.layer.borderColor = UIColor(red:222/255, green:225/255, blue:227/255, alpha: 1).cgColor
         
     }
     

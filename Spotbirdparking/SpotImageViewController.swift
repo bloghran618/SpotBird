@@ -142,6 +142,7 @@ class SpotImageViewController: UIViewController, UITextViewDelegate, UIImagePick
         if spotDescription.textColor == UIColor.lightGray {
             spotDescription.text = nil
             spotDescription.textColor = UIColor.black
+            spotDescription.textAlignment = .left
         }
     }
     
@@ -149,6 +150,7 @@ class SpotImageViewController: UIViewController, UITextViewDelegate, UIImagePick
         if spotDescription.text.isEmpty {
             spotDescription.text = self.descriptionText
             spotDescription.textColor = UIColor.lightGray
+            spotDescription.textAlignment = .center
         }
         spotDescription.resignFirstResponder()
         AppState.sharedInstance.activeSpot.description = spotDescription.text
@@ -159,6 +161,7 @@ class SpotImageViewController: UIViewController, UITextViewDelegate, UIImagePick
         if spotDescription.text.isEmpty {
             spotDescription.text = self.descriptionText
             spotDescription.textColor = UIColor.lightGray
+            spotDescription.textAlignment = .center
         }
         spotDescription.resignFirstResponder()
         AppState.sharedInstance.activeSpot.description = spotDescription.text
@@ -187,7 +190,7 @@ class SpotImageViewController: UIViewController, UITextViewDelegate, UIImagePick
     
     func schedulingBarButtonCheckEnable() -> Bool {
        
-        if(AppState.sharedInstance.activeSpot.spotImage1 != UIImage.init(named: "addButton") && AppState.sharedInstance.activeSpot.description != "") {
+        if(AppState.sharedInstance.activeSpot.spotImage1 != UIImage.init(named: "emptySpot") && AppState.sharedInstance.activeSpot.description != "") {
             self.schedulingBarButton.isEnabled = true
             return true
         }
