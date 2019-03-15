@@ -212,7 +212,7 @@ extension AddressViewController {
         self.CurrentLocMarker.map = self.mapView
         
         if spotcamera == false {
-            let camera = GMSCameraPosition.camera(withLatitude: (location?.coordinate.latitude)!, longitude: (location?.coordinate.longitude)!, zoom:16)
+            let camera = GMSCameraPosition.camera(withLatitude: (location?.coordinate.latitude)!, longitude: (location?.coordinate.longitude)!, zoom:18)
             self.mapView.animate(to: camera)
         }
         self.locationManager.stopUpdatingLocation()
@@ -342,10 +342,10 @@ extension AddressViewController {
         markerView = UIImageView(image: UIImage.init(named: "current_location_icon"))
         markerView.frame.size.width = 30
         markerView.frame.size.height = 30
-//        self.CurrentLocMarker.iconView = markerView
-//        self.CurrentLocMarker.map = self.mapView
+        self.CurrentLocMarker.iconView = markerView
+        self.CurrentLocMarker.map = self.mapView
         
-        let camera = GMSCameraPosition.camera(withLatitude: (place.coordinate.latitude), longitude: (place.coordinate.longitude), zoom:16)
+        let camera = GMSCameraPosition.camera(withLatitude: (place.coordinate.latitude), longitude: (place.coordinate.longitude), zoom:18)
         //  self.mapView.animate(to: camera)
         mapView.camera = camera
         

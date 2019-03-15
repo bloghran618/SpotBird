@@ -977,8 +977,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             markerView = UIImageView(image: UIImage.init(named: "current_location_icon"))
             markerView.frame.size.width = 30
             markerView.frame.size.height = 30
-            self.CurrentLocMarker.iconView = markerView
-            self.CurrentLocMarker.map = self.mapView
+//            self.CurrentLocMarker.iconView = markerView
+//            self.CurrentLocMarker.map = self.mapView
             
             if snapshot.childrenCount > 0 {
                 self.arrspot.removeAllObjects()
@@ -1176,8 +1176,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             markerView = UIImageView(image: UIImage.init(named: "current_location_icon"))
             markerView.frame.size.width = 30
             markerView.frame.size.height = 30
-            self.CurrentLocMarker.iconView = markerView
-            self.CurrentLocMarker.map = self.mapView
+//            self.CurrentLocMarker.iconView = markerView
+//            self.CurrentLocMarker.map = self.mapView
             
             for i in 0..<self.arr_search_spot.count {
                 
@@ -1342,7 +1342,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         markerView = UIImageView(image: UIImage.init(named: "current_location_icon"))
         markerView.frame.size.width = 30
         markerView.frame.size.height = 30
-        self.CurrentLocMarker.iconView = markerView
+       // self.CurrentLocMarker.iconView = markerView
         let camera = GMSCameraPosition.camera(withLatitude: (place.coordinate.latitude), longitude: (place.coordinate.longitude), zoom:self.mapView.camera.zoom)
         mapView.camera = camera
         //self.mapView.animate(to: camera)

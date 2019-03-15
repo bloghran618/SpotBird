@@ -276,27 +276,37 @@ extension ReservationsViewController: UITableViewDelegate, UITableViewDataSource
         SpotDetails = res.spot.address
         
         self.Spot_cooridnates = CLLocationCoordinate2DMake(self.spotlatitude,self.spotlongitude)
-        self.mapView.delegate = self
-        self.locationManager.delegate = self
-        self.locationManager.requestAlwaysAuthorization()
-        self.locationManager.requestWhenInUseAuthorization()
-        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        self.CurrentLocMarker.map = self.mapView
-        self.locationManager.startMonitoringSignificantLocationChanges()
-        self.locationManager.startUpdatingLocation()
-     // mapView.isMyLocationEnabled = true
-        self.mapView.settings.myLocationButton = true
+//        self.mapView.delegate = self
+//        self.locationManager.delegate = self
+//        self.locationManager.requestAlwaysAuthorization()
+//        self.locationManager.requestWhenInUseAuthorization()
+//        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
+//        self.CurrentLocMarker.map = self.mapView
+//        self.locationManager.startMonitoringSignificantLocationChanges()
+//        self.locationManager.startUpdatingLocation()
+//     // mapView.isMyLocationEnabled = true
+//        self.mapView.settings.myLocationButton = true
+        
+                    if (UIApplication.shared.canOpenURL(NSURL(string:"comgooglemaps://")! as URL)) {
+                        UIApplication.shared.openURL(NSURL(string:
+                            "comgooglemaps://?saddr=&daddr=\(self.spotlatitude),\(self.spotlongitude)&directionsmode=driving")! as URL)
+        
+                    } else {
+                        NSLog("Can't use comgooglemaps://");
+                        let alert = UIAlertController(title: "Spotbirdparking", message: "Can't use comgooglemaps://", preferredStyle: UIAlertControllerStyle.alert)
+                        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+                        self.present(alert, animated: true, completion: nil)
+        
+                    }
         
         
     }
-    
     
     //    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
     //        print("A cell is selected")
     //        let cell = tableView.cellForRow(at: indexPath as IndexPath)
     //        cell!.backgroundColor = UIColor.init(red: 83/255, green: 188/255, blue: 111/255, alpha: 1.0)
     //    }
-    
     
     // MARK:- locationManagerDelegate
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -410,6 +420,7 @@ extension ReservationsViewController: UITableViewDelegate, UITableViewDataSource
         task.resume()
     }
     
+    //SEt VIEW HIDE UNHIDE
     func setView(view: UIView, hidden: Bool) {
         UIView.transition(with: view, duration: 0.5, options: .transitionCrossDissolve, animations: {
             view.isHidden = hidden
