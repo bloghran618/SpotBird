@@ -295,8 +295,32 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
                     let snapshotValue = snapshot.value as! NSDictionary
                     print(snapshotValue)
                     AppState.sharedInstance.userid = snapshotValue.value(forKey: "id") as! String
-                    UserDefaults.standard.setValue(snapshotValue, forKey: "logindata")
+                    
+//                    UserDefaults.standard.setValue(snapshotValue, forKey: "logindata")
+//                    UserDefaults.standard.synchronize()
+                    
+                    
+                    var logindata =  NSMutableDictionary()
+                    
+                    logindata.setValue(snapshotValue.value(forKey: "fname") as!String, forKey: "fname")
+                    logindata.setValue(snapshotValue.value(forKey: "id") as!String, forKey: "id")
+                    logindata.setValue(snapshotValue.value(forKey: "email") as!String, forKey: "email")
+                    logindata.setValue(snapshotValue.value(forKey: "lname") as!String, forKey: "lname")
+                    
+                    if snapshotValue.value(forKey: "image") != nil{
+                        logindata.setValue(snapshotValue.value(forKey: "image") as!String, forKey: "CustomerToken")
+                    }
+                    if snapshotValue.value(forKey: "CustomerToken") != nil{
+                        logindata.setValue(snapshotValue.value(forKey: "CustomerToken") as!String, forKey: "CustomerToken")
+                    }
+                    if snapshotValue.value(forKey: "accountToken") != nil{
+                        logindata.setValue(snapshotValue.value(forKey: "accountToken") as!String, forKey: "CustomerToken")
+                    }
+                    
+                    UserDefaults.standard.setValue(logindata, forKey: "logindata")
                     UserDefaults.standard.synchronize()
+                    
+                    
                     Spinner.stop()
                     let appDelegate = UIApplication.shared.delegate! as! AppDelegate
                     let initialViewController = self.storyboard!.instantiateViewController(withIdentifier: "myTabbarControllerID")

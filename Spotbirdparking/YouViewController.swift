@@ -195,6 +195,7 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
             UserDefaults.standard.synchronize()
             AppState.sharedInstance.user.cars.removeAll()
             AppState.sharedInstance.spots.removeAll()
+            
             AppState.sharedInstance.userid = ""
             AppState.sharedInstance.user.customertoken = ""
             AppState.sharedInstance.user.accounttoken =  ""

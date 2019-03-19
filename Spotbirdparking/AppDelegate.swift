@@ -49,7 +49,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         
         if UserDefaults.standard.value(forKey: "logindata") as? NSDictionary != nil {
             let dict = UserDefaults.standard.value(forKey: "logindata") as? NSDictionary
-            print("This is the dict: \(dict)")
+          
             AppState.sharedInstance.userid = dict?.value(forKey: "id") as! String
             print( AppState.sharedInstance.userid)
             AppState.sharedInstance.user.firstName = (dict?.value(forKey: "fname") as? String)!
@@ -117,7 +117,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-    
-    
 }
 
