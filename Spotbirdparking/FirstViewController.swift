@@ -858,7 +858,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         print("We did tap a marker")
         
         let index:Int! = Int(marker.accessibilityLabel!)
-            print("Index is: \(String(index))")
+//            print("Index is: \(String(index))")
         let price  = (arrspot.object(at: index) as! NSDictionary).value(forKey: "hourlyPricing") as?  String
         let doller = (price! as NSString).integerValue
 
@@ -1599,6 +1599,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         alertController.addAction(cancel)
         alertController.addAction(retry)
         self.present(alertController, animated: true, completion: nil)
+        print("Customer String: \(AppState.sharedInstance.user.customertoken)")
+        print("Account String: \(AppState.sharedInstance.user.accounttoken)")
     }
     
     func setPaymentContext(price: Int) {

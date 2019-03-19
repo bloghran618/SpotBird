@@ -223,6 +223,8 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
         alertController.addAction(cancel)
         alertController.addAction(retry)
         self.present(alertController, animated: true, completion: nil)
+        print("Customer String: \(AppState.sharedInstance.user.customertoken)")
+        print("Account String: \(AppState.sharedInstance.user.accounttoken)")
     }
     
     func setPaymentContext(price: Int) {

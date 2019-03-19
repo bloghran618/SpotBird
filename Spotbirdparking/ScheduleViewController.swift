@@ -189,7 +189,7 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate{
         dateFormatter.dateFormat = "hh:mm a"
         print(AppState.sharedInstance.activeSpot.thuStartTime)
         print(AppState.sharedInstance.activeSpot.thuEndTime)
-        
+                
      }
     
     override func didReceiveMemoryWarning() {
@@ -399,5 +399,76 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate{
         sunStartTime.text = AppState.sharedInstance.activeSpot.sunStartTime
         sunEndTime.text = AppState.sharedInstance.activeSpot.sunEndTime
     }
+    
+    // 24/7 Button resets to defaults
+    @IBAction func anytimeButton(_ sender: Any) {
+        print("AnytimeButton Pressed")
+        // Set switches to true
+        monSwitch.setOn(true, animated: true)
+        tueSwitch.setOn(true, animated: true)
+        wedSwitch.setOn(true, animated: true)
+        thuSwitch.setOn(true, animated: true)
+        friSwitch.setOn(true, animated: true)
+        satSwitch.setOn(true, animated: true)
+        sunSwitch.setOn(true, animated: true)
+        
+        // set start times to 12:00 AM
+        monStartTime.text = "12:00 AM"
+        tueStartTime.text = "12:00 AM"
+        wedStartTime.text = "12:00 AM"
+        thuStartTime.text = "12:00 AM"
+        friStartTime.text = "12:00 AM"
+        satStartTime.text = "12:00 AM"
+        sunStartTime.text = "12:00 AM"
+        
+        // set end times to 12:00 PM
+        monEndTime.text = "12:00 PM"
+        tueEndTime.text = "12:00 PM"
+        wedEndTime.text = "12:00 PM"
+        thuEndTime.text = "12:00 PM"
+        friEndTime.text = "12:00 PM"
+        satEndTime.text = "12:00 PM"
+        sunEndTime.text = "12:00 PM"
+        
+        // set ActiveSpot properties
+        AppState.sharedInstance.activeSpot.monStartTime = "12:00 AM"
+        AppState.sharedInstance.activeSpot.monEndTime = "12:00 PM"
+        AppState.sharedInstance.activeSpot.tueStartTime = "12:00 AM"
+        AppState.sharedInstance.activeSpot.tueEndTime = "12:00 PM"
+        AppState.sharedInstance.activeSpot.wedStartTime = "12:00 AM"
+        AppState.sharedInstance.activeSpot.wedEndTime = "12:00 PM"
+        AppState.sharedInstance.activeSpot.thuStartTime = "12:00 AM"
+        AppState.sharedInstance.activeSpot.thuEndTime = "12:00 PM"
+        AppState.sharedInstance.activeSpot.friStartTime = "12:00 AM"
+        AppState.sharedInstance.activeSpot.friEndTime = "12:00 PM"
+        AppState.sharedInstance.activeSpot.satStartTime = "12:00 AM"
+        AppState.sharedInstance.activeSpot.satEndTime = "12:00 PM"
+        AppState.sharedInstance.activeSpot.sunStartTime = "12:00 AM"
+        AppState.sharedInstance.activeSpot.sunEndTime = "12:00 PM"
+        AppState.sharedInstance.activeSpot.monOn = true
+        AppState.sharedInstance.activeSpot.tueOn = true
+        AppState.sharedInstance.activeSpot.wedOn = true
+        AppState.sharedInstance.activeSpot.thuOn = true
+        AppState.sharedInstance.activeSpot.friOn = true
+        AppState.sharedInstance.activeSpot.satOn = true
+        AppState.sharedInstance.activeSpot.sunOn = true
+        
+        // re-enable text fields
+        monStartTime.isEnabled = true
+        monEndTime.isEnabled = true
+        tueStartTime.isEnabled = true
+        tueEndTime.isEnabled = true
+        wedStartTime.isEnabled = true
+        wedEndTime.isEnabled = true
+        thuStartTime.isEnabled = true
+        thuEndTime.isEnabled = true
+        friStartTime.isEnabled = true
+        friEndTime.isEnabled = true
+        satStartTime.isEnabled = true
+        satEndTime.isEnabled = true
+        sunStartTime.isEnabled = true
+        sunEndTime.isEnabled = true
+    }
+    
     
 }

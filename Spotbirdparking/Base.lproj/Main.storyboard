@@ -1944,8 +1944,27 @@
                                     </textField>
                                 </subviews>
                             </stackView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Specify when your spot is availible" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Msl-B4-EEa">
-                                <rect key="frame" x="8" y="396" width="359" height="20.5"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ztT-tk-WpG">
+                                <rect key="frame" x="132.5" y="379" width="110" height="30"/>
+                                <color key="backgroundColor" red="0.20000000000000001" green="0.79607843140000001" blue="0.35294117650000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="TUA-PN-Vfl"/>
+                                    <constraint firstAttribute="width" constant="110" id="vgt-Ve-ZGT"/>
+                                </constraints>
+                                <state key="normal" title="Availible 24/7">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="anytimeButton:" destination="XIr-hW-WI5" eventType="touchUpInside" id="kCZ-XH-htz"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Specify the times you want to park" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bbJ-H8-U6i">
+                                <rect key="frame" x="55.5" y="434" width="264.5" height="20.5"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -1953,22 +1972,24 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Msl-B4-EEa" firstAttribute="leading" secondItem="VYx-Gp-vQa" secondAttribute="leading" constant="8" id="3FF-SI-vHf"/>
+                            <constraint firstItem="ztT-tk-WpG" firstAttribute="top" secondItem="a4e-P0-4w9" secondAttribute="bottom" constant="8" id="3yW-SA-XaJ"/>
                             <constraint firstItem="Hha-09-Msu" firstAttribute="centerX" secondItem="Ddy-Hz-6Iz" secondAttribute="centerX" id="62T-Gx-GGs"/>
                             <constraint firstItem="id0-3o-cEN" firstAttribute="top" secondItem="VYx-Gp-vQa" secondAttribute="top" constant="30" id="Chu-Jg-cVf"/>
                             <constraint firstItem="E2A-zg-1M2" firstAttribute="top" secondItem="gnn-v9-zDI" secondAttribute="bottom" constant="10" id="N5k-br-TW1"/>
-                            <constraint firstItem="VYx-Gp-vQa" firstAttribute="trailing" secondItem="Msl-B4-EEa" secondAttribute="trailing" constant="8" id="OKq-rR-vC2"/>
                             <constraint firstItem="gLK-b0-cQx" firstAttribute="top" secondItem="say-45-gX2" secondAttribute="bottom" constant="10" id="RLm-5U-4wX"/>
-                            <constraint firstItem="Msl-B4-EEa" firstAttribute="top" secondItem="a4e-P0-4w9" secondAttribute="bottom" constant="25" id="TZr-F6-di9"/>
                             <constraint firstItem="Hha-09-Msu" firstAttribute="top" secondItem="gLK-b0-cQx" secondAttribute="bottom" constant="10" id="X8w-Ir-Lwt"/>
                             <constraint firstItem="id0-3o-cEN" firstAttribute="centerX" secondItem="Ddy-Hz-6Iz" secondAttribute="centerX" id="ZEt-dW-fA5"/>
                             <constraint firstItem="a4e-P0-4w9" firstAttribute="centerX" secondItem="Ddy-Hz-6Iz" secondAttribute="centerX" id="a1n-cZ-mtU"/>
+                            <constraint firstItem="ztT-tk-WpG" firstAttribute="centerX" secondItem="Ddy-Hz-6Iz" secondAttribute="centerX" id="aNa-l7-Qyo"/>
                             <constraint firstItem="gLK-b0-cQx" firstAttribute="centerX" secondItem="Ddy-Hz-6Iz" secondAttribute="centerX" id="boh-nk-6s3"/>
+                            <constraint firstItem="bbJ-H8-U6i" firstAttribute="top" secondItem="ztT-tk-WpG" secondAttribute="bottom" constant="25" id="ccw-iw-UAJ"/>
+                            <constraint firstItem="bbJ-H8-U6i" firstAttribute="centerX" secondItem="Ddy-Hz-6Iz" secondAttribute="centerX" id="gN5-tK-pMw"/>
                             <constraint firstItem="gnn-v9-zDI" firstAttribute="centerX" secondItem="Ddy-Hz-6Iz" secondAttribute="centerX" id="gxU-M7-7Hf"/>
                             <constraint firstItem="say-45-gX2" firstAttribute="top" secondItem="id0-3o-cEN" secondAttribute="bottom" constant="10" id="hj9-RF-opY"/>
                             <constraint firstItem="say-45-gX2" firstAttribute="centerX" secondItem="Ddy-Hz-6Iz" secondAttribute="centerX" id="nid-Cx-xJt"/>
                             <constraint firstItem="a4e-P0-4w9" firstAttribute="top" secondItem="E2A-zg-1M2" secondAttribute="bottom" constant="10" id="o0o-Ex-Pmr"/>
                             <constraint firstItem="gnn-v9-zDI" firstAttribute="top" secondItem="Hha-09-Msu" secondAttribute="bottom" constant="10" id="p64-Td-V8G"/>
+                            <constraint firstItem="ztT-tk-WpG" firstAttribute="centerX" secondItem="Ddy-Hz-6Iz" secondAttribute="centerX" id="rk5-k3-hgf"/>
                             <constraint firstItem="E2A-zg-1M2" firstAttribute="centerX" secondItem="Ddy-Hz-6Iz" secondAttribute="centerX" id="soW-tZ-0nn"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="VYx-Gp-vQa"/>
