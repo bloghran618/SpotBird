@@ -856,6 +856,10 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         
         print("We did tap a marker")
+        if marker == self.CurrentLocMarker
+        {
+            return false
+        }
         
         let index:Int! = Int(marker.accessibilityLabel!)
 //            print("Index is: \(String(index))")

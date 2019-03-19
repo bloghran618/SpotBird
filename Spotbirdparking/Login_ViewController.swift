@@ -158,8 +158,6 @@ class Login_ViewController: UIViewController {
         })
     }
     
-    
-    
     func Myspots(spotarray:NSArray,key:String) {
         
         for i in 0..<spotarray.count{
@@ -209,7 +207,6 @@ class Login_ViewController: UIViewController {
                         index: -1,
                         approved:false, spotImages: UIImage.init(named: "white")!, spots_id: key, latitude: dblat, longitude: dblongitude, spottype: snapshotValue.value(forKey: "spot_type") as! String, owner_id: snapshotValue.value(forKey: "owner_id") as! String, Email: snapshotValue.value(forKey: "Email") as! String, baseprice: snapshotValue.value(forKey: "basePricing") as! String)!)
         }
-        
     }
     
        // MY CARS _
@@ -219,7 +216,5 @@ class Login_ViewController: UIViewController {
         
           AppState.sharedInstance.user.cars.append(Car(make: snapshotValue.value(forKey: "make") as! String, model: snapshotValue.value(forKey: "model") as! String, year: snapshotValue.value(forKey: "year") as! String, carImage: snapshotValue.value(forKey: "image") as! String, isDefault: snapshotValue.value(forKey: "default") as! Bool,car_id:key)!)
         }
-       }
-    
-    
+    }
 }
