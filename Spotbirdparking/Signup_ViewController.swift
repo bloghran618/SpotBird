@@ -314,7 +314,7 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
                         logindata.setValue(snapshotValue.value(forKey: "CustomerToken") as!String, forKey: "CustomerToken")
                     }
                     if snapshotValue.value(forKey: "accountToken") != nil{
-                        logindata.setValue(snapshotValue.value(forKey: "accountToken") as!String, forKey: "CustomerToken")
+                        logindata.setValue(snapshotValue.value(forKey: "accountToken") as!String, forKey: "accountToken")
                     }
                     
                     UserDefaults.standard.setValue(logindata, forKey: "logindata")

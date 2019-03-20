@@ -22,8 +22,8 @@ class Login_ViewController: UIViewController {
         txt_pass.autocorrectionType = .no
         view.endEditing(true)
         
-        txt_uname.text = "bloughran618@gmail.com"
-        txt_pass.text = "SpotBird1234"
+        txt_uname.text = "a@gmail.com"
+        txt_pass.text = "12345678"
     }
     
     override func didReceiveMemoryWarning() {
@@ -101,7 +101,7 @@ class Login_ViewController: UIViewController {
                         logindata.setValue(dict.value(forKey: "CustomerToken") as!String, forKey: "CustomerToken")
                     }
                     if dict.value(forKey: "accountToken") != nil{
-                        logindata.setValue(dict.value(forKey: "accountToken") as!String, forKey: "CustomerToken")
+                        logindata.setValue(dict.value(forKey: "accountToken") as!String, forKey: "accountToken")
                     }
                     
                    
