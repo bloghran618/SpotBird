@@ -52,6 +52,7 @@ class CarsViewController: UIViewController, UITableViewDataSource {
         return AppState.sharedInstance.user.cars.count
     }
     
+    // Place data in cell
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CarCell", for: indexPath) as? CarsTableViewCell
          let car = AppState.sharedInstance.user.cars[indexPath.row]
@@ -76,6 +77,7 @@ class CarsViewController: UIViewController, UITableViewDataSource {
         CarsTable.setEditing(editing, animated: animated)
     }
     
+    // Delete a car
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
     

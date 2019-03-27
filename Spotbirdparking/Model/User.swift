@@ -70,6 +70,17 @@ class User {
         return
      }
     
+    // get the Car object of the default car
+    public func getDefaultCar() -> Car {
+        for car in self.cars {
+            if(car.isDefault!) {
+                return car
+            }
+        }
+        // if algorithm cannot find default, return first car
+        return self.cars[0]
+    }
+    
     // Set a reservation with the owner of a spot
     public func setReservation(reservation: [Reservation]) {
         

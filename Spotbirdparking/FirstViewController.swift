@@ -91,7 +91,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     
     // Stripe setup
     var profileOptions: [ProfileTableOption]?
-    let cellIdentifier = "profileTableCell"
+//    let cellIdentifier = "profileTableCell"
     
     let config = STPPaymentConfiguration.shared()
     let customerContext = STPCustomerContext(keyProvider: MyAPIClient.sharedClient)
@@ -746,8 +746,31 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     // MARK:_ BTn booknow
     @IBAction func btn_booknow(_ sender: UIButton) {
         
+        // This is all debug initializers. Once Kevin fixes code we will remove
+        AppState.sharedInstance.user.cars = [Car(make: "Make", model: "Model", year: "1999", carImage: "white", isDefault: true, car_id: "")] as! [Car]
+//        AppState.sharedInstance.user.customertoken = "cus_ElclMGDE3hwGEC"
+        
         // debug line, should be removed
         print("Lets do some booking!")
+        
+        print("your customer token is: \(AppState.sharedInstance.user.customertoken)")
+        
+        // create dummy car to create reference to defaultCar
+        var defaultCar = Car(make: "", model: "", year: "", carImage: "", isDefault: false, car_id: "")
+        
+        // get the user default car
+        if(AppState.sharedInstance.user.cars.count > 0) {
+            defaultCar = AppState.sharedInstance.user.getDefaultCar()
+        }
+        else {
+            // handle if there are no cars
+            let alert = UIAlertController(title: "No Cars", message: "To reserve a spot you must create a default car in the Profile tab", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true)
+            return
+        }
+        
+        print("Default car found")
 
         // create reservation to be sent to the parker
         let parkerReservation = Reservation(
@@ -755,7 +778,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             endDateTime: Reservation.dateToString(date: end_datepic.date),
             parkOrRent: "Park",
             spot: self.highlightedSpot,
-            parkerID: AppState.sharedInstance.userid
+            parkerID: AppState.sharedInstance.userid,
+            car: defaultCar!
             )
         
         // create reservation to be sent to the spot owner
@@ -764,14 +788,21 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             endDateTime: Reservation.dateToString(date: end_datepic.date),
             parkOrRent: "Rent",
             spot: self.highlightedSpot,
-            parkerID: AppState.sharedInstance.userid
+            parkerID: AppState.sharedInstance.userid,
+            car: defaultCar!
         )
+        
+        print("Reservations created")
         
         // get source for payment
         let source = AppState.sharedInstance.user.customertoken
+        
+        print("Source found")
     
         // get destination for payment
         let ownerID = self.highlightedSpot.owner_ids
+        
+        print("Destination found")
         AppState.sharedInstance.appStateRoot.child("User").child(ownerID).observeSingleEvent(of: .value, with: { (snapshot) in
             let userDict = snapshot.value as! [String: Any]
             let destination = userDict["accountToken"] as! String
@@ -782,8 +813,14 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             print("Price (cents): \(amount)")
             
             // make payment
-            self.setPaymentContext(price: amount)
-            self.paymentContext.requestPayment()
+            if(destination != "") {
+                // pay us
+                self.setPaymentContext(price: amount)
+                self.paymentContext.requestPayment()
+                                                                                             
+                // pay owner
+                MyAPIClient.sharedClient.completeTransfer(destination: destination, spotAmount: amount)
+            }
             //            MyAPIClient.sharedClient.spotPurchase(sourceID: source, destinationID: destination, amount: amount)
 //            { (token, error) in
 //                if let error = error {
@@ -862,7 +899,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         }
         
         let index:Int! = Int(marker.accessibilityLabel!)
-//            print("Index is: \(String(index))")
+            print("Index is: \(String(index))")
         let price  = (arrspot.object(at: index) as! NSDictionary).value(forKey: "hourlyPricing") as?  String
         let doller = (price! as NSString).integerValue
 
@@ -962,6 +999,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     // GET ALL SPOT ON MAP
     func getlatlong(){
         
+        print("We are loading spots...")
+        
         Spinner.start()
         var weekday = [String]()
         let dateformats = DateFormatter()
@@ -996,7 +1035,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                             print(theValue)
                             self.arrspot.add(theValue)
                           }
-                        //self.loadEventsToMap(lat: self.userlatitude, long: self.userlongitude)
+//                        self.loadEventsToMap(lat: self.userlatitude, long: self.userlongitude)
                     }
                 }
                 

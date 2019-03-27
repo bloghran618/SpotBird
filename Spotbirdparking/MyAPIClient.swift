@@ -61,26 +61,53 @@ class MyAPIClient: NSObject, STPEphemeralKeyProvider {
         }
     }
     
-    // will probably be deleted eventually
-    // Purchase a spot with
-    func spotPurchase(sourceID: String, destinationID: String, amount: Int, completion: @escaping STPJSONResponseCompletionBlock) {
-        let url = self.baseURL.appendingPathComponent("spot_purchase")
-        
-        Alamofire.request(url, method: .post, parameters: [
-            "source_id": sourceID,
-            "destination_id": destinationID,
-            "amount": amount])
+    // Transfer funds from our account to the spot owner
+    // run with MyAPIClient.sharedClient.completeTransfer(destination: String, spotAmount: Int)
+    func completeTransfer(destination: String, spotAmount: Int) {
+        print("Run completeTransfer()")
+        let url = self.baseURL.appendingPathComponent("pay_owner")
+        print("Spot Amount: \(spotAmount)")
+        let payAmount = spotAmount * 17/20
+        print("Pay Amount: \(payAmount)")
+        var params: [String: Any] = [
+            "destination_id": destination,
+            "amount": payAmount
+        ]
+        Alamofire.request(url, method: .post, parameters: params)
             .validate(statusCode: 200..<300)
-            .responseJSON { responseJSON in
-                switch responseJSON.result {
-                case .success(let json):
-                    completion(json as? [String: AnyObject], nil)
+            .responseJSON { response in
+                switch response.result {
+                case .success:
+                    print("Transfer was a success")
                 case .failure(let error):
-                    completion(nil, error)
+                    let status = response.response?.statusCode
+                    print("Transfer failed, status: \(status)")
+                    print("Here is the error: \(error)")
                 }
         }
         
     }
+    
+    // will probably be deleted eventually
+    // Purchase a spot with
+//    func spotPurchase(sourceID: String, destinationID: String, amount: Int, completion: @escaping STPJSONResponseCompletionBlock) {
+//        let url = self.baseURL.appendingPathComponent("spot_purchase")
+//
+//        Alamofire.request(url, method: .post, parameters: [
+//            "source_id": sourceID,
+//            "destination_id": destinationID,
+//            "amount": amount])
+//            .validate(statusCode: 200..<300)
+//            .responseJSON { responseJSON in
+//                switch responseJSON.result {
+//                case .success(let json):
+//                    completion(json as? [String: AnyObject], nil)
+//                case .failure(let error):
+//                    completion(nil, error)
+//                }
+//        }
+//
+//    }
     
     // Get an ephemeral key from the python backend for the customer object
     func createCustomerKey(withAPIVersion apiVersion: String, completion: @escaping STPJSONResponseCompletionBlock) {
