@@ -126,6 +126,8 @@ class AddressViewController: UIViewController, UITextFieldDelegate,CLLocationMan
     // select Spot type -
     @IBAction func btn_TYPE(_ sender: Any) {
         
+          nextButton.isEnabled = true
+        
         // garageParking, garageParkingSelected, streetParking, streetParkingSelected, lotParking, lotParkingSelected, drivewayParking, drivewayParkingSelected
         
         if (sender as AnyObject).titleLabel?.text == "Garage"{

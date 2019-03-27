@@ -60,10 +60,10 @@ class PriceViewController: UIViewController, UITextFieldDelegate,CLLocationManag
         //        monthlyPricing.keyboardType = UIKeyboardType.decimalPad
         
         
-//        let alert = UIAlertController.init(title: "Spotprice", message: AppState.sharedInstance.activeSpot.basePricing, preferredStyle: .alert)
-//          let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-//        alert.addAction(defaultAction)
-//        self.present(alert, animated: true, completion: nil)
+        //        let alert = UIAlertController.init(title: "Spotprice", message: AppState.sharedInstance.activeSpot.basePricing, preferredStyle: .alert)
+        //          let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+        //        alert.addAction(defaultAction)
+        //        self.present(alert, animated: true, completion: nil)
         
         Slide1.minimumValue = 5
         Slide1.maximumValue = 8
@@ -317,6 +317,16 @@ class PriceViewController: UIViewController, UITextFieldDelegate,CLLocationManag
         }
         
         AppState.sharedInstance.activeSpot.basePricing = lbl1_price.text!
+        
+        AppState.sharedInstance.activeSpot.basePricing =      (AppState.sharedInstance.activeSpot.basePricing).replacingOccurrences(of: "$", with: "", options: NSString.CompareOptions.literal, range: nil)
+        
+        AppState.sharedInstance.activeSpot.monthlyPricing =      (AppState.sharedInstance.activeSpot.monthlyPricing).replacingOccurrences(of: "$", with: "", options: NSString.CompareOptions.literal, range: nil)
+        
+        AppState.sharedInstance.activeSpot.weeklyPricing =      (AppState.sharedInstance.activeSpot.weeklyPricing).replacingOccurrences(of: "$", with: "", options: NSString.CompareOptions.literal, range: nil)
+        
+        AppState.sharedInstance.activeSpot.hourlyPricing =      (AppState.sharedInstance.activeSpot.hourlyPricing).replacingOccurrences(of: "$", with: "", options: NSString.CompareOptions.literal, range: nil)
+        
+        AppState.sharedInstance.activeSpot.dailyPricing =      (AppState.sharedInstance.activeSpot.dailyPricing).replacingOccurrences(of: "$", with: "", options: NSString.CompareOptions.literal, range: nil)
         
         let viewControllers: [UIViewController] = self.navigationController!.viewControllers as [UIViewController]
         self.navigationController!.popToViewController(viewControllers[viewControllers.count - 5], animated: true)
