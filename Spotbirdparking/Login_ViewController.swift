@@ -132,7 +132,7 @@ class Login_ViewController: UIViewController {
                             let endIndex = strurl.index(strurl.startIndex, offsetBy: 85)
                             AppState.sharedInstance.user.imgname =  String(strurl[startIndex...endIndex])
                         }
-                        
+                       
                         Spinner.stop()
                         let appDelegate = UIApplication.shared.delegate! as! AppDelegate
                         let initialViewController = self.storyboard!.instantiateViewController(withIdentifier: "myTabbarControllerID")

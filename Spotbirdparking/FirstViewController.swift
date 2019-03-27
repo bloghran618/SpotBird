@@ -104,6 +104,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         super.viewDidLoad()
         
          AppState.sharedInstance.activeSpot.getSpots()
+         AppState.sharedInstance.user.GetCar()
         
      
         
