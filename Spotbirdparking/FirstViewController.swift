@@ -106,6 +106,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
          AppState.sharedInstance.activeSpot.getSpots()
          AppState.sharedInstance.user.GetCar()
         
+        print("Cars: \(AppState.sharedInstance.user.cars)")
+        
      
         
         dismissKeyboard()
@@ -748,7 +750,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     @IBAction func btn_booknow(_ sender: UIButton) {
         
         // This is all debug initializers. Once Kevin fixes code we will remove
-        AppState.sharedInstance.user.cars = [Car(make: "Make", model: "Model", year: "1999", carImage: "white", isDefault: true, car_id: "")] as! [Car]
+//        AppState.sharedInstance.user.cars = [Car(make: "Make", model: "Model", year: "1999", carImage: "white", isDefault: true, car_id: "")] as! [Car]
 //        AppState.sharedInstance.user.customertoken = "cus_ElclMGDE3hwGEC"
         
         // debug line, should be removed
@@ -770,6 +772,33 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             self.present(alert, animated: true)
             return
         }
+
+        // make sure there is an active customertoken
+        if(AppState.sharedInstance.user.customertoken == "") {
+            // handle if user customertoken is ""
+            let alert = UIAlertController(title: "Account Info Misconfigured", message: "Your account does not appear to have a token to connect to our payment system. Please contact Customer Service", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true)
+            return
+        }
+
+        // check ahead to see if there is a value for the destination token
+        let ownerID = self.highlightedSpot.owner_ids
+        print("Destination found")
+        AppState.sharedInstance.appStateRoot.child("User").child(ownerID).observeSingleEvent(of: .value, with: { (snapshot) in
+                let userDict = snapshot.value as! [String: Any]
+                let destination = userDict["accountToken"] as! String
+                print("Destination is: \(destination)")
+                
+                if(destination == "") {
+                    // handle if user customertoken is ""
+                    let alert = UIAlertController(title: "Spot Info Misconfigured", message: "Spot was incorrectly configured. Please try another spot.", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(alert, animated: true)
+                    return
+                }
+            })
+            
         
         print("Default car found")
 
@@ -799,22 +828,16 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         let source = AppState.sharedInstance.user.customertoken
         
         print("Source found")
-    
-        // get destination for payment
-        let ownerID = self.highlightedSpot.owner_ids
-        
-        print("Destination found")
         AppState.sharedInstance.appStateRoot.child("User").child(ownerID).observeSingleEvent(of: .value, with: { (snapshot) in
-            let userDict = snapshot.value as! [String: Any]
-            let destination = userDict["accountToken"] as! String
-            print("Destination is: \(destination)")
-            
-            // get integer value for amount for payment
-            let amount = Int((NumberFormatter().number(from: (parkerReservation?.price)!)!.floatValue) * 100)
-            print("Price (cents): \(amount)")
-            
+                let userDict = snapshot.value as! [String: Any]
+                let destination = userDict["accountToken"] as! String
+                print("Destination is: \(destination)")
+                // get integer value for amount for payment
+                let amount = Int((NumberFormatter().number(from: (parkerReservation?.price)!)!.floatValue) * 100)
+                print("Price (cents): \(amount)")
+                                                                                             
             // make payment
-            if(destination != "") {
+            if(destination != "" && AppState.sharedInstance.user.customertoken != "") {
                 // pay us
                 self.setPaymentContext(price: amount)
                 self.paymentContext.requestPayment()
@@ -822,18 +845,6 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                 // pay owner
                 MyAPIClient.sharedClient.completeTransfer(destination: destination, spotAmount: amount)
             }
-            //            MyAPIClient.sharedClient.spotPurchase(sourceID: source, destinationID: destination, amount: amount)
-//            { (token, error) in
-//                if let error = error {
-//                    print(error)
-//                    let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
-//                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
-//                    self.present(alert, animated: true, completion: nil)
-//                }
-//                else {
-//                    print("We have sent a payment")
-//                }
-//            }
         })
         
         print("Some quick debug/learning")

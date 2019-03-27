@@ -114,24 +114,9 @@ class MyAPIClient: NSObject, STPEphemeralKeyProvider {
         print("run createCustomerKey()")        
         print("API Version: \(apiVersion)")
         
-//        AppState.sharedInstance.user.setaccountToken(accountToken: "12345678")
-//        AppState.sharedInstance.user.setcustomerToken(customerToken: "1234")
-//        print("Account Token?")
-//        AppState.sharedInstance.user.getaccountToken{ (A_token) in
-//            print("Account Token here: \(A_token)")
-//        }
-//        print("End account token")
-//        print("Customer Token?")
-//        AppState.sharedInstance.user.getcustomerToken{ (C_token) in
-//            print("Customer Token here: \(C_token)")
-//        }
-//        print("End customer token")
-        
-        // Change to db customer ID once we get that working
         let customerID = AppState.sharedInstance.user.customertoken
         print("CustomerToken: \(customerID)")
         print("Last Name: \(AppState.sharedInstance.user.lastName)")
-//        let customerID = "cus_ELvzL3KA1gpi9U"
         let url = self.baseURL.appendingPathComponent("ephemeral_keys")
         print(url)
         

@@ -42,6 +42,7 @@ class Reservation {
         // account the base price
         if spot.basePricing != ""{
             print("Base Price: \(spot.basePricing)")
+            spot.basePricing = spot.basePricing.trimmingCharacters(in: .whitespacesAndNewlines)
             price += Double(spot.basePricing)!
         }
         
