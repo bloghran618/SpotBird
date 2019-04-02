@@ -25,7 +25,7 @@ class Reservation {
         self.parkOrRent = parkOrRent
         self.spot = spot
         
-        let doublePrice = Reservation.calcPrice(startDateTimeString: startDateTime, endDateTimeString: endDateTime, spot: spot)
+        let doublePrice = Reservation.calcPrice(startDateTimeString: startDateTime, endDateTimeString: endDateTime, basePrice: spot.basePricing)
         self.price = String(format: "%.2f", doublePrice)
         
         self.parkerID = parkerID
@@ -33,29 +33,38 @@ class Reservation {
     }
     
     // alogrithm to calculate the price of the spot based on the base price and the time duration
-    static func calcPrice(startDateTimeString: String, endDateTimeString: String, spot: Spot) -> Double {
+    static func calcPrice(startDateTimeString: String, endDateTimeString: String, basePrice: String) -> Double {
         
         let startDateTime = stringToDate(string: startDateTimeString)
         let endDateTime = stringToDate(string: endDateTimeString)
         var price = 0.0
+        var basePriceTrimmed = ""
         
         // account the base price
-        if spot.basePricing != ""{
-            print("Base Price: \(spot.basePricing)")
-            spot.basePricing = spot.basePricing.trimmingCharacters(in: .whitespacesAndNewlines)
-            price += Double(spot.basePricing)!
+        if basePrice != ""{
+            print("Base Price: \(basePrice)")
+            basePriceTrimmed = basePrice.trimmingCharacters(in: .whitespacesAndNewlines)
+            price += Double(basePrice)!
+        }
+        else {
+            print("No base price!!!!!!")
         }
         
         // get the number of hours between end and start
-        var timeDelta = endDateTime.hours(from: startDateTime)
+        let timeDelta = endDateTime.hours(from: startDateTime)
         
-         if spot.basePricing != ""{
-        // add ( # hours * base price * 0.1 ) to the price
-        price += Double(timeDelta) * Double(spot.basePricing)! * 0.1
+         if basePrice != ""{
+            // add ( # hours * base price * 0.1 ) to the price
+            price += Double(timeDelta) * Double(basePriceTrimmed)! * 0.1
         }
         
         // Price = base + ( base * hours parked * 0.1 )
         return price
+    }
+    
+    // For use outside of the class
+    class func publicCalcPrice(startDateTimeString: String, endDateTimeString: String, basePrice: String) -> Double {
+        return Reservation.calcPrice(startDateTimeString: startDateTimeString, endDateTimeString: endDateTimeString, basePrice: basePrice)
     }
     
     // leftover algorithm for calculating the price based on monthly, weekly, daily and hourly prices, in case we decide to go back to this algorithm
