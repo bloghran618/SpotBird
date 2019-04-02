@@ -95,10 +95,10 @@ class Login_ViewController: UIViewController {
                     logindata.setValue(dict.value(forKey: "lname") as!String, forKey: "lname")
                     
                     if dict.value(forKey: "image") != nil{
-                     logindata.setValue(dict.value(forKey: "image") as!String, forKey: "CustomerToken")
+                     logindata.setValue(dict.value(forKey: "image") as!String, forKey: "image")
                     }
-                    if dict.value(forKey: "CustomerToken") != nil{
-                        logindata.setValue(dict.value(forKey: "CustomerToken") as!String, forKey: "CustomerToken")
+                    if dict.value(forKey: "customerToken") != nil{
+                        logindata.setValue(dict.value(forKey: "customerToken") as!String, forKey: "customerToken")
                     }
                     if dict.value(forKey: "accountToken") != nil{
                         logindata.setValue(dict.value(forKey: "accountToken") as!String, forKey: "accountToken")

@@ -418,7 +418,7 @@ class User {
         uploadTask.resume()
     }
     
-    // Add New CAr
+    // Delete a car
     func Delete_car(car_dict :Car,index:Int)
     {
         var refArtists: DatabaseReference!
@@ -520,47 +520,35 @@ class User {
         })
     } 
     
-    
-    /*
-     public func setFirstName(name: String) {
-     self.firstName = name
-     let firstNameRef = AppState.appStateRoot.child("User/").child(AppState.sharedInstance.userid)
-     firstNameRef.setValue(name)
-     }
-     
-     public func setLastName(name: String) {
-     self.lastName = name
-     let lastNameRef = AppState.appStateRoot.child("User/").child(AppState.sharedInstance.userid)
-     lastNameRef.setValue(name)
-     }
-     
-     
-     public func setProfileImage(profile: str) {
-     var data = Data()
-     data = UIImagePNGRepresentation(profile)!
-     let filePath = "profilePicture"
-     //        let profileImageRef = AppState.sharedInstance.storageRef.child("user").child("profilePicture")
-     let metaData = StorageMetadata()
-     metaData.contentType = "image/png"
-     
-     AppState.sharedInstance.storageRef.child(filePath).putData(data, metadata: metaData) {(metaData,error) in
-     if let error = error {
-     print(error.localizedDescription)
-     return
-     }
-     //            else {
-     //                //store downloadURL
-     //                let downloadURL = metaData!.downloadURL()!.absoluteString
-     //                //store downloadURL at database
-     //                self.databaseRef.child("users").child(FIRAuth.auth()!.currentUser!.uid).updateChildValues(["userPhoto": downloadURL])
-     //            }
-     
-     }
-     
-     self.profileImage = profile
-     }
-     
-     */
-    
+    // add a new reservation
+    func addReservation(reservation: Reservation) {
+        self.reservations += reservations
+        
+        // Set reference to active user in firebase
+        let ref = Database.database().reference().child("User").child(AppState.sharedInstance.userid)
+        
+        // create dictionary to save
+        let res =  ["startDateTime":reservation.startDateTime,
+                    "endDateTime":reservation.endDateTime,
+                    "parkOrRent": reservation.parkOrRent,
+                    "price": reservation.price,
+                    "spotID": reservation.spot.spot_id,
+                    "parkerID": reservation.parkerID,
+                    "carID": reservation.car.car_uid
+            ] as [String : Any]
+        
+        // create random ID for reservation to be under
+        let key = ref.childByAutoId().key
+        
+        // add the reservation to the database
+        refArtists.child(key!).setValue(res){
+            (error:Error?, ref:DatabaseReference) in
+            if let error = error {
+                print("Data could not be saved: \(error).")
+            } else {
+                print("Data saved successfully!")
+            }
+        }
+    }
     
 }

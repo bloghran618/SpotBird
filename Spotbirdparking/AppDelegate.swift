@@ -50,7 +50,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         if UserDefaults.standard.value(forKey: "logindata") as? NSDictionary != nil {
             let dict = UserDefaults.standard.value(forKey: "logindata") as? NSDictionary
             
-            print("This is the dict: \(dict)")
+            print("User data on login: \(dict)")
           
             AppState.sharedInstance.userid = dict?.value(forKey: "id") as! String
             print( AppState.sharedInstance.userid)
