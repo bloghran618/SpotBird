@@ -320,6 +320,24 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
                     UserDefaults.standard.setValue(logindata, forKey: "logindata")
                     UserDefaults.standard.synchronize()
                     
+                   let data_login = UserDefaults.standard.value(forKey: "logindata") as! NSDictionary
+                    
+                    AppState.sharedInstance.user.customertoken = data_login.value(forKey: "customerToken") as? String ?? ""
+                    AppState.sharedInstance.user.accounttoken = data_login.value(forKey: "accountToken") as? String ?? ""
+                    AppState.sharedInstance.user.firstName = (data_login.value(forKey: "fname") as? String)!
+                    AppState.sharedInstance.user.lastName = (data_login.value(forKey: "lname") as? String)!
+                    AppState.sharedInstance.user.profileImage = (snapshotValue.value(forKey: "image") as? String)!
+                    
+                    print("Last name 2: \(AppState.sharedInstance.user.lastName)")
+                    print("Customer Token 2: \(AppState.sharedInstance.user.customertoken)")
+                    
+                    if AppState.sharedInstance.user.profileImage != "" {
+                        let strurl = AppState.sharedInstance.user.profileImage
+                        let startIndex = strurl.index(strurl.startIndex, offsetBy: 81)
+                        let endIndex = strurl.index(strurl.startIndex, offsetBy: 85)
+                        AppState.sharedInstance.user.imgname =  String(strurl[startIndex...endIndex])
+                    }
+                    
                     
                     Spinner.stop()
                     let appDelegate = UIApplication.shared.delegate! as! AppDelegate
