@@ -520,9 +520,10 @@ class User {
         })
     } 
     
-    // add a new reservation
+    // add a new reservation to this User() object
     func addReservation(reservation: Reservation) {
-        self.reservations += reservations
+        // add reservation to current User() object
+        self.reservations.append(reservation)
         
         // Set reference to active user in firebase
         let ref = Database.database().reference().child("User").child(AppState.sharedInstance.userid)
@@ -540,15 +541,94 @@ class User {
         // create random ID for reservation to be under
         let key = ref.childByAutoId().key
         
+        print("res: \(res)")
+        print("key: \(key)")
+        
         // add the reservation to the database
-        refArtists.child(key!).setValue(res){
+        ref.child("Reservations").child(key!).setValue(res){
             (error:Error?, ref:DatabaseReference) in
             if let error = error {
-                print("Data could not be saved: \(error).")
+                print("Parker Data could not be saved: \(error).")
             } else {
-                print("Data saved successfully!")
+                print("Parker Data saved successfully!")
             }
         }
+    }
+    
+    // add a new reservation to a User() object from the database
+    func addReservationToUser(reservation: Reservation) {
+        // Set reference to spot owner User() in firebase
+        let ref = Database.database().reference().child("User").child(reservation.spot.owner_ids)
+        
+        // create dictionary to save
+        let res =  ["startDateTime":reservation.startDateTime,
+                    "endDateTime":reservation.endDateTime,
+                    "parkOrRent": reservation.parkOrRent,
+                    "price": reservation.price,
+                    "spotID": reservation.spot.spot_id,
+                    "parkerID": reservation.parkerID,
+                    "carID": reservation.car.car_uid
+            ] as [String : Any]
+        
+        // create random ID for reservation to be under
+        let key = ref.childByAutoId().key
+        
+        // add the reservation to the database
+        ref.child("Reservations").child(key!).setValue(res){
+            (error:Error?, ref:DatabaseReference) in
+            if let error = error {
+                print("Spot Owner Data could not be saved: \(error).")
+            } else {
+                print("Spot Owner Data saved successfully!")
+            }
+        }
+    }
+    
+    // get the list of reservations for a user
+    
+    func getReservations() {
+        print("Get all the reservations")
+        let user_id = AppState.sharedInstance.userid
+        
+        // set database reference to User() reservations in the database
+        let ref = Database.database().reference().child("User").child(user_id).child("Reservations")
+        
+        // loop over each reservation in database reference
+        ref.observe(DataEventType.value, with: { (snapshot) in
+            if snapshot.childrenCount > 0 {
+                for artists in snapshot.children.allObjects as! [DataSnapshot] {
+                    let snapshotValue = ((snapshot.value as! NSDictionary).value(forKey: (artists as! DataSnapshot).key)) as! NSDictionary
+                    
+                    // each iteration saved to dictionary called snapshotValue
+                    print("Snapshot Value: \(snapshotValue)")
+                    
+                    // get the parking Car() object
+                    let carUser = snapshotValue["parkerID"] as! String
+                    let carID = snapshotValue["carID"] as! String
+                    let carBaseRef = Database.database().reference().child("User").child(carUser).child("Cars").child(carID)
+                    
+                    carBaseRef.observe(.value, with:{ (snapshot: DataSnapshot) in
+                        if snapshot.exists() {
+                            for snap in snapshot.children {
+                                let carDict = ((snap as! DataSnapshot).value) as! NSDictionary
+                                print("Car dict: \(carDict)")
+//                                if let val = carDict["customerToken"] {
+//                                    completion(dict.value(forKey: "customerToken") as! String)
+//                                }
+                            }
+                        }
+                        else {
+                            print("Did not find the car...")
+                        }
+                    })
+                    
+                    
+                }
+            }
+            else {
+                print("No reservations")
+            }
+        })
     }
     
 }

@@ -29,7 +29,6 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
         super.init(coder: aDecoder)
         setPaymentContext(price: 5000)
     }
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +39,8 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
             ProfileTableOption(option: "Payment", description: "Manage your payment options", logoImageName: "dollarSign"),
             ProfileTableOption(option: "List", description: "Share your spot", logoImageName: "Share"),
 //            ProfileTableOption(option: "Test Stripe", description: "To be torn down later", logoImageName: "test"),
-            ProfileTableOption(option: "Enable Payouts", description: "Authorize payouts to bank account", logoImageName: "downarrow.png")
+            ProfileTableOption(option: "Enable Payouts", description: "Authorize payouts to bank account", logoImageName: "downarrow.png"),
+            ProfileTableOption(option: "Test Functionality", description: "Just for testing", logoImageName: "white")
         ]
     }
     
@@ -98,6 +98,23 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
 //        }
         else if profileOptions![(indexPath as NSIndexPath).row].option == "Enable Payouts" {
             self.performSegue(withIdentifier: "Payouts", sender: self)
+        }
+        else if profileOptions![(indexPath as NSIndexPath).row].option == "Test Functionality" {
+            print("Just doing some debugging...")
+            
+            // debug code:
+            AppState.sharedInstance.user.getReservations()
+            
+//            let test_car = Car(make: "Mazda", model: "CX5", year: "1999", carImage: "white", isDefault: true, car_id: "test_id")
+//            let test_res1 = Reservation(startDateTime: "2019-01-18 11:00", endDateTime: "2019-01-18 15:00", parkOrRent: "park", spot: AppState.sharedInstance.spots[0], parkerID: "testid", car: test_car!)
+//            let test_res2 = Reservation(startDateTime: "2019-01-18 11:00", endDateTime: "2019-01-18 15:00", parkOrRent: "rent", spot: AppState.sharedInstance.activeSpot, parkerID: "testid", car: test_car!)
+//            AppState.sharedInstance.user.addReservation(reservation: test_res1!)
+//            print("Added first spot")
+//            AppState.sharedInstance.user.addReservationToUser(reservation: test_res2!)
+//            print("Added secons spot")
+//            
+//            print("All Spots??? \(AppState.sharedInstance.spots)")
+//            print("Reservations: \(AppState.sharedInstance.user.reservations)")
         }
     }
     

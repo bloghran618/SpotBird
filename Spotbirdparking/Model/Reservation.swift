@@ -43,8 +43,9 @@ class Reservation {
         // account the base price
         if basePrice != ""{
             print("Base Price: \(basePrice)")
+            print("Base Price: \(Double(basePrice))")
             basePriceTrimmed = basePrice.trimmingCharacters(in: .whitespacesAndNewlines)
-            price += Double(basePrice)!
+            price += Double(basePriceTrimmed)!
         }
         else {
             print("No base price!!!!!!")

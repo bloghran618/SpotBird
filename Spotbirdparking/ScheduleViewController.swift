@@ -38,26 +38,26 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate{
     @IBOutlet weak var sunStartTime: UITextField!
     @IBOutlet weak var sunEndTime: UITextField!
     
-    let monstart = "12:00 PM"
-    let monend = " 12:00 AM"
-    
-    let tuestart = "12:00 PM"
-    let tueend = "12:00 AM"
-    
-    let wedstart = "12:00 PM"
-    let wedend = "12:00 AM"
-    
-    let thustart = "12:00 PM"
-    let thuend = "12:00 AM"
-    
-    let fristart = "12:00 PM"
-    let friend = "12:00 AM"
-    
-    let satstart = "12:00 PM"
-    let satend = "12:00 AM"
-    
-    let sunstart = "12:00 PM"
-    let sunend = "12:00 AM"
+//    let monstart = "12:00 PM"
+//    let monend = " 12:00 AM"
+//
+//    let tuestart = "12:00 PM"
+//    let tueend = "12:00 AM"
+//
+//    let wedstart = "12:00 PM"
+//    let wedend = "12:00 AM"
+//
+//    let thustart = "12:00 PM"
+//    let thuend = "12:00 AM"
+//
+//    let fristart = "12:00 PM"
+//    let friend = "12:00 AM"
+//
+//    let satstart = "12:00 PM"
+//    let satend = "12:00 AM"
+//
+//    let sunstart = "12:00 PM"
+//    let sunend = "12:00 AM"
     
     private var datePicker: UIDatePicker?
     
@@ -212,7 +212,7 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate{
         
         if switchState.isOn {
             AppState.sharedInstance.activeSpot.monStartTime = "12:00 AM"
-            AppState.sharedInstance.activeSpot.monEndTime = "12:00 PM"
+            AppState.sharedInstance.activeSpot.monEndTime = "11:59 PM"
         }
         else {
             AppState.sharedInstance.activeSpot.monStartTime = ""
@@ -242,7 +242,7 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate{
         
         if switchState.isOn {
             AppState.sharedInstance.activeSpot.tueStartTime = "12:00 AM"
-            AppState.sharedInstance.activeSpot.tueEndTime = "12:00 PM"
+            AppState.sharedInstance.activeSpot.tueEndTime = "11:59 PM"
         }
         else {
             AppState.sharedInstance.activeSpot.tueStartTime = ""
@@ -271,7 +271,7 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate{
         
         if switchState.isOn {
             AppState.sharedInstance.activeSpot.wedStartTime = "12:00 AM"
-            AppState.sharedInstance.activeSpot.wedEndTime = "12:00 PM"
+            AppState.sharedInstance.activeSpot.wedEndTime = "11:59 PM"
         }
         else {
             AppState.sharedInstance.activeSpot.wedStartTime = ""
@@ -300,7 +300,7 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate{
         
         if switchState.isOn {
             AppState.sharedInstance.activeSpot.thuStartTime = "12:00 AM"
-            AppState.sharedInstance.activeSpot.thuEndTime = "12:00 PM"
+            AppState.sharedInstance.activeSpot.thuEndTime = "11:59 PM"
         }
         else {
             AppState.sharedInstance.activeSpot.thuStartTime = ""
@@ -329,7 +329,7 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate{
         
         if switchState.isOn {
             AppState.sharedInstance.activeSpot.friStartTime = "12:00 AM"
-            AppState.sharedInstance.activeSpot.friEndTime = "12:00 PM"
+            AppState.sharedInstance.activeSpot.friEndTime = "11:59 PM"
         }
         else {
             AppState.sharedInstance.activeSpot.friStartTime = ""
@@ -358,7 +358,7 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate{
         
         if switchState.isOn {
             AppState.sharedInstance.activeSpot.satStartTime = "12:00 AM"
-            AppState.sharedInstance.activeSpot.satEndTime = "12:00 PM"
+            AppState.sharedInstance.activeSpot.satEndTime = "11:59 PM"
         }
         else {
             AppState.sharedInstance.activeSpot.satStartTime = ""
@@ -387,7 +387,7 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate{
         
         if switchState.isOn {
             AppState.sharedInstance.activeSpot.sunStartTime = "12:00 AM"
-            AppState.sharedInstance.activeSpot.sunEndTime = "12:00 PM"
+            AppState.sharedInstance.activeSpot.sunEndTime = "11:59 PM"
         }
         else {
             AppState.sharedInstance.activeSpot.sunStartTime = ""
@@ -421,30 +421,30 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate{
         satStartTime.text = "12:00 AM"
         sunStartTime.text = "12:00 AM"
         
-        // set end times to 12:00 PM
-        monEndTime.text = "12:00 PM"
-        tueEndTime.text = "12:00 PM"
-        wedEndTime.text = "12:00 PM"
-        thuEndTime.text = "12:00 PM"
-        friEndTime.text = "12:00 PM"
-        satEndTime.text = "12:00 PM"
-        sunEndTime.text = "12:00 PM"
+        // set end times to 11:59 PM
+        monEndTime.text = "11:59 PM"
+        tueEndTime.text = "11:59 PM"
+        wedEndTime.text = "11:59 PM"
+        thuEndTime.text = "11:59 PM"
+        friEndTime.text = "11:59 PM"
+        satEndTime.text = "11:59 PM"
+        sunEndTime.text = "11:59 PM"
         
         // set ActiveSpot properties
         AppState.sharedInstance.activeSpot.monStartTime = "12:00 AM"
-        AppState.sharedInstance.activeSpot.monEndTime = "12:00 PM"
+        AppState.sharedInstance.activeSpot.monEndTime = "11:59 PM"
         AppState.sharedInstance.activeSpot.tueStartTime = "12:00 AM"
-        AppState.sharedInstance.activeSpot.tueEndTime = "12:00 PM"
+        AppState.sharedInstance.activeSpot.tueEndTime = "11:59 PM"
         AppState.sharedInstance.activeSpot.wedStartTime = "12:00 AM"
-        AppState.sharedInstance.activeSpot.wedEndTime = "12:00 PM"
+        AppState.sharedInstance.activeSpot.wedEndTime = "11:59 PM"
         AppState.sharedInstance.activeSpot.thuStartTime = "12:00 AM"
-        AppState.sharedInstance.activeSpot.thuEndTime = "12:00 PM"
+        AppState.sharedInstance.activeSpot.thuEndTime = "11:59 PM"
         AppState.sharedInstance.activeSpot.friStartTime = "12:00 AM"
-        AppState.sharedInstance.activeSpot.friEndTime = "12:00 PM"
+        AppState.sharedInstance.activeSpot.friEndTime = "11:59 PM"
         AppState.sharedInstance.activeSpot.satStartTime = "12:00 AM"
-        AppState.sharedInstance.activeSpot.satEndTime = "12:00 PM"
+        AppState.sharedInstance.activeSpot.satEndTime = "11:59 PM"
         AppState.sharedInstance.activeSpot.sunStartTime = "12:00 AM"
-        AppState.sharedInstance.activeSpot.sunEndTime = "12:00 PM"
+        AppState.sharedInstance.activeSpot.sunEndTime = "11:59 PM"
         AppState.sharedInstance.activeSpot.monOn = true
         AppState.sharedInstance.activeSpot.tueOn = true
         AppState.sharedInstance.activeSpot.wedOn = true

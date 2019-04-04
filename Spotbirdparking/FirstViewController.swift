@@ -829,25 +829,30 @@ let source = AppState.sharedInstance.user.customertoken
 
 print("Source found")
 AppState.sharedInstance.appStateRoot.child("User").child(ownerID).observeSingleEvent(of: .value, with: { (snapshot) in
-                                                                                     let userDict = snapshot.value as! [String: Any]
-                                                                                     let destination = userDict["accountToken"] as! String
-                                                                                     print("Destination is: \(destination)")
-                                                                                     // get integer value for amount for payment
-                                                                                     let amount = Int((NumberFormatter().number(from: (parkerReservation?.price)!)!.floatValue) * 100)
-                                                                                     print("Price (cents): \(amount)")
+        let userDict = snapshot.value as! [String: Any]
+        let destination = userDict["accountToken"] as! String
+        print("Destination is: \(destination)")
                                                                                      
-                                                                                     // make payment
-                                                                                     if(destination != "" && AppState.sharedInstance.user.customertoken != "") {
-                                                                                     // pay us
-                                                                                     self.setPaymentContext(price: amount)
-                                                                                     self.paymentContext.requestPayment()
+        // get integer value for amount for payment in cents
+        let amount = Int((NumberFormatter().number(from: (parkerReservation?.price)!)!.floatValue) * 100)
+        print("Price (cents): \(amount)")
+    
+        // make payment
+        if(destination != "" && AppState.sharedInstance.user.customertoken != "") {
+        // pay us
+        self.setPaymentContext(price: amount)
+        self.paymentContext.requestPayment()
                                                                                      
-                                                                                     // pay owner
-                                                                                     MyAPIClient.sharedClient.completeTransfer(destination: destination, spotAmount: amount)
-                                                                                     }
-                                                                                     })
+        // pay owner
+        MyAPIClient.sharedClient.completeTransfer(destination: destination, spotAmount: amount)
+        }
+    })
 
-print("Some quick debug/learning")
+// set reservations in the database
+AppState.sharedInstance.user.addReservation(reservation: parkerReservation!)
+AppState.sharedInstance.user.addReservationToUser(reservation: ownerReservation!)
+
+    print("Some quick debug/learning")
 }
 
 // MARK:_ BTn Autocomplete loation search
@@ -1000,6 +1005,12 @@ self.highlightedSpot = Spot(address: ((arrspot.object(at: index) as! NSDictionar
 // debug lines, can get rid of eventually
 print("Highlighted Spot Address is: \(self.highlightedSpot.address)")
 print("Highlighted Spot Email is: \(self.highlightedSpot.Email)")
+
+// only for debug, breaks the app...
+//print("\n\n\nTHIS CODE NEEDS TO BE DESTROYED!!!")
+//print("Setting appState.sharedInstance.activeSpot to highlightedSpot\n\n\n")
+//AppState.sharedInstance.activeSpot = self.highlightedSpot
+//print("Spot Base Price: \(AppState.sharedInstance.activeSpot.hourlyPricing)")
 
 return true
 }
