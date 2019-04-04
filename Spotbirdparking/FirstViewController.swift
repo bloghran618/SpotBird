@@ -44,6 +44,11 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     @IBOutlet weak var timpic1: UIPickerView!
     @IBOutlet weak var timepic2: UIPickerView!
     
+    
+    @IBOutlet weak var img_spot_type: UIImageView!
+    @IBOutlet weak var lbl_spot_type: UILabel!
+    @IBOutlet weak var lbl_spot_time: UILabel!
+    
     fileprivate lazy var dateFormatter2: DateFormatter = {
     let formatter = DateFormatter()
     formatter.dateFormat = "yyyy-MM-dd h:mm a"
@@ -85,6 +90,9 @@ var format1 = ""
 var format2 = ""
 let calendar = Calendar.current
 var endChange = false
+
+var Time_price = false
+var hour_time = Int()
 
 // initialize highlighted spot to null
 var highlightedSpot: Spot!
@@ -307,7 +315,7 @@ else{
     btn_close.isHidden = true
     if Date_VIew.isHidden == true{
     // Date_VIew.isHidden = false
-    
+Time_price = true
     UIView.transition(with: Date_VIew, duration: 0.3, options: .transitionCurlDown, animations: {
                       self.Date_VIew.isHidden = false
                       })
@@ -660,9 +668,14 @@ if arr_day[j] == "Thursday" {
     print("user_start   - \(user_start)")     // user
     print("user_end     - \(user_end)")     // user
     
-    if user_start >= server_start1 && user_end <= server_end1{
+    
+    
+    hour_time  = ((user_end as NSString).integerValue) -  ((user_start as NSString).integerValue)
+    
+    
+    //if user_start >= server_start1 && user_end <= server_end1{
     arr_search_spot.add(arrspot.object(at: i))
-}
+// }
 }
 }
 }
@@ -869,7 +882,7 @@ func locationManager(_ manager: CLLocationManager, didUpdateLocations locations:
     let location = locations.last
     self.CurrentLocMarker.position = (location?.coordinate)!
     cooridnates = (location?.coordinate)!
-    self.CurrentLocMarker.title = "myLoc"
+    // self.CurrentLocMarker.title = "myLoc"
     var markerView = UIImageView()
     markerView = UIImageView(image: UIImage.init(named: "current_location_icon"))
     markerView.frame.size.width = 30
@@ -952,10 +965,60 @@ btn_close.isHidden = false
 curruntlat = marker.position.latitude
 curruntlong = marker.position.longitude
 
+let formatter = DateFormatter(); formatter.dateFormat = "EEEE"
+let today =  formatter.string(from: Date())
+
+var time = ""
+
+if today == "Monday" {
+    
+    time = "\((arrspot.object(at: index) as! NSDictionary).value(forKey: "monStartTime") as!  String)-\((arrspot.object(at: index) as! NSDictionary).value(forKey: "monEndTime") as!  String)"
+}
+if today == "Tuesday" {
+    
+    time = "\((arrspot.object(at: index) as! NSDictionary).value(forKey: "tueStartTime") as?  String)\((arrspot.object(at: index) as! NSDictionary).value(forKey: "tueEndTime") as?  String)"
+}
+if today == "Wednesday" {
+    time = "\((arrspot.object(at: index) as! NSDictionary).value(forKey: "wedStartTime") as!  String)-\((arrspot.object(at: index) as! NSDictionary).value(forKey: "wedEndTime") as!  String)"
+}
+if today == "Thursday" {
+    time = "\((arrspot.object(at: index) as! NSDictionary).value(forKey: "thuStartTime") as!  String)-\((arrspot.object(at: index) as! NSDictionary).value(forKey: "thuEndTime") as!  String)"
+}
+if today == "Friday" {
+    time = "\((arrspot.object(at: index) as! NSDictionary).value(forKey: "friStartTime") as!  String)-\((arrspot.object(at: index) as! NSDictionary).value(forKey: "friEndTime") as!  String)"
+}
+if today == "Saturday" {
+    time = "\((arrspot.object(at: index) as! NSDictionary).value(forKey: "satStartTime") as!  String)-\((arrspot.object(at: index) as! NSDictionary).value(forKey: "satEndTime") as!  String)"
+}
+if today == "Sunday" {
+    time = "\((arrspot.object(at: index) as! NSDictionary).value(forKey: "sunStartTime") as!  String)-\((arrspot.object(at: index) as! NSDictionary).value(forKey: "sunEndTime") as!  String)"
+}
+
+lbl_spot_time.text = "Spot Time - \(time)"
+
+
+if (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Garage"{
+       img_spot_type.image = UIImage(named:"garageParkingSelected")
+}
+if (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Lot"{
+      img_spot_type.image = UIImage(named:"lotParkingSelected")
+}
+if (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Street"{
+      img_spot_type.image = UIImage(named:"streetParkingSelected")
+}
+if (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Driveway"{
+      img_spot_type.image = UIImage(named:"drivewayParkingSelected")
+}
+
+lbl_spot_type.text = "Spot Type - \((arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String)"
+
+
 lbl_price.text = "$\(doller)"
 lbl_address.text = (arrspot.object(at: index) as! NSDictionary).value(forKey: "address") as?  String
 let imgurl = (arrspot.object(at: index) as! NSDictionary).value(forKey: "image") as!  String
 img_spot.sd_setImage(with: URL(string: imgurl), placeholderImage: #imageLiteral(resourceName: "Placeholder"))
+
+
 
 // specify which spot is highlighted
 // Should I do this asynchronously?
@@ -1038,7 +1101,7 @@ func getlatlong(){
                        
                        self.mapView.clear()
                        self.CurrentLocMarker.position = self.cooridnates
-                       self.CurrentLocMarker.title = "myLoc"
+                       //self.CurrentLocMarker.title = "myLoc"
                        var markerView = UIImageView()
                        markerView = UIImageView(image: UIImage.init(named: "current_location_icon"))
                        markerView.frame.size.width = 30
@@ -1237,7 +1300,7 @@ func Search_Spot() {
     mapView.clear()
     
     self.CurrentLocMarker.position = self.cooridnates
-    self.CurrentLocMarker.title = "myLoc"
+    //   self.CurrentLocMarker.title = "myLoc"
     var markerView = UIImageView()
     markerView = UIImageView(image: UIImage.init(named: "current_location_icon"))
     markerView.frame.size.width = 30
@@ -1283,7 +1346,26 @@ lbl_marker.textAlignment = .center
 lbl_marker.numberOfLines = 1;
 lbl_marker.minimumScaleFactor = 0.5;
 lbl_marker.adjustsFontSizeToFitWidth = true;
-lbl_marker.text = "$\(doller)"
+
+if Time_price == true {
+    
+    Time_price = false
+    
+    print(hour_time)
+     print(price)
+    
+    let time_Price = ((price as NSString).integerValue) * hour_time
+    
+     print(time_Price)
+     lbl_marker.text = "$\(String(time_Price))"
+    
+}
+else{
+ lbl_marker.text = "$\(doller)"
+}
+
+
+
 lbl_marker.textColor = UIColor.black
 customView.backgroundColor = UIColor.clear
 marker.iconView = customView
@@ -1407,11 +1489,11 @@ func viewController(_ viewController: GMSAutocompleteViewController, didAutocomp
     print(component.type)
     print(component.name)
     if component.type == "locality" {
-    self.CurrentLocMarker.title = component.name
+    // self.CurrentLocMarker.title = component.name
 }
 else{
     if component.type == "sublocality_level_1" {
-    self.CurrentLocMarker.title = component.name
+    //self.CurrentLocMarker.title = component.name
 }
 }
 }

@@ -205,7 +205,7 @@ extension AddressViewController {
         
         let location = locations.last
         self.CurrentLocMarker.position = (location?.coordinate)!
-        self.CurrentLocMarker.title = "myLoc"
+      //  self.CurrentLocMarker.title = "myLoc"
         var markerView = UIImageView()
         markerView = UIImageView(image: UIImage.init(named: "current_location_icon"))
         markerView.frame.size.width = 30
@@ -259,7 +259,7 @@ extension AddressViewController {
         for component in place.addressComponents!  {
             
             if component.type == "street_number" {
-                makeaddress.append("\(component.name),")
+                //makeaddress.append("\(component.name),")
             }
             if component.type == "route" {
                 makeaddress.append("\(component.name),")
@@ -339,7 +339,7 @@ extension AddressViewController {
         
         mapView.clear()
         self.CurrentLocMarker.position = (place.coordinate)
-        self.CurrentLocMarker.title = AppState.sharedInstance.activeSpot.town
+    //  self.CurrentLocMarker.title = AppState.sharedInstance.activeSpot.town
         var markerView = UIImageView()
         markerView = UIImageView(image: UIImage.init(named: "current_location_icon"))
         markerView.frame.size.width = 30
@@ -348,7 +348,7 @@ extension AddressViewController {
         self.CurrentLocMarker.map = self.mapView
         
         let camera = GMSCameraPosition.camera(withLatitude: (place.coordinate.latitude), longitude: (place.coordinate.longitude), zoom:18)
-        //  self.mapView.animate(to: camera)
+    //  self.mapView.animate(to: camera)
         mapView.camera = camera
         
         if txt_email.text != ""{
