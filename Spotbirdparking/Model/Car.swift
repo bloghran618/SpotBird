@@ -20,7 +20,7 @@ class Car {
     var isDefault: Bool?
     var car_uid: String?
     
-    
+    // initializer for Car()
     init?(make: String, model: String, year: String, carImage: String, isDefault: Bool,car_id:String) {
         // Make sure make and model are defined
         if make.isEmpty || model.isEmpty {
@@ -34,6 +34,16 @@ class Car {
         self.isDefault = isDefault
         car_uid = car_id
         
+    }
+    
+    // blank initializer
+    init() {
+        self.make = ""
+        self.model = ""
+        self.year = ""
+        self.carImage = ""
+        self.isDefault = false
+        self.car_uid = ""
     }
 }
 

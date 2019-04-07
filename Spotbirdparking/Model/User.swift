@@ -605,30 +605,47 @@ class User {
                     // get the parking Car() object
                     let carUser = snapshotValue["parkerID"] as! String
                     let carID = snapshotValue["carID"] as! String
-                    let carBaseRef = Database.database().reference().child("User").child(carUser).child("Cars").child(carID)
+                    print("Parker ID: \(carUser)")
+                    print("Car ID: \(carID)")
                     
-                    carBaseRef.observe(.value, with:{ (snapshot: DataSnapshot) in
-                        if snapshot.exists() {
-                            for snap in snapshot.children {
-                                let carDict = ((snap as! DataSnapshot).value) as! NSDictionary
-                                print("Car dict: \(carDict)")
-//                                if let val = carDict["customerToken"] {
-//                                    completion(dict.value(forKey: "customerToken") as! String)
-//                                }
-                            }
-                        }
-                        else {
-                            print("Did not find the car...")
-                        }
-                    })
-                    
-                    
+                    let reservationCar = self.carAtPath(carUser: carUser, carID: carID)
+                    print("ReservationCar: \(reservationCar)")
                 }
             }
             else {
                 print("No reservations")
             }
         })
+    }
+    
+    public func carAtPath(carUser: String, carID: String) -> Car {
+        var reservationCar = Car()
+        
+        let carBaseRef = Database.database().reference().child("User").child(carUser).child("Cars").child(carID)
+        carBaseRef.observe(.value, with:{ (snapshot: DataSnapshot) in
+            if snapshot.exists() {
+                let carDict = ((snapshot as! DataSnapshot).value) as! NSDictionary
+                print("Car Dict: \(carDict)")
+                
+                // car info is in carDict
+                reservationCar = Car(
+                    make: carDict.value(forKey: "make") as! String,
+                    model: carDict.value(forKey: "model") as! String,
+                    year: carDict.value(forKey: "year") as! String,
+                    carImage: carDict.value(forKey: "image") as! String,
+                    isDefault: carDict.value(forKey: "default") as! Bool,
+                    car_id: carID)!
+            }
+            else {
+                reservationCar = Car(
+                    make: "",
+                    model: "", year: "",
+                    carImage: "",
+                    isDefault: false,
+                    car_id: "")!
+            }
+        })
+        return reservationCar
     }
     
 }
