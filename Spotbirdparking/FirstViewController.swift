@@ -559,6 +559,9 @@ if arr_day[j] == "Sunday" {
     print("user_start   - \(user_start)")     // user
     print("user_end     - \(user_end)")     // user
     
+    hour_time  = ((user_end as NSString).integerValue) -  ((user_start as NSString).integerValue)
+    
+    
     
     if user_start >= server_start1 && user_end <= server_end1{
     arr_search_spot.add(arrspot.object(at: i))
@@ -586,6 +589,9 @@ if arr_day[j] == "Monday" {
     
     print("user_start   - \(user_start)")     // user
     print("user_end     - \(user_end)")     // user
+    
+    hour_time  = ((user_end as NSString).integerValue) -  ((user_start as NSString).integerValue)
+    
     
     
     if user_start >= server_start1 && user_end <= server_end1{
@@ -615,6 +621,9 @@ if arr_day[j] == "Tuesday" {
     print("user_start   - \(user_start)")     // user
     print("user_end     - \(user_end)")     // user
     
+    hour_time  = ((user_end as NSString).integerValue) -  ((user_start as NSString).integerValue)
+    
+    
     if user_start >= server_start1 && user_end <= server_end1{
     arr_search_spot.add(arrspot.object(at: i))
 }
@@ -640,6 +649,9 @@ if arr_day[j] == "Wednesday" {
     
     print("user_start   - \(user_start)")     // user
     print("user_end     - \(user_end)")     // user
+    
+    
+    hour_time  = ((user_end as NSString).integerValue) -  ((user_start as NSString).integerValue)
     
     if user_start >= server_start1 && user_end <= server_end1{
     arr_search_spot.add(arrspot.object(at: i))
@@ -673,9 +685,9 @@ if arr_day[j] == "Thursday" {
     hour_time  = ((user_end as NSString).integerValue) -  ((user_start as NSString).integerValue)
     
     
-    //if user_start >= server_start1 && user_end <= server_end1{
+    if user_start >= server_start1 && user_end <= server_end1{
     arr_search_spot.add(arrspot.object(at: i))
-// }
+ }
 }
 }
 }
@@ -704,6 +716,9 @@ if arr_day[j] == "Friday" {
     print("user_start   - \(user_start)")     // user
     print("user_end     - \(user_end)")     // user
     
+    hour_time  = ((user_end as NSString).integerValue) -  ((user_start as NSString).integerValue)
+    
+    
     if user_start >= server_start1 && user_end <= server_end1{
     arr_search_spot.add(arrspot.object(at: i))
 }
@@ -727,6 +742,9 @@ if arr_day[j] == "Saturday" {
     
     print("user_start   - \(user_start)")     // user
     print("user_end     - \(user_end)")     // user
+    
+    hour_time  = ((user_end as NSString).integerValue) -  ((user_start as NSString).integerValue)
+    
     
     if user_start >= server_start1 && user_end <= server_end1{
     arr_search_spot.add(arrspot.object(at: i))
@@ -997,20 +1015,20 @@ if today == "Sunday" {
 lbl_spot_time.text = "Spot Time - \(time)"
 
 
-if (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Garage"{
-       img_spot_type.image = UIImage(named:"garageParkingSelected")
-}
-if (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Lot"{
-      img_spot_type.image = UIImage(named:"lotParkingSelected")
-}
-if (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Street"{
-      img_spot_type.image = UIImage(named:"streetParkingSelected")
-}
-if (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Driveway"{
-      img_spot_type.image = UIImage(named:"drivewayParkingSelected")
-}
+//if (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Garage"{
+//       img_spot_type.image = UIImage(named:"garageParkingSelected")
+//}
+//if (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Lot"{
+//      img_spot_type.image = UIImage(named:"lotParkingSelected")
+//}
+//if (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Street"{
+//      img_spot_type.image = UIImage(named:"streetParkingSelected")
+//}
+//if (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Driveway"{
+//      img_spot_type.image = UIImage(named:"drivewayParkingSelected")
+//}
 
-lbl_spot_type.text = "Spot Type - \((arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String)"
+lbl_spot_type.text = (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String
 
 
 lbl_price.text = "$\(doller)"
