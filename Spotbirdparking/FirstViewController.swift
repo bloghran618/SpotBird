@@ -92,7 +92,11 @@ let calendar = Calendar.current
 var endChange = false
 
 var Time_price = false
-var hour_time = Int()
+
+
+var Search_start_date:Date?
+var Search_end_date:Date?
+
 
 // initialize highlighted spot to null
 var highlightedSpot: Spot!
@@ -315,7 +319,7 @@ else{
     btn_close.isHidden = true
     if Date_VIew.isHidden == true{
     // Date_VIew.isHidden = false
-Time_price = true
+    Time_price = true
     UIView.transition(with: Date_VIew, duration: 0.3, options: .transitionCurlDown, animations: {
                       self.Date_VIew.isHidden = false
                       })
@@ -429,6 +433,8 @@ print(end_date!)
 
 start_date = dateconvert(userdate: start_date!)
 end_date = dateconvert(userdate: end_date!)
+
+
 
 if time1 == true{
     time1 = false
@@ -559,14 +565,13 @@ if arr_day[j] == "Sunday" {
     print("user_start   - \(user_start)")     // user
     print("user_end     - \(user_end)")     // user
     
-    hour_time  = ((user_end as NSString).integerValue) -  ((user_start as NSString).integerValue)
     
     
     
-    if user_start >= server_start1 && user_end <= server_end1{
+    // if user_start >= server_start1 && user_end <= server_end1{
     arr_search_spot.add(arrspot.object(at: i))
-}
-
+    //}
+    
 }
 }
 }
@@ -589,8 +594,6 @@ if arr_day[j] == "Monday" {
     
     print("user_start   - \(user_start)")     // user
     print("user_end     - \(user_end)")     // user
-    
-    hour_time  = ((user_end as NSString).integerValue) -  ((user_start as NSString).integerValue)
     
     
     
@@ -621,9 +624,6 @@ if arr_day[j] == "Tuesday" {
     print("user_start   - \(user_start)")     // user
     print("user_end     - \(user_end)")     // user
     
-    hour_time  = ((user_end as NSString).integerValue) -  ((user_start as NSString).integerValue)
-    
-    
     if user_start >= server_start1 && user_end <= server_end1{
     arr_search_spot.add(arrspot.object(at: i))
 }
@@ -651,7 +651,6 @@ if arr_day[j] == "Wednesday" {
     print("user_end     - \(user_end)")     // user
     
     
-    hour_time  = ((user_end as NSString).integerValue) -  ((user_start as NSString).integerValue)
     
     if user_start >= server_start1 && user_end <= server_end1{
     arr_search_spot.add(arrspot.object(at: i))
@@ -682,12 +681,10 @@ if arr_day[j] == "Thursday" {
     
     
     
-    hour_time  = ((user_end as NSString).integerValue) -  ((user_start as NSString).integerValue)
-    
     
     if user_start >= server_start1 && user_end <= server_end1{
     arr_search_spot.add(arrspot.object(at: i))
- }
+}
 }
 }
 }
@@ -716,7 +713,10 @@ if arr_day[j] == "Friday" {
     print("user_start   - \(user_start)")     // user
     print("user_end     - \(user_end)")     // user
     
-    hour_time  = ((user_end as NSString).integerValue) -  ((user_start as NSString).integerValue)
+    
+    
+    
+    
     
     
     if user_start >= server_start1 && user_end <= server_end1{
@@ -743,7 +743,6 @@ if arr_day[j] == "Saturday" {
     print("user_start   - \(user_start)")     // user
     print("user_end     - \(user_end)")     // user
     
-    hour_time  = ((user_end as NSString).integerValue) -  ((user_start as NSString).integerValue)
     
     
     if user_start >= server_start1 && user_end <= server_end1{
@@ -1023,11 +1022,35 @@ lbl_spot_time.text = "Spot Time - \(time)"
 //      img_spot_type.image = UIImage(named:"drivewayParkingSelected")
 //}
 
-lbl_spot_type.text = (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String
+lbl_spot_type.text = (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as?  String
 
 
 lbl_price.text = "$\(doller)"
 lbl_address.text = (arrspot.object(at: index) as! NSDictionary).value(forKey: "address") as?  String
+//
+let str = (arrspot.object(at: index) as! NSDictionary).value(forKey: "address") as!  String
+var arr = str.components(separatedBy: " ")
+
+if arr.count>0 {
+    
+    var str_addrss = ""
+    if  let check = arr[0] as? Int{
+    
+    for i in 1..<arr.count{
+    str_addrss.append(arr[i])
+}
+
+lbl_address.text = str_addrss
+
+}else
+{
+    lbl_address.text = (arrspot.object(at: index) as! NSDictionary).value(forKey: "address") as?  String
+    
+}
+
+}
+
+
 let imgurl = (arrspot.object(at: index) as! NSDictionary).value(forKey: "image") as!  String
 img_spot.sd_setImage(with: URL(string: imgurl), placeholderImage: #imageLiteral(resourceName: "Placeholder"))
 
@@ -1358,17 +1381,83 @@ if Time_price == true {
     
     Time_price = false
     
-    print(hour_time)
-     print(price)
+    var spotStart_times = ""
+    var spotEnd_times = ""
     
-    let time_Price = ((price as NSString).integerValue) * hour_time
+    let dateformats = DateFormatter()
+    dateformats.timeZone = TimeZone.current
+    dateformats.dateFormat  = "EEEE"
+    let dayInWeek = dateformats.string(from: Date())
+    print(dayInWeek)
+    let basePrice = ((self.arr_search_spot.object(at: i) as! NSDictionary).value(forKey: "basePricing") as! String)
     
-     print(time_Price)
-     lbl_marker.text = "$\(String(time_Price))"
+    print(start_date)
+    
+    let formatter = DateFormatter()
+    // initially set the format based on your datepicker date / server String
+    formatter.dateFormat = "yyyy-MM-dd "
+    
+    
+    var str = formatter.string(from: start_date!)
+    print(str)
+    
+    
+    if dayInWeek == "Sunday"{
+    spotStart_times = "\(str)\((self.arr_search_spot.object(at: i) as! NSDictionary).value(forKey: "sunStartTime") as! String)"
+    spotEnd_times = "\(str)\((self.arr_search_spot.object(at: i) as! NSDictionary).value(forKey: "satEndTime") as! String)"
     
 }
+if dayInWeek == "Monday"{
+    spotStart_times = "\(str)\((self.arr_search_spot.object(at: i) as! NSDictionary).value(forKey: "monStartTime") as! String)"
+    spotEnd_times = "\(str)\((self.arr_search_spot.object(at: i) as! NSDictionary).value(forKey: "monEndTime") as! String)"
+    
+}
+if dayInWeek == "Tuesday"{
+    spotStart_times = "\(str)\((self.arr_search_spot.object(at: i) as! NSDictionary).value(forKey: "tueEndTime") as! String)"
+    spotEnd_times = "\(str)\((self.arr_search_spot.object(at: i) as! NSDictionary).value(forKey: "tueStartTime") as! String)"
+    
+    
+}
+if dayInWeek == "Wednesday"{
+    spotStart_times = "\(str)\((self.arr_search_spot.object(at: i) as! NSDictionary).value(forKey: "wedStartTime") as! String)"
+    spotEnd_times = "\(str)\((self.arr_search_spot.object(at: i) as! NSDictionary).value(forKey: "wedEndTime") as! String)"
+    
+}
+if dayInWeek == "Thursday"{
+    spotStart_times = "\(str)\((self.arr_search_spot.object(at: i) as! NSDictionary).value(forKey: "thuStartTime") as! String)"
+    spotEnd_times = "\(str)\((self.arr_search_spot.object(at: i) as! NSDictionary).value(forKey: "thuEndTime") as! String)"
+    
+}
+if dayInWeek == "Friday"{
+    spotStart_times = "\(str)\((self.arr_search_spot.object(at: i) as! NSDictionary).value(forKey: "friStartTime") as! String)"
+    spotEnd_times = "\(str)\((self.arr_search_spot.object(at: i) as! NSDictionary).value(forKey: "friEndTime") as! String)"
+    
+    
+}
+if dayInWeek == "Saturday"{
+    spotStart_times = "\(str)\((self.arr_search_spot.object(at: i) as! NSDictionary).value(forKey: "sunStartTime") as! String)"
+    spotEnd_times = "\(str)\((self.arr_search_spot.object(at: i) as! NSDictionary).value(forKey: "satEndTime") as! String)"
+    
+    
+}
+
+
+  formatter.dateFormat = "yyyy-MM-dd HH:mm"
+  var START = formatter.string(from: start_date!)
+  print(START)
+
+var END = formatter.string(from: start_date!)
+print(END)
+
+
+let priceSPOT = Reservation.publicCalcPrice(startDateTimeString:START,endDateTimeString: END, basePrice: basePrice)
+
+//    print(time_Price)
+lbl_marker.text = "$\(String(priceSPOT))"
+
+}
 else{
- lbl_marker.text = "$\(doller)"
+    lbl_marker.text = "$\(doller)"
 }
 
 
