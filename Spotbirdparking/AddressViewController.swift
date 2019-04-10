@@ -259,7 +259,7 @@ extension AddressViewController {
         for component in place.addressComponents!  {
             
             if component.type == "street_number" {
-                //makeaddress.append("\(component.name),")
+                makeaddress.append("\(component.name),")
             }
             if component.type == "route" {
                 makeaddress.append("\(component.name),")
