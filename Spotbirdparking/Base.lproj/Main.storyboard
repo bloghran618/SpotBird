@@ -232,6 +232,13 @@
                                             <action selector="btn_booknow:" destination="9pv-A4-QxB" eventType="touchUpInside" id="FGF-8S-yDN"/>
                                         </connections>
                                     </button>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DjM-en-wqx">
+                                        <rect key="frame" x="286" y="100" width="60" height="60"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="60" id="Nwp-nD-aGq"/>
+                                            <constraint firstAttribute="height" constant="60" id="mqk-4R-mw1"/>
+                                        </constraints>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
@@ -240,6 +247,7 @@
                                     <constraint firstItem="bu5-mp-kbB" firstAttribute="top" secondItem="mrR-4b-4rH" secondAttribute="bottom" constant="3" id="Eht-rB-919"/>
                                     <constraint firstItem="nQH-iD-idv" firstAttribute="top" secondItem="HCK-NB-Bgj" secondAttribute="bottom" constant="1" id="GtZ-EN-UWQ"/>
                                     <constraint firstAttribute="trailing" secondItem="mrR-4b-4rH" secondAttribute="trailing" id="Huj-aU-k7g"/>
+                                    <constraint firstItem="DjM-en-wqx" firstAttribute="top" secondItem="HCK-NB-Bgj" secondAttribute="bottom" constant="13" id="MFB-OL-UXp"/>
                                     <constraint firstItem="cn4-cD-0MP" firstAttribute="top" secondItem="XMc-xd-T8H" secondAttribute="bottom" constant="6" id="N7N-vq-dGE"/>
                                     <constraint firstItem="cn4-cD-0MP" firstAttribute="leading" secondItem="QhX-kS-Lr8" secondAttribute="leading" constant="8" id="ONS-tI-ohR"/>
                                     <constraint firstAttribute="bottom" secondItem="bu5-mp-kbB" secondAttribute="bottom" constant="5" id="WSK-eF-sxX"/>
@@ -249,6 +257,7 @@
                                     <constraint firstAttribute="trailing" secondItem="7Q2-Wa-yH1" secondAttribute="trailing" constant="8" id="dVx-Lr-HMP"/>
                                     <constraint firstItem="HCK-NB-Bgj" firstAttribute="leading" secondItem="cn4-cD-0MP" secondAttribute="trailing" constant="3" id="fcf-om-VGx"/>
                                     <constraint firstAttribute="trailing" secondItem="nQH-iD-idv" secondAttribute="trailing" constant="8" id="fzX-I1-SW2"/>
+                                    <constraint firstAttribute="trailing" secondItem="DjM-en-wqx" secondAttribute="trailing" constant="19" id="gCe-Dt-HD2"/>
                                     <constraint firstAttribute="trailing" secondItem="HCK-NB-Bgj" secondAttribute="trailing" constant="9" id="mBp-SU-RG8"/>
                                     <constraint firstItem="XMc-xd-T8H" firstAttribute="top" secondItem="QhX-kS-Lr8" secondAttribute="top" constant="15" id="mO0-Mp-TXR"/>
                                     <constraint firstItem="HCK-NB-Bgj" firstAttribute="top" secondItem="QhX-kS-Lr8" secondAttribute="top" constant="7" id="nsM-u7-Szh"/>
@@ -341,6 +350,7 @@
                         <outlet property="btn_search_click" destination="Y8d-dc-NVe" id="yhx-Hw-OgV"/>
                         <outlet property="end_datepic" destination="NDz-9g-HdA" id="MEl-LG-jo5"/>
                         <outlet property="img_spot" destination="HCK-NB-Bgj" id="ckm-Xe-VdW"/>
+                        <outlet property="img_spot_type" destination="DjM-en-wqx" id="lbv-qa-vZQ"/>
                         <outlet property="lbl1" destination="LiC-XT-Ter" id="Gc5-gZ-Z4x"/>
                         <outlet property="lbl2" destination="MnO-zb-khj" id="ELW-yD-B5D"/>
                         <outlet property="lbl_address" destination="cn4-cD-0MP" id="UPH-Ji-VQo"/>

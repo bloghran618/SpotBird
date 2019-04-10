@@ -859,30 +859,30 @@ let source = AppState.sharedInstance.user.customertoken
 
 print("Source found")
 AppState.sharedInstance.appStateRoot.child("User").child(ownerID).observeSingleEvent(of: .value, with: { (snapshot) in
-        let userDict = snapshot.value as! [String: Any]
-        let destination = userDict["accountToken"] as! String
-        print("Destination is: \(destination)")
+                                                                                     let userDict = snapshot.value as! [String: Any]
+                                                                                     let destination = userDict["accountToken"] as! String
+                                                                                     print("Destination is: \(destination)")
                                                                                      
-        // get integer value for amount for payment in cents
-        let amount = Int((NumberFormatter().number(from: (parkerReservation?.price)!)!.floatValue) * 100)
-        print("Price (cents): \(amount)")
-    
-        // make payment
-        if(destination != "" && AppState.sharedInstance.user.customertoken != "") {
-        // pay us
-        self.setPaymentContext(price: amount)
-        self.paymentContext.requestPayment()
+                                                                                     // get integer value for amount for payment in cents
+                                                                                     let amount = Int((NumberFormatter().number(from: (parkerReservation?.price)!)!.floatValue) * 100)
+                                                                                     print("Price (cents): \(amount)")
                                                                                      
-        // pay owner
-        MyAPIClient.sharedClient.completeTransfer(destination: destination, spotAmount: amount)
-        }
-    })
+                                                                                     // make payment
+                                                                                     if(destination != "" && AppState.sharedInstance.user.customertoken != "") {
+                                                                                     // pay us
+                                                                                     self.setPaymentContext(price: amount)
+                                                                                     self.paymentContext.requestPayment()
+                                                                                     
+                                                                                     // pay owner
+                                                                                     MyAPIClient.sharedClient.completeTransfer(destination: destination, spotAmount: amount)
+                                                                                     }
+                                                                                     })
 
 // set reservations in the database
 AppState.sharedInstance.user.addReservation(reservation: parkerReservation!)
 AppState.sharedInstance.user.addReservationToUser(reservation: ownerReservation!)
 
-    print("Some quick debug/learning")
+print("Some quick debug/learning")
 }
 
 // MARK:_ BTn Autocomplete loation search
@@ -1013,19 +1013,18 @@ if today == "Sunday" {
 
 lbl_spot_time.text = "Spot Time - \(time)"
 
-
-//if (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Garage"{
-//       img_spot_type.image = UIImage(named:"garageParkingSelected")
-//}
-//if (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Lot"{
-//      img_spot_type.image = UIImage(named:"lotParkingSelected")
-//}
-//if (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Street"{
-//      img_spot_type.image = UIImage(named:"streetParkingSelected")
-//}
-//if (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Driveway"{
-//      img_spot_type.image = UIImage(named:"drivewayParkingSelected")
-//}
+if (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Garage"{
+    img_spot_type.image = UIImage(named:"garageParking")
+}
+if (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Lot"{
+    img_spot_type.image = UIImage(named:"lotParking")
+}
+if (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Street"{
+    img_spot_type.image = UIImage(named:"onStreetParking")
+}
+if (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Driveway"{
+    img_spot_type.image = UIImage(named:"drivewayParking")
+}
 
 lbl_spot_type.text = (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as?  String
 
@@ -1453,9 +1452,9 @@ if dayInWeek == "Saturday"{
 }
 
 
-  formatter.dateFormat = "yyyy-MM-dd HH:mm"
-  var START = formatter.string(from: start_date!)
-  print(START)
+formatter.dateFormat = "yyyy-MM-dd HH:mm"
+var START = formatter.string(from: start_date!)
+print(START)
 
 var END = formatter.string(from: start_date!)
 print(END)
@@ -1464,7 +1463,9 @@ print(END)
 let priceSPOT = Reservation.publicCalcPrice(startDateTimeString:START,endDateTimeString: END, basePrice: basePrice)
 
 //    print(time_Price)
-lbl_marker.text = "$\(String(priceSPOT))"
+
+lbl_marker.text = "$\(priceSPOT)"
+//lbl_marker.text = "$\(String(priceSPOT))"
 
 }
 else{
