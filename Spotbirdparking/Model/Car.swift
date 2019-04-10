@@ -38,7 +38,7 @@ class Car {
     
     // blank initializer
     init() {
-        self.make = ""
+        self.make = "EMPTY"
         self.model = ""
         self.year = ""
         self.carImage = ""

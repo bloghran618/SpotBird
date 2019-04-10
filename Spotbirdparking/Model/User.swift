@@ -85,10 +85,6 @@ class User {
     public func setReservation(reservation: [Reservation]) {
         
     }
-  
-//    public func getReservations() -> [Reservation] {
-//
-//    }
     
     // Get database to car
     public func Get_UserProfile() {
@@ -257,6 +253,8 @@ class User {
     
     // Get database to car
     public func GetCar() {
+        print("Cars: \(AppState.sharedInstance.user.cars)")
+        print("Start getCar()")
         
      var refArtists: DatabaseReference!
         refArtists = Database.database().reference().child("User").child(AppState.sharedInstance.userid).child("Cars")
@@ -273,6 +271,7 @@ class User {
                 NotificationCenter.default.post(name: Notification.Name("cars"), object: nil)
             }
         })
+        print("Cars: \(AppState.sharedInstance.user.cars)")
     }
     
     
@@ -585,8 +584,12 @@ class User {
     }
     
     // get the list of reservations for a user
-    
     func getReservations() {
+        // empty any current reservations
+        print("Reservations: \(AppState.sharedInstance.user.reservations)")
+        print("#: \(AppState.sharedInstance.user.reservations.count)")
+        AppState.sharedInstance.user.reservations = []
+        
         print("Get all the reservations")
         let user_id = AppState.sharedInstance.userid
         
@@ -597,19 +600,41 @@ class User {
         ref.observe(DataEventType.value, with: { (snapshot) in
             if snapshot.childrenCount > 0 {
                 for artists in snapshot.children.allObjects as! [DataSnapshot] {
-                    let snapshotValue = ((snapshot.value as! NSDictionary).value(forKey: (artists as! DataSnapshot).key)) as! NSDictionary
+                    let reservationDict = ((snapshot.value as! NSDictionary).value(forKey: (artists as! DataSnapshot).key)) as! NSDictionary
                     
                     // each iteration saved to dictionary called snapshotValue
-                    print("Snapshot Value: \(snapshotValue)")
+                    print("Reservation Dict: \(reservationDict)")
                     
                     // get the parking Car() object
-                    let carUser = snapshotValue["parkerID"] as! String
-                    let carID = snapshotValue["carID"] as! String
-                    print("Parker ID: \(carUser)")
+                    let userID = reservationDict["parkerID"] as! String
+                    let carID = reservationDict["carID"] as! String
+                    print("Parker ID: \(userID)")
                     print("Car ID: \(carID)")
-                    
-                    let reservationCar = self.carAtPath(carUser: carUser, carID: carID)
-                    print("ReservationCar: \(reservationCar)")
+                    self.carAtPath(carUser: userID, carID: carID) { (reservationCar) in
+                        print("ReservationCar Make and year: \(reservationCar.make), \(reservationCar.year)")
+                        
+                        // get parking Spot() object
+                        let spotID = reservationDict["spotID"] as! String
+                        self.spotAtPath(userID: userID, spotID: spotID)
+                        { (reservationSpot) in
+                            print("Spot address: \(reservationSpot.address)")
+                            
+                            // create Reservation() object
+                            let dbReservation = Reservation(
+                                startDateTime: reservationDict["startDateTime"] as! String,
+                                endDateTime: reservationDict["endDateTime"] as! String,
+                                parkOrRent: reservationDict["parkOrRent"] as! String,
+                                spot: reservationSpot,
+                                parkerID: reservationDict["parkerID"] as! String,
+                                car: reservationCar)
+                            
+                            print("Reservation start: \(dbReservation!.startDateTime)")
+                            // add reservation
+                            AppState.sharedInstance.user.reservations.append(dbReservation!)
+                            print("Reservation added")
+                        }
+                        
+                    }
                 }
             }
             else {
@@ -618,10 +643,14 @@ class User {
         })
     }
     
-    public func carAtPath(carUser: String, carID: String) -> Car {
+    // retrieve Car() object for given User() and car_ID
+    public func carAtPath(carUser: String, carID: String, completion: @escaping (_ car: Car) ->Void) {
         var reservationCar = Car()
         
+        // database path to Car()
         let carBaseRef = Database.database().reference().child("User").child(carUser).child("Cars").child(carID)
+        
+        // get Car() at path
         carBaseRef.observe(.value, with:{ (snapshot: DataSnapshot) in
             if snapshot.exists() {
                 let carDict = ((snapshot as! DataSnapshot).value) as! NSDictionary
@@ -635,17 +664,88 @@ class User {
                     carImage: carDict.value(forKey: "image") as! String,
                     isDefault: carDict.value(forKey: "default") as! Bool,
                     car_id: carID)!
+                completion(reservationCar)
             }
             else {
-                reservationCar = Car(
-                    make: "",
-                    model: "", year: "",
-                    carImage: "",
-                    isDefault: false,
-                    car_id: "")!
+                // empty return values
+                completion(reservationCar)
             }
         })
-        return reservationCar
+    }
+    
+    // retrieve Spot() for given spotID
+    public func spotAtPath(userID: String, spotID: String, completion: @escaping (_ spot: Spot) -> Void) {
+        
+        // database path to Spot()
+        let spotBaseRef = Database.database().reference().child("User").child(userID).child("MySpots").child(spotID)
+        
+        // print("Spot ID: \(spotID)")
+        
+        // get Spot() at path
+        spotBaseRef.observe(.value, with:{ (snapshot: DataSnapshot) in
+            if snapshot.exists() {
+                let spotDict = ((snapshot as! DataSnapshot).value) as! NSDictionary
+                print("Spot Dict: \(spotDict)")
+                
+                // get the image for the spot
+                var spotImage = UIImage(named: "white")!
+                let url = URL(string: spotDict["image"] as! String)
+                if let data = try? Data(contentsOf: url!) {
+                    spotImage = UIImage(data: data) ?? UIImage(named: "white")!
+                }
+                
+                let reservationSpot = Spot(
+                    address: spotDict["address"] as! String,
+                    town: spotDict["city"] as! String,
+                    state: spotDict["state"] as! String,
+                    zipCode: spotDict["zipcode"] as! String,
+                    spotImage: spotDict["image"] as! String,
+                    description: spotDict["description"] as! String,
+                    monStartTime: spotDict["monStartTime"] as! String,
+                    monEndTime: spotDict["monEndTime"] as! String,
+                    tueStartTime: spotDict["tueStartTime"] as! String,
+                    tueEndTime: spotDict["tueEndTime"] as! String,
+                    wedStartTime: spotDict["wedStartTime"] as! String,
+                    wedEndTime: spotDict["wedEndTime"] as! String,
+                    thuStartTime: spotDict["thuStartTime"] as! String,
+                    thuEndTime: spotDict["thuEndTime"] as! String,
+                    friStartTime: spotDict["friStartTime"] as! String,
+                    friEndTime: spotDict["friEndTime"] as! String,
+                    satStartTime: spotDict["satStartTime"] as! String,
+                    satEndTime: spotDict["satEndTime"] as! String,
+                    sunStartTime: spotDict["sunStartTime"] as! String,
+                    sunEndTime: spotDict["sunEndTime"] as! String,
+                    monOn: spotDict["monswitch"] as! Bool,
+                    tueOn: spotDict["tueswitch"] as! Bool,
+                    wedOn: spotDict["wedswitch"] as! Bool,
+                    thuOn: spotDict["thuswitch"] as! Bool,
+                    friOn: spotDict["friswitch"] as! Bool,
+                    satOn: spotDict["satswitch"] as! Bool,
+                    sunOn: spotDict["sunswitch"] as! Bool,
+                    hourlyPricing: spotDict["basePricing"] as! String,
+                    dailyPricing: spotDict["dailyPricing"] as! String,
+                    weeklyPricing: spotDict["weeklyPricing"] as! String,
+                    monthlyPricing: spotDict["monthlyPricing"] as! String,
+                    weeklyOn: spotDict["switch_weekly"] as! Bool,
+                    monthlyOn: spotDict["switch_monthly"] as! Bool,
+                    index: 1,
+                    approved: true,
+                    spotImages: spotImage,
+                    spots_id: spotDict["id"] as! String,
+                    latitude: spotDict["user_lat"] as! String,
+                    longitude: spotDict["user_long"] as! String,
+                    spottype: spotDict["spot_type"] as! String,
+                    owner_id: spotDict["owner_id"] as! String,
+                    Email: spotDict["Email"] as! String,
+                    baseprice: spotDict["basePricing"] as! String) as! Spot
+                
+                completion(reservationSpot)
+            }
+            else {
+                // add some error handlers here
+                print("We could not find that Spot()")
+            }
+        })
     }
     
 }
