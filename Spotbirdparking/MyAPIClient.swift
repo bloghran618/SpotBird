@@ -202,13 +202,16 @@ class MyAPIClient: NSObject, STPEphemeralKeyProvider {
     func addConnectAccountInfoToken(token: STPToken) {
         
         // get accountID from user object
-        let accountID = "acct_1DvaPmDZCtueSval"
+        let accountID = AppState.sharedInstance.user.accounttoken
         
         let url = self.baseURL.appendingPathComponent("add_connect_info")
         
+        let ip_address = self.getIPAddresses()
+        
         Alamofire.request(url, method: .post, parameters: [
             "account_id": accountID,
-            "info_token": token])
+            "info_token": token,
+            "ip_address": ip_address])
             .validate(statusCode: 200..<300)
             .responseJSON { responseJSON in
                 switch responseJSON.result {
@@ -226,7 +229,7 @@ class MyAPIClient: NSObject, STPEphemeralKeyProvider {
     func addAccountToken(token: STPToken) {
         
         // get accountID from user object
-        let accountID = "acct_1DvaPmDZCtueSval"
+        let accountID = AppState.sharedInstance.user.accounttoken
         
         let url = self.baseURL.appendingPathComponent("add_bank_info")
         
@@ -242,5 +245,56 @@ class MyAPIClient: NSObject, STPEphemeralKeyProvider {
                     print("Failed due to error: \(error.localizedDescription)")
                 }
         }
+    }
+    
+    
+    // get the ip address of the device
+    func getIPAddresses() -> String {
+        var addresses = [String]()
+        
+        // Get list of all interfaces on the local machine:
+        var ifaddr : UnsafeMutablePointer<ifaddrs>?
+        guard getifaddrs(&ifaddr) == 0 else { return "69.9.37.39" }
+        guard let firstAddr = ifaddr else { return "69.9.37.39" }
+        
+        // For each interface ...
+        for ptr in sequence(first: firstAddr, next: { $0.pointee.ifa_next }) {
+            let flags = Int32(ptr.pointee.ifa_flags)
+            let addr = ptr.pointee.ifa_addr.pointee
+            
+            // Check for running IPv4, IPv6 interfaces. Skip the loopback interface.
+            if (flags & (IFF_UP|IFF_RUNNING|IFF_LOOPBACK)) == (IFF_UP|IFF_RUNNING) {
+                if addr.sa_family == UInt8(AF_INET) || addr.sa_family == UInt8(AF_INET6) {
+                    
+                    // Convert interface address to a human readable string:
+                    var hostname = [CChar](repeating: 0, count: Int(NI_MAXHOST))
+                    if (getnameinfo(ptr.pointee.ifa_addr, socklen_t(addr.sa_len), &hostname, socklen_t(hostname.count),
+                                    nil, socklen_t(0), NI_NUMERICHOST) == 0) {
+                        let address = String(cString: hostname)
+                        addresses.append(address)
+                    }
+                }
+            }
+        }
+        
+        freeifaddrs(ifaddr)
+        var feAddresses = addresses
+        
+        // clean up fe80 ip's
+        for a in addresses {
+            if a.hasPrefix("fe80") {
+                let index = addresses.index(of: a)
+                addresses.remove(at: index!)
+            }
+        }
+        
+        if(addresses.count > 0) {
+            print(" the real one")
+            return addresses[0]
+        }
+        else if(feAddresses.count > 0) {
+            return feAddresses[0]
+        }
+        return "69.9.37.39"
     }
 }

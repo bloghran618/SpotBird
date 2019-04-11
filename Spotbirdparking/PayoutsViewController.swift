@@ -86,6 +86,8 @@ class PayoutsViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             self.lastNameField.text = AppState.sharedInstance.user.lastName
         }
         
+        self.stateAddressField.text = "PA"
+        
         termsLabel.numberOfLines = 0
     }
     
@@ -269,6 +271,8 @@ class PayoutsViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             address.postalCode = zipAddress
             address.country = "US"
             let dateOfBirth = DateComponents(calendar: Calendar.current, year: Int(dateOfBirthYear), month: Int(dateOfBirthMonth), day: Int(dateOfBirthDay)) // all DOB int() because datePicker()
+            
+            // STPLegalEntityParams() object creation
             var legalEntity = STPLegalEntityParams()
             legalEntity.ssnLast4 = last4Social
             legalEntity.entityTypeString = "individual"
@@ -295,6 +299,7 @@ class PayoutsViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
                     
                     // do stuff with token
                     MyAPIClient.sharedClient.addConnectAccountInfoToken(token: token!)
+                    self.navigationController?.popViewController(animated: true)
                 }
             }
             
