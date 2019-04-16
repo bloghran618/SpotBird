@@ -20,13 +20,13 @@
 		04ACA90621F5C9D90015CF8D /* TNTextLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ACA90021F5C9D80015CF8D /* TNTextLayer.swift */; };
 		04ACA90721F5C9D90015CF8D /* TNTrackLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ACA90121F5C9D80015CF8D /* TNTrackLayer.swift */; };
 		04B4D5952163BDF400F49505 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04B4D5942163BDF400F49505 /* GoogleService-Info.plist */; };
+		04CC3FB22261EC8B00FF30B2 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CC3FB12261EC8B00FF30B2 /* FirstViewController.swift */; };
 		04CE142E21C5257A00338DEE /* Timeclass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CE142D21C5257A00338DEE /* Timeclass.swift */; };
 		04E63848216211AD003EAC28 /* Signup_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E63847216211AD003EAC28 /* Signup_ViewController.swift */; };
 		04E6384A2162722F003EAC28 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E638492162722F003EAC28 /* CoreLocation.framework */; };
 		5FF0A639CF1B4D96F7FBA93E /* Pods_Spotbirdparking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 004FEE7D57FACF9250B89078 /* Pods_Spotbirdparking.framework */; };
 		B7141A4D20ED1DAF005B54D3 /* MyAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7141A4C20ED1DAF005B54D3 /* MyAPIClient.swift */; };
 		B71F2DE62086CDA800F47274 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71F2DE52086CDA800F47274 /* AppDelegate.swift */; };
-		B71F2DE82086CDA800F47274 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71F2DE72086CDA800F47274 /* FirstViewController.swift */; };
 		B71F2DED2086CDA800F47274 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B71F2DEB2086CDA800F47274 /* Main.storyboard */; };
 		B71F2DEF2086CDAA00F47274 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B71F2DEE2086CDAA00F47274 /* Assets.xcassets */; };
 		B71F2DF22086CDAA00F47274 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B71F2DF02086CDAA00F47274 /* LaunchScreen.storyboard */; };
@@ -82,6 +82,7 @@
 		04ACA90021F5C9D80015CF8D /* TNTextLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TNTextLayer.swift; sourceTree = "<group>"; };
 		04ACA90121F5C9D80015CF8D /* TNTrackLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TNTrackLayer.swift; sourceTree = "<group>"; };
 		04B4D5942163BDF400F49505 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		04CC3FB12261EC8B00FF30B2 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
 		04CE142D21C5257A00338DEE /* Timeclass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timeclass.swift; sourceTree = "<group>"; };
 		04E63847216211AD003EAC28 /* Signup_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signup_ViewController.swift; sourceTree = "<group>"; };
 		04E638492162722F003EAC28 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -94,7 +95,6 @@
 		B7141A4C20ED1DAF005B54D3 /* MyAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAPIClient.swift; sourceTree = "<group>"; };
 		B71F2DE22086CDA800F47274 /* Spotbirdparking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spotbirdparking.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B71F2DE52086CDA800F47274 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		B71F2DE72086CDA800F47274 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.dtrace; };
 		B71F2DEC2086CDA800F47274 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B71F2DEE2086CDAA00F47274 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B71F2DF12086CDAA00F47274 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -225,7 +225,7 @@
 				0426E0342164F5050017E88B /* CustomInfoWindow.swift */,
 				0406E62921620AD900C3E97B /* Login_ViewController.swift */,
 				04E63847216211AD003EAC28 /* Signup_ViewController.swift */,
-				B71F2DE72086CDA800F47274 /* FirstViewController.swift */,
+				04CC3FB12261EC8B00FF30B2 /* FirstViewController.swift */,
 				B7364D0720B65F120081F40F /* ProfileTableViewController.swift */,
 				B7364D0520B65B390081F40F /* ProfileTableOption.swift */,
 				B7CF24F020BCBB3000722933 /* YouViewController.swift */,
@@ -506,7 +506,7 @@
 				B7A669D82134EC030057A283 /* AppState.swift in Sources */,
 				043E033721746CF300134F78 /* iToast.m in Sources */,
 				B7CD91E920F8298F00CFF016 /* SpotTableViewCell.swift in Sources */,
-				B71F2DE82086CDA800F47274 /* FirstViewController.swift in Sources */,
+				04CC3FB22261EC8B00FF30B2 /* FirstViewController.swift in Sources */,
 				B7CF24F120BCBB3000722933 /* YouViewController.swift in Sources */,
 				B75AE7B920C496B40069A151 /* CarsTableViewCell.swift in Sources */,
 				B7141A4D20ED1DAF005B54D3 /* MyAPIClient.swift in Sources */,

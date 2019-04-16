@@ -2,9 +2,10 @@
 //  FirstViewController.swift
 //  Spotbirdparking
 //
-//  Created by user138340 on 4/17/18.
-//  Copyright © 2018 Spotbird. All rights reserved.
+//  Created by mac on 13/04/19.
+//  Copyright © 2019 Spotbird. All rights reserved.
 //
+
 import UIKit
 import CoreLocation
 import GoogleMaps
@@ -16,7 +17,7 @@ import GooglePlacePicker
 import GooglePlaces
 import Stripe
 
-class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapViewDelegate,GMSAutocompleteViewControllerDelegate,UIPickerViewDataSource,UIPickerViewDelegate, STPPaymentContextDelegate{
+class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapViewDelegate,GMSAutocompleteViewControllerDelegate,UIPickerViewDataSource,UIPickerViewDelegate, STPPaymentContextDelegate {
     
     @IBOutlet var mapView: GMSMapView!
     // info window:-
@@ -96,8 +97,9 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     
     var Search_start_date:Date?
     var Search_end_date:Date?
-    
-    
+    var strPickerStart = ""
+    var strPickerEnd = ""
+   
     // initialize highlighted spot to null
     var highlightedSpot: Spot!
     
@@ -110,8 +112,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     
     let paymentContext = STPPaymentContext(customerContext: STPCustomerContext(keyProvider: MyAPIClient.sharedClient))
     
-    //    let stripePublishableKey = "pk_test_TV3DNqRM8DCQJEcvMGpayRRj"
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -268,18 +269,28 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         //        dateFormatter.dateFormat = "dd-MM-yyyy"
         //        let datenew = dateFormatter.string(from: start_date!)
         //        print(datenew)
-        
-        print(start_date)
-        
-        
-        
-    }
+       // picker
+        print(picker.date)
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EE MMM dd"
+        let date = formatter.string(from: picker.date)
+        print(date)
+        print(date)
+        strPickerStart = date
+     }
     
     
     // end date-
     @objc func EnddatePickerChanged(picker: UIDatePicker) {
         
         endChange = true
+        print(picker.date)
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EE MMM dd"
+        let date = formatter.string(from: picker.date)
+        print(date)
+        strPickerEnd = date
+        
         /*
          dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:a"
          var str = dateFormatter2.string(from: picker.date)
@@ -342,6 +353,21 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     // MARK:_ BTn Date searching Done
     @IBAction func btn_Date_search_done(_ sender: UIButton) {
         
+        let d1 = start_datepic.date
+        let d2 = end_datepic.date
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EE MMM dd h a"
+//        strPickerStart = formatter.string(from:  d1)
+//        strPickerEnd = formatter.string(from: d2)
+        
+//        print(datestart)
+//        print(dateend)
+        
+       // lbl_spot_time.text = "Spot Time - \(datestart) to \(dateend)"
+        
+
+        
         var time1 = Bool()
         
         // start date time check today
@@ -352,10 +378,14 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             if format1 == "AM"
             {
                 start_date = dateFormatter2.date(from: myStringafd)!
+                strPickerStart = formatter.string(from:  start_date!)
+               
             }else
             {
                 let replaced = myStringafd.replacingOccurrences(of: "AM", with: "PM")
                 start_date = dateFormatter2.date(from: replaced)!
+                strPickerStart = formatter.string(from:  start_date!)
+
             }
             print(start_date!)
         }else
@@ -363,11 +393,14 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             if format1 == "PM"
             {
                 start_date = dateFormatter2.date(from: myStringafd)!
-                
+                strPickerStart = formatter.string(from:  start_date!)
+
             }else
             {
                 let replaced = myStringafd.replacingOccurrences(of: "PM", with: "AM")
                 start_date = dateFormatter2.date(from: replaced)!
+                strPickerStart = formatter.string(from:  start_date!)
+
             }
             print(start_date!)
         }
@@ -394,6 +427,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             
             let addhour = calendar.date(byAdding: .hour, value: 3, to: start_date!)
             end_date = addhour!
+            strPickerEnd = formatter.string(from:  end_date!)
+
             print(addhour)
             print(end_date)
         }
@@ -407,10 +442,14 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                 if format2 == "AM"
                 {
                     end_date = dateFormatter2.date(from: str)!
+                    strPickerEnd = formatter.string(from:  end_date!)
+
                 }else
                 {
                     let replaced = str.replacingOccurrences(of: "AM", with: "PM")
                     end_date = dateFormatter2.date(from: replaced)!
+                    strPickerEnd = formatter.string(from:  end_date!)
+
                 }
                 print(end_date!)
             }
@@ -420,11 +459,13 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                 if format2 == "PM"
                 {
                     end_date = dateFormatter2.date(from: str)!
-                    
+                    strPickerEnd = formatter.string(from:  end_date!)
+
                 }else
                 {
                     let replaced = str.replacingOccurrences(of: "PM", with: "AM")
                     end_date = dateFormatter2.date(from: replaced)!
+                    strPickerEnd = formatter.string(from:  end_date!)
                 }
                 print(end_date!)
             }
@@ -433,6 +474,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         
         start_date = dateconvert(userdate: start_date!)
         end_date = dateconvert(userdate: end_date!)
+        print(strPickerStart)
+        print(strPickerEnd)
         
         
         
@@ -947,167 +990,491 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         
         let index:Int! = Int(marker.accessibilityLabel!)
         print("Index is: \(String(index))")
-        let price  = (arrspot.object(at: index) as! NSDictionary).value(forKey: "hourlyPricing") as?  String
-        let doller = (price! as NSString).integerValue
         
-        //        if curruntlat == marker.position.latitude && curruntlong == marker.position.longitude{
-        //
-        //            mapView.clear()
-        //            locationManager.startUpdatingLocation()
-        //            view_info.isHidden = true
-        //            btn_close.isHidden = true
-        //
-        //        }
-        //        else{
-        //
-        //            //            markerimg.image = #imageLiteral(resourceName: "marker_blue")
-        //            //            let lbl_marker = UILabel()
-        //            //            lbl_marker.frame = CGRect(x: 0, y: (self.markerimg.frame.height/2)-25, width: self.markerimg.frame.width, height: 40)
-        //            //            lbl_marker.textColor = UIColor.white
-        //            //            lbl_marker.text = "$\(doller)"
-        //            //            self.markerimg.addSubview(lbl_marker)
-        //            //
-        //            //            viewchange.addSubview(markerimg)
-        //            //            mapView.selectedMarker = marker
-        //            let imgdata = marker.iconView
-        //            imgdata?.backgroundColor = UIColor.red
-        //            marker.iconView = imgdata
-        //
-        //            view_info.isHidden = false
-        //            btn_close.isHidden = false
-        //        }
-        
-        view_info.isHidden = false
-        btn_close.isHidden = false
-        curruntlat = marker.position.latitude
-        curruntlong = marker.position.longitude
-        
-        let formatter = DateFormatter(); formatter.dateFormat = "EEEE"
-        let today =  formatter.string(from: Date())
-        
-        var time = ""
-        
-        if today == "Monday" {
+        if Time_price == true{
             
-            time = "\((arrspot.object(at: index) as! NSDictionary).value(forKey: "monStartTime") as!  String)-\((arrspot.object(at: index) as! NSDictionary).value(forKey: "monEndTime") as!  String)"
-        }
-        if today == "Tuesday" {
+//            let price  = (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "hourlyPricing") as?  String
+//            let doller = (price! as NSString).integerValue
+            let form = DateFormatter()
+            // initially set the format based on your datepicker date / server String
+            form.dateFormat = "yyyy-MM-dd HH:mm"
+            let START = form.string(from: start_date!)
+            print("start time :" + START)
+            let END = form.string(from: end_date!)
+            print("end time :" + END)
+            let basePrice = ((self.arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "basePricing") as! String)
+            let priceSPOT = Reservation.publicCalcPrice(startDateTimeString:START,endDateTimeString: END, basePrice: basePrice)
             
-            time = "\((arrspot.object(at: index) as! NSDictionary).value(forKey: "tueStartTime") as?  String)\((arrspot.object(at: index) as! NSDictionary).value(forKey: "tueEndTime") as?  String)"
-        }
-        if today == "Wednesday" {
-            time = "\((arrspot.object(at: index) as! NSDictionary).value(forKey: "wedStartTime") as!  String)-\((arrspot.object(at: index) as! NSDictionary).value(forKey: "wedEndTime") as!  String)"
-        }
-        if today == "Thursday" {
-            time = "\((arrspot.object(at: index) as! NSDictionary).value(forKey: "thuStartTime") as!  String)-\((arrspot.object(at: index) as! NSDictionary).value(forKey: "thuEndTime") as!  String)"
-        }
-        if today == "Friday" {
-            time = "\((arrspot.object(at: index) as! NSDictionary).value(forKey: "friStartTime") as!  String)-\((arrspot.object(at: index) as! NSDictionary).value(forKey: "friEndTime") as!  String)"
-        }
-        if today == "Saturday" {
-            time = "\((arrspot.object(at: index) as! NSDictionary).value(forKey: "satStartTime") as!  String)-\((arrspot.object(at: index) as! NSDictionary).value(forKey: "satEndTime") as!  String)"
-        }
-        if today == "Sunday" {
-            time = "\((arrspot.object(at: index) as! NSDictionary).value(forKey: "sunStartTime") as!  String)-\((arrspot.object(at: index) as! NSDictionary).value(forKey: "sunEndTime") as!  String)"
-        }
-        
-        lbl_spot_time.text = "Spot Time - \(time)"
-        
-        if (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Garage"{
-            img_spot_type.image = UIImage(named:"garageParking")
-        }
-        if (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Lot"{
-            img_spot_type.image = UIImage(named:"lotParking")
-        }
-        if (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Street"{
-            img_spot_type.image = UIImage(named:"onStreetParking")
-        }
-        if (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Driveway"{
-            img_spot_type.image = UIImage(named:"drivewayParking")
-        }
-        
-        lbl_spot_type.text = (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as?  String
-        
-        
-        lbl_price.text = "$\(doller)"
-        lbl_address.text = (arrspot.object(at: index) as! NSDictionary).value(forKey: "address") as?  String
-        //
-        let str = (arrspot.object(at: index) as! NSDictionary).value(forKey: "address") as!  String
-        var arr = str.components(separatedBy: " ")
-        
-        if arr.count>0 {
+            //print(time_Price)
+            let numberOfPlaces = 2.0
+            let multiplier = pow(10.0, numberOfPlaces)
+            let doller = round(priceSPOT * multiplier) / multiplier
             
-            var str_addrss = ""
-            if  let check = arr[0] as? Int{
+            view_info.isHidden = false
+            btn_close.isHidden = false
+            curruntlat = marker.position.latitude
+            curruntlong = marker.position.longitude
+            
+//            let formatter = DateFormatter();
+//            formatter.dateFormat = "EEEE"
+//            let today =  formatter.string(from: Date())
+//
+//            var time = ""
+//
+//            if today == "Monday" {
+//
+//                time = "\((self.arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "monStartTime") as!  String)-\((arrspot.object(at: index) as! NSDictionary).value(forKey: "monEndTime") as!  String)"
+//            }
+//            if today == "Tuesday" {
+//
+//                time = "\((self.arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "tueStartTime") as!  String)-\((arrspot.object(at: index) as! NSDictionary).value(forKey: "tueEndTime") as!  String)"
+//            }
+//            if today == "Wednesday" {
+//                time = "\((self.arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "wedStartTime") as!  String)-\((self.arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "wedEndTime") as!  String)"
+//            }
+//            if today == "Thursday" {
+//                time = "\((self.arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "thuStartTime") as!  String)-\((self.arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "thuEndTime") as!  String)"
+//            }
+//            if today == "Friday" {
+//                time = "\((self.arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "friStartTime") as!  String)-\((self.arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "friEndTime") as!  String)"
+//            }
+//            if today == "Saturday" {
+//                time = "\((self.arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "satStartTime") as!  String)-\((self.arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "satEndTime") as!  String)"
+//            }
+//            if today == "Sunday" {
+//                time = "\((self.arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "sunStartTime") as!  String)-\((self.arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "sunEndTime") as!  String)"
+//            }
+            
+           
+            
+            // start date time check today
+//            let myStringafd = dateFormatter2.string(from: start_datepic.date)
+//            print(myStringafd)
+//            if myStringafd.contains("AM")
+//            {
+//                if format1 == "AM"
+//                {
+//                    start_date = dateFormatter2.date(from: myStringafd)!
+//                }else
+//                {
+//                    let replaced = myStringafd.replacingOccurrences(of: "AM", with: "PM")
+//                    start_date = dateFormatter2.date(from: replaced)!
+//                }
+//                print(start_date!)
+//            }else
+//            {
+//                if format1 == "PM"
+//                {
+//                    start_date = dateFormatter2.date(from: myStringafd)!
+//
+//                }else
+//                {
+//                    let replaced = myStringafd.replacingOccurrences(of: "PM", with: "AM")
+//                    start_date = dateFormatter2.date(from: replaced)!
+//                }
+//                print(start_date!)
+//            }
+//
+//            let formatter = DateFormatter()
+//            formatter.dateFormat = "EE MMM dd h a"
+//            let datestart = formatter.string(from:  start_date!)
+//            let dateend = formatter.string(from:  end_date!)
+
+            
+            lbl_spot_time.text = "Spot Time - \(strPickerStart) to \(strPickerEnd)"
+            
+            if (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Garage"{
+                img_spot_type.image = UIImage(named:"garageParking")
+            }
+            if (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Lot"{
+                img_spot_type.image = UIImage(named:"lotParking")
+            }
+            if (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Street"{
+                img_spot_type.image = UIImage(named:"onStreetParking")
+            }
+            if (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Driveway"{
+                img_spot_type.image = UIImage(named:"drivewayParking")
+            }
+            
+            lbl_spot_type.text = (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as?  String
+            
+            
+            lbl_price.text = "$\(doller)"
+            lbl_address.text = (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "address") as?  String
+            //
+            let str = (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "address") as!  String
+            var arr = str.components(separatedBy: " ")
+            
+            if arr.count>0 {
                 
-                for i in 1..<arr.count{
-                    str_addrss.append(arr[i])
+                var str_addrss = ""
+                if  let check = arr[0] as? Int{
+                    
+                    for i in 1..<arr.count{
+                        str_addrss.append(arr[i])
+                    }
+                    
+                    lbl_address.text = str_addrss
+                    
+                }else
+                {
+                    lbl_address.text = (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "address") as?  String
+                    
                 }
-                
-                lbl_address.text = str_addrss
-                
-            }else
-            {
-                lbl_address.text = (arrspot.object(at: index) as! NSDictionary).value(forKey: "address") as?  String
                 
             }
             
+            
+            let imgurl = (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "image") as!  String
+            img_spot.sd_setImage(with: URL(string: imgurl), placeholderImage: #imageLiteral(resourceName: "Placeholder"))
+            
+            
+            
+            // specify which spot is highlighted
+            // Should I do this asynchronously?
+            self.highlightedSpot = Spot(address: ((arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "address") as?  String) ?? "",
+                                        town: (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "city") as?  String ?? "",
+                                        state: (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "state") as?  String ?? "",
+                                        zipCode: (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "zipcode") as?  String ?? "",
+                                        spotImage: (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "image") as?  String ?? "",
+                                        description: (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "description") as?  String ?? "",
+                                        monStartTime: (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "monStartTime") as?  String ?? "",
+                                        monEndTime: (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "monEndTime") as?  String ?? "",
+                                        tueStartTime: (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "tueStartTime") as?  String ?? "",
+                                        tueEndTime: (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "tueEndTime") as?  String ?? "",
+                                        wedStartTime: (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "wedStartTime") as?  String ?? "",
+                                        wedEndTime: (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "wedEndTime") as?  String ?? "",
+                                        thuStartTime: (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "thuStartTime") as?  String ?? "",
+                                        thuEndTime: (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "thuEndTime") as?  String ?? "",
+                                        friStartTime: (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "friStartTime") as?  String ?? "",
+                                        friEndTime: (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "friEndTime") as?  String ?? "",
+                                        satStartTime: (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "satStartTime") as?  String ?? "",
+                                        satEndTime: (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "satEndTime") as?  String ?? "",
+                                        sunStartTime: (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "sunStartTime") as?  String ?? "",
+                                        sunEndTime: (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "sunEndTime") as?  String ?? "",
+                                        monOn: (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "monSwitch") as?  Bool ?? false,
+                                        tueOn: (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "tueSwitch") as?  Bool ?? false,
+                                        wedOn: (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "wedSwitch") as?  Bool ?? false,
+                                        thuOn: (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "thuSwitch") as?  Bool ?? false,
+                                        friOn: (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "friSwitch") as?  Bool ?? false,
+                                        satOn: (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "satSwitch") as?  Bool ?? false,
+                                        sunOn: (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "sunSwitch") as?  Bool ?? false,
+                                        hourlyPricing: (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "hourlyPricing") as?  String ?? "",
+                                        dailyPricing: (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "dailyPricing") as?  String ?? "",
+                                        weeklyPricing: (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "weeklyPricing") as?  String ?? "",
+                                        monthlyPricing: (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "monthlyPricing") as?  String ?? "",
+                                        weeklyOn: (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "weeklyOn") as?  Bool ?? false,
+                                        monthlyOn: (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "monthlyOn") as?  Bool ?? false,
+                                        index: index,
+                                        approved: true,
+                                        spotImages: img_spot.image ?? UIImage(named: "white")!,
+                                        spots_id: (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "id") as?  String ?? "",
+                                        latitude: (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "latitude") as?  String ?? "",
+                                        longitude: (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "longitude") as?  String ?? "",
+                                        spottype: (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as?  String ?? "",
+                                        owner_id: (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "owner_id") as?  String ?? "",
+                                        Email: (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "Email") as?  String ?? "", baseprice: (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "basePricing") as?  String ?? "")
+            
+            // debug lines, can get rid of eventually
+            print("Highlighted Spot Address is: \(self.highlightedSpot.address)")
+            print("Highlighted Spot Email is: \(self.highlightedSpot.Email)")
+            
+        }else
+        {
+            let price  = (arrspot.object(at: index) as! NSDictionary).value(forKey: "hourlyPricing") as?  String
+            let doller = (price! as NSString).integerValue
+            view_info.isHidden = false
+            btn_close.isHidden = false
+            curruntlat = marker.position.latitude
+            curruntlong = marker.position.longitude
+            
+            let formatter = DateFormatter(); formatter.dateFormat = "EEEE"
+            let today =  formatter.string(from: Date())
+            
+            var time = ""
+            
+            if today == "Monday" {
+                
+                time = "\((arrspot.object(at: index) as! NSDictionary).value(forKey: "monStartTime") as!  String)-\((arrspot.object(at: index) as! NSDictionary).value(forKey: "monEndTime") as!  String)"
+            }
+            if today == "Tuesday" {
+                
+                time = "\((arrspot.object(at: index) as! NSDictionary).value(forKey: "tueStartTime") as!  String)-\((arrspot.object(at: index) as! NSDictionary).value(forKey: "tueEndTime") as!  String)"
+            }
+            if today == "Wednesday" {
+                time = "\((arrspot.object(at: index) as! NSDictionary).value(forKey: "wedStartTime") as!  String)-\((arrspot.object(at: index) as! NSDictionary).value(forKey: "wedEndTime") as!  String)"
+            }
+            if today == "Thursday" {
+                time = "\((arrspot.object(at: index) as! NSDictionary).value(forKey: "thuStartTime") as!  String)-\((arrspot.object(at: index) as! NSDictionary).value(forKey: "thuEndTime") as!  String)"
+            }
+            if today == "Friday" {
+                time = "\((arrspot.object(at: index) as! NSDictionary).value(forKey: "friStartTime") as!  String)-\((arrspot.object(at: index) as! NSDictionary).value(forKey: "friEndTime") as!  String)"
+            }
+            if today == "Saturday" {
+                time = "\((arrspot.object(at: index) as! NSDictionary).value(forKey: "satStartTime") as!  String)-\((arrspot.object(at: index) as! NSDictionary).value(forKey: "satEndTime") as!  String)"
+            }
+            if today == "Sunday" {
+                time = "\((arrspot.object(at: index) as! NSDictionary).value(forKey: "sunStartTime") as!  String)-\((arrspot.object(at: index) as! NSDictionary).value(forKey: "sunEndTime") as!  String)"
+            }
+            
+            lbl_spot_time.text = "Spot Time - \(time)"
+            
+            if (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Garage"{
+                img_spot_type.image = UIImage(named:"garageParking")
+            }
+            if (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Lot"{
+                img_spot_type.image = UIImage(named:"lotParking")
+            }
+            if (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Street"{
+                img_spot_type.image = UIImage(named:"onStreetParking")
+            }
+            if (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Driveway"{
+                img_spot_type.image = UIImage(named:"drivewayParking")
+            }
+            
+            lbl_spot_type.text = (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as?  String
+            lbl_price.text = "$\(doller)"
+            lbl_address.text = (arrspot.object(at: index) as! NSDictionary).value(forKey: "address") as?  String
+            let str = (arrspot.object(at: index) as! NSDictionary).value(forKey: "address") as!  String
+            var arr = str.components(separatedBy: " ")
+            
+            if arr.count>0 {
+                
+                var str_addrss = ""
+                if  let check = arr[0] as? Int{
+                    
+                    for i in 1..<arr.count{
+                        str_addrss.append(arr[i])
+                    }
+                    
+                    lbl_address.text = str_addrss
+                    
+                }else
+                {
+                    lbl_address.text = (arrspot.object(at: index) as! NSDictionary).value(forKey: "address") as?  String
+                    
+                }
+                
+            }
+            
+            
+            let imgurl = (arrspot.object(at: index) as! NSDictionary).value(forKey: "image") as!  String
+            img_spot.sd_setImage(with: URL(string: imgurl), placeholderImage: #imageLiteral(resourceName: "Placeholder"))
+            
+            
+            
+            // specify which spot is highlighted
+            // Should I do this asynchronously?
+            self.highlightedSpot = Spot(address: ((arrspot.object(at: index) as! NSDictionary).value(forKey: "address") as?  String) ?? "",
+                                        town: (arrspot.object(at: index) as! NSDictionary).value(forKey: "city") as?  String ?? "",
+                                        state: (arrspot.object(at: index) as! NSDictionary).value(forKey: "state") as?  String ?? "",
+                                        zipCode: (arrspot.object(at: index) as! NSDictionary).value(forKey: "zipcode") as?  String ?? "",
+                                        spotImage: (arrspot.object(at: index) as! NSDictionary).value(forKey: "image") as?  String ?? "",
+                                        description: (arrspot.object(at: index) as! NSDictionary).value(forKey: "description") as?  String ?? "",
+                                        monStartTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "monStartTime") as?  String ?? "",
+                                        monEndTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "monEndTime") as?  String ?? "",
+                                        tueStartTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "tueStartTime") as?  String ?? "",
+                                        tueEndTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "tueEndTime") as?  String ?? "",
+                                        wedStartTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "wedStartTime") as?  String ?? "",
+                                        wedEndTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "wedEndTime") as?  String ?? "",
+                                        thuStartTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "thuStartTime") as?  String ?? "",
+                                        thuEndTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "thuEndTime") as?  String ?? "",
+                                        friStartTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "friStartTime") as?  String ?? "",
+                                        friEndTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "friEndTime") as?  String ?? "",
+                                        satStartTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "satStartTime") as?  String ?? "",
+                                        satEndTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "satEndTime") as?  String ?? "",
+                                        sunStartTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "sunStartTime") as?  String ?? "",
+                                        sunEndTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "sunEndTime") as?  String ?? "",
+                                        monOn: (arrspot.object(at: index) as! NSDictionary).value(forKey: "monSwitch") as?  Bool ?? false,
+                                        tueOn: (arrspot.object(at: index) as! NSDictionary).value(forKey: "tueSwitch") as?  Bool ?? false,
+                                        wedOn: (arrspot.object(at: index) as! NSDictionary).value(forKey: "wedSwitch") as?  Bool ?? false,
+                                        thuOn: (arrspot.object(at: index) as! NSDictionary).value(forKey: "thuSwitch") as?  Bool ?? false,
+                                        friOn: (arrspot.object(at: index) as! NSDictionary).value(forKey: "friSwitch") as?  Bool ?? false,
+                                        satOn: (arrspot.object(at: index) as! NSDictionary).value(forKey: "satSwitch") as?  Bool ?? false,
+                                        sunOn: (arrspot.object(at: index) as! NSDictionary).value(forKey: "sunSwitch") as?  Bool ?? false,
+                                        hourlyPricing: (arrspot.object(at: index) as! NSDictionary).value(forKey: "hourlyPricing") as?  String ?? "",
+                                        dailyPricing: (arrspot.object(at: index) as! NSDictionary).value(forKey: "dailyPricing") as?  String ?? "",
+                                        weeklyPricing: (arrspot.object(at: index) as! NSDictionary).value(forKey: "weeklyPricing") as?  String ?? "",
+                                        monthlyPricing: (arrspot.object(at: index) as! NSDictionary).value(forKey: "monthlyPricing") as?  String ?? "",
+                                        weeklyOn: (arrspot.object(at: index) as! NSDictionary).value(forKey: "weeklyOn") as?  Bool ?? false,
+                                        monthlyOn: (arrspot.object(at: index) as! NSDictionary).value(forKey: "monthlyOn") as?  Bool ?? false,
+                                        index: index,
+                                        approved: true,
+                                        spotImages: img_spot.image ?? UIImage(named: "white")!,
+                                        spots_id: (arrspot.object(at: index) as! NSDictionary).value(forKey: "id") as?  String ?? "",
+                                        latitude: (arrspot.object(at: index) as! NSDictionary).value(forKey: "latitude") as?  String ?? "",
+                                        longitude: (arrspot.object(at: index) as! NSDictionary).value(forKey: "longitude") as?  String ?? "",
+                                        spottype: (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as?  String ?? "",
+                                        owner_id: (arrspot.object(at: index) as! NSDictionary).value(forKey: "owner_id") as?  String ?? "",
+                                        Email: (arrspot.object(at: index) as! NSDictionary).value(forKey: "Email") as?  String ?? "", baseprice: (arrspot.object(at: index) as! NSDictionary).value(forKey: "basePricing") as?  String ?? "")
+            
+            // debug lines, can get rid of eventually
+            print("Highlighted Spot Address is: \(self.highlightedSpot.address)")
+            print("Highlighted Spot Email is: \(self.highlightedSpot.Email)")
         }
         
         
-        let imgurl = (arrspot.object(at: index) as! NSDictionary).value(forKey: "image") as!  String
-        img_spot.sd_setImage(with: URL(string: imgurl), placeholderImage: #imageLiteral(resourceName: "Placeholder"))
-        
-        
-        
-        // specify which spot is highlighted
-        // Should I do this asynchronously?
-        self.highlightedSpot = Spot(address: ((arrspot.object(at: index) as! NSDictionary).value(forKey: "address") as?  String) ?? "",
-                                    town: (arrspot.object(at: index) as! NSDictionary).value(forKey: "city") as?  String ?? "",
-                                    state: (arrspot.object(at: index) as! NSDictionary).value(forKey: "state") as?  String ?? "",
-                                    zipCode: (arrspot.object(at: index) as! NSDictionary).value(forKey: "zipcode") as?  String ?? "",
-                                    spotImage: (arrspot.object(at: index) as! NSDictionary).value(forKey: "image") as?  String ?? "",
-                                    description: (arrspot.object(at: index) as! NSDictionary).value(forKey: "description") as?  String ?? "",
-                                    monStartTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "monStartTime") as?  String ?? "",
-                                    monEndTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "monEndTime") as?  String ?? "",
-                                    tueStartTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "tueStartTime") as?  String ?? "",
-                                    tueEndTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "tueEndTime") as?  String ?? "",
-                                    wedStartTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "wedStartTime") as?  String ?? "",
-                                    wedEndTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "wedEndTime") as?  String ?? "",
-                                    thuStartTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "thuStartTime") as?  String ?? "",
-                                    thuEndTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "thuEndTime") as?  String ?? "",
-                                    friStartTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "friStartTime") as?  String ?? "",
-                                    friEndTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "friEndTime") as?  String ?? "",
-                                    satStartTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "satStartTime") as?  String ?? "",
-                                    satEndTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "satEndTime") as?  String ?? "",
-                                    sunStartTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "sunStartTime") as?  String ?? "",
-                                    sunEndTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "sunEndTime") as?  String ?? "",
-                                    monOn: (arrspot.object(at: index) as! NSDictionary).value(forKey: "monSwitch") as?  Bool ?? false,
-                                    tueOn: (arrspot.object(at: index) as! NSDictionary).value(forKey: "tueSwitch") as?  Bool ?? false,
-                                    wedOn: (arrspot.object(at: index) as! NSDictionary).value(forKey: "wedSwitch") as?  Bool ?? false,
-                                    thuOn: (arrspot.object(at: index) as! NSDictionary).value(forKey: "thuSwitch") as?  Bool ?? false,
-                                    friOn: (arrspot.object(at: index) as! NSDictionary).value(forKey: "friSwitch") as?  Bool ?? false,
-                                    satOn: (arrspot.object(at: index) as! NSDictionary).value(forKey: "satSwitch") as?  Bool ?? false,
-                                    sunOn: (arrspot.object(at: index) as! NSDictionary).value(forKey: "sunSwitch") as?  Bool ?? false,
-                                    hourlyPricing: (arrspot.object(at: index) as! NSDictionary).value(forKey: "hourlyPricing") as?  String ?? "",
-                                    dailyPricing: (arrspot.object(at: index) as! NSDictionary).value(forKey: "dailyPricing") as?  String ?? "",
-                                    weeklyPricing: (arrspot.object(at: index) as! NSDictionary).value(forKey: "weeklyPricing") as?  String ?? "",
-                                    monthlyPricing: (arrspot.object(at: index) as! NSDictionary).value(forKey: "monthlyPricing") as?  String ?? "",
-                                    weeklyOn: (arrspot.object(at: index) as! NSDictionary).value(forKey: "weeklyOn") as?  Bool ?? false,
-                                    monthlyOn: (arrspot.object(at: index) as! NSDictionary).value(forKey: "monthlyOn") as?  Bool ?? false,
-                                    index: index,
-                                    approved: true,
-                                    spotImages: img_spot.image ?? UIImage(named: "white")!,
-                                    spots_id: (arrspot.object(at: index) as! NSDictionary).value(forKey: "id") as?  String ?? "",
-                                    latitude: (arrspot.object(at: index) as! NSDictionary).value(forKey: "latitude") as?  String ?? "",
-                                    longitude: (arrspot.object(at: index) as! NSDictionary).value(forKey: "longitude") as?  String ?? "",
-                                    spottype: (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as?  String ?? "",
-                                    owner_id: (arrspot.object(at: index) as! NSDictionary).value(forKey: "owner_id") as?  String ?? "",
-                                    Email: (arrspot.object(at: index) as! NSDictionary).value(forKey: "Email") as?  String ?? "", baseprice: (arrspot.object(at: index) as! NSDictionary).value(forKey: "basePricing") as?  String ?? "")
-        
-        // debug lines, can get rid of eventually
-        print("Highlighted Spot Address is: \(self.highlightedSpot.address)")
-        print("Highlighted Spot Email is: \(self.highlightedSpot.Email)")
+//        let price  = (arrspot.object(at: index) as! NSDictionary).value(forKey: "hourlyPricing") as?  String
+//        let doller = (price! as NSString).integerValue
+//
+//        //        if curruntlat == marker.position.latitude && curruntlong == marker.position.longitude{
+//        //
+//        //            mapView.clear()
+//        //            locationManager.startUpdatingLocation()
+//        //            view_info.isHidden = true
+//        //            btn_close.isHidden = true
+//        //
+//        //        }
+//        //        else{
+//        //
+//        //            //            markerimg.image = #imageLiteral(resourceName: "marker_blue")
+//        //            //            let lbl_marker = UILabel()
+//        //            //            lbl_marker.frame = CGRect(x: 0, y: (self.markerimg.frame.height/2)-25, width: self.markerimg.frame.width, height: 40)
+//        //            //            lbl_marker.textColor = UIColor.white
+//        //            //            lbl_marker.text = "$\(doller)"
+//        //            //            self.markerimg.addSubview(lbl_marker)
+//        //            //
+//        //            //            viewchange.addSubview(markerimg)
+//        //            //            mapView.selectedMarker = marker
+//        //            let imgdata = marker.iconView
+//        //            imgdata?.backgroundColor = UIColor.red
+//        //            marker.iconView = imgdata
+//        //
+//        //            view_info.isHidden = false
+//        //            btn_close.isHidden = false
+//        //        }
+//
+//        view_info.isHidden = false
+//        btn_close.isHidden = false
+//        curruntlat = marker.position.latitude
+//        curruntlong = marker.position.longitude
+//
+//        let formatter = DateFormatter(); formatter.dateFormat = "EEEE"
+//        let today =  formatter.string(from: Date())
+//
+//        var time = ""
+//
+//        if today == "Monday" {
+//
+//            time = "\((arrspot.object(at: index) as! NSDictionary).value(forKey: "monStartTime") as!  String)-\((arrspot.object(at: index) as! NSDictionary).value(forKey: "monEndTime") as!  String)"
+//        }
+//        if today == "Tuesday" {
+//
+//            time = "\((arrspot.object(at: index) as! NSDictionary).value(forKey: "tueStartTime") as!  String)-\((arrspot.object(at: index) as! NSDictionary).value(forKey: "tueEndTime") as!  String)"
+//        }
+//        if today == "Wednesday" {
+//            time = "\((arrspot.object(at: index) as! NSDictionary).value(forKey: "wedStartTime") as!  String)-\((arrspot.object(at: index) as! NSDictionary).value(forKey: "wedEndTime") as!  String)"
+//        }
+//        if today == "Thursday" {
+//            time = "\((arrspot.object(at: index) as! NSDictionary).value(forKey: "thuStartTime") as!  String)-\((arrspot.object(at: index) as! NSDictionary).value(forKey: "thuEndTime") as!  String)"
+//        }
+//        if today == "Friday" {
+//            time = "\((arrspot.object(at: index) as! NSDictionary).value(forKey: "friStartTime") as!  String)-\((arrspot.object(at: index) as! NSDictionary).value(forKey: "friEndTime") as!  String)"
+//        }
+//        if today == "Saturday" {
+//            time = "\((arrspot.object(at: index) as! NSDictionary).value(forKey: "satStartTime") as!  String)-\((arrspot.object(at: index) as! NSDictionary).value(forKey: "satEndTime") as!  String)"
+//        }
+//        if today == "Sunday" {
+//            time = "\((arrspot.object(at: index) as! NSDictionary).value(forKey: "sunStartTime") as!  String)-\((arrspot.object(at: index) as! NSDictionary).value(forKey: "sunEndTime") as!  String)"
+//        }
+//
+//        lbl_spot_time.text = "Spot Time - \(time)"
+//
+//        if (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Garage"{
+//            img_spot_type.image = UIImage(named:"garageParking")
+//        }
+//        if (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Lot"{
+//            img_spot_type.image = UIImage(named:"lotParking")
+//        }
+//        if (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Street"{
+//            img_spot_type.image = UIImage(named:"onStreetParking")
+//        }
+//        if (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Driveway"{
+//            img_spot_type.image = UIImage(named:"drivewayParking")
+//        }
+//
+//        lbl_spot_type.text = (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as?  String
+//
+//
+//        lbl_price.text = "$\(doller)"
+//        lbl_address.text = (arrspot.object(at: index) as! NSDictionary).value(forKey: "address") as?  String
+//        //
+//        let str = (arrspot.object(at: index) as! NSDictionary).value(forKey: "address") as!  String
+//        var arr = str.components(separatedBy: " ")
+//
+//        if arr.count>0 {
+//
+//            var str_addrss = ""
+//            if  let check = arr[0] as? Int{
+//
+//                for i in 1..<arr.count{
+//                    str_addrss.append(arr[i])
+//                }
+//
+//                lbl_address.text = str_addrss
+//
+//            }else
+//            {
+//                lbl_address.text = (arrspot.object(at: index) as! NSDictionary).value(forKey: "address") as?  String
+//
+//            }
+//
+//        }
+//
+//
+//        let imgurl = (arrspot.object(at: index) as! NSDictionary).value(forKey: "image") as!  String
+//        img_spot.sd_setImage(with: URL(string: imgurl), placeholderImage: #imageLiteral(resourceName: "Placeholder"))
+//
+//
+//
+//        // specify which spot is highlighted
+//        // Should I do this asynchronously?
+//        self.highlightedSpot = Spot(address: ((arrspot.object(at: index) as! NSDictionary).value(forKey: "address") as?  String) ?? "",
+//                                    town: (arrspot.object(at: index) as! NSDictionary).value(forKey: "city") as?  String ?? "",
+//                                    state: (arrspot.object(at: index) as! NSDictionary).value(forKey: "state") as?  String ?? "",
+//                                    zipCode: (arrspot.object(at: index) as! NSDictionary).value(forKey: "zipcode") as?  String ?? "",
+//                                    spotImage: (arrspot.object(at: index) as! NSDictionary).value(forKey: "image") as?  String ?? "",
+//                                    description: (arrspot.object(at: index) as! NSDictionary).value(forKey: "description") as?  String ?? "",
+//                                    monStartTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "monStartTime") as?  String ?? "",
+//                                    monEndTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "monEndTime") as?  String ?? "",
+//                                    tueStartTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "tueStartTime") as?  String ?? "",
+//                                    tueEndTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "tueEndTime") as?  String ?? "",
+//                                    wedStartTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "wedStartTime") as?  String ?? "",
+//                                    wedEndTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "wedEndTime") as?  String ?? "",
+//                                    thuStartTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "thuStartTime") as?  String ?? "",
+//                                    thuEndTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "thuEndTime") as?  String ?? "",
+//                                    friStartTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "friStartTime") as?  String ?? "",
+//                                    friEndTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "friEndTime") as?  String ?? "",
+//                                    satStartTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "satStartTime") as?  String ?? "",
+//                                    satEndTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "satEndTime") as?  String ?? "",
+//                                    sunStartTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "sunStartTime") as?  String ?? "",
+//                                    sunEndTime: (arrspot.object(at: index) as! NSDictionary).value(forKey: "sunEndTime") as?  String ?? "",
+//                                    monOn: (arrspot.object(at: index) as! NSDictionary).value(forKey: "monSwitch") as?  Bool ?? false,
+//                                    tueOn: (arrspot.object(at: index) as! NSDictionary).value(forKey: "tueSwitch") as?  Bool ?? false,
+//                                    wedOn: (arrspot.object(at: index) as! NSDictionary).value(forKey: "wedSwitch") as?  Bool ?? false,
+//                                    thuOn: (arrspot.object(at: index) as! NSDictionary).value(forKey: "thuSwitch") as?  Bool ?? false,
+//                                    friOn: (arrspot.object(at: index) as! NSDictionary).value(forKey: "friSwitch") as?  Bool ?? false,
+//                                    satOn: (arrspot.object(at: index) as! NSDictionary).value(forKey: "satSwitch") as?  Bool ?? false,
+//                                    sunOn: (arrspot.object(at: index) as! NSDictionary).value(forKey: "sunSwitch") as?  Bool ?? false,
+//                                    hourlyPricing: (arrspot.object(at: index) as! NSDictionary).value(forKey: "hourlyPricing") as?  String ?? "",
+//                                    dailyPricing: (arrspot.object(at: index) as! NSDictionary).value(forKey: "dailyPricing") as?  String ?? "",
+//                                    weeklyPricing: (arrspot.object(at: index) as! NSDictionary).value(forKey: "weeklyPricing") as?  String ?? "",
+//                                    monthlyPricing: (arrspot.object(at: index) as! NSDictionary).value(forKey: "monthlyPricing") as?  String ?? "",
+//                                    weeklyOn: (arrspot.object(at: index) as! NSDictionary).value(forKey: "weeklyOn") as?  Bool ?? false,
+//                                    monthlyOn: (arrspot.object(at: index) as! NSDictionary).value(forKey: "monthlyOn") as?  Bool ?? false,
+//                                    index: index,
+//                                    approved: true,
+//                                    spotImages: img_spot.image ?? UIImage(named: "white")!,
+//                                    spots_id: (arrspot.object(at: index) as! NSDictionary).value(forKey: "id") as?  String ?? "",
+//                                    latitude: (arrspot.object(at: index) as! NSDictionary).value(forKey: "latitude") as?  String ?? "",
+//                                    longitude: (arrspot.object(at: index) as! NSDictionary).value(forKey: "longitude") as?  String ?? "",
+//                                    spottype: (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as?  String ?? "",
+//                                    owner_id: (arrspot.object(at: index) as! NSDictionary).value(forKey: "owner_id") as?  String ?? "",
+//                                    Email: (arrspot.object(at: index) as! NSDictionary).value(forKey: "Email") as?  String ?? "", baseprice: (arrspot.object(at: index) as! NSDictionary).value(forKey: "basePricing") as?  String ?? "")
+//
+//        // debug lines, can get rid of eventually
+//        print("Highlighted Spot Address is: \(self.highlightedSpot.address)")
+//        print("Highlighted Spot Email is: \(self.highlightedSpot.Email)")
         
         // only for debug, breaks the app...
         //print("\n\n\nTHIS CODE NEEDS TO BE DESTROYED!!!")
@@ -1446,11 +1813,10 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                         spotStart_times = "\(str)\((self.arr_search_spot.object(at: i) as! NSDictionary).value(forKey: "sunStartTime") as! String)"
                         spotEnd_times = "\(str)\((self.arr_search_spot.object(at: i) as! NSDictionary).value(forKey: "satEndTime") as! String)"
                         
-                        
                     }
                     
                     formatter.dateFormat = "yyyy-MM-dd HH:mm"
-                   
+                    
                     let START = formatter.string(from: start_date!)
                     print("start time :" + START)
                     
@@ -1462,8 +1828,11 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                     let priceSPOT = Reservation.publicCalcPrice(startDateTimeString:START,endDateTimeString: END, basePrice: basePrice)
                     
                     //    print(time_Price)
+                    let numberOfPlaces = 2.0
+                    let multiplier = pow(10.0, numberOfPlaces)
+                    let rounded = round(priceSPOT * multiplier) / multiplier
                     
-                     lbl_marker.text = "$\(priceSPOT)"
+                    lbl_marker.text = "$\(rounded)"
                     //lbl_marker.text = "$\(String(priceSPOT))"
                     
                 }else{
@@ -1471,8 +1840,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                 }
                 
                 lbl_marker.textColor = UIColor.black
-//                lbl_marker.adjustsFontSizeToFitWidth = true
-//                lbl_marker.numberOfLines = 1
+                //                lbl_marker.adjustsFontSizeToFitWidth = true
+                //                lbl_marker.numberOfLines = 1
                 customView.backgroundColor = UIColor.clear
                 marker.iconView = customView
             }
@@ -1484,8 +1853,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             alertController.addAction(defaultAction)
             self.present(alertController, animated: true, completion: nil)
         }
-        Time_price = false
-
+        //Time_price = false
+        
     }
     
     func draw(_ rect: CGRect ,img : UIImageView) {
@@ -1660,7 +2029,6 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             format2 = timearray[row]
         }
     }
-    
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return timearray[row]
