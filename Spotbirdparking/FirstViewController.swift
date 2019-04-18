@@ -118,6 +118,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         
         AppState.sharedInstance.activeSpot.getSpots()
         AppState.sharedInstance.user.GetCar()
+        AppState.sharedInstance.user.getReservations()
         
         print("Cars: \(AppState.sharedInstance.user.cars)")
         
