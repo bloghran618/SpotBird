@@ -883,7 +883,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             parkOrRent: "Park",
             spot: self.highlightedSpot,
             parkerID: AppState.sharedInstance.userid,
-            car: defaultCar!
+            car: defaultCar!,
+            ownerID: ownerID
         )
         
         // create reservation to be sent to the spot owner
@@ -893,7 +894,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             parkOrRent: "Rent",
             spot: self.highlightedSpot,
             parkerID: AppState.sharedInstance.userid,
-            car: defaultCar!
+            car: defaultCar!,
+            ownerID: ownerID
         )
         
         print("Reservations created")

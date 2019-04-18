@@ -534,7 +534,8 @@ class User {
                     "price": reservation.price,
                     "spotID": reservation.spot.spot_id,
                     "parkerID": reservation.parkerID,
-                    "carID": reservation.car.car_uid
+                    "carID": reservation.car.car_uid,
+                    "ownerID": reservation.ownerID
             ] as [String : Any]
         
         // create random ID for reservation to be under
@@ -566,7 +567,8 @@ class User {
                     "price": reservation.price,
                     "spotID": reservation.spot.spot_id,
                     "parkerID": reservation.parkerID,
-                    "carID": reservation.car.car_uid
+                    "carID": reservation.car.car_uid,
+                    "ownerID": reservation.ownerID
             ] as [String : Any]
         
         // create random ID for reservation to be under
@@ -615,7 +617,8 @@ class User {
                         
                         // get parking Spot() object
                         let spotID = reservationDict["spotID"] as! String
-                        self.spotAtPath(userID: userID, spotID: spotID)
+                        let ownerID = reservationDict["ownerID"] as! String
+                        self.spotAtPath(userID: ownerID, spotID: spotID)
                         { (reservationSpot) in
                             print("Spot address: \(reservationSpot.address)")
                             
@@ -626,7 +629,8 @@ class User {
                                 parkOrRent: reservationDict["parkOrRent"] as! String,
                                 spot: reservationSpot,
                                 parkerID: reservationDict["parkerID"] as! String,
-                                car: reservationCar)
+                                car: reservationCar,
+                                ownerID: reservationDict["ownerID"] as! String)
                             
                             print("Reservation start: \(dbReservation!.startDateTime)")
                             // add reservation

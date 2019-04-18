@@ -17,8 +17,9 @@ class Reservation {
     var spot: Spot
     var parkerID: String
     var car: Car
+    var ownerID: String
     
-    init?(startDateTime: String, endDateTime: String, parkOrRent: String, spot: Spot, parkerID: String, car: Car) {
+    init?(startDateTime: String, endDateTime: String, parkOrRent: String, spot: Spot, parkerID: String, car: Car, ownerID: String) {
         self.startDateTime = startDateTime
         self.endDateTime = endDateTime
         
@@ -30,6 +31,7 @@ class Reservation {
         
         self.parkerID = parkerID
         self.car = car
+        self.ownerID = ownerID
     }
     
     // alogrithm to calculate the price of the spot based on the base price and the time duration
