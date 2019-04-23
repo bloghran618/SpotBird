@@ -33,15 +33,39 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // check the status of the associated Stripe account
+        MyAPIClient.sharedClient.checkStripeAccount()
+        
+        // populate the options with data
         profileOptions = [
             ProfileTableOption(option: "You", description: "Tell us about yourself", logoImageName: "youImage"),
             ProfileTableOption(option: "Cars", description: "Create and set default cars", logoImageName: "EmptyCar"),
             ProfileTableOption(option: "Payment", description: "Manage your payment options", logoImageName: "dollarSign"),
             ProfileTableOption(option: "List", description: "Share your spot", logoImageName: "Share"),
 //            ProfileTableOption(option: "Test Stripe", description: "To be torn down later", logoImageName: "test"),
-            ProfileTableOption(option: "Enable Payouts", description: "Authorize payouts to bank account", logoImageName: "downarrow.png"),
+            ProfileTableOption(option: "Enable Payouts", description: "Authorize payouts to bank account", logoImageName: "EnablePayouts"),
             ProfileTableOption(option: "Test Functionality", description: "Just for testing", logoImageName: "white")
         ]
+        
+        // check if the user has listed spots AND a restricted stripe account
+        if(AppState.sharedInstance.spots.count > 0 && AppState.sharedInstance.stripeStatus == false) {
+            
+            // set the alert message to appropriate message
+            var message = ""
+            if(AppState.sharedInstance.stripeNeeds.contains("business_type")) {
+                message = "You must enable payouts to recieve funds for listed spots. Please visit the Enable Payouts tab."
+            }
+            else {
+                message = "We are having trouble verifying your identity. Please visit Enable Payouts to provide additional verification"
+            }
+            
+            // alert the user to Enable Payouts
+            let alert = UIAlertController(title: "Payouts Disabled",
+                                          message: message,
+                                          preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true)
+        }
     }
     
     // MARK: - UITableViewDataSource
@@ -81,21 +105,6 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
         else if profileOptions![(indexPath as NSIndexPath).row].option == "List" {
             self.performSegue(withIdentifier: "Share", sender: self)
         }
-//        else if profileOptions![(indexPath as NSIndexPath).row].option == "Test Stripe" {
-//            print("To Implement Payment here!")
-//
-//            self.paymentContext.requestPayment()
-//            // Setup customer context
-//            let customerContext = STPCustomerContext(keyProvider: MyKeyProvider().shared())
-//
-//            // Setup payment methods view controller
-//            let paymentMethodsViewController = STPPaymentMethodsViewController(configuration: STPPaymentConfiguration.shared(), theme: STPTheme.default(), customerContext: customerContext, delegate: self)
-//
-            
-//            // Present payment methods view controller
-//            let navigationController = UINavigationController(rootViewController: paymentMethodsViewController)
-//            present(navigationController, animated: true)
-//        }
         else if profileOptions![(indexPath as NSIndexPath).row].option == "Enable Payouts" {
             self.performSegue(withIdentifier: "Payouts", sender: self)
         }
@@ -103,7 +112,11 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
             print("Just doing some debugging...")
             
             // debug code:
-             AppState.sharedInstance.user.getReservations()
+//            MyAPIClient.sharedClient.checkStripeAccount()
+            print("Stripe Enabled? : \(AppState.sharedInstance.stripeStatus)")
+            print("Stripe needs: \(AppState.sharedInstance.stripeNeeds)")
+            
+//             AppState.sharedInstance.user.getReservations()
             
 //            let test_car = Car(make: "Mazda", model: "CX5", year: "1999", carImage: "white", isDefault: true, car_id: "test_id")
 //            let test_res1 = Reservation(startDateTime: "2019-01-18 11:00", endDateTime: "2019-01-18 15:00", parkOrRent: "park", spot: AppState.sharedInstance.spots[0], parkerID: "testid", car: test_car!)

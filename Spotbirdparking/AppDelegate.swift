@@ -94,6 +94,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         print("Initializer last name: \(AppState.sharedInstance.user.lastName)")
         print("Initializer Customer ID: \(AppState.sharedInstance.user.customertoken)")
         print("Initializer Account ID: \(AppState.sharedInstance.user.accounttoken)")
+        
+        MyAPIClient.sharedClient.checkStripeAccount()
 
         return true
     }

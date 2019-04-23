@@ -53,6 +53,9 @@ class ReservationsViewController: UIViewController,GMSMapViewDelegate,CLLocation
             print("Spot: \(AppState.sharedInstance.user.reservations[i].spot)")
             i += 1
             
+            // highlight today
+            calendarView.selectDates([Date()])
+            
         }
         
 //        // Temp data
@@ -167,12 +170,27 @@ class ReservationsViewController: UIViewController,GMSMapViewDelegate,CLLocation
 extension ReservationsViewController: JTAppleCalendarViewDataSource {
     
     func configureCalendar(_ calendar: JTAppleCalendarView) -> ConfigurationParameters {
+        // set formate of date
         formatter.dateFormat = "yyyy MM dd"
         formatter.timeZone = Calendar.current.timeZone
         formatter.locale = Calendar.current.locale
         
-        let startDate = formatter.date(from: "2019 01 01")!
-        let endDate = formatter.date(from: "2019 12 31")!
+        // get the current year and month
+        let monthFormatter = DateFormatter()
+        monthFormatter.dateFormat = "MM"
+        let yearFormatter = DateFormatter()
+        yearFormatter.dateFormat = "YYYY"
+        let now = Date()
+        let MM = monthFormatter.string(from: now)
+        let YYYY = yearFormatter.string(from: now)
+        let nextYYYY = String((Int(YYYY) ?? 2020) + 1)
+        print("Starting Month is: \(MM)")
+        print("Starting year is: \(YYYY)")
+        print("Next year is: \(nextYYYY)")
+        
+        // set the start and end date as this month -> 12 months from now
+        let startDate = formatter.date(from: "\(YYYY) \(MM) 01")!
+        let endDate = formatter.date(from: "\(nextYYYY) \(MM) 28")!
         
         let parameters = ConfigurationParameters(startDate: startDate, endDate: endDate)
         return parameters

@@ -116,12 +116,10 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // load aspects of User() object from the database
         AppState.sharedInstance.activeSpot.getSpots()
         AppState.sharedInstance.user.GetCar()
         AppState.sharedInstance.user.getReservations()
-        
-        print("Cars: \(AppState.sharedInstance.user.cars)")
-        
         
         
         dismissKeyboard()
@@ -1093,7 +1091,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                 img_spot_type.image = UIImage(named:"lotParking")
             }
             if (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Street"{
-                img_spot_type.image = UIImage(named:"onStreetParking")
+                img_spot_type.image = UIImage(named:"streetParking")
             }
             if (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Driveway"{
                 img_spot_type.image = UIImage(named:"drivewayParking")
@@ -1229,7 +1227,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                 img_spot_type.image = UIImage(named:"lotParking")
             }
             if (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Street"{
-                img_spot_type.image = UIImage(named:"onStreetParking")
+                img_spot_type.image = UIImage(named:"streetParking")
             }
             if (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Driveway"{
                 img_spot_type.image = UIImage(named:"drivewayParking")
@@ -1390,7 +1388,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
 //            img_spot_type.image = UIImage(named:"lotParking")
 //        }
 //        if (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Street"{
-//            img_spot_type.image = UIImage(named:"onStreetParking")
+//            img_spot_type.image = UIImage(named:"streetParking")
 //        }
 //        if (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Driveway"{
 //            img_spot_type.image = UIImage(named:"drivewayParking")

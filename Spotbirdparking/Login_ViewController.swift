@@ -125,6 +125,9 @@ class Login_ViewController: UIViewController {
                     
                     print("Last name 2: \(AppState.sharedInstance.user.lastName)")
                     print("Customer Token 2: \(AppState.sharedInstance.user.customertoken)")
+                    
+                    // get the status of the connected Stripe account
+                    MyAPIClient.sharedClient.checkStripeAccount()
                         
                         if AppState.sharedInstance.user.profileImage != "" {
                             let strurl = AppState.sharedInstance.user.profileImage

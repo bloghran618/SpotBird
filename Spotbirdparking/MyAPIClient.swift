@@ -88,27 +88,6 @@ class MyAPIClient: NSObject, STPEphemeralKeyProvider {
         
     }
     
-    // will probably be deleted eventually
-    // Purchase a spot with
-//    func spotPurchase(sourceID: String, destinationID: String, amount: Int, completion: @escaping STPJSONResponseCompletionBlock) {
-//        let url = self.baseURL.appendingPathComponent("spot_purchase")
-//
-//        Alamofire.request(url, method: .post, parameters: [
-//            "source_id": sourceID,
-//            "destination_id": destinationID,
-//            "amount": amount])
-//            .validate(statusCode: 200..<300)
-//            .responseJSON { responseJSON in
-//                switch responseJSON.result {
-//                case .success(let json):
-//                    completion(json as? [String: AnyObject], nil)
-//                case .failure(let error):
-//                    completion(nil, error)
-//                }
-//        }
-//
-//    }
-    
     // Get an ephemeral key from the python backend for the customer object
     func createCustomerKey(withAPIVersion apiVersion: String, completion: @escaping STPJSONResponseCompletionBlock) {
         print("run createCustomerKey()")        
@@ -247,6 +226,62 @@ class MyAPIClient: NSObject, STPEphemeralKeyProvider {
         }
     }
     
+    // checks the stripe account to check account standing
+    // Call with MyAPIClient.sharedClient.checkStripeAccount()
+    func checkStripeAccount() {
+        
+        // get accountID from user object
+        let accountID = AppState.sharedInstance.user.accounttoken
+        
+        let url = self.baseURL.appendingPathComponent("check_stripe_account")
+        
+        Alamofire.request(url, method: .post, parameters: [
+            "account_id": accountID])
+            .validate(statusCode: 200..<300)
+            .responseJSON { responseJSON in
+                switch responseJSON.result {
+                case .success(let json):
+                    print("Got stripe account status")
+                case .failure(let error):
+                    print("ERROR: Issue with getting Stripe account status: \(error)")
+                }
+                //to get JSON return value
+                if let result = responseJSON.result.value {
+                    let JSON = result as! NSDictionary
+
+                    // get values from jsonify
+                    let enabledNSNumber = JSON["enabled"] as! NSNumber
+                    let dueList: NSArray = JSON["due"] as! NSArray
+                    
+                    // convert json NSNumber to boolean
+                    var enabled = true
+                    if(enabledNSNumber == 1) {
+                        enabled = true
+                    }
+                    else if(enabledNSNumber == 0) {
+                        enabled = false
+                    }
+                    
+                    // set stripe attributes in singleton
+                    AppState.sharedInstance.stripeStatus = enabled
+                    AppState.sharedInstance.stripeNeeds = dueList as! [String]
+                    
+                    // display some debug values
+                    print("Is the account enabled? : \(AppState.sharedInstance.stripeStatus)")
+                    print("What is due? : \(AppState.sharedInstance.stripeNeeds)")
+                }
+        }
+    }
+    
+    // pretty self explanatory here...
+    func binaryToBool(bin: String) -> Bool{
+        print("This is the string: \(bin)")
+        if(bin == "1") {
+            return true
+        }
+        return false
+    }
+    
     
     // get the ip address of the device
     func getIPAddresses() -> String {
@@ -289,7 +324,6 @@ class MyAPIClient: NSObject, STPEphemeralKeyProvider {
         }
         
         if(addresses.count > 0) {
-            print(" the real one")
             return addresses[0]
         }
         else if(feAddresses.count > 0) {
