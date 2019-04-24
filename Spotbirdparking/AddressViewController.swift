@@ -282,7 +282,7 @@ extension AddressViewController {
         if makeaddress.last == ","
         {
             makeaddress.removeLast()
-            AppState.sharedInstance.activeSpot.address =  makeaddress.replacingOccurrences(of: ",", with: "")
+            AppState.sharedInstance.activeSpot.address =  makeaddress.replacingOccurrences(of: ",", with: " ")
             self.btn_searchADD.setTitle("\(AppState.sharedInstance.activeSpot.address)", for: .normal)
         }
        

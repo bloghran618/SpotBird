@@ -165,6 +165,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         start_datepic.minimumDate = Date()
         end_datepic.minimumDate = calendar.date(byAdding: .hour, value: 3, to:  Date())
         // list load
+        setStartEndDate()
         
         Date_VIew.layer.cornerRadius = 5;
         Date_VIew.layer.masksToBounds = true;
@@ -357,7 +358,9 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         let d2 = end_datepic.date
         
         let formatter = DateFormatter()
-        formatter.dateFormat = "EE MMM dd h a"
+       // formatter.dateFormat = "EE MMM dd h a"
+        formatter.dateFormat = "MMM dd h a"
+
 //        strPickerStart = formatter.string(from:  d1)
 //        strPickerEnd = formatter.string(from: d2)
         
@@ -365,9 +368,6 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
 //        print(dateend)
         
        // lbl_spot_time.text = "Spot Time - \(datestart) to \(dateend)"
-        
-
-        
         var time1 = Bool()
         
         // start date time check today
@@ -756,12 +756,6 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                 print("user_start   - \(user_start)")     // user
                                 print("user_end     - \(user_end)")     // user
                                 
-                                
-                                
-                                
-                                
-                                
-                                
                                 if user_start >= server_start1 && user_end <= server_end1{
                                     arr_search_spot.add(arrspot.object(at: i))
                                 }
@@ -786,8 +780,6 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                 print("user_start   - \(user_start)")     // user
                                 print("user_end     - \(user_end)")     // user
                                 
-                                
-                                
                                 if user_start >= server_start1 && user_end <= server_end1{
                                     arr_search_spot.add(arrspot.object(at: i))
                                 }
@@ -804,6 +796,131 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         endChange = false
     }
     
+    func setStartEndDate()
+    {
+        let d1 = start_datepic.date
+        let d2 = end_datepic.date
+        
+        let formatter = DateFormatter()
+        //formatter.dateFormat = "EE MMM dd h a"
+        formatter.dateFormat = "MMM dd h a"
+
+        //        strPickerStart = formatter.string(from:  d1)
+        //        strPickerEnd = formatter.string(from: d2)
+        
+        //        print(datestart)
+        //        print(dateend)
+        
+        // lbl_spot_time.text = "Spot Time - \(datestart) to \(dateend)"
+        var time1 = Bool()
+        
+        // start date time check today
+        let myStringafd = dateFormatter2.string(from: start_datepic.date)
+        print(myStringafd)
+        if myStringafd.contains("AM")
+        {
+            if format1 == "AM"
+            {
+                start_date = dateFormatter2.date(from: myStringafd)!
+                strPickerStart = formatter.string(from:  start_date!)
+                
+            }else
+            {
+                let replaced = myStringafd.replacingOccurrences(of: "AM", with: "PM")
+                start_date = dateFormatter2.date(from: replaced)!
+                strPickerStart = formatter.string(from:  start_date!)
+                
+            }
+            print(start_date!)
+        }else
+        {
+            if format1 == "PM"
+            {
+                start_date = dateFormatter2.date(from: myStringafd)!
+                strPickerStart = formatter.string(from:  start_date!)
+                
+            }else
+            {
+                let replaced = myStringafd.replacingOccurrences(of: "PM", with: "AM")
+                start_date = dateFormatter2.date(from: replaced)!
+                strPickerStart = formatter.string(from:  start_date!)
+                
+            }
+            print(start_date!)
+        }
+        
+        if (datetostring(dates: start_date!)) == (datetostring(dates: Date())) {
+            
+            let usertime = datetotime(userdate: dateconvert(userdate: start_date!))
+            print(usertime)
+            
+            let Datesystmem = datetotime(userdate: dateconvert(userdate: Date()))
+            print(Datesystmem)
+            
+            if usertime != Datesystmem && usertime < Datesystmem {
+                time1 = true
+            }
+        }
+        
+        print(time1)
+        var firsttime = Bool()
+        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:a"
+        if endChange == false {
+            print(start_date)
+            print(end_date)
+            
+            let addhour = calendar.date(byAdding: .hour, value: 3, to: start_date!)
+            end_date = addhour!
+            strPickerEnd = formatter.string(from:  end_date!)
+            
+            print(addhour)
+            print(end_date)
+        }
+        
+        // End date time check today
+        if endChange == true {
+            var str = dateFormatter2.string(from: end_datepic.date)
+            
+            if str.contains("AM")
+            {
+                if format2 == "AM"
+                {
+                    end_date = dateFormatter2.date(from: str)!
+                    strPickerEnd = formatter.string(from:  end_date!)
+                    
+                }else
+                {
+                    let replaced = str.replacingOccurrences(of: "AM", with: "PM")
+                    end_date = dateFormatter2.date(from: replaced)!
+                    strPickerEnd = formatter.string(from:  end_date!)
+                    
+                }
+                print(end_date!)
+            }
+                
+            else
+            {
+                if format2 == "PM"
+                {
+                    end_date = dateFormatter2.date(from: str)!
+                    strPickerEnd = formatter.string(from:  end_date!)
+                    
+                }else
+                {
+                    let replaced = str.replacingOccurrences(of: "PM", with: "AM")
+                    end_date = dateFormatter2.date(from: replaced)!
+                    strPickerEnd = formatter.string(from:  end_date!)
+                }
+                print(end_date!)
+            }
+            
+        }
+        
+        start_date = dateconvert(userdate: start_date!)
+        end_date = dateconvert(userdate: end_date!)
+        print(strPickerStart)
+        print(strPickerEnd)
+    }
     
     // MARK:_ BTn close
     @IBAction func btn_close(_ sender: UIButton) {
@@ -1128,8 +1245,6 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             let imgurl = (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "image") as!  String
             img_spot.sd_setImage(with: URL(string: imgurl), placeholderImage: #imageLiteral(resourceName: "Placeholder"))
             
-            
-            
             // specify which spot is highlighted
             // Should I do this asynchronously?
             self.highlightedSpot = Spot(address: ((arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "address") as?  String) ?? "",
@@ -1181,8 +1296,23 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             
         }else
         {
-            let price  = (arrspot.object(at: index) as! NSDictionary).value(forKey: "hourlyPricing") as?  String
-            let doller = (price! as NSString).integerValue
+            let form = DateFormatter()
+            // initially set the format based on your datepicker date / server String
+            form.dateFormat = "yyyy-MM-dd HH:mm"
+            let START = form.string(from: start_date!)
+            print("start time :" + START)
+            let END = form.string(from: end_date!)
+            print("end time :" + END)
+            let basePrice = ((self.arrspot.object(at: index) as! NSDictionary).value(forKey: "basePricing") as! String)
+            let priceSPOT = Reservation.publicCalcPrice(startDateTimeString:START,endDateTimeString: END, basePrice: basePrice)
+            
+            //print(time_Price)
+            let numberOfPlaces = 2.0
+            let multiplier = pow(10.0, numberOfPlaces)
+            let doller = round(priceSPOT * multiplier) / multiplier
+            
+//            let price  = (arrspot.object(at: index) as! NSDictionary).value(forKey: "hourlyPricing") as?  String
+//            let doller = (price! as NSString).integerValue
             view_info.isHidden = false
             btn_close.isHidden = false
             curruntlat = marker.position.latitude
@@ -1241,10 +1371,19 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             if arr.count>0 {
                 
                 var str_addrss = ""
-                if  let check = arr[0] as? Int{
+                let str = arr[0]
+                let strInt = Int(str)
+                if  strInt != nil{
                     
                     for i in 1..<arr.count{
-                        str_addrss.append(arr[i])
+                        if i == 0
+                        {
+                            str_addrss.append("\(arr[i])" )
+
+                        }else{
+                            str_addrss.append(" \(arr[i])" )
+
+                        }
                     }
                     
                     lbl_address.text = str_addrss
@@ -1566,11 +1705,27 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                         
                         lbl_marker.textAlignment = .center
                         lbl_marker.numberOfLines = 1;
-                        lbl_marker.text = "$\(doller)"
+                       // lbl_marker.text = "$\(doller)"
                         lbl_marker.minimumScaleFactor = 0.5;
                         lbl_marker.adjustsFontSizeToFitWidth = true;
                         lbl_marker.textColor = UIColor.black
                         customView.backgroundColor = UIColor.clear
+                        
+                        let formatter = DateFormatter()
+                        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+                        let START = formatter.string(from: self.start_date!)
+                        print("start time :" + START)
+                        let END = formatter.string(from: self.end_date!)
+                        print("end time :" + END)
+                        //print(END)
+                        let basePrice = (self.arrspot.object(at: tag) as! NSDictionary).value(forKey: "basePricing") as! String
+                        let priceSPOT = Reservation.publicCalcPrice(startDateTimeString:START,endDateTimeString: END, basePrice: basePrice)
+                        //    print(time_Price)
+                        let numberOfPlaces = 2.0
+                        let multiplier = pow(10.0, numberOfPlaces)
+                        let rounded = round(priceSPOT * multiplier) / multiplier
+                        lbl_marker.text = "$\(rounded)"
+
                         marker.iconView = customView
                         
                     }
