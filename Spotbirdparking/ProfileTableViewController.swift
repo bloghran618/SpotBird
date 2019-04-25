@@ -113,8 +113,9 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
             
             // debug code:
 //            MyAPIClient.sharedClient.checkStripeAccount()
-            print("Stripe Enabled? : \(AppState.sharedInstance.stripeStatus)")
-            print("Stripe needs: \(AppState.sharedInstance.stripeNeeds)")
+//            print("Stripe Enabled? : \(AppState.sharedInstance.stripeStatus)")
+//            print("Stripe needs: \(AppState.sharedInstance.stripeNeeds)")
+            print("Format this string: \(Reservation.priceToString(price: 3.14159))")
             
 //             AppState.sharedInstance.user.getReservations()
             

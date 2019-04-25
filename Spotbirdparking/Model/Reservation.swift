@@ -65,6 +65,12 @@ class Reservation {
         return price
     }
     
+    // turns a double into a string with two decimals
+    static func priceToString(price: Double) -> String {
+        let doubleStr = String(format: "%.2f", price)
+        return doubleStr
+    }
+    
     // For use outside of the class
     class func publicCalcPrice(startDateTimeString: String, endDateTimeString: String, basePrice: String) -> Double {
         return Reservation.calcPrice(startDateTimeString: startDateTimeString, endDateTimeString: endDateTimeString, basePrice: basePrice)
