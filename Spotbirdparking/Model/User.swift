@@ -590,7 +590,7 @@ class User {
         // empty any current reservations
         print("Reservations: \(AppState.sharedInstance.user.reservations)")
         print("#: \(AppState.sharedInstance.user.reservations.count)")
-        AppState.sharedInstance.user.reservations = []
+        AppState.sharedInstance.user.reservations.removeAll()
         
         print("Get all the reservations")
         let user_id = AppState.sharedInstance.userid

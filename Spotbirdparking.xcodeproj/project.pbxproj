@@ -32,6 +32,8 @@
 		B71F2DF22086CDAA00F47274 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B71F2DF02086CDAA00F47274 /* LaunchScreen.storyboard */; };
 		B71F2DFD2086CDAA00F47274 /* SpotbirdparkingTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71F2DFC2086CDAA00F47274 /* SpotbirdparkingTests.swift */; };
 		B72D8BE420D0B6BE0038310F /* CheckBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = B72D8BE320D0B6BE0038310F /* CheckBox.swift */; };
+		B72F7C1E227141AA001B6D6F /* ProvideSSNViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B72F7C1D227141AA001B6D6F /* ProvideSSNViewController.swift */; };
+		B72F7C2022715821001B6D6F /* SSNTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B72F7C1F22715821001B6D6F /* SSNTextField.swift */; };
 		B735CB9621C8A2EA00946C73 /* PayoutsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B735CB9521C8A2EA00946C73 /* PayoutsViewController.swift */; };
 		B7364D0620B65B390081F40F /* ProfileTableOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7364D0520B65B390081F40F /* ProfileTableOption.swift */; };
 		B7364D0820B65F120081F40F /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7364D0720B65F120081F40F /* ProfileTableViewController.swift */; };
@@ -103,6 +105,8 @@
 		B71F2DFC2086CDAA00F47274 /* SpotbirdparkingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotbirdparkingTests.swift; sourceTree = "<group>"; };
 		B71F2DFE2086CDAA00F47274 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B72D8BE320D0B6BE0038310F /* CheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
+		B72F7C1D227141AA001B6D6F /* ProvideSSNViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProvideSSNViewController.swift; sourceTree = "<group>"; };
+		B72F7C1F22715821001B6D6F /* SSNTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSNTextField.swift; sourceTree = "<group>"; };
 		B735CB9521C8A2EA00946C73 /* PayoutsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayoutsViewController.swift; sourceTree = "<group>"; };
 		B7364D0520B65B390081F40F /* ProfileTableOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableOption.swift; sourceTree = "<group>"; };
 		B7364D0720B65F120081F40F /* ProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
@@ -239,10 +243,12 @@
 				B77D9345211A807700D505BD /* ScheduleViewController.swift */,
 				B702B111212E361D004B3EF1 /* PriceViewController.swift */,
 				B735CB9521C8A2EA00946C73 /* PayoutsViewController.swift */,
+				B72F7C1D227141AA001B6D6F /* ProvideSSNViewController.swift */,
 				B74DE6ED2178100F0049A31B /* ReservationsViewController.swift */,
 				B7BC7104218166AE00EE6F7A /* CustomCell.swift */,
 				B79D514A218BDA4E001EFE1C /* ByDayResTableViewCell.swift */,
 				B72D8BE320D0B6BE0038310F /* CheckBox.swift */,
+				B72F7C1F22715821001B6D6F /* SSNTextField.swift */,
 				B71F2DEB2086CDA800F47274 /* Main.storyboard */,
 				0426E0322164F4FE0017E88B /* CustomInfoWindow.xib */,
 				041EC521217F42AA007DEC9C /* Custommarkerinfo.xib */,
@@ -489,6 +495,7 @@
 				B7445D67212B967C0063F58D /* Spot.swift in Sources */,
 				B75AE7BB20C4B63D0069A151 /* CarsDefinitionViewController.swift in Sources */,
 				B77D9346211A807700D505BD /* ScheduleViewController.swift in Sources */,
+				B72F7C1E227141AA001B6D6F /* ProvideSSNViewController.swift in Sources */,
 				B735CB9621C8A2EA00946C73 /* PayoutsViewController.swift in Sources */,
 				04ACA90621F5C9D90015CF8D /* TNTextLayer.swift in Sources */,
 				B7364D0620B65B390081F40F /* ProfileTableOption.swift in Sources */,
@@ -502,6 +509,7 @@
 				044217B52189BDF700946D91 /* CustomView.swift in Sources */,
 				041EC524217F44EA007DEC9C /* Custommarkerinfo.swift in Sources */,
 				B7364D0820B65F120081F40F /* ProfileTableViewController.swift in Sources */,
+				B72F7C2022715821001B6D6F /* SSNTextField.swift in Sources */,
 				B7D3B2D62172644500ADBAD4 /* Reservation.swift in Sources */,
 				B7A669D82134EC030057A283 /* AppState.swift in Sources */,
 				043E033721746CF300134F78 /* iToast.m in Sources */,

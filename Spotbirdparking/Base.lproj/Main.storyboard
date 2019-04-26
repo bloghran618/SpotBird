@@ -389,7 +389,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="97G-pw-h7U">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="1027"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="1007"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZX3-2P-wRr">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="20.5"/>
@@ -571,14 +571,17 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HUA-wr-qaH">
-                                                <rect key="frame" x="0.0" y="978" width="375" height="30"/>
+                                                <rect key="frame" x="0.0" y="978" width="375" height="10"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="10" id="uWV-pU-Zds"/>
+                                                </constraints>
                                                 <state key="normal" title="Terms and Conditions"/>
                                                 <connections>
                                                     <action selector="termsAndConditionsButton:" destination="Mzv-un-pCS" eventType="touchUpInside" id="PIw-la-byZ"/>
                                                 </connections>
                                             </button>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LOb-Jn-ois">
-                                                <rect key="frame" x="0.0" y="1012" width="375" height="15"/>
+                                                <rect key="frame" x="0.0" y="992" width="375" height="15"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="15" id="QuA-YZ-C4F"/>
@@ -634,6 +637,85 @@
             </objects>
             <point key="canvasLocation" x="1545" y="-1057"/>
         </scene>
+        <!--Provide SSN-->
+        <scene sceneID="HZy-Bg-UdP">
+            <objects>
+                <viewController title="Provide SSN" useStoryboardIdentifierAsRestorationIdentifier="YES" id="HFA-QH-XJa" customClass="ProvideSSNViewController" customModule="Spotbirdparking" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="TfN-Af-xSz">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="123-45-6789" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TTl-HV-LtV" customClass="SSNTextField" customModule="Spotbirdparking" customModuleProvider="target">
+                                <rect key="frame" x="8" y="72" width="359" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <action selector="asdf:" destination="bJv-JF-HxE" eventType="editingDidEnd" id="GB4-1Q-Ocm"/>
+                                </connections>
+                            </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BOR-mr-nKy">
+                                <rect key="frame" x="8" y="110" width="359" height="10"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="10" id="AV2-Gs-B3F"/>
+                                </constraints>
+                                <state key="normal" title="Why does Stripe need SSN?"/>
+                                <connections>
+                                    <action selector="WhySSNButton:" destination="HFA-QH-XJa" eventType="touchUpInside" id="R2p-De-dhD"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wNb-3m-5vD">
+                                <rect key="frame" x="8" y="128" width="359" height="50"/>
+                                <color key="backgroundColor" red="0.20000000000000001" green="0.79607843140000001" blue="0.35294117650000001" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="flq-dU-NmK"/>
+                                </constraints>
+                                <state key="normal" title="Submit Info">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="submitInfo:" destination="Mzv-un-pCS" eventType="touchUpInside" id="HZ8-1r-bfq"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Yn9-Ki-gcH" firstAttribute="trailing" secondItem="BOR-mr-nKy" secondAttribute="trailing" constant="8" id="L3a-jI-VcK"/>
+                            <constraint firstItem="TTl-HV-LtV" firstAttribute="leading" secondItem="Yn9-Ki-gcH" secondAttribute="leading" constant="8" id="Onf-9P-0aJ"/>
+                            <constraint firstItem="wNb-3m-5vD" firstAttribute="leading" secondItem="Yn9-Ki-gcH" secondAttribute="leading" constant="8" id="TpW-hC-6eJ"/>
+                            <constraint firstItem="Yn9-Ki-gcH" firstAttribute="trailing" secondItem="wNb-3m-5vD" secondAttribute="trailing" constant="8" id="baR-MJ-QrS"/>
+                            <constraint firstItem="BOR-mr-nKy" firstAttribute="top" secondItem="TTl-HV-LtV" secondAttribute="bottom" constant="8" id="cYn-cz-Y2f"/>
+                            <constraint firstItem="TTl-HV-LtV" firstAttribute="top" secondItem="Yn9-Ki-gcH" secondAttribute="top" constant="8" id="d15-lj-cr6"/>
+                            <constraint firstItem="BOR-mr-nKy" firstAttribute="leading" secondItem="Yn9-Ki-gcH" secondAttribute="leading" constant="8" id="ugP-mE-Sdh"/>
+                            <constraint firstItem="wNb-3m-5vD" firstAttribute="top" secondItem="BOR-mr-nKy" secondAttribute="bottom" constant="8" id="w9S-ep-53Z"/>
+                            <constraint firstItem="Yn9-Ki-gcH" firstAttribute="trailing" secondItem="TTl-HV-LtV" secondAttribute="trailing" constant="8" id="zSH-48-xFZ"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Yn9-Ki-gcH"/>
+                    </view>
+                    <connections>
+                        <outlet property="ssnTextField" destination="TTl-HV-LtV" id="Xus-XQ-zz3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dBY-wY-NJf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="bJv-JF-HxE" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="2456.8000000000002" y="-1042.128935532234"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="URE-Dm-2RT">
+            <objects>
+                <viewController id="Q1I-Dt-Qle" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="J8c-7P-q2P">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="2jZ-AA-Z6V"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IFq-97-SMk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3280" y="-1042"/>
+        </scene>
         <!--ProfileTableViewContorller-->
         <scene sceneID="jy6-GF-F9x">
             <objects>
@@ -678,6 +760,7 @@
                         <segue destination="JUt-VR-hJv" kind="show" identifier="Cars" id="SWG-Zv-ggL"/>
                         <segue destination="E72-Yy-gA8" kind="show" identifier="Share" id="Jfy-1G-W2m"/>
                         <segue destination="Mzv-un-pCS" kind="show" identifier="Payouts" id="e8T-ZO-Z6H"/>
+                        <segue destination="HFA-QH-XJa" kind="show" identifier="SSN" id="Ik4-57-jFZ"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ovw-0h-ibs" userLabel="First Responder" sceneMemberID="firstResponder"/>

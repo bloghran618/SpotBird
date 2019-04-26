@@ -19,6 +19,7 @@ target 'Spotbirdparking' do
   pod 'IQKeyboardManagerSwift', '~> 5.0'
   pod 'JTAppleCalendar', '~> 7.0' 
   pod 'MBProgressHUD'
+
   target 'SpotbirdparkingTests' do
     inherit! :search_paths
     # Pods for testing

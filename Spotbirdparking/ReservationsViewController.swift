@@ -51,6 +51,8 @@ class ReservationsViewController: UIViewController,GMSMapViewDelegate,CLLocation
         var i = 0
         for res in AppState.sharedInstance.user.reservations {
             print("Spot: \(AppState.sharedInstance.user.reservations[i].spot)")
+            print("StartDateTime: \(res.startDateTime)")
+            print("park or rent? : \(res.parkOrRent)")
             i += 1
             
             // highlight today

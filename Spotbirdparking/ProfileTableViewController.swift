@@ -106,16 +106,16 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
             self.performSegue(withIdentifier: "Share", sender: self)
         }
         else if profileOptions![(indexPath as NSIndexPath).row].option == "Enable Payouts" {
-            self.performSegue(withIdentifier: "Payouts", sender: self)
+//            self.performSegue(withIdentifier: "Payouts", sender: self)
+            self.performSegue(withIdentifier: "SSN", sender: self)
         }
         else if profileOptions![(indexPath as NSIndexPath).row].option == "Test Functionality" {
             print("Just doing some debugging...")
             
             // debug code:
 //            MyAPIClient.sharedClient.checkStripeAccount()
-//            print("Stripe Enabled? : \(AppState.sharedInstance.stripeStatus)")
-//            print("Stripe needs: \(AppState.sharedInstance.stripeNeeds)")
-            print("Format this string: \(Reservation.priceToString(price: 3.14159))")
+            print("Stripe Enabled? : \(AppState.sharedInstance.stripeStatus)")
+            print("Stripe needs: \(AppState.sharedInstance.stripeNeeds)")
             
 //             AppState.sharedInstance.user.getReservations()
             

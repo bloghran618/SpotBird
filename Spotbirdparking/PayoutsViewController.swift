@@ -258,8 +258,8 @@ class PayoutsViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             bankAccount.accountNumber = accountNumber
             bankAccount.routingNumber = routingNumber
             
-            print("Account Nubmer: \(bankAccount.accountNumber)")
-            print("Routing Nubmer: \(bankAccount.routingNumber)")
+//            print("Account Nubmer: \(bankAccount.accountNumber)")
+//            print("Routing Nubmer: \(bankAccount.routingNumber)")
 
             // STPConnectAccountParams() object creation
             var address = STPAddress()
@@ -342,12 +342,5 @@ class PayoutsViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         print("clicked!")
         UIApplication.shared.open(URL(string: "https://stripe.com/us/connect-account/legal")! as URL, options: [:], completionHandler: nil)
     }
-    
-    
-//    func createToken(withBankAccount bankAccount: STPBankAccountParams, completion: STPTokenCompletionBlock? = nil) {
-//        self.createTokenWithParameters
-//        NSDictionary params = [STPFormEncoder dictionaryForObject:bankAccount]
-//        [self createTokenWithParameters:params completion:completion]
-//    }
     
 }

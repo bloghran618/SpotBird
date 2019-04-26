@@ -200,7 +200,9 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
     func save_newuser()
     {
         let customerToken = MyAPIClient.sharedClient.createCustomerID()
+        print("asdf, yes we are creating an account token")
         let accountToken = MyAPIClient.sharedClient.createAccountID()
+        print("qwer")
         
         if profilePhoto.image == #imageLiteral(resourceName: "EmptyProfile")
         {
