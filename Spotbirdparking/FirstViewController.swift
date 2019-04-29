@@ -988,9 +988,6 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             }
         })
         
-        
-        print("Default car found")
-        
         // create reservation to be sent to the parker
         let parkerReservation = Reservation(
             startDateTime: Reservation.dateToString(date: start_datepic.date),

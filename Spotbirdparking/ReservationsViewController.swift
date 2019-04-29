@@ -88,6 +88,12 @@ class ReservationsViewController: UIViewController,GMSMapViewDelegate,CLLocation
         
     }
     
+    // make sure to update calendar every time view is loaded
+    override func viewWillAppear(_ animated: Bool) {
+        setupCalendarView()
+        print("The view will appear right.... now!")
+    }
+    
     func setupCalendarView() {
         // Set up calendar spacing
         calendarView.minimumLineSpacing = 0

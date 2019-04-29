@@ -80,12 +80,7 @@ class User {
         // if algorithm cannot find default, return first car
         return self.cars[0]
     }
-    
-    // Set a reservation with the owner of a spot
-    public func setReservation(reservation: [Reservation]) {
-        
-    }
-    
+
     // Get database to car
     public func Get_UserProfile() {
         var refArtists: DatabaseReference!
@@ -522,7 +517,7 @@ class User {
     // add a new reservation to this User() object
     func addReservation(reservation: Reservation) {
         // add reservation to current User() object
-        self.reservations.append(reservation)
+//        self.reservations.append(reservation)
         
         // Set reference to active user in firebase
         let ref = Database.database().reference().child("User").child(AppState.sharedInstance.userid)
@@ -551,6 +546,7 @@ class User {
                 print("Parker Data could not be saved: \(error).")
             } else {
                 print("Parker Data saved successfully!")
+                AppState.sharedInstance.user.getReservations()
             }
         }
     }
