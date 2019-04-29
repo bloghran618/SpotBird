@@ -15,6 +15,7 @@
 		0426E0382164F97D0017E88B /* PriceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B702B111212E361D004B3EF1 /* PriceViewController.swift */; };
 		043E033721746CF300134F78 /* iToast.m in Sources */ = {isa = PBXBuildFile; fileRef = 043E033521746CF300134F78 /* iToast.m */; };
 		044217B52189BDF700946D91 /* CustomView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044217B42189BDF600946D91 /* CustomView.swift */; };
+		04572D8F2276DB3600CDBB64 /* ReservationsDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04572D8E2276DB3600CDBB64 /* ReservationsDetailViewController.swift */; };
 		04ACA90421F5C9D90015CF8D /* TNConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ACA8FD21F5C9D80015CF8D /* TNConstants.swift */; };
 		04ACA90521F5C9D90015CF8D /* TNSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ACA8FF21F5C9D80015CF8D /* TNSlider.swift */; };
 		04ACA90621F5C9D90015CF8D /* TNTextLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ACA90021F5C9D80015CF8D /* TNTextLayer.swift */; };
@@ -78,6 +79,7 @@
 		043E033521746CF300134F78 /* iToast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = iToast.m; sourceTree = "<group>"; };
 		043E033621746CF300134F78 /* iToast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = iToast.h; sourceTree = "<group>"; };
 		044217B42189BDF600946D91 /* CustomView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CustomView.swift; sourceTree = "<group>"; };
+		04572D8E2276DB3600CDBB64 /* ReservationsDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationsDetailViewController.swift; sourceTree = "<group>"; };
 		04ACA8FD21F5C9D80015CF8D /* TNConstants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TNConstants.swift; sourceTree = "<group>"; };
 		04ACA8FE21F5C9D80015CF8D /* TNSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TNSlider.h; sourceTree = "<group>"; };
 		04ACA8FF21F5C9D80015CF8D /* TNSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TNSlider.swift; sourceTree = "<group>"; };
@@ -245,6 +247,7 @@
 				B735CB9521C8A2EA00946C73 /* PayoutsViewController.swift */,
 				B72F7C1D227141AA001B6D6F /* ProvideSSNViewController.swift */,
 				B74DE6ED2178100F0049A31B /* ReservationsViewController.swift */,
+				04572D8E2276DB3600CDBB64 /* ReservationsDetailViewController.swift */,
 				B7BC7104218166AE00EE6F7A /* CustomCell.swift */,
 				B79D514A218BDA4E001EFE1C /* ByDayResTableViewCell.swift */,
 				B72D8BE320D0B6BE0038310F /* CheckBox.swift */,
@@ -520,6 +523,7 @@
 				B7141A4D20ED1DAF005B54D3 /* MyAPIClient.swift in Sources */,
 				B7B67FE320C34A7400A13FD0 /* CarsViewController.swift in Sources */,
 				04CE142E21C5257A00338DEE /* Timeclass.swift in Sources */,
+				04572D8F2276DB3600CDBB64 /* ReservationsDetailViewController.swift in Sources */,
 				0406E62A21620AD900C3E97B /* Login_ViewController.swift in Sources */,
 				04ACA90421F5C9D90015CF8D /* TNConstants.swift in Sources */,
 				B7A35D4120F5AA4500E4B566 /* AddressViewController.swift in Sources */,

@@ -67,6 +67,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     var markerlatitude:Double  = Double()
     var markerlongitude:Double  = Double()
     var arrspot:NSMutableArray = NSMutableArray()
+    var arrAllspot:NSMutableArray = NSMutableArray()
     var timer = Timer()  // time
     var five = 0
     var arrPlaces = NSMutableArray(capacity: 100)
@@ -120,7 +121,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         AppState.sharedInstance.activeSpot.getSpots()
         AppState.sharedInstance.user.GetCar()
         AppState.sharedInstance.user.getReservations()
-        
+       
         
         dismissKeyboard()
         //scheduledTimerWithTimeInterval()  // time
@@ -351,22 +352,541 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     }
     
     // MARK:_ BTn Date searching Done
+//    @IBAction func btn_Date_search_done(_ sender: UIButton) {
+//
+//        let d1 = start_datepic.date
+//        let d2 = end_datepic.date
+//
+//        let formatter = DateFormatter()
+//       // formatter.dateFormat = "EE MMM dd h a"
+//        formatter.dateFormat = "MMM dd h a"
+//
+////        strPickerStart = formatter.string(from:  d1)
+////        strPickerEnd = formatter.string(from: d2)
+//
+////        print(datestart)
+////        print(dateend)
+//
+//       // lbl_spot_time.text = "Spot Time - \(datestart) to \(dateend)"
+//        var time1 = Bool()
+//
+//        // start date time check today
+//        let myStringafd = dateFormatter2.string(from: start_datepic.date)
+//        print(myStringafd)
+//        if myStringafd.contains("AM")
+//        {
+//            if format1 == "AM"
+//            {
+//                start_date = dateFormatter2.date(from: myStringafd)!
+//                strPickerStart = formatter.string(from:  start_date!)
+//
+//            }else
+//            {
+//                let replaced = myStringafd.replacingOccurrences(of: "AM", with: "PM")
+//                start_date = dateFormatter2.date(from: replaced)!
+//                strPickerStart = formatter.string(from:  start_date!)
+//
+//            }
+//            print(start_date!)
+//        }else
+//        {
+//            if format1 == "PM"
+//            {
+//                start_date = dateFormatter2.date(from: myStringafd)!
+//                strPickerStart = formatter.string(from:  start_date!)
+//
+//            }else
+//            {
+//                let replaced = myStringafd.replacingOccurrences(of: "PM", with: "AM")
+//                start_date = dateFormatter2.date(from: replaced)!
+//                strPickerStart = formatter.string(from:  start_date!)
+//
+//            }
+//            print(start_date!)
+//        }
+//
+//        if (datetostring(dates: start_date!)) == (datetostring(dates: Date())) {
+//
+//            let usertime = datetotime(userdate: dateconvert(userdate: start_date!))
+//            print(usertime)
+//
+//            let Datesystmem = datetotime(userdate: dateconvert(userdate: Date()))
+//            print(Datesystmem)
+//
+//            if usertime != Datesystmem && usertime < Datesystmem {
+//                time1 = true
+//            }
+//        }
+//
+//        print(time1)
+//        var firsttime = Bool()
+//        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:a"
+//        if endChange == false {
+//            print(start_date)
+//            print(end_date)
+//
+//            let addhour = calendar.date(byAdding: .hour, value: 3, to: start_date!)
+//            end_date = addhour!
+//            strPickerEnd = formatter.string(from:  end_date!)
+//
+//            print(addhour)
+//            print(end_date)
+//        }
+//
+//        // End date time check today
+//        if endChange == true {
+//            var str = dateFormatter2.string(from: end_datepic.date)
+//
+//            if str.contains("AM")
+//            {
+//                if format2 == "AM"
+//                {
+//                    end_date = dateFormatter2.date(from: str)!
+//                    strPickerEnd = formatter.string(from:  end_date!)
+//
+//                }else
+//                {
+//                    let replaced = str.replacingOccurrences(of: "AM", with: "PM")
+//                    end_date = dateFormatter2.date(from: replaced)!
+//                    strPickerEnd = formatter.string(from:  end_date!)
+//
+//                }
+//                print(end_date!)
+//            }
+//
+//            else
+//            {
+//                if format2 == "PM"
+//                {
+//                    end_date = dateFormatter2.date(from: str)!
+//                    strPickerEnd = formatter.string(from:  end_date!)
+//
+//                }else
+//                {
+//                    let replaced = str.replacingOccurrences(of: "PM", with: "AM")
+//                    end_date = dateFormatter2.date(from: replaced)!
+//                    strPickerEnd = formatter.string(from:  end_date!)
+//                }
+//                print(end_date!)
+//            }
+//
+//        }
+//
+//        start_date = dateconvert(userdate: start_date!)
+//        end_date = dateconvert(userdate: end_date!)
+//        print(strPickerStart)
+//        print(strPickerEnd)
+//
+//
+//
+//        if time1 == true{
+//            time1 = false
+//            let alert = UIAlertController(title: "Spotbirdparking", message: "Invalid Start TIME", preferredStyle: .alert)
+//            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+//            self.present(alert, animated: true, completion: nil)
+//        }
+//        else if (datetostring(dates: end_date!))  < (datetostring(dates: start_date!)) && (datetostring(dates: start_date!)) != (datetostring(dates: end_date!))
+//        {
+//            let alert = UIAlertController(title: "Spotbirdparking", message: "Start date greater than End date.", preferredStyle: .alert)
+//            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+//            self.present(alert, animated: true, completion: nil)
+//        }
+//        else if (datetostring(dates: end_date!)) == (datetostring(dates: start_date!)) && end_date!.time < start_date!.time {
+//            let alert = UIAlertController(title: "Spotbirdparking", message: "End Time greater than Start date.", preferredStyle: .alert)
+//            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+//            self.present(alert, animated: true, completion: nil)
+//        }
+//        else{
+//            dateFormatter.dateFormat = "EEE, MMM d, yyyy - h:mm a"
+//            let localtime1 = dateFormatter2.string(from: start_date!)
+//            let localtime2 = dateFormatter2.string(from: end_date!)
+//            arr_search_spot.removeAllObjects()
+//
+//            var arr_date = [Date]()
+//            var arr_day = [String]()
+//            var date = start_datepic.date
+//            while date <= end_datepic.date{
+//                arr_date.append(date)
+//                date = calendar.date(byAdding: .day, value: 1, to: date)!
+//            }
+//            if arr_date.count>0 {
+//                for i in 0..<arr_date.count{
+//                    let dateformats = DateFormatter()
+//                    //  dateformats.timeZone = TimeZone(abbreviation: "UTC")
+//                    dateformats.timeZone = TimeZone.current
+//                    dateformats.dateFormat  = "EEEE"       //"EE" to get short style
+//                    let dayInWeek = dateformats.string(from: arr_date[i])
+//                    arr_day.append(dayInWeek)
+//                }
+//            }
+//            var datedaydict = NSMutableDictionary()
+//            var arrsunday = [Date]()
+//            var arrmonday = [Date]()
+//            var arrtuesday = [Date]()
+//            var arrwednesday = [Date]()
+//            var arrthuesday = [Date]()
+//            var arrfriday = [Date]()
+//            var arrsatarday = [Date]()
+//
+//            for i in 0..<arr_date.count
+//            {
+//                if arr_day[i] == ("Sunday")
+//                {
+//                    arrsunday.append(arr_date[i])
+//                }
+//                if arr_day[i] == "Monday" {
+//                    arrmonday.append(arr_date[i])
+//                }
+//                if arr_day[i] == "Tuesday" {
+//                    arrtuesday.append(arr_date[i])
+//                }
+//                if arr_day[i] == "Wednesday" {
+//                    arrwednesday.append(arr_date[i])
+//                }
+//                if arr_day[i] == "Thursday" {
+//                    arrthuesday.append(arr_date[i])
+//                }
+//                if arr_day[i] == "Friday" {
+//                    arrfriday.append(arr_date[i])
+//                }
+//                if arr_day[i] == "Saturday" {
+//                    arrsatarday.append(arr_date[i])
+//                }
+//            }
+//
+//            if arrsunday.count>0
+//            {
+//                datedaydict.setValue(arrsunday, forKey: "Sunday")
+//            }
+//            if arrmonday.count>0{
+//                datedaydict.setValue(arrmonday, forKey: "Monday")
+//            }
+//            if arrtuesday.count>0 {
+//                datedaydict.setValue(arrtuesday, forKey: "Tuesday")
+//            }
+//            if arrwednesday.count>0 {
+//                datedaydict.setValue(arrwednesday, forKey: "Wednesday")
+//            }
+//            if arrthuesday.count>0 {
+//                datedaydict.setValue(arrthuesday, forKey: "Thursday")
+//            }
+//            if arrfriday.count>0 {
+//                datedaydict.setValue(arrfriday, forKey: "Friday")
+//            }
+//            if arrsatarday.count>0 {
+//                datedaydict.setValue(arrsatarday, forKey: "Saturday")
+//            }
+//
+//            print(arr_day)
+//            print(datedaydict)
+//            let dateformats = DateFormatter()
+//            dateformats.timeZone = TimeZone.current
+//            dateformats.dateFormat  = "EEEE"
+//            let dayInWeek = dateformats.string(from: Date())
+//
+//            self.refArtists = Database.database().reference().child("All_Spots");
+//            self.refArtists.observe(DataEventType.value, with: { (snapshot) in
+//                if snapshot.childrenCount > 0 {
+//                    self.arrspot.removeAllObjects()
+//                    for artists in snapshot.children.allObjects as! [DataSnapshot] {
+//                        let snapshotValue = snapshot.value as! NSDictionary
+//                        let dictdata = ((snapshot.value as! NSDictionary).value(forKey: (artists as! DataSnapshot).key)) as! NSDictionary
+//                        if dictdata.count>0{
+//
+//                            for (theKey, theValue) in dictdata {
+//                                print(theKey)
+//                                print(theValue)
+//                                self.arrspot.add(theValue)
+//                                //                            if dayInWeek == "Sunday"{
+//                                //                                if (theValue as! NSDictionary).value(forKey: "sunswitch") as! Int  == 1
+//                                //                                {
+//                                //                                    self.arrspot.add(theValue)
+//                                //
+//                                //                                }
+//                                //
+//                                //                            }
+//                                //                            if dayInWeek == "Monday"{
+//                                //                                if (theValue as! NSDictionary).value(forKey: "monswitch") as! Int  == 1
+//                                //                                {
+//                                //                                    self.arrspot.add(theValue)
+//                                //
+//                                //                                }
+//                                //
+//                                //                            }
+//                                //                            if dayInWeek == "Tuesday"{
+//                                //                                if (theValue as! NSDictionary).value(forKey: "thuswitch") as! Int  == 1
+//                                //                                {
+//                                //                                    self.arrspot.add(theValue)
+//                                //
+//                                //                                }
+//                                //                            }
+//                                //                            if dayInWeek == "Wednesday"{
+//                                //                                if (theValue as! NSDictionary).value(forKey: "wedswitch") as! Int  == 1
+//                                //                                {
+//                                //                                    self.arrspot.add(theValue)
+//                                //
+//                                //                                }
+//                                //
+//                                //                            }
+//                                //                            if dayInWeek == "Thursday"{
+//                                //
+//                                //                                if (theValue as! NSDictionary).value(forKey: "thuswitch") as! Int  == 1
+//                                //                                {
+//                                //                                    self.arrspot.add(theValue)
+//                                //
+//                                //                                }
+//                                //                            }
+//                                //                            if dayInWeek == "Friday"{
+//                                //                                if (theValue as! NSDictionary).value(forKey: "friswitch") as! Int  == 1
+//                                //                                {
+//                                //                                    self.arrspot.add(theValue)
+//                                //
+//                                //                                }
+//                                //                            }
+//                                //                            if dayInWeek == "Saturday"{
+//                                //                                if (theValue as! NSDictionary).value(forKey: "satswitch") as! Int  == 1
+//                                //                                {
+//                                //                                    self.arrspot.add(theValue)
+//                                //
+//                                //                                }
+//                                //                            }
+//                            }
+//                            //                        self.loadEventsToMap(lat: self.userlatitude, long: self.userlongitude)
+//                        }
+//
+//
+//                    }
+//
+//                    for i in 0..<self.arrspot.count{
+//                        for j in 0..<arr_day.count{
+//                            let dict_spot = self.arrspot.object(at: i) as! NSDictionary
+//
+//                            var localTimeZoneName: String { return TimeZone.current.identifier }
+//                            print(localTimeZoneName)
+//
+//                            if arr_day[j] == "Sunday" {
+//                                if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "sunswitch") as! Bool == true{
+//
+//                                    let arrsun = datedaydict.value(forKey: "Sunday") as! NSArray
+//                                    for m in 0..<arrsun.count{
+//
+//                                        let sunStartTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "sunStartTime") as! String)
+//                                        let sunEndTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "sunEndTime")  as! String)
+//
+//                                        let server_start1 = self.datetotime(userdate: sunStartTime)
+//                                        let server_end1 = self.datetotime(userdate: sunEndTime)
+//                                        print("server   - \(server_start1)")     // server
+//                                        print("server     - \(server_end1)")     // server
+//
+//                                        let user_start = self.datetotime(userdate: self.start_date!)
+//                                        let user_end = self.datetotime(userdate: self.end_date!)
+//
+//                                        print("user_start   - \(user_start)")     // user
+//                                        print("user_end     - \(user_end)")     // user
+//
+//                                        // if user_start >= server_start1 && user_end <= server_end1{
+//                                        self.arr_search_spot.add(self.arrspot.object(at: i))
+//                                    }
+//                                }
+//                            }
+//                            if arr_day[j] == "Monday" {
+//                                if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "monswitch") as! Bool == true{
+//
+//                                    let arrmun = datedaydict.value(forKey: "Monday") as! NSArray
+//                                    for m in 0..<arrmun.count{
+//
+//                                        let Munday_start = self.dateconvertServer(userdate: dict_spot.value(forKey: "monStartTime") as! String)
+//                                        let Munday_end = self.dateconvertServer(userdate: dict_spot.value(forKey: "monEndTime")  as! String)
+//
+//                                        let server_start1 = self.datetotime(userdate: Munday_start)
+//                                        let server_end1 = self.datetotime(userdate: Munday_end)
+//                                        print("server   - \(server_start1)")     // server
+//                                        print("server     - \(server_end1)")     // server
+//
+//                                        let user_start = self.datetotime(userdate: self.start_date!)
+//                                        let user_end = self.datetotime(userdate: self.end_date!)
+//
+//                                        print("user_start   - \(user_start)")     // user
+//                                        print("user_end     - \(user_end)")     // user
+//
+//
+//
+//                                        if user_start >= server_start1 && user_end <= server_end1{
+//                                            self.arr_search_spot.add(self.arrspot.object(at: i))
+//                                        }
+//
+//                                    }
+//                                }
+//                            }
+//                            if arr_day[j] == "Tuesday" {
+//                                if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "tueswitch") as! Bool == true{
+//
+//                                    let arrthue = datedaydict.value(forKey: "Tuesday") as! NSArray
+//                                    for m in 0..<arrthue.count{
+//
+//                                        let tueStartTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "tueStartTime") as! String)
+//                                        let tueEndTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "tueEndTime")  as! String)
+//
+//                                        let server_start1 = self.datetotime(userdate: tueStartTime)
+//                                        let server_end1 = self.datetotime(userdate: tueEndTime)
+//                                        print("server   - \(server_start1)")     // server
+//                                        print("server     - \(server_end1)")     // server
+//
+//                                        let user_start = self.datetotime(userdate: self.start_date!)
+//                                        let user_end = self.datetotime(userdate: self.end_date!)
+//
+//                                        print("user_start   - \(user_start)")     // user
+//                                        print("user_end     - \(user_end)")     // user
+//
+//                                        if user_start >= server_start1 && user_end <= server_end1{
+//                                            self.arr_search_spot.add(self.arrspot.object(at: i))
+//                                        }
+//                                    }
+//                                }
+//                            }
+//                            if arr_day[j] == "Wednesday" {
+//                                if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "wedswitch") as! Bool == true{
+//
+//                                    let arrwed = datedaydict.value(forKey: "Wednesday") as! NSArray
+//                                    for m in 0..<arrwed.count{
+//
+//                                        let wedStartTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "wedStartTime") as! String)
+//                                        let wedEndTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "wedEndTime")  as! String)
+//
+//                                        let server_start1 = self.datetotime(userdate: wedStartTime)
+//                                        let server_end1 = self.datetotime(userdate: wedEndTime)
+//                                        print("server   - \(server_start1)")     // server
+//                                        print("server     - \(server_end1)")     // server
+//
+//                                        let user_start = self.datetotime(userdate: self.start_date!)
+//                                        let user_end = self.datetotime(userdate: self.end_date!)
+//
+//                                        print("user_start   - \(user_start)")     // user
+//                                        print("user_end     - \(user_end)")     // user
+//
+//
+//
+//                                        if user_start >= server_start1 && user_end <= server_end1{
+//                                            self.arr_search_spot.add(self.arrspot.object(at: i))
+//                                        }
+//                                    }
+//                                }
+//                            }
+//                            if arr_day[j] == "Thursday" {
+//
+//                                if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "thuswitch") as! Bool == true{
+//
+//                                    let arrThu = datedaydict.value(forKey: "Thursday") as! NSArray
+//                                    for m in 0..<arrThu.count{
+//
+//                                        let thuStartTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "thuStartTime") as! String)
+//                                        let thuEndTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "thuEndTime")  as! String)
+//
+//                                        let server_start1 = self.datetotime(userdate: thuStartTime)
+//                                        let server_end1 = self.datetotime(userdate: thuEndTime)
+//                                        print("server   - \(server_start1)")     // server
+//                                        print("server     - \(server_end1)")     // server
+//
+//                                        let user_start = self.datetotime(userdate: self.start_date!)
+//                                        let user_end = self.datetotime(userdate: self.end_date!)
+//
+//                                        print("user_start   - \(user_start)")     // user
+//                                        print("user_end     - \(user_end)")     // user
+//
+//
+//
+//
+//                                        if user_start >= server_start1 && user_end <= server_end1{
+//                                            self.arr_search_spot.add(self.arrspot.object(at: i))
+//                                        }
+//                                    }
+//                                }
+//                            }
+//                            if arr_day[j] == "Friday" {
+//                                if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "friswitch") as! Bool == true{
+//
+//                                    let arrFri = datedaydict.value(forKey: "Friday") as! NSArray
+//                                    for m in 0..<arrFri.count{
+//
+//                                        print(dict_spot.value(forKey: "friStartTime") as! String)
+//                                        print(dict_spot.value(forKey: "friEndTime")  as! String)
+//
+//                                        let friStartTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "friStartTime") as! String)
+//                                        let friEndTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "friEndTime")  as! String)
+//                                        print(friStartTime)
+//                                        print(friEndTime)
+//
+//                                        let server_start1 = self.datetotime(userdate: friStartTime)
+//                                        let server_end1 = self.datetotime(userdate: friEndTime)
+//                                        print("server   - \(server_start1)")     // server
+//                                        print("server     - \(server_end1)")     // server
+//
+//                                        let user_start = self.datetotime(userdate: self.start_date!)
+//                                        let user_end = self.datetotime(userdate: self.end_date!)
+//
+//                                        print("user_start   - \(user_start)")     // user
+//                                        print("user_end     - \(user_end)")     // user
+//
+//                                        if user_start >= server_start1 && user_end <= server_end1{
+//                                            self.arr_search_spot.add(self.arrspot.object(at: i))
+//                                        }
+//                                    }
+//                                }
+//                            }
+//                            if arr_day[j] == "Saturday" {
+//                                if (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "satswitch") as! Bool == true{
+//                                    let arrsat = datedaydict.value(forKey: "Saturday") as! NSArray
+//                                    for m in 0..<arrsat.count{
+//                                        let satStartTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "satStartTime") as! String)
+//                                        let satEndTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "satEndTime")  as! String)
+//
+//                                        let server_start1 = self.datetotime(userdate: satStartTime)
+//                                        let server_end1 = self.datetotime(userdate: satEndTime)
+//                                        print("server   - \(server_start1)")     // server
+//                                        print("server     - \(server_end1)")     // server
+//
+//                                        let user_start = self.datetotime(userdate: self.start_date!)
+//                                        let user_end = self.datetotime(userdate: self.end_date!)
+//
+//                                        print("user_start   - \(user_start)")     // user
+//                                        print("user_end     - \(user_end)")     // user
+//
+//                                        if user_start >= server_start1 && user_end <= server_end1{
+//                                            self.arr_search_spot.add(self.arrspot.object(at: i))
+//                                        }
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
+//                    print(self.arr_search_spot)
+//                    // Search Data load marker:-
+//                    self.Search_Spot()
+//                    self.Date_VIew.isHidden = true
+//
+//                }
+//            })
+//
+//        }
+//        endChange = false
+//    }
+    
     @IBAction func btn_Date_search_done(_ sender: UIButton) {
         
         let d1 = start_datepic.date
         let d2 = end_datepic.date
         
         let formatter = DateFormatter()
-       // formatter.dateFormat = "EE MMM dd h a"
+        // formatter.dateFormat = "EE MMM dd h a"
         formatter.dateFormat = "MMM dd h a"
-
-//        strPickerStart = formatter.string(from:  d1)
-//        strPickerEnd = formatter.string(from: d2)
         
-//        print(datestart)
-//        print(dateend)
+        //        strPickerStart = formatter.string(from:  d1)
+        //        strPickerEnd = formatter.string(from: d2)
         
-       // lbl_spot_time.text = "Spot Time - \(datestart) to \(dateend)"
+        //        print(datestart)
+        //        print(dateend)
+        
+        // lbl_spot_time.text = "Spot Time - \(datestart) to \(dateend)"
         var time1 = Bool()
         
         // start date time check today
@@ -378,13 +898,13 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             {
                 start_date = dateFormatter2.date(from: myStringafd)!
                 strPickerStart = formatter.string(from:  start_date!)
-               
+                
             }else
             {
                 let replaced = myStringafd.replacingOccurrences(of: "AM", with: "PM")
                 start_date = dateFormatter2.date(from: replaced)!
                 strPickerStart = formatter.string(from:  start_date!)
-
+                
             }
             print(start_date!)
         }else
@@ -393,13 +913,13 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             {
                 start_date = dateFormatter2.date(from: myStringafd)!
                 strPickerStart = formatter.string(from:  start_date!)
-
+                
             }else
             {
                 let replaced = myStringafd.replacingOccurrences(of: "PM", with: "AM")
                 start_date = dateFormatter2.date(from: replaced)!
                 strPickerStart = formatter.string(from:  start_date!)
-
+                
             }
             print(start_date!)
         }
@@ -427,7 +947,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             let addhour = calendar.date(byAdding: .hour, value: 3, to: start_date!)
             end_date = addhour!
             strPickerEnd = formatter.string(from:  end_date!)
-
+            
             print(addhour)
             print(end_date)
         }
@@ -442,13 +962,13 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                 {
                     end_date = dateFormatter2.date(from: str)!
                     strPickerEnd = formatter.string(from:  end_date!)
-
+                    
                 }else
                 {
                     let replaced = str.replacingOccurrences(of: "AM", with: "PM")
                     end_date = dateFormatter2.date(from: replaced)!
                     strPickerEnd = formatter.string(from:  end_date!)
-
+                    
                 }
                 print(end_date!)
             }
@@ -459,7 +979,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                 {
                     end_date = dateFormatter2.date(from: str)!
                     strPickerEnd = formatter.string(from:  end_date!)
-
+                    
                 }else
                 {
                     let replaced = str.replacingOccurrences(of: "PM", with: "AM")
@@ -578,219 +1098,214 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             
             print(arr_day)
             print(datedaydict)
-            
-            
-            for i in 0..<arrspot.count{
-                for j in 0..<arr_day.count{
-                    let dict_spot = arrspot.object(at: i) as! NSDictionary
-                    
-                    var localTimeZoneName: String { return TimeZone.current.identifier }
-                    print(localTimeZoneName)
-                    
-                    if arr_day[j] == "Sunday" {
-                        if (arrspot.object(at: i) as! NSDictionary).value(forKey: "sunswitch") as! Bool == true{
+            let dateformats = DateFormatter()
+            dateformats.timeZone = TimeZone.current
+            dateformats.dateFormat  = "EEEE"
+            let dayInWeek = dateformats.string(from: Date())
+            for i in 0..<self.arrAllspot.count{
+                        for j in 0..<arr_day.count{
+                            let dict_spot = self.arrAllspot.object(at: i) as! NSDictionary
                             
-                            let arrsun = datedaydict.value(forKey: "Sunday") as! NSArray
-                            for m in 0..<arrsun.count{
-                                
-                                let sunStartTime = dateconvertServer(userdate: dict_spot.value(forKey: "sunStartTime") as! String)
-                                let sunEndTime = dateconvertServer(userdate: dict_spot.value(forKey: "sunEndTime")  as! String)
-                                
-                                let server_start1 = datetotime(userdate: sunStartTime)
-                                let server_end1 = datetotime(userdate: sunEndTime)
-                                print("server   - \(server_start1)")     // server
-                                print("server     - \(server_end1)")     // server
-                                
-                                let user_start = datetotime(userdate: start_date!)
-                                let user_end = datetotime(userdate: end_date!)
-                                
-                                print("user_start   - \(user_start)")     // user
-                                print("user_end     - \(user_end)")     // user
-                                
-                                
-                                
-                                
-                                // if user_start >= server_start1 && user_end <= server_end1{
-                                arr_search_spot.add(arrspot.object(at: i))
-                                //}
-                                
-                            }
-                        }
-                    }
-                    if arr_day[j] == "Monday" {
-                        if (arrspot.object(at: i) as! NSDictionary).value(forKey: "monswitch") as! Bool == true{
+                            var localTimeZoneName: String { return TimeZone.current.identifier }
+                            print(localTimeZoneName)
                             
-                            let arrmun = datedaydict.value(forKey: "Monday") as! NSArray
-                            for m in 0..<arrmun.count{
-                                
-                                let Munday_start = dateconvertServer(userdate: dict_spot.value(forKey: "monStartTime") as! String)
-                                let Munday_end = dateconvertServer(userdate: dict_spot.value(forKey: "monEndTime")  as! String)
-                                
-                                let server_start1 = datetotime(userdate: Munday_start)
-                                let server_end1 = datetotime(userdate: Munday_end)
-                                print("server   - \(server_start1)")     // server
-                                print("server     - \(server_end1)")     // server
-                                
-                                let user_start = datetotime(userdate: start_date!)
-                                let user_end = datetotime(userdate: end_date!)
-                                
-                                print("user_start   - \(user_start)")     // user
-                                print("user_end     - \(user_end)")     // user
-                                
-                                
-                                
-                                if user_start >= server_start1 && user_end <= server_end1{
-                                    arr_search_spot.add(arrspot.object(at: i))
-                                }
-                                
-                            }
-                        }
-                    }
-                    if arr_day[j] == "Tuesday" {
-                        if (arrspot.object(at: i) as! NSDictionary).value(forKey: "tueswitch") as! Bool == true{
-                            
-                            let arrthue = datedaydict.value(forKey: "Tuesday") as! NSArray
-                            for m in 0..<arrthue.count{
-                                
-                                let tueStartTime = dateconvertServer(userdate: dict_spot.value(forKey: "tueStartTime") as! String)
-                                let tueEndTime = dateconvertServer(userdate: dict_spot.value(forKey: "tueEndTime")  as! String)
-                                
-                                let server_start1 = datetotime(userdate: tueStartTime)
-                                let server_end1 = datetotime(userdate: tueEndTime)
-                                print("server   - \(server_start1)")     // server
-                                print("server     - \(server_end1)")     // server
-                                
-                                let user_start = datetotime(userdate: start_date!)
-                                let user_end = datetotime(userdate: end_date!)
-                                
-                                print("user_start   - \(user_start)")     // user
-                                print("user_end     - \(user_end)")     // user
-                                
-                                if user_start >= server_start1 && user_end <= server_end1{
-                                    arr_search_spot.add(arrspot.object(at: i))
+                            if arr_day[j] == "Sunday" {
+                                if (self.arrAllspot.object(at: i) as! NSDictionary).value(forKey: "sunswitch") as! Bool == true{
+                                    
+                                    let arrsun = datedaydict.value(forKey: "Sunday") as! NSArray
+                                    for m in 0..<arrsun.count{
+                                        
+                                        let sunStartTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "sunStartTime") as! String)
+                                        let sunEndTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "sunEndTime")  as! String)
+                                        
+                                        let server_start1 = self.datetotime(userdate: sunStartTime)
+                                        let server_end1 = self.datetotime(userdate: sunEndTime)
+                                        print("server   - \(server_start1)")     // server
+                                        print("server     - \(server_end1)")     // server
+                                        
+                                        let user_start = self.datetotime(userdate: self.start_date!)
+                                        let user_end = self.datetotime(userdate: self.end_date!)
+                                        
+                                        print("user_start   - \(user_start)")     // user
+                                        print("user_end     - \(user_end)")     // user
+                                        
+                                        // if user_start >= server_start1 && user_end <= server_end1{
+                                        self.arr_search_spot.add(self.arrAllspot.object(at: i))
+                                    }
                                 }
                             }
-                        }
-                    }
-                    if arr_day[j] == "Wednesday" {
-                        if (arrspot.object(at: i) as! NSDictionary).value(forKey: "wedswitch") as! Bool == true{
-                            
-                            let arrwed = datedaydict.value(forKey: "Wednesday") as! NSArray
-                            for m in 0..<arrwed.count{
-                                
-                                let wedStartTime = dateconvertServer(userdate: dict_spot.value(forKey: "wedStartTime") as! String)
-                                let wedEndTime = dateconvertServer(userdate: dict_spot.value(forKey: "wedEndTime")  as! String)
-                                
-                                let server_start1 = datetotime(userdate: wedStartTime)
-                                let server_end1 = datetotime(userdate: wedEndTime)
-                                print("server   - \(server_start1)")     // server
-                                print("server     - \(server_end1)")     // server
-                                
-                                let user_start = datetotime(userdate: start_date!)
-                                let user_end = datetotime(userdate: end_date!)
-                                
-                                print("user_start   - \(user_start)")     // user
-                                print("user_end     - \(user_end)")     // user
-                                
-                                
-                                
-                                if user_start >= server_start1 && user_end <= server_end1{
-                                    arr_search_spot.add(arrspot.object(at: i))
+                            if arr_day[j] == "Monday" {
+                                if (self.arrAllspot.object(at: i) as! NSDictionary).value(forKey: "monswitch") as! Bool == true{
+                                    
+                                    let arrmun = datedaydict.value(forKey: "Monday") as! NSArray
+                                    for m in 0..<arrmun.count{
+                                        
+                                        let Munday_start = self.dateconvertServer(userdate: dict_spot.value(forKey: "monStartTime") as! String)
+                                        let Munday_end = self.dateconvertServer(userdate: dict_spot.value(forKey: "monEndTime")  as! String)
+                                        
+                                        let server_start1 = self.datetotime(userdate: Munday_start)
+                                        let server_end1 = self.datetotime(userdate: Munday_end)
+                                        print("server   - \(server_start1)")     // server
+                                        print("server     - \(server_end1)")     // server
+                                        
+                                        let user_start = self.datetotime(userdate: self.start_date!)
+                                        let user_end = self.datetotime(userdate: self.end_date!)
+                                        
+                                        print("user_start   - \(user_start)")     // user
+                                        print("user_end     - \(user_end)")     // user
+                                        
+                                        if user_start >= server_start1 && user_end <= server_end1{
+                                            self.arr_search_spot.add(self.arrAllspot.object(at: i))
+                                        }
+                                        
+                                    }
                                 }
                             }
-                        }
-                    }
-                    if arr_day[j] == "Thursday" {
-                        
-                        if (arrspot.object(at: i) as! NSDictionary).value(forKey: "thuswitch") as! Bool == true{
-                            
-                            let arrThu = datedaydict.value(forKey: "Thursday") as! NSArray
-                            for m in 0..<arrThu.count{
-                                
-                                let thuStartTime = dateconvertServer(userdate: dict_spot.value(forKey: "thuStartTime") as! String)
-                                let thuEndTime = dateconvertServer(userdate: dict_spot.value(forKey: "thuEndTime")  as! String)
-                                
-                                let server_start1 = datetotime(userdate: thuStartTime)
-                                let server_end1 = datetotime(userdate: thuEndTime)
-                                print("server   - \(server_start1)")     // server
-                                print("server     - \(server_end1)")     // server
-                                
-                                let user_start = datetotime(userdate: start_date!)
-                                let user_end = datetotime(userdate: end_date!)
-                                
-                                print("user_start   - \(user_start)")     // user
-                                print("user_end     - \(user_end)")     // user
-                                
-                                
-                                
-                                
-                                if user_start >= server_start1 && user_end <= server_end1{
-                                    arr_search_spot.add(arrspot.object(at: i))
+                            if arr_day[j] == "Tuesday" {
+                                if (self.arrAllspot.object(at: i) as! NSDictionary).value(forKey: "tueswitch") as! Bool == true{
+                                    
+                                    let arrthue = datedaydict.value(forKey: "Tuesday") as! NSArray
+                                    for m in 0..<arrthue.count{
+                                        
+                                        let tueStartTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "tueStartTime") as! String)
+                                        let tueEndTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "tueEndTime")  as! String)
+                                        
+                                        let server_start1 = self.datetotime(userdate: tueStartTime)
+                                        let server_end1 = self.datetotime(userdate: tueEndTime)
+                                        print("server   - \(server_start1)")     // server
+                                        print("server     - \(server_end1)")     // server
+                                        
+                                        let user_start = self.datetotime(userdate: self.start_date!)
+                                        let user_end = self.datetotime(userdate: self.end_date!)
+                                        
+                                        print("user_start   - \(user_start)")     // user
+                                        print("user_end     - \(user_end)")     // user
+                                        
+                                        if user_start >= server_start1 && user_end <= server_end1{
+                                            self.arr_search_spot.add(self.arrAllspot.object(at: i))
+                                        }
+                                    }
                                 }
                             }
-                        }
-                    }
-                    if arr_day[j] == "Friday" {
-                        if (arrspot.object(at: i) as! NSDictionary).value(forKey: "friswitch") as! Bool == true{
-                            
-                            let arrFri = datedaydict.value(forKey: "Friday") as! NSArray
-                            for m in 0..<arrFri.count{
-                                
-                                print(dict_spot.value(forKey: "friStartTime") as! String)
-                                print(dict_spot.value(forKey: "friEndTime")  as! String)
-                                
-                                let friStartTime = dateconvertServer(userdate: dict_spot.value(forKey: "friStartTime") as! String)
-                                let friEndTime = dateconvertServer(userdate: dict_spot.value(forKey: "friEndTime")  as! String)
-                                print(friStartTime)
-                                print(friEndTime)
-                                
-                                let server_start1 = datetotime(userdate: friStartTime)
-                                let server_end1 = datetotime(userdate: friEndTime)
-                                print("server   - \(server_start1)")     // server
-                                print("server     - \(server_end1)")     // server
-                                
-                                let user_start = datetotime(userdate: start_date!)
-                                let user_end = datetotime(userdate: end_date!)
-                                
-                                print("user_start   - \(user_start)")     // user
-                                print("user_end     - \(user_end)")     // user
-                                
-                                if user_start >= server_start1 && user_end <= server_end1{
-                                    arr_search_spot.add(arrspot.object(at: i))
+                            if arr_day[j] == "Wednesday" {
+                                if (self.arrAllspot.object(at: i) as! NSDictionary).value(forKey: "wedswitch") as! Bool == true{
+                                    
+                                    let arrwed = datedaydict.value(forKey: "Wednesday") as! NSArray
+                                    for m in 0..<arrwed.count{
+                                        
+                                        let wedStartTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "wedStartTime") as! String)
+                                        let wedEndTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "wedEndTime")  as! String)
+                                        
+                                        let server_start1 = self.datetotime(userdate: wedStartTime)
+                                        let server_end1 = self.datetotime(userdate: wedEndTime)
+                                        print("server   - \(server_start1)")     // server
+                                        print("server     - \(server_end1)")     // server
+                                        
+                                        let user_start = self.datetotime(userdate: self.start_date!)
+                                        let user_end = self.datetotime(userdate: self.end_date!)
+                                        
+                                        print("user_start   - \(user_start)")     // user
+                                        print("user_end     - \(user_end)")     // user
+                                        
+                                        
+                                        
+                                        if user_start >= server_start1 && user_end <= server_end1{
+                                            self.arr_search_spot.add(self.arrAllspot.object(at: i))
+                                        }
+                                    }
                                 }
                             }
-                        }
-                    }
-                    if arr_day[j] == "Saturday" {
-                        if (arrspot.object(at: i) as! NSDictionary).value(forKey: "satswitch") as! Bool == true{
-                            let arrsat = datedaydict.value(forKey: "Saturday") as! NSArray
-                            for m in 0..<arrsat.count{
-                                let satStartTime = dateconvertServer(userdate: dict_spot.value(forKey: "satStartTime") as! String)
-                                let satEndTime = dateconvertServer(userdate: dict_spot.value(forKey: "satEndTime")  as! String)
+                            if arr_day[j] == "Thursday" {
                                 
-                                let server_start1 = datetotime(userdate: satStartTime)
-                                let server_end1 = datetotime(userdate: satEndTime)
-                                print("server   - \(server_start1)")     // server
-                                print("server     - \(server_end1)")     // server
-                                
-                                let user_start = datetotime(userdate: start_date!)
-                                let user_end = datetotime(userdate: end_date!)
-                                
-                                print("user_start   - \(user_start)")     // user
-                                print("user_end     - \(user_end)")     // user
-                                
-                                if user_start >= server_start1 && user_end <= server_end1{
-                                    arr_search_spot.add(arrspot.object(at: i))
+                                if (self.arrAllspot.object(at: i) as! NSDictionary).value(forKey: "thuswitch") as! Bool == true{
+                                    
+                                    let arrThu = datedaydict.value(forKey: "Thursday") as! NSArray
+                                    for m in 0..<arrThu.count{
+                                        
+                                        let thuStartTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "thuStartTime") as! String)
+                                        let thuEndTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "thuEndTime")  as! String)
+                                        
+                                        let server_start1 = self.datetotime(userdate: thuStartTime)
+                                        let server_end1 = self.datetotime(userdate: thuEndTime)
+                                        print("server   - \(server_start1)")     // server
+                                        print("server     - \(server_end1)")     // server
+                                        
+                                        let user_start = self.datetotime(userdate: self.start_date!)
+                                        let user_end = self.datetotime(userdate: self.end_date!)
+                                        
+                                        print("user_start   - \(user_start)")     // user
+                                        print("user_end     - \(user_end)")     // user
+                                        
+                                        
+                                        
+                                        
+                                        if user_start >= server_start1 && user_end <= server_end1{
+                                            self.arr_search_spot.add(self.arrAllspot.object(at: i))
+                                        }
+                                    }
+                                }
+                            }
+                            if arr_day[j] == "Friday" {
+                                if (self.arrAllspot.object(at: i) as! NSDictionary).value(forKey: "friswitch") as! Bool == true{
+                                    
+                                    let arrFri = datedaydict.value(forKey: "Friday") as! NSArray
+                                    for m in 0..<arrFri.count{
+                                        
+                                        print(dict_spot.value(forKey: "friStartTime") as! String)
+                                        print(dict_spot.value(forKey: "friEndTime")  as! String)
+                                        
+                                        let friStartTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "friStartTime") as! String)
+                                        let friEndTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "friEndTime")  as! String)
+                                        print(friStartTime)
+                                        print(friEndTime)
+                                        
+                                        let server_start1 = self.datetotime(userdate: friStartTime)
+                                        let server_end1 = self.datetotime(userdate: friEndTime)
+                                        print("server   - \(server_start1)")     // server
+                                        print("server     - \(server_end1)")     // server
+                                        
+                                        let user_start = self.datetotime(userdate: self.start_date!)
+                                        let user_end = self.datetotime(userdate: self.end_date!)
+                                        
+                                        print("user_start   - \(user_start)")     // user
+                                        print("user_end     - \(user_end)")     // user
+                                        
+                                        if user_start >= server_start1 && user_end <= server_end1{
+                                            self.arr_search_spot.add(self.arrAllspot.object(at: i))
+                                        }
+                                    }
+                                }
+                            }
+                            if arr_day[j] == "Saturday" {
+                                if (self.arrAllspot.object(at: i) as! NSDictionary).value(forKey: "satswitch") as! Bool == true{
+                                    let arrsat = datedaydict.value(forKey: "Saturday") as! NSArray
+                                    for m in 0..<arrsat.count{
+                                        let satStartTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "satStartTime") as! String)
+                                        let satEndTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "satEndTime")  as! String)
+                                        
+                                        let server_start1 = self.datetotime(userdate: satStartTime)
+                                        let server_end1 = self.datetotime(userdate: satEndTime)
+                                        print("server   - \(server_start1)")     // server
+                                        print("server     - \(server_end1)")     // server
+                                        
+                                        let user_start = self.datetotime(userdate: self.start_date!)
+                                        let user_end = self.datetotime(userdate: self.end_date!)
+                                        
+                                        print("user_start   - \(user_start)")     // user
+                                        print("user_end     - \(user_end)")     // user
+                                        
+                                        if user_start >= server_start1 && user_end <= server_end1{
+                                            self.arr_search_spot.add(self.arrAllspot.object(at: i))
+                                        }
+                                    }
                                 }
                             }
                         }
                     }
-                }
-            }
-            print(arr_search_spot)
-            // Search Data load marker:-
-            Search_Spot()
-            Date_VIew.isHidden = true
+                    print(self.arr_search_spot)
+                    // Search Data load marker:-
+                    self.Search_Spot()
+                    self.Date_VIew.isHidden = true
         }
         endChange = false
     }
@@ -1121,9 +1636,10 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             let priceSPOT = Reservation.publicCalcPrice(startDateTimeString:START,endDateTimeString: END, basePrice: basePrice)
             
             //print(time_Price)
-            let numberOfPlaces = 2.0
-            let multiplier = pow(10.0, numberOfPlaces)
-            let doller = round(priceSPOT * multiplier) / multiplier
+            let doller = Reservation.priceToString(price: priceSPOT)
+//            let numberOfPlaces = 2.0
+//            let multiplier = pow(10.0, numberOfPlaces)
+//            let doller = round(priceSPOT * multiplier) / multiplier
             
             view_info.isHidden = false
             btn_close.isHidden = false
@@ -1303,11 +1819,11 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             print("end time :" + END)
             let basePrice = ((self.arrspot.object(at: index) as! NSDictionary).value(forKey: "basePricing") as! String)
             let priceSPOT = Reservation.publicCalcPrice(startDateTimeString:START,endDateTimeString: END, basePrice: basePrice)
-            
+             let doller = Reservation.priceToString(price: priceSPOT)
             //print(time_Price)
-            let numberOfPlaces = 2.0
-            let multiplier = pow(10.0, numberOfPlaces)
-            let doller = round(priceSPOT * multiplier) / multiplier
+//            let numberOfPlaces = 2.0
+//            let multiplier = pow(10.0, numberOfPlaces)
+//            let doller = round(priceSPOT * multiplier) / multiplier
             
 //            let price  = (arrspot.object(at: index) as! NSDictionary).value(forKey: "hourlyPricing") as?  String
 //            let doller = (price! as NSString).integerValue
@@ -1663,7 +2179,61 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                         for (theKey, theValue) in dictdata {
                             print(theKey)
                             print(theValue)
-                            self.arrspot.add(theValue)
+                            self.arrAllspot.add(theValue)
+                           // self.arrspot.add(theValue)
+                            if dayInWeek == "Sunday"{
+                                if (theValue as! NSDictionary).value(forKey: "sunswitch") as! Int  == 1
+                                {
+                                    self.arrspot.add(theValue)
+
+                                }
+
+                            }
+                            if dayInWeek == "Monday"{
+                                if (theValue as! NSDictionary).value(forKey: "monswitch") as! Int  == 1
+                                {
+                                    self.arrspot.add(theValue)
+
+                                }
+
+                            }
+                            if dayInWeek == "Tuesday"{
+                                if (theValue as! NSDictionary).value(forKey: "thuswitch") as! Int  == 1
+                                {
+                                    self.arrspot.add(theValue)
+
+                                }
+                            }
+                            if dayInWeek == "Wednesday"{
+                                if (theValue as! NSDictionary).value(forKey: "wedswitch") as! Int  == 1
+                                {
+                                    self.arrspot.add(theValue)
+
+                                }
+
+                            }
+                            if dayInWeek == "Thursday"{
+
+                                if (theValue as! NSDictionary).value(forKey: "thuswitch") as! Int  == 1
+                                {
+                                    self.arrspot.add(theValue)
+
+                                }
+                            }
+                            if dayInWeek == "Friday"{
+                                if (theValue as! NSDictionary).value(forKey: "friswitch") as! Int  == 1
+                                {
+                                    self.arrspot.add(theValue)
+
+                                }
+                            }
+                            if dayInWeek == "Saturday"{
+                                if (theValue as! NSDictionary).value(forKey: "satswitch") as! Int  == 1
+                                {
+                                    self.arrspot.add(theValue)
+
+                                }
+                            }
                         }
                         //                        self.loadEventsToMap(lat: self.userlatitude, long: self.userlongitude)
                     }
@@ -1673,6 +2243,52 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                 if self.arrspot.count > 0 {
                     
                     for tag in 0 ..< self.arrspot.count {
+//                        if dayInWeek == "Sunday"{
+//                            if (self.arrspot[tag] as! NSDictionary).value(forKey: "sunswitch") as! Int  == 0
+//                            {
+//                                return
+//                            }
+//                        }
+//                        if dayInWeek == "Monday"{
+//                            if (self.arrspot[tag] as! NSDictionary).value(forKey: "monswitch") as! Int  == 0
+//                            {
+//                                return
+//
+//                            }
+//
+//                        }
+//                        if dayInWeek == "Tuesday"{
+//                            if (self.arrspot[tag] as! NSDictionary).value(forKey: "thuswitch") as! Int  == 0
+//                            {
+//                                    return
+//                            }
+//                        }
+//                        if dayInWeek == "Wednesday"{
+//                            if (self.arrspot[tag] as! NSDictionary).value(forKey: "wedswitch") as! Int  == 0
+//                            {
+//                                return
+//                            }
+//
+//                        }
+//                        if dayInWeek == "Thursday"{
+//
+//                            if (self.arrspot[tag] as! NSDictionary).value(forKey: "thuswitch") as! Int  == 0
+//                            {
+//                                return
+//                            }
+//                        }
+//                        if dayInWeek == "Friday"{
+//                            if (self.arrspot[tag] as! NSDictionary).value(forKey: "friswitch") as! Int  == 0
+//                            {
+//                                return
+//                            }
+//                        }
+//                        if dayInWeek == "Saturday"{
+//                            if (self.arrspot[tag] as! NSDictionary).value(forKey: "satswitch") as! Int  == 0
+//                            {
+//                                return
+//                            }
+//                        }
                         let marker = GMSMarker()
                         let lat1 = (self.arrspot.object(at: tag) as! NSDictionary).value(forKey: "user_lat") as! String
                         let long1 = (self.arrspot.object(at: tag) as! NSDictionary).value(forKey: "user_long") as! String
@@ -1698,7 +2314,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                         markerimg.backgroundColor = UIColor.clear
                         customView.addSubview(markerimg)
                         let lbl_marker = UILabel()
-                        lbl_marker.frame = CGRect(x: 0, y: (markerimg.frame.height/2)-25, width: markerimg.frame.width, height: 40)
+                        lbl_marker.frame = CGRect(x: 10, y: (markerimg.frame.height/2)-25, width: markerimg.frame.width-20, height: 40)
+                        //lbl_marker.backgroundColor = UIColor.red
                         markerimg.addSubview(lbl_marker)
                         
                         lbl_marker.textAlignment = .center
@@ -1719,10 +2336,11 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                         let basePrice = (self.arrspot.object(at: tag) as! NSDictionary).value(forKey: "basePricing") as! String
                         let priceSPOT = Reservation.publicCalcPrice(startDateTimeString:START,endDateTimeString: END, basePrice: basePrice)
                         //    print(time_Price)
-                        let numberOfPlaces = 2.0
-                        let multiplier = pow(10.0, numberOfPlaces)
-                        let rounded = round(priceSPOT * multiplier) / multiplier
-                        lbl_marker.text = "$\(rounded)"
+                         let dollerr = Reservation.priceToString(price: priceSPOT)
+//                        let numberOfPlaces = 2.0
+//                        let multiplier = pow(10.0, numberOfPlaces)
+//                        let rounded = round(priceSPOT * multiplier) / multiplier
+                        lbl_marker.text = "$\(dollerr)"
 
                         marker.iconView = customView
                         
@@ -1763,9 +2381,9 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         markerimg.backgroundColor = UIColor.clear
         customView.addSubview(markerimg)
         let lbl_marker = UILabel()
-        lbl_marker.frame = CGRect(x: 0, y: (markerimg.frame.height/2)-25, width: markerimg.frame.width, height: 40)
+        lbl_marker.frame = CGRect(x: 10, y: (markerimg.frame.height/2)-25, width: markerimg.frame.width-20, height: 40)
         markerimg.addSubview(lbl_marker)
-        
+        //lbl_marker.backgroundColor = UIColor.red
         lbl_marker.textAlignment = .center
         lbl_marker.numberOfLines = 1;
         lbl_marker.text = "$\(doller)"
@@ -1829,9 +2447,9 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                     markerimg.backgroundColor = UIColor.clear
                     customView.addSubview(markerimg)
                     let lbl_marker = UILabel()
-                    lbl_marker.frame = CGRect(x: 0, y: (markerimg.frame.height/2)-25, width: markerimg.frame.width, height: 40)
+                    lbl_marker.frame = CGRect(x: 10, y: (markerimg.frame.height/2)-25, width: markerimg.frame.width-20, height: 40)
                     markerimg.addSubview(lbl_marker)
-                    
+                    //lbl_marker.backgroundColor = UIColor.red
                     lbl_marker.textAlignment = .center
                     lbl_marker.numberOfLines = 1;
                     lbl_marker.text = "$\(doller)"
@@ -1900,12 +2518,14 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                 markerimg.backgroundColor = UIColor.clear
                 customView.addSubview(markerimg)
                 let lbl_marker = UILabel()
-                lbl_marker.frame = CGRect(x: 0, y: (markerimg.frame.height/2)-25, width: markerimg.frame.width, height: 40)
+                lbl_marker.frame = CGRect(x: 10, y: (markerimg.frame.height/2)-25, width: markerimg.frame.width-20, height: 40)
                 markerimg.addSubview(lbl_marker)
+                //lbl_marker.backgroundColor = UIColor.red
                 lbl_marker.textAlignment = .center
-                //lbl_marker.numberOfLines = 1;
+                lbl_marker.adjustsFontSizeToFitWidth = true
+                lbl_marker.numberOfLines = 1;
                 lbl_marker.minimumScaleFactor = 0.5;
-                //lbl_marker.adjustsFontSizeToFitWidth = true;
+                lbl_marker.adjustsFontSizeToFitWidth = true;
                 
                 if Time_price == true {
                     
@@ -1981,11 +2601,12 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                     let priceSPOT = Reservation.publicCalcPrice(startDateTimeString:START,endDateTimeString: END, basePrice: basePrice)
                     
                     //    print(time_Price)
-                    let numberOfPlaces = 2.0
-                    let multiplier = pow(10.0, numberOfPlaces)
-                    let rounded = round(priceSPOT * multiplier) / multiplier
-                    
-                    lbl_marker.text = "$\(rounded)"
+//                    let numberOfPlaces = 2.0
+//                    let multiplier = pow(10.0, numberOfPlaces)
+//                    let rounded = round(priceSPOT * multiplier) / multiplier
+                    let doller = Reservation.priceToString(price: priceSPOT)
+
+                    lbl_marker.text = "$\(doller)"
                     //lbl_marker.text = "$\(String(priceSPOT))"
                     
                 }else{
