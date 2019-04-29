@@ -285,7 +285,7 @@ extension ReservationsViewController: UITableViewDelegate, UITableViewDataSource
         
         let res = resOnDay[indexPath.row]
         
-        cell?.spotImageView.image = UIImage.init(named: res.spot.spotImage)
+        cell?.spotImageView.sd_setImage(with: URL(string: res.spot.spotImage), placeholderImage: UIImage(named: "emptySpot"))
         cell?.addressLabel.text = res.spot.address
         cell?.cityStateLabel.text = res.spot.town + ", " + res.spot.state
         cell?.timeLabel.text = "Begin: " + res.startDateTime
@@ -293,6 +293,15 @@ extension ReservationsViewController: UITableViewDelegate, UITableViewDataSource
         cell?.delegate = self
         
         return cell!
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let res = resOnDay[indexPath.row]
+        print(res)
+        let vc = self.storyboard?.instantiateViewController(withIdentifier: "ReservationsDetailViewController") as! ReservationsDetailViewController
+        vc.resOnDay = resOnDay
+        vc.index = indexPath.row
+        self.present(vc, animated: true, completion: nil)
     }
     
     // MARK:- NAVIGATE TO LOCATION
