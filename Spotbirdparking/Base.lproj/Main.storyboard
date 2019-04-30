@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="88Y-zQ-ULl">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="88Y-zQ-ULl">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -233,10 +233,10 @@
                                         </connections>
                                     </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DjM-en-wqx">
-                                        <rect key="frame" x="286" y="100" width="60" height="60"/>
+                                        <rect key="frame" x="296" y="113" width="50" height="50"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="60" id="Nwp-nD-aGq"/>
-                                            <constraint firstAttribute="height" constant="60" id="mqk-4R-mw1"/>
+                                            <constraint firstAttribute="height" constant="50" id="Kx6-Mg-hdv"/>
+                                            <constraint firstAttribute="width" constant="50" id="owy-Mk-44O"/>
                                         </constraints>
                                     </imageView>
                                 </subviews>
@@ -247,7 +247,6 @@
                                     <constraint firstItem="bu5-mp-kbB" firstAttribute="top" secondItem="mrR-4b-4rH" secondAttribute="bottom" constant="3" id="Eht-rB-919"/>
                                     <constraint firstItem="nQH-iD-idv" firstAttribute="top" secondItem="HCK-NB-Bgj" secondAttribute="bottom" constant="1" id="GtZ-EN-UWQ"/>
                                     <constraint firstAttribute="trailing" secondItem="mrR-4b-4rH" secondAttribute="trailing" id="Huj-aU-k7g"/>
-                                    <constraint firstItem="DjM-en-wqx" firstAttribute="top" secondItem="HCK-NB-Bgj" secondAttribute="bottom" constant="13" id="MFB-OL-UXp"/>
                                     <constraint firstItem="cn4-cD-0MP" firstAttribute="top" secondItem="XMc-xd-T8H" secondAttribute="bottom" constant="6" id="N7N-vq-dGE"/>
                                     <constraint firstItem="cn4-cD-0MP" firstAttribute="leading" secondItem="QhX-kS-Lr8" secondAttribute="leading" constant="8" id="ONS-tI-ohR"/>
                                     <constraint firstAttribute="bottom" secondItem="bu5-mp-kbB" secondAttribute="bottom" constant="5" id="WSK-eF-sxX"/>
@@ -260,6 +259,7 @@
                                     <constraint firstAttribute="trailing" secondItem="DjM-en-wqx" secondAttribute="trailing" constant="19" id="gCe-Dt-HD2"/>
                                     <constraint firstAttribute="trailing" secondItem="HCK-NB-Bgj" secondAttribute="trailing" constant="9" id="mBp-SU-RG8"/>
                                     <constraint firstItem="XMc-xd-T8H" firstAttribute="top" secondItem="QhX-kS-Lr8" secondAttribute="top" constant="15" id="mO0-Mp-TXR"/>
+                                    <constraint firstItem="DjM-en-wqx" firstAttribute="top" secondItem="HCK-NB-Bgj" secondAttribute="bottom" constant="26" id="mbr-BA-V3V"/>
                                     <constraint firstItem="HCK-NB-Bgj" firstAttribute="top" secondItem="QhX-kS-Lr8" secondAttribute="top" constant="7" id="nsM-u7-Szh"/>
                                     <constraint firstItem="7Q2-Wa-yH1" firstAttribute="leading" secondItem="QhX-kS-Lr8" secondAttribute="leading" constant="8" id="oNs-x6-jxX"/>
                                     <constraint firstItem="mrR-4b-4rH" firstAttribute="leading" secondItem="QhX-kS-Lr8" secondAttribute="leading" id="oid-ao-cGh"/>
@@ -645,54 +645,61 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="123-45-6789" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TTl-HV-LtV" customClass="SSNTextField" customModule="Spotbirdparking" customModuleProvider="target">
-                                <rect key="frame" x="8" y="72" width="359" height="30"/>
-                                <nil key="textColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <action selector="asdf:" destination="bJv-JF-HxE" eventType="editingDidEnd" id="GB4-1Q-Ocm"/>
-                                </connections>
-                            </textField>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BOR-mr-nKy">
-                                <rect key="frame" x="8" y="110" width="359" height="10"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="10" id="AV2-Gs-B3F"/>
-                                </constraints>
-                                <state key="normal" title="Why does Stripe need SSN?"/>
-                                <connections>
-                                    <action selector="WhySSNButton:" destination="HFA-QH-XJa" eventType="touchUpInside" id="R2p-De-dhD"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wNb-3m-5vD">
-                                <rect key="frame" x="8" y="128" width="359" height="50"/>
-                                <color key="backgroundColor" red="0.20000000000000001" green="0.79607843140000001" blue="0.35294117650000001" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="50" id="flq-dU-NmK"/>
-                                </constraints>
-                                <state key="normal" title="Submit Info">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="submitInfo:" destination="Mzv-un-pCS" eventType="touchUpInside" id="HZ8-1r-bfq"/>
-                                </connections>
-                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="xdc-Pg-JAo">
+                                <rect key="frame" x="8" y="72" width="359" height="134.5"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Invalid Social Security Number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VOI-6X-K4S">
+                                        <rect key="frame" x="0.0" y="0.0" width="359" height="20.5"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="123-45-6789" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TTl-HV-LtV" customClass="SSNTextField" customModule="Spotbirdparking" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28.5" width="359" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <action selector="asdf:" destination="bJv-JF-HxE" eventType="editingDidEnd" id="GB4-1Q-Ocm"/>
+                                        </connections>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BOR-mr-nKy">
+                                        <rect key="frame" x="0.0" y="66.5" width="359" height="10"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="10" id="AV2-Gs-B3F"/>
+                                        </constraints>
+                                        <state key="normal" title="Why does Stripe need SSN?"/>
+                                        <connections>
+                                            <action selector="WhySSNButton:" destination="HFA-QH-XJa" eventType="touchUpInside" id="R2p-De-dhD"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wNb-3m-5vD">
+                                        <rect key="frame" x="0.0" y="84.5" width="359" height="50"/>
+                                        <color key="backgroundColor" red="0.20000000000000001" green="0.79607843140000001" blue="0.35294117650000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="flq-dU-NmK"/>
+                                        </constraints>
+                                        <state key="normal" title="Submit Info">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="submitButton:" destination="HFA-QH-XJa" eventType="touchUpInside" id="DED-iu-DSb"/>
+                                            <action selector="submitInfo:" destination="Mzv-un-pCS" eventType="touchUpInside" id="HZ8-1r-bfq"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="Yn9-Ki-gcH" firstAttribute="trailing" secondItem="BOR-mr-nKy" secondAttribute="trailing" constant="8" id="L3a-jI-VcK"/>
-                            <constraint firstItem="TTl-HV-LtV" firstAttribute="leading" secondItem="Yn9-Ki-gcH" secondAttribute="leading" constant="8" id="Onf-9P-0aJ"/>
-                            <constraint firstItem="wNb-3m-5vD" firstAttribute="leading" secondItem="Yn9-Ki-gcH" secondAttribute="leading" constant="8" id="TpW-hC-6eJ"/>
-                            <constraint firstItem="Yn9-Ki-gcH" firstAttribute="trailing" secondItem="wNb-3m-5vD" secondAttribute="trailing" constant="8" id="baR-MJ-QrS"/>
-                            <constraint firstItem="BOR-mr-nKy" firstAttribute="top" secondItem="TTl-HV-LtV" secondAttribute="bottom" constant="8" id="cYn-cz-Y2f"/>
-                            <constraint firstItem="TTl-HV-LtV" firstAttribute="top" secondItem="Yn9-Ki-gcH" secondAttribute="top" constant="8" id="d15-lj-cr6"/>
-                            <constraint firstItem="BOR-mr-nKy" firstAttribute="leading" secondItem="Yn9-Ki-gcH" secondAttribute="leading" constant="8" id="ugP-mE-Sdh"/>
-                            <constraint firstItem="wNb-3m-5vD" firstAttribute="top" secondItem="BOR-mr-nKy" secondAttribute="bottom" constant="8" id="w9S-ep-53Z"/>
-                            <constraint firstItem="Yn9-Ki-gcH" firstAttribute="trailing" secondItem="TTl-HV-LtV" secondAttribute="trailing" constant="8" id="zSH-48-xFZ"/>
+                            <constraint firstItem="Yn9-Ki-gcH" firstAttribute="trailing" secondItem="xdc-Pg-JAo" secondAttribute="trailing" constant="8" id="JEh-c4-Anq"/>
+                            <constraint firstItem="xdc-Pg-JAo" firstAttribute="top" secondItem="Yn9-Ki-gcH" secondAttribute="top" constant="8" id="vdn-ZD-zVI"/>
+                            <constraint firstItem="xdc-Pg-JAo" firstAttribute="leading" secondItem="Yn9-Ki-gcH" secondAttribute="leading" constant="8" id="xBQ-or-vxp"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Yn9-Ki-gcH"/>
                     </view>
                     <connections>
+                        <outlet property="invalidSSNLabel" destination="VOI-6X-K4S" id="bs9-ra-ki8"/>
                         <outlet property="ssnTextField" destination="TTl-HV-LtV" id="Xus-XQ-zz3"/>
                     </connections>
                 </viewController>
@@ -2857,15 +2864,15 @@
     </scenes>
     <resources>
         <image name="Back" width="30" height="30"/>
-        <image name="EmptyProfile" width="552.5" height="552.5"/>
-        <image name="Profile" width="37.5" height="37.5"/>
+        <image name="EmptyProfile" width="552" height="552"/>
+        <image name="Profile" width="37" height="37"/>
         <image name="Reservations" width="25" height="25"/>
         <image name="addButton" width="376" height="379"/>
-        <image name="cal_new" width="25" height="23.5"/>
+        <image name="cal_new" width="25" height="23"/>
         <image name="drivewayParking" width="237" height="237"/>
         <image name="garageParking" width="237" height="237"/>
         <image name="lotParking" width="237" height="237"/>
-        <image name="search_new" width="22.5" height="22.5"/>
+        <image name="search_new" width="22" height="22"/>
         <image name="streetParking" width="237" height="237"/>
     </resources>
     <inferredMetricsTieBreakers>

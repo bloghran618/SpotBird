@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9AD4AFD812363EF8A282D98AD4E99232"
-               BlueprintName = "SDWebImage"
+               BlueprintIdentifier = "B150C9B12ED33575AD797690CF28AFD2"
+               BlueprintName = "RNCryptor"
                ReferencedContainer = "container:Pods.xcodeproj"
-               BuildableName = "SDWebImage.framework">
+               BuildableName = "RNCryptor.framework">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

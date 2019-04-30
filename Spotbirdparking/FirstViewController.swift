@@ -1712,7 +1712,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
 //            let dateend = formatter.string(from:  end_date!)
 
             
-            lbl_spot_time.text = "Spot Time - \(strPickerStart) to \(strPickerEnd)"
+            lbl_spot_time.text = "Time: \(strPickerStart) to \(strPickerEnd)"
             
             if (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Garage"{
                 img_spot_type.image = UIImage(named:"garageParking")
@@ -1861,7 +1861,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                 time = "\((arrspot.object(at: index) as! NSDictionary).value(forKey: "sunStartTime") as!  String)-\((arrspot.object(at: index) as! NSDictionary).value(forKey: "sunEndTime") as!  String)"
             }
             
-            lbl_spot_time.text = "Spot Time - \(time)"
+            lbl_spot_time.text = "Time: \(time)"
             
             if (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Garage"{
                 img_spot_type.image = UIImage(named:"garageParking")
