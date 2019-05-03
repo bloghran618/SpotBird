@@ -163,7 +163,9 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         
         timearrayset()
         start_datepic.minimumDate = Date()
-        end_datepic.minimumDate = calendar.date(byAdding: .hour, value: 3, to:  Date())
+        end_datepic.minimumDate = calendar.date(byAdding: .hour, value: 1, to:  Date())
+        end_datepic.date = calendar.date(byAdding: .hour, value: 3, to:  Date())!
+
         // list load
         setStartEndDate()
         
@@ -331,7 +333,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         btn_close.isHidden = true
         if Date_VIew.isHidden == true{
             // Date_VIew.isHidden = false
-            Time_price = true
+            
             UIView.transition(with: Date_VIew, duration: 0.3, options: .transitionCurlDown, animations: {
                 self.Date_VIew.isHidden = false
             })
@@ -872,7 +874,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
 //    }
     
     @IBAction func btn_Date_search_done(_ sender: UIButton) {
-        
+        Time_price = true
         let d1 = start_datepic.date
         let d2 = end_datepic.date
         
@@ -1738,11 +1740,48 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             
             if arr.count>0 {
                 
+//                var str_addrss = ""
+//                if  let check = arr[0] as? Int{
+//                    for i in 1..<arr.count{
+//                        str_addrss.append(arr[i])
+//                    }
+//                    lbl_address.text = str_addrss
+//
+//                }else
+//                {
+//                    lbl_address.text = (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "address") as?  String
+//
+//                }
+                
                 var str_addrss = ""
-                if  let check = arr[0] as? Int{
+                let str = arr[0]
+                let strInt = Int(str)
+                if  strInt != nil{
                     
-                    for i in 1..<arr.count{
-                        str_addrss.append(arr[i])
+                    for i in 0..<arr.count{
+                        if i == 0
+                        {
+                            if strInt != nil{
+                                
+                            }else
+                            {
+                                str_addrss.append("\(arr[i])" )
+                            }
+                            
+                        }else{
+                            if i == 1
+                            {
+                                if strInt != nil{
+                                    str_addrss.append("\(arr[i])" )
+                                }else
+                                {
+                                    str_addrss.append(" \(arr[i])" )
+                                }
+                            }else
+                            {
+                                str_addrss.append(" \(arr[i])" )
+                            }
+                        }
                     }
                     
                     lbl_address.text = str_addrss
@@ -1861,7 +1900,9 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                 time = "\((arrspot.object(at: index) as! NSDictionary).value(forKey: "sunStartTime") as!  String)-\((arrspot.object(at: index) as! NSDictionary).value(forKey: "sunEndTime") as!  String)"
             }
             
-            lbl_spot_time.text = "Time: \(time)"
+            lbl_spot_time.text = "Time: \(strPickerStart) to \(strPickerEnd)"
+
+          //  lbl_spot_time.text = "Time: \(time)"
             
             if (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Garage"{
                 img_spot_type.image = UIImage(named:"garageParking")
@@ -1889,14 +1930,29 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                 let strInt = Int(str)
                 if  strInt != nil{
                     
-                    for i in 1..<arr.count{
+                    for i in 0..<arr.count{
                         if i == 0
                         {
-                            str_addrss.append("\(arr[i])" )
+                            if strInt != nil{
+                                
+                            }else
+                            {
+                                str_addrss.append("\(arr[i])" )
+                            }
 
                         }else{
-                            str_addrss.append(" \(arr[i])" )
-
+                            if i == 1
+                            {
+                                if strInt != nil{
+                                    str_addrss.append("\(arr[i])" )
+                                }else
+                                {
+                                    str_addrss.append(" \(arr[i])" )
+                                }
+                            }else
+                            {
+                                str_addrss.append(" \(arr[i])" )
+                            }
                         }
                     }
                     
