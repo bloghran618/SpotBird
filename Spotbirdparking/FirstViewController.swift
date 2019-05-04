@@ -946,11 +946,12 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             print(start_date)
             print(end_date)
             
-            let addhour = calendar.date(byAdding: .hour, value: 3, to: start_date!)
-            end_date = addhour!
-            strPickerEnd = formatter.string(from:  end_date!)
-            
-            print(addhour)
+//            let addhour = calendar.date(byAdding: .hour, value: 3, to: start_date!)
+//            end_date = addhour!
+//            strPickerEnd = formatter.string(from:  end_date!)
+//
+//            print(addhour)
+             end_date = end_datepic.date
             print(end_date)
         }
         
@@ -1014,6 +1015,10 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         }
         else if (datetostring(dates: end_date!)) == (datetostring(dates: start_date!)) && end_date!.time < start_date!.time {
             let alert = UIAlertController(title: "Spotbirdparking", message: "End Time greater than Start date.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }else if start_date! == end_date!  {
+            let alert = UIAlertController(title: "Spotbirdparking", message: " Start date and end date is equal.", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
@@ -1159,7 +1164,6 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                         if user_start >= server_start1 && user_end <= server_end1{
                                             self.arr_search_spot.add(self.arrAllspot.object(at: i))
                                         }
-                                        
                                     }
                                 }
                             }
@@ -2224,8 +2228,17 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             markerView.frame.size.height = 30
             //            self.CurrentLocMarker.iconView = markerView
             //            self.CurrentLocMarker.map = self.mapView
+            var spotStart_times = ""
+            var spotEnd_times = ""
+            let formatter = DateFormatter()
+            // initially set the format based on your datepicker date / server String
+            formatter.dateFormat = "yyyy-MM-dd"
+            formatter.timeZone = TimeZone(abbreviation: "GMT+0:00")
+            var str = formatter.string(from: Date())
             
             if snapshot.childrenCount > 0 {
+                formatter.dateFormat = "yyyy-MM-dd HH:mm"
+
                 self.arrspot.removeAllObjects()
                 for artists in snapshot.children.allObjects as! [DataSnapshot] {
                     let snapshotValue = snapshot.value as! NSDictionary
@@ -2233,65 +2246,129 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                     if dictdata.count>0{
                         
                         for (theKey, theValue) in dictdata {
-                            print(theKey)
-                            print(theValue)
+                          //  print(theKey)
+                          //  print(theValue)
                             self.arrAllspot.add(theValue)
                            // self.arrspot.add(theValue)
                             if dayInWeek == "Sunday"{
                                 if (theValue as! NSDictionary).value(forKey: "sunswitch") as! Int  == 1
                                 {
-                                    self.arrspot.add(theValue)
-
+                                    let spotStart_times = "\(str) \((theValue as! NSDictionary).value(forKey: "sunStartTime") as! String)"
+                                    let spotEnd_times = "\(str) \((theValue as! NSDictionary).value(forKey: "satEndTime") as! String)"
+                                    formatter.dateFormat = "yyyy-MM-dd h:mm a"
+                                    let dateDay1 = formatter.date(from: spotStart_times)
+                                    let dateDay2 = formatter.date(from: spotEnd_times)
+                                    formatter.dateFormat = "MMM dd h a"
+                                    if dateDay1!.isSmallerThan(self.start_date!) && dateDay2!.isGreaterThan(self.end_date!){
+                                        //Do Something...
+                                        self.arrspot.add(theValue)
+                                    }
                                 }
-
                             }
                             if dayInWeek == "Monday"{
                                 if (theValue as! NSDictionary).value(forKey: "monswitch") as! Int  == 1
                                 {
-                                    self.arrspot.add(theValue)
-
+                                    let spotStart_times = "\(str) \((theValue as! NSDictionary).value(forKey: "sunStartTime") as! String)"
+                                    let spotEnd_times = "\(str) \((theValue as! NSDictionary).value(forKey: "satEndTime") as! String)"
+                                    formatter.dateFormat = "yyyy-MM-dd h:mm a"
+                                    let dateDay1 = formatter.date(from: spotStart_times)
+                                    let dateDay2 = formatter.date(from: spotEnd_times)
+                                    formatter.dateFormat = "MMM dd h a"
+                                    if dateDay1!.isSmallerThan(self.start_date!) && dateDay2!.isGreaterThan(self.end_date!){
+                                        //Do Something...
+                                        self.arrspot.add(theValue)
+                                    }
                                 }
-
                             }
                             if dayInWeek == "Tuesday"{
                                 if (theValue as! NSDictionary).value(forKey: "thuswitch") as! Int  == 1
                                 {
-                                    self.arrspot.add(theValue)
-
+                                    let spotStart_times = "\(str) \((theValue as! NSDictionary).value(forKey: "sunStartTime") as! String)"
+                                    let spotEnd_times = "\(str) \((theValue as! NSDictionary).value(forKey: "satEndTime") as! String)"
+                                    formatter.dateFormat = "yyyy-MM-dd h:mm a"
+                                    let dateDay1 = formatter.date(from: spotStart_times)
+                                    let dateDay2 = formatter.date(from: spotEnd_times)
+                                    formatter.dateFormat = "MMM dd h a"
+                                    if dateDay1!.isSmallerThan(self.start_date!) && dateDay2!.isGreaterThan(self.end_date!){
+                                        //Do Something...
+                                        self.arrspot.add(theValue)
+                                    }
                                 }
                             }
                             if dayInWeek == "Wednesday"{
                                 if (theValue as! NSDictionary).value(forKey: "wedswitch") as! Int  == 1
                                 {
-                                    self.arrspot.add(theValue)
-
+                                    let spotStart_times = "\(str) \((theValue as! NSDictionary).value(forKey: "sunStartTime") as! String)"
+                                    let spotEnd_times = "\(str) \((theValue as! NSDictionary).value(forKey: "satEndTime") as! String)"
+                                    formatter.dateFormat = "yyyy-MM-dd h:mm a"
+                                    let dateDay1 = formatter.date(from: spotStart_times)
+                                    let dateDay2 = formatter.date(from: spotEnd_times)
+                                    formatter.dateFormat = "MMM dd h a"
+                                    if dateDay1!.isSmallerThan(self.start_date!) && dateDay2!.isGreaterThan(self.end_date!){
+                                        //Do Something...
+                                        self.arrspot.add(theValue)
+                                    }
                                 }
-
                             }
                             if dayInWeek == "Thursday"{
-
                                 if (theValue as! NSDictionary).value(forKey: "thuswitch") as! Int  == 1
                                 {
-                                    self.arrspot.add(theValue)
-
+                                    let spotStart_times = "\(str) \((theValue as! NSDictionary).value(forKey: "sunStartTime") as! String)"
+                                    let spotEnd_times = "\(str) \((theValue as! NSDictionary).value(forKey: "satEndTime") as! String)"
+                                    formatter.dateFormat = "yyyy-MM-dd h:mm a"
+                                    let dateDay1 = formatter.date(from: spotStart_times)
+                                    let dateDay2 = formatter.date(from: spotEnd_times)
+                                    formatter.dateFormat = "MMM dd h a"
+                                     if dateDay1!.isSmallerThan(self.start_date!) && dateDay2!.isGreaterThan(self.end_date!){
+                                        //Do Something...
+                                        self.arrspot.add(theValue)
+                                    }
                                 }
                             }
                             if dayInWeek == "Friday"{
                                 if (theValue as! NSDictionary).value(forKey: "friswitch") as! Int  == 1
                                 {
-                                    self.arrspot.add(theValue)
-
+                                    let spotStart_times = "\(str) \((theValue as! NSDictionary).value(forKey: "sunStartTime") as! String)"
+                                    let spotEnd_times = "\(str) \((theValue as! NSDictionary).value(forKey: "satEndTime") as! String)"
+                                    formatter.dateFormat = "yyyy-MM-dd h:mm a"
+                                    let dateDay1 = formatter.date(from: spotStart_times)
+                                    let dateDay2 = formatter.date(from: spotEnd_times)
+                                    formatter.dateFormat = "MMM dd h a"
+                                    if dateDay1!.isSmallerThan(self.start_date!) && dateDay2!.isGreaterThan(self.end_date!){
+                                        //Do Something...
+                                        self.arrspot.add(theValue)
+                                    }
                                 }
                             }
                             if dayInWeek == "Saturday"{
                                 if (theValue as! NSDictionary).value(forKey: "satswitch") as! Int  == 1
                                 {
-                                    self.arrspot.add(theValue)
-
+                                    let spotStart_times = "\(str) \((theValue as! NSDictionary).value(forKey: "sunStartTime") as! String)"
+                                    let spotEnd_times = "\(str) \((theValue as! NSDictionary).value(forKey: "satEndTime") as! String)"
+                                    formatter.dateFormat = "yyyy-MM-dd h:mm a"
+                                    let dateDay1 = formatter.date(from: spotStart_times)
+                                    let dateDay2 = formatter.date(from: spotEnd_times)
+                                    formatter.dateFormat = "MMM dd h a"
+                                    print((theValue as! NSDictionary).value(forKey: "address") as! String)
+                                    print("event date start \(dateDay1)")
+                                    print("picker date start \(self.start_date)")
+                                    print("event date end \(dateDay2)")
+                                    print("picker date end \(self.end_date)")
+                                   
+                                    if dateDay1!.isSmallerThan(self.start_date!) && dateDay2!.isGreaterThan(self.end_date!){
+                                        //Do Something...
+                                        self.arrspot.add(theValue)
+                                    }
+//                                    if dateDay1 <= datePicker1 && dateDay2 < datePicker2
+//                                    {
+//
+//                                    }
+                                    
+                                     //"Time: \(strPickerStart) to \(strPickerEnd)"
                                 }
                             }
                         }
-                        //                        self.loadEventsToMap(lat: self.userlatitude, long: self.userlongitude)
+                        //self.loadEventsToMap(lat: self.userlatitude, long: self.userlongitude)
                     }
                 }
                 
@@ -2397,7 +2474,6 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
 //                        let multiplier = pow(10.0, numberOfPlaces)
 //                        let rounded = round(priceSPOT * multiplier) / multiplier
                         lbl_marker.text = "$\(dollerr)"
-
                         marker.iconView = customView
                         
                     }
@@ -2856,6 +2932,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             format1 = timearray[row]
         }
         if pickerView == timepic2{
+            endChange = true
             format2 = timearray[row]
         }
     }
@@ -3092,3 +3169,17 @@ extension Date {
     }
 }
 
+extension Date {
+    
+    func isEqualTo(_ date: Date) -> Bool {
+        return self == date
+    }
+    
+    func isGreaterThan(_ date: Date) -> Bool {
+        return self > date
+    }
+    
+    func isSmallerThan(_ date: Date) -> Bool {
+        return self < date
+    }
+}

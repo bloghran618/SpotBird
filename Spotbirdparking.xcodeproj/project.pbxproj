@@ -702,7 +702,7 @@
 					"\"${PODS_ROOT}/Headers/Public/FirebaseAuthInterop\"",
 				);
 				INFOPLIST_FILE = Spotbirdparking/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -740,7 +740,7 @@
 					"\"${PODS_ROOT}/Headers/Public/FirebaseAuthInterop\"",
 				);
 				INFOPLIST_FILE = Spotbirdparking/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
