@@ -100,7 +100,7 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
         }
         else if profileOptions![(indexPath as NSIndexPath).row].option == "Payment" {
             print(self.paymentContext.hostViewController)
-            self.paymentContext.pushPaymentMethodsViewController()
+            self.paymentContext.pushPaymentOptionsViewController()
         }
         else if profileOptions![(indexPath as NSIndexPath).row].option == "List" {
             self.performSegue(withIdentifier: "Share", sender: self)

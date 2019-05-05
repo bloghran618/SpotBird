@@ -7,16 +7,21 @@
 //
 
 import UIKit
+//import Sodium
+//import libsodium
 import RNCryptor
+import Alamofire
 
 class ProvideSSNViewController: UIViewController, UITextFieldDelegate {
-
+    
     @IBOutlet weak var ssnTextField: SSNTextField!
     @IBOutlet weak var invalidSSNLabel: UILabel!
     let encryptionPW = "vFxAOvA246L6Syk7Cl426254C-sMJGxk"
+//    let sodium = Sodium()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         // set the format of the text field
         ssnTextField.setFormatting("###-##-####", replacementChar: "#")
@@ -51,9 +56,12 @@ class ProvideSSNViewController: UIViewController, UITextFieldDelegate {
             // hide the invalid SSN label
             self.invalidSSNLabel.isHidden = true
             
-            // encrypt the social security number for pass to backend
-            let encryptedSSN = encryptSSN(SSN: ssn, key: self.encryptionPW)
-            print("Here is your encrypted data: \(encryptedSSN)")
+            // encrypt the ssn before we send to backend
+            let encrypted = encryptSSN(SSN: Int(ssn)!)
+            print("This is the encrypted value: \(encrypted)")
+            
+            // send to stripe
+            self.saveSSNToStripe(encryptedSSN: encrypted)
         }
     }
     
@@ -70,9 +78,44 @@ class ProvideSSNViewController: UIViewController, UITextFieldDelegate {
             }
     }
     
-    func encryptSSN(SSN: String, key: String) -> String {
-        let SSNData = SSN.data(using: .utf8)!
-        let cipher = RNCryptor.encrypt(data: SSNData, withPassword: key)
-        return cipher.base64EncodedString()
+    //        let SSNData = SSN.bytes
+    //        let encrypted: Bytes = sodium.secretBox.seal(message: SSNData, secretKey: key)
+    //        return encrypted
+    
+    // VERY hacky, should update to real encryption someday
+    func encryptSSN(SSN: Int) -> Int {
+        
+//        let messageData = SSN.data(using: .utf8)!
+//        let cipherData = RNCryptor.encrypt(data: messageData, withPassword: self.encryptionPW)
+//        return cipherData.base64EncodedString()
+        
+        let a = 179424691
+        let b = 373587911
+        let encrypted = a * SSN + b
+        return encrypted
+    }
+    
+    // Send the social security number to Stripe
+    func saveSSNToStripe(encryptedSSN: Int) {
+        var url = "https://spotbird-backend-bloughran618.herokuapp.com/save_ssn"
+        
+        var params: [String: Any] = [
+            "account_id": AppState.sharedInstance.user.accounttoken,
+            "encrypted_ssn": encryptedSSN
+        ]
+        
+        Alamofire.request(url, method: .post, parameters: params)
+            .validate(statusCode: 200..<300)
+            .responseJSON { response in
+                switch response.result {
+                case .success:
+                    print("Returned with success")
+                    self.navigationController?.popViewController(animated: true)
+                case .failure(let error):
+                    let status = response.response?.statusCode
+                    print("Failed, status: \(status)")
+                    print("Here is the error: \(error)")
+                }
+        }
     }
 }
