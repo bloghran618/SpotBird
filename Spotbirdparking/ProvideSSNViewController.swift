@@ -9,7 +9,7 @@
 import UIKit
 //import Sodium
 //import libsodium
-import RNCryptor
+//import RNCryptor
 import Alamofire
 
 class ProvideSSNViewController: UIViewController, UITextFieldDelegate {
