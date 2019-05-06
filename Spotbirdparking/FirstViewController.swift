@@ -894,7 +894,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         // start date time check today
         let myStringafd = dateFormatter2.string(from: start_datepic.date)
         print(myStringafd)
-        if myStringafd.contains("AM")
+         if myStringafd.contains("AM")
         {
             if format1 == "AM"
             {
@@ -2528,7 +2528,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     
     // MARK:_ Load Marker to map :-  Spot
     func loadEventsToMap(lat:Double,long:Double){
-        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
         // mapView.isMyLocationEnabled  = false
         Spinner.start()
         for i in 0..<arrspot.count {
@@ -2542,16 +2543,16 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             //  let coordinate₀ = CLLocation(latitude: CLLocationDegrees(truncating: (arrspot.object(at: i) as! NSDictionary).value(forKey: "user_lat") as! NSNumber), longitude:CLLocationDegrees(truncating: (arrspot.object(at: i) as! NSDictionary).value(forKey: "user_long") as! NSNumber))
             let coordinate₁ = CLLocation(latitude: lat, longitude: long)
             let distacneinKM = (coordinate₀.distance(from: coordinate₁)/1000)
-            if distacneinKM < 5 {
-                print("dicstance ------<5 = \(distacneinKM)")
-                print(five)
-                five = five+1
-                if five < 5 {
+//            if distacneinKM < 5 {
+//                print("dicstance ------<5 = \(distacneinKM)")
+//                print(five)
+//                five = five+1
+              //  if five < 5 {
                     
                     let marker = GMSMarker()
-                    
-                    let lat1 = (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "user_lat") as! String
-                    let long1 = (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "user_long") as! String
+//                    
+//                    let lat1 = (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "user_lat") as! String
+//                    let long1 = (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "user_long") as! String
                     let lat = (lat1 as NSString).doubleValue
                     let long = (long1 as NSString).doubleValue
                     
@@ -2584,20 +2585,35 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                     //lbl_marker.backgroundColor = UIColor.red
                     lbl_marker.textAlignment = .center
                     lbl_marker.numberOfLines = 1;
-                    lbl_marker.text = "$\(doller)"
+                   
+                    let START = formatter.string(from: self.start_date!)
+                    print("start time :" + START)
+                    let END = formatter.string(from: self.end_date!)
+                    print("end time :" + END)
+                    //print(END)
+                    let basePrice = (self.arrspot.object(at:i) as! NSDictionary).value(forKey: "basePricing") as! String
+                    let priceSPOT = Reservation.publicCalcPrice(startDateTimeString:START,endDateTimeString: END, basePrice: basePrice)
+                    //    print(time_Price)
+                    let dollerr = Reservation.priceToString(price: priceSPOT)
+                    //                        let numberOfPlaces = 2.0
+                    //                        let multiplier = pow(10.0, numberOfPlaces)
+                    //                        let rounded = round(priceSPOT * multiplier) / multiplier
+                    lbl_marker.text = "$\(dollerr)"
+                    
+                   // lbl_marker.text = "$\(doller)"
                     lbl_marker.minimumScaleFactor = 0.5;
                     lbl_marker.adjustsFontSizeToFitWidth = true;
                     lbl_marker.textColor = UIColor.black
                     customView.backgroundColor = UIColor.clear
                     marker.iconView = customView
                     
-                }
+             //   }
                 //  Spinner.stop()
-            }
-            else{
-                //    Spinner.stop()
-                
-            }
+//            }
+//            else{
+//                //    Spinner.stop()
+//
+//            }
         }
         Spinner.stop()
     }
