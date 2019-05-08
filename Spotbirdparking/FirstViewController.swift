@@ -162,6 +162,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         dateFormatter.dateFormat = "MMM, dd, YYYY, H:mm:ss"
         
         timearrayset()
+
         start_datepic.minimumDate = Date()
         end_datepic.minimumDate = calendar.date(byAdding: .hour, value: 1, to:  Date())
         end_datepic.date = calendar.date(byAdding: .hour, value: 3, to:  Date())!
@@ -880,7 +881,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         
         let formatter = DateFormatter()
         // formatter.dateFormat = "EE MMM dd h a"
-        formatter.dateFormat = "MMM dd h a"
+        formatter.dateFormat = "MMM dd, h a"
         
         //        strPickerStart = formatter.string(from:  d1)
         //        strPickerEnd = formatter.string(from: d2)
@@ -998,8 +999,6 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         end_date = dateconvert(userdate: end_date!)
         print(strPickerStart)
         print(strPickerEnd)
-        
-        
         
         if time1 == true{
             time1 = false
@@ -1323,7 +1322,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         
         let formatter = DateFormatter()
         //formatter.dateFormat = "EE MMM dd h a"
-        formatter.dateFormat = "MMM dd h a"
+        formatter.dateFormat = "MMM dd, h a"
 
         //        strPickerStart = formatter.string(from:  d1)
         //        strPickerEnd = formatter.string(from: d2)
@@ -1862,7 +1861,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             print("end time :" + END)
             let basePrice = ((self.arrspot.object(at: index) as! NSDictionary).value(forKey: "basePricing") as! String)
             let priceSPOT = Reservation.publicCalcPrice(startDateTimeString:START,endDateTimeString: END, basePrice: basePrice)
-             let doller = Reservation.priceToString(price: priceSPOT)
+            let doller = Reservation.priceToString(price: priceSPOT)
             //print(time_Price)
 //            let numberOfPlaces = 2.0
 //            let multiplier = pow(10.0, numberOfPlaces)
