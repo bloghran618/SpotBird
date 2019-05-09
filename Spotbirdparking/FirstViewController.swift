@@ -1108,6 +1108,13 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             dateformats.timeZone = TimeZone.current
             dateformats.dateFormat  = "EEEE"
             let dayInWeek = dateformats.string(from: Date())
+            
+            let formatter = DateFormatter()
+            // initially set the format based on your datepicker date / server String
+            formatter.dateFormat = "yyyy-MM-dd"
+            formatter.timeZone = TimeZone(abbreviation: "GMT+0:00")
+            var str = formatter.string(from: Date())
+            
             for i in 0..<self.arrAllspot.count{
                         for j in 0..<arr_day.count{
                             let dict_spot = self.arrAllspot.object(at: i) as! NSDictionary
@@ -1121,22 +1128,32 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     let arrsun = datedaydict.value(forKey: "Sunday") as! NSArray
                                     for m in 0..<arrsun.count{
                                         
-                                        let sunStartTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "sunStartTime") as! String)
-                                        let sunEndTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "sunEndTime")  as! String)
-                                        
-                                        let server_start1 = self.datetotime(userdate: sunStartTime)
-                                        let server_end1 = self.datetotime(userdate: sunEndTime)
-                                        print("server   - \(server_start1)")     // server
-                                        print("server     - \(server_end1)")     // server
-                                        
-                                        let user_start = self.datetotime(userdate: self.start_date!)
-                                        let user_end = self.datetotime(userdate: self.end_date!)
-                                        
-                                        print("user_start   - \(user_start)")     // user
-                                        print("user_end     - \(user_end)")     // user
-                                        
-                                        // if user_start >= server_start1 && user_end <= server_end1{
-                                        self.arr_search_spot.add(self.arrAllspot.object(at: i))
+//                                        let sunStartTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "sunStartTime") as! String)
+//                                        let sunEndTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "sunEndTime")  as! String)
+//
+//                                        let server_start1 = self.datetotime(userdate: sunStartTime)
+//                                        let server_end1 = self.datetotime(userdate: sunEndTime)
+//                                        print("server   - \(server_start1)")     // server
+//                                        print("server     - \(server_end1)")     // server
+//
+//                                        let user_start = self.datetotime(userdate: self.start_date!)
+//                                        let user_end = self.datetotime(userdate: self.end_date!)
+//
+//                                        print("user_start   - \(user_start)")     // user
+//                                        print("user_end     - \(user_end)")     // user
+//
+//                                        // if user_start >= server_start1 && user_end <= server_end1{
+//                                        self.arr_search_spot.add(self.arrAllspot.object(at: i))
+                                        let spotStart_times = "\(str) \(dict_spot.value(forKey: "sunStartTime") as! String)"
+                                        let spotEnd_times = "\(str) \(dict_spot.value(forKey: "satEndTime") as! String)"
+                                        formatter.dateFormat = "yyyy-MM-dd h:mm a"
+                                        let dateDay1 = formatter.date(from: spotStart_times)
+                                        let dateDay2 = formatter.date(from: spotEnd_times)
+                                        formatter.dateFormat = "MMM dd h a"
+                                        if dateDay1!.isSmallerThan(self.start_date!) && dateDay2!.isGreaterThan(self.end_date!){
+                                            //Do Something...
+                                             self.arr_search_spot.add(self.arrAllspot.object(at: i))
+                                        }
                                     }
                                 }
                             }
@@ -1227,24 +1244,35 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     let arrThu = datedaydict.value(forKey: "Thursday") as! NSArray
                                     for m in 0..<arrThu.count{
                                         
-                                        let thuStartTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "thuStartTime") as! String)
-                                        let thuEndTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "thuEndTime")  as! String)
+//                                        let thuStartTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "thuStartTime") as! String)
+//                                        let thuEndTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "thuEndTime")  as! String)
+//
+//                                        let server_start1 = self.datetotime(userdate: thuStartTime)
+//                                        let server_end1 = self.datetotime(userdate: thuEndTime)
+//                                        print("server   - \(server_start1)")     // server
+//                                        print("server     - \(server_end1)")     // server
+//
+//                                        let user_start = self.datetotime(userdate: self.start_date!)
+//                                        let user_end = self.datetotime(userdate: self.end_date!)
+//
+//                                        print("user_start   - \(user_start)")     // user
+//                                        print("user_end     - \(user_end)")     // user
+//
+//
+//
+//
+//                                        if user_start >= server_start1 && user_end <= server_end1{
+//                                            self.arr_search_spot.add(self.arrAllspot.object(at: i))
+//                                        }
                                         
-                                        let server_start1 = self.datetotime(userdate: thuStartTime)
-                                        let server_end1 = self.datetotime(userdate: thuEndTime)
-                                        print("server   - \(server_start1)")     // server
-                                        print("server     - \(server_end1)")     // server
-                                        
-                                        let user_start = self.datetotime(userdate: self.start_date!)
-                                        let user_end = self.datetotime(userdate: self.end_date!)
-                                        
-                                        print("user_start   - \(user_start)")     // user
-                                        print("user_end     - \(user_end)")     // user
-                                        
-                                        
-                                        
-                                        
-                                        if user_start >= server_start1 && user_end <= server_end1{
+                                        let spotStart_times = "\(str) \(dict_spot.value(forKey: "thuStartTime") as! String)"
+                                        let spotEnd_times = "\(str) \(dict_spot.value(forKey: "thuEndTime") as! String)"
+                                        formatter.dateFormat = "yyyy-MM-dd h:mm a"
+                                        let dateDay1 = formatter.date(from: spotStart_times)
+                                        let dateDay2 = formatter.date(from: spotEnd_times)
+                                        formatter.dateFormat = "MMM dd h a"
+                                        if dateDay1!.isSmallerThan(self.start_date!) && dateDay2!.isGreaterThan(self.end_date!){
+                                            //Do Something...
                                             self.arr_search_spot.add(self.arrAllspot.object(at: i))
                                         }
                                     }
@@ -1256,26 +1284,37 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     let arrFri = datedaydict.value(forKey: "Friday") as! NSArray
                                     for m in 0..<arrFri.count{
                                         
-                                        print(dict_spot.value(forKey: "friStartTime") as! String)
-                                        print(dict_spot.value(forKey: "friEndTime")  as! String)
+//                                        print(dict_spot.value(forKey: "friStartTime") as! String)
+//                                        print(dict_spot.value(forKey: "friEndTime")  as! String)
+//
+//                                        let friStartTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "friStartTime") as! String)
+//                                        let friEndTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "friEndTime")  as! String)
+//                                        print(friStartTime)
+//                                        print(friEndTime)
+//
+//                                        let server_start1 = self.datetotime(userdate: friStartTime)
+//                                        let server_end1 = self.datetotime(userdate: friEndTime)
+//                                        print("server   - \(server_start1)")     // server
+//                                        print("server     - \(server_end1)")     // server
+//
+//                                        let user_start = self.datetotime(userdate: self.start_date!)
+//                                        let user_end = self.datetotime(userdate: self.end_date!)
+//
+//                                        print("user_start   - \(user_start)")     // user
+//                                        print("user_end     - \(user_end)")     // user
+//
+//                                        if user_start >= server_start1 && user_end <= server_end1{
+//                                            self.arr_search_spot.add(self.arrAllspot.object(at: i))
+//                                        }
                                         
-                                        let friStartTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "friStartTime") as! String)
-                                        let friEndTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "friEndTime")  as! String)
-                                        print(friStartTime)
-                                        print(friEndTime)
-                                        
-                                        let server_start1 = self.datetotime(userdate: friStartTime)
-                                        let server_end1 = self.datetotime(userdate: friEndTime)
-                                        print("server   - \(server_start1)")     // server
-                                        print("server     - \(server_end1)")     // server
-                                        
-                                        let user_start = self.datetotime(userdate: self.start_date!)
-                                        let user_end = self.datetotime(userdate: self.end_date!)
-                                        
-                                        print("user_start   - \(user_start)")     // user
-                                        print("user_end     - \(user_end)")     // user
-                                        
-                                        if user_start >= server_start1 && user_end <= server_end1{
+                                        let spotStart_times = "\(str) \(dict_spot.value(forKey: "friStartTime") as! String)"
+                                        let spotEnd_times = "\(str) \(dict_spot.value(forKey: "friEndTime") as! String)"
+                                        formatter.dateFormat = "yyyy-MM-dd h:mm a"
+                                        let dateDay1 = formatter.date(from: spotStart_times)
+                                        let dateDay2 = formatter.date(from: spotEnd_times)
+                                        formatter.dateFormat = "MMM dd h a"
+                                        if dateDay1!.isSmallerThan(self.start_date!) && dateDay2!.isGreaterThan(self.end_date!){
+                                            //Do Something...
                                             self.arr_search_spot.add(self.arrAllspot.object(at: i))
                                         }
                                     }
@@ -2529,6 +2568,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     func loadEventsToMap(lat:Double,long:Double){
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm"
+        Time_price = false
         // mapView.isMyLocationEnabled  = false
         Spinner.start()
         for i in 0..<arrspot.count {

@@ -41,7 +41,7 @@ class Login_ViewController: UIViewController {
         let ref = Database.database().reference().child("User").queryOrdered(byChild: "uname").queryEqual(toValue : txt_uname.text!)
         ref.observe(.value, with:{ (snapshot: DataSnapshot) in
             
-            if snapshot.exists()  {
+            if snapshot.exists() {
                 
                 for snap in snapshot.children {
                     
