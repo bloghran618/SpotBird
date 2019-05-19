@@ -1497,11 +1497,10 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     // MARK:_ BTn booknow
     @IBAction func btn_booknow(_ sender: UIButton) {
         
-        // This is all debug initializers. Once Kevin fixes code we will remove
-        //        AppState.sharedInstance.user.cars = [Car(make: "Make", model: "Model", year: "1999", carImage: "white", isDefault: true, car_id: "")] as! [Car]
-        //        AppState.sharedInstance.user.customertoken = "cus_ElclMGDE3hwGEC"
+        // show that we are doing something
+        Spinner.start()
         
-        // debug line, should be removed
+        // debug line, should be removed, eventually
         print("Lets do some booking!")
         
         print("your customer token is: \(AppState.sharedInstance.user.customertoken)")
@@ -1518,6 +1517,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             let alert = UIAlertController(title: "No Cars", message: "To reserve a spot you must create a default car in the Profile tab", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             self.present(alert, animated: true)
+            Spinner.stop()
             return
         }
         
@@ -1527,6 +1527,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             let alert = UIAlertController(title: "Account Info Misconfigured", message: "Your account does not appear to have a token to connect to our payment system. Please contact Customer Service", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             self.present(alert, animated: true)
+            Spinner.stop()
             return
         }
         
@@ -1543,6 +1544,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                 let alert = UIAlertController(title: "Spot Info Misconfigured", message: "Spot was incorrectly configured. Please try another spot.", preferredStyle: .alert)
                 alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                 self.present(alert, animated: true)
+                Spinner.stop()
                 return
             }
         })
@@ -1586,6 +1588,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             
             // make payment
             if(destination != "" && AppState.sharedInstance.user.customertoken != "") {
+                
                 // pay us
                 self.setPaymentContext(price: amount)
                 self.paymentContext.requestPayment()
@@ -1599,7 +1602,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         AppState.sharedInstance.user.addReservation(reservation: parkerReservation!)
         AppState.sharedInstance.user.addReservationToUser(reservation: ownerReservation!)
         
-        print("Some quick debug/learning")
+        Spinner.stop()
     }
     
     // MARK:_ BTn Autocomplete loation search
@@ -2292,7 +2295,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                 if (theValue as! NSDictionary).value(forKey: "sunswitch") as! Int  == 1
                                 {
                                     let spotStart_times = "\(str) \((theValue as! NSDictionary).value(forKey: "sunStartTime") as! String)"
-                                    let spotEnd_times = "\(str) \((theValue as! NSDictionary).value(forKey: "satEndTime") as! String)"
+                                    let spotEnd_times = "\(str) \((theValue as! NSDictionary).value(forKey: "sunEndTime") as! String)"
                                     formatter.dateFormat = "yyyy-MM-dd h:mm a"
                                     let dateDay1 = formatter.date(from: spotStart_times)
                                     let dateDay2 = formatter.date(from: spotEnd_times)
@@ -2366,8 +2369,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                             if dayInWeek == "Friday"{
                                 if (theValue as! NSDictionary).value(forKey: "friswitch") as! Int  == 1
                                 {
-                                    let spotStart_times = "\(str) \((theValue as! NSDictionary).value(forKey: "sunStartTime") as! String)"
-                                    let spotEnd_times = "\(str) \((theValue as! NSDictionary).value(forKey: "satEndTime") as! String)"
+                                    let spotStart_times = "\(str) \((theValue as! NSDictionary).value(forKey: "friStartTime") as! String)"
+                                    let spotEnd_times = "\(str) \((theValue as! NSDictionary).value(forKey: "friEndTime") as! String)"
                                     formatter.dateFormat = "yyyy-MM-dd h:mm a"
                                     let dateDay1 = formatter.date(from: spotStart_times)
                                     let dateDay2 = formatter.date(from: spotEnd_times)
