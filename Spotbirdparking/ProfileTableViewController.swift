@@ -113,9 +113,6 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
             print("Just doing some debugging...")
             
             // debug code:
-//            MyAPIClient.sharedClient.checkStripeAccount()
-//            print("Stripe Enabled? : \(AppState.sharedInstance.stripeStatus)")
-//            print("Stripe needs: \(AppState.sharedInstance.stripeNeeds)")
             print("Starting Spinner")
             Spinner.start()
             print("Waiting...")
@@ -124,6 +121,10 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
             Spinner.stop()
             print("Spinner Stopped")
         
+            
+            //            MyAPIClient.sharedClient.checkStripeAccount()
+            //            print("Stripe Enabled? : \(AppState.sharedInstance.stripeStatus)")
+            //            print("Stripe needs: \(AppState.sharedInstance.stripeNeeds)")
             
 //             AppState.sharedInstance.user.getReservations()
             

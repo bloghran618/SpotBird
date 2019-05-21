@@ -2309,8 +2309,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                             if dayInWeek == "Monday"{
                                 if (theValue as! NSDictionary).value(forKey: "monswitch") as! Int  == 1
                                 {
-                                    let spotStart_times = "\(str) \((theValue as! NSDictionary).value(forKey: "sunStartTime") as! String)"
-                                    let spotEnd_times = "\(str) \((theValue as! NSDictionary).value(forKey: "satEndTime") as! String)"
+                                    let spotStart_times = "\(str) \((theValue as! NSDictionary).value(forKey: "monStartTime") as! String)"
+                                    let spotEnd_times = "\(str) \((theValue as! NSDictionary).value(forKey: "monEndTime") as! String)"
                                     formatter.dateFormat = "yyyy-MM-dd h:mm a"
                                     let dateDay1 = formatter.date(from: spotStart_times)
                                     let dateDay2 = formatter.date(from: spotEnd_times)
