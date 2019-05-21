@@ -9,6 +9,7 @@
 
 import UIKit
 import Stripe
+import MBProgressHUD
 
 
 class ProfileTableViewController: UITableViewController, STPPaymentContextDelegate {
@@ -32,6 +33,8 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        showHud(message: "")
         
         // check the status of the associated Stripe account
         MyAPIClient.sharedClient.checkStripeAccount()
@@ -63,10 +66,29 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
             let alert = UIAlertController(title: "Payouts Disabled",
                                           message: message,
                                           preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+//            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { (UIAlertAction) in
+                self.hideHUD()
+            }))
             self.present(alert, animated: true)
+        }else{
+            self.hideHUD()
         }
     }
+    
+    
+    func showHud(message: String) {
+        let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
+        hud.labelText = message
+        hud.isUserInteractionEnabled = false
+    }
+    
+    func hideHUD() {
+        MBProgressHUD.hide(for: self.view, animated: true)
+    }
+
+    
+    
     
     // MARK: - UITableViewDataSource
     override func numberOfSections(in tableView: UITableView) -> Int {
