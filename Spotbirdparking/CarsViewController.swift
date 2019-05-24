@@ -21,6 +21,9 @@ class CarsViewController: UIViewController, UITableViewDataSource {
     var car: Car?
     
     override func viewDidLoad() {
+       
+        Spinner.stop()
+        
         super.viewDidLoad()
         CarsTable.dataSource = self
         self.CarsTable.rowHeight = 100
