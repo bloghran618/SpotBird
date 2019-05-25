@@ -25,6 +25,7 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        Spinner.stop()
         profilePhoto.layer.borderWidth = 1
         profilePhoto.layer.masksToBounds = false
         profilePhoto.layer.cornerRadius = profilePhoto.frame.height/2

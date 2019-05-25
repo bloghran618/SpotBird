@@ -56,7 +56,7 @@ class PayoutsViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        Spinner.stop()
         hideKeyboardWhenTappedAround()
         
         // set delegates

@@ -248,7 +248,7 @@ class MyAPIClient: NSObject, STPEphemeralKeyProvider {
                 //to get JSON return value
                 if let result = responseJSON.result.value {
                     let JSON = result as! NSDictionary
-
+                    Spinner.stop()
                     // get values from jsonify
                     let enabledNSNumber = JSON["enabled"] as! NSNumber
                     let dueList: NSArray = JSON["due"] as! NSArray

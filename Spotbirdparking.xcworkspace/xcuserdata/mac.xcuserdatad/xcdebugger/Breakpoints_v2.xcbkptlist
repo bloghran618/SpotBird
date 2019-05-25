@@ -10,12 +10,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spotbirdparking/FirstViewController.swift"
-            timestampString = "580114523.882354"
+            timestampString = "580401423.2790281"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1824"
-            endingLineNumber = "1824"
+            startingLineNumber = "1832"
+            endingLineNumber = "1832"
             landmarkName = "getlatlong()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Spotbirdparking/FirstViewController.swift"
+            timestampString = "580401423.279479"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1265"
+            endingLineNumber = "1265"
+            landmarkName = "mapView(_:didTap:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -22,7 +22,7 @@ class ProvideSSNViewController: UIViewController, UITextFieldDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        Spinner.stop()
         // set the format of the text field
         ssnTextField.setFormatting("###-##-####", replacementChar: "#")
         

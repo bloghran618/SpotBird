@@ -35,7 +35,8 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        showHud(message: "")
+        
+        Spinner.start()
         
         // check the status of the associated Stripe account
         MyAPIClient.sharedClient.checkStripeAccount()
@@ -115,6 +116,10 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
     }
     
     override  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+
+            Spinner.start()
+        
         if profileOptions![(indexPath as NSIndexPath).row].option == "You" {
             self.performSegue(withIdentifier: "You", sender: self)
         }

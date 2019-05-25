@@ -27,6 +27,10 @@ class ShareViewController: UIViewController, UITableViewDataSource {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+      
+        
+        Spinner.stop()
+        
         self.spotTable.dataSource = self
         self.spotTable.rowHeight = 100
 

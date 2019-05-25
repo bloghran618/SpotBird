@@ -1259,6 +1259,12 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         let index:Int! = Int(marker.accessibilityLabel!)
         print("Index is: \(String(index))")
         
+        let coordinate1 = CLLocation(latitude: self.CurrentLocMarker.position.latitude, longitude: self.CurrentLocMarker.position.longitude)
+        let coordinate2 = CLLocation(latitude: marker.position.latitude, longitude: marker.position.longitude)
+        
+        let distanceInMeters = coordinate1.distance(from: coordinate2) 
+        
+        
         if Time_price == true{
             
 //            let price  = (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "hourlyPricing") as?  String
@@ -1367,8 +1373,9 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             
             lbl_spot_type.text = (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as?  String
             
-            
-            lbl_price.text = "$\(doller)"
+            let intDist = Int(distanceInMeters)
+            lbl_price.text = "$\(doller)" + "  \(intDist) Miles"
+           // lbl_price.text = "$\(doller)"
             lbl_address.text = (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "address") as?  String
             //
             let str = (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "address") as!  String
@@ -1554,7 +1561,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             }
             
             lbl_spot_type.text = (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as?  String
-            lbl_price.text = "$\(doller)"
+            let intDist = Int(distanceInMeters)
+            lbl_price.text = "$\(doller)" + "  \(intDist) Miles"
             lbl_address.text = (arrspot.object(at: index) as! NSDictionary).value(forKey: "address") as?  String
             let str = (arrspot.object(at: index) as! NSDictionary).value(forKey: "address") as!  String
             var arr = str.components(separatedBy: " ")
