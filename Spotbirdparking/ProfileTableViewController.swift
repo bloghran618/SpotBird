@@ -10,6 +10,7 @@
 import UIKit
 import Stripe
 import MBProgressHUD
+import Firebase
 
 
 class ProfileTableViewController: UITableViewController, STPPaymentContextDelegate {
@@ -134,7 +135,7 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
         else if profileOptions![(indexPath as NSIndexPath).row].option == "Test Functionality" {
             print("Just doing some debugging...")
             
-            // debug code:
+//             debug code:
             print("Starting Spinner")
             Spinner.start()
             print("Waiting...")
@@ -142,6 +143,12 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
             print("Stopping Spinner")
             Spinner.stop()
             print("Spinner Stopped")
+            
+            let image = UIImage(named: "first")
+            self.savePicToFirebase(image: image!)
+            
+//            let pid = "asdf12"
+//            self.deletePicFromFirebase(pic_id: pid)
         
             
             //            MyAPIClient.sharedClient.checkStripeAccount()
@@ -160,6 +167,55 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
 //            
 //            print("All Spots??? \(AppState.sharedInstance.spots)")
 //            print("Reservations: \(AppState.sharedInstance.user.reservations)")
+        }
+    }
+    
+//    This function will be moved to the idDocumentViewController()
+    func savePicToFirebase(image: UIImage) {
+        print("thats some progress")
+        
+        // convert picture to correct data type
+        let data = UIImageJPEGRepresentation(image, 0.5)
+        
+        // make reference to where you are storing the picture
+        var storageRef: StorageReference {
+            return Storage.storage().reference().child("temp")
+        }
+        let randomUser = User()
+        let randomString = randomUser.randomStringWithLength(length: 8) as! String
+        let imageRef = storageRef.child(randomString + ".jpg")
+        
+        // upload the picture
+        let uploadTask = imageRef.putData(data!)
+        
+        // watch the upload for status (can also do .progress, .pause, .resume)
+        uploadTask.observe(.success) { snapshot in
+            print("upload was a success")
+        }
+        uploadTask.observe(.failure) { snapshot in
+            print("upload was a failure")
+        }
+        
+        print("done...")
+    }
+    
+    func deletePicFromFirebase(pic_id: String) {
+        
+        // make reference to the picture to delete
+        var storageRef: StorageReference {
+            return Storage.storage().reference().child("temp")
+        }
+        let imageRef = storageRef.child(pic_id + ".jpg")
+        
+        // delete the picture
+        imageRef.delete { error in
+            if let error = error {
+                print("ERROR: the picture was not deleted")
+                print("MESSAGE: \(error)")
+            }
+            else {
+                print("The picture was successfully deleted")
+            }
         }
     }
     
