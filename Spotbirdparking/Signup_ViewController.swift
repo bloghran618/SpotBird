@@ -27,7 +27,7 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        profilePhoto.layer.borderWidth = 1
+        profilePhoto.layer.borderWidth = 0
         profilePhoto.layer.masksToBounds = false
         profilePhoto.layer.cornerRadius = profilePhoto.frame.height/2
         profilePhoto.clipsToBounds = true
