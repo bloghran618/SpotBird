@@ -26,6 +26,7 @@
 		04E63848216211AD003EAC28 /* Signup_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E63847216211AD003EAC28 /* Signup_ViewController.swift */; };
 		04E6384A2162722F003EAC28 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E638492162722F003EAC28 /* CoreLocation.framework */; };
 		5FF0A639CF1B4D96F7FBA93E /* Pods_Spotbirdparking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 004FEE7D57FACF9250B89078 /* Pods_Spotbirdparking.framework */; };
+		B710B9952299FE1C00AF0C0E /* ProvideIDDocViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B710B9942299FE1C00AF0C0E /* ProvideIDDocViewController.swift */; };
 		B7141A4D20ED1DAF005B54D3 /* MyAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7141A4C20ED1DAF005B54D3 /* MyAPIClient.swift */; };
 		B71F2DE62086CDA800F47274 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71F2DE52086CDA800F47274 /* AppDelegate.swift */; };
 		B71F2DED2086CDA800F47274 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B71F2DEB2086CDA800F47274 /* Main.storyboard */; };
@@ -96,6 +97,7 @@
 		96BF38230272878D1241525C /* Pods-Spotbirdparking.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Spotbirdparking.release.xcconfig"; path = "Pods/Target Support Files/Pods-Spotbirdparking/Pods-Spotbirdparking.release.xcconfig"; sourceTree = "<group>"; };
 		A2E9D3CDA1B39711BA0D6344 /* Pods-Spotbirdparking.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Spotbirdparking.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Spotbirdparking/Pods-Spotbirdparking.debug.xcconfig"; sourceTree = "<group>"; };
 		B702B111212E361D004B3EF1 /* PriceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceViewController.swift; sourceTree = "<group>"; };
+		B710B9942299FE1C00AF0C0E /* ProvideIDDocViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProvideIDDocViewController.swift; sourceTree = "<group>"; };
 		B7141A4C20ED1DAF005B54D3 /* MyAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAPIClient.swift; sourceTree = "<group>"; };
 		B71F2DE22086CDA800F47274 /* Spotbirdparking.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spotbirdparking.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B71F2DE52086CDA800F47274 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -246,6 +248,7 @@
 				B702B111212E361D004B3EF1 /* PriceViewController.swift */,
 				B735CB9521C8A2EA00946C73 /* PayoutsViewController.swift */,
 				B72F7C1D227141AA001B6D6F /* ProvideSSNViewController.swift */,
+				B710B9942299FE1C00AF0C0E /* ProvideIDDocViewController.swift */,
 				B74DE6ED2178100F0049A31B /* ReservationsViewController.swift */,
 				04572D8E2276DB3600CDBB64 /* ReservationsDetailViewController.swift */,
 				B7BC7104218166AE00EE6F7A /* CustomCell.swift */,
@@ -516,6 +519,7 @@
 				B7D3B2D62172644500ADBAD4 /* Reservation.swift in Sources */,
 				B7A669D82134EC030057A283 /* AppState.swift in Sources */,
 				043E033721746CF300134F78 /* iToast.m in Sources */,
+				B710B9952299FE1C00AF0C0E /* ProvideIDDocViewController.swift in Sources */,
 				B7CD91E920F8298F00CFF016 /* SpotTableViewCell.swift in Sources */,
 				04CC3FB22261EC8B00FF30B2 /* FirstViewController.swift in Sources */,
 				B7CF24F120BCBB3000722933 /* YouViewController.swift in Sources */,

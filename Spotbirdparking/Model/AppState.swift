@@ -23,8 +23,8 @@ class AppState {
     var activeSpot: Spot
     //var reservations: [Reservation]
     var userid = ""
-     var change = ""
-    var stripeStatus = false
+    var change = ""
+    var stripeStatus = true
     var stripeNeeds = [String]()
        
     let appStateRoot = Database.database().reference() // can change root

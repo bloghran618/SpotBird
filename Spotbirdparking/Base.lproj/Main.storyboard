@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="88Y-zQ-ULl">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="88Y-zQ-ULl">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -647,7 +648,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="xdc-Pg-JAo">
-                                <rect key="frame" x="8" y="72" width="359" height="134.5"/>
+                                <rect key="frame" x="8" y="72" width="359" height="144.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Invalid Social Security Number" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VOI-6X-K4S">
                                         <rect key="frame" x="0.0" y="0.0" width="359" height="20.5"/>
@@ -665,9 +666,9 @@
                                         </connections>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BOR-mr-nKy">
-                                        <rect key="frame" x="0.0" y="66.5" width="359" height="10"/>
+                                        <rect key="frame" x="0.0" y="66.5" width="359" height="20"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="10" id="AV2-Gs-B3F"/>
+                                            <constraint firstAttribute="height" constant="20" id="Lrn-hd-OtT"/>
                                         </constraints>
                                         <state key="normal" title="Why does Stripe need SSN?"/>
                                         <connections>
@@ -675,7 +676,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wNb-3m-5vD">
-                                        <rect key="frame" x="0.0" y="84.5" width="359" height="50"/>
+                                        <rect key="frame" x="0.0" y="94.5" width="359" height="50"/>
                                         <color key="backgroundColor" red="0.20000000000000001" green="0.79607843140000001" blue="0.35294117650000001" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="flq-dU-NmK"/>
@@ -709,20 +710,120 @@
             </objects>
             <point key="canvasLocation" x="2456.8000000000002" y="-1042.128935532234"/>
         </scene>
-        <!--View Controller-->
+        <!--Provide ID-->
         <scene sceneID="URE-Dm-2RT">
             <objects>
-                <viewController id="Q1I-Dt-Qle" sceneMemberID="viewController">
+                <viewController title="Provide ID" id="Q1I-Dt-Qle" customClass="ProvideIDDocViewController" customModule="Spotbirdparking" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="J8c-7P-q2P">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="ofD-FA-QGQ">
+                                <rect key="frame" x="8" y="72" width="359" height="321"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacingType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Ofh-Zx-pfR">
+                                        <rect key="frame" x="0.0" y="0.0" width="359" height="20.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ID Front" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yWl-kA-vjh">
+                                                <rect key="frame" x="0.0" y="0.0" width="175.5" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ID Back" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZWK-0Q-uqy">
+                                                <rect key="frame" x="183.5" y="0.0" width="175.5" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="hwK-12-aa1">
+                                        <rect key="frame" x="0.0" y="21.5" width="359" height="175.5"/>
+                                        <subviews>
+                                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="emptySpot" translatesAutoresizingMaskIntoConstraints="NO" id="1gX-P3-UPd">
+                                                <rect key="frame" x="0.0" y="0.0" width="175.5" height="175.5"/>
+                                                <gestureRecognizers/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="1gX-P3-UPd" secondAttribute="height" multiplier="1:1" id="tgm-eG-fUN"/>
+                                                </constraints>
+                                                <connections>
+                                                    <outletCollection property="gestureRecognizers" destination="0lG-sz-iJQ" appends="YES" id="7qt-FL-7TU"/>
+                                                </connections>
+                                            </imageView>
+                                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="emptySpot" translatesAutoresizingMaskIntoConstraints="NO" id="2wk-C5-1wM">
+                                                <rect key="frame" x="183.5" y="0.0" width="175.5" height="175.5"/>
+                                                <gestureRecognizers/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="2wk-C5-1wM" secondAttribute="height" multiplier="1:1" id="Smz-UQ-srv"/>
+                                                </constraints>
+                                                <connections>
+                                                    <outletCollection property="gestureRecognizers" destination="kfN-vC-I6J" appends="YES" id="sQg-Li-saH"/>
+                                                </connections>
+                                            </imageView>
+                                        </subviews>
+                                    </stackView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Valid forms of ID include Passport, Driver's Liscence or government-issued photo ID" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Iut-zy-R9E">
+                                        <rect key="frame" x="0.0" y="198" width="359" height="41"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jo2-71-WoI">
+                                        <rect key="frame" x="0.0" y="240" width="359" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="J7C-fj-Nso"/>
+                                        </constraints>
+                                        <state key="normal" title="Why does Stripe need ID?"/>
+                                        <connections>
+                                            <action selector="whyStripeIDButton:" destination="Q1I-Dt-Qle" eventType="touchUpInside" id="qxw-W0-EsP"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i7V-Rz-q8q">
+                                        <rect key="frame" x="0.0" y="271" width="359" height="50"/>
+                                        <color key="backgroundColor" red="0.20000000000000001" green="0.79607843140000001" blue="0.35294117650000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="2zf-nS-Pj5"/>
+                                        </constraints>
+                                        <state key="normal" title="Submit Info">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="submitInfoButton:" destination="Q1I-Dt-Qle" eventType="touchUpInside" id="6Yy-yb-met"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="Ofh-Zx-pfR" firstAttribute="top" secondItem="ofD-FA-QGQ" secondAttribute="top" id="js5-pI-tPc"/>
+                                </constraints>
+                            </stackView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="ofD-FA-QGQ" firstAttribute="leading" secondItem="J8c-7P-q2P" secondAttribute="leading" constant="8" id="L6P-oR-AiZ"/>
+                            <constraint firstItem="ofD-FA-QGQ" firstAttribute="top" secondItem="2jZ-AA-Z6V" secondAttribute="top" constant="8" id="eal-Pv-VRB"/>
+                            <constraint firstItem="2jZ-AA-Z6V" firstAttribute="trailing" secondItem="ofD-FA-QGQ" secondAttribute="trailing" constant="8" id="xIW-Tz-Frs"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="2jZ-AA-Z6V"/>
                     </view>
+                    <connections>
+                        <outlet property="backIDImage" destination="2wk-C5-1wM" id="wg6-SE-aqy"/>
+                        <outlet property="backIDLabel" destination="ZWK-0Q-uqy" id="U80-kF-G7L"/>
+                        <outlet property="frontIDImage" destination="1gX-P3-UPd" id="Z81-cv-5jN"/>
+                        <outlet property="frontIDLabel" destination="yWl-kA-vjh" id="6Bz-RX-WHZ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IFq-97-SMk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="0lG-sz-iJQ">
+                    <connections>
+                        <action selector="frontIDTapGesture:" destination="Q1I-Dt-Qle" id="utV-pa-ega"/>
+                    </connections>
+                </tapGestureRecognizer>
+                <tapGestureRecognizer id="kfN-vC-I6J">
+                    <connections>
+                        <action selector="backIDTapGesture:" destination="Q1I-Dt-Qle" id="bW1-xR-e1d"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="3280" y="-1042"/>
+            <point key="canvasLocation" x="3279.1999999999998" y="-1042.128935532234"/>
         </scene>
         <!--ProfileTableViewContorller-->
         <scene sceneID="jy6-GF-F9x">
@@ -769,6 +870,7 @@
                         <segue destination="E72-Yy-gA8" kind="show" identifier="Share" id="Jfy-1G-W2m"/>
                         <segue destination="Mzv-un-pCS" kind="show" identifier="Payouts" id="e8T-ZO-Z6H"/>
                         <segue destination="HFA-QH-XJa" kind="show" identifier="SSN" id="Ik4-57-jFZ"/>
+                        <segue destination="Q1I-Dt-Qle" kind="show" identifier="IDDocs" id="HJx-he-ozr"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ovw-0h-ibs" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2865,15 +2967,16 @@
     </scenes>
     <resources>
         <image name="Back" width="30" height="30"/>
-        <image name="EmptyProfile" width="552.5" height="552.5"/>
-        <image name="Profile" width="37.5" height="37.5"/>
+        <image name="EmptyProfile" width="552" height="552"/>
+        <image name="Profile" width="37" height="37"/>
         <image name="Reservations" width="25" height="25"/>
         <image name="addButton" width="376" height="379"/>
-        <image name="cal_new" width="25" height="23.5"/>
+        <image name="cal_new" width="25" height="23"/>
         <image name="drivewayParking" width="237" height="237"/>
+        <image name="emptySpot" width="237" height="237"/>
         <image name="garageParking" width="237" height="237"/>
         <image name="lotParking" width="237" height="237"/>
-        <image name="search_new" width="22.5" height="22.5"/>
+        <image name="search_new" width="22" height="22"/>
         <image name="streetParking" width="237" height="237"/>
     </resources>
     <inferredMetricsTieBreakers>

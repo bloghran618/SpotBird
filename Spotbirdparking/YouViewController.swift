@@ -159,8 +159,6 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     
     @objc func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [AnyHashable: Any]) {
         let chosenImage = info[UIImagePickerControllerOriginalImage]
-        // AppState.sharedInstance.user.profileImage = (chosenImage as! UIImage)
-        // AppState.sharedInstance.user.setProfileImage(profile: chosenImage as! UIImage)
         AppState.sharedInstance.user.New_img.image = (chosenImage as! UIImage)
         self.profilePhoto!.image = (chosenImage as! UIImage)
         picker.dismiss(animated: true, completion: nil)
