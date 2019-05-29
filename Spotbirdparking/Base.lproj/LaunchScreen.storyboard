@@ -18,17 +18,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Spotbirdparking" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uMh-rf-JGn">
-                                <rect key="frame" x="75.5" y="313.5" width="224.5" height="40.5"/>
-                                <fontDescription key="fontDescription" name="GillSans" family="Gill Sans" pointSize="35"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="bNB-ho-W9t">
+                                <rect key="frame" x="153" y="301" width="69" height="65"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="bNB-ho-W9t" secondAttribute="height" multiplier="17:16" id="4RN-sB-xNb"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.38823529410000002" green="0.73725490199999999" blue="0.43529411759999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="uMh-rf-JGn" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="W2X-Gk-rGv"/>
-                            <constraint firstItem="uMh-rf-JGn" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="sQy-y0-Dlj"/>
+                            <constraint firstItem="bNB-ho-W9t" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="281" id="RL8-gW-pwB"/>
+                            <constraint firstItem="bNB-ho-W9t" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="S1F-6E-amY"/>
+                            <constraint firstItem="bNB-ho-W9t" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="bz1-2N-CFc"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -38,4 +39,7 @@
             <point key="canvasLocation" x="52" y="374.66266866566718"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="logo" width="355.66665649414062" height="330.33334350585938"/>
+    </resources>
 </document>
