@@ -257,6 +257,7 @@ class ProvideIDDocViewController: UIViewController, UIImagePickerControllerDeleg
                     // delete the pictures as cleanup
                     self.deletePicFromFirebase(pic_id: frontIDPath)
                     self.deletePicFromFirebase(pic_id: backIDPath)
+                    self.navigationController?.popViewController(animated: true)
                     
                 case .failure(let error):
                     let status = response.response?.statusCode
@@ -264,8 +265,8 @@ class ProvideIDDocViewController: UIViewController, UIImagePickerControllerDeleg
                     print("Here is the error: \(error)")
                     
                     // delete the pictures as cleanup
-//                    self.deletePicFromFirebase(pic_id: frontIDPath)
-//                    self.deletePicFromFirebase(pic_id: backIDPath)
+                    self.deletePicFromFirebase(pic_id: frontIDPath)
+                    self.deletePicFromFirebase(pic_id: backIDPath)
                 }
             }
     }
