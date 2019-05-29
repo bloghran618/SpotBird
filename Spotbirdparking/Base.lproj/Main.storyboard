@@ -400,7 +400,7 @@
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Name" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZX3-2P-wRr">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="20"/>
-                                                <color key="backgroundColor" red="0.38823529410000002" green="0.73725490199999999" blue="0.43529411759999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -431,7 +431,7 @@
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Address" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K85-h1-EtI">
                                                 <rect key="frame" x="0.0" y="140" width="375" height="20"/>
-                                                <color key="backgroundColor" red="0.38823529410000002" green="0.73725490199999999" blue="0.43529411759999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -502,7 +502,7 @@
                                             </textField>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Date of Birth" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xSH-bI-JSU">
                                                 <rect key="frame" x="0.0" y="430" width="375" height="20"/>
-                                                <color key="backgroundColor" red="0.38823529410000002" green="0.73725490199999999" blue="0.43529411759999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -585,6 +585,7 @@
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="10" id="uWV-pU-Zds"/>
                                                 </constraints>
+                                                <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <state key="normal" title="Terms and Conditions"/>
                                                 <connections>
                                                     <action selector="termsAndConditionsButton:" destination="Mzv-un-pCS" eventType="touchUpInside" id="PIw-la-byZ"/>
@@ -679,7 +680,9 @@
                                             <constraint firstAttribute="height" constant="20" id="Lrn-hd-OtT"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="17"/>
-                                        <state key="normal" title="Why does Stripe need SSN?"/>
+                                        <state key="normal" title="Why does Stripe need SSN?">
+                                            <color key="titleColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
                                         <connections>
                                             <action selector="WhySSNButton:" destination="HFA-QH-XJa" eventType="touchUpInside" id="R2p-De-dhD"/>
                                         </connections>
@@ -807,6 +810,7 @@
                             </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="ofD-FA-QGQ" firstAttribute="leading" secondItem="J8c-7P-q2P" secondAttribute="leading" constant="8" id="L6P-oR-AiZ"/>
                             <constraint firstItem="ofD-FA-QGQ" firstAttribute="top" secondItem="2jZ-AA-Z6V" secondAttribute="top" constant="8" id="eal-Pv-VRB"/>
@@ -1114,10 +1118,10 @@
             </objects>
             <point key="canvasLocation" x="3902" y="358"/>
         </scene>
-        <!--You View Controller-->
+        <!--You-->
         <scene sceneID="Ir0-gm-vsg">
             <objects>
-                <viewController id="g1R-Fe-m4C" customClass="YouViewController" customModule="Spotbirdparking" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="You" id="g1R-Fe-m4C" customClass="YouViewController" customModule="Spotbirdparking" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dwB-f6-a8f">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2801,7 +2805,7 @@
                         <color key="tintColor" red="0.38823529410000002" green="0.73725490199999999" blue="0.43529411759999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="17"/>
-                            <color key="textColor" red="0.38823529410000002" green="0.73725490199999999" blue="0.43529411759999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </textAttributes>
                         <textAttributes key="largeTitleTextAttributes">
                             <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="17"/>
