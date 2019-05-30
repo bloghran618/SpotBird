@@ -31,6 +31,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     @IBOutlet weak var btn_calander: UIButton!
     @IBOutlet weak var view_info: CustomView!
     
+    @IBOutlet weak var lblDistance: UILabel!
+    
     // DATE SEARCHing
     @IBOutlet weak var Date_VIew: UIView!
     @IBOutlet weak var lbl1: UILabel!
@@ -945,6 +947,110 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         vikasNaagar()
     }
     
+    // MARK:- Google Api getting distance
+    
+    func callPlotRouteCalcDistanceAndTimeApis(originLat:String, originLong:String, destinationLat:String, destinationLong:String){
+        
+        requestGoogleMapsDirectionApis(originLat: originLat, originLong: originLong, destinationLat: destinationLat, destinationLong: destinationLong, onSuccess: { (response) in
+            
+            // filter data
+            // set data to model
+            // plot route in google map
+            self.responseJsonObjectFilter(jsonObject: response)
+            
+        }) { (failureMsz) in
+            
+            
+        }
+    }
+    
+    // MARK: - GoogleMaps Direction
+    func requestGoogleMapsDirectionApis(originLat: String,originLong:String, destinationLat:String, destinationLong:String, onSuccess:@escaping (_ response:AnyObject)->Void, onError:@escaping (_ errorMessage:String)->Void)->Void{
+        
+        // GOOGLE DIRECTION APIS DEMO
+        //https://maps.googleapis.com/maps/api/directions/json?origin=27.696981,85.2942719&destination=27.6792144,85.3632975&sensor=false&mode=driving&alternatives=falseGOOGLE_MAP_API_KEY
+        
+      let url:String =   "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=\(originLat),\(originLong)&destinations=\(destinationLat),\(destinationLong)&key=AIzaSyATq8xrUL51RMK8Xgf_3YI-dl_ocbNajD4"
+        
+        
+        //let url:String = "https://maps.googleapis.com/maps/api/directions/json?origin=\(originLat),\(originLong)&destination=\(destinationLat),\(destinationLong)&sensor=false&mode=driving&alternatives=false&key=AIzaSyCiA5RwJSdB8U9hdAHEW1US8k-TbQJ2OTI"
+        // AIzaSyAn4Sx8oHd0-4gwKf83VxDZpjXyD2VeW1Y
+        
+        Alamofire.request(url, method: .get).responseJSON { response in
+            
+            switch response.result {
+            case .success:
+                
+                if let jsonObject = response.result.value{
+                    onSuccess(jsonObject as AnyObject)
+                }
+            case .failure:
+                
+                /* Handle error just using simple message */
+                
+                onError("failure")
+                
+            }
+        }
+    }
+    
+    /* Response object filter PLOT ROUTE APIs for SUCCESS or FAILED */
+    func responseJsonObjectFilter(jsonObject:AnyObject){
+        
+        if let jsonObjectDictionary = jsonObject as? NSDictionary {
+            
+            print(jsonObjectDictionary)
+            if let statusMessage = jsonObjectDictionary["status"] as? String{
+                
+                if(statusMessage == "OK"){
+                    
+                    if let rows = jsonObjectDictionary["rows"] as? [[String:Any]]{
+                        
+                     var element = rows[0]["elements"] as? [[String:Any]]
+                        
+                        var duration = element?[0]["duration"] as? [String:Any]
+                        print(duration?["text"] as! String)
+                        lblDistance.text = duration?["text"] as! String
+                        
+                        
+                        
+                        
+                        
+                    }
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                    if let routesObject = jsonObjectDictionary["elements"] as? [[String:Any]] {
+                        
+                        if let durationObjectNsDictionary = routesObject[1]["duration"] as? NSDictionary {
+                            
+                            var estimatedTime = durationObjectNsDictionary["text"] as! String
+                            
+                            // MARK:- Set on label
+                            
+                            lblDistance.text = String(estimatedTime)
+                            
+                            
+                            
+                            
+                            //  estimatedTime = estimatedTime/1000
+                            
+                        }
+                    }
+                }else{
+                    
+                }
+            }
+        }
+    }
+    
+    
     func setStartEndDate()
     {
         let d1 = start_datepic.date
@@ -1264,6 +1370,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         
         let distanceInMeters = coordinate1.distance(from: coordinate2) 
         
+        
+        callPlotRouteCalcDistanceAndTimeApis(originLat: String(self.CurrentLocMarker.position.latitude), originLong: String(self.CurrentLocMarker.position.longitude), destinationLat:  String(marker.position.latitude), destinationLong: String(marker.position.longitude))
         
         if Time_price == true{
             
