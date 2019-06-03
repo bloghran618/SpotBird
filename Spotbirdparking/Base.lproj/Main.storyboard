@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="88Y-zQ-ULl">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="88Y-zQ-ULl">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -766,7 +766,7 @@
                                         <rect key="frame" x="0.0" y="21" width="359" height="175.5"/>
                                         <subviews>
                                             <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="emptySpot" translatesAutoresizingMaskIntoConstraints="NO" id="1gX-P3-UPd">
-                                                <rect key="frame" x="0.0" y="0.0" width="175.5" height="175.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="175.50000000000006" height="175.50000000000006"/>
                                                 <gestureRecognizers/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="1gX-P3-UPd" secondAttribute="height" multiplier="1:1" id="tgm-eG-fUN"/>
@@ -776,7 +776,7 @@
                                                 </connections>
                                             </imageView>
                                             <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="emptySpot" translatesAutoresizingMaskIntoConstraints="NO" id="2wk-C5-1wM">
-                                                <rect key="frame" x="183.5" y="0.0" width="175.5" height="175.5"/>
+                                                <rect key="frame" x="183.49999999999997" y="0.0" width="175.50000000000009" height="175.50000000000006"/>
                                                 <gestureRecognizers/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="2wk-C5-1wM" secondAttribute="height" multiplier="1:1" id="Smz-UQ-srv"/>
@@ -3003,21 +3003,21 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Back" width="526" height="526"/>
-        <image name="EmptyProfile" width="368.33334350585938" height="368.33334350585938"/>
-        <image name="Profile" width="75" height="75"/>
-        <image name="Reservations" width="16.666666030883789" height="16.666666030883789"/>
-        <image name="addButton" width="250.66667175292969" height="252.66667175292969"/>
+        <image name="Back" width="263" height="263"/>
+        <image name="EmptyProfile" width="552.5" height="552.5"/>
+        <image name="Profile" width="37.5" height="37.5"/>
+        <image name="Reservations" width="25" height="25"/>
+        <image name="addButton" width="376" height="379"/>
         <image name="cal_new" width="25" height="23.5"/>
-        <image name="drivewayParking" width="474" height="474"/>
-        <image name="emptySpot" width="474" height="474"/>
-        <image name="garageParking" width="474" height="474"/>
-        <image name="logo" width="355.66665649414062" height="330.33334350585938"/>
-        <image name="lotParking" width="474" height="474"/>
-        <image name="search_new" width="36" height="36"/>
-        <image name="spotbirdname" width="2110" height="785"/>
-        <image name="streetParking" width="474" height="474"/>
-        <image name="xbutton" width="526" height="526"/>
+        <image name="drivewayParking" width="237" height="237"/>
+        <image name="emptySpot" width="237" height="237"/>
+        <image name="garageParking" width="237" height="237"/>
+        <image name="logo" width="533.5" height="495.5"/>
+        <image name="lotParking" width="237" height="237"/>
+        <image name="search_new" width="22.5" height="22.5"/>
+        <image name="spotbirdname" width="1055" height="392.5"/>
+        <image name="streetParking" width="237" height="237"/>
+        <image name="xbutton" width="263" height="263"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="ebE-Py-sWa"/>
