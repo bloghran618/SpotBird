@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		00ECD99B22A6A9CA00E7F015 /* RentingOutDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00ECD99A22A6A9CA00E7F015 /* RentingOutDetailViewController.swift */; };
 		0406E62A21620AD900C3E97B /* Login_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0406E62921620AD900C3E97B /* Login_ViewController.swift */; };
 		041EC522217F42AA007DEC9C /* Custommarkerinfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 041EC521217F42AA007DEC9C /* Custommarkerinfo.xib */; };
 		041EC524217F44EA007DEC9C /* Custommarkerinfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041EC523217F44EA007DEC9C /* Custommarkerinfo.swift */; };
@@ -71,6 +72,7 @@
 
 /* Begin PBXFileReference section */
 		004FEE7D57FACF9250B89078 /* Pods_Spotbirdparking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Spotbirdparking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		00ECD99A22A6A9CA00E7F015 /* RentingOutDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RentingOutDetailViewController.swift; sourceTree = "<group>"; };
 		0406E62921620AD900C3E97B /* Login_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login_ViewController.swift; sourceTree = "<group>"; };
 		041EC521217F42AA007DEC9C /* Custommarkerinfo.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Custommarkerinfo.xib; sourceTree = "<group>"; };
 		041EC523217F44EA007DEC9C /* Custommarkerinfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Custommarkerinfo.swift; sourceTree = "<group>"; };
@@ -251,6 +253,7 @@
 				B710B9942299FE1C00AF0C0E /* ProvideIDDocViewController.swift */,
 				B74DE6ED2178100F0049A31B /* ReservationsViewController.swift */,
 				04572D8E2276DB3600CDBB64 /* ReservationsDetailViewController.swift */,
+				00ECD99A22A6A9CA00E7F015 /* RentingOutDetailViewController.swift */,
 				B7BC7104218166AE00EE6F7A /* CustomCell.swift */,
 				B79D514A218BDA4E001EFE1C /* ByDayResTableViewCell.swift */,
 				B72D8BE320D0B6BE0038310F /* CheckBox.swift */,
@@ -528,6 +531,7 @@
 				B7B67FE320C34A7400A13FD0 /* CarsViewController.swift in Sources */,
 				04CE142E21C5257A00338DEE /* Timeclass.swift in Sources */,
 				04572D8F2276DB3600CDBB64 /* ReservationsDetailViewController.swift in Sources */,
+				00ECD99B22A6A9CA00E7F015 /* RentingOutDetailViewController.swift in Sources */,
 				0406E62A21620AD900C3E97B /* Login_ViewController.swift in Sources */,
 				04ACA90421F5C9D90015CF8D /* TNConstants.swift in Sources */,
 				B7A35D4120F5AA4500E4B566 /* AddressViewController.swift in Sources */,

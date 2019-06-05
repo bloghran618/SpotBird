@@ -197,7 +197,7 @@ extension ReservationsViewController: JTAppleCalendarViewDataSource {
         print("Next year is: \(nextYYYY)")
         
         // set the start and end date as this month -> 12 months from now
-        let startDate = formatter.date(from: "\(YYYY) \(MM) 01")!
+        let startDate = formatter.date(from: "\(YYYY) \(String((Int(MM) ?? 6) - 2)) 01")!
         let endDate = formatter.date(from: "\(nextYYYY) \(MM) 28")!
         
         let parameters = ConfigurationParameters(startDate: startDate, endDate: endDate)
@@ -291,23 +291,37 @@ extension ReservationsViewController: UITableViewDelegate, UITableViewDataSource
         
         let res = resOnDay[indexPath.row]
         
+        if res.parkOrRent == "Rent" {
+            cell?.navButton.isHidden = true
+        }
+        else {
+            cell?.navButton.isHidden = false
+        }
+        
         cell?.spotImageView.sd_setImage(with: URL(string: res.spot.spotImage), placeholderImage: UIImage(named: "emptySpot"))
         cell?.addressLabel.text = res.spot.address
         cell?.cityStateLabel.text = res.spot.town + ", " + res.spot.state
         cell?.timeLabel.text = "Begin: " + res.startDateTime
         cell?.endTimeLabel.text = "Finish: " + res.endDateTime
         cell?.delegate = self
-        
+
         return cell!
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let res = resOnDay[indexPath.row]
         print(res)
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "ReservationsDetailViewController") as! ReservationsDetailViewController
-        vc.resOnDay = resOnDay
-        vc.index = indexPath.row
-        self.present(vc, animated: true, completion: nil)
+        if res.parkOrRent == "Park" {
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "ReservationsDetailViewController") as! ReservationsDetailViewController
+            vc.resOnDay = resOnDay
+            vc.index = indexPath.row
+            self.present(vc, animated: true, completion: nil)
+        } else {
+            let vc = self.storyboard?.instantiateViewController(withIdentifier: "RentingOutDetailViewController") as! RentingOutDetailViewController
+            vc.resOnDay = resOnDay
+            vc.index = indexPath.row
+            self.present(vc, animated: true, completion: nil)
+        }
     }
     
     // MARK:- NAVIGATE TO LOCATION
@@ -465,7 +479,7 @@ extension ReservationsViewController: UITableViewDelegate, UITableViewDataSource
         task.resume()
     }
     
-    //SEt VIEW HIDE UNHIDE
+    //SET VIEW HIDE UNHIDE
     func setView(view: UIView, hidden: Bool) {
         UIView.transition(with: view, duration: 0.5, options: .transitionCrossDissolve, animations: {
             view.isHidden = hidden

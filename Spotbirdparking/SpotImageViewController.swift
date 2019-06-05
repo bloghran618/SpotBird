@@ -22,19 +22,28 @@ class SpotImageViewController: UIViewController, UITextViewDelegate, UIImagePick
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        spotDescription.layer.borderWidth = 1.0
+        spotDescription.layer.borderColor = UIColor.lightGray.cgColor
+        spotDescription.layer.cornerRadius = 8
+        
         print(AppState.sharedInstance.activeSpot.address)
         print(AppState.sharedInstance.activeSpot.state)
         
        spotImagePicker.delegate = self
         spotImageView.isUserInteractionEnabled = true
         
+        // check if the spot exists in the database
         if AppState.sharedInstance.activeSpot.spot_id == "" {
+            // if not in database, use image from activeSpot
             spotImageView.image = AppState.sharedInstance.activeSpot.spotImage1
          }
         else {
-          if AppState.sharedInstance.activeSpot.spotImage.count != nil{
+            if AppState.sharedInstance.activeSpot.spotImage.count != nil {
+                // get the image from the database
                 spotImageView.sd_setImage(with: URL(string: AppState.sharedInstance.activeSpot.spotImage), placeholderImage: UIImage(named: "Placeholder"))
+                AppState.sharedInstance.activeSpot.spotImage1 = spotImageView.image!
             }else {
+                // set to a default image
                 spotImageView.image = #imageLiteral(resourceName: "emptySpot")
             AppState.sharedInstance.activeSpot.spotImage1 =  spotImageView.image!
             }
