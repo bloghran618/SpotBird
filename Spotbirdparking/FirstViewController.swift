@@ -198,16 +198,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         lbl2.layer.masksToBounds = true;
         lbl2.layer.borderWidth = 2
         lbl2.layer.borderColor = UIColor.darkGray.cgColor
-        
-        
-        
-        // MARK: - Loop try By vikas Naagar With Func Calling witch is in Down
-        
-       // vikasNaagar()
-        
-        
-    }
     
+    }
     
     //MARK:- View will Appears
     
@@ -1011,36 +1003,14 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                         var duration = element?[0]["duration"] as? [String:Any]
                         print(duration?["text"] as! String)
                         lblDistance.text = duration?["text"] as! String
-                        
-                        
-                        
-                        
-                        
                     }
-                    
-                    
-                    
-                    
-                    
-                    
-                    
-                    
                     
                     if let routesObject = jsonObjectDictionary["elements"] as? [[String:Any]] {
                         
                         if let durationObjectNsDictionary = routesObject[1]["duration"] as? NSDictionary {
                             
                             var estimatedTime = durationObjectNsDictionary["text"] as! String
-                            
-                            // MARK:- Set on label
-                            
                             lblDistance.text = String(estimatedTime)
-                            
-                            
-                            
-                            
-                            //  estimatedTime = estimatedTime/1000
-                            
                         }
                     }
                 }else{
@@ -1815,8 +1785,11 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             // initially set the format based on your datepicker date / server String
             formatter.dateFormat = "yyyy-MM-dd"
             formatter.timeZone = TimeZone(abbreviation: "GMT+0:00")
+           // let ddd = "2019-06-04"
+           // let dd = formatter.date(from: ddd)
+           // var str = formatter.string(from: self.start_datepic.date)
+
             var str = formatter.string(from: Date())
-            
             if snapshot.childrenCount > 0 {
                 formatter.dateFormat = "yyyy-MM-dd HH:mm"
 
