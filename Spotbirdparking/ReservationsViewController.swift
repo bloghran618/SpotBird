@@ -197,7 +197,8 @@ extension ReservationsViewController: JTAppleCalendarViewDataSource {
         print("Next year is: \(nextYYYY)")
         
         // set the start and end date as this month -> 12 months from now
-        let startDate = formatter.date(from: "\(YYYY) \(MM) 01")!
+//        let startDate = formatter.date(from: "\(YYYY) \(MM) 01")!
+        let startDate = formatter.date(from: "\(YYYY) \(String((Int(MM) ?? 6) - 2)) 01")!
         let endDate = formatter.date(from: "\(nextYYYY) \(MM) 28")!
         
         let parameters = ConfigurationParameters(startDate: startDate, endDate: endDate)

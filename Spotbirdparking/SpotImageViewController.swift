@@ -25,7 +25,7 @@ class SpotImageViewController: UIViewController, UITextViewDelegate, UIImagePick
         print(AppState.sharedInstance.activeSpot.address)
         print(AppState.sharedInstance.activeSpot.state)
         
-       spotImagePicker.delegate = self
+        spotImagePicker.delegate = self
         spotImageView.isUserInteractionEnabled = true
         
         if AppState.sharedInstance.activeSpot.spot_id == "" {
@@ -48,10 +48,13 @@ class SpotImageViewController: UIViewController, UITextViewDelegate, UIImagePick
         if(AppState.sharedInstance.activeSpot.description == "") {
             spotDescription.text = self.descriptionText
             spotDescription.textColor = UIColor.lightGray
+            spotDescription.textAlignment = .center
+        }
+        else {
+            spotDescription.textAlignment = .left
         }
         
-//        NotificationCenter.default.addObserver(self, selector: #selector(SpotImageViewController.keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-//        NotificationCenter.default.addObserver(self, selector: #selector(SpotImageViewController.keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        self.hideKeyboardWhenTappedAround()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -142,8 +145,8 @@ class SpotImageViewController: UIViewController, UITextViewDelegate, UIImagePick
         if spotDescription.textColor == UIColor.lightGray {
             spotDescription.text = nil
             spotDescription.textColor = UIColor.black
-            spotDescription.textAlignment = .left
         }
+        spotDescription.textAlignment = .left
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
@@ -168,13 +171,14 @@ class SpotImageViewController: UIViewController, UITextViewDelegate, UIImagePick
         return true
     }
     
-    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if text == "\n" {
-            textView.resignFirstResponder()
-            return false
-        }
-        return true
-    }
+    // If the user presses enter the textview should return
+//    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+//        if text == "\n" {
+//            textView.resignFirstResponder()
+//            return false
+//        }
+//        return true
+//    }
     
 //    @objc func keyboardWillShow(notification: NSNotification) {
 //        if let keyboardSize = (notification.userInfo?[UIKeyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue {
@@ -188,6 +192,7 @@ class SpotImageViewController: UIViewController, UITextViewDelegate, UIImagePick
 //        }
 //    }
     
+    // Check if the user has completed the workflow and can move forward
     func schedulingBarButtonCheckEnable() -> Bool {
        
         if(AppState.sharedInstance.activeSpot.spotImage1 != UIImage.init(named: "emptySpot") && AppState.sharedInstance.activeSpot.description != "") {

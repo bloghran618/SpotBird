@@ -44,8 +44,8 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
             ProfileTableOption(option: "Cars", description: "Create and set default cars", logoImageName: "EmptyCar"),
             ProfileTableOption(option: "Payment", description: "Manage your payment options", logoImageName: "dollarSign"),
             ProfileTableOption(option: "List", description: "Share your spot", logoImageName: "Share"),
-//            ProfileTableOption(option: "Test Stripe", description: "To be torn down later", logoImageName: "test"),
             ProfileTableOption(option: "Enable Payouts", description: "Authorize payouts to bank account", logoImageName: "EnablePayouts"),
+            ProfileTableOption(option: "Contact Us", description: "Send us an Email", logoImageName: "contactUs"),
             ProfileTableOption(option: "Test Functionality", description: "Just for testing", logoImageName: "white")
         ]
         
@@ -131,6 +131,10 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
 //            self.performSegue(withIdentifier: "Payouts", sender: self)
 //            self.performSegue(withIdentifier: "SSN", sender: self)
             self.performSegue(withIdentifier: "IDDocs", sender: self)
+        }
+        else if profileOptions![(indexPath as NSIndexPath).row].option == "Contact Us" {
+            print("Go to email")
+            self.performSegue(withIdentifier: "Email", sender: self)
         }
         else if profileOptions![(indexPath as NSIndexPath).row].option == "Test Functionality" {
             print("Just doing some debugging...")
