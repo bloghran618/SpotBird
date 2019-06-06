@@ -1,50 +1,51 @@
-
-
-
 //
-//  ReservationsDetailViewController.swift
+//  RentingOutDetailViewController.swift
 //  Spotbirdparking
 //
-//  Created by mac on 29/04/19.
+//  Created by Drew Loughran on 6/4/19.
 //  Copyright © 2019 Spotbird. All rights reserved.
 //
 
 import UIKit
 
-class ReservationsDetailViewController: UIViewController {
-    
-    @IBOutlet weak var imgSpot: UIImageView!
-    
+class RentingOutDetailViewController: UIViewController {
+
     @IBOutlet weak var lblAddress: UILabel!
     
     @IBOutlet weak var lblType: UILabel!
     
     @IBOutlet weak var imgIcon: UIImageView!
     
-    @IBOutlet weak var lblStart: UILabel!
+    @IBOutlet weak var lblBegin: UILabel!
     
-    @IBOutlet weak var lblEnd: UILabel!
+    @IBOutlet weak var lblFinsih: UILabel!
     
-    @IBOutlet weak var lblEmail: UILabel!
+    @IBOutlet weak var lblPrice: UILabel!
     
-    @IBOutlet weak var lblDesc: UILabel!
+    @IBOutlet weak var lblCar: UILabel!
+    
+    @IBOutlet weak var imgCar: UIImageView!
     
     @IBOutlet weak var lblTitle: UILabel!
     
     var resOnDay = [Reservation]()
-     var index = 0
+    var index = 0
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
         let res = resOnDay[index]
         print(res)
         
-        lblTitle.text = "Your Reserved Spot"
+        lblTitle.text = "Your Rented Spot"
         let CompileAddress = "Address: " + res.spot.address + " " + res.spot.town + ", " + res.spot.state + " " + res.spot.zipCode
         lblAddress.attributedText = attributedText(withString: CompileAddress, boldString: "Address: ", font: UIFont.systemFont(ofSize: 17.0))
-        lblEmail.attributedText = attributedText(withString: "Contact: " + res.spot.Email, boldString: "Contact: ", font: UIFont.systemFont(ofSize: 17.0))
+        lblBegin.attributedText = attributedText(withString: "Begin: " + res.startDateTime, boldString: "Begin: ", font: UIFont.systemFont(ofSize: 17.0))
+        lblFinsih.attributedText = attributedText(withString: "End: " + res.endDateTime, boldString: "End: ", font: UIFont.systemFont(ofSize: 17.0))
+        lblPrice.attributedText = attributedText(withString: "Price: $" + res.price, boldString: "Price: ", font: UIFont.systemFont(ofSize: 17.0))
+        let carString = "Car: " + res.car.make + " " + res.car.model // + " " + res.car.year
+        lblCar.attributedText = attributedText(withString: carString + ", " + res.car.year!, boldString: "Car: ", font: UIFont.systemFont(ofSize: 17.0))
         lblType.attributedText = attributedText(withString: "Type: " + res.spot.spot_type, boldString: "Type: ", font: UIFont.systemFont(ofSize: 17.0))
-        
         if res.spot.spot_type == "Street" {
             imgIcon.image = UIImage.init(named: "streetParking")
         }
@@ -58,22 +59,11 @@ class ReservationsDetailViewController: UIViewController {
             imgIcon.image = UIImage.init(named: "drivewayParking")
         }
         
-        lblStart.attributedText = attributedText(withString: "Begin: " + res.startDateTime, boldString: "Begin: ", font: UIFont.systemFont(ofSize: 17.0))
-        lblEnd.attributedText = attributedText(withString: "End: " + res.endDateTime, boldString: "End: ", font: UIFont.systemFont(ofSize: 17.0))
+        imgCar.sd_setImage(with: URL(string: res.car.carImage), placeholderImage: UIImage(named: "Placeholder"))
         
-        lblDesc.numberOfLines = 0
-        lblDesc.lineBreakMode = .byWordWrapping
-        lblDesc.attributedText = attributedText(withString: "Description: " + res.spot.description, boldString: "Description: ", font: UIFont.systemFont(ofSize: 17.0))
-        lblDesc.sizeToFit()
-        
-        imgSpot.image = UIImage.init(named: res.spot.spotImage)
-        imgSpot.sd_setImage(with: URL(string: res.spot.spotImage), placeholderImage: UIImage(named: "emptySpot"))
     }
     
-    @IBAction func backTapped(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
-    }
-    
+
     /*
     // MARK: - Navigation
 
@@ -83,7 +73,6 @@ class ReservationsDetailViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
-    
     func attributedText(withString string: String, boldString: String, font: UIFont) -> NSAttributedString {
         let attributedString = NSMutableAttributedString(string: string,
                                                          attributes: [NSAttributedStringKey.font: font])
@@ -91,6 +80,10 @@ class ReservationsDetailViewController: UIViewController {
         let range = (string as NSString).range(of: boldString)
         attributedString.addAttributes(boldFontAttribute, range: range)
         return attributedString
+    }
+    
+    @IBAction func backTapped(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
     }
     
 }

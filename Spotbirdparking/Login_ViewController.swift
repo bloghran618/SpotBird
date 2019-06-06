@@ -22,8 +22,8 @@ class Login_ViewController: UIViewController {
         txt_pass.autocorrectionType = .no
         view.endEditing(true)
         
-        txt_uname.text = "a@gmail.com"
-        txt_pass.text = "12345678"
+//        txt_uname.text = "a@gmail.com"
+//        txt_pass.text = "12345678"
     }
     
     override func didReceiveMemoryWarning() {
