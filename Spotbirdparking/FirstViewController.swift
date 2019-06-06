@@ -2462,6 +2462,16 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         //self.mapView.animate(to: camera)
         five = 0
         loadEventsToMap(lat: place.coordinate.latitude, long:place.coordinate.longitude)
+        view_info.isHidden = true
+        btn_close.isHidden = true
+        if Date_VIew.isHidden == true{
+            // Date_VIew.isHidden = false
+            
+            UIView.transition(with: Date_VIew, duration: 0.3, options: .transitionCurlDown, animations: {
+                self.Date_VIew.isHidden = false
+            })
+            
+        }
     }
     
     func viewController(_ viewController: GMSAutocompleteViewController, didFailAutocompleteWithError error: Error) {
