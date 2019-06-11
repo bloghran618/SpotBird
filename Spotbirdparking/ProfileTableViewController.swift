@@ -140,14 +140,10 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
             print("Just doing some debugging...")
             
 //             debug code:
-            Spinner.stop()
-            print("Starting Spinner")
             Spinner.start()
-            print("Waiting...")
-            sleep(3)
-            print("Stopping Spinner")
-            Spinner.stop()
-            print("Spinner Stopped")
+            var timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { (Timer) in
+                Spinner.stop()
+            }
             
 //            let image = UIImage(named: "first")
 //            self.savePicToFirebase(image: image!)
