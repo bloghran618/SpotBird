@@ -50,6 +50,7 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
         ]
         
         // check if the user has listed spots AND a restricted stripe account
+        print("Stripe Status: \(AppState.sharedInstance.stripeStatus)")
         if(AppState.sharedInstance.spots.count > 0 && AppState.sharedInstance.stripeStatus == false) {
             
             // set the alert message to appropriate message
@@ -128,9 +129,19 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
             self.performSegue(withIdentifier: "Share", sender: self)
         }
         else if profileOptions![(indexPath as NSIndexPath).row].option == "Enable Payouts" {
-//            self.performSegue(withIdentifier: "Payouts", sender: self)
-//            self.performSegue(withIdentifier: "SSN", sender: self)
-            self.performSegue(withIdentifier: "IDDocs", sender: self)
+            
+            // present stripe viewController based on what Stripe needs
+            print("Stripe Needs: \(AppState.sharedInstance.stripeNeeds)")
+            if (AppState.sharedInstance.stripeNeeds.contains("id_number")) {
+                self.performSegue(withIdentifier: "SSN", sender: self)
+            }
+            else if(AppState.sharedInstance.stripeNeeds.contains("document.front") || AppState.sharedInstance.stripeNeeds.contains("document.back")) {
+                self.performSegue(withIdentifier: "IDDocs", sender: self)
+            }
+            else {
+                self.performSegue(withIdentifier: "Payouts", sender: self)
+            }
+
         }
         else if profileOptions![(indexPath as NSIndexPath).row].option == "Contact Us" {
             print("Go to email")
