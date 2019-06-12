@@ -88,9 +88,11 @@ class ReservationsViewController: UIViewController,GMSMapViewDelegate,CLLocation
         
     }
     
-    // make sure to update calendar every time view is loaded
+    // make sure to update calendar and table every time view is loaded
     override func viewWillAppear(_ animated: Bool) {
         setupCalendarView()
+        self.resOnDay = getReservationsOnDay(date: Date())
+        resByDayTable.reloadData()
         print("The view will appear right.... now!")
     }
     
@@ -197,7 +199,7 @@ extension ReservationsViewController: JTAppleCalendarViewDataSource {
         print("Next year is: \(nextYYYY)")
         
         // set the start and end date as this month -> 12 months from now
-        let startDate = formatter.date(from: "\(YYYY) \(String((Int(MM) ?? 6) - 2)) 01")!
+        let startDate = formatter.date(from: "\(YYYY) \(String((Int(MM) ?? 3) - 2)) 01")!
         let endDate = formatter.date(from: "\(nextYYYY) \(MM) 28")!
         
         let parameters = ConfigurationParameters(startDate: startDate, endDate: endDate)
