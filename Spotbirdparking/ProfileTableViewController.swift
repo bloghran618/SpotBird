@@ -135,7 +135,7 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
             if (AppState.sharedInstance.stripeNeeds.contains("id_number")) {
                 self.performSegue(withIdentifier: "SSN", sender: self)
             }
-            else if(AppState.sharedInstance.stripeNeeds.contains("document.front") || AppState.sharedInstance.stripeNeeds.contains("document.back")) {
+            else if(AppState.sharedInstance.stripeNeeds.contains("individual.verification.document")) {
                 self.performSegue(withIdentifier: "IDDocs", sender: self)
             }
             else {

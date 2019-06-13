@@ -178,7 +178,7 @@ class MyAPIClient: NSObject, STPEphemeralKeyProvider {
     
     // Add tokenized connect account info to the user Stripe account
     // Run with MyAPIClient.sharedClient.addConnectInfoToken(token)
-    func addConnectAccountInfoToken(token: STPToken) {
+    func addConnectAccountInfoToken(token: STPToken, address: STPAddress) {
         
         // get accountID from user object
         let accountID = AppState.sharedInstance.user.accounttoken
@@ -187,10 +187,22 @@ class MyAPIClient: NSObject, STPEphemeralKeyProvider {
         
         let ip_address = self.getIPAddresses()
         
+        // cannot set address line 2 to empty string
+        if(address.line2 == "") {
+            address.line2 = "None"
+        }
+        
         Alamofire.request(url, method: .post, parameters: [
             "account_id": accountID,
             "info_token": token,
-            "ip_address": ip_address])
+            "ip_address": ip_address,
+            "name": address.name ?? "",
+            "line1": address.line1 ?? "",
+            "line2": address.line2 ?? "",
+            "city": address.city ?? "",
+            "state": address.state ?? "",
+            "postalcode": address.postalCode ?? ""
+            ])
             .validate(statusCode: 200..<300)
             .responseJSON { responseJSON in
                 switch responseJSON.result {

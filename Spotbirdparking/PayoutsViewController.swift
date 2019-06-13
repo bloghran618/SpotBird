@@ -296,7 +296,7 @@ class PayoutsViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
                     print(token?.tokenId)
                     
                     // do stuff with token
-                    MyAPIClient.sharedClient.addConnectAccountInfoToken(token: token!)
+                    MyAPIClient.sharedClient.addConnectAccountInfoToken(token: token!, address: address)
                     self.navigationController?.popViewController(animated: true)
                 }
             }

@@ -58,6 +58,13 @@ class ReservationsViewController: UIViewController,GMSMapViewDelegate,CLLocation
             // highlight today
             calendarView.selectDates([Date()])
             
+            // reservation table shows data for today
+            self.resOnDay = getReservationsOnDay(date: Date())
+            resByDayTable.reloadData()
+            
+            // reservation table starts on current date
+            calendarView.scrollToDate(Date(), animateScroll: false)
+            
         }
         
 //        // Temp data
@@ -88,11 +95,11 @@ class ReservationsViewController: UIViewController,GMSMapViewDelegate,CLLocation
         
     }
     
-    // make sure to update calendar and table every time view is loaded
+    // make sure to update calendar every time view is loaded
     override func viewWillAppear(_ animated: Bool) {
+        // set up the calendar formatting
         setupCalendarView()
-        self.resOnDay = getReservationsOnDay(date: Date())
-        resByDayTable.reloadData()
+        
         print("The view will appear right.... now!")
     }
     
