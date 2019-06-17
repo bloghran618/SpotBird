@@ -633,7 +633,6 @@ class User {
                             AppState.sharedInstance.user.reservations.append(dbReservation!)
                             print("Reservation added")
                         }
-                        
                     }
                 }
             }

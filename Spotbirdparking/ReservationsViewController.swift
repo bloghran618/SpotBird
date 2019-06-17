@@ -54,10 +54,8 @@ class ReservationsViewController: UIViewController,GMSMapViewDelegate,CLLocation
             print("StartDateTime: \(res.startDateTime)")
             print("park or rent? : \(res.parkOrRent)")
             i += 1
-            
             // highlight today
             calendarView.selectDates([Date()])
-            
         }
         
 //        // Temp data
