@@ -643,7 +643,6 @@ class User {
                 print("No reservations")
             }
             print("# reservations: \(AppState.sharedInstance.user.reservations.count)")
-
         })
     }
     
