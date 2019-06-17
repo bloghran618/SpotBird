@@ -46,7 +46,7 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
             ProfileTableOption(option: "List", description: "Share your spot", logoImageName: "Share"),
             ProfileTableOption(option: "Enable Payouts", description: "Authorize payouts to bank account", logoImageName: "EnablePayouts"),
             ProfileTableOption(option: "Contact Us", description: "Send us an Email", logoImageName: "contactUs"),
-//            ProfileTableOption(option: "Test Functionality", description: "Just for testing", logoImageName: "white")
+            ProfileTableOption(option: "Test Functionality", description: "Just for testing", logoImageName: "white")
         ]
         
         // check if the user has listed spots AND a restricted stripe account
@@ -151,12 +151,14 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
             print("Just doing some debugging...")
             
 //             debug code:
-            Spinner.stop()
+          //  Spinner.stop()
             Spinner.start()
+            print("Spinner should start")
 //            var timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { (Timer) in
 //                Spinner.stop()
 //            }
-            AppState.sharedInstance.user.GetCar()
+            sleep(3)
+//            AppState.sharedInstance.user.GetCar()
             Spinner.stop()
             
 //            let image = UIImage(named: "first")

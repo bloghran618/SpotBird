@@ -1165,6 +1165,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     @IBAction func btn_booknow(_ sender: UIButton) {
         
         // show that we are doing something
+//        Spinner.stop()
         Spinner.start()
         
         // debug line, should be removed, eventually
@@ -1181,7 +1182,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         }
         else {
             // handle if there are no cars
-            let alert = UIAlertController(title: "No Cars", message: "To reserve a spot you must create a default car in the Profile tab", preferredStyle: .alert)
+            let alert = UIAlertController(title: "No Cars", message: "To reserve a spot you must create a car in the Profile tab", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             self.present(alert, animated: true)
             Spinner.stop()
@@ -1269,7 +1270,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         AppState.sharedInstance.user.addReservation(reservation: parkerReservation!)
         AppState.sharedInstance.user.addReservationToUser(reservation: ownerReservation!)
         
-        Spinner.stop()
+//        Spinner.stop()
     }
     
     // MARK:_ BTn Autocomplete loation search
@@ -2688,6 +2689,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             title = "Error"
             message = error?.localizedDescription ?? ""
         case .success:
+            Spinner.stop()
             title = "Success"
             message = "You bought a SPOT!"
         case .userCancellation:

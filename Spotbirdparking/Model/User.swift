@@ -584,10 +584,12 @@ class User {
     // get the list of reservations for a user
     func getReservations() {
         // empty any current reservations
+        print("!!!!!!!! WE ARE GETTING THE RESERVATIONS !!!!!!!!!!!!!!!")
         print("Reservations: \(AppState.sharedInstance.user.reservations)")
         print("#: \(AppState.sharedInstance.user.reservations.count)")
         AppState.sharedInstance.user.reservations.removeAll()
-        
+        print("#: \(AppState.sharedInstance.user.reservations.count)")
+
         print("Get all the reservations")
         let user_id = AppState.sharedInstance.userid
         
@@ -640,6 +642,8 @@ class User {
             else {
                 print("No reservations")
             }
+            print("# reservations: \(AppState.sharedInstance.user.reservations.count)")
+
         })
     }
     
