@@ -112,7 +112,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     let config = STPPaymentConfiguration.shared()
     let customerContext = STPCustomerContext(keyProvider: MyAPIClient.sharedClient)
     
-    let paymentContext = STPPaymentContext(customerContext: STPCustomerContext(keyProvider: MyAPIClient.sharedClient))
+    var paymentContext = STPPaymentContext(customerContext: STPCustomerContext(keyProvider: MyAPIClient.sharedClient))
     
 
     
@@ -199,6 +199,25 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         lbl2.layer.borderWidth = 2
         lbl2.layer.borderColor = UIColor.darkGray.cgColor
     
+    }
+    
+//    func getReservationsOnDay(date: Date) -> Bool {
+//
+//        for res in AppState.sharedInstance.user.reservations {
+//            if(checkReservationDateMatchesCell(reservationDate: res.startDateTime, cellDate: date)) {
+//                 return true
+//            }
+//        }
+//        return false
+//    }
+    
+    func checkReservationDateMatchesCell(reservationDate: String, cellDate: Date) -> Bool
+    {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+        let resDate = formatter.date(from: reservationDate)
+        
+        return Calendar.current.isDate(resDate!, inSameDayAs: cellDate)
     }
     
     //MARK:- View will Appears
@@ -1335,12 +1354,11 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         
         let index:Int! = Int(marker.accessibilityLabel!)
         print("Index is: \(String(index))")
+        self.lblDistance.text = ""
         
-        let coordinate1 = CLLocation(latitude: self.CurrentLocMarker.position.latitude, longitude: self.CurrentLocMarker.position.longitude)
-        let coordinate2 = CLLocation(latitude: marker.position.latitude, longitude: marker.position.longitude)
-        
-        let distanceInMeters = coordinate1.distance(from: coordinate2) 
-        
+//        let coordinate1 = CLLocation(latitude: self.CurrentLocMarker.position.latitude, longitude: self.CurrentLocMarker.position.longitude)
+//        let coordinate2 = CLLocation(latitude: marker.position.latitude, longitude: marker.position.longitude)
+//        let distanceInMeters = coordinate1.distance(from: coordinate2)
         
         callPlotRouteCalcDistanceAndTimeApis(originLat: String(self.CurrentLocMarker.position.latitude), originLong: String(self.CurrentLocMarker.position.longitude), destinationLat:  String(marker.position.latitude), destinationLong: String(marker.position.longitude))
         
@@ -1452,8 +1470,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             
             lbl_spot_type.text = (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as?  String
             
-            let intDist = Int(distanceInMeters)
-            lbl_price.text = "$\(doller)" + "  \(intDist) Miles"
+           // let intDist = Int(distanceInMeters)
+            lbl_price.text = "$\(doller)"
            // lbl_price.text = "$\(doller)"
             lbl_address.text = (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "address") as?  String
             //
@@ -1640,8 +1658,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             }
             
             lbl_spot_type.text = (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as?  String
-            let intDist = Int(distanceInMeters)
-            lbl_price.text = "$\(doller)" + "  \(intDist) Miles"
+         //let intDist = Int(distanceInMeters)
+            lbl_price.text = "$\(doller)"
             lbl_address.text = (arrspot.object(at: index) as! NSDictionary).value(forKey: "address") as?  String
             let str = (arrspot.object(at: index) as! NSDictionary).value(forKey: "address") as!  String
             var arr = str.components(separatedBy: " ")
@@ -1815,8 +1833,11 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     let dateDay2 = formatter.date(from: spotEnd_times)
                                     formatter.dateFormat = "MMM dd h a"
                                     if dateDay1!.isSmallerThan(self.start_date!) && dateDay2!.isGreaterThan(self.end_date!){
-                                        //Do Something...
-                                        self.arrspot.add(theValue)
+                                          self.arrspot.add(theValue)
+//                                        if self.getReservationsOnDay(date: dateDay1!) == true
+//                                        {
+//                                            self.arrspot.add(theValue)
+//                                        }
                                     }
                                 }
                             }
@@ -1830,8 +1851,11 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     let dateDay2 = formatter.date(from: spotEnd_times)
                                     formatter.dateFormat = "MMM dd h a"
                                     if dateDay1!.isSmallerThan(self.start_date!) && dateDay2!.isGreaterThan(self.end_date!){
-                                        //Do Something...
-                                        self.arrspot.add(theValue)
+                                          self.arrspot.add(theValue)
+//                                        if self.getReservationsOnDay(date: dateDay1!) == true
+//                                        {
+//                                            self.arrspot.add(theValue)
+//                                        }
                                     }
                                 }
                             }
@@ -1845,8 +1869,11 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     let dateDay2 = formatter.date(from: spotEnd_times)
                                     formatter.dateFormat = "MMM dd h a"
                                     if dateDay1!.isSmallerThan(self.start_date!) && dateDay2!.isGreaterThan(self.end_date!){
-                                        //Do Something...
                                         self.arrspot.add(theValue)
+                                        //                                        if self.getReservationsOnDay(date: dateDay1!) == true
+                                        //                                        {
+                                        //                                            self.arrspot.add(theValue)
+                                        //                                        }
                                     }
                                 }
                             }
@@ -1860,8 +1887,11 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     let dateDay2 = formatter.date(from: spotEnd_times)
                                     formatter.dateFormat = "MMM dd h a"
                                     if dateDay1!.isSmallerThan(self.start_date!) && dateDay2!.isGreaterThan(self.end_date!){
-                                        //Do Something...
                                         self.arrspot.add(theValue)
+                                        //                                        if self.getReservationsOnDay(date: dateDay1!) == true
+                                        //                                        {
+                                        //                                            self.arrspot.add(theValue)
+                                        //                                        }
                                     }
                                 }
                             }
@@ -1875,8 +1905,11 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     let dateDay2 = formatter.date(from: spotEnd_times)
                                     formatter.dateFormat = "MMM dd h a"
                                      if dateDay1!.isSmallerThan(self.start_date!) && dateDay2!.isGreaterThan(self.end_date!){
-                                        //Do Something...
                                         self.arrspot.add(theValue)
+                                        //                                        if self.getReservationsOnDay(date: dateDay1!) == true
+                                        //                                        {
+                                        //                                            self.arrspot.add(theValue)
+                                        //                                        }
                                     }
                                 }
                             }
@@ -1890,8 +1923,11 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     let dateDay2 = formatter.date(from: spotEnd_times)
                                     formatter.dateFormat = "MMM dd h a"
                                     if dateDay1!.isSmallerThan(self.start_date!) && dateDay2!.isGreaterThan(self.end_date!){
-                                        //Do Something...
                                         self.arrspot.add(theValue)
+                                        //                                        if self.getReservationsOnDay(date: dateDay1!) == true
+                                        //                                        {
+                                        //                                            self.arrspot.add(theValue)
+                                        //                                        }
                                     }
                                 }
                             }
@@ -1911,8 +1947,11 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     print("picker date end \(self.end_date)")
                                    
                                     if dateDay1!.isSmallerThan(self.start_date!) && dateDay2!.isGreaterThan(self.end_date!){
-                                        //Do Something...
                                         self.arrspot.add(theValue)
+                                        //                                        if self.getReservationsOnDay(date: dateDay1!) == true
+                                        //                                        {
+                                        //                                            self.arrspot.add(theValue)
+                                        //                                        }
                                     }
 //                                    if dateDay1 <= datePicker1 && dateDay2 < datePicker2
 //                                    {
@@ -1923,7 +1962,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                 }
                             }
                         }
-                        //self.loadEventsToMap(lat: self.userlatitude, long: self.userlongitude)
+                         //self.loadEventsToMap(lat: self.userlatitude, long: self.userlongitude)
                     }
                 }
                 
@@ -2691,7 +2730,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         case .success:
             Spinner.stop()
             title = "Success"
-            message = "You bought a SPOT!"
+            message = "\(self.highlightedSpot.address) \(self.highlightedSpot.town), \(self.highlightedSpot.state) reserved. See active reservations in Reservations tab"
         case .userCancellation:
             return
         }
@@ -2730,14 +2769,13 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     }
     
     func setPaymentContext(price: Int) {
+        paymentContext = STPPaymentContext(customerContext: STPCustomerContext(keyProvider: MyAPIClient.sharedClient))
         self.paymentContext.delegate = self
         self.paymentContext.hostViewController = self
         self.paymentContext.paymentAmount = price
         print(self.paymentContext.paymentAmount)
         print(self.paymentContext.hostViewController)
     }
-    
-    
     
     //MARK:- Func VIkas NAagar
     

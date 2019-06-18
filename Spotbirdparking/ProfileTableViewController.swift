@@ -171,9 +171,7 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
             //            MyAPIClient.sharedClient.checkStripeAccount()
             //            print("Stripe Enabled? : \(AppState.sharedInstance.stripeStatus)")
             //            print("Stripe needs: \(AppState.sharedInstance.stripeNeeds)")
-            
-//             AppState.sharedInstance.user.getReservations()
-            
+                        
 //            let test_car = Car(make: "Mazda", model: "CX5", year: "1999", carImage: "white", isDefault: true, car_id: "test_id")
 //            let test_res1 = Reservation(startDateTime: "2019-01-18 11:00", endDateTime: "2019-01-18 15:00", parkOrRent: "park", spot: AppState.sharedInstance.spots[0], parkerID: "testid", car: test_car!)
 //            let test_res2 = Reservation(startDateTime: "2019-01-18 11:00", endDateTime: "2019-01-18 15:00", parkOrRent: "rent", spot: AppState.sharedInstance.activeSpot, parkerID: "testid", car: test_car!)

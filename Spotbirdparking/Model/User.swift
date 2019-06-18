@@ -621,7 +621,7 @@ class User {
                             print("Spot address: \(reservationSpot.address)")
                             
                             // create Reservation() object
-                            let dbReservation = Reservation(
+                            var dbReservation = Reservation(
                                 startDateTime: reservationDict["startDateTime"] as! String,
                                 endDateTime: reservationDict["endDateTime"] as! String,
                                 parkOrRent: reservationDict["parkOrRent"] as! String,
@@ -631,18 +631,24 @@ class User {
                                 ownerID: reservationDict["ownerID"] as! String)
                             
                             print("Reservation start: \(dbReservation!.startDateTime)")
-                            // add reservation
-                            AppState.sharedInstance.user.reservations.append(dbReservation!)
-                            print("Reservation added")
+                            
+                            // make sure there are no doubles
+                            if !AppState.sharedInstance.user.reservations.contains(where: { $0 === dbReservation}) {
+                                // add reservation
+                                AppState.sharedInstance.user.reservations.append(dbReservation!)
+                                print("Reservation added")
+                                print("# reservations: \(AppState.sharedInstance.user.reservations.count)")
+                            }
+                            else {
+                                print("This reservatin is a duplicate")
+                            }
                         }
-                        
                     }
                 }
             }
             else {
                 print("No reservations")
             }
-            print("# reservations: \(AppState.sharedInstance.user.reservations.count)")
         })
     }
     
