@@ -633,7 +633,7 @@ class User {
                             print("Reservation start: \(dbReservation!.startDateTime)")
                             
                             // make sure there are no doubles
-                            if !AppState.sharedInstance.user.reservations.contains(where: { $0 === dbReservation}) {
+                            if !self.reservationInReservations(res: dbReservation!, reservations: AppState.sharedInstance.user.reservations) {
                                 // add reservation
                                 AppState.sharedInstance.user.reservations.append(dbReservation!)
                                 print("Reservation added")
@@ -650,6 +650,28 @@ class User {
                 print("No reservations")
             }
         })
+    }
+    
+    // check if a reservation matches one already in a list of reservations (ignore duplicates
+    public func reservationInReservations(res: Reservation, reservations: [Reservation]) -> Bool {
+        var isInReservations = false
+        for reservation in reservations {
+            // check if the reservations match
+            if(
+                res.startDateTime == reservation.startDateTime &&
+                res.endDateTime == reservation.endDateTime &&
+                res.parkOrRent == reservation.parkOrRent &&
+                res.spot.address == reservation.spot.address &&
+                res.parkerID == reservation.parkerID &&
+                res.car.make == reservation.car.make &&
+                res.car.model == reservation.car.model &&
+                res.car.year == reservation.car.year &&
+                res.ownerID == reservation.ownerID
+                ) {
+                isInReservations = true
+            }
+        }
+        return isInReservations
     }
     
     // retrieve Car() object for given User() and car_ID
