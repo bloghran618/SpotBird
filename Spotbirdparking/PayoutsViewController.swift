@@ -258,8 +258,6 @@ class PayoutsViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             bankAccount.accountNumber = accountNumber
             bankAccount.routingNumber = routingNumber
             
-//            print("Account Nubmer: \(bankAccount.accountNumber)")
-//            print("Routing Nubmer: \(bankAccount.routingNumber)")
 
             // STPConnectAccountParams() object creation
             var address = STPAddress()
@@ -270,6 +268,7 @@ class PayoutsViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             address.state = stateAddress
             address.postalCode = zipAddress
             address.country = "US"
+            
             let dateOfBirth = DateComponents(calendar: Calendar.current, year: Int(dateOfBirthYear), month: Int(dateOfBirthMonth), day: Int(dateOfBirthDay)) // all DOB int() because datePicker()
             
             // STPLegalEntityParams() object creation
@@ -278,10 +277,9 @@ class PayoutsViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             legalEntity.entityTypeString = "individual"
             legalEntity.firstName = firstName
             legalEntity.lastName = lastName
-            legalEntity.personalAddress = address
+//            legalEntity.personalAddress = address
             legalEntity.dateOfBirth = dateOfBirth
             var accountInfo = STPConnectAccountParams(legalEntity: legalEntity)
-            // Need to indicate TOS acceptance
             
             
             // Create STPConnectAccountParams token
@@ -298,7 +296,7 @@ class PayoutsViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
                     print(token?.tokenId)
                     
                     // do stuff with token
-                    MyAPIClient.sharedClient.addConnectAccountInfoToken(token: token!)
+                    MyAPIClient.sharedClient.addConnectAccountInfoToken(token: token!, address: address)
                     self.navigationController?.popViewController(animated: true)
                 }
             }

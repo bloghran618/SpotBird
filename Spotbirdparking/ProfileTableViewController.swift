@@ -44,12 +44,13 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
             ProfileTableOption(option: "Cars", description: "Create and set default cars", logoImageName: "EmptyCar"),
             ProfileTableOption(option: "Payment", description: "Manage your payment options", logoImageName: "dollarSign"),
             ProfileTableOption(option: "List", description: "Share your spot", logoImageName: "Share"),
-//            ProfileTableOption(option: "Test Stripe", description: "To be torn down later", logoImageName: "test"),
             ProfileTableOption(option: "Enable Payouts", description: "Authorize payouts to bank account", logoImageName: "EnablePayouts"),
-            ProfileTableOption(option: "Test Functionality", description: "Just for testing", logoImageName: "white")
+            ProfileTableOption(option: "Contact Us", description: "Send us an Email", logoImageName: "contactUs"),
+//            ProfileTableOption(option: "Test Functionality", description: "Just for testing", logoImageName: "white")
         ]
         
         // check if the user has listed spots AND a restricted stripe account
+        print("Stripe Status: \(AppState.sharedInstance.stripeStatus)")
         if(AppState.sharedInstance.spots.count > 0 && AppState.sharedInstance.stripeStatus == false) {
             
             // set the alert message to appropriate message
@@ -128,22 +129,36 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
             self.performSegue(withIdentifier: "Share", sender: self)
         }
         else if profileOptions![(indexPath as NSIndexPath).row].option == "Enable Payouts" {
-//           self.performSegue(withIdentifier: "Payouts", sender: self)
-//            self.performSegue(withIdentifier: "SSN", sender: self)
-            self.performSegue(withIdentifier: "IDDocs", sender: self)
+            // present stripe viewController based on what Stripe needs
+            print("Stripe Needs: \(AppState.sharedInstance.stripeNeeds)")
+            if (AppState.sharedInstance.stripeNeeds.contains("id_number")) {
+                self.performSegue(withIdentifier: "SSN", sender: self)
+            }
+            else if(AppState.sharedInstance.stripeNeeds.contains("individual.verification.document")) {
+                self.performSegue(withIdentifier: "IDDocs", sender: self)
+            }
+            else {
+                self.performSegue(withIdentifier: "Payouts", sender: self)
+            }
+
+        }
+        else if profileOptions![(indexPath as NSIndexPath).row].option == "Contact Us" {
+            print("Go to email")
+            self.performSegue(withIdentifier: "Email", sender: self)
         }
         else if profileOptions![(indexPath as NSIndexPath).row].option == "Test Functionality" {
             print("Just doing some debugging...")
             
 //             debug code:
-            Spinner.stop()
-            print("Starting Spinner")
-            Spinner.start()
-            print("Waiting...")
-            sleep(3)
-            print("Stopping Spinner")
-            Spinner.stop()
-            print("Spinner Stopped")
+          //  Spinner.stop()
+//            Spinner.start()
+//            print("Spinner should start")
+//            var timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { (Timer) in
+//                Spinner.stop()
+//            }
+//            sleep(3)
+//            AppState.sharedInstance.user.GetCar()
+//            Spinner.stop()
             
 //            let image = UIImage(named: "first")
 //            self.savePicToFirebase(image: image!)
@@ -155,9 +170,7 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
             //            MyAPIClient.sharedClient.checkStripeAccount()
             //            print("Stripe Enabled? : \(AppState.sharedInstance.stripeStatus)")
             //            print("Stripe needs: \(AppState.sharedInstance.stripeNeeds)")
-            
-//             AppState.sharedInstance.user.getReservations()
-            
+                        
 //            let test_car = Car(make: "Mazda", model: "CX5", year: "1999", carImage: "white", isDefault: true, car_id: "test_id")
 //            let test_res1 = Reservation(startDateTime: "2019-01-18 11:00", endDateTime: "2019-01-18 15:00", parkOrRent: "park", spot: AppState.sharedInstance.spots[0], parkerID: "testid", car: test_car!)
 //            let test_res2 = Reservation(startDateTime: "2019-01-18 11:00", endDateTime: "2019-01-18 15:00", parkOrRent: "rent", spot: AppState.sharedInstance.activeSpot, parkerID: "testid", car: test_car!)

@@ -579,10 +579,12 @@ class User {
     // get the list of reservations for a user
     func getReservations() {
         // empty any current reservations
+        print("!!!!!!!! WE ARE GETTING THE RESERVATIONS !!!!!!!!!!!!!!!")
         print("Reservations: \(AppState.sharedInstance.user.reservations)")
         print("#: \(AppState.sharedInstance.user.reservations.count)")
         AppState.sharedInstance.user.reservations.removeAll()
-        
+        print("#: \(AppState.sharedInstance.user.reservations.count)")
+
         print("Get all the reservations")
         let user_id = AppState.sharedInstance.userid
         
@@ -614,7 +616,7 @@ class User {
                             print("Spot address: \(reservationSpot.address)")
                             
                             // create Reservation() object
-                            let dbReservation = Reservation(
+                            var dbReservation = Reservation(
                                 startDateTime: reservationDict["startDateTime"] as! String,
                                 endDateTime: reservationDict["endDateTime"] as! String,
                                 parkOrRent: reservationDict["parkOrRent"] as! String,
@@ -624,11 +626,18 @@ class User {
                                 ownerID: reservationDict["ownerID"] as! String)
                             
                             print("Reservation start: \(dbReservation!.startDateTime)")
-                            // add reservation
-                            AppState.sharedInstance.user.reservations.append(dbReservation!)
-                            print("Reservation added")
+                            
+                            // make sure there are no doubles
+                            if !self.reservationInReservations(res: dbReservation!, reservations: AppState.sharedInstance.user.reservations) {
+                                // add reservation
+                                AppState.sharedInstance.user.reservations.append(dbReservation!)
+                                print("Reservation added")
+                                print("# reservations: \(AppState.sharedInstance.user.reservations.count)")
+                            }
+                            else {
+                                print("This reservatin is a duplicate")
+                            }
                         }
-                        
                     }
                 }
             }
@@ -636,6 +645,28 @@ class User {
                 print("No reservations")
             }
         })
+    }
+    
+    // check if a reservation matches one already in a list of reservations (ignore duplicates
+    public func reservationInReservations(res: Reservation, reservations: [Reservation]) -> Bool {
+        var isInReservations = false
+        for reservation in reservations {
+            // check if the reservations match
+            if(
+                res.startDateTime == reservation.startDateTime &&
+                res.endDateTime == reservation.endDateTime &&
+                res.parkOrRent == reservation.parkOrRent &&
+                res.spot.address == reservation.spot.address &&
+                res.parkerID == reservation.parkerID &&
+                res.car.make == reservation.car.make &&
+                res.car.model == reservation.car.model &&
+                res.car.year == reservation.car.year &&
+                res.ownerID == reservation.ownerID
+                ) {
+                isInReservations = true
+            }
+        }
+        return isInReservations
     }
     
     // retrieve Car() object for given User() and car_ID

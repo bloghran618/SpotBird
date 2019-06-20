@@ -44,6 +44,8 @@ class ReservationsViewController: UIViewController,GMSMapViewDelegate,CLLocation
     
       var SpotDetails:String  = String()
     
+    var cellDate = Date()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -54,9 +56,15 @@ class ReservationsViewController: UIViewController,GMSMapViewDelegate,CLLocation
             print("StartDateTime: \(res.startDateTime)")
             print("park or rent? : \(res.parkOrRent)")
             i += 1
-            
             // highlight today
             calendarView.selectDates([Date()])
+            
+            // reservation table shows data for today
+            self.resOnDay = getReservationsOnDay(date: Date())
+            resByDayTable.reloadData()
+            
+            // reservation table starts on current date
+            calendarView.scrollToDate(Date(), animateScroll: false)
             
         }
         
@@ -90,8 +98,13 @@ class ReservationsViewController: UIViewController,GMSMapViewDelegate,CLLocation
     
     // make sure to update calendar every time view is loaded
     override func viewWillAppear(_ animated: Bool) {
+        // set up the calendar formatting
         setupCalendarView()
+        self.getReservationsOnDay(date: self.cellDate)
+        resByDayTable.reloadData()
+        
         print("The view will appear right.... now!")
+        print("There should be \(AppState.sharedInstance.user.reservations.count) reservations")
     }
     
     func setupCalendarView() {
@@ -158,6 +171,7 @@ class ReservationsViewController: UIViewController,GMSMapViewDelegate,CLLocation
     }
     
     func getReservationsOnDay(date: Date) -> [Reservation] {
+        print("The date we are looking at is: \(self.formatter.string(from: date))")
         var reservations = [Reservation]()
         
         for res in AppState.sharedInstance.user.reservations {
@@ -165,6 +179,7 @@ class ReservationsViewController: UIViewController,GMSMapViewDelegate,CLLocation
                 reservations.append(res)
             }
         }
+        print("There are \(reservations.count) reservations on \(self.formatter.string(from: date))")
         return reservations
     }
     
@@ -197,7 +212,7 @@ extension ReservationsViewController: JTAppleCalendarViewDataSource {
         print("Next year is: \(nextYYYY)")
         
         // set the start and end date as this month -> 12 months from now
-        let startDate = formatter.date(from: "\(YYYY) \(String((Int(MM) ?? 6) - 2)) 01")!
+        let startDate = formatter.date(from: "\(YYYY) \(String((Int(MM) ?? 3) - 2)) 01")!
         let endDate = formatter.date(from: "\(nextYYYY) \(MM) 28")!
         
         let parameters = ConfigurationParameters(startDate: startDate, endDate: endDate)
@@ -244,6 +259,9 @@ extension ReservationsViewController: JTAppleCalendarViewDelegate {
                 myCustomCell.eventView.backgroundColor = UIColor.init(red: 83/255, green: 188/255, blue: 111/255, alpha: 1.0)
             }
         }
+        
+        // save the current date
+        self.cellDate = date
     }
     
     // Show view when selecting cell
