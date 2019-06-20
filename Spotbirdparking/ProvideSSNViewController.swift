@@ -11,6 +11,7 @@ import UIKit
 //import libsodium
 //import RNCryptor
 import Alamofire
+import themis
 
 class ProvideSSNViewController: UIViewController, UITextFieldDelegate {
     
@@ -56,8 +57,7 @@ class ProvideSSNViewController: UIViewController, UITextFieldDelegate {
             self.invalidSSNLabel.isHidden = true
             
             // encrypt the ssn before we send to backend
-            let encrypted = encryptSSN(SSN: Int(ssn)!)
-            print("This is the encrypted value: \(encrypted)")
+            let encrypted = encryptSSN(SSN: ssn)
             
             // send to stripe
             self.saveSSNToStripe(encryptedSSN: encrypted)
@@ -82,20 +82,33 @@ class ProvideSSNViewController: UIViewController, UITextFieldDelegate {
     //        return encrypted
     
     // VERY hacky, should update to real encryption someday
-    func encryptSSN(SSN: Int) -> Int {
+    func encryptSSN(SSN: String) -> Data {
         
 //        let messageData = SSN.data(using: .utf8)!
 //        let cipherData = RNCryptor.encrypt(data: messageData, withPassword: self.encryptionPW)
 //        return cipherData.base64EncodedString()
         
-        let a = 179424691
-        let b = 373587911
-        let encrypted = a * SSN + b
-        return encrypted
+        let masterKeyString = "UkVDMgAAAC13PCVZAKOczZXUpvkhsC+xvwWnv3CLmlG0Wzy8ZBMnT+2yx/dg"
+        let masterKeyData = Data(base64Encoded: masterKeyString)!
+        
+        guard let cellSeal = TSCellSeal(key: masterKeyData) else {
+            print("failed to initialize seal mode")
+            return SSN.data(using: .utf8)!
+        }
+        
+        do {
+            let encryptedMessage = try cellSeal.wrap(SSN.data(using: .utf8)!)
+            //print("encrypted message: ",  String(data: encryptedMessage, encoding: .ascii)!)
+            return encryptedMessage
+        }
+        catch let error as NSError {
+            print("failed to encrypt message: \(error)")
+            return SSN.data(using: .utf8)!
+        }
     }
     
     // Send the social security number to Stripe
-    func saveSSNToStripe(encryptedSSN: Int) {
+    func saveSSNToStripe(encryptedSSN: Data) {
         var url = "https://spotbird-backend-bloughran618.herokuapp.com/save_ssn"
         
         var params: [String: Any] = [

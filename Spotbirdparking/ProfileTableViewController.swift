@@ -128,7 +128,7 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
             self.performSegue(withIdentifier: "Share", sender: self)
         }
         else if profileOptions![(indexPath as NSIndexPath).row].option == "Enable Payouts" {
-//            self.performSegue(withIdentifier: "Payouts", sender: self)
+//           self.performSegue(withIdentifier: "Payouts", sender: self)
 //            self.performSegue(withIdentifier: "SSN", sender: self)
             self.performSegue(withIdentifier: "IDDocs", sender: self)
         }

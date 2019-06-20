@@ -26,7 +26,10 @@ class User {
     var avg2 = Int()
     var avg3 = Int()
     var avg4 = Int()
-   
+    
+    var totalBalance = ""
+    var lifeBalance = ""
+    
     var refArtists: DatabaseReference!
    
     init?(firstName: String, lastName: String, profileImage: String, cars: [Car], reservations: [Reservation]) {
@@ -46,28 +49,20 @@ class User {
     }
     
     public func manageOneDefaultCar(carIndex: Int) {
-        // Manage min one default
-        var isOneDefault = false
+        //make every car defualt to false except carIndex specified
         for eachCar in self.cars {
             if eachCar.isDefault == true {
-                isOneDefault = true
+                let imagURL = URL(string: eachCar.carImage)
+                let imagData = try! Data(contentsOf: imagURL!)
+                let image = UIImage(data: imagData)
+                AppState.sharedInstance.user.SetCar(car_uid: (eachCar.car_uid)!, make: eachCar.make, Model: eachCar.model, year: eachCar.year!, setbool: false, image: image!, strurl: eachCar.carImage)
             }
         }
+        let imagURL = URL(string: self.cars[carIndex].carImage)
+        let imagData = try! Data(contentsOf: imagURL!)
+        let image = UIImage(data: imagData)
+        AppState.sharedInstance.user.SetCar(car_uid: (self.cars[carIndex].car_uid)!, make: self.cars[carIndex].make, Model: self.cars[carIndex].model, year: self.cars[carIndex].year!, setbool: true, image: image!, strurl: self.cars[carIndex].carImage)
         
-        // Manage max one default
-        if cars[carIndex].isDefault == true {
-            for eachCar in self.cars {
-                eachCar.isDefault = false
-            }
-            cars[carIndex].isDefault = true
-        }
-        
-        print("one default? : \(isOneDefault)")
-        print("cars.count: \(cars.count)")
-        if isOneDefault == false && cars.count > 0 {
-            cars[0].isDefault = true
-        }
-        return
      }
     
     // get the Car object of the default car
@@ -748,4 +743,61 @@ class User {
         })
     }
     
+    
+    public func fetch_Balance() {
+        let url = "https://spotbird-backend-bloughran618.herokuapp.com/fetch_Balance"
+        
+        let params: [String: Any] = ["account_id": AppState.sharedInstance.user.accounttoken]
+        
+        Alamofire.request(url, method: .post, parameters: params)
+            .validate(statusCode: 200..<300)
+            .responseJSON { response in
+                switch response.result {
+                case .success:
+                    print("Returned with success")
+                case .failure(let error):
+                    let status = response.response?.statusCode
+                    print("Failed, status: \(status)")
+                    print("Here is the error: \(error)")
+                }
+                
+                if let result = response.result.value {
+                    let balance = result as! NSDictionary
+                    self.totalBalance = String(describing: "\(balance["Balance"]!)")
+                    let intTotalBalance = Int(self.totalBalance)!%100
+                    if Int(self.totalBalance) != 0 {
+                        self.totalBalance = self.totalBalance.prefix(self.totalBalance.count-2) + "." + String(intTotalBalance)
+                    }
+                }
+        }
+    }
+    
+    public func fetch_LifeTimeBalance() {
+        let url = "https://spotbird-backend-bloughran618.herokuapp.com/fetch_LifeTimeBalance"
+        
+        let params: [String: Any] = ["account_id": AppState.sharedInstance.user.accounttoken]
+        
+        Alamofire.request(url, method: .post, parameters: params)
+            .validate(statusCode: 200..<300)
+            .responseJSON { response in
+                switch response.result {
+                case .success:
+                    print("Returned with success")
+                case .failure(let error):
+                    let status = response.response?.statusCode
+                    print("Failed, status: \(status)")
+                    print("Here is the error: \(error)")
+                }
+            
+                if let result = response.result.value {
+                    let balance = result as! NSDictionary
+                    self.lifeBalance = String(describing: "\(balance["Transfer"]!)")
+                    let intLifeBalance = Int(self.lifeBalance)!%100
+                    if Int(self.lifeBalance) != 0 {
+                        self.lifeBalance = self.lifeBalance.prefix(self.lifeBalance.count-2) + "." + String(intLifeBalance)
+                    }
+                }
+            
+        }
+    }
 }

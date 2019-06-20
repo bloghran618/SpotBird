@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import themis
 
 class RentingOutDetailViewController: UIViewController {
 
@@ -40,8 +41,8 @@ class RentingOutDetailViewController: UIViewController {
         lblTitle.text = "Your Rented Spot"
         let CompileAddress = "Address: " + res.spot.address + " " + res.spot.town + ", " + res.spot.state + " " + res.spot.zipCode
         lblAddress.attributedText = attributedText(withString: CompileAddress, boldString: "Address: ", font: UIFont.systemFont(ofSize: 17.0))
-        lblBegin.attributedText = attributedText(withString: "Begin: " + res.startDateTime, boldString: "Begin: ", font: UIFont.systemFont(ofSize: 17.0))
-        lblFinsih.attributedText = attributedText(withString: "End: " + res.endDateTime, boldString: "End: ", font: UIFont.systemFont(ofSize: 17.0))
+        lblBegin.attributedText = attributedText(withString: "Begin: " + convertDateFormatter(date: res.startDateTime), boldString: "Begin: ", font: UIFont.systemFont(ofSize: 17.0))
+        lblFinsih.attributedText = attributedText(withString: "End: " + convertDateFormatter(date: res.endDateTime), boldString: "End: ", font: UIFont.systemFont(ofSize: 17.0))
         lblPrice.attributedText = attributedText(withString: "Price: $" + res.price, boldString: "Price: ", font: UIFont.systemFont(ofSize: 17.0))
         let carString = "Car: " + res.car.make + " " + res.car.model // + " " + res.car.year
         lblCar.attributedText = attributedText(withString: carString + ", " + res.car.year!, boldString: "Car: ", font: UIFont.systemFont(ofSize: 17.0))
@@ -82,8 +83,28 @@ class RentingOutDetailViewController: UIViewController {
         return attributedString
     }
     
+    func convertDateFormatter(date: String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"//this your string date format
+        dateFormatter.timeZone = NSTimeZone(name: "EST") as TimeZone!
+        dateFormatter.locale = Locale(identifier: "your_loc_id")
+        let convertedDate = dateFormatter.date(from: date)
+        
+        guard dateFormatter.date(from: date) != nil else {
+            assert(false, "no date from string")
+            return ""
+        }
+        
+        dateFormatter.dateFormat = "MMMM d, yyyy h:mm a"///this is what you want to convert format
+        dateFormatter.timeZone = NSTimeZone(name: "EST") as TimeZone!
+        let timeStamp = dateFormatter.string(from: convertedDate!)
+        
+        return timeStamp
+    }
+    
     @IBAction func backTapped(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
+    
     
 }

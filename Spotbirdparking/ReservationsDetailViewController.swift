@@ -58,8 +58,8 @@ class ReservationsDetailViewController: UIViewController {
             imgIcon.image = UIImage.init(named: "drivewayParking")
         }
         
-        lblStart.attributedText = attributedText(withString: "Begin: " + res.startDateTime, boldString: "Begin: ", font: UIFont.systemFont(ofSize: 17.0))
-        lblEnd.attributedText = attributedText(withString: "End: " + res.endDateTime, boldString: "End: ", font: UIFont.systemFont(ofSize: 17.0))
+        lblStart.attributedText = attributedText(withString: "Begin: " + convertDateFormatter(date: res.startDateTime), boldString: "Begin: ", font: UIFont.systemFont(ofSize: 17.0))
+        lblEnd.attributedText = attributedText(withString: "End: " + convertDateFormatter(date: res.endDateTime), boldString: "End: ", font: UIFont.systemFont(ofSize: 17.0))
         
         lblDesc.numberOfLines = 0
         lblDesc.lineBreakMode = .byWordWrapping
@@ -91,6 +91,25 @@ class ReservationsDetailViewController: UIViewController {
         let range = (string as NSString).range(of: boldString)
         attributedString.addAttributes(boldFontAttribute, range: range)
         return attributedString
+    }
+    
+    func convertDateFormatter(date: String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd HH:mm"//this your string date format
+        dateFormatter.timeZone = NSTimeZone(name: "EST") as TimeZone!
+        dateFormatter.locale = Locale(identifier: "your_loc_id")
+        let convertedDate = dateFormatter.date(from: date)
+        
+        guard dateFormatter.date(from: date) != nil else {
+            assert(false, "no date from string")
+            return ""
+        }
+        
+        dateFormatter.dateFormat = "MMMM d, yyyy h:mm a"///this is what you want to convert format
+        dateFormatter.timeZone = NSTimeZone(name: "EST") as TimeZone!
+        let timeStamp = dateFormatter.string(from: convertedDate!)
+        
+        return timeStamp
     }
     
 }

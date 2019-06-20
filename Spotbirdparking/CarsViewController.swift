@@ -105,14 +105,12 @@ class CarsViewController: UIViewController, UITableViewDataSource {
             if let selectedIndexPath = CarsTable.indexPathForSelectedRow {
                 // Update an existing car
                 AppState.sharedInstance.user.cars[selectedIndexPath.row] = car
-                AppState.sharedInstance.user.manageOneDefaultCar(carIndex: selectedIndexPath.row)
                 CarsTable.reloadRows(at: [selectedIndexPath], with: .none)
             }
             else {
                 // Add new car
                 let newIndexPath = IndexPath(row: AppState.sharedInstance.user.cars.count, section: 0)
                 AppState.sharedInstance.user.cars.append(car)
-                AppState.sharedInstance.user.manageOneDefaultCar(carIndex: (AppState.sharedInstance.user.cars.count-1))
                 CarsTable.insertRows(at: [newIndexPath], with: .automatic)
             }
             CarsTable.reloadData()

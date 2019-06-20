@@ -198,10 +198,31 @@ class CarsDefinitionViewController: UIViewController, UITextFieldDelegate, UIIma
             // Add new car
           AppState.sharedInstance.user.SetCar(car_uid: "", make: Make.text!, Model: Model.text!, year: Year.text!, setbool: Default.isChecked, image: Image.image!,strurl:"")
             
+            if Default.isChecked == true {
+                for eachCar in AppState.sharedInstance.user.cars {
+                    if eachCar.isDefault == true {
+                        let imagURL = URL(string: eachCar.carImage)
+                        let imagData = try! Data(contentsOf: imagURL!)
+                        let image = UIImage(data: imagData)
+                        AppState.sharedInstance.user.SetCar(car_uid: (eachCar.car_uid)!, make: eachCar.make, Model: eachCar.model, year: eachCar.year!, setbool: false, image: image!, strurl: eachCar.carImage)
+                    }
+                }
+            }
+            
          }
         else{
               // Update exist car
-           AppState.sharedInstance.user.SetCar(car_uid: (car?.car_uid)!, make: Make.text!, Model: Model.text!, year: Year.text!, setbool: Default.isChecked, image: Image.image!, strurl: (car?.carImage)!)
+            var carIndex = 0
+            for eachCar in AppState.sharedInstance.user.cars {
+                if eachCar.car_uid == car?.car_uid {
+                    break
+                }
+                carIndex += 1
+            }
+            if AppState.sharedInstance.user.cars[carIndex].isDefault != Default.isChecked {
+                AppState.sharedInstance.user.manageOneDefaultCar(carIndex: carIndex)
+            }
+            AppState.sharedInstance.user.SetCar(car_uid: (car?.car_uid)!, make: Make.text!, Model: Model.text!, year: Year.text!, setbool: Default.isChecked, image: Image.image!, strurl: (car?.carImage)!)
            }
        }
     

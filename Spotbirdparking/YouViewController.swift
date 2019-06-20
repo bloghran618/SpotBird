@@ -9,12 +9,16 @@ import UIKit
 import Firebase
 import FirebaseAuth
 import Photos
+import Alamofire
 
 class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     @IBOutlet weak var profilePhoto: UIImageView!
     @IBOutlet weak var firstName: UITextField!
     @IBOutlet weak var lastName: UITextField!
+    @IBOutlet weak var lblTotalBalance: UILabel!
+    @IBOutlet weak var lblLifeTimeBalance: UILabel!
+    
        var original_pic = UIImageView()
     
     var ProfileImagePicker = UIImagePickerController()
@@ -24,7 +28,8 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        //fetch_Balance()
+        //fetch_LifeTimeBalance()
         Spinner.stop()
         profilePhoto.layer.borderWidth = 1
         profilePhoto.layer.masksToBounds = false
@@ -46,7 +51,7 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
             self.profilePhoto.sd_setImage(with: URL(string: AppState.sharedInstance.user.profileImage), placeholderImage: #imageLiteral(resourceName: "Profile"))
             original_pic.sd_setImage(with: URL(string: AppState.sharedInstance.user.profileImage), placeholderImage: #imageLiteral(resourceName: "Profile"))
         }
-      
+        
     }
     
       override func viewDidAppear(_ animated: Bool) {
@@ -54,7 +59,15 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         print(AppState.sharedInstance.user.firstName)
         self.firstName.text = AppState.sharedInstance.user.firstName
         self.lastName.text = AppState.sharedInstance.user.lastName
-       }
+        if Int(AppState.sharedInstance.user.lifeBalance) == 0 {
+            self.lblTotalBalance.text = ""
+            self.lblLifeTimeBalance.text = ""
+        }
+        else {
+            self.lblTotalBalance.attributedText = self.attributedText(withString: "Earnings Balance: $"  + AppState.sharedInstance.user.totalBalance, boldString: "Earnings Balance: ", font: UIFont.systemFont(ofSize: 17.0))
+            self.lblLifeTimeBalance.attributedText = self.attributedText(withString: "Total Earnings: $"  + AppState.sharedInstance.user.lifeBalance, boldString: "Total Earnings: ", font: UIFont.systemFont(ofSize: 17.0))
+        }
+    }
     
     // udapte user profile
     @objc func saveprofile(){
@@ -186,7 +199,7 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
   
     
     @IBAction func btn_Logout(_ sender: Any) {
-        let alertController = UIAlertController(title: "Spotbirdparking", message: "Are you sur you want to logout!", preferredStyle: UIAlertControllerStyle.alert)
+        let alertController = UIAlertController(title: "Spotbirdparking", message: "Are you sure you want to logout!", preferredStyle: UIAlertControllerStyle.alert)
         let DestructiveAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.destructive) { (result : UIAlertAction) -> Void in
             UserDefaults.standard.removeObject(forKey: "logindata")
             let appDomain = Bundle.main.bundleIdentifier!
@@ -214,6 +227,15 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     func show_save()  {
         let camera = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveprofile))
         self.navigationItem.rightBarButtonItem = camera
+    }
+    
+    func attributedText(withString string: String, boldString: String, font: UIFont) -> NSAttributedString {
+        let attributedString = NSMutableAttributedString(string: string,
+                                                         attributes: [NSAttributedStringKey.font: font])
+        let boldFontAttribute: [NSAttributedStringKey: Any] = [NSAttributedStringKey.font: UIFont.boldSystemFont(ofSize: font.pointSize)]
+        let range = (string as NSString).range(of: boldString)
+        attributedString.addAttributes(boldFontAttribute, range: range)
+        return attributedString
     }
 }
 
