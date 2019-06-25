@@ -2080,6 +2080,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                 Spinner.stop()
             }
         })
+        // need to get rid of this line...
+        Spinner.stop()
     }
     
     func get_todaySpots(tag:Int)
