@@ -114,6 +114,7 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
         }
         else {
             
+
             Spinner.start()
             let ref = Database.database().reference()
             ref.child("User").queryOrdered(byChild: "uname").queryEqual(toValue: txt_username.text)
@@ -133,6 +134,7 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
                         self.view.endEditing(true)
                         Spinner.start()
                         self.save_newuser()
+                        
                     }
                     
                 })
@@ -204,7 +206,8 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
         let accountToken = MyAPIClient.sharedClient.createAccountID()
         print("qwer")
         
-        if profilePhoto.image == #imageLiteral(resourceName: "EmptyProfile")
+        
+        if (profilePhoto.image?.isEqual(UIImage(named: "logo")))!
         {
             self.refArtists = Database.database().reference().child("User");
             let key = self.refArtists.childByAutoId().key
@@ -218,6 +221,7 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
                            "customerToken": customerToken,
                            "accountToken": accountToken]
             print(newuser)
+            
             self.refArtists.child(key!).setValue(newuser){
                 (error:Error?, ref:DatabaseReference) in
                 if let error = error {

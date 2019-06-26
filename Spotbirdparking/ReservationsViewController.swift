@@ -64,6 +64,7 @@ class ReservationsViewController: UIViewController,GMSMapViewDelegate,CLLocation
             resByDayTable.reloadData()
             
             // reservation table starts on current date
+            print("We will scroll to the right date")
             calendarView.scrollToDate(Date(), animateScroll: false)
             
         }

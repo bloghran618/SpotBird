@@ -53,6 +53,7 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         }
         
         if Int(AppState.sharedInstance.user.lifeBalance) == 0 {
+            print("No balance!")
             self.lblTotalBalance.text = ""
             self.lblLifeTimeBalance.text = ""
         }
@@ -200,7 +201,7 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
   
     
     @IBAction func btn_Logout(_ sender: Any) {
-        let alertController = UIAlertController(title: "Spotbirdparking", message: "Are you sure you want to logout!", preferredStyle: UIAlertControllerStyle.alert)
+        let alertController = UIAlertController(title: "Spotbirdparking", message: "Are you sure you want to logout?", preferredStyle: UIAlertControllerStyle.alert)
         let DestructiveAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.destructive) { (result : UIAlertAction) -> Void in
             UserDefaults.standard.removeObject(forKey: "logindata")
             let appDomain = Bundle.main.bundleIdentifier!
