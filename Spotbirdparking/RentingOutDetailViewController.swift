@@ -8,6 +8,7 @@
 
 import UIKit
 import themis
+import Firebase
 
 class RentingOutDetailViewController: UIViewController {
 
@@ -62,6 +63,27 @@ class RentingOutDetailViewController: UIViewController {
         
         imgCar.sd_setImage(with: URL(string: res.car.carImage), placeholderImage: UIImage(named: "Placeholder"))
         
+        var ref: DatabaseReference!
+        
+        ref = Database.database().reference()
+        
+        ref.child("User").child("-LbQoDVfuiRm7NBsWOR9").child("Cars").observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            let value = snapshot.value as? NSDictionary
+            var numDefault = 0
+            for eachCar in value! {
+                let car = eachCar.value as! NSDictionary
+                print(car["default"])
+                if car["default"] as! Int == 1 {
+                    numDefault += 1
+                }
+            }
+            print(value)
+            print(numDefault)
+            
+        }) { (error) in
+            print(error.localizedDescription)
+        }
     }
     
 
