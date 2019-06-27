@@ -67,7 +67,7 @@ class SpotbirdparkingTests: XCTestCase {
     
     func test_heroku_backend() {
         let url = "https://spotbird-backend-bloughran618.herokuapp.com/test_heroku_backend"
-
+        
         Alamofire.request(url, method: .post)
             .validate(statusCode: 200..<300)
             .responseJSON { response in
@@ -91,12 +91,16 @@ class SpotbirdparkingTests: XCTestCase {
         
         let params: [String: Any] = ["account_id": AppState.sharedInstance.user.accounttoken]
         
+        let expectation = self.expectation(description: "Testing stripe returning value")
+        
+        let totalBalance = ""
         Alamofire.request(url, method: .post, parameters: params)
             .validate(statusCode: 200..<300)
             .responseJSON { response in
                 switch response.result {
                 case .success:
                     print("Returned with success")
+                    expectation.fulfill()
                 case .failure(let error):
                     let status = response.response?.statusCode
                     print("Failed, status: \(status)")
@@ -107,7 +111,11 @@ class SpotbirdparkingTests: XCTestCase {
                     let balance = result as! NSDictionary
                     let totalBalance = String(describing: "\(balance["Balance"]!)")
                 }
-                XCTAssert(totalBalance != nil)
+                print("hello")
+                XCTAssert(totalBalance != "")
+        }
+        waitForExpectations(timeout: 10, handler: nil)
+        XCTAssert(totalBalance != "")
     }
 
     func test_google_place() {

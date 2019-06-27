@@ -48,6 +48,9 @@ class ReservationsViewController: UIViewController,GMSMapViewDelegate,CLLocation
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //Spinner.stop()
+        //Spinner.start()
+        //AppState.sharedInstance.user.getReservations()
         
         print("Reservations: \(AppState.sharedInstance.user.reservations)")
         var i = 0
@@ -93,7 +96,6 @@ class ReservationsViewController: UIViewController,GMSMapViewDelegate,CLLocation
         
         setView(view: mapView, hidden: true)
         setView(view: btn_back, hidden: true)
-        
         
     }
     

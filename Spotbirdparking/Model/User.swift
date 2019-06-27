@@ -652,7 +652,9 @@ class User {
             else {
                 print("No reservations")
             }
+            //Spinner.stop()
         })
+        //Spinner.stop()
     }
     
     // check if a reservation matches one already in a list of reservations (ignore duplicates
