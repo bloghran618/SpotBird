@@ -52,13 +52,6 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
             original_pic.sd_setImage(with: URL(string: AppState.sharedInstance.user.profileImage), placeholderImage: #imageLiteral(resourceName: "Profile"))
         }
         
-    }
-    
-      override func viewDidAppear(_ animated: Bool) {
-        print(AppState.sharedInstance.user.firstName)
-        print(AppState.sharedInstance.user.firstName)
-        self.firstName.text = AppState.sharedInstance.user.firstName
-        self.lastName.text = AppState.sharedInstance.user.lastName
         if Int(AppState.sharedInstance.user.lifeBalance) == 0 {
             print("No balance!")
             self.lblTotalBalance.text = ""
@@ -68,6 +61,14 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
             self.lblTotalBalance.attributedText = self.attributedText(withString: "Earnings Balance: $"  + AppState.sharedInstance.user.totalBalance, boldString: "Earnings Balance: ", font: UIFont.systemFont(ofSize: 17.0))
             self.lblLifeTimeBalance.attributedText = self.attributedText(withString: "Total Earnings: $"  + AppState.sharedInstance.user.lifeBalance, boldString: "Total Earnings: ", font: UIFont.systemFont(ofSize: 17.0))
         }
+        
+    }
+    
+      override func viewDidAppear(_ animated: Bool) {
+        print(AppState.sharedInstance.user.firstName)
+        print(AppState.sharedInstance.user.firstName)
+        self.firstName.text = AppState.sharedInstance.user.firstName
+        self.lastName.text = AppState.sharedInstance.user.lastName
     }
     
     // udapte user profile

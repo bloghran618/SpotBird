@@ -75,6 +75,14 @@ class User {
         // if algorithm cannot find default, return first car
         return self.cars[0]
     }
+    
+    public func testDefaultCar() -> Int {
+        var numDefaults = 0
+        for eachCar in self.cars {
+            numDefaults += 1
+        }
+        return numDefaults
+    }
 
     // Get database to car
     public func Get_UserProfile() {
