@@ -679,6 +679,81 @@ class User {
         return isInReservations
     }
     
+    // get the times that the user has reserved (to check if conflicting reservation)
+    public func getReservationTimesForUser(spotUser: String, completionHandler: @escaping (_ timesList: [[String: String]]) -> ()) {
+        
+        // set the reference to the users reservation list
+        let ref = Database.database().reference().child("User").child(spotUser).child("Reservations")
+        
+        // create empty list of times dictionary
+        var reservationTimesList: [[String:String]] = []
+        
+        // loop over each reservation in database reference
+        ref.observe(DataEventType.value, with: { (snapshot) in
+            if snapshot.childrenCount > 0 {
+                for artists in snapshot.children.allObjects as! [DataSnapshot] {
+                    let reservationDict = ((snapshot.value as! NSDictionary).value(forKey: (artists as! DataSnapshot).key)) as! NSDictionary
+                    
+                    // each iteration saved to dictionary called snapshotValue
+//                    print("Reservation Dict: \(reservationDict)")
+                    
+                    // create a dictionary containing the start and end time of the reservation
+                    let timesDict = ["start": reservationDict["startDateTime"] as! String,
+                                     "end": reservationDict["endDateTime"] as! String,
+                                     "spotID": reservationDict["spotID"] as! String]
+                    print("Times Dict: \(timesDict)")
+                    
+                    // add the timesDict to the list of times dictionaries
+                    reservationTimesList.append(timesDict)
+                }
+//                print("reservationTimesList: \(reservationTimesList)")
+                ref.removeAllObservers()
+                completionHandler(reservationTimesList)
+            }
+        })
+    }
+    
+    // this is a partner function to getReservationTimesForUser()
+    // this function checks if a Reservation object conflicts with any given times
+    public func checkReservationAgainstTimesList(res: Reservation, timesList: [[String:String]]) -> Bool {
+        
+        // initialize whether a conflict to false
+        var isConflict = false
+        
+        // get the start and end time of the reservation to create
+        let resStartDateTime = Reservation.stringToDate(string: res.startDateTime)
+        let resEndDateTime = Reservation.stringToDate(string: res.endDateTime)
+        
+        // loop over each "lite" reservation in the timesList from getReservationTimesForUser()
+        for resLite in timesList {
+            
+            // get the start and end time of the spot reservation
+            var liteStartDateTime = Reservation.stringToDate(string: resLite["start"]!)
+            var liteEndDateTime = Reservation.stringToDate(string: resLite["end"]!)
+            
+            // check if the resLite is at the same Spot() as the reservation
+//            print("reservation spot ID: \(res.ownerID)")
+//            print("resLite spot ID: \(resLite["ownerID"] as! String)")
+            if(res.spot.spot_id == resLite["spotID"] as! String) {
+                print("The spot id matches")
+                
+                // check if there is a conflict
+                if((resStartDateTime > liteStartDateTime && resStartDateTime < liteEndDateTime) || (resEndDateTime > liteStartDateTime && resEndDateTime < liteEndDateTime) || (liteStartDateTime > resStartDateTime && liteStartDateTime < resEndDateTime) || (liteEndDateTime > resStartDateTime && liteEndDateTime < resEndDateTime)) || (resStartDateTime == liteStartDateTime && resEndDateTime == liteEndDateTime){
+                    print("THIS IS A CONFLICT")
+                    isConflict = true
+                }
+                else {
+                    print("This is not a conflict")
+                }
+            }
+            else {
+                print("The spot id does not match")
+            }
+            
+        }
+        return isConflict
+    }
+    
     // retrieve Car() object for given User() and car_ID
     public func carAtPath(carUser: String, carID: String, completion: @escaping (_ car: Car) ->Void) {
         var reservationCar = Car()

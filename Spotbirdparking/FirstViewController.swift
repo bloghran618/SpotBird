@@ -1264,36 +1264,56 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         
         print("Reservations created")
         
-        // get source for payment
-        let source = AppState.sharedInstance.user.customertoken
-        
-        print("Source found")
-        AppState.sharedInstance.appStateRoot.child("User").child(ownerID).observeSingleEvent(of: .value, with: { (snapshot) in
-            let userDict = snapshot.value as! [String: Any]
-            let destination = userDict["accountToken"] as! String
-            print("Destination is: \(destination)")
+        // check if there are any conflicting reservations
+        AppState.sharedInstance.user.getReservationTimesForUser(spotUser: ownerID) {
+            timesList in
+//            print("Completion: \(timesList)")
+            var isConflict = AppState.sharedInstance.user.checkReservationAgainstTimesList(res: parkerReservation!, timesList: timesList)
             
-            // get integer value for amount for payment in cents
-            let amount = Int((NumberFormatter().number(from: (parkerReservation?.price)!)!.floatValue) * 100)
-            print("Price (cents): \(amount)")
+            print("Conflict?: " + String(isConflict))
             
-            // make payment
-            if(destination != "" && AppState.sharedInstance.user.customertoken != "") {
-                
-                // pay us
-                self.setPaymentContext(price: amount)
-                self.paymentContext.requestPayment()
-                
-                // pay owner
-                MyAPIClient.sharedClient.completeTransfer(destination: destination, spotAmount: amount)
+            // if there is a conflict display an alert and return
+            if isConflict {
+                print("We should display an alert")
+                let alert = UIAlertController(title: "Spot Reserved During this Time", message: "We apologize, this spot is already reserved. Please try another spot", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true)
+                Spinner.stop()
+                return
             }
-        })
+            else {
+                // get source for payment
+                let source = AppState.sharedInstance.user.customertoken
+                
+                print("Source found")
+                AppState.sharedInstance.appStateRoot.child("User").child(ownerID).observeSingleEvent(of: .value, with: { (snapshot) in
+                    let userDict = snapshot.value as! [String: Any]
+                    let destination = userDict["accountToken"] as! String
+                    print("Destination is: \(destination)")
+                    
+                    // get integer value for amount for payment in cents
+                    let amount = Int((NumberFormatter().number(from: (parkerReservation?.price)!)!.floatValue) * 100)
+                    print("Price (cents): \(amount)")
+                    
+                    // make payment
+                    if(destination != "" && AppState.sharedInstance.user.customertoken != "") {
+                        
+                        // pay us
+                        self.setPaymentContext(price: amount)
+                        self.paymentContext.requestPayment()
+                        
+                        // pay owner
+                        MyAPIClient.sharedClient.completeTransfer(destination: destination, spotAmount: amount)
+                    }
+                })
+                
+                // set reservations in the database
+                AppState.sharedInstance.user.addReservation(reservation: parkerReservation!)
+                AppState.sharedInstance.user.addReservationToUser(reservation: ownerReservation!)
+            }
         
-        // set reservations in the database
-        AppState.sharedInstance.user.addReservation(reservation: parkerReservation!)
-        AppState.sharedInstance.user.addReservationToUser(reservation: ownerReservation!)
-        
-//        Spinner.stop()
+        }
+    //        Spinner.stop()
     }
     
     // MARK:_ BTn Autocomplete loation search
@@ -1781,7 +1801,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         
         print("We are loading spots...")
         
-        Spinner.start()
+//        Spinner.start()
         var weekday = [String]()
         let dateformats = DateFormatter()
         dateformats.timeZone = TimeZone.current
