@@ -127,7 +127,9 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         AppState.sharedInstance.user.getReservations()
         AppState.sharedInstance.user.fetch_Balance()
         AppState.sharedInstance.user.fetch_LifeTimeBalance()
-       
+
+        
+        
         
         dismissKeyboard()
         //scheduledTimerWithTimeInterval()  // time
