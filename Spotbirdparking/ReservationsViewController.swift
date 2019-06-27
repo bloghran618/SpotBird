@@ -50,9 +50,12 @@ class ReservationsViewController: UIViewController,GMSMapViewDelegate,CLLocation
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //Spinner.stop()
-        //Spinner.start()
-        //AppState.sharedInstance.user.getReservations()
+        Spinner.stop()
+        Spinner.start()
+        AppState.sharedInstance.user.getReservations() { message in
+            print(message)
+            Spinner.stop()
+        }
         
         print("Reservations: \(AppState.sharedInstance.user.reservations)")
         var i = 0
@@ -62,21 +65,22 @@ class ReservationsViewController: UIViewController,GMSMapViewDelegate,CLLocation
             print("park or rent? : \(res.parkOrRent)")
             i += 1
             // highlight today
-            calendarView.selectDates([Date()])
-            
+            self.calendarView.selectDates([Date()])
+        
             // reservation table shows data for today
-            self.resOnDay = getReservationsOnDay(date: Date())
-            resByDayTable.reloadData()
-            
+            self.resOnDay = self.getReservationsOnDay(date: Date())
+            self.resByDayTable.reloadData()
+    
             // reservation table starts on current date
             print("We will scroll to the right date")
-            calendarView.scrollToDate(Date(), animateScroll: false)
+            self.calendarView.scrollToDate(Date(), animateScroll: false)
+            
             
         }
         
-//        // Temp data
-        let spot = Spot(address: "1500 Market Street", town: "Philadelphia", state: "PA", zipCode: "19102", spotImage: "test", description: "<#T##String#>", monStartTime: "<#T##String#>", monEndTime: "<#T##String#>", tueStartTime: "<#T##String#>", tueEndTime: "<#T##String#>", wedStartTime: "<#T##String#>", wedEndTime: "<#T##String#>", thuStartTime: "<#T##String#>", thuEndTime: "<#T##String#>", friStartTime: "<#T##String#>", friEndTime: "<#T##String#>", satStartTime: "<#T##String#>", satEndTime: "<#T##String#>", sunStartTime: "<#T##String#>", sunEndTime: "<#T##String#>", monOn: true, tueOn: true, wedOn: true, thuOn: true, friOn: true, satOn: true, sunOn: true, hourlyPricing: "1", dailyPricing: "1.00", weeklyPricing: "3", monthlyPricing: "8", weeklyOn: true, monthlyOn: true, index: 0, approved: true, spotImages: UIImage(named: "test")!, spots_id: "-LhmnAVVHAoJ9GpmO9YW", latitude: "39.9525839", longitude: "-75.1652215", spottype: "", owner_id: "", Email: "", baseprice: "")
-//
+//     // Temp data
+       let spot = Spot(address: "1500 Market Street", town: "Philadelphia", state: "PA", zipCode: "19102", spotImage: "test", description: "<#T##String#>", monStartTime: "<#T##String#>", monEndTime: "<#T##String#>", tueStartTime: "<#T##String#>", tueEndTime: "<#T##String#>", wedStartTime: "<#T##String#>", wedEndTime: "<#T##String#>", thuStartTime: "<#T##String#>", thuEndTime: "<#T##String#>", friStartTime: "<#T##String#>", friEndTime: "<#T##String#>", satStartTime: "<#T##String#>", satEndTime: "<#T##String#>", sunStartTime: "<#T##String#>", sunEndTime: "<#T##String#>", monOn: true, tueOn: true, wedOn: true, thuOn: true, friOn: true, satOn: true, sunOn: true, hourlyPricing: "1", dailyPricing: "1.00", weeklyPricing: "3", monthlyPricing: "8", weeklyOn: true, monthlyOn: true, index: 0, approved: true, spotImages: UIImage(named: "test")!, spots_id: "-LhmnAVVHAoJ9GpmO9YW", latitude: "39.9525839", longitude: "-75.1652215", spottype: "", owner_id: "", Email: "", baseprice: "")
+
 //        let spot2 = Spot(address: "1500 Micheal Plaza also an unreasonable amoutnt of text", town: "Philly", state: "PA", zipCode: "00000", spotImage: "Share", description: "<#T##String#>", monStartTime: "<#T##String#>", monEndTime: "<#T##String#>", tueStartTime: "<#T##String#>", tueEndTime: "<#T##String#>", wedStartTime: "<#T##String#>", wedEndTime: "<#T##String#>", thuStartTime: "<#T##String#>", thuEndTime: "<#T##String#>", friStartTime: "<#T##String#>", friEndTime: "<#T##String#>", satStartTime: "<#T##String#>", satEndTime: "<#T##String#>", sunStartTime: "<#T##String#>", sunEndTime: "<#T##String#>", monOn: true, tueOn: true, wedOn: true, thuOn: true, friOn: true, satOn: true, sunOn: true, hourlyPricing: "1", dailyPricing: "1.00", weeklyPricing: "3", monthlyPricing: "8", weeklyOn: true, monthlyOn: true, index: 0, approved: true, spotImages: UIImage(named: "Share")!, spots_id: "<#T##String#>", latitude: "20.1", longitude: "50.1", spottype: "", owner_id: "", Email: "", baseprice: "")
 //
         let car = Car(make: "<#T##String#>", model: "<#T##String#>", year: "<#T##String#>", carImage: "<#T##String#>", isDefault: true, car_id: "<#T##String#>")
@@ -97,9 +101,9 @@ class ReservationsViewController: UIViewController,GMSMapViewDelegate,CLLocation
         calendarView.calendarDataSource = self
         calendarView.calendarDelegate = self
         
-        self.resByDayTable.delegate = self
-        self.resByDayTable.dataSource = self
-        self.resByDayTable.rowHeight = 80
+        resByDayTable.delegate = self
+        resByDayTable.dataSource = self
+        resByDayTable.rowHeight = 80
         
         setupCalendarView()
         

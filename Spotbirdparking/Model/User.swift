@@ -549,7 +549,9 @@ class User {
                 print("Parker Data could not be saved: \(error).")
             } else {
                 print("Parker Data saved successfully!")
-                AppState.sharedInstance.user.getReservations()
+                AppState.sharedInstance.user.getReservations() { message in
+                    print(message)
+                }
             }
         }
     }
@@ -585,7 +587,7 @@ class User {
     }
     
     // get the list of reservations for a user
-    func getReservations() {
+    func getReservations(completionHandler: @escaping (_ message: String) -> ()) {
         // empty any current reservations
         print("!!!!!!!! WE ARE GETTING THE RESERVATIONS !!!!!!!!!!!!!!!")
         print("Reservations: \(AppState.sharedInstance.user.reservations)")
@@ -648,6 +650,7 @@ class User {
                         }
                     }
                 }
+                completionHandler("COMPLETED... BOIII")
             }
             else {
                 print("No reservations")
