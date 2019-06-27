@@ -66,7 +66,7 @@ class RentingOutDetailViewController: UIViewController {
         var ref: DatabaseReference!
         
         ref = Database.database().reference()
-        
+                
         ref.child("User").child("-LbQoDVfuiRm7NBsWOR9").child("Cars").observeSingleEvent(of: .value, with: { (snapshot) in
             
             let value = snapshot.value as? NSDictionary

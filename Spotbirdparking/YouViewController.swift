@@ -28,8 +28,6 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //fetch_Balance()
-        //fetch_LifeTimeBalance()
         Spinner.stop()
         profilePhoto.layer.borderWidth = 1
         profilePhoto.layer.masksToBounds = false

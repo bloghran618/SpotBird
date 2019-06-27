@@ -30,13 +30,15 @@ class SpotbirdparkingTests: XCTestCase {
         
         self.ref = Database.database().reference()
         
+        self.ref.child("test").setValue(["test": "test"])
+        
         print("hello1")
         
         let expectation = self.expectation(description: "Downloading data from Firebase")
         self.numDefault = 0
-        
+
         self.ref.child("User").child("-LbQoDVfuiRm7NBsWOR9").child("Cars").observeSingleEvent(of: .value, with: { (snapshot) in
-            
+
             let value = snapshot.value as? NSDictionary
             for eachCar in value! {
                 let car = eachCar.value as! NSDictionary
@@ -45,17 +47,17 @@ class SpotbirdparkingTests: XCTestCase {
                 }
             }
             print(self.numDefault)
-            
+
             //XCTAssert(self.numDefault == 1)
-            
+
             expectation.fulfill()
-            
+
             XCTAssert(self.numDefault == 1)
 
         }) { (error) in
             print(error.localizedDescription)
         }
-        
+
         waitForExpectations(timeout: 10, handler: nil)
         print("hello2")
         //XCTAssert(self.numDefault == 1)
@@ -63,9 +65,9 @@ class SpotbirdparkingTests: XCTestCase {
 
     }
     
-    func test_stripe_backend() {
-        let url = "https://spotbird-backend-bloughran618.herokuapp.com/test_stripe_backend"
-        
+    func test_heroku_backend() {
+        let url = "https://spotbird-backend-bloughran618.herokuapp.com/test_heroku_backend"
+
         Alamofire.request(url, method: .post)
             .validate(statusCode: 200..<300)
             .responseJSON { response in
@@ -84,6 +86,30 @@ class SpotbirdparkingTests: XCTestCase {
         }
     }
     
+    func test_stripe() {
+        let url = "https://spotbird-backend-bloughran618.herokuapp.com/test_stripe"
+        
+        let params: [String: Any] = ["account_id": AppState.sharedInstance.user.accounttoken]
+        
+        Alamofire.request(url, method: .post, parameters: params)
+            .validate(statusCode: 200..<300)
+            .responseJSON { response in
+                switch response.result {
+                case .success:
+                    print("Returned with success")
+                case .failure(let error):
+                    let status = response.response?.statusCode
+                    print("Failed, status: \(status)")
+                    print("Here is the error: \(error)")
+                }
+                
+                if let result = response.result.value {
+                    let balance = result as! NSDictionary
+                    let totalBalance = String(describing: "\(balance["Balance"]!)")
+                }
+                XCTAssert(totalBalance != nil)
+    }
+
     func test_google_place() {
         try GMSServices.provideAPIKey("AIzaSyCvFxAOvA246L6Syk7Cl426254C-sMJGxk")
         try GMSPlacesClient.provideAPIKey("AIzaSyCvFxAOvA246L6Syk7Cl426254C-sMJGxk")
