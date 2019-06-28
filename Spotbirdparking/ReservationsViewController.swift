@@ -50,69 +50,65 @@ class ReservationsViewController: UIViewController,GMSMapViewDelegate,CLLocation
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        Spinner.stop()
-        Spinner.start()
-        AppState.sharedInstance.user.getReservations() { message in
-            print(message)
-            Spinner.stop()
-        }
         
-        print("Reservations: \(AppState.sharedInstance.user.reservations)")
-        var i = 0
-        for res in AppState.sharedInstance.user.reservations {
-            print("Spot: \(AppState.sharedInstance.user.reservations[i].spot)")
-            print("StartDateTime: \(res.startDateTime)")
-            print("park or rent? : \(res.parkOrRent)")
-            i += 1
-            // highlight today
-            self.calendarView.selectDates([Date()])
+        // highlight today in the calendar
+        calendarView.selectDates([Date()])
         
-            // reservation table shows data for today
-            self.resOnDay = self.getReservationsOnDay(date: Date())
-            self.resByDayTable.reloadData()
-    
-            // reservation table starts on current date
-            print("We will scroll to the right date")
-            self.calendarView.scrollToDate(Date(), animateScroll: false)
-            
-            
-        }
+        // reservation table starts on current date
+        print("We will scroll to the right date")
+        calendarView.scrollToDate(Date(), animateScroll: false)
         
-//     // Temp data
-       let spot = Spot(address: "1500 Market Street", town: "Philadelphia", state: "PA", zipCode: "19102", spotImage: "test", description: "<#T##String#>", monStartTime: "<#T##String#>", monEndTime: "<#T##String#>", tueStartTime: "<#T##String#>", tueEndTime: "<#T##String#>", wedStartTime: "<#T##String#>", wedEndTime: "<#T##String#>", thuStartTime: "<#T##String#>", thuEndTime: "<#T##String#>", friStartTime: "<#T##String#>", friEndTime: "<#T##String#>", satStartTime: "<#T##String#>", satEndTime: "<#T##String#>", sunStartTime: "<#T##String#>", sunEndTime: "<#T##String#>", monOn: true, tueOn: true, wedOn: true, thuOn: true, friOn: true, satOn: true, sunOn: true, hourlyPricing: "1", dailyPricing: "1.00", weeklyPricing: "3", monthlyPricing: "8", weeklyOn: true, monthlyOn: true, index: 0, approved: true, spotImages: UIImage(named: "test")!, spots_id: "-LhmnAVVHAoJ9GpmO9YW", latitude: "39.9525839", longitude: "-75.1652215", spottype: "", owner_id: "", Email: "", baseprice: "")
-
-//        let spot2 = Spot(address: "1500 Micheal Plaza also an unreasonable amoutnt of text", town: "Philly", state: "PA", zipCode: "00000", spotImage: "Share", description: "<#T##String#>", monStartTime: "<#T##String#>", monEndTime: "<#T##String#>", tueStartTime: "<#T##String#>", tueEndTime: "<#T##String#>", wedStartTime: "<#T##String#>", wedEndTime: "<#T##String#>", thuStartTime: "<#T##String#>", thuEndTime: "<#T##String#>", friStartTime: "<#T##String#>", friEndTime: "<#T##String#>", satStartTime: "<#T##String#>", satEndTime: "<#T##String#>", sunStartTime: "<#T##String#>", sunEndTime: "<#T##String#>", monOn: true, tueOn: true, wedOn: true, thuOn: true, friOn: true, satOn: true, sunOn: true, hourlyPricing: "1", dailyPricing: "1.00", weeklyPricing: "3", monthlyPricing: "8", weeklyOn: true, monthlyOn: true, index: 0, approved: true, spotImages: UIImage(named: "Share")!, spots_id: "<#T##String#>", latitude: "20.1", longitude: "50.1", spottype: "", owner_id: "", Email: "", baseprice: "")
-//
-        let car = Car(make: "<#T##String#>", model: "<#T##String#>", year: "<#T##String#>", carImage: "<#T##String#>", isDefault: true, car_id: "<#T##String#>")
-//
-//        AppState.sharedInstance.user.reservations = [Reservation(startDateTime: "2019-01-18 12:00", endDateTime: "2019-01-18 13:00", parkOrRent: "Park", spot: spot!, parkerID: "1234", car: car!), Reservation(startDateTime: "2019-01-08 14:30", endDateTime: "2019-01-08 16:30", parkOrRent: "Park", spot: spot2!, parkerID: "1234", car: car!), Reservation(startDateTime: "2019-01-05 14:30", endDateTime: "2019-01-08 16:30", parkOrRent: "Park", spot: spot!, parkerID: "1234", car: car!), Reservation(startDateTime: "2019-01-18 13:00", endDateTime: "2019-01-18 15:00", parkOrRent: "Rent", spot: spot2!, parkerID: "1234", car: car!)] as! [Reservation]
-        
-        let testRes = Reservation(startDateTime: "2019-06-24 19:00", endDateTime: "2019-06-24 23:30", parkOrRent: "Park", spot: spot!, parkerID: "1234", car: car!, ownerID: "-Ld-qaMWe_3vvivur38l")
-        
-        // just debug code:
-        //        AppState.sharedInstance.user.getReservationTimesForUser(spotUser: "-LbWC5PfUgukQWiQKhi9")
-        // remember spotUser is the owner of the spot
-        AppState.sharedInstance.user.getReservationTimesForUser(spotUser: "-Ld-qaMWe_3vvivur38l") {
-            timesList in
-            print("Completion: \(timesList)")
-            AppState.sharedInstance.user.checkReservationAgainstTimesList(res: testRes!, timesList: timesList)
-        }
-        
+        // delegates and row height
         calendarView.calendarDataSource = self
         calendarView.calendarDelegate = self
-        
         resByDayTable.delegate = self
         resByDayTable.dataSource = self
         resByDayTable.rowHeight = 80
         
-        setupCalendarView()
-        
-        
-        //        mapView.isHidden = true
-        //         btn_back.isHidden = true
-        
         setView(view: mapView, hidden: true)
         setView(view: btn_back, hidden: true)
+        
+        Spinner.stop()
+        Spinner.start()
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2), execute: {
+            if AppState.sharedInstance.user.reservationsDownloaded == true {
+                
+                print("Reservations: \(AppState.sharedInstance.user.reservations)")
+                
+                // reservation table shows data for today
+                self.resOnDay = self.getReservationsOnDay(date: Date())
+                self.resByDayTable.reloadData()
+                
+                //setupCalendarView()
+                self.setupCalendarView()
+                
+                Spinner.stop()
+            } else {
+                print("waiting to download")
+            }
+        })
+        
+        
+//        // Temp data
+//        let spot = Spot(address: "1500 Market Street", town: "Philadelphia", state: "PA", zipCode: "19102", spotImage: "test", description: "<#T##String#>", monStartTime: "<#T##String#>", monEndTime: "<#T##String#>", tueStartTime: "<#T##String#>", tueEndTime: "<#T##String#>", wedStartTime: "<#T##String#>", wedEndTime: "<#T##String#>", thuStartTime: "<#T##String#>", thuEndTime: "<#T##String#>", friStartTime: "<#T##String#>", friEndTime: "<#T##String#>", satStartTime: "<#T##String#>", satEndTime: "<#T##String#>", sunStartTime: "<#T##String#>", sunEndTime: "<#T##String#>", monOn: true, tueOn: true, wedOn: true, thuOn: true, friOn: true, satOn: true, sunOn: true, hourlyPricing: "1", dailyPricing: "1.00", weeklyPricing: "3", monthlyPricing: "8", weeklyOn: true, monthlyOn: true, index: 0, approved: true, spotImages: UIImage(named: "test")!, spots_id: "-LhmnAVVHAoJ9GpmO9YW", latitude: "39.9525839", longitude: "-75.1652215", spottype: "", owner_id: "", Email: "", baseprice: "")
+//
+//        let spot2 = Spot(address: "1500 Micheal Plaza also an unreasonable amoutnt of text", town: "Philly", state: "PA", zipCode: "00000", spotImage: "Share", description: "<#T##String#>", monStartTime: "<#T##String#>", monEndTime: "<#T##String#>", tueStartTime: "<#T##String#>", tueEndTime: "<#T##String#>", wedStartTime: "<#T##String#>", wedEndTime: "<#T##String#>", thuStartTime: "<#T##String#>", thuEndTime: "<#T##String#>", friStartTime: "<#T##String#>", friEndTime: "<#T##String#>", satStartTime: "<#T##String#>", satEndTime: "<#T##String#>", sunStartTime: "<#T##String#>", sunEndTime: "<#T##String#>", monOn: true, tueOn: true, wedOn: true, thuOn: true, friOn: true, satOn: true, sunOn: true, hourlyPricing: "1", dailyPricing: "1.00", weeklyPricing: "3", monthlyPricing: "8", weeklyOn: true, monthlyOn: true, index: 0, approved: true, spotImages: UIImage(named: "Share")!, spots_id: "<#T##String#>", latitude: "20.1", longitude: "50.1", spottype: "", owner_id: "", Email: "", baseprice: "")
+//
+//        let car = Car(make: "<#T##String#>", model: "<#T##String#>", year: "<#T##String#>", carImage: "<#T##String#>", isDefault: true, car_id: "<#T##String#>")
+//
+//        AppState.sharedInstance.user.reservations = [Reservation(startDateTime: "2019-01-18 12:00", endDateTime: "2019-01-18 13:00", parkOrRent: "Park", spot: spot!, parkerID: "1234", car: car!), Reservation(startDateTime: "2019-01-08 14:30", endDateTime: "2019-01-08 16:30", parkOrRent: "Park", spot: spot2!, parkerID: "1234", car: car!), Reservation(startDateTime: "2019-01-05 14:30", endDateTime: "2019-01-08 16:30", parkOrRent: "Park", spot: spot!, parkerID: "1234", car: car!), Reservation(startDateTime: "2019-01-18 13:00", endDateTime: "2019-01-18 15:00", parkOrRent: "Rent", spot: spot2!, parkerID: "1234", car: car!)] as! [Reservation]
+        
+//        let testRes = Reservation(startDateTime: "2019-06-24 19:00", endDateTime: "2019-06-24 23:30", parkOrRent: "Park", spot: spot!, parkerID: "1234", car: car!, ownerID: "-Ld-qaMWe_3vvivur38l")
+        
+        // just debug code:
+        //        AppState.sharedInstance.user.getReservationTimesForUser(spotUser: "-LbWC5PfUgukQWiQKhi9")
+        // remember spotUser is the owner of the spot
+//        AppState.sharedInstance.user.getReservationTimesForUser(spotUser: "-Ld-qaMWe_3vvivur38l") {
+//            timesList in
+//            print("Completion: \(timesList)")
+//            AppState.sharedInstance.user.checkReservationAgainstTimesList(res: testRes!, timesList: timesList)
+//        }
         
     }
     

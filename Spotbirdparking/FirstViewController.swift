@@ -124,9 +124,14 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         // load aspects of User() object from the database
         AppState.sharedInstance.activeSpot.getSpots()
         AppState.sharedInstance.user.GetCar()
-        //AppState.sharedInstance.user.getReservations() { message in
-          //  print(message)
-        //}
+        
+        let queue = DispatchQueue(label: "Getting Reservations", qos: .utility)
+        queue.async {
+            AppState.sharedInstance.user.getReservations() { message in
+                print(message)
+                AppState.sharedInstance.user.reservationsDownloaded = true
+            }
+        }
         AppState.sharedInstance.user.fetch_Balance()
         AppState.sharedInstance.user.fetch_LifeTimeBalance()
 

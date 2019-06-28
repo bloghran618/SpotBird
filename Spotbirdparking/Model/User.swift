@@ -30,6 +30,8 @@ class User {
     var totalBalance = ""
     var lifeBalance = ""
     
+    var reservationsDownloaded = false
+    
     var refArtists: DatabaseReference!
    
     init?(firstName: String, lastName: String, profileImage: String, cars: [Car], reservations: [Reservation]) {
@@ -589,6 +591,7 @@ class User {
     // get the list of reservations for a user
     func getReservations(completionHandler: @escaping (_ message: String) -> ()) {
         // empty any current reservations
+        print("Current thread in \(#function) is \(Thread.current)")
         print("!!!!!!!! WE ARE GETTING THE RESERVATIONS !!!!!!!!!!!!!!!")
         print("Reservations: \(AppState.sharedInstance.user.reservations)")
         print("#: \(AppState.sharedInstance.user.reservations.count)")
