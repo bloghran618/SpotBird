@@ -1077,7 +1077,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set Default?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lVA-pG-SwB">
-                                <rect key="frame" x="161.5" y="368" width="91" height="20"/>
+                                <rect key="frame" x="160" y="368" width="94" height="20"/>
                                 <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -1984,7 +1984,7 @@
                                         </connections>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Specify your spot type:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pIv-bN-fjT">
-                                        <rect key="frame" x="112" y="44" width="176" height="20"/>
+                                        <rect key="frame" x="113.5" y="44" width="173.5" height="20"/>
                                         <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -2637,7 +2637,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Specify when your parking spot is available" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bbJ-H8-U6i">
-                                <rect key="frame" x="43" y="458" width="328" height="20"/>
+                                <rect key="frame" x="43" y="458" width="328.5" height="20"/>
                                 <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -2714,7 +2714,7 @@
                                 <rect key="frame" x="6" y="109" width="402" height="95"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Base" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hme-od-cOZ">
-                                        <rect key="frame" x="5" y="11" width="36.5" height="40"/>
+                                        <rect key="frame" x="5" y="11" width="38.5" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="rWx-vL-TVo"/>
                                         </constraints>
@@ -2723,7 +2723,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$ 20" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cxz-iq-eBT">
-                                        <rect key="frame" x="76.5" y="11" width="43" height="40"/>
+                                        <rect key="frame" x="78.5" y="11" width="43" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="BXd-IE-IUX"/>
                                         </constraints>
@@ -3307,7 +3307,7 @@
                         <outlet property="txt_fname" destination="9JS-YT-h5R" id="j9n-T9-UKe"/>
                         <outlet property="txt_lname" destination="DIi-A3-BOo" id="ZOD-hW-jUa"/>
                         <outlet property="txt_pass" destination="kXT-zw-jgD" id="pmA-6A-4YJ"/>
-                        <outlet property="txt_username" destination="IFc-tC-lZb" id="eON-dj-0Lt"/>
+                        <outlet property="txt_username" destination="6ac-Pg-iZC" id="hFg-eJ-gCN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1oj-FP-gAu" userLabel="First Responder" sceneMemberID="firstResponder"/>

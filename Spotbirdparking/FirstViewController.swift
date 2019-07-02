@@ -113,7 +113,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     let customerContext = STPCustomerContext(keyProvider: MyAPIClient.sharedClient)
     
     var paymentContext = STPPaymentContext(customerContext: STPCustomerContext(keyProvider: MyAPIClient.sharedClient))
-    
+    var allMarkers = [GMSMarker]()
 
     
     //MARK:- View Did Load
@@ -1383,6 +1383,17 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             return false
         }
         
+        for mark in allMarkers {
+            if mark == marker
+            {
+                 marker.zIndex = 1
+            }else
+            {
+                 mark.zIndex = 0
+            }
+        }
+       
+        
         let index:Int! = Int(marker.accessibilityLabel!)
         print("Index is: \(String(index))")
         self.lblDistance.text = ""
@@ -1794,8 +1805,6 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             print("Highlighted Spot Email is: \(self.highlightedSpot.Email)")
         }
         
-        
-
         return true
     }
     
@@ -1998,6 +2007,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                 }
                 
                 var spot_array:NSMutableArray = NSMutableArray()
+                 self.allMarkers.removeAll()
                 if self.arrspot.count > 0 {
                     
                     for tag in 0 ..< self.arrspot.count {
@@ -2100,7 +2110,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
 //                        let rounded = round(priceSPOT * multiplier) / multiplier
                         lbl_marker.text = "$\(dollerr)"
                         marker.iconView = customView
-                        
+                        self.allMarkers.append(marker)
                     }
                     Spinner.stop()
                 }
@@ -2261,7 +2271,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             markerView.frame.size.height = 30
             //            self.CurrentLocMarker.iconView = markerView
             //            self.CurrentLocMarker.map = self.mapView
-            
+            self.allMarkers.removeAll()
             for i in 0..<self.arr_search_spot.count {
                 
                 let marker = GMSMarker()
@@ -2269,7 +2279,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                 let long1 = (self.arr_search_spot.object(at: i) as! NSDictionary).value(forKey: "user_long") as! String
                 let lat = (lat1 as NSString).doubleValue
                 let long = (long1 as NSString).doubleValue
-                
+                 self.allMarkers.append(marker)
                 marker.position = CLLocationCoordinate2DMake(lat, long)
                 marker.map = self.mapView
                 let price = (self.arr_search_spot.object(at: i) as! NSDictionary).value(forKey: "hourlyPricing") as! String
