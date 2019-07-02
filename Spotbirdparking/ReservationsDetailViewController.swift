@@ -25,6 +25,8 @@ class ReservationsDetailViewController: UIViewController {
     
     @IBOutlet weak var lblEnd: UILabel!
     
+    @IBOutlet weak var lblPrice: UILabel!
+    
     @IBOutlet weak var lblEmail: UILabel!
     
     @IBOutlet weak var lblDesc: UILabel!
@@ -60,6 +62,8 @@ class ReservationsDetailViewController: UIViewController {
         
         lblStart.attributedText = attributedText(withString: "Begin: " + convertDateFormatter(date: res.startDateTime), boldString: "Begin: ", font: UIFont.systemFont(ofSize: 17.0))
         lblEnd.attributedText = attributedText(withString: "End: " + convertDateFormatter(date: res.endDateTime), boldString: "End: ", font: UIFont.systemFont(ofSize: 17.0))
+        
+        lblPrice.attributedText = attributedText(withString: "Paid: $" + res.price, boldString: "Paid: ", font: UIFont.systemFont(ofSize: 17.0))
         
         lblDesc.numberOfLines = 0
         lblDesc.lineBreakMode = .byWordWrapping

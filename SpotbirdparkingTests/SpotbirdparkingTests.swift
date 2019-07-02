@@ -9,8 +9,10 @@
 import XCTest
 import Firebase
 import Alamofire
-import GoogleMaps
 import GooglePlaces
+import GooglePlacePicker
+import GoogleMaps
+import CoreLocation
 @testable import Spotbirdparking
 
 class SpotbirdparkingTests: XCTestCase {
@@ -94,33 +96,53 @@ class SpotbirdparkingTests: XCTestCase {
         let expectation = self.expectation(description: "Testing stripe returning value")
         
         let totalBalance = ""
-        Alamofire.request(url, method: .post, parameters: params)
-            .validate(statusCode: 200..<300)
-            .responseJSON { response in
-                switch response.result {
-                case .success:
-                    print("Returned with success")
-                    expectation.fulfill()
-                case .failure(let error):
-                    let status = response.response?.statusCode
-                    print("Failed, status: \(status)")
-                    print("Here is the error: \(error)")
-                }
+        print("right before function")
+        Alamofire.request(url, method: .post, parameters: params).validate().responseJSON { response in
+            switch response.result {
+            case .success:
+                print("Returned with success")
+                expectation.fulfill()
+            case .failure(let error):
+                let status = response.response?.statusCode
+                print("Failed, status: \(status)")
+                print("Here is the error: \(error)")
+            }
                 
-                if let result = response.result.value {
-                    let balance = result as! NSDictionary
-                    let totalBalance = String(describing: "\(balance["Balance"]!)")
-                }
-                print("hello")
-                XCTAssert(totalBalance != "")
+            if let result = response.result.value {
+                let balance = result as! NSDictionary
+                let totalBalance = String(describing: "\(balance["Balance"]!)")
+            }
+            print("hello")
+            XCTAssert(totalBalance != "")
+            //expectation.fulfill()
         }
-        waitForExpectations(timeout: 10, handler: nil)
+        print("after function")
+        waitForExpectations(timeout: 20, handler: nil)
         XCTAssert(totalBalance != "")
     }
 
     func test_google_place() {
-        try GMSServices.provideAPIKey("AIzaSyCvFxAOvA246L6Syk7Cl426254C-sMJGxk")
-        try GMSPlacesClient.provideAPIKey("AIzaSyCvFxAOvA246L6Syk7Cl426254C-sMJGxk")
+        //GMSServices.provideAPIKey("AIzaSyCvFxAOvA246L6Syk7Cl426254C-sMJGxk")
+        //GMSPlacesClient.provideAPIKey("AIzaSyCvFxAOvA246L6Syk7Cl426254C-sMJGxk")
+        
+        let address = "1 Infinite Loop, CA, USA"
+        let geocoder = CLGeocoder()
+        let expectation = self.expectation(description: "Testing google returning value")
+        
+        geocoder.geocodeAddressString(address, completionHandler: {(placemarks, error) -> Void in
+            if((error) != nil){
+                print("Error", error)
+            }
+            if let placemark = placemarks?.first {
+                let coordinates:CLLocationCoordinate2D = placemark.location!.coordinate
+                print(coordinates.longitude)
+                print(coordinates.latitude)
+            }
+            expectation.fulfill()
+        })
+        
+        waitForExpectations(timeout: 20, handler: nil)
+        
     }
     
 }
