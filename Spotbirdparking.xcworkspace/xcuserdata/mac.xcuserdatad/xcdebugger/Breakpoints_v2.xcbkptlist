@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spotbirdparking/FirstViewController.swift"
-            timestampString = "582815962.1845599"
+            timestampString = "583773974.827738"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1958"
-            endingLineNumber = "1958"
+            startingLineNumber = "1967"
+            endingLineNumber = "1967"
             landmarkName = "getlatlong()"
             landmarkType = "7">
          </BreakpointContent>
@@ -26,55 +26,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spotbirdparking/FirstViewController.swift"
-            timestampString = "582815962.184629"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1038"
-            endingLineNumber = "1038"
-            landmarkName = "responseJsonObjectFilter(jsonObject:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Spotbirdparking/FirstViewController.swift"
-            timestampString = "582815962.1846991"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1029"
-            endingLineNumber = "1029"
-            landmarkName = "responseJsonObjectFilter(jsonObject:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Spotbirdparking/FirstViewController.swift"
-            timestampString = "582815962.184755"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1032"
-            endingLineNumber = "1032"
-            landmarkName = "responseJsonObjectFilter(jsonObject:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Spotbirdparking/FirstViewController.swift"
-            timestampString = "582815962.1848969"
+            timestampString = "583773974.841979"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "722"
@@ -90,7 +42,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spotbirdparking/FirstViewController.swift"
-            timestampString = "582815962.1849459"
+            timestampString = "583773974.843514"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "759"
@@ -106,7 +58,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spotbirdparking/FirstViewController.swift"
-            timestampString = "582815962.184983"
+            timestampString = "583773974.84496"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "762"
@@ -118,15 +70,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spotbirdparking/FirstViewController.swift"
-            timestampString = "582815962.185017"
+            timestampString = "583773974.845812"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1850"
-            endingLineNumber = "1850"
+            startingLineNumber = "1859"
+            endingLineNumber = "1859"
             landmarkName = "getlatlong()"
             landmarkType = "7">
          </BreakpointContent>
@@ -138,12 +90,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spotbirdparking/FirstViewController.swift"
-            timestampString = "582815962.185051"
+            timestampString = "583773974.846348"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1174"
             endingLineNumber = "1174"
-            landmarkName = "btn_close(_:)"
+            landmarkName = "setStartEndDate()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -154,7 +106,7 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spotbirdparking/FirstViewController.swift"
-            timestampString = "582815962.185084"
+            timestampString = "583773974.846899"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "1073"
@@ -170,13 +122,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spotbirdparking/FirstViewController.swift"
-            timestampString = "582815962.185118"
+            timestampString = "583773974.847579"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "208"
             endingLineNumber = "208"
-            landmarkName = "FirstViewController"
-            landmarkType = "3">
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -186,13 +138,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spotbirdparking/FirstViewController.swift"
-            timestampString = "582815962.185151"
+            timestampString = "583773974.84816"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "207"
             endingLineNumber = "207"
-            landmarkName = "FirstViewController"
-            landmarkType = "3">
+            landmarkName = "viewDidLoad()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -230,17 +182,187 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spotbirdparking/Model/User.swift"
-            timestampString = "582810664.144475"
+            timestampString = "583773974.848719"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
             startingLineNumber = "634"
             endingLineNumber = "634"
-            landmarkName = "unknown"
-            landmarkType = "0">
+            landmarkName = "getReservations(completionHandler:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Spotbirdparking/FirstViewController.swift"
+            timestampString = "583773974.907409"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1812"
+            endingLineNumber = "1812"
+            landmarkName = "mapView(_:didTapInfoWindowOf:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Spotbirdparking/FirstViewController.swift"
+            timestampString = "583773974.9093471"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1389"
+            endingLineNumber = "1389"
+            landmarkName = "mapView(_:didTap:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Spotbirdparking/FirstViewController.swift"
+            timestampString = "583773974.910965"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1392"
+            endingLineNumber = "1392"
+            landmarkName = "mapView(_:didTap:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Spotbirdparking/FirstViewController.swift"
+            timestampString = "583773974.9126689"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "1387"
+            endingLineNumber = "1387"
+            landmarkName = "mapView(_:didTap:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Spotbirdparking/Signup_ViewController.swift"
+            timestampString = "583773974.913937"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "210"
+            endingLineNumber = "210"
+            landmarkName = "save_newuser()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Spotbirdparking.Signup_ViewController.save_newuser() -&gt; ()"
+                  moduleName = "Spotbirdparking"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Desktop/02:07:19%20spot/Spotbirdparking/Signup_ViewController.swift"
+                  timestampString = "583774050.860518"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "210"
+                  endingLineNumber = "210"
+                  offsetFromSymbolStart = "788">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Spotbirdparking.Signup_ViewController.save_newuser() -&gt; ()"
+                  moduleName = "Spotbirdparking"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/mac/Desktop/02:07:19%20spot/Spotbirdparking/Signup_ViewController.swift"
+                  timestampString = "583774050.862204"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "210"
+                  endingLineNumber = "210"
+                  offsetFromSymbolStart = "8030">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Spotbirdparking/Signup_ViewController.swift"
+            timestampString = "583773974.9628741"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "120"
+            endingLineNumber = "120"
+            landmarkName = "btn_register(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            scope = "0"
+            stopOnStyle = "0">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Spotbirdparking/Signup_ViewController.swift"
+            timestampString = "583773974.963089"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "223"
+            endingLineNumber = "223"
+            landmarkName = "save_newuser()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Spotbirdparking/Signup_ViewController.swift"
+            timestampString = "583773974.963254"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "227"
+            endingLineNumber = "227"
+            landmarkName = "save_newuser()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
