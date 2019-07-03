@@ -23,7 +23,7 @@ class Login_ViewController: UIViewController {
         view.endEditing(true)
         
 //        txt_uname.text = "a@gmail.com"
-//        txt_pass.text = "12345678"
+//        txt_pass.text = "123456"
     }
     
     override func didReceiveMemoryWarning() {

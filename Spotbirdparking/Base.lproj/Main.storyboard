@@ -775,7 +775,7 @@
                                         <rect key="frame" x="0.0" y="21" width="398" height="195"/>
                                         <subviews>
                                             <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="emptySpot" translatesAutoresizingMaskIntoConstraints="NO" id="1gX-P3-UPd">
-                                                <rect key="frame" x="0.0" y="0.0" width="195" height="195"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="195.00000000000006" height="195.00000000000006"/>
                                                 <gestureRecognizers/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="1gX-P3-UPd" secondAttribute="height" multiplier="1:1" id="tgm-eG-fUN"/>
@@ -785,7 +785,7 @@
                                                 </connections>
                                             </imageView>
                                             <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="emptySpot" translatesAutoresizingMaskIntoConstraints="NO" id="2wk-C5-1wM">
-                                                <rect key="frame" x="203" y="0.0" width="195" height="195"/>
+                                                <rect key="frame" x="202.99999999999997" y="0.0" width="195.00000000000009" height="195.00000000000006"/>
                                                 <gestureRecognizers/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" secondItem="2wk-C5-1wM" secondAttribute="height" multiplier="1:1" id="Smz-UQ-srv"/>
