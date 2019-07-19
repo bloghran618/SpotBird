@@ -27,12 +27,9 @@ class User {
     var avg2 = Int()
     var avg3 = Int()
     var avg4 = Int()
-    
     var totalBalance = ""
     var lifeBalance = ""
-    
     var reservationsDownloaded = false
-    
     var refArtists: DatabaseReference!
    
     init?(firstName: String, lastName: String, profileImage: String, cars: [Car], reservations: [Reservation]) {

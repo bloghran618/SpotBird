@@ -44,7 +44,7 @@ class MyAPIClient: NSObject, STPEphemeralKeyProvider {
         let url = self.baseURL.appendingPathComponent("charge")
         print("This is the URL we are using: \(url)")
         var params: [String: Any] = [
-            "source": result.source.stripeID,
+            "source": result.paymentMethod.stripeId,
             "amount": amount,
             "customer_token": AppState.sharedInstance.user.customertoken
         ]
