@@ -244,28 +244,35 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         super.viewWillAppear(animated)
     }
     
+    
+    func viewWillDisappear(animated: Bool)
+    {
+       // self.timerAnimation.invalidate()
+    }
     //MARK:- Methords
     
     func timearrayset()  {
         dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:a"
         let stringdate = dateFormatter.string(from: Date())
         
-        if stringdate.contains("PM"){
+        if stringdate.contains("PM")
+        {
             timearray.append("PM")
             timearray.append("AM")
             format1 = "PM"
             format2 = "PM"
         }
-        else{
+        else
+        {
             timearray.append("AM")
             timearray.append("PM")
             format1 = "AM"
             format2 = "AM"
         }
     }
-    
     // start date-
-    @objc func startdatePickerChanged(picker: UIDatePicker) {
+    @objc func startdatePickerChanged(picker: UIDatePicker)
+    {
         print(picker.date)
         let formatter = DateFormatter()
         formatter.dateFormat = "EE MMM dd"
@@ -274,7 +281,6 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         print(date)
         strPickerStart = date
      }
-    
     
     // end date-
     @objc func EnddatePickerChanged(picker: UIDatePicker) {
@@ -287,46 +293,50 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         print(date)
         strPickerEnd = date
         
-        /*
          dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:a"
-         var str = dateFormatter2.string(from: picker.date)
-         
+        let formatter12 = DateFormatter()
+        formatter12.dateFormat = "yyyy-MM-dd hh:mm:a"
+
+         var str = formatter12.string(from: picker.date)
          if str.contains("AM")
          {
          if format2 == "AM"
          {
-         end_date = dateFormatter2.date(from: str)!
+         end_date = formatter12.date(from: str)!
          }else
          {
          let replaced = str.replacingOccurrences(of: "AM", with: "PM")
-         end_date = dateFormatter2.date(from: replaced)!
+         end_date = formatter12.date(from: replaced)!
          }
          print(end_date!)
          }else
          {
          if format2 == "PM"
          {
-         end_date = dateFormatter2.date(from: str)!
+         end_date = formatter12.date(from: str)!
          
          }else
          {
          let replaced = str.replacingOccurrences(of: "PM", with: "AM")
-         end_date = dateFormatter2.date(from: replaced)!
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:a" //Your date format
+            dateFormatter.timeZone = TimeZone(abbreviation: "GMT+0:00")
+            guard let date = dateFormatter.date(from: replaced) else
+            {
+                fatalError()
+            }
+            end_date =  date
          }
          print(end_date!)
          }
-         */
-        
-        
     }
-    
     //MARK:- Button Click Event
-    
     // MARK: _ BTn Date searching(Calender Click Event)
-    
     @IBAction func btn_Date_search(_ sender: UIButton) {
         view_info.isHidden = true
         btn_close.isHidden = true
+        start_datepic.date = NSDate() as Date
+        end_datepic.date = NSDate() as Date
         if Date_VIew.isHidden == true{
             // Date_VIew.isHidden = false
             
@@ -404,6 +414,40 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             print(start_date!)
         }
         
+        
+        let myStringEndDate = dateFormatter2.string(from: end_datepic.date)
+        print(myStringEndDate)
+        if myStringEndDate.contains("AM")
+        {
+            if format1 == "AM"
+            {
+                end_date = dateFormatter2.date(from: myStringEndDate)!
+                strPickerEnd = formatter.string(from:  end_date!)
+                
+            }else
+            {
+                let replaced1 = myStringEndDate.replacingOccurrences(of: "AM", with: "PM")
+                end_date = dateFormatter2.date(from: replaced1)!
+                strPickerEnd = formatter.string(from:  start_date!)
+                
+            }
+            print(end_date!)
+        }else
+        {
+            if format1 == "PM"
+            {
+                end_date = dateFormatter2.date(from: myStringEndDate)!
+                strPickerEnd = formatter.string(from:  end_date!)
+                
+            }else
+            {
+                let replaced1 = myStringEndDate.replacingOccurrences(of: "PM", with: "AM")
+                end_date = dateFormatter2.date(from: replaced1)!
+                strPickerEnd = formatter.string(from:  end_date!)
+                
+            }
+            print(end_date!)
+        }
         if (datetostring(dates: start_date!)) == (datetostring(dates: Date())) {
             
             let usertime = datetotime(userdate: dateconvert(userdate: start_date!))
@@ -1152,7 +1196,6 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                             }
                         }
                     }
-                    
                     //MARK:- Friday Loop
                     if arr_day[j] == "Friday" {
                         if (self.arrAllspot.object(at: i) as! NSDictionary).value(forKey: "friswitch") as! Bool == true{
@@ -2138,8 +2181,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                      var element = rows[0]["elements"] as? [[String:Any]]
                         
                         var duration = element?[0]["duration"] as? [String:Any]
-                        print(duration?["text"] as! String)
-                        lblDistance.text = duration?["text"] as! String
+                      //  print(duration?["text"] as! String)
+                        //lblDistance.text = duration?["text"] as! String
                     }
                     
                     if let routesObject = jsonObjectDictionary["elements"] as? [[String:Any]] {
@@ -2798,16 +2841,10 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                 }else
                 {
                     lbl_address.text = (arrspot.object(at: index) as! NSDictionary).value(forKey: "address") as?  String
-                    
                 }
-                
             }
-            
-            
             let imgurl = (arrspot.object(at: index) as! NSDictionary).value(forKey: "image") as!  String
             img_spot.sd_setImage(with: URL(string: imgurl), placeholderImage: #imageLiteral(resourceName: "Placeholder"))
-            
-            
             
             // specify which spot is highlighted
             // Should I do this asynchronously?
@@ -2909,12 +2946,11 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
 
                 self.arrspot.removeAllObjects()
                 let arrCurrentRes = AppState.sharedInstance.user.myReservations
-               
                 for artists in snapshot.children.allObjects as! [DataSnapshot] {
                     let snapshotValue = snapshot.value as! NSDictionary
                     let dictdata = ((snapshot.value as! NSDictionary).value(forKey: (artists as! DataSnapshot).key)) as! NSDictionary
-                    if dictdata.count>0{
-                        
+                    if dictdata.count>0
+                    {
                         for (theKey, theValue) in dictdata {
                           //  print(theKey)
                           //  print(theValue)
@@ -2965,7 +3001,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                                 self.arrspot.add(theValue)
                                             }
                                         }
-                                    }else
+                                    }
+                                    else
                                     {
                                         if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
                                             var isReservarion = false
@@ -3843,7 +3880,6 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                     lbl_marker.textColor = UIColor.black
                     customView.backgroundColor = UIColor.clear
                     marker.iconView = customView
-                    
              //   }
                 //  Spinner.stop()
 //            }
@@ -3855,13 +3891,12 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         Spinner.stop()
     }
     
-    
     // Search Filter Spot -
     func Search_Spot() {
         
-        if arr_search_spot.count > 0 {
+        if arr_search_spot.count > 0
+        {
             mapView.clear()
-            
             self.CurrentLocMarker.position = self.cooridnates
             //   self.CurrentLocMarker.title = "myLoc"
             var markerView = UIImageView()
@@ -3871,8 +3906,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             //            self.CurrentLocMarker.iconView = markerView
             //            self.CurrentLocMarker.map = self.mapView
             self.allMarkers.removeAll()
-            for i in 0..<self.arr_search_spot.count {
-                
+            for i in 0..<self.arr_search_spot.count
+            {
                 let marker = GMSMarker()
                 let lat1 = (self.arr_search_spot.object(at: i) as! NSDictionary).value(forKey: "user_lat") as! String
                 let long1 = (self.arr_search_spot.object(at: i) as! NSDictionary).value(forKey: "user_long") as! String
@@ -3913,10 +3948,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                 lbl_marker.adjustsFontSizeToFitWidth = true;
                 
                 if Time_price == true {
-                    
                     var spotStart_times = ""
                     var spotEnd_times = ""
-                    
                     let dateformats = DateFormatter()
                     dateformats.timeZone = TimeZone.current
                     dateformats.dateFormat  = "EEEE"
@@ -3986,11 +4019,11 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                     let priceSPOT = Reservation.publicCalcPrice(startDateTimeString:START,endDateTimeString: END, basePrice: basePrice)
                     
                     //    print(time_Price)
-//                    let numberOfPlaces = 2.0
-//                    let multiplier = pow(10.0, numberOfPlaces)
-//                    let rounded = round(priceSPOT * multiplier) / multiplier
+                    //                    let numberOfPlaces = 2.0
+                    //                    let multiplier = pow(10.0, numberOfPlaces)
+                    //                    let rounded = round(priceSPOT * multiplier) / multiplier
                     let doller = Reservation.priceToString(price: priceSPOT)
-
+                    
                     lbl_marker.text = "$\(doller)"
                     //lbl_marker.text = "$\(String(priceSPOT))"
                     
@@ -4188,9 +4221,9 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         return timearray.count
     }
     
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int){
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
+    {
         let today = Date()
-        
         if pickerView == timpic1{
             format1 = timearray[row]
         }
@@ -4199,7 +4232,6 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             format2 = timearray[row]
         }
     }
-    
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return timearray[row]
     }
@@ -4345,9 +4377,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         return yourDate!
     }
     
-    
     // MARK: STPPaymentContextDelegate
-    
     func paymentContext(_ paymentContext: STPPaymentContext, didCreatePaymentResult paymentResult: STPPaymentResult, completion: @escaping STPErrorBlock) {
         print("run didCreatePaymentResult paymentContext()")
         MyAPIClient.sharedClient.completeCharge(paymentResult,
