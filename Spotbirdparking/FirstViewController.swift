@@ -679,6 +679,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     let dateeDay1 = formatter.date(from: spotStart_times)
                                     let dateeDay2 = formatter.date(from: spotEnd_times)
                                     formatter.dateFormat = "MMM dd h a"
+                                    if dateeDay1 != nil || dateeDay2 != nil
+                                    {
                                     if dateeDay1!.isSmallerThan(endCur) && dateeDay2!.isSmallerThan(endCur)
                                     {
                                         var isReservarion = false
@@ -703,6 +705,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                               self.arr_search_spot.add(self.arrAllspot.object(at: i))
                                         }
                                     }
+                                }
                                 }else
                                 {
                                     if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
@@ -808,6 +811,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     let dateeDay1 = formatter.date(from: spotStart_times)
                                     let dateeDay2 = formatter.date(from: spotEnd_times)
                                     formatter.dateFormat = "MMM dd h a"
+                                    if dateeDay1 != nil || dateeDay2 != nil
+                                    {
                                     if dateeDay1!.isSmallerThan(endCur) && dateeDay2!.isSmallerThan(endCur)
                                     {
                                         var isReservarion = false
@@ -831,6 +836,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                         if isReservarion == false{
                                             self.arr_search_spot.add(self.arrAllspot.object(at: i))
                                         }
+                                    }
                                     }
                                 }else
                                 {
@@ -911,6 +917,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     let dateeDay1 = formatter.date(from: spotStart_times)
                                     let dateeDay2 = formatter.date(from: spotEnd_times)
                                     formatter.dateFormat = "MMM dd h a"
+                                    if dateeDay1 != nil || dateeDay2 != nil
+                                    {
                                     if dateeDay1!.isSmallerThan(endCur) && dateeDay2!.isSmallerThan(endCur)
                                     {
                                         var isReservarion = false
@@ -934,6 +942,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                         if isReservarion == false{
                                             self.arr_search_spot.add(self.arrAllspot.object(at: i))
                                         }
+                                    }
                                     }
                                 }else
                                 {
@@ -1014,6 +1023,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     let dateeDay1 = formatter.date(from: spotStart_times)
                                     let dateeDay2 = formatter.date(from: spotEnd_times)
                                     formatter.dateFormat = "MMM dd h a"
+                                    if dateeDay1 != nil || dateeDay2 != nil
+                                    {
                                     if dateeDay1!.isSmallerThan(endCur) && dateeDay2!.isSmallerThan(endCur)
                                     {
                                         var isReservarion = false
@@ -1037,6 +1048,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                         if isReservarion == false{
                                             self.arr_search_spot.add(self.arrAllspot.object(at: i))
                                         }
+                                    }
                                     }
                                 }else
                                 {
@@ -1119,6 +1131,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     let dateeDay1 = formatter.date(from: spotStart_times)
                                     let dateeDay2 = formatter.date(from: spotEnd_times)
                                     formatter.dateFormat = "MMM dd h a"
+                                    if dateeDay1 != nil || dateeDay2 != nil
+                                    {
                                     if dateeDay1!.isSmallerThan(endCur) && dateeDay2!.isSmallerThan(endCur)
                                     {
                                         var isReservarion = false
@@ -1142,6 +1156,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                         if isReservarion == false{
                                             self.arr_search_spot.add(self.arrAllspot.object(at: i))
                                         }
+                                    }
                                     }
                                 }else
                                 {
@@ -1222,6 +1237,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     let dateeDay1 = formatter.date(from: spotStart_times)
                                     let dateeDay2 = formatter.date(from: spotEnd_times)
                                     formatter.dateFormat = "MMM dd h a"
+                                    if dateeDay1 != nil || dateeDay2 != nil
+                                    {
                                     if dateeDay1!.isSmallerThan(endCur) && dateeDay2!.isSmallerThan(endCur)
                                     {
                                         var isReservarion = false
@@ -1245,6 +1262,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                         if isReservarion == false{
                                             self.arr_search_spot.add(self.arrAllspot.object(at: i))
                                         }
+                                    }
                                     }
                                 }else
                                 {
@@ -1324,6 +1342,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     let dateeDay1 = formatter.date(from: spotStart_times)
                                     let dateeDay2 = formatter.date(from: spotEnd_times)
                                     formatter.dateFormat = "MMM dd h a"
+                                    if dateeDay1 != nil || dateeDay2 != nil
+                                    {
                                     if dateeDay1!.isSmallerThan(endCur) && dateeDay2!.isSmallerThan(endCur)
                                     {
                                         var isReservarion = false
@@ -1347,6 +1367,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                         if isReservarion == false{
                                             self.arr_search_spot.add(self.arrAllspot.object(at: i))
                                         }
+                                    }
                                     }
                                 }else
                                 {
@@ -2181,8 +2202,11 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                      var element = rows[0]["elements"] as? [[String:Any]]
                         
                         var duration = element?[0]["duration"] as? [String:Any]
-                      //  print(duration?["text"] as! String)
-                        //lblDistance.text = duration?["text"] as! String
+                        if duration != nil
+                        {
+                             print(duration?["text"] as! String)
+                            lblDistance.text = duration?["text"] as! String
+                        }
                     }
                     
                     if let routesObject = jsonObjectDictionary["elements"] as? [[String:Any]] {
@@ -2977,6 +3001,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                         let dateeDay1 = formatter.date(from: spotStart_times)
                                         let dateeDay2 = formatter.date(from: spotEnd_times)
                                         formatter.dateFormat = "MMM dd h a"
+                                        if dateeDay1 != nil || dateeDay2 != nil
+                                        {
                                         if dateeDay1!.isSmallerThan(endCur) && dateeDay2!.isSmallerThan(endCur)
                                         {
                                             var isReservarion = false
@@ -3001,8 +3027,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                                 self.arrspot.add(theValue)
                                             }
                                         }
-                                    }
-                                    else
+                                        }
+                                    }else
                                     {
                                         if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
                                             var isReservarion = false
@@ -3084,6 +3110,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                         let dateeDay1 = formatter.date(from: spotStart_times)
                                         let dateeDay2 = formatter.date(from: spotEnd_times)
                                         formatter.dateFormat = "MMM dd h a"
+                                        if dateeDay1 != nil || dateeDay2 != nil
+                                        {
                                         if dateeDay1!.isSmallerThan(endCur) && dateeDay2!.isSmallerThan(endCur)
                                         {
                                             var isReservarion = false
@@ -3107,6 +3135,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                             if isReservarion == false{
                                                 self.arrspot.add(theValue)
                                             }
+                                        }
                                         }
                                     }else
                                     {
@@ -3161,6 +3190,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                         let dateeDay1 = formatter.date(from: spotStart_times)
                                         let dateeDay2 = formatter.date(from: spotEnd_times)
                                         formatter.dateFormat = "MMM dd h a"
+                                        if dateeDay1 != nil || dateeDay2 != nil
+                                        {
                                         if dateeDay1!.isSmallerThan(endCur) && dateeDay2!.isSmallerThan(endCur)
                                         {
                                             var isReservarion = false
@@ -3184,6 +3215,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                             if isReservarion == false{
                                                 self.arrspot.add(theValue)
                                             }
+                                        }
                                         }
                                     }else
                                     {
@@ -3263,6 +3295,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                         let dateeDay1 = formatter.date(from: spotStart_times)
                                         let dateeDay2 = formatter.date(from: spotEnd_times)
                                         formatter.dateFormat = "MMM dd h a"
+                                        if dateeDay1 != nil || dateeDay2 != nil
+                                        {
                                         if dateeDay1!.isSmallerThan(endCur) && dateeDay2!.isSmallerThan(endCur)
                                         {
                                             var isReservarion = false
@@ -3286,6 +3320,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                             if isReservarion == false{
                                                 self.arrspot.add(theValue)
                                             }
+                                        }
                                         }
                                     }else
                                     {
@@ -3362,6 +3397,9 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                         let dateeDay1 = formatter.date(from: spotStart_times)
                                         let dateeDay2 = formatter.date(from: spotEnd_times)
                                         formatter.dateFormat = "MMM dd h a"
+                                        if dateeDay1 != nil || dateeDay2 != nil
+                                        {
+
                                         if dateeDay1!.isSmallerThan(endCur) && dateeDay2!.isSmallerThan(endCur)
                                         {
                                             var isReservarion = false
@@ -3385,6 +3423,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                             if isReservarion == false{
                                                 self.arrspot.add(theValue)
                                             }
+                                        }
                                         }
                                     }else
                                     {
@@ -3461,6 +3500,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                         let dateeDay1 = formatter.date(from: spotStart_times)
                                         let dateeDay2 = formatter.date(from: spotEnd_times)
                                         formatter.dateFormat = "MMM dd h a"
+                                        if dateeDay1 != nil || dateeDay2 != nil
+                                        {
                                         if dateeDay1!.isSmallerThan(endCur) && dateeDay2!.isSmallerThan(endCur)
                                         {
                                             var isReservarion = false
@@ -3484,6 +3525,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                             if isReservarion == false{
                                                 self.arrspot.add(theValue)
                                             }
+                                        }
                                         }
                                     }else
                                     {
@@ -3561,6 +3603,9 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                         let dateeDay1 = formatter.date(from: spotStart_times)
                                         let dateeDay2 = formatter.date(from: spotEnd_times)
                                         formatter.dateFormat = "MMM dd h a"
+                                        if dateeDay1 != nil || dateeDay2 != nil
+                                        {
+
                                         if dateeDay1!.isSmallerThan(endCur) && dateeDay2!.isSmallerThan(endCur)
                                         {
                                             var isReservarion = false
@@ -3584,6 +3629,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                             if isReservarion == false{
                                                 self.arrspot.add(theValue)
                                             }
+                                        }
                                         }
                                     }else
                                     {
