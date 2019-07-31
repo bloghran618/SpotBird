@@ -39,6 +39,8 @@ class MyAPIClient: NSObject, STPEphemeralKeyProvider {
                         amount: Int,
                         shippingAddress: STPAddress?,
                         shippingMethod: PKShippingMethod?,
+                        spotID: String,
+                        startDate: String,
                         completion: @escaping STPErrorBlock) {
         print("Run completeCharge()")
         let url = self.baseURL.appendingPathComponent("charge")
@@ -46,7 +48,9 @@ class MyAPIClient: NSObject, STPEphemeralKeyProvider {
         var params: [String: Any] = [
             "source": result.source.stripeID,
             "amount": amount,
-            "customer_token": AppState.sharedInstance.user.customertoken
+            "customer_token": AppState.sharedInstance.user.customertoken,
+            "spotID": spotID,
+            "startDate": startDate
         ]
         params["shipping"] = STPAddress.shippingInfoForCharge(with: shippingAddress, shippingMethod: shippingMethod)
         Alamofire.request(url, method: .post, parameters: params)
@@ -63,15 +67,17 @@ class MyAPIClient: NSObject, STPEphemeralKeyProvider {
     
     // Transfer funds from our account to the spot owner
     // run with MyAPIClient.sharedClient.completeTransfer(destination: String, spotAmount: Int)
-    func completeTransfer(destination: String, spotAmount: Int) {
+    func completeTransfer(destination: String, spotAmount: Int, spotID: String, startDateTime: String) {
         print("Run completeTransfer()")
-        let url = self.baseURL.appendingPathComponent("pay_owner")
+        let url = self.baseURL.appendingPathComponent("schedule_transfer")
         print("Spot Amount: \(spotAmount)")
         let payAmount = spotAmount * 17/20
         print("Pay Amount: \(payAmount)")
-        var params: [String: Any] = [
+        let params: [String: Any] = [
             "destination_id": destination,
-            "amount": payAmount
+            "amount": payAmount,
+            "spotID": spotID,
+            "startDateTime": startDateTime
         ]
         Alamofire.request(url, method: .post, parameters: params)
             .validate(statusCode: 200..<300)

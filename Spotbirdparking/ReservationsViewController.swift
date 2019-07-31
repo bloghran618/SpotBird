@@ -71,7 +71,7 @@ class ReservationsViewController: UIViewController,GMSMapViewDelegate,CLLocation
         Spinner.stop()
         Spinner.start()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(2), execute: {
+        DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(1), execute: {
             if AppState.sharedInstance.user.reservationsDownloaded == true {
                 
                 print("Reservations: \(AppState.sharedInstance.user.reservations)")
@@ -116,11 +116,12 @@ class ReservationsViewController: UIViewController,GMSMapViewDelegate,CLLocation
     override func viewWillAppear(_ animated: Bool) {
         // set up the calendar formatting
         setupCalendarView()
-        self.getReservationsOnDay(date: self.cellDate)
+        getReservationsOnDay(date: self.cellDate)
         resByDayTable.reloadData()
         
         print("The view will appear right.... now!")
         print("There should be \(AppState.sharedInstance.user.reservations.count) reservations")
+        
         
     }
     

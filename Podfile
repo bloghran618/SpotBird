@@ -4,7 +4,7 @@ platform :ios, '11.3'
 target 'Spotbirdparking' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
-
+  
   # Pods for Spotbirdparking
   pod 'Stripe'
   pod 'Alamofire'
@@ -20,10 +20,20 @@ target 'Spotbirdparking' do
   pod 'JTAppleCalendar', '~> 7.0' 
   pod 'MBProgressHUD'
   pod 'themis'
+  pod 'CryptoSwift'
 
   target 'SpotbirdparkingTests' do
     inherit! :search_paths
     # Pods for testing
+    pod 'Stripe'
+    pod 'Alamofire'
+    pod 'Firebase/Core'
+    pod 'Firebase/Auth'
+    pod 'Firebase/Storage', '~> 5.0'
+    pod 'Firebase/Database'
+    pod 'GoogleMaps'
+    pod 'GooglePlacePicker'
+    pod 'GooglePlaces'
   end
 
 end

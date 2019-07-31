@@ -114,12 +114,18 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     
     var paymentContext = STPPaymentContext(customerContext: STPCustomerContext(keyProvider: MyAPIClient.sharedClient))
     var allMarkers = [GMSMarker]()
+    
+    //These variables are used to create an id for the charge
+    var chargeID_spotID: String = ""
+    var chargeID_startDate: String = ""
 
     
     //MARK:- View Did Load
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        start_scheduler()
         
         // load aspects of User() object from the database
         AppState.sharedInstance.activeSpot.getSpots()
@@ -134,8 +140,6 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         }
         AppState.sharedInstance.user.fetch_Balance()
         AppState.sharedInstance.user.fetch_LifeTimeBalance()
-
-        
         
         
         dismissKeyboard()
@@ -221,6 +225,25 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
 //        }
 //        return false
 //    }
+    
+    func start_scheduler() {
+        
+        let url = "https://spotbird-backend-bloughran618.herokuapp.com/start_scheduler"
+        print("before starting scheduler")
+        
+        Alamofire.request(url, method: .post)
+            .validate(statusCode: 200..<300)
+            .responseJSON { response in
+                switch response.result {
+                case .success:
+                    print("Returned with success")
+                case .failure(let error):
+                    print("Failure")
+                }
+                
+        }
+        print("after starting scheduler")
+    }
     
     func checkReservationDateMatchesCell(reservationDate: String, cellDate: Date) -> Bool
     {
@@ -1308,9 +1331,11 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                         // pay us
                         self.setPaymentContext(price: amount)
                         self.paymentContext.requestPayment()
+                        self.chargeID_spotID = self.highlightedSpot.spot_id
+                        self.chargeID_startDate = Reservation.dateToString(date: self.start_datepic.date)
                         
                         // pay owner
-                        MyAPIClient.sharedClient.completeTransfer(destination: destination, spotAmount: amount)
+                        MyAPIClient.sharedClient.completeTransfer(destination: destination, spotAmount: amount, spotID: self.highlightedSpot.spot_id, startDateTime: Reservation.dateToString(date: self.start_datepic.date))
                     }
                 })
                 
@@ -2759,6 +2784,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                                 amount: self.paymentContext.paymentAmount,
                                                 shippingAddress: self.paymentContext.shippingAddress,
                                                 shippingMethod: self.paymentContext.selectedShippingMethod,
+                                                spotID: self.chargeID_spotID,
+                                                startDate: self.chargeID_startDate,
                                                 completion: completion)
     }
     

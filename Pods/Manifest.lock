@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (4.8.2)
+  - CryptoSwift (1.0.0)
   - Firebase/Auth (5.20.2):
     - Firebase/CoreOnly
     - FirebaseAuth (= 5.4.2)
@@ -107,6 +108,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
+  - CryptoSwift
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
@@ -124,6 +126,7 @@ DEPENDENCIES:
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
     - Alamofire
+    - CryptoSwift
     - Firebase
     - FirebaseAnalytics
     - FirebaseAuth
@@ -150,6 +153,7 @@ SPEC REPOS:
 
 SPEC CHECKSUMS:
   Alamofire: ae5c501addb7afdbb13687d7f2f722c78734c2d3
+  CryptoSwift: d81eeaa59dc5a8d03720fe919a6fd07b51f7439f
   Firebase: 0c8cf33f266410c61ab3e2265cfa412200351d9c
   FirebaseAnalytics: ece1aa57a4f43c64d53a648b5a5e05151aae947b
   FirebaseAuth: dd7bbf03a5aee0eafb3a1aee4d2812bd74bac890
@@ -174,6 +178,6 @@ SPEC CHECKSUMS:
   Stripe: 2c4d0a88817361a102886315ff452d90f65e898b
   themis: a588aef3fef2d20c798b5b1bab94188e703bf861
 
-PODFILE CHECKSUM: 121cb3d34c63ec186406fb26570d04de215587ca
+PODFILE CHECKSUM: 7a677d92d0a6a2ed06a45d9b201f49002be09bf6
 
 COCOAPODS: 1.7.1

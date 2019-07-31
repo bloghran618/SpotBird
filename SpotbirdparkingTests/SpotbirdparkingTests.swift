@@ -22,8 +22,7 @@ class SpotbirdparkingTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        
-        //FirebaseApp.configure()
+
     }
     
     func testDefaultCars() {
@@ -97,11 +96,10 @@ class SpotbirdparkingTests: XCTestCase {
         
         let totalBalance = ""
         print("right before function")
-        Alamofire.request(url, method: .post, parameters: params).validate().responseJSON { response in
+        let task = Alamofire.request(url, method: .post, parameters: params).validate().responseJSON { response in
             switch response.result {
             case .success:
                 print("Returned with success")
-                expectation.fulfill()
             case .failure(let error):
                 let status = response.response?.statusCode
                 print("Failed, status: \(status)")
@@ -114,16 +112,17 @@ class SpotbirdparkingTests: XCTestCase {
             }
             print("hello")
             XCTAssert(totalBalance != "")
-            //expectation.fulfill()
+            expectation.fulfill()
         }
+        
+        task.resume()
+        
         print("after function")
-        waitForExpectations(timeout: 20, handler: nil)
+        waitForExpectations(timeout: 10, handler: nil)
         XCTAssert(totalBalance != "")
     }
 
     func test_google_place() {
-        //GMSServices.provideAPIKey("AIzaSyCvFxAOvA246L6Syk7Cl426254C-sMJGxk")
-        //GMSPlacesClient.provideAPIKey("AIzaSyCvFxAOvA246L6Syk7Cl426254C-sMJGxk")
         
         let address = "1 Infinite Loop, CA, USA"
         let geocoder = CLGeocoder()
@@ -141,8 +140,47 @@ class SpotbirdparkingTests: XCTestCase {
             expectation.fulfill()
         })
         
-        waitForExpectations(timeout: 20, handler: nil)
+        
+        waitForExpectations(timeout: 10, handler: nil)
         
     }
     
+    func testDownloadWebData() {
+        
+        // Create an expectation for a background download task.
+        let expectation = XCTestExpectation(description: "Download apple.com home page")
+        
+        // Create a URL for a web page to be downloaded.
+        let url = URL(string: "https://apple.com")!
+        
+        // Create a background task to download the web page.
+        let dataTask = URLSession.shared.dataTask(with: url) { (data, _, _) in
+            
+            // Make sure we downloaded some data.
+            XCTAssertNotNil(data, "No data was downloaded.")
+            // Fulfill the expectation to indicate that the background task has finished successfully.
+            expectation.fulfill()
+            
+        }
+        
+        // Start the download task.
+        dataTask.resume()
+        
+        
+        // Wait until the expectation is fulfilled, with a timeout of 10 seconds.
+        wait(for: [expectation], timeout: 10.0)
+    }
+    
+    func test_alamofire () {
+        let expectation = XCTestExpectation(description: "Download apple.com home page")
+        let url = "https://spotbird-backend-bloughran618.herokuapp.com/test_stripe"
+        
+        Alamofire.request(url).response { response in
+            XCTAssertNotNil(response)
+            
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 10.0)
+    }
 }

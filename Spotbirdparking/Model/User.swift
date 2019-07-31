@@ -653,7 +653,7 @@ class User {
                         }
                     }
                 }
-                completionHandler("COMPLETED... BOIII")
+                completionHandler("completed downloading reservations")
             }
             else {
                 print("No reservations")

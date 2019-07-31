@@ -12,6 +12,7 @@ import UIKit
 //import RNCryptor
 import Alamofire
 import themis
+import CryptoSwift
 
 class ProvideSSNViewController: UIViewController, UITextFieldDelegate {
     
@@ -82,33 +83,23 @@ class ProvideSSNViewController: UIViewController, UITextFieldDelegate {
     //        return encrypted
     
     // VERY hacky, should update to real encryption someday
-    func encryptSSN(SSN: String) -> Data {
+    func encryptSSN(SSN: String) -> String {
+        let ivString = "0000000000000000"
+        let keyString = "This is a key123"
         
-//        let messageData = SSN.data(using: .utf8)!
-//        let cipherData = RNCryptor.encrypt(data: messageData, withPassword: self.encryptionPW)
-//        return cipherData.base64EncodedString()
+        let key = [UInt8](keyString.utf8)
+        let iv = [UInt8](ivString.utf8)
         
-        let masterKeyString = "UkVDMgAAAC13PCVZAKOczZXUpvkhsC+xvwWnv3CLmlG0Wzy8ZBMnT+2yx/dg"
-        let masterKeyData = Data(base64Encoded: masterKeyString)!
+        let data = SSN.data(using: String.Encoding.utf8)
+        let encrypted = try! AES(key: key, blockMode: CFB(iv: iv), padding: .noPadding).encrypt((data?.bytes)!)
         
-        guard let cellSeal = TSCellSeal(key: masterKeyData) else {
-            print("failed to initialize seal mode")
-            return SSN.data(using: .utf8)!
-        }
+        return encrypted.toHexString()
         
-        do {
-            let encryptedMessage = try cellSeal.wrap(SSN.data(using: .utf8)!)
-            //print("encrypted message: ",  String(data: encryptedMessage, encoding: .ascii)!)
-            return encryptedMessage
-        }
-        catch let error as NSError {
-            print("failed to encrypt message: \(error)")
-            return SSN.data(using: .utf8)!
-        }
+        
     }
     
     // Send the social security number to Stripe
-    func saveSSNToStripe(encryptedSSN: Data) {
+    func saveSSNToStripe(encryptedSSN: String) {
         var url = "https://spotbird-backend-bloughran618.herokuapp.com/save_ssn"
         
         var params: [String: Any] = [
