@@ -21,17 +21,15 @@ class User {
     var accounttoken = String()
     var customertoken = String()
     var reservations: [Reservation]
+    var myReservations = NSMutableArray()
     
     var avg1 = Int()
     var avg2 = Int()
     var avg3 = Int()
     var avg4 = Int()
-    
     var totalBalance = ""
     var lifeBalance = ""
-    
     var reservationsDownloaded = false
-    
     var refArtists: DatabaseReference!
    
     init?(firstName: String, lastName: String, profileImage: String, cars: [Car], reservations: [Reservation]) {
@@ -661,6 +659,36 @@ class User {
             //Spinner.stop()
         })
         //Spinner.stop()
+    }
+    
+    func getReservationsOfCurrentUser(completionHandler: @escaping (_ message: String) -> ()) {
+        Spinner.start()
+        // empty any current reservations
+        print("!!!!!!!! WE ARE GETTING THE RESERVATIONS !!!!!!!!!!!!!!!")
+        AppState.sharedInstance.user.myReservations.removeAllObjects()
+        print("#: \(AppState.sharedInstance.user.myReservations.count)")
+        print("Get all the reservations")
+        let user_id = AppState.sharedInstance.userid
+        
+        // set database reference to User() reservations in the database
+        let ref = Database.database().reference().child("User").child(user_id).child("Reservations")
+        
+        // loop over each reservation in database reference
+        ref.observe(DataEventType.value, with: { (snapshot) in
+            if snapshot.childrenCount > 0 {
+                for artists in snapshot.children.allObjects as! [DataSnapshot] {
+                    let reservationDict = ((snapshot.value as! NSDictionary).value(forKey: (artists as! DataSnapshot).key)) as! NSDictionary
+                    print("Reservation Dict: \(reservationDict)")
+                    AppState.sharedInstance.user.myReservations.add(reservationDict)
+                }
+                completionHandler("COMPLETED... BOIII")
+            }
+            else {
+                print("No reservations")
+            }
+            //Spinner.stop()
+        })
+        Spinner.stop()
     }
     
     // check if a reservation matches one already in a list of reservations (ignore duplicates

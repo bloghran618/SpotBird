@@ -313,7 +313,6 @@ extension ReservationsViewController: JTAppleCalendarViewDelegate {
 
 extension ReservationsViewController: UITableViewDelegate, UITableViewDataSource,User_navDelegates {
     
-    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }

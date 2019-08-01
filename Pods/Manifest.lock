@@ -80,7 +80,7 @@ PODS:
   - GoogleUtilities/UserDefaults (5.8.0):
     - GoogleUtilities/Logger
   - GRKOpenSSLFramework (1.0.2.16)
-  - GTMSessionFetcher/Core (1.2.1)
+  - GTMSessionFetcher/Core (1.2.2)
   - IQKeyboardManagerSwift (5.0.8)
   - JTAppleCalendar (7.1.7)
   - leveldb-library (1.20)
@@ -90,10 +90,10 @@ PODS:
     - nanopb/encode (= 0.3.901)
   - nanopb/decode (0.3.901)
   - nanopb/encode (0.3.901)
-  - SDWebImage (5.0.2):
-    - SDWebImage/Core (= 5.0.2)
-  - SDWebImage/Core (5.0.2)
-  - Stripe (15.0.1)
+  - SDWebImage (5.0.6):
+    - SDWebImage/Core (= 5.0.6)
+  - SDWebImage/Core (5.0.6)
+  - Stripe (16.0.2)
   - themis (0.11.0):
     - themis/themis-openssl (= 0.11.0)
   - themis/themis-openssl (0.11.0):
@@ -168,16 +168,16 @@ SPEC CHECKSUMS:
   GooglePlaces: e874db179f2675c4f3eeda0b686b540273a578b0
   GoogleUtilities: 04fce34bcd5620c1ee76fb79172105c74a4df335
   GRKOpenSSLFramework: 35944e317e6336b2944ad70b059d84db6b2d8532
-  GTMSessionFetcher: 32aeca0aa144acea523e1c8e053089dec2cb98ca
+  GTMSessionFetcher: 61bb0f61a4cb560030f1222021178008a5727a23
   IQKeyboardManagerSwift: 2e7dc7f98c111458c1ea2b373f893e8cf95e2b97
   JTAppleCalendar: 96da4d8388fa6dc82d6a60d41ef36a015e167e2f
   leveldb-library: 08cba283675b7ed2d99629a4bc5fd052cd2bb6a5
   MBProgressHUD: e7baa36a220447d8aeb12769bf0585582f3866d9
   nanopb: 2901f78ea1b7b4015c860c2fdd1ea2fee1a18d48
-  SDWebImage: 6764b5fa0f73c203728052955dbefa2bf1f33282
-  Stripe: 2c4d0a88817361a102886315ff452d90f65e898b
+  SDWebImage: 920f1a2ff1ca8296ad34f6e0510a1ef1d70ac965
+  Stripe: 10e2b5aa10f5385527a8986865b10148506ddfdf
   themis: a588aef3fef2d20c798b5b1bab94188e703bf861
 
-PODFILE CHECKSUM: 7a677d92d0a6a2ed06a45d9b201f49002be09bf6
+PODFILE CHECKSUM: 1c91c1f06937ce02d7c1c8c4b68bcea27691bd76
 
 COCOAPODS: 1.7.1

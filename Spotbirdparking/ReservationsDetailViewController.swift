@@ -106,8 +106,9 @@ class ReservationsDetailViewController: UIViewController {
         self.present(alert, animated: true)
         
     }
-    
+    /*
     @IBAction func start_scheduler(_ sender: Any) {
+        
         
         let url = "https://spotbird-backend-bloughran618.herokuapp.com/APScheduler_testing"
         print("before starting scheduler")
@@ -127,7 +128,9 @@ class ReservationsDetailViewController: UIViewController {
                 
         }
         print("after starting scheduler")
+        
     }
+ */
     
     func hasReservationPassed() -> Bool {
         let res = resOnDay[index]
@@ -240,7 +243,7 @@ class ReservationsDetailViewController: UIViewController {
         }
         print("Charge being refunded")
     }
-    
+    /*
     @IBAction func cryto_testing(_ sender: Any) {
         print("Cryptography!")
         
@@ -257,6 +260,7 @@ class ReservationsDetailViewController: UIViewController {
         //let dec = try! aesDecrypt(encryptedString: enc, key: key, iv: iv)
         //print("DECRYPT:",dec)
     }
+ 
     
     func aesEncrypt(stringToEncrypt: String, key: Array<UInt8>, iv: Array<UInt8>) throws -> String {
         let data = stringToEncrypt.data(using: String.Encoding.utf8)
@@ -292,6 +296,7 @@ class ReservationsDetailViewController: UIViewController {
         }
         return value
     }
+ */
  */
     
 

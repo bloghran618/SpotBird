@@ -161,7 +161,7 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate{
         sunEndTime.inputView = sunEndDatePicker
         
         sunSwitch.addTarget(self, action: #selector(sunSwitchStateChanged), for: UIControlEvents.valueChanged)
-        
+        print(AppState.sharedInstance.activeSpot.monStartTime)
         monStartTime.text = AppState.sharedInstance.activeSpot.monStartTime
         monEndTime.text = AppState.sharedInstance.activeSpot.monEndTime
         tueStartTime.text = AppState.sharedInstance.activeSpot.tueStartTime
@@ -198,13 +198,67 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate{
     
    // Monday
     @objc func monStartDatePickerValueChanged(_ sender: UIDatePicker) {
-        AppState.sharedInstance.activeSpot.monStartTime = dateFormatter.string(from: sender.date)
-        monStartTime.text = AppState.sharedInstance.activeSpot.monStartTime
+        
+        let mndStart = monEndTime.text as! String
+        print(mndStart)
+        let mndEndTime = dateFormatter.string(from: sender.date) as! String
+        let dateAsString = mndStart
+        let dateFormatter12 = DateFormatter()
+        dateFormatter12.dateFormat = "h:mm a"
+        let date = dateFormatter12.date(from: dateAsString)
+        dateFormatter12.dateFormat = "HH:mm"
+        let date24 = dateFormatter12.string(from: date!)
+        print(date24)
+        let dateAsString1 = mndEndTime
+        let dateFormatter1 = DateFormatter()
+        dateFormatter1.dateFormat = "h:mm a"
+        let date1 = dateFormatter1.date(from: dateAsString1)
+        dateFormatter1.dateFormat = "HH:mm"
+        let date241 = dateFormatter1.string(from: date1!)
+        print(date241)
+        if date24 > date241
+        {
+            AppState.sharedInstance.activeSpot.monStartTime = dateFormatter.string(from: sender.date)
+            monStartTime.text = AppState.sharedInstance.activeSpot.monStartTime
+        }
+        else
+        {
+            let alert = UIAlertController(title: "Action!!", message: "Start time always less than end time", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     
     @objc func monEndDatePickerValueChanged(_ sender: UIDatePicker) {
-        AppState.sharedInstance.activeSpot.monEndTime = dateFormatter.string(from: sender.date)
-        monEndTime.text = AppState.sharedInstance.activeSpot.monEndTime
+        
+        let mndStart = monStartTime.text as! String
+        print(mndStart)
+        let mndEndTime = dateFormatter.string(from: sender.date) as! String
+        let dateAsString = mndStart
+        let dateFormatter12 = DateFormatter()
+        dateFormatter12.dateFormat = "h:mm a"
+        let date = dateFormatter12.date(from: dateAsString)
+        dateFormatter12.dateFormat = "HH:mm"
+        let date24 = dateFormatter12.string(from: date!)
+        print(date24)
+        let dateAsString1 = mndEndTime
+        let dateFormatter1 = DateFormatter()
+        dateFormatter1.dateFormat = "h:mm a"
+        let date1 = dateFormatter1.date(from: dateAsString1)
+        dateFormatter1.dateFormat = "HH:mm"
+        let date241 = dateFormatter1.string(from: date1!)
+        print(date241)
+        if date24 > date241
+        {
+            let alert = UIAlertController(title: "Action!!", message: "End time always greter than start time", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+        else{
+            AppState.sharedInstance.activeSpot.monEndTime = dateFormatter.string(from: sender.date)
+            monEndTime.text = AppState.sharedInstance.activeSpot.monEndTime
+        }
+        
     }
     
     @objc func monSwitchStateChanged(switchState: UISwitch) {
@@ -228,13 +282,67 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate{
     
     // Tuesday
     @objc func tueStartDatePickerValueChanged(_ sender: UIDatePicker) {
-        AppState.sharedInstance.activeSpot.tueStartTime = dateFormatter.string(from: sender.date)
-        tueStartTime.text = AppState.sharedInstance.activeSpot.tueStartTime
+       
+        let mndStart = tueEndTime.text as! String
+        print(mndStart)
+        let mndEndTime = dateFormatter.string(from: sender.date) as! String
+        let dateAsString = mndStart
+        let dateFormatter12 = DateFormatter()
+        dateFormatter12.dateFormat = "h:mm a"
+        let date = dateFormatter12.date(from: dateAsString)
+        dateFormatter12.dateFormat = "HH:mm"
+        let date24 = dateFormatter12.string(from: date!)
+        print(date24)
+        let dateAsString1 = mndEndTime
+        let dateFormatter1 = DateFormatter()
+        dateFormatter1.dateFormat = "h:mm a"
+        let date1 = dateFormatter1.date(from: dateAsString1)
+        dateFormatter1.dateFormat = "HH:mm"
+        let date241 = dateFormatter1.string(from: date1!)
+        print(date241)
+        if date24 > date241
+        {
+            AppState.sharedInstance.activeSpot.tueStartTime = dateFormatter.string(from: sender.date)
+            tueStartTime.text = AppState.sharedInstance.activeSpot.tueStartTime
+        }
+        else
+        {
+            let alert = UIAlertController(title: "Action!!", message: "Start time always less than end time", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     
     @objc func tueEndDatePickerValueChanged(_ sender: UIDatePicker) {
-         AppState.sharedInstance.activeSpot.tueEndTime = dateFormatter.string(from: sender.date)
-        tueEndTime.text = AppState.sharedInstance.activeSpot.tueEndTime
+        
+        let mndStart = tueStartTime.text as! String
+        print(mndStart)
+        let mndEndTime = dateFormatter.string(from: sender.date) as! String
+        let dateAsString = mndStart
+        let dateFormatter12 = DateFormatter()
+        dateFormatter12.dateFormat = "h:mm a"
+        let date = dateFormatter12.date(from: dateAsString)
+        dateFormatter12.dateFormat = "HH:mm"
+        let date24 = dateFormatter12.string(from: date!)
+        print(date24)
+        let dateAsString1 = mndEndTime
+        let dateFormatter1 = DateFormatter()
+        dateFormatter1.dateFormat = "h:mm a"
+        let date1 = dateFormatter1.date(from: dateAsString1)
+        dateFormatter1.dateFormat = "HH:mm"
+        let date241 = dateFormatter1.string(from: date1!)
+        print(date241)
+        if date24 > date241
+        {
+            let alert = UIAlertController(title: "Action!!", message: "End time always greter than start time", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+        else{
+            AppState.sharedInstance.activeSpot.tueEndTime = dateFormatter.string(from: sender.date)
+            tueEndTime.text = AppState.sharedInstance.activeSpot.tueEndTime
+        }
+        
     }
     
     @objc func tueSwitchStateChanged(switchState: UISwitch) {
@@ -257,13 +365,67 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate{
     
     // Wednesday
     @objc func wedStartDatePickerValueChanged(_ sender: UIDatePicker) {
-        AppState.sharedInstance.activeSpot.wedStartTime = dateFormatter.string(from: sender.date)
-        wedStartTime.text = AppState.sharedInstance.activeSpot.wedStartTime
+        
+        let mndStart = wedEndTime.text as! String
+        print(mndStart)
+        let mndEndTime = dateFormatter.string(from: sender.date) as! String
+        let dateAsString = mndStart
+        let dateFormatter12 = DateFormatter()
+        dateFormatter12.dateFormat = "h:mm a"
+        let date = dateFormatter12.date(from: dateAsString)
+        dateFormatter12.dateFormat = "HH:mm"
+        let date24 = dateFormatter12.string(from: date!)
+        print(date24)
+        let dateAsString1 = mndEndTime
+        let dateFormatter1 = DateFormatter()
+        dateFormatter1.dateFormat = "h:mm a"
+        let date1 = dateFormatter1.date(from: dateAsString1)
+        dateFormatter1.dateFormat = "HH:mm"
+        let date241 = dateFormatter1.string(from: date1!)
+        print(date241)
+        if date24 > date241
+        {
+            AppState.sharedInstance.activeSpot.wedStartTime = dateFormatter.string(from: sender.date)
+            wedStartTime.text = AppState.sharedInstance.activeSpot.wedStartTime
+        }
+        else
+        {
+            let alert = UIAlertController(title: "Action!!", message: "Start time always less than end time", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     
     @objc func wedEndDatePickerValueChanged(_ sender: UIDatePicker) {
-         AppState.sharedInstance.activeSpot.wedEndTime = dateFormatter.string(from: sender.date)
-        wedEndTime.text = AppState.sharedInstance.activeSpot.wedEndTime
+        
+        let mndStart = wedStartTime.text as! String
+        print(mndStart)
+        let mndEndTime = dateFormatter.string(from: sender.date) as! String
+        let dateAsString = mndStart
+        let dateFormatter12 = DateFormatter()
+        dateFormatter12.dateFormat = "h:mm a"
+        let date = dateFormatter12.date(from: dateAsString)
+        dateFormatter12.dateFormat = "HH:mm"
+        let date24 = dateFormatter12.string(from: date!)
+        print(date24)
+        let dateAsString1 = mndEndTime
+        let dateFormatter1 = DateFormatter()
+        dateFormatter1.dateFormat = "h:mm a"
+        let date1 = dateFormatter1.date(from: dateAsString1)
+        dateFormatter1.dateFormat = "HH:mm"
+        let date241 = dateFormatter1.string(from: date1!)
+        print(date241)
+        if date24 > date241
+        {
+            let alert = UIAlertController(title: "Action!!", message: "End time always greter than start time", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+        else{
+            AppState.sharedInstance.activeSpot.wedEndTime = dateFormatter.string(from: sender.date)
+            wedEndTime.text = AppState.sharedInstance.activeSpot.wedEndTime
+        }
+
     }
     
     @objc func wedSwitchStateChanged(switchState: UISwitch) {
@@ -286,13 +448,66 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate{
     
     // Thursday
     @objc func thuStartDatePickerValueChanged(_ sender: UIDatePicker) {
-        AppState.sharedInstance.activeSpot.thuStartTime = dateFormatter.string(from: sender.date)
-        thuStartTime.text = AppState.sharedInstance.activeSpot.thuStartTime
+        
+        let mndStart = thuEndTime.text as! String
+        print(mndStart)
+        let mndEndTime = dateFormatter.string(from: sender.date) as! String
+        let dateAsString = mndStart
+        let dateFormatter12 = DateFormatter()
+        dateFormatter12.dateFormat = "h:mm a"
+        let date = dateFormatter12.date(from: dateAsString)
+        dateFormatter12.dateFormat = "HH:mm"
+        let date24 = dateFormatter12.string(from: date!)
+        print(date24)
+        let dateAsString1 = mndEndTime
+        let dateFormatter1 = DateFormatter()
+        dateFormatter1.dateFormat = "h:mm a"
+        let date1 = dateFormatter1.date(from: dateAsString1)
+        dateFormatter1.dateFormat = "HH:mm"
+        let date241 = dateFormatter1.string(from: date1!)
+        print(date241)
+        if date24 > date241
+        {
+            AppState.sharedInstance.activeSpot.thuStartTime = dateFormatter.string(from: sender.date)
+            thuStartTime.text = AppState.sharedInstance.activeSpot.thuStartTime
+        }
+        else
+        {
+            let alert = UIAlertController(title: "Action!!", message: "Start time always less than end time", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     
     @objc func thuEndDatePickerValueChanged(_ sender: UIDatePicker) {
-        AppState.sharedInstance.activeSpot.thuEndTime = dateFormatter.string(from: sender.date)
-        thuEndTime.text = AppState.sharedInstance.activeSpot.thuEndTime
+        
+        let mndStart = thuStartTime.text as! String
+        print(mndStart)
+        let mndEndTime = dateFormatter.string(from: sender.date) as! String
+        let dateAsString = mndStart
+        let dateFormatter12 = DateFormatter()
+        dateFormatter12.dateFormat = "h:mm a"
+        let date = dateFormatter12.date(from: dateAsString)
+        dateFormatter12.dateFormat = "HH:mm"
+        let date24 = dateFormatter12.string(from: date!)
+        print(date24)
+        let dateAsString1 = mndEndTime
+        let dateFormatter1 = DateFormatter()
+        dateFormatter1.dateFormat = "h:mm a"
+        let date1 = dateFormatter1.date(from: dateAsString1)
+        dateFormatter1.dateFormat = "HH:mm"
+        let date241 = dateFormatter1.string(from: date1!)
+        print(date241)
+        if date24 > date241
+        {
+            let alert = UIAlertController(title: "Action!!", message: "End time always greter than start time", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+        else{
+            AppState.sharedInstance.activeSpot.thuEndTime = dateFormatter.string(from: sender.date)
+            thuEndTime.text = AppState.sharedInstance.activeSpot.thuEndTime
+        }
     }
     
     @objc func thuSwitchStateChanged(switchState: UISwitch) {
@@ -315,13 +530,66 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate{
     
     // Friday
     @objc func friStartDatePickerValueChanged(_ sender: UIDatePicker) {
-        AppState.sharedInstance.activeSpot.friStartTime = dateFormatter.string(from: sender.date)
-        friStartTime.text = AppState.sharedInstance.activeSpot.friStartTime
+        
+        let mndStart = friEndTime.text as! String
+        print(mndStart)
+        let mndEndTime = dateFormatter.string(from: sender.date) as! String
+        let dateAsString = mndStart
+        let dateFormatter12 = DateFormatter()
+        dateFormatter12.dateFormat = "h:mm a"
+        let date = dateFormatter12.date(from: dateAsString)
+        dateFormatter12.dateFormat = "HH:mm"
+        let date24 = dateFormatter12.string(from: date!)
+        print(date24)
+        let dateAsString1 = mndEndTime
+        let dateFormatter1 = DateFormatter()
+        dateFormatter1.dateFormat = "h:mm a"
+        let date1 = dateFormatter1.date(from: dateAsString1)
+        dateFormatter1.dateFormat = "HH:mm"
+        let date241 = dateFormatter1.string(from: date1!)
+        print(date241)
+        if date24 > date241
+        {
+            AppState.sharedInstance.activeSpot.friStartTime = dateFormatter.string(from: sender.date)
+            friStartTime.text = AppState.sharedInstance.activeSpot.friStartTime
+        }
+        else
+        {
+            let alert = UIAlertController(title: "Action!!", message: "Start time always less than end time", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     
     @objc func friEndDatePickerValueChanged(_ sender: UIDatePicker) {
-        AppState.sharedInstance.activeSpot.friEndTime = dateFormatter.string(from: sender.date)
-        friEndTime.text = AppState.sharedInstance.activeSpot.friEndTime
+        
+        let mndStart = friStartTime.text as! String
+        print(mndStart)
+        let mndEndTime = dateFormatter.string(from: sender.date) as! String
+        let dateAsString = mndStart
+        let dateFormatter12 = DateFormatter()
+        dateFormatter12.dateFormat = "h:mm a"
+        let date = dateFormatter12.date(from: dateAsString)
+        dateFormatter12.dateFormat = "HH:mm"
+        let date24 = dateFormatter12.string(from: date!)
+        print(date24)
+        let dateAsString1 = mndEndTime
+        let dateFormatter1 = DateFormatter()
+        dateFormatter1.dateFormat = "h:mm a"
+        let date1 = dateFormatter1.date(from: dateAsString1)
+        dateFormatter1.dateFormat = "HH:mm"
+        let date241 = dateFormatter1.string(from: date1!)
+        print(date241)
+        if date24 > date241
+        {
+            let alert = UIAlertController(title: "Action!!", message: "End time always greter than start time", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+        else{
+            AppState.sharedInstance.activeSpot.friEndTime = dateFormatter.string(from: sender.date)
+            friEndTime.text = AppState.sharedInstance.activeSpot.friEndTime
+        }
     }
     
     @objc func friSwitchStateChanged(switchState: UISwitch) {
@@ -344,13 +612,67 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate{
     
     // Saturday
     @objc func satStartDatePickerValueChanged(_ sender: UIDatePicker) {
-        AppState.sharedInstance.activeSpot.satStartTime = dateFormatter.string(from: sender.date)
-        satStartTime.text = AppState.sharedInstance.activeSpot.satStartTime
+        
+        let mndStart = satEndTime.text as! String
+        print(mndStart)
+        let mndEndTime = dateFormatter.string(from: sender.date) as! String
+        let dateAsString = mndStart
+        let dateFormatter12 = DateFormatter()
+        dateFormatter12.dateFormat = "h:mm a"
+        let date = dateFormatter12.date(from: dateAsString)
+        dateFormatter12.dateFormat = "HH:mm"
+        let date24 = dateFormatter12.string(from: date!)
+        print(date24)
+        let dateAsString1 = mndEndTime
+        let dateFormatter1 = DateFormatter()
+        dateFormatter1.dateFormat = "h:mm a"
+        let date1 = dateFormatter1.date(from: dateAsString1)
+        dateFormatter1.dateFormat = "HH:mm"
+        let date241 = dateFormatter1.string(from: date1!)
+        print(date241)
+        if date24 > date241
+        {
+            AppState.sharedInstance.activeSpot.satStartTime = dateFormatter.string(from: sender.date)
+            satStartTime.text = AppState.sharedInstance.activeSpot.satStartTime
+        }
+        else
+        {
+            let alert = UIAlertController(title: "Action!!", message: "Start time always less than end time", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     
     @objc func satEndDatePickerValueChanged(_ sender: UIDatePicker) {
-        AppState.sharedInstance.activeSpot.satEndTime = dateFormatter.string(from: sender.date)
-        satEndTime.text = AppState.sharedInstance.activeSpot.satEndTime
+        
+        let mndStart = satStartTime.text as! String
+        print(mndStart)
+        let mndEndTime = dateFormatter.string(from: sender.date) as! String
+        let dateAsString = mndStart
+        let dateFormatter12 = DateFormatter()
+        dateFormatter12.dateFormat = "h:mm a"
+        let date = dateFormatter12.date(from: dateAsString)
+        dateFormatter12.dateFormat = "HH:mm"
+        let date24 = dateFormatter12.string(from: date!)
+        print(date24)
+        let dateAsString1 = mndEndTime
+        let dateFormatter1 = DateFormatter()
+        dateFormatter1.dateFormat = "h:mm a"
+        let date1 = dateFormatter1.date(from: dateAsString1)
+        dateFormatter1.dateFormat = "HH:mm"
+        let date241 = dateFormatter1.string(from: date1!)
+        print(date241)
+        if date24 > date241
+        {
+            let alert = UIAlertController(title: "Action!!", message: "End time always greter than start time", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+        else{
+            AppState.sharedInstance.activeSpot.satEndTime = dateFormatter.string(from: sender.date)
+            satEndTime.text = AppState.sharedInstance.activeSpot.satEndTime
+        }
+
     }
     
     @objc func satSwitchStateChanged(switchState: UISwitch) {
@@ -373,13 +695,66 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate{
     
     // Sunday
     @objc func sunStartDatePickerValueChanged(_ sender: UIDatePicker) {
-        AppState.sharedInstance.activeSpot.sunStartTime = dateFormatter.string(from: sender.date)
-        sunStartTime.text = AppState.sharedInstance.activeSpot.sunStartTime
+        
+        let mndStart = sunEndTime.text as! String
+        print(mndStart)
+        let mndEndTime = dateFormatter.string(from: sender.date) as! String
+        let dateAsString = mndStart
+        let dateFormatter12 = DateFormatter()
+        dateFormatter12.dateFormat = "h:mm a"
+        let date = dateFormatter12.date(from: dateAsString)
+        dateFormatter12.dateFormat = "HH:mm"
+        let date24 = dateFormatter12.string(from: date!)
+        print(date24)
+        let dateAsString1 = mndEndTime
+        let dateFormatter1 = DateFormatter()
+        dateFormatter1.dateFormat = "h:mm a"
+        let date1 = dateFormatter1.date(from: dateAsString1)
+        dateFormatter1.dateFormat = "HH:mm"
+        let date241 = dateFormatter1.string(from: date1!)
+        print(date241)
+        if date24 > date241
+        {
+            AppState.sharedInstance.activeSpot.sunStartTime = dateFormatter.string(from: sender.date)
+            sunStartTime.text = AppState.sharedInstance.activeSpot.sunStartTime
+        }
+        else
+        {
+            let alert = UIAlertController(title: "Action!!", message: "Start time always less than end time", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     
     @objc func sunEndDatePickerValueChanged(_ sender: UIDatePicker) {
-        AppState.sharedInstance.activeSpot.sunEndTime = dateFormatter.string(from: sender.date)
-        sunEndTime.text = AppState.sharedInstance.activeSpot.sunEndTime
+        
+        let mndStart = sunStartTime.text as! String
+        print(mndStart)
+        let mndEndTime = dateFormatter.string(from: sender.date) as! String
+        let dateAsString = mndStart
+        let dateFormatter12 = DateFormatter()
+        dateFormatter12.dateFormat = "h:mm a"
+        let date = dateFormatter12.date(from: dateAsString)
+        dateFormatter12.dateFormat = "HH:mm"
+        let date24 = dateFormatter12.string(from: date!)
+        print(date24)
+        let dateAsString1 = mndEndTime
+        let dateFormatter1 = DateFormatter()
+        dateFormatter1.dateFormat = "h:mm a"
+        let date1 = dateFormatter1.date(from: dateAsString1)
+        dateFormatter1.dateFormat = "HH:mm"
+        let date241 = dateFormatter1.string(from: date1!)
+        print(date241)
+        if date24 > date241
+        {
+            let alert = UIAlertController(title: "Action!!", message: "End time always greter than start time", preferredStyle: UIAlertControllerStyle.alert)
+            alert.addAction(UIAlertAction(title: "Ok", style: UIAlertActionStyle.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+        }
+        else{
+            AppState.sharedInstance.activeSpot.sunEndTime = dateFormatter.string(from: sender.date)
+            sunEndTime.text = AppState.sharedInstance.activeSpot.sunEndTime
+        }
     }
     
     @objc func sunSwitchStateChanged(switchState: UISwitch) {
