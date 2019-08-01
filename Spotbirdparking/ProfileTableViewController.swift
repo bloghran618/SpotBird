@@ -149,38 +149,9 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
         else if profileOptions![(indexPath as NSIndexPath).row].option == "Test Functionality" {
             print("Just doing some debugging...")
             
-//             debug code:
-          //  Spinner.stop()
-//            Spinner.start()
-//            print("Spinner should start")
-//            var timer = Timer.scheduledTimer(withTimeInterval: 3, repeats: false) { (Timer) in
-//                Spinner.stop()
-//            }
-//            sleep(3)
-//            AppState.sharedInstance.user.GetCar()
-//            Spinner.stop()
-            
-//            let image = UIImage(named: "first")
-//            self.savePicToFirebase(image: image!)
-            
-//            let pid = "asdf12"
-//            self.deletePicFromFirebase(pic_id: pid)
-        
-            
-            //            MyAPIClient.sharedClient.checkStripeAccount()
-            //            print("Stripe Enabled? : \(AppState.sharedInstance.stripeStatus)")
-            //            print("Stripe needs: \(AppState.sharedInstance.stripeNeeds)")
-                        
-//            let test_car = Car(make: "Mazda", model: "CX5", year: "1999", carImage: "white", isDefault: true, car_id: "test_id")
-//            let test_res1 = Reservation(startDateTime: "2019-01-18 11:00", endDateTime: "2019-01-18 15:00", parkOrRent: "park", spot: AppState.sharedInstance.spots[0], parkerID: "testid", car: test_car!)
-//            let test_res2 = Reservation(startDateTime: "2019-01-18 11:00", endDateTime: "2019-01-18 15:00", parkOrRent: "rent", spot: AppState.sharedInstance.activeSpot, parkerID: "testid", car: test_car!)
-//            AppState.sharedInstance.user.addReservation(reservation: test_res1!)
-//            print("Added first spot")
-//            AppState.sharedInstance.user.addReservationToUser(reservation: test_res2!)
-//            print("Added secons spot")
-//            
-//            print("All Spots??? \(AppState.sharedInstance.spots)")
-//            print("Reservations: \(AppState.sharedInstance.user.reservations)")
+            self.setPaymentContext(price: 1000)
+            print("requesting the payment...")
+            self.paymentContext.requestPayment()
         }
     }
     
@@ -311,11 +282,17 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
     }
     
     func setPaymentContext(price: Int) {
+        let a = self as! UIViewController
+        print("a is: \(a)")
+        print("Setting the payment context")
         self.paymentContext.delegate = self
-        self.paymentContext.hostViewController = self
+        print("no issue with the delegate")
+        self.paymentContext.hostViewController = self as! UIViewController
+        print("No issue setting the host view controller")
         self.paymentContext.paymentAmount = price
         print(self.paymentContext.paymentAmount)
         print(self.paymentContext.hostViewController)
+        print("Finished setting the payment context")
     }
     
 }

@@ -66,6 +66,7 @@ class MyAPIClient: NSObject, STPEphemeralKeyProvider {
     func completeTransfer(destination: String, spotAmount: Int) {
         print("Run completeTransfer()")
         let url = self.baseURL.appendingPathComponent("pay_owner")
+        print("The url is \(url)")
         print("Spot Amount: \(spotAmount)")
         let payAmount = spotAmount * 17/20
         print("Pay Amount: \(payAmount)")

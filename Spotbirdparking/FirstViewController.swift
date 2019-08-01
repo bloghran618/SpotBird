@@ -2469,15 +2469,19 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                     if(destination != "" && AppState.sharedInstance.user.customertoken != "") {
                         
                         // pay us
+                        print("we are getting paid")
                         self.setPaymentContext(price: amount)
+                        print("The payment context has been set")
                         self.paymentContext.requestPayment()
                         
                         // pay owner
+                        print("The owner is getting paid")
                         MyAPIClient.sharedClient.completeTransfer(destination: destination, spotAmount: amount)
                     }
                 })
                 
                 // set reservations in the database
+                print("The reservations are being created in the db")
                 AppState.sharedInstance.user.addReservation(reservation: parkerReservation!)
                 AppState.sharedInstance.user.addReservationToUser(reservation: ownerReservation!)
             }

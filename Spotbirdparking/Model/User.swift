@@ -735,7 +735,7 @@ class User {
                     let timesDict = ["start": reservationDict["startDateTime"] as! String,
                                      "end": reservationDict["endDateTime"] as! String,
                                      "spotID": reservationDict["spotID"] as! String]
-                    print("Times Dict: \(timesDict)")
+//                    print("Times Dict: \(timesDict)")
                     
                     // add the timesDict to the list of times dictionaries
                     reservationTimesList.append(timesDict)
