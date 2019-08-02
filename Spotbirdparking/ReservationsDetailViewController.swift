@@ -243,61 +243,6 @@ class ReservationsDetailViewController: UIViewController {
         }
         print("Charge being refunded")
     }
-    /*
-    @IBAction func cryto_testing(_ sender: Any) {
-        print("Cryptography!")
-        
-        let ivString = "0000000000000000"
-        let keyString = "This is a key123"
-        
-        let key = [UInt8](keyString.utf8)
-        let iv = [UInt8](ivString.utf8)
-        let stringToEncrypt = "123456789"
-        
-        
-        let enc = try! aesEncrypt(stringToEncrypt: stringToEncrypt, key: key, iv: iv)
-        print("ENCRYPT:",enc)
-        //let dec = try! aesDecrypt(encryptedString: enc, key: key, iv: iv)
-        //print("DECRYPT:",dec)
-    }
- 
-    
-    func aesEncrypt(stringToEncrypt: String, key: Array<UInt8>, iv: Array<UInt8>) throws -> String {
-        let data = stringToEncrypt.data(using: String.Encoding.utf8)
-        let encrypted = try AES(key: key, blockMode: CFB(iv: iv), padding: .noPadding).encrypt((data?.bytes)!)
-        //let encData = Data(bytes: encrypted, count: encrypted.count)
-        //let base64str = encData.base64EncodedString(options: .init(rawValue: 0))
-        //let result = String(base64str)
-        return encrypted.toHexString() //result
-    }
-    func aesDecrypt(encryptedString: String, key: Array<UInt8>, iv: Array<UInt8>) throws -> String {
-        let data = Data(base64Encoded: encryptedString)!
-        let decrypted = try! AES(key: key, blockMode: CFB(iv: iv), padding: .noPadding).decrypt([UInt8](data))
-        let decryptedData = Data(decrypted)
-        return String(bytes: decryptedData.bytes, encoding: .utf8) ?? "Could not decrypt"
-    }
-    /*
-    func pad(value: [UInt8]) -> [UInt8] {
-        let BLOCK_SIZE = 16
-        let length: Int = value.count
-        let padSize = BLOCK_SIZE - (length % BLOCK_SIZE)
-        let padArray = [UInt8](count: padSize, repeatedValue: 0)
-                value.appendContentsOf(padArray)
-        return value
-    }
-    
-    func unpad( value: [UInt8]) -> [UInt8] {
-        for var index = value.count - 1; index >= 0; --index {
-            if value[index] == 0 {
-                value.removeAtIndex(index)
-            } else  {
-                break
-            }
-        }
-        return value
-    }
- */
- */
     
 
     /*
@@ -339,31 +284,4 @@ class ReservationsDetailViewController: UIViewController {
     }
     
 }
-/*
-extension String {
-    /// http://stackoverflow.com/questions/26501276/converting-hex-string-to-nsdata-in-swift
-    ///
-    /// Create NSData from hexadecimal string representation
-    ///
-    /// This takes a hexadecimal representation and creates a NSData object. Note, if the string has any spaces, those are removed. Also if the string started with a '<' or ended with a '>', those are removed, too. This does no validation of the string to ensure it's a valid hexadecimal string
-    ///
-    /// The use of `strtoul` inspired by Martin R at http://stackoverflow.com/a/26284562/1271826
-    ///
-    /// - returns: NSData represented by this hexadecimal string. Returns nil if string contains characters outside the 0-9 and a-f range.
-    func dataFromHexadecimalString() -> NSData? {
-        let trimmedString = self.stringByTrimmingCharactersInSet(NSCharacterSet(charactersInString: "<> ")).stringByReplacingOccurrencesOfString(" ", withString: "")
-        // make sure the cleaned up string consists solely of hex digits, and that we have even number of them
-        let regex = try! NSRegularExpression(pattern: "^[0-9a-f]*$", options: .CaseInsensitive)
-        let found = regex.firstMatchInString(trimmedString, options: [], range: NSMakeRange(0, trimmedString.characters.count))
-        if found == nil || found?.range.location == NSNotFound || trimmedString.characters.count % 2 != 0 {
-            return nil
-        }
-        // everything ok, so now let's build NSData
-        let data = NSMutableData(capacity: trimmedString.characters.count / 2)
-        for var index = trimmedString.startIndex; index < trimmedString.endIndex; index = index.successor().successor() {
-            let byteString = trimmedString.substringWithRange(Range<String.Index>(start: index, end: index.successor().successor()))
-            let num = UInt8(byteString.withCString { strtoul($0, nil, 16) })
-            data?.appendBytes([num] as [UInt8], length: 1)
-        }
-        return data
-} */
+

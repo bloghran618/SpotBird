@@ -199,6 +199,7 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
   
     
     @IBAction func btn_Logout(_ sender: Any) {
+        
         let alertController = UIAlertController(title: "Spotbirdparking", message: "Are you sure you want to logout?", preferredStyle: UIAlertControllerStyle.alert)
         let DestructiveAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.destructive) { (result : UIAlertAction) -> Void in
             UserDefaults.standard.removeObject(forKey: "logindata")
@@ -222,6 +223,7 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         alertController.addAction(DestructiveAction)
         alertController.addAction(okAction)
         self.present(alertController, animated: true, completion: nil)
+        
     }
     
     func show_save()  {
