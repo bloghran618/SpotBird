@@ -599,11 +599,34 @@ class User {
         print("Get all the reservations")
         let user_id = AppState.sharedInstance.userid
         
-        // set database reference to User() reservations in the database
-        let ref = Database.database().reference().child("User").child(user_id).child("Reservations")
+        // set database reference to User() in the database
+        let ref = Database.database().reference().child("User").child(user_id)
+        //variable to see if there are reservations or not
+        var reservation_check = false
+        
+        //checking to see if there are any reservations if case there are none
+        ref.observeSingleEvent(of: .value, with: { (snapshot) in
+            // Get user value
+            let value = snapshot.value as! NSDictionary
+            for dict in value{
+                let key =  dict.key as! String
+                if key == "Reservations" {
+                    print("True at: " + key)
+                    reservation_check = true
+                }
+            }
+            if reservation_check == false {
+                print("No reservations")
+                self.reservationsDownloaded = true
+                completionHandler("completed downloading reservations")
+            }
+            
+        }) { (error) in
+            print(error.localizedDescription)
+        }
         
         // loop over each reservation in database reference
-        ref.observe(DataEventType.value, with: { (snapshot) in
+        ref.child("Reservations").observe(DataEventType.value, with: { (snapshot) in
             if snapshot.childrenCount > 0 {
                 for artists in snapshot.children.allObjects as! [DataSnapshot] {
                     let reservationDict = ((snapshot.value as! NSDictionary).value(forKey: (artists as! DataSnapshot).key)) as! NSDictionary
