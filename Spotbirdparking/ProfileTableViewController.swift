@@ -40,10 +40,14 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
         
         // populate the options with data
         profileOptions = [
-            ProfileTableOption(option: "You", description: "Tell us about yourself", logoImageName: "youImage"),
-            ProfileTableOption(option: "Cars", description: "Create and set default cars", logoImageName: "EmptyCar"),
-            ProfileTableOption(option: "Payment", description: "Manage your payment options", logoImageName: "dollarSign"),
-            ProfileTableOption(option: "List", description: "Share your spot", logoImageName: "Share"),
+            //ProfileTableOption(option: "You", description: "Tell us about yourself", logoImageName: "youImage"),
+            ProfileTableOption(option: "You", description: "Tell us about yourself", logoImageName: "invertedPhoneBook"),
+            //ProfileTableOption(option: "Cars", description: "Create and set default cars", logoImageName: "EmptyCar"),
+            ProfileTableOption(option: "Cars", description: "Create and set default cars", logoImageName: "invertedCar"),
+            //ProfileTableOption(option: "Payment", description: "Manage your payment options", logoImageName: "dollarSign"),
+            ProfileTableOption(option: "Payment", description: "Manage your payment options", logoImageName: "invertedCreditCard"),
+            //ProfileTableOption(option: "List", description: "Share your spot", logoImageName: "Share"),
+            ProfileTableOption(option: "List", description: "Share your spot", logoImageName: "invertedHouse"),
             ProfileTableOption(option: "Enable Payouts", description: "Authorize payouts to bank account", logoImageName: "EnablePayouts"),
             ProfileTableOption(option: "Contact Us", description: "Send us an Email", logoImageName: "contactUs"),
 //            ProfileTableOption(option: "Test Functionality", description: "Just for testing", logoImageName: "white")
@@ -131,15 +135,15 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
         else if profileOptions![(indexPath as NSIndexPath).row].option == "Enable Payouts" {
             // present stripe viewController based on what Stripe needs
             print("Stripe Needs: \(AppState.sharedInstance.stripeNeeds)")
-            if (AppState.sharedInstance.stripeNeeds.contains("id_number")) {
-                self.performSegue(withIdentifier: "SSN", sender: self)
-            }
-            else if(AppState.sharedInstance.stripeNeeds.contains("individual.verification.document")) {
-                self.performSegue(withIdentifier: "IDDocs", sender: self)
-            }
-            else {
-                self.performSegue(withIdentifier: "Payouts", sender: self)
-            }
+            //if (AppState.sharedInstance.stripeNeeds.contains("id_number")) {
+            self.performSegue(withIdentifier: "SSN", sender: self)
+            //}
+            //else if(AppState.sharedInstance.stripeNeeds.contains("individual.verification.document")) {
+              //  self.performSegue(withIdentifier: "IDDocs", sender: self)
+            //}
+            //else {
+              //  self.performSegue(withIdentifier: "Payouts", sender: self)
+            //}
 
         }
         else if profileOptions![(indexPath as NSIndexPath).row].option == "Contact Us" {
@@ -149,9 +153,10 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
         else if profileOptions![(indexPath as NSIndexPath).row].option == "Test Functionality" {
             print("Just doing some debugging...")
             
-            self.setPaymentContext(price: 1000)
-            print("requesting the payment...")
-            self.paymentContext.requestPayment()
+//            self.setPaymentContext(price: 1000)
+//            print("requesting the payment...")
+//            self.paymentContext.requestPayment()
+            
         }
     }
     
@@ -226,11 +231,11 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
     
     func paymentContext(_ paymentContext: STPPaymentContext, didCreatePaymentResult paymentResult: STPPaymentResult, completion: @escaping STPErrorBlock) {
         print("run didCreatePaymentResult paymentContext()")
-        MyAPIClient.sharedClient.completeCharge(paymentResult,
-                                                amount: self.paymentContext.paymentAmount,
-                                                shippingAddress: self.paymentContext.shippingAddress,
-                                                shippingMethod: self.paymentContext.selectedShippingMethod,
-                                                completion: completion)
+        //MyAPIClient.sharedClient.completeCharge(paymentResult,
+                                                //amount: self.paymentContext.paymentAmount,
+                                                //shippingAddress: self.paymentContext.shippingAddress,
+                                                //shippingMethod: self.paymentContext.selectedShippingMethod
+                                                //completion: completion)
     }
     
     func paymentContext(_ paymentContext: STPPaymentContext, didFinishWith status: STPPaymentStatus, error: Error?) {

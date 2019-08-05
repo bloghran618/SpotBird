@@ -63,16 +63,17 @@ class MyAPIClient: NSObject, STPEphemeralKeyProvider {
     
     // Transfer funds from our account to the spot owner
     // run with MyAPIClient.sharedClient.completeTransfer(destination: String, spotAmount: Int)
-    func completeTransfer(destination: String, spotAmount: Int) {
+    func completeTransfer(destination: String, spotAmount: Int, spotID: String, startDateTime: String) {
         print("Run completeTransfer()")
-        let url = self.baseURL.appendingPathComponent("pay_owner")
-        print("The url is \(url)")
+        let url = self.baseURL.appendingPathComponent("schedule_transfer")
         print("Spot Amount: \(spotAmount)")
         let payAmount = spotAmount * 17/20
         print("Pay Amount: \(payAmount)")
-        var params: [String: Any] = [
+        let params: [String: Any] = [
             "destination_id": destination,
-            "amount": payAmount
+            "amount": payAmount,
+            "spotID": spotID,
+            "startDateTime": startDateTime
         ]
         Alamofire.request(url, method: .post, parameters: params)
             .validate(statusCode: 200..<300)

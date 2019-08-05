@@ -9,7 +9,7 @@
 #import "STPPaymentHandler.h"
 
 #import <SafariServices/SafariServices.h>
-#import <Stripe3DS2/Stripe3DS2.h>
+#import <Stripe/Stripe3DS2.h>
 
 #import "NSError+Stripe.h"
 #import "STP3DS2AuthenticateResponse.h"
@@ -470,7 +470,7 @@ withAuthenticationContext:(id<STPAuthenticationContext>)authenticationContext
                                                                 return;
                                                             }
 
-                                                            if (!aRes.challengeMandated) {
+                                                            if (!aRes.isChallengeMandated) {
                                                                 // Challenge not required, finish the flow.
                                                                 [transaction close];
                                                                 [[STPAnalyticsClient sharedClient] log3DS2FrictionlessFlowWithConfiguration:self->_currentAction.apiClient.configuration

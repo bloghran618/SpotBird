@@ -10,6 +10,7 @@ import Firebase
 import FirebaseAuth
 import Photos
 import Alamofire
+import Stripe
 
 class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -192,10 +193,7 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
      show_save()
-        
     }
-    
-    
   
     
     @IBAction func btn_Logout(_ sender: Any) {

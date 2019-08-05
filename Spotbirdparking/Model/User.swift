@@ -651,7 +651,7 @@ class User {
                         }
                     }
                 }
-                completionHandler("COMPLETED... BOIII")
+                completionHandler("completed downloading reservations")
             }
             else {
                 print("No reservations")
@@ -716,15 +716,21 @@ class User {
     // get the times that the user has reserved (to check if conflicting reservation)
     public func getReservationTimesForUser(spotUser: String, completionHandler: @escaping (_ timesList: [[String: String]]) -> ()) {
         
+        print("Start getting reservation times for user")
+        
         // set the reference to the users reservation list
         let ref = Database.database().reference().child("User").child(spotUser).child("Reservations")
+        
+        print("Created ref")
         
         // create empty list of times dictionary
         var reservationTimesList: [[String:String]] = []
         
         // loop over each reservation in database reference
         ref.observe(DataEventType.value, with: { (snapshot) in
+            print("snapshot created")
             if snapshot.childrenCount > 0 {
+                print("more than one value in snapshot")
                 for artists in snapshot.children.allObjects as! [DataSnapshot] {
                     let reservationDict = ((snapshot.value as! NSDictionary).value(forKey: (artists as! DataSnapshot).key)) as! NSDictionary
                     
@@ -742,6 +748,12 @@ class User {
                 }
 //                print("reservationTimesList: \(reservationTimesList)")
                 ref.removeAllObservers()
+                print("End getting reservatoin tim es for user")
+                completionHandler(reservationTimesList)
+            }
+            else {
+                ref.removeAllObservers()
+                print("End getting reservatoin tim es for user")
                 completionHandler(reservationTimesList)
             }
         })

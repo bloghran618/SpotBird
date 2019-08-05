@@ -5,7 +5,6 @@
 //  Created by mac on 13/04/19.
 //  Copyright © 2019 Spotbird. All rights reserved.
 //
-
 import UIKit
 import CoreLocation
 import GoogleMaps
@@ -101,7 +100,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     var Search_end_date:Date?
     var strPickerStart = ""
     var strPickerEnd = ""
-   
+    
     // initialize highlighted spot to null
     var highlightedSpot: Spot!
     
@@ -114,12 +113,45 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     
     var paymentContext = STPPaymentContext(customerContext: STPCustomerContext(keyProvider: MyAPIClient.sharedClient))
     var allMarkers = [GMSMarker]()
-
+    
+    //These variables are used to create an id for the charge
+    var chargeID_spotID: String = ""
+    var chargeID_startDate: String = ""
+    
     
     //MARK:- View Did Load
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        start_scheduler()
+        
+        /*
+        var defaultCar = Car(make: "", model: "", year: "", carImage: "", isDefault: false, car_id: "")
+        let parkerReservation = Reservation(
+            startDateTime: "2019-08-01 15:00",
+            endDateTime: "2019-08-01 16:00",
+            parkOrRent: "Park",
+            spot: self.highlightedSpot,
+            parkerID: "-LbQoDVfuiRm7NBsWOR9",
+            car: defaultCar!,
+            ownerID: "-LbQoDVfuiRm7NBsWOR9"
+        )
+        
+        // create reservation to be sent to the spot owner
+        let ownerReservation = Reservation(
+            startDateTime: "2019-08-01 15:00",
+            endDateTime: "2019-08-01 16:00",
+            parkOrRent: "Rent",
+            spot: self.highlightedSpot,
+            parkerID: "-LbQoDVfuiRm7NBsWOR9",
+            car: defaultCar!,
+            ownerID: "-LbQoDVfuiRm7NBsWOR9"
+        )
+        
+        AppState.sharedInstance.user.addReservation(reservation: parkerReservation!)
+        AppState.sharedInstance.user.addReservationToUser(reservation: ownerReservation!)
+         */
         
         // load aspects of User() object from the database
         AppState.sharedInstance.activeSpot.getSpots()
@@ -134,13 +166,13 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         }
         AppState.sharedInstance.user.fetch_Balance()
         AppState.sharedInstance.user.fetch_LifeTimeBalance()
-
+        
         
         AppState.sharedInstance.user.getReservationsOfCurrentUser(){ message in
-           
+
             print(message)
         }
-        
+
         
         dismissKeyboard()
         //scheduledTimerWithTimeInterval()  // time
@@ -181,11 +213,11 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         dateFormatter.dateFormat = "MMM, dd, YYYY, H:mm:ss"
         
         timearrayset()
-
+        
         start_datepic.minimumDate = Date()
         end_datepic.minimumDate = calendar.date(byAdding: .hour, value: 1, to:  Date())
         end_datepic.date = calendar.date(byAdding: .hour, value: 3, to:  Date())!
-
+        
         // list load
         setStartEndDate()
         
@@ -213,18 +245,18 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         lbl2.layer.masksToBounds = true;
         lbl2.layer.borderWidth = 2
         lbl2.layer.borderColor = UIColor.darkGray.cgColor
-    
+        
     }
     
-//    func getReservationsOnDay(date: Date) -> Bool {
-//
-//        for res in AppState.sharedInstance.user.reservations {
-//            if(checkReservationDateMatchesCell(reservationDate: res.startDateTime, cellDate: date)) {
-//                 return true
-//            }
-//        }
-//        return false
-//    }
+    //    func getReservationsOnDay(date: Date) -> Bool {
+    //
+    //        for res in AppState.sharedInstance.user.reservations {
+    //            if(checkReservationDateMatchesCell(reservationDate: res.startDateTime, cellDate: date)) {
+    //                 return true
+    //            }
+    //        }
+    //        return false
+    //    }
     
     func checkReservationDateMatchesCell(reservationDate: String, cellDate: Date) -> Bool
     {
@@ -233,6 +265,25 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         let resDate = formatter.date(from: reservationDate)
         
         return Calendar.current.isDate(resDate!, inSameDayAs: cellDate)
+    }
+    
+    func start_scheduler() {
+        
+        let url = "https://spotbird-backend-bloughran618.herokuapp.com/start_scheduler"
+        print("before starting scheduler")
+        
+        Alamofire.request(url, method: .post)
+            .validate(statusCode: 200..<300)
+            .responseJSON { response in
+                switch response.result {
+                case .success:
+                    print("Returned with success")
+                case .failure(let error):
+                    print("Failure")
+                }
+                
+        }
+        print("after starting scheduler")
     }
     
     //MARK:- View will Appears
@@ -247,7 +298,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     
     func viewWillDisappear(animated: Bool)
     {
-       // self.timerAnimation.invalidate()
+        // self.timerAnimation.invalidate()
     }
     //MARK:- Methords
     
@@ -280,7 +331,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         print(date)
         print(date)
         strPickerStart = date
-     }
+    }
     
     // end date-
     @objc func EnddatePickerChanged(picker: UIDatePicker) {
@@ -293,42 +344,42 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         print(date)
         strPickerEnd = date
         
-         dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:a"
+        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:a"
         let formatter12 = DateFormatter()
         formatter12.dateFormat = "yyyy-MM-dd hh:mm:a"
-
-         var str = formatter12.string(from: picker.date)
-         if str.contains("AM")
-         {
-         if format2 == "AM"
-         {
-         end_date = formatter12.date(from: str)!
-         }else
-         {
-         let replaced = str.replacingOccurrences(of: "AM", with: "PM")
-         end_date = formatter12.date(from: replaced)!
-         }
-         print(end_date!)
-         }else
-         {
-         if format2 == "PM"
-         {
-         end_date = formatter12.date(from: str)!
-         
-         }else
-         {
-         let replaced = str.replacingOccurrences(of: "PM", with: "AM")
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:a" //Your date format
-            dateFormatter.timeZone = TimeZone(abbreviation: "GMT+0:00")
-            guard let date = dateFormatter.date(from: replaced) else
+        
+        var str = formatter12.string(from: picker.date)
+        if str.contains("AM")
+        {
+            if format2 == "AM"
             {
-                fatalError()
+                end_date = formatter12.date(from: str)!
+            }else
+            {
+                let replaced = str.replacingOccurrences(of: "AM", with: "PM")
+                end_date = formatter12.date(from: replaced)!
             }
-            end_date =  date
-         }
-         print(end_date!)
-         }
+            print(end_date!)
+        }else
+        {
+            if format2 == "PM"
+            {
+                end_date = formatter12.date(from: str)!
+                
+            }else
+            {
+                let replaced = str.replacingOccurrences(of: "PM", with: "AM")
+                let dateFormatter = DateFormatter()
+                dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:a" //Your date format
+                dateFormatter.timeZone = TimeZone(abbreviation: "GMT+0:00")
+                guard let date = dateFormatter.date(from: replaced) else
+                {
+                    fatalError()
+                }
+                end_date =  date
+            }
+            print(end_date!)
+        }
     }
     //MARK:- Button Click Event
     // MARK: _ BTn Date searching(Calender Click Event)
@@ -660,7 +711,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                             let arrsun = datedaydict.value(forKey: "Sunday") as! NSArray
                             for m in 0..<arrsun.count{
                                 
-                               let spotStart_times = "\(str) \(dict_spot.value(forKey: "sunStartTime") as! String)"
+                                let spotStart_times = "\(str) \(dict_spot.value(forKey: "sunStartTime") as! String)"
                                 let spotEnd_times = "\(str) \(dict_spot.value(forKey: "sunEndTime") as! String)"
                                 formatter.dateFormat = "yyyy-MM-dd h:mm a"
                                 let dateDay1 = formatter.date(from: spotStart_times)
@@ -679,28 +730,32 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     let dateeDay1 = formatter.date(from: spotStart_times)
                                     let dateeDay2 = formatter.date(from: spotEnd_times)
                                     formatter.dateFormat = "MMM dd h a"
-                                    if dateeDay1!.isSmallerThan(endCur) && dateeDay2!.isSmallerThan(endCur)
+                                    
+                                    if dateeDay1 != nil || dateeDay2 != nil
                                     {
-                                        var isReservarion = false
-                                        for dict in arrCurrentRes
+                                        if dateeDay1!.isSmallerThan(endCur) && dateeDay2!.isSmallerThan(endCur)
                                         {
-                                            if (dict as! NSDictionary).value(forKey: "spotID") as! String == dict_spot.value(forKey: "id") as! String
+                                            var isReservarion = false
+                                            for dict in arrCurrentRes
                                             {
-                                                let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
-                                                let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
-                                                formatter.dateFormat = "yyyy-MM-dd HH:mm"
-                                                let date11 = formatter.date(from: date1)
-                                                let date22 = formatter.date(from: date2)
-                                                print(date1)
-                                                if date11!.isSmallerThan(statCur) && date22!.isGreaterThan(endCur)
+                                                if (dict as! NSDictionary).value(forKey: "spotID") as! String == dict_spot.value(forKey: "id") as! String
                                                 {
-                                                    isReservarion = true
-                                                    break
+                                                    let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
+                                                    let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
+                                                    formatter.dateFormat = "yyyy-MM-dd HH:mm"
+                                                    let date11 = formatter.date(from: date1)
+                                                    let date22 = formatter.date(from: date2)
+                                                    print(date1)
+                                                    if date11!.isSmallerThan(statCur) && date22!.isGreaterThan(endCur)
+                                                    {
+                                                        isReservarion = true
+                                                        break
+                                                    }
                                                 }
                                             }
-                                        }
-                                        if isReservarion == false{
-                                              self.arr_search_spot.add(self.arrAllspot.object(at: i))
+                                            if isReservarion == false{
+                                                self.arr_search_spot.add(self.arrAllspot.object(at: i))
+                                            }
                                         }
                                     }
                                 }else
@@ -725,34 +780,34 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                             }
                                         }
                                         if isReservarion == false{
-                                             self.arr_search_spot.add(self.arrAllspot.object(at: i))
+                                            self.arr_search_spot.add(self.arrAllspot.object(at: i))
                                         }
                                     }
                                 }
                                 
-//                                if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
-//                                    var isReservarion = false
-//                                    for dict in arrCurrentRes
-//                                    {
-//                                        if (dict as! NSDictionary).value(forKey: "spotID") as! String == dict_spot.value(forKey: "id") as! String
-//                                        {
-//                                            let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
-//                                            let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
-//                                            formatter.dateFormat = "yyyy-MM-dd HH:mm"
-//                                            let date11 = formatter.date(from: date1)
-//                                            let date22 = formatter.date(from: date2)
-//                                            print(date1)
-//                                            if date11!.isSmallerThan(statCur) && date22!.isGreaterThan(endCur)
-//                                            {
-//                                                isReservarion = true
-//                                                break
-//                                            }
-//                                        }
-//                                    }
-//                                    if isReservarion == false{
-//                                        self.arr_search_spot.add(self.arrAllspot.object(at: i))
-//                                    }
-//                                }
+                                //                                if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
+                                //                                    var isReservarion = false
+                                //                                    for dict in arrCurrentRes
+                                //                                    {
+                                //                                        if (dict as! NSDictionary).value(forKey: "spotID") as! String == dict_spot.value(forKey: "id") as! String
+                                //                                        {
+                                //                                            let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
+                                //                                            let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
+                                //                                            formatter.dateFormat = "yyyy-MM-dd HH:mm"
+                                //                                            let date11 = formatter.date(from: date1)
+                                //                                            let date22 = formatter.date(from: date2)
+                                //                                            print(date1)
+                                //                                            if date11!.isSmallerThan(statCur) && date22!.isGreaterThan(endCur)
+                                //                                            {
+                                //                                                isReservarion = true
+                                //                                                break
+                                //                                            }
+                                //                                        }
+                                //                                    }
+                                //                                    if isReservarion == false{
+                                //                                        self.arr_search_spot.add(self.arrAllspot.object(at: i))
+                                //                                    }
+                                //                                }
                             }
                         }
                         
@@ -808,28 +863,32 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     let dateeDay1 = formatter.date(from: spotStart_times)
                                     let dateeDay2 = formatter.date(from: spotEnd_times)
                                     formatter.dateFormat = "MMM dd h a"
-                                    if dateeDay1!.isSmallerThan(endCur) && dateeDay2!.isSmallerThan(endCur)
+                                    if dateeDay1 != nil || dateeDay2 != nil
                                     {
-                                        var isReservarion = false
-                                        for dict in arrCurrentRes
+                                        
+                                        if dateeDay1!.isSmallerThan(endCur) && dateeDay2!.isSmallerThan(endCur)
                                         {
-                                            if (dict as! NSDictionary).value(forKey: "spotID") as! String == dict_spot.value(forKey: "id") as! String
+                                            var isReservarion = false
+                                            for dict in arrCurrentRes
                                             {
-                                                let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
-                                                let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
-                                                formatter.dateFormat = "yyyy-MM-dd HH:mm"
-                                                let date11 = formatter.date(from: date1)
-                                                let date22 = formatter.date(from: date2)
-                                                print(date1)
-                                                if date11!.isSmallerThan(statCur) && date22!.isGreaterThan(endCur)
+                                                if (dict as! NSDictionary).value(forKey: "spotID") as! String == dict_spot.value(forKey: "id") as! String
                                                 {
-                                                    isReservarion = true
-                                                    break
+                                                    let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
+                                                    let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
+                                                    formatter.dateFormat = "yyyy-MM-dd HH:mm"
+                                                    let date11 = formatter.date(from: date1)
+                                                    let date22 = formatter.date(from: date2)
+                                                    print(date1)
+                                                    if date11!.isSmallerThan(statCur) && date22!.isGreaterThan(endCur)
+                                                    {
+                                                        isReservarion = true
+                                                        break
+                                                    }
                                                 }
                                             }
-                                        }
-                                        if isReservarion == false{
-                                            self.arr_search_spot.add(self.arrAllspot.object(at: i))
+                                            if isReservarion == false{
+                                                self.arr_search_spot.add(self.arrAllspot.object(at: i))
+                                            }
                                         }
                                     }
                                 }else
@@ -859,29 +918,29 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     }
                                 }
                                 
-//                                if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
-//                                    var isReservarion = false
-//                                    for dict in arrCurrentRes
-//                                    {
-//                                        if (dict as! NSDictionary).value(forKey: "spotID") as! String == dict_spot.value(forKey: "id") as! String
-//                                        {
-//                                            let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
-//                                            let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
-//                                            formatter.dateFormat = "yyyy-MM-dd HH:mm"
-//                                            let date11 = formatter.date(from: date1)
-//                                            let date22 = formatter.date(from: date2)
-//                                            print(date1)
-//                                            if date11!.isSmallerThan(statCur) && date22!.isGreaterThan(endCur)
-//                                            {
-//                                                isReservarion = true
-//                                                break
-//                                            }
-//                                        }
-//                                    }
-//                                    if isReservarion == false{
-//                                        self.arr_search_spot.add(self.arrAllspot.object(at: i))
-//                                    }
-//                                }
+                                //                                if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
+                                //                                    var isReservarion = false
+                                //                                    for dict in arrCurrentRes
+                                //                                    {
+                                //                                        if (dict as! NSDictionary).value(forKey: "spotID") as! String == dict_spot.value(forKey: "id") as! String
+                                //                                        {
+                                //                                            let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
+                                //                                            let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
+                                //                                            formatter.dateFormat = "yyyy-MM-dd HH:mm"
+                                //                                            let date11 = formatter.date(from: date1)
+                                //                                            let date22 = formatter.date(from: date2)
+                                //                                            print(date1)
+                                //                                            if date11!.isSmallerThan(statCur) && date22!.isGreaterThan(endCur)
+                                //                                            {
+                                //                                                isReservarion = true
+                                //                                                break
+                                //                                            }
+                                //                                        }
+                                //                                    }
+                                //                                    if isReservarion == false{
+                                //                                        self.arr_search_spot.add(self.arrAllspot.object(at: i))
+                                //                                    }
+                                //                                }
                             }
                         }
                     }
@@ -911,28 +970,32 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     let dateeDay1 = formatter.date(from: spotStart_times)
                                     let dateeDay2 = formatter.date(from: spotEnd_times)
                                     formatter.dateFormat = "MMM dd h a"
-                                    if dateeDay1!.isSmallerThan(endCur) && dateeDay2!.isSmallerThan(endCur)
+                                    if dateeDay1 != nil || dateeDay2 != nil
                                     {
-                                        var isReservarion = false
-                                        for dict in arrCurrentRes
+                                        
+                                        if dateeDay1!.isSmallerThan(endCur) && dateeDay2!.isSmallerThan(endCur)
                                         {
-                                            if (dict as! NSDictionary).value(forKey: "spotID") as! String == dict_spot.value(forKey: "id") as! String
+                                            var isReservarion = false
+                                            for dict in arrCurrentRes
                                             {
-                                                let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
-                                                let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
-                                                formatter.dateFormat = "yyyy-MM-dd HH:mm"
-                                                let date11 = formatter.date(from: date1)
-                                                let date22 = formatter.date(from: date2)
-                                                print(date1)
-                                                if date11!.isSmallerThan(statCur) && date22!.isGreaterThan(endCur)
+                                                if (dict as! NSDictionary).value(forKey: "spotID") as! String == dict_spot.value(forKey: "id") as! String
                                                 {
-                                                    isReservarion = true
-                                                    break
+                                                    let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
+                                                    let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
+                                                    formatter.dateFormat = "yyyy-MM-dd HH:mm"
+                                                    let date11 = formatter.date(from: date1)
+                                                    let date22 = formatter.date(from: date2)
+                                                    print(date1)
+                                                    if date11!.isSmallerThan(statCur) && date22!.isGreaterThan(endCur)
+                                                    {
+                                                        isReservarion = true
+                                                        break
+                                                    }
                                                 }
                                             }
-                                        }
-                                        if isReservarion == false{
-                                            self.arr_search_spot.add(self.arrAllspot.object(at: i))
+                                            if isReservarion == false{
+                                                self.arr_search_spot.add(self.arrAllspot.object(at: i))
+                                            }
                                         }
                                     }
                                 }else
@@ -962,29 +1025,29 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     }
                                 }
                                 
-//                                if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
-//                                    var isReservarion = false
-//                                    for dict in arrCurrentRes
-//                                    {
-//                                        if (dict as! NSDictionary).value(forKey: "spotID") as! String == dict_spot.value(forKey: "id") as! String
-//                                        {
-//                                            let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
-//                                            let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
-//                                            formatter.dateFormat = "yyyy-MM-dd HH:mm"
-//                                            let date11 = formatter.date(from: date1)
-//                                            let date22 = formatter.date(from: date2)
-//                                            print(date1)
-//                                            if date11!.isSmallerThan(statCur) && date22!.isGreaterThan(endCur)
-//                                            {
-//                                                isReservarion = true
-//                                                break
-//                                            }
-//                                        }
-//                                    }
-//                                    if isReservarion == false{
-//                                        self.arr_search_spot.add(self.arrAllspot.object(at: i))
-//                                    }
-//                                }
+                                //                                if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
+                                //                                    var isReservarion = false
+                                //                                    for dict in arrCurrentRes
+                                //                                    {
+                                //                                        if (dict as! NSDictionary).value(forKey: "spotID") as! String == dict_spot.value(forKey: "id") as! String
+                                //                                        {
+                                //                                            let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
+                                //                                            let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
+                                //                                            formatter.dateFormat = "yyyy-MM-dd HH:mm"
+                                //                                            let date11 = formatter.date(from: date1)
+                                //                                            let date22 = formatter.date(from: date2)
+                                //                                            print(date1)
+                                //                                            if date11!.isSmallerThan(statCur) && date22!.isGreaterThan(endCur)
+                                //                                            {
+                                //                                                isReservarion = true
+                                //                                                break
+                                //                                            }
+                                //                                        }
+                                //                                    }
+                                //                                    if isReservarion == false{
+                                //                                        self.arr_search_spot.add(self.arrAllspot.object(at: i))
+                                //                                    }
+                                //                                }
                             }
                         }
                     }
@@ -994,7 +1057,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                             
                             let arrwed = datedaydict.value(forKey: "Wednesday") as! NSArray
                             for m in 0..<arrwed.count{
-                               
+                                
                                 let spotStart_times = "\(str) \(dict_spot.value(forKey: "wedStartTime") as! String)"
                                 let spotEnd_times = "\(str) \(dict_spot.value(forKey: "wedEndTime") as! String)"
                                 formatter.dateFormat = "yyyy-MM-dd h:mm a"
@@ -1014,28 +1077,32 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     let dateeDay1 = formatter.date(from: spotStart_times)
                                     let dateeDay2 = formatter.date(from: spotEnd_times)
                                     formatter.dateFormat = "MMM dd h a"
-                                    if dateeDay1!.isSmallerThan(endCur) && dateeDay2!.isSmallerThan(endCur)
+                                    if dateeDay1 != nil || dateeDay2 != nil
                                     {
-                                        var isReservarion = false
-                                        for dict in arrCurrentRes
+                                        
+                                        if dateeDay1!.isSmallerThan(endCur) && dateeDay2!.isSmallerThan(endCur)
                                         {
-                                            if (dict as! NSDictionary).value(forKey: "spotID") as! String == dict_spot.value(forKey: "id") as! String
+                                            var isReservarion = false
+                                            for dict in arrCurrentRes
                                             {
-                                                let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
-                                                let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
-                                                formatter.dateFormat = "yyyy-MM-dd HH:mm"
-                                                let date11 = formatter.date(from: date1)
-                                                let date22 = formatter.date(from: date2)
-                                                print(date1)
-                                                if date11!.isSmallerThan(statCur) && date22!.isGreaterThan(endCur)
+                                                if (dict as! NSDictionary).value(forKey: "spotID") as! String == dict_spot.value(forKey: "id") as! String
                                                 {
-                                                    isReservarion = true
-                                                    break
+                                                    let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
+                                                    let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
+                                                    formatter.dateFormat = "yyyy-MM-dd HH:mm"
+                                                    let date11 = formatter.date(from: date1)
+                                                    let date22 = formatter.date(from: date2)
+                                                    print(date1)
+                                                    if date11!.isSmallerThan(statCur) && date22!.isGreaterThan(endCur)
+                                                    {
+                                                        isReservarion = true
+                                                        break
+                                                    }
                                                 }
                                             }
-                                        }
-                                        if isReservarion == false{
-                                            self.arr_search_spot.add(self.arrAllspot.object(at: i))
+                                            if isReservarion == false{
+                                                self.arr_search_spot.add(self.arrAllspot.object(at: i))
+                                            }
                                         }
                                     }
                                 }else
@@ -1065,29 +1132,29 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     }
                                 }
                                 
-//                                if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
-//                                    var isReservarion = false
-//                                    for dict in arrCurrentRes
-//                                    {
-//                                        if (dict as! NSDictionary).value(forKey: "spotID") as! String == dict_spot.value(forKey: "id") as! String
-//                                        {
-//                                            let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
-//                                            let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
-//                                            formatter.dateFormat = "yyyy-MM-dd HH:mm"
-//                                            let date11 = formatter.date(from: date1)
-//                                            let date22 = formatter.date(from: date2)
-//                                            print(date1)
-//                                            if date11!.isSmallerThan(statCur) && date22!.isGreaterThan(endCur)
-//                                            {
-//                                                isReservarion = true
-//                                                break
-//                                            }
-//                                        }
-//                                    }
-//                                    if isReservarion == false{
-//                                        self.arr_search_spot.add(self.arrAllspot.object(at: i))
-//                                    }
-//                                }
+                                //                                if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
+                                //                                    var isReservarion = false
+                                //                                    for dict in arrCurrentRes
+                                //                                    {
+                                //                                        if (dict as! NSDictionary).value(forKey: "spotID") as! String == dict_spot.value(forKey: "id") as! String
+                                //                                        {
+                                //                                            let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
+                                //                                            let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
+                                //                                            formatter.dateFormat = "yyyy-MM-dd HH:mm"
+                                //                                            let date11 = formatter.date(from: date1)
+                                //                                            let date22 = formatter.date(from: date2)
+                                //                                            print(date1)
+                                //                                            if date11!.isSmallerThan(statCur) && date22!.isGreaterThan(endCur)
+                                //                                            {
+                                //                                                isReservarion = true
+                                //                                                break
+                                //                                            }
+                                //                                        }
+                                //                                    }
+                                //                                    if isReservarion == false{
+                                //                                        self.arr_search_spot.add(self.arrAllspot.object(at: i))
+                                //                                    }
+                                //                                }
                                 
                             }
                         }
@@ -1119,28 +1186,32 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     let dateeDay1 = formatter.date(from: spotStart_times)
                                     let dateeDay2 = formatter.date(from: spotEnd_times)
                                     formatter.dateFormat = "MMM dd h a"
-                                    if dateeDay1!.isSmallerThan(endCur) && dateeDay2!.isSmallerThan(endCur)
+                                    if dateeDay1 != nil || dateeDay2 != nil
                                     {
-                                        var isReservarion = false
-                                        for dict in arrCurrentRes
+                                        
+                                        if dateeDay1!.isSmallerThan(endCur) && dateeDay2!.isSmallerThan(endCur)
                                         {
-                                            if (dict as! NSDictionary).value(forKey: "spotID") as! String == dict_spot.value(forKey: "id") as! String
+                                            var isReservarion = false
+                                            for dict in arrCurrentRes
                                             {
-                                                let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
-                                                let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
-                                                formatter.dateFormat = "yyyy-MM-dd HH:mm"
-                                                let date11 = formatter.date(from: date1)
-                                                let date22 = formatter.date(from: date2)
-                                                print(date1)
-                                                if date11!.isSmallerThan(statCur) && date22!.isGreaterThan(endCur)
+                                                if (dict as! NSDictionary).value(forKey: "spotID") as! String == dict_spot.value(forKey: "id") as! String
                                                 {
-                                                    isReservarion = true
-                                                    break
+                                                    let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
+                                                    let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
+                                                    formatter.dateFormat = "yyyy-MM-dd HH:mm"
+                                                    let date11 = formatter.date(from: date1)
+                                                    let date22 = formatter.date(from: date2)
+                                                    print(date1)
+                                                    if date11!.isSmallerThan(statCur) && date22!.isGreaterThan(endCur)
+                                                    {
+                                                        isReservarion = true
+                                                        break
+                                                    }
                                                 }
                                             }
-                                        }
-                                        if isReservarion == false{
-                                            self.arr_search_spot.add(self.arrAllspot.object(at: i))
+                                            if isReservarion == false{
+                                                self.arr_search_spot.add(self.arrAllspot.object(at: i))
+                                            }
                                         }
                                     }
                                 }else
@@ -1170,29 +1241,29 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     }
                                 }
                                 
-//                                if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
-//                                    var isReservarion = false
-//                                    for dict in arrCurrentRes
-//                                    {
-//                                        if (dict as! NSDictionary).value(forKey: "spotID") as! String == dict_spot.value(forKey: "id") as! String
-//                                        {
-//                                            let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
-//                                            let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
-//                                            formatter.dateFormat = "yyyy-MM-dd HH:mm"
-//                                            let date11 = formatter.date(from: date1)
-//                                            let date22 = formatter.date(from: date2)
-//                                            print(date1)
-//                                            if date11!.isSmallerThan(statCur) && date22!.isGreaterThan(endCur)
-//                                            {
-//                                                isReservarion = true
-//                                                break
-//                                            }
-//                                        }
-//                                    }
-//                                    if isReservarion == false{
-//                                        self.arr_search_spot.add(self.arrAllspot.object(at: i))
-//                                    }
-//                                }
+                                //                                if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
+                                //                                    var isReservarion = false
+                                //                                    for dict in arrCurrentRes
+                                //                                    {
+                                //                                        if (dict as! NSDictionary).value(forKey: "spotID") as! String == dict_spot.value(forKey: "id") as! String
+                                //                                        {
+                                //                                            let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
+                                //                                            let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
+                                //                                            formatter.dateFormat = "yyyy-MM-dd HH:mm"
+                                //                                            let date11 = formatter.date(from: date1)
+                                //                                            let date22 = formatter.date(from: date2)
+                                //                                            print(date1)
+                                //                                            if date11!.isSmallerThan(statCur) && date22!.isGreaterThan(endCur)
+                                //                                            {
+                                //                                                isReservarion = true
+                                //                                                break
+                                //                                            }
+                                //                                        }
+                                //                                    }
+                                //                                    if isReservarion == false{
+                                //                                        self.arr_search_spot.add(self.arrAllspot.object(at: i))
+                                //                                    }
+                                //                                }
                             }
                         }
                     }
@@ -1222,28 +1293,32 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     let dateeDay1 = formatter.date(from: spotStart_times)
                                     let dateeDay2 = formatter.date(from: spotEnd_times)
                                     formatter.dateFormat = "MMM dd h a"
-                                    if dateeDay1!.isSmallerThan(endCur) && dateeDay2!.isSmallerThan(endCur)
+                                    if dateeDay1 != nil || dateeDay2 != nil
                                     {
-                                        var isReservarion = false
-                                        for dict in arrCurrentRes
+                                        
+                                        if dateeDay1!.isSmallerThan(endCur) && dateeDay2!.isSmallerThan(endCur)
                                         {
-                                            if (dict as! NSDictionary).value(forKey: "spotID") as! String == dict_spot.value(forKey: "id") as! String
+                                            var isReservarion = false
+                                            for dict in arrCurrentRes
                                             {
-                                                let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
-                                                let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
-                                                formatter.dateFormat = "yyyy-MM-dd HH:mm"
-                                                let date11 = formatter.date(from: date1)
-                                                let date22 = formatter.date(from: date2)
-                                                print(date1)
-                                                if date11!.isSmallerThan(statCur) && date22!.isGreaterThan(endCur)
+                                                if (dict as! NSDictionary).value(forKey: "spotID") as! String == dict_spot.value(forKey: "id") as! String
                                                 {
-                                                    isReservarion = true
-                                                    break
+                                                    let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
+                                                    let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
+                                                    formatter.dateFormat = "yyyy-MM-dd HH:mm"
+                                                    let date11 = formatter.date(from: date1)
+                                                    let date22 = formatter.date(from: date2)
+                                                    print(date1)
+                                                    if date11!.isSmallerThan(statCur) && date22!.isGreaterThan(endCur)
+                                                    {
+                                                        isReservarion = true
+                                                        break
+                                                    }
                                                 }
                                             }
-                                        }
-                                        if isReservarion == false{
-                                            self.arr_search_spot.add(self.arrAllspot.object(at: i))
+                                            if isReservarion == false{
+                                                self.arr_search_spot.add(self.arrAllspot.object(at: i))
+                                            }
                                         }
                                     }
                                 }else
@@ -1273,29 +1348,29 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     }
                                 }
                                 
-//                                if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
-//                                    var isReservarion = false
-//                                    for dict in arrCurrentRes
-//                                    {
-//                                        if (dict as! NSDictionary).value(forKey: "spotID") as! String == dict_spot.value(forKey: "id") as! String
-//                                        {
-//                                            let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
-//                                            let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
-//                                            formatter.dateFormat = "yyyy-MM-dd HH:mm"
-//                                            let date11 = formatter.date(from: date1)
-//                                            let date22 = formatter.date(from: date2)
-//                                            print(date1)
-//                                            if date11!.isSmallerThan(statCur) && date22!.isGreaterThan(endCur)
-//                                            {
-//                                                isReservarion = true
-//                                                break
-//                                            }
-//                                        }
-//                                    }
-//                                    if isReservarion == false{
-//                                        self.arr_search_spot.add(self.arrAllspot.object(at: i))
-//                                    }
-//                                }
+                                //                                if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
+                                //                                    var isReservarion = false
+                                //                                    for dict in arrCurrentRes
+                                //                                    {
+                                //                                        if (dict as! NSDictionary).value(forKey: "spotID") as! String == dict_spot.value(forKey: "id") as! String
+                                //                                        {
+                                //                                            let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
+                                //                                            let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
+                                //                                            formatter.dateFormat = "yyyy-MM-dd HH:mm"
+                                //                                            let date11 = formatter.date(from: date1)
+                                //                                            let date22 = formatter.date(from: date2)
+                                //                                            print(date1)
+                                //                                            if date11!.isSmallerThan(statCur) && date22!.isGreaterThan(endCur)
+                                //                                            {
+                                //                                                isReservarion = true
+                                //                                                break
+                                //                                            }
+                                //                                        }
+                                //                                    }
+                                //                                    if isReservarion == false{
+                                //                                        self.arr_search_spot.add(self.arrAllspot.object(at: i))
+                                //                                    }
+                                //                                }
                             }
                         }
                     }
@@ -1324,28 +1399,32 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     let dateeDay1 = formatter.date(from: spotStart_times)
                                     let dateeDay2 = formatter.date(from: spotEnd_times)
                                     formatter.dateFormat = "MMM dd h a"
-                                    if dateeDay1!.isSmallerThan(endCur) && dateeDay2!.isSmallerThan(endCur)
+                                    if dateeDay1 != nil || dateeDay2 != nil
                                     {
-                                        var isReservarion = false
-                                        for dict in arrCurrentRes
+                                        
+                                        if dateeDay1!.isSmallerThan(endCur) && dateeDay2!.isSmallerThan(endCur)
                                         {
-                                            if (dict as! NSDictionary).value(forKey: "spotID") as! String == dict_spot.value(forKey: "id") as! String
+                                            var isReservarion = false
+                                            for dict in arrCurrentRes
                                             {
-                                                let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
-                                                let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
-                                                formatter.dateFormat = "yyyy-MM-dd HH:mm"
-                                                let date11 = formatter.date(from: date1)
-                                                let date22 = formatter.date(from: date2)
-                                                print(date1)
-                                                if date11!.isSmallerThan(statCur) && date22!.isGreaterThan(endCur)
+                                                if (dict as! NSDictionary).value(forKey: "spotID") as! String == dict_spot.value(forKey: "id") as! String
                                                 {
-                                                    isReservarion = true
-                                                    break
+                                                    let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
+                                                    let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
+                                                    formatter.dateFormat = "yyyy-MM-dd HH:mm"
+                                                    let date11 = formatter.date(from: date1)
+                                                    let date22 = formatter.date(from: date2)
+                                                    print(date1)
+                                                    if date11!.isSmallerThan(statCur) && date22!.isGreaterThan(endCur)
+                                                    {
+                                                        isReservarion = true
+                                                        break
+                                                    }
                                                 }
                                             }
-                                        }
-                                        if isReservarion == false{
-                                            self.arr_search_spot.add(self.arrAllspot.object(at: i))
+                                            if isReservarion == false{
+                                                self.arr_search_spot.add(self.arrAllspot.object(at: i))
+                                            }
                                         }
                                     }
                                 }else
@@ -1375,29 +1454,29 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     }
                                 }
                                 
-//                                if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
-//                                    var isReservarion = false
-//                                    for dict in arrCurrentRes
-//                                    {
-//                                        if (dict as! NSDictionary).value(forKey: "spotID") as! String == dict_spot.value(forKey: "id") as! String
-//                                        {
-//                                            let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
-//                                            let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
-//                                            formatter.dateFormat = "yyyy-MM-dd HH:mm"
-//                                            let date11 = formatter.date(from: date1)
-//                                            let date22 = formatter.date(from: date2)
-//                                            print(date1)
-//                                            if date11!.isSmallerThan(statCur) && date22!.isGreaterThan(endCur)
-//                                            {
-//                                                isReservarion = true
-//                                                break
-//                                            }
-//                                        }
-//                                    }
-//                                    if isReservarion == false{
-//                                        self.arr_search_spot.add(self.arrAllspot.object(at: i))
-//                                    }
-//                                }
+                                //                                if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
+                                //                                    var isReservarion = false
+                                //                                    for dict in arrCurrentRes
+                                //                                    {
+                                //                                        if (dict as! NSDictionary).value(forKey: "spotID") as! String == dict_spot.value(forKey: "id") as! String
+                                //                                        {
+                                //                                            let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
+                                //                                            let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
+                                //                                            formatter.dateFormat = "yyyy-MM-dd HH:mm"
+                                //                                            let date11 = formatter.date(from: date1)
+                                //                                            let date22 = formatter.date(from: date2)
+                                //                                            print(date1)
+                                //                                            if date11!.isSmallerThan(statCur) && date22!.isGreaterThan(endCur)
+                                //                                            {
+                                //                                                isReservarion = true
+                                //                                                break
+                                //                                            }
+                                //                                        }
+                                //                                    }
+                                //                                    if isReservarion == false{
+                                //                                        self.arr_search_spot.add(self.arrAllspot.object(at: i))
+                                //                                    }
+                                //                                }
                             }
                         }
                     }
@@ -1411,713 +1490,713 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         endChange = false
         
     }
-
     
-//    @IBAction func btn_Date_search_done(_ sender: UIButton) {
-//        Time_price = true
-//        let d1 = start_datepic.date
-//        let d2 = end_datepic.date
-//
-//        let formatter = DateFormatter()
-//        // formatter.dateFormat = "EE MMM dd h a"
-//        formatter.dateFormat = "MMM dd, h a"
-//
-//        //        strPickerStart = formatter.string(from:  d1)
-//        //        strPickerEnd = formatter.string(from: d2)
-//
-//        //        print(datestart)
-//        //        print(dateend)
-//
-//        // lbl_spot_time.text = "Spot Time - \(datestart) to \(dateend)"
-//        var time1 = Bool()
-//
-//        // start date time check today
-//        let myStringafd = dateFormatter2.string(from: start_datepic.date)
-//        print(myStringafd)
-//         if myStringafd.contains("AM")
-//        {
-//            if format1 == "AM"
-//            {
-//                start_date = dateFormatter2.date(from: myStringafd)!
-//                strPickerStart = formatter.string(from:  start_date!)
-//
-//            }else
-//            {
-//                let replaced = myStringafd.replacingOccurrences(of: "AM", with: "PM")
-//                start_date = dateFormatter2.date(from: replaced)!
-//                strPickerStart = formatter.string(from:  start_date!)
-//
-//            }
-//            print(start_date!)
-//        }else
-//        {
-//            if format1 == "PM"
-//            {
-//                start_date = dateFormatter2.date(from: myStringafd)!
-//                strPickerStart = formatter.string(from:  start_date!)
-//
-//            }else
-//            {
-//                let replaced = myStringafd.replacingOccurrences(of: "PM", with: "AM")
-//                start_date = dateFormatter2.date(from: replaced)!
-//                strPickerStart = formatter.string(from:  start_date!)
-//
-//            }
-//            print(start_date!)
-//        }
-//
-//        if (datetostring(dates: start_date!)) == (datetostring(dates: Date())) {
-//
-//            let usertime = datetotime(userdate: dateconvert(userdate: start_date!))
-//            print(usertime)
-//
-//            let Datesystmem = datetotime(userdate: dateconvert(userdate: Date()))
-//            print(Datesystmem)
-//
-//            if usertime != Datesystmem && usertime < Datesystmem {
-//                time1 = true
-//            }
-//        }
-//
-//        print(time1)
-//        var firsttime = Bool()
-//        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:a"
-//        if endChange == false {
-//            print(start_date)
-//            print(end_date)
-//
-////            let addhour = calendar.date(byAdding: .hour, value: 3, to: start_date!)
-////            end_date = addhour!
-////            strPickerEnd = formatter.string(from:  end_date!)
-////
-////            print(addhour)
-//             end_date = end_datepic.date
-//            print(end_date)
-//        }
-//
-//        // End date time check today
-//        if endChange == true {
-//            var str = dateFormatter2.string(from: end_datepic.date)
-//
-//            if str.contains("AM")
-//            {
-//                if format2 == "AM"
-//                {
-//                    end_date = dateFormatter2.date(from: str)!
-//                    strPickerEnd = formatter.string(from:  end_date!)
-//
-//                }else
-//                {
-//                    let replaced = str.replacingOccurrences(of: "AM", with: "PM")
-//                    end_date = dateFormatter2.date(from: replaced)!
-//                    strPickerEnd = formatter.string(from:  end_date!)
-//
-//                }
-//                print(end_date!)
-//            }
-//
-//            else
-//            {
-//                if format2 == "PM"
-//                {
-//                    end_date = dateFormatter2.date(from: str)!
-//                    strPickerEnd = formatter.string(from:  end_date!)
-//
-//                }else
-//                {
-//                    let replaced = str.replacingOccurrences(of: "PM", with: "AM")
-//                    end_date = dateFormatter2.date(from: replaced)!
-//                    strPickerEnd = formatter.string(from:  end_date!)
-//                }
-//                print(end_date!)
-//            }
-//
-//        }
-//
-//        start_date = dateconvert(userdate: start_date!)
-//        end_date = dateconvert(userdate: end_date!)
-//        print(strPickerStart)
-//        print(strPickerEnd)
-//
-//        if time1 == true{
-//            time1 = false
-//            let alert = UIAlertController(title: "Spotbirdparking", message: "Invalid Start TIME", preferredStyle: .alert)
-//            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-//            self.present(alert, animated: true, completion: nil)
-//        }
-//        else if (datetostring(dates: end_date!))  < (datetostring(dates: start_date!)) && (datetostring(dates: start_date!)) != (datetostring(dates: end_date!))
-//        {
-//            let alert = UIAlertController(title: "Spotbirdparking", message: "Start date greater than End date.", preferredStyle: .alert)
-//            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-//            self.present(alert, animated: true, completion: nil)
-//        }
-//        else if (datetostring(dates: end_date!)) == (datetostring(dates: start_date!)) && end_date!.time < start_date!.time {
-//            let alert = UIAlertController(title: "Spotbirdparking", message: "End Time greater than Start date.", preferredStyle: .alert)
-//            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-//            self.present(alert, animated: true, completion: nil)
-//        }else if start_date! == end_date!  {
-//            let alert = UIAlertController(title: "Spotbirdparking", message: " Start date and end date is equal.", preferredStyle: .alert)
-//            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-//            self.present(alert, animated: true, completion: nil)
-//        }
-//        else{
-//            dateFormatter.dateFormat = "EEE, MMM d, yyyy - h:mm a"
-//            let localtime1 = dateFormatter2.string(from: start_date!)
-//            let localtime2 = dateFormatter2.string(from: end_date!)
-//            arr_search_spot.removeAllObjects()
-//
-//            var arr_date = [Date]()
-//            var arr_day = [String]()
-//            var date = start_datepic.date
-//            while date <= end_datepic.date{
-//                arr_date.append(date)
-//                date = calendar.date(byAdding: .day, value: 1, to: date)!
-//            }
-//            if arr_date.count>0 {
-//                for i in 0..<arr_date.count{
-//                    let dateformats = DateFormatter()
-//                    //  dateformats.timeZone = TimeZone(abbreviation: "UTC")
-//                    dateformats.timeZone = TimeZone.current
-//                    dateformats.dateFormat  = "EEEE"       //"EE" to get short style
-//                    let dayInWeek = dateformats.string(from: arr_date[i])
-//                    arr_day.append(dayInWeek)
-//                }
-//            }
-//            var datedaydict = NSMutableDictionary()
-//            var arrsunday = [Date]()
-//            var arrmonday = [Date]()
-//            var arrtuesday = [Date]()
-//            var arrwednesday = [Date]()
-//            var arrthuesday = [Date]()
-//            var arrfriday = [Date]()
-//            var arrsatarday = [Date]()
-//
-//            for i in 0..<arr_date.count
-//            {
-//                if arr_day[i] == ("Sunday")
-//                {
-//                    arrsunday.append(arr_date[i])
-//                }
-//                if arr_day[i] == "Monday" {
-//                    arrmonday.append(arr_date[i])
-//                }
-//                if arr_day[i] == "Tuesday" {
-//                    arrtuesday.append(arr_date[i])
-//                }
-//                if arr_day[i] == "Wednesday" {
-//                    arrwednesday.append(arr_date[i])
-//                }
-//                if arr_day[i] == "Thursday" {
-//                    arrthuesday.append(arr_date[i])
-//                }
-//                if arr_day[i] == "Friday" {
-//                    arrfriday.append(arr_date[i])
-//                }
-//                if arr_day[i] == "Saturday" {
-//                    arrsatarday.append(arr_date[i])
-//                }
-//            }
-//
-//            if arrsunday.count>0
-//            {
-//                datedaydict.setValue(arrsunday, forKey: "Sunday")
-//            }
-//            if arrmonday.count>0{
-//                datedaydict.setValue(arrmonday, forKey: "Monday")
-//            }
-//            if arrtuesday.count>0 {
-//                datedaydict.setValue(arrtuesday, forKey: "Tuesday")
-//            }
-//            if arrwednesday.count>0 {
-//                datedaydict.setValue(arrwednesday, forKey: "Wednesday")
-//            }
-//            if arrthuesday.count>0 {
-//                datedaydict.setValue(arrthuesday, forKey: "Thursday")
-//            }
-//            if arrfriday.count>0 {
-//                datedaydict.setValue(arrfriday, forKey: "Friday")
-//            }
-//            if arrsatarday.count>0 {
-//                datedaydict.setValue(arrsatarday, forKey: "Saturday")
-//            }
-//
-//            print(arr_day)
-//            print(datedaydict)
-//            let dateformats = DateFormatter()
-//            dateformats.timeZone = TimeZone.current
-//            dateformats.dateFormat  = "EEEE"
-//            let dayInWeek = dateformats.string(from: Date())
-//
-//            let formatter = DateFormatter()
-//            // initially set the format based on your datepicker date / server String
-//            formatter.dateFormat = "yyyy-MM-dd"
-//            formatter.timeZone = TimeZone(abbreviation: "GMT+0:00")
-//            var str = formatter.string(from: Date())
-//
-//             let arrCurrentRes = AppState.sharedInstance.user.myReservations
-//
-//            for i in 0..<self.arrAllspot.count{
-//                        for j in 0..<arr_day.count{
-//
-//                            if i == 3 || i == 9 || i == 11 || i == 12{
-//
-//                                print("i Cheack ")
-//
-//                            }
-//                            let dict_spot = self.arrAllspot.object(at: i) as! NSDictionary
-//
-//                            var localTimeZoneName: String { return TimeZone.current.identifier }
-//                            print(localTimeZoneName)
-//
-//
-//                            //MARK:- Sunday Loop
-//
-//
-//                    if arr_day[j] == "Sunday" {
-//                                if (self.arrAllspot.object(at: i) as! NSDictionary).value(forKey: "sunswitch") as! Bool == true{
-//
-//                                    let arrsun = datedaydict.value(forKey: "Sunday") as! NSArray
-//                                    for m in 0..<arrsun.count{
-//
-//
-//                                        let spotStart_times = "\(str) \(dict_spot.value(forKey: "sunStartTime") as! String)"
-//                                        let spotEnd_times = "\(str) \(dict_spot.value(forKey: "sunEndTime") as! String)"
-//
-//                                        formatter.dateFormat = "yyyy-MM-dd h:mm a"
-//                                        let dateDay1 = formatter.date(from: spotStart_times)
-//                                        let dateDay2 = formatter.date(from: spotEnd_times)
-//                                        formatter.dateFormat = "MMM dd h a"
-//
-//                                        let diffInDays = Calendar.current.dateComponents([.day], from: dateDay1!, to: self.end_date!).day
-//                                        let arrDate = NSMutableArray()
-//                                        var newDate = dateDay2!
-//                                        while newDate <= self.end_date! {
-//
-//                                            arrDate.add(calendar.date(byAdding: .day, value: 1, to: newDate)!)
-//                                            newDate = calendar.date(byAdding: .day, value: 1, to: newDate)!
-//                                        }
-//
-//                                        if dateDay1!.isSmallerThan(self.start_date!) && dateDay2!.isGreaterThan(self.end_date!){
-//                                            //Do Something... var isReservarion = false
-//                                            var isReservarion = false
-//                                            for dict in arrCurrentRes
-//                                            {
-//                                                if (dict as! NSDictionary).value(forKey: "spotID") as! String == dict_spot.value(forKey: "id") as! String
-//                                                {
-//                                                    let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
-//                                                    let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
-//                                                    formatter.dateFormat = "yyyy-MM-dd HH:mm"
-//                                                    let date11 = formatter.date(from: date1)
-//                                                    let date22 = formatter.date(from: date2)
-//                                                    print(date1)
-//                                                    if date11!.isSmallerThan(self.start_date!) && date22!.isGreaterThan(self.end_date!)
-//                                                    {
-//                                                        isReservarion = true
-//                                                        break
-//                                                    }
-//                                                }
-//                                            }
-//                                            if isReservarion == false{
-//                                                self.arr_search_spot.add(self.arrAllspot.object(at: i))
-//                                           }
-//
-//                                        }
-//                                    }
-//                                }
-//
-//
-//// Comment Part Which is cutted from line number 1153
-//                                //                                        let sunStartTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "sunStartTime") as! String)
-//                                //                                        let sunEndTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "sunEndTime")  as! String)
-//                                //
-//                                //                                        let server_start1 = self.datetotime(userdate: sunStartTime)
-//                                //                                        let server_end1 = self.datetotime(userdate: sunEndTime)
-//                                //                                        print("server   - \(server_start1)")     // server
-//                                //                                        print("server     - \(server_end1)")     // server
-//                                //
-//                                //                                        let user_start = self.datetotime(userdate: self.start_date!)
-//                                //                                        let user_end = self.datetotime(userdate: self.end_date!)
-//                                //
-//                                //                                        print("user_start   - \(user_start)")     // user
-//                                //                                        print("user_end     - \(user_end)")     // user
-//                                //
-//                                //                                        // if user_start >= server_start1 && user_end <= server_end1{
-//                                //                                        self.arr_search_spot.add(self.arrAllspot.object(at: i))
-//
-//
-//
-//
-//
-//
-//                            }
-//
-//                            //MARK:- Monday Loop
-//                            if arr_day[j] == "Monday" {
-//                                if (self.arrAllspot.object(at: i) as! NSDictionary).value(forKey: "monswitch") as! Bool == true{
-//
-//                                    let arrmun = datedaydict.value(forKey: "Monday") as! NSArray
-//                                    for m in 0..<arrmun.count{
-//
-//                                        let Munday_start = self.dateconvertServer(userdate: dict_spot.value(forKey: "monStartTime") as! String)
-//                                        let Munday_end = self.dateconvertServer(userdate: dict_spot.value(forKey: "monEndTime")  as! String)
-//
-//                                        let server_start1 = self.datetotime(userdate: Munday_start)
-//                                        let server_end1 = self.datetotime(userdate: Munday_end)
-//                                        print("server   - \(server_start1)")     // server
-//                                        print("server     - \(server_end1)")     // server
-//
-//                                        let user_start = self.datetotime(userdate: self.start_date!)
-//                                        let user_end = self.datetotime(userdate: self.end_date!)
-//
-//                                        print("user_start   - \(user_start)")     // user
-//                                        print("user_end     - \(user_end)")     // user
-//
-//                                        if user_start >= server_start1 && user_end <= server_end1{
-//                                            var isReservarion = false
-//                                            for dict in arrCurrentRes
-//                                            {
-//                                                if (dict as! NSDictionary).value(forKey: "spotID") as! String == dict_spot.value(forKey: "id") as! String
-//                                                {
-//                                                    let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
-//                                                    let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
-//                                                    formatter.dateFormat = "yyyy-MM-dd HH:mm"
-//                                                    let date11 = formatter.date(from: date1)
-//                                                    let date22 = formatter.date(from: date2)
-//                                                    print(date1)
-//                                                    if date11!.isSmallerThan(self.start_date!) && date22!.isGreaterThan(self.end_date!)
-//                                                    {
-//                                                        isReservarion = true
-//                                                        break
-//                                                    }
-//                                                }
-//                                            }
-//                                            if isReservarion == false{
-//                                                self.arr_search_spot.add(self.arrAllspot.object(at: i))
-//                                            }
-//                                        }
-////                                        let spotStart_times = "\(str) \(dict_spot.value(forKey: "monStartTime") as! String)"
-////                                        let spotEnd_times = "\(str) \(dict_spot.value(forKey: "monEndTime") as! String)"
-////                                        formatter.dateFormat = "yyyy-MM-dd h:mm a"
-////                                        let dateDay1 = formatter.date(from: spotStart_times)
-////                                        let dateDay2 = formatter.date(from: spotEnd_times)
-////                                        formatter.dateFormat = "MMM dd h a"
-////                                        if dateDay1!.isSmallerThan(self.start_date!) && dateDay2!.isGreaterThan(self.end_date!){
-////                                            //Do Something...
-////                                            self.arr_search_spot.add(self.arrAllspot.object(at: i))
-////                                        }
-//
-//                                    }
-//                                }
-//                            }
-//                            //MARK:- Tuesday Loop
-//                            if arr_day[j] == "Tuesday" {
-//                                if (self.arrAllspot.object(at: i) as! NSDictionary).value(forKey: "tueswitch") as! Bool == true{
-//
-//                                    let arrthue = datedaydict.value(forKey: "Tuesday") as! NSArray
-//                                    for m in 0..<arrthue.count{
-//
-//                                        let tueStartTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "tueStartTime") as! String)
-//                                        let tueEndTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "tueEndTime")  as! String)
-//
-//                                        let server_start1 = self.datetotime(userdate: tueStartTime)
-//                                        let server_end1 = self.datetotime(userdate: tueEndTime)
-//                                        print("server   - \(server_start1)")     // server
-//                                        print("server     - \(server_end1)")     // server
-//
-//                                        let user_start = self.datetotime(userdate: self.start_date!)
-//                                        let user_end = self.datetotime(userdate: self.end_date!)
-//
-//                                        print("user_start   - \(user_start)")     // user
-//                                        print("user_end     - \(user_end)")     // user
-//
-//                                        if user_start >= server_start1 && user_end <= server_end1{
-//                                            var isReservarion = false
-//                                            for dict in arrCurrentRes
-//                                            {
-//                                                if (dict as! NSDictionary).value(forKey: "spotID") as! String == dict_spot.value(forKey: "id") as! String
-//                                                {
-//                                                    let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
-//                                                    let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
-//                                                    formatter.dateFormat = "yyyy-MM-dd HH:mm"
-//                                                    let date11 = formatter.date(from: date1)
-//                                                    let date22 = formatter.date(from: date2)
-//                                                    print(date1)
-//                                                    if date11!.isSmallerThan(self.start_date!) && date22!.isGreaterThan(self.end_date!)
-//                                                    {
-//                                                        isReservarion = true
-//                                                        break
-//                                                    }
-//                                                }
-//                                            }
-//                                            if isReservarion == false{
-//                                                self.arr_search_spot.add(self.arrAllspot.object(at: i))
-//                                            }
-//                                        }
-////                                        let spotStart_times = "\(str) \(dict_spot.value(forKey: "tueStartTime") as! String)"
-////                                        let spotEnd_times = "\(str) \(dict_spot.value(forKey: "tueEndTime") as! String)"
-////                                        formatter.dateFormat = "yyyy-MM-dd h:mm a"
-////                                        let dateDay1 = formatter.date(from: spotStart_times)
-////                                        let dateDay2 = formatter.date(from: spotEnd_times)
-////                                        formatter.dateFormat = "MMM dd h a"
-////                                        if dateDay1!.isSmallerThan(self.start_date!) && dateDay2!.isGreaterThan(self.end_date!){
-////                                            //Do Something...
-////                                            self.arr_search_spot.add(self.arrAllspot.object(at: i))
-////                                        }
-////
-//
-//                                    }
-//                                }
-//                            }
-//                            //MARK:- Wednesday Loop
-//                            if arr_day[j] == "Wednesday" {
-//                                if (self.arrAllspot.object(at: i) as! NSDictionary).value(forKey: "wedswitch") as! Bool == true{
-//
-//                                    let arrwed = datedaydict.value(forKey: "Wednesday") as! NSArray
-//                                    for m in 0..<arrwed.count{
-//
-//                                        let wedStartTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "wedStartTime") as! String)
-//                                        let wedEndTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "wedEndTime")  as! String)
-//
-//                                        let server_start1 = self.datetotime(userdate: wedStartTime)
-//                                        let server_end1 = self.datetotime(userdate: wedEndTime)
-//                                        print("server   - \(server_start1)")     // server
-//                                        print("server     - \(server_end1)")     // server
-//
-//                                        let user_start = self.datetotime(userdate: self.start_date!)
-//                                        let user_end = self.datetotime(userdate: self.end_date!)
-//
-//                                        print("user_start   - \(user_start)")     // user
-//                                        print("user_end     - \(user_end)")     // user
-//
-//
-//
-//                                        if user_start >= server_start1 && user_end <= server_end1{
-//                                            var isReservarion = false
-//                                            for dict in arrCurrentRes
-//                                            {
-//                                                if (dict as! NSDictionary).value(forKey: "spotID") as! String == dict_spot.value(forKey: "id") as! String
-//                                                {
-//                                                    let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
-//                                                    let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
-//                                                    formatter.dateFormat = "yyyy-MM-dd HH:mm"
-//                                                    let date11 = formatter.date(from: date1)
-//                                                    let date22 = formatter.date(from: date2)
-//                                                    print(date1)
-//                                                    if date11!.isSmallerThan(self.start_date!) && date22!.isGreaterThan(self.end_date!)
-//                                                    {
-//                                                        isReservarion = true
-//                                                        break
-//                                                    }
-//                                                }
-//                                            }
-//                                            if isReservarion == false{
-//                                                self.arr_search_spot.add(self.arrAllspot.object(at: i))
-//                                            }
-//                                        }
-//
-////                                        let spotStart_times = "\(str) \(dict_spot.value(forKey: "wedStartTime") as! String)"
-////                                        let spotEnd_times = "\(str) \(dict_spot.value(forKey: "wedEndTime") as! String)"
-////                                        formatter.dateFormat = "yyyy-MM-dd h:mm a"
-////                                        let dateDay1 = formatter.date(from: spotStart_times)
-////                                        let dateDay2 = formatter.date(from: spotEnd_times)
-////                                        formatter.dateFormat = "MMM dd h a"
-////                                        if dateDay1!.isSmallerThan(self.start_date!) && dateDay2!.isGreaterThan(self.end_date!){
-////                                            //Do Something...
-////                                            self.arr_search_spot.add(self.arrAllspot.object(at: i))
-////                                        }
-////
-//                                    }
-//                                }
-//                            }
-//                            //MARK:- Thusday Loop
-//                            if arr_day[j] == "Thursday" {
-//
-//                                if (self.arrAllspot.object(at: i) as! NSDictionary).value(forKey: "thuswitch") as! Bool == true{
-//
-//                                    let arrThu = datedaydict.value(forKey: "Thursday") as! NSArray
-//                                    for m in 0..<arrThu.count{
-//
-//                                        let thuStartTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "thuStartTime") as! String)
-//                                        let thuEndTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "thuEndTime")  as! String)
-//
-//                                        let server_start1 = self.datetotime(userdate: thuStartTime)
-//                                        let server_end1 = self.datetotime(userdate: thuEndTime)
-//                                        print("server   - \(server_start1)")     // server
-//                                        print("server     - \(server_end1)")     // server
-//
-//                                        let user_start = self.datetotime(userdate: self.start_date!)
-//                                        let user_end = self.datetotime(userdate: self.end_date!)
-//
-//                                        print("user_start   - \(user_start)")     // user
-//                                        print("user_end     - \(user_end)")     // user
-//
-//                                        if user_start >= server_start1 && user_end <= server_end1{
-//                                            var isReservarion = false
-//                                            for dict in arrCurrentRes
-//                                            {
-//                                                if (dict as! NSDictionary).value(forKey: "spotID") as! String == dict_spot.value(forKey: "id") as! String
-//                                                {
-//                                                    let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
-//                                                    let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
-//                                                    formatter.dateFormat = "yyyy-MM-dd HH:mm"
-//                                                    let date11 = formatter.date(from: date1)
-//                                                    let date22 = formatter.date(from: date2)
-//                                                    print(date1)
-//                                                    if date11!.isSmallerThan(self.start_date!) && date22!.isGreaterThan(self.end_date!)
-//                                                    {
-//                                                        isReservarion = true
-//                                                        break
-//                                                    }
-//                                                }
-//                                            }
-//                                            if isReservarion == false{
-//                                                self.arr_search_spot.add(self.arrAllspot.object(at: i))
-//                                            }
-//                                        }
-////
-////                                        let spotStart_times = "\(str) \(dict_spot.value(forKey: "thuStartTime") as! String)"
-////                                        let spotEnd_times = "\(str) \(dict_spot.value(forKey: "thuEndTime") as! String)"
-////                                        formatter.dateFormat = "yyyy-MM-dd h:mm a"
-////                                        let dateDay1 = formatter.date(from: spotStart_times)
-////                                        let dateDay2 = formatter.date(from: spotEnd_times)
-////                                        formatter.dateFormat = "MMM dd h a"
-////                                        if dateDay1!.isSmallerThan(self.start_date!) && dateDay2!.isGreaterThan(self.end_date!){
-////                                            //Do Something...
-////                                            self.arr_search_spot.add(self.arrAllspot.object(at: i))
-////                                        }
-//                                    }
-//                                }
-//                            }
-//
-//                            //MARK:- Friday Loop
-//                            if arr_day[j] == "Friday" {
-//                                if (self.arrAllspot.object(at: i) as! NSDictionary).value(forKey: "friswitch") as! Bool == true{
-//
-//                                    let arrFri = datedaydict.value(forKey: "Friday") as! NSArray
-//                                    for m in 0..<arrFri.count{
-//
-//                                        print(dict_spot.value(forKey: "friStartTime") as! String)
-//                                        print(dict_spot.value(forKey: "friEndTime")  as! String)
-//
-//                                        let friStartTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "friStartTime") as! String)
-//                                        let friEndTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "friEndTime")  as! String)
-//                                        print(friStartTime)
-//                                        print(friEndTime)
-//
-//                                        let server_start1 = self.datetotime(userdate: friStartTime)
-//                                        let server_end1 = self.datetotime(userdate: friEndTime)
-//                                        print("server   - \(server_start1)")     // server
-//                                        print("server     - \(server_end1)")     // server
-//
-//                                        let user_start = self.datetotime(userdate: self.start_date!)
-//                                        let user_end = self.datetotime(userdate: self.end_date!)
-//
-//                                        print("user_start   - \(user_start)")     // user
-//                                        print("user_end     - \(user_end)")     // user
-//
-//                                        if user_start >= server_start1 && user_end <= server_end1{
-//                                            var isReservarion = false
-//                                            for dict in arrCurrentRes
-//                                            {
-//                                                if (dict as! NSDictionary).value(forKey: "spotID") as! String == dict_spot.value(forKey: "id") as! String
-//                                                {
-//                                                    let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
-//                                                    let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
-//                                                    formatter.dateFormat = "yyyy-MM-dd HH:mm"
-//                                                    let date11 = formatter.date(from: date1)
-//                                                    let date22 = formatter.date(from: date2)
-//                                                    print(date1)
-//                                                    if date11!.isSmallerThan(self.start_date!) && date22!.isGreaterThan(self.end_date!)
-//                                                    {
-//                                                        isReservarion = true
-//                                                        break
-//                                                    }
-//                                                }
-//                                            }
-//                                            if isReservarion == false{
-//                                                self.arr_search_spot.add(self.arrAllspot.object(at: i))
-//                                            }
-//                                        }
-//
-////                                        let spotStart_times = "\(str) \(dict_spot.value(forKey: "friStartTime") as! String)"
-////                                        let spotEnd_times = "\(str) \(dict_spot.value(forKey: "friEndTime") as! String)"
-////                                        formatter.dateFormat = "yyyy-MM-dd h:mm a"
-////                                        let dateDay1 = formatter.date(from: spotStart_times)
-////                                        let dateDay2 = formatter.date(from: spotEnd_times)
-////                                        formatter.dateFormat = "MMM dd h a"
-////                                        if dateDay1!.isSmallerThan(self.start_date!) && dateDay2!.isGreaterThan(self.end_date!){
-////                                            //Do Something...
-////                                            self.arr_search_spot.add(self.arrAllspot.object(at: i))
-////                                        }
-//                                    }
-//                                }
-//                            }
-//                            //MARK:- Saturday Loop
-//                            if arr_day[j] == "Saturday" {
-//                                if (self.arrAllspot.object(at: i) as! NSDictionary).value(forKey: "satswitch") as! Bool == true{
-//                                    let arrsat = datedaydict.value(forKey: "Saturday") as! NSArray
-//                                    for m in 0..<arrsat.count{
-//                                        let satStartTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "satStartTime") as! String)
-//                                        let satEndTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "satEndTime")  as! String)
-//
-//                                        let server_start1 = self.datetotime(userdate: satStartTime)
-//                                        let server_end1 = self.datetotime(userdate: satEndTime)
-//                                        print("server   - \(server_start1)")     // server
-//                                        print("server     - \(server_end1)")     // server
-//
-//                                        let user_start = self.datetotime(userdate: self.start_date!)
-//                                        let user_end = self.datetotime(userdate: self.end_date!)
-//
-//                                        print("user_start   - \(user_start)")     // user
-//                                        print("user_end     - \(user_end)")     // user
-//
-//                                        if user_start >= server_start1 && user_end <= server_end1{
-//                                            var isReservarion = false
-//                                            for dict in arrCurrentRes
-//                                            {
-//                                                if (dict as! NSDictionary).value(forKey: "spotID") as! String == dict_spot.value(forKey: "id") as! String
-//                                                {
-//                                                    let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
-//                                                    let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
-//                                                    formatter.dateFormat = "yyyy-MM-dd HH:mm"
-//                                                    let date11 = formatter.date(from: date1)
-//                                                    let date22 = formatter.date(from: date2)
-//                                                    print(date1)
-//                                                    if date11!.isSmallerThan(self.start_date!) && date22!.isGreaterThan(self.end_date!)
-//                                                    {
-//                                                        isReservarion = true
-//                                                        break
-//                                                    }
-//                                                }
-//                                            }
-//                                            if isReservarion == false{
-//                                                self.arr_search_spot.add(self.arrAllspot.object(at: i))
-//                                            }
-//                                        }
-//
-////                                        let spotStart_times = "\(str) \(dict_spot.value(forKey: "satStartTime") as! String)"
-////                                        let spotEnd_times = "\(str) \(dict_spot.value(forKey: "satEndTime") as! String)"
-////                                        formatter.dateFormat = "yyyy-MM-dd h:mm a"
-////                                        let dateDay1 = formatter.date(from: spotStart_times)
-////                                        let dateDay2 = formatter.date(from: spotEnd_times)
-////                                        formatter.dateFormat = "MMM dd h a"
-////                                        if dateDay1!.isSmallerThan(self.start_date!) && dateDay2!.isGreaterThan(self.end_date!){
-////                                            //Do Something...
-////                                            self.arr_search_spot.add(self.arrAllspot.object(at: i))
-////                                        }
-//                                    }
-//                                }
-//                            }
-//                        }
-//                    }
-//                    print(self.arr_search_spot)
-//                    // Search Data load marker:-
-//                    self.Search_Spot()
-//                    self.Date_VIew.isHidden = true
-//        }
-//        endChange = false
-//
-//    }
+    
+    //    @IBAction func btn_Date_search_done(_ sender: UIButton) {
+    //        Time_price = true
+    //        let d1 = start_datepic.date
+    //        let d2 = end_datepic.date
+    //
+    //        let formatter = DateFormatter()
+    //        // formatter.dateFormat = "EE MMM dd h a"
+    //        formatter.dateFormat = "MMM dd, h a"
+    //
+    //        //        strPickerStart = formatter.string(from:  d1)
+    //        //        strPickerEnd = formatter.string(from: d2)
+    //
+    //        //        print(datestart)
+    //        //        print(dateend)
+    //
+    //        // lbl_spot_time.text = "Spot Time - \(datestart) to \(dateend)"
+    //        var time1 = Bool()
+    //
+    //        // start date time check today
+    //        let myStringafd = dateFormatter2.string(from: start_datepic.date)
+    //        print(myStringafd)
+    //         if myStringafd.contains("AM")
+    //        {
+    //            if format1 == "AM"
+    //            {
+    //                start_date = dateFormatter2.date(from: myStringafd)!
+    //                strPickerStart = formatter.string(from:  start_date!)
+    //
+    //            }else
+    //            {
+    //                let replaced = myStringafd.replacingOccurrences(of: "AM", with: "PM")
+    //                start_date = dateFormatter2.date(from: replaced)!
+    //                strPickerStart = formatter.string(from:  start_date!)
+    //
+    //            }
+    //            print(start_date!)
+    //        }else
+    //        {
+    //            if format1 == "PM"
+    //            {
+    //                start_date = dateFormatter2.date(from: myStringafd)!
+    //                strPickerStart = formatter.string(from:  start_date!)
+    //
+    //            }else
+    //            {
+    //                let replaced = myStringafd.replacingOccurrences(of: "PM", with: "AM")
+    //                start_date = dateFormatter2.date(from: replaced)!
+    //                strPickerStart = formatter.string(from:  start_date!)
+    //
+    //            }
+    //            print(start_date!)
+    //        }
+    //
+    //        if (datetostring(dates: start_date!)) == (datetostring(dates: Date())) {
+    //
+    //            let usertime = datetotime(userdate: dateconvert(userdate: start_date!))
+    //            print(usertime)
+    //
+    //            let Datesystmem = datetotime(userdate: dateconvert(userdate: Date()))
+    //            print(Datesystmem)
+    //
+    //            if usertime != Datesystmem && usertime < Datesystmem {
+    //                time1 = true
+    //            }
+    //        }
+    //
+    //        print(time1)
+    //        var firsttime = Bool()
+    //        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:a"
+    //        if endChange == false {
+    //            print(start_date)
+    //            print(end_date)
+    //
+    ////            let addhour = calendar.date(byAdding: .hour, value: 3, to: start_date!)
+    ////            end_date = addhour!
+    ////            strPickerEnd = formatter.string(from:  end_date!)
+    ////
+    ////            print(addhour)
+    //             end_date = end_datepic.date
+    //            print(end_date)
+    //        }
+    //
+    //        // End date time check today
+    //        if endChange == true {
+    //            var str = dateFormatter2.string(from: end_datepic.date)
+    //
+    //            if str.contains("AM")
+    //            {
+    //                if format2 == "AM"
+    //                {
+    //                    end_date = dateFormatter2.date(from: str)!
+    //                    strPickerEnd = formatter.string(from:  end_date!)
+    //
+    //                }else
+    //                {
+    //                    let replaced = str.replacingOccurrences(of: "AM", with: "PM")
+    //                    end_date = dateFormatter2.date(from: replaced)!
+    //                    strPickerEnd = formatter.string(from:  end_date!)
+    //
+    //                }
+    //                print(end_date!)
+    //            }
+    //
+    //            else
+    //            {
+    //                if format2 == "PM"
+    //                {
+    //                    end_date = dateFormatter2.date(from: str)!
+    //                    strPickerEnd = formatter.string(from:  end_date!)
+    //
+    //                }else
+    //                {
+    //                    let replaced = str.replacingOccurrences(of: "PM", with: "AM")
+    //                    end_date = dateFormatter2.date(from: replaced)!
+    //                    strPickerEnd = formatter.string(from:  end_date!)
+    //                }
+    //                print(end_date!)
+    //            }
+    //
+    //        }
+    //
+    //        start_date = dateconvert(userdate: start_date!)
+    //        end_date = dateconvert(userdate: end_date!)
+    //        print(strPickerStart)
+    //        print(strPickerEnd)
+    //
+    //        if time1 == true{
+    //            time1 = false
+    //            let alert = UIAlertController(title: "Spotbirdparking", message: "Invalid Start TIME", preferredStyle: .alert)
+    //            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+    //            self.present(alert, animated: true, completion: nil)
+    //        }
+    //        else if (datetostring(dates: end_date!))  < (datetostring(dates: start_date!)) && (datetostring(dates: start_date!)) != (datetostring(dates: end_date!))
+    //        {
+    //            let alert = UIAlertController(title: "Spotbirdparking", message: "Start date greater than End date.", preferredStyle: .alert)
+    //            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+    //            self.present(alert, animated: true, completion: nil)
+    //        }
+    //        else if (datetostring(dates: end_date!)) == (datetostring(dates: start_date!)) && end_date!.time < start_date!.time {
+    //            let alert = UIAlertController(title: "Spotbirdparking", message: "End Time greater than Start date.", preferredStyle: .alert)
+    //            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+    //            self.present(alert, animated: true, completion: nil)
+    //        }else if start_date! == end_date!  {
+    //            let alert = UIAlertController(title: "Spotbirdparking", message: " Start date and end date is equal.", preferredStyle: .alert)
+    //            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+    //            self.present(alert, animated: true, completion: nil)
+    //        }
+    //        else{
+    //            dateFormatter.dateFormat = "EEE, MMM d, yyyy - h:mm a"
+    //            let localtime1 = dateFormatter2.string(from: start_date!)
+    //            let localtime2 = dateFormatter2.string(from: end_date!)
+    //            arr_search_spot.removeAllObjects()
+    //
+    //            var arr_date = [Date]()
+    //            var arr_day = [String]()
+    //            var date = start_datepic.date
+    //            while date <= end_datepic.date{
+    //                arr_date.append(date)
+    //                date = calendar.date(byAdding: .day, value: 1, to: date)!
+    //            }
+    //            if arr_date.count>0 {
+    //                for i in 0..<arr_date.count{
+    //                    let dateformats = DateFormatter()
+    //                    //  dateformats.timeZone = TimeZone(abbreviation: "UTC")
+    //                    dateformats.timeZone = TimeZone.current
+    //                    dateformats.dateFormat  = "EEEE"       //"EE" to get short style
+    //                    let dayInWeek = dateformats.string(from: arr_date[i])
+    //                    arr_day.append(dayInWeek)
+    //                }
+    //            }
+    //            var datedaydict = NSMutableDictionary()
+    //            var arrsunday = [Date]()
+    //            var arrmonday = [Date]()
+    //            var arrtuesday = [Date]()
+    //            var arrwednesday = [Date]()
+    //            var arrthuesday = [Date]()
+    //            var arrfriday = [Date]()
+    //            var arrsatarday = [Date]()
+    //
+    //            for i in 0..<arr_date.count
+    //            {
+    //                if arr_day[i] == ("Sunday")
+    //                {
+    //                    arrsunday.append(arr_date[i])
+    //                }
+    //                if arr_day[i] == "Monday" {
+    //                    arrmonday.append(arr_date[i])
+    //                }
+    //                if arr_day[i] == "Tuesday" {
+    //                    arrtuesday.append(arr_date[i])
+    //                }
+    //                if arr_day[i] == "Wednesday" {
+    //                    arrwednesday.append(arr_date[i])
+    //                }
+    //                if arr_day[i] == "Thursday" {
+    //                    arrthuesday.append(arr_date[i])
+    //                }
+    //                if arr_day[i] == "Friday" {
+    //                    arrfriday.append(arr_date[i])
+    //                }
+    //                if arr_day[i] == "Saturday" {
+    //                    arrsatarday.append(arr_date[i])
+    //                }
+    //            }
+    //
+    //            if arrsunday.count>0
+    //            {
+    //                datedaydict.setValue(arrsunday, forKey: "Sunday")
+    //            }
+    //            if arrmonday.count>0{
+    //                datedaydict.setValue(arrmonday, forKey: "Monday")
+    //            }
+    //            if arrtuesday.count>0 {
+    //                datedaydict.setValue(arrtuesday, forKey: "Tuesday")
+    //            }
+    //            if arrwednesday.count>0 {
+    //                datedaydict.setValue(arrwednesday, forKey: "Wednesday")
+    //            }
+    //            if arrthuesday.count>0 {
+    //                datedaydict.setValue(arrthuesday, forKey: "Thursday")
+    //            }
+    //            if arrfriday.count>0 {
+    //                datedaydict.setValue(arrfriday, forKey: "Friday")
+    //            }
+    //            if arrsatarday.count>0 {
+    //                datedaydict.setValue(arrsatarday, forKey: "Saturday")
+    //            }
+    //
+    //            print(arr_day)
+    //            print(datedaydict)
+    //            let dateformats = DateFormatter()
+    //            dateformats.timeZone = TimeZone.current
+    //            dateformats.dateFormat  = "EEEE"
+    //            let dayInWeek = dateformats.string(from: Date())
+    //
+    //            let formatter = DateFormatter()
+    //            // initially set the format based on your datepicker date / server String
+    //            formatter.dateFormat = "yyyy-MM-dd"
+    //            formatter.timeZone = TimeZone(abbreviation: "GMT+0:00")
+    //            var str = formatter.string(from: Date())
+    //
+    //             let arrCurrentRes = AppState.sharedInstance.user.myReservations
+    //
+    //            for i in 0..<self.arrAllspot.count{
+    //                        for j in 0..<arr_day.count{
+    //
+    //                            if i == 3 || i == 9 || i == 11 || i == 12{
+    //
+    //                                print("i Cheack ")
+    //
+    //                            }
+    //                            let dict_spot = self.arrAllspot.object(at: i) as! NSDictionary
+    //
+    //                            var localTimeZoneName: String { return TimeZone.current.identifier }
+    //                            print(localTimeZoneName)
+    //
+    //
+    //                            //MARK:- Sunday Loop
+    //
+    //
+    //                    if arr_day[j] == "Sunday" {
+    //                                if (self.arrAllspot.object(at: i) as! NSDictionary).value(forKey: "sunswitch") as! Bool == true{
+    //
+    //                                    let arrsun = datedaydict.value(forKey: "Sunday") as! NSArray
+    //                                    for m in 0..<arrsun.count{
+    //
+    //
+    //                                        let spotStart_times = "\(str) \(dict_spot.value(forKey: "sunStartTime") as! String)"
+    //                                        let spotEnd_times = "\(str) \(dict_spot.value(forKey: "sunEndTime") as! String)"
+    //
+    //                                        formatter.dateFormat = "yyyy-MM-dd h:mm a"
+    //                                        let dateDay1 = formatter.date(from: spotStart_times)
+    //                                        let dateDay2 = formatter.date(from: spotEnd_times)
+    //                                        formatter.dateFormat = "MMM dd h a"
+    //
+    //                                        let diffInDays = Calendar.current.dateComponents([.day], from: dateDay1!, to: self.end_date!).day
+    //                                        let arrDate = NSMutableArray()
+    //                                        var newDate = dateDay2!
+    //                                        while newDate <= self.end_date! {
+    //
+    //                                            arrDate.add(calendar.date(byAdding: .day, value: 1, to: newDate)!)
+    //                                            newDate = calendar.date(byAdding: .day, value: 1, to: newDate)!
+    //                                        }
+    //
+    //                                        if dateDay1!.isSmallerThan(self.start_date!) && dateDay2!.isGreaterThan(self.end_date!){
+    //                                            //Do Something... var isReservarion = false
+    //                                            var isReservarion = false
+    //                                            for dict in arrCurrentRes
+    //                                            {
+    //                                                if (dict as! NSDictionary).value(forKey: "spotID") as! String == dict_spot.value(forKey: "id") as! String
+    //                                                {
+    //                                                    let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
+    //                                                    let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
+    //                                                    formatter.dateFormat = "yyyy-MM-dd HH:mm"
+    //                                                    let date11 = formatter.date(from: date1)
+    //                                                    let date22 = formatter.date(from: date2)
+    //                                                    print(date1)
+    //                                                    if date11!.isSmallerThan(self.start_date!) && date22!.isGreaterThan(self.end_date!)
+    //                                                    {
+    //                                                        isReservarion = true
+    //                                                        break
+    //                                                    }
+    //                                                }
+    //                                            }
+    //                                            if isReservarion == false{
+    //                                                self.arr_search_spot.add(self.arrAllspot.object(at: i))
+    //                                           }
+    //
+    //                                        }
+    //                                    }
+    //                                }
+    //
+    //
+    //// Comment Part Which is cutted from line number 1153
+    //                                //                                        let sunStartTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "sunStartTime") as! String)
+    //                                //                                        let sunEndTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "sunEndTime")  as! String)
+    //                                //
+    //                                //                                        let server_start1 = self.datetotime(userdate: sunStartTime)
+    //                                //                                        let server_end1 = self.datetotime(userdate: sunEndTime)
+    //                                //                                        print("server   - \(server_start1)")     // server
+    //                                //                                        print("server     - \(server_end1)")     // server
+    //                                //
+    //                                //                                        let user_start = self.datetotime(userdate: self.start_date!)
+    //                                //                                        let user_end = self.datetotime(userdate: self.end_date!)
+    //                                //
+    //                                //                                        print("user_start   - \(user_start)")     // user
+    //                                //                                        print("user_end     - \(user_end)")     // user
+    //                                //
+    //                                //                                        // if user_start >= server_start1 && user_end <= server_end1{
+    //                                //                                        self.arr_search_spot.add(self.arrAllspot.object(at: i))
+    //
+    //
+    //
+    //
+    //
+    //
+    //                            }
+    //
+    //                            //MARK:- Monday Loop
+    //                            if arr_day[j] == "Monday" {
+    //                                if (self.arrAllspot.object(at: i) as! NSDictionary).value(forKey: "monswitch") as! Bool == true{
+    //
+    //                                    let arrmun = datedaydict.value(forKey: "Monday") as! NSArray
+    //                                    for m in 0..<arrmun.count{
+    //
+    //                                        let Munday_start = self.dateconvertServer(userdate: dict_spot.value(forKey: "monStartTime") as! String)
+    //                                        let Munday_end = self.dateconvertServer(userdate: dict_spot.value(forKey: "monEndTime")  as! String)
+    //
+    //                                        let server_start1 = self.datetotime(userdate: Munday_start)
+    //                                        let server_end1 = self.datetotime(userdate: Munday_end)
+    //                                        print("server   - \(server_start1)")     // server
+    //                                        print("server     - \(server_end1)")     // server
+    //
+    //                                        let user_start = self.datetotime(userdate: self.start_date!)
+    //                                        let user_end = self.datetotime(userdate: self.end_date!)
+    //
+    //                                        print("user_start   - \(user_start)")     // user
+    //                                        print("user_end     - \(user_end)")     // user
+    //
+    //                                        if user_start >= server_start1 && user_end <= server_end1{
+    //                                            var isReservarion = false
+    //                                            for dict in arrCurrentRes
+    //                                            {
+    //                                                if (dict as! NSDictionary).value(forKey: "spotID") as! String == dict_spot.value(forKey: "id") as! String
+    //                                                {
+    //                                                    let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
+    //                                                    let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
+    //                                                    formatter.dateFormat = "yyyy-MM-dd HH:mm"
+    //                                                    let date11 = formatter.date(from: date1)
+    //                                                    let date22 = formatter.date(from: date2)
+    //                                                    print(date1)
+    //                                                    if date11!.isSmallerThan(self.start_date!) && date22!.isGreaterThan(self.end_date!)
+    //                                                    {
+    //                                                        isReservarion = true
+    //                                                        break
+    //                                                    }
+    //                                                }
+    //                                            }
+    //                                            if isReservarion == false{
+    //                                                self.arr_search_spot.add(self.arrAllspot.object(at: i))
+    //                                            }
+    //                                        }
+    ////                                        let spotStart_times = "\(str) \(dict_spot.value(forKey: "monStartTime") as! String)"
+    ////                                        let spotEnd_times = "\(str) \(dict_spot.value(forKey: "monEndTime") as! String)"
+    ////                                        formatter.dateFormat = "yyyy-MM-dd h:mm a"
+    ////                                        let dateDay1 = formatter.date(from: spotStart_times)
+    ////                                        let dateDay2 = formatter.date(from: spotEnd_times)
+    ////                                        formatter.dateFormat = "MMM dd h a"
+    ////                                        if dateDay1!.isSmallerThan(self.start_date!) && dateDay2!.isGreaterThan(self.end_date!){
+    ////                                            //Do Something...
+    ////                                            self.arr_search_spot.add(self.arrAllspot.object(at: i))
+    ////                                        }
+    //
+    //                                    }
+    //                                }
+    //                            }
+    //                            //MARK:- Tuesday Loop
+    //                            if arr_day[j] == "Tuesday" {
+    //                                if (self.arrAllspot.object(at: i) as! NSDictionary).value(forKey: "tueswitch") as! Bool == true{
+    //
+    //                                    let arrthue = datedaydict.value(forKey: "Tuesday") as! NSArray
+    //                                    for m in 0..<arrthue.count{
+    //
+    //                                        let tueStartTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "tueStartTime") as! String)
+    //                                        let tueEndTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "tueEndTime")  as! String)
+    //
+    //                                        let server_start1 = self.datetotime(userdate: tueStartTime)
+    //                                        let server_end1 = self.datetotime(userdate: tueEndTime)
+    //                                        print("server   - \(server_start1)")     // server
+    //                                        print("server     - \(server_end1)")     // server
+    //
+    //                                        let user_start = self.datetotime(userdate: self.start_date!)
+    //                                        let user_end = self.datetotime(userdate: self.end_date!)
+    //
+    //                                        print("user_start   - \(user_start)")     // user
+    //                                        print("user_end     - \(user_end)")     // user
+    //
+    //                                        if user_start >= server_start1 && user_end <= server_end1{
+    //                                            var isReservarion = false
+    //                                            for dict in arrCurrentRes
+    //                                            {
+    //                                                if (dict as! NSDictionary).value(forKey: "spotID") as! String == dict_spot.value(forKey: "id") as! String
+    //                                                {
+    //                                                    let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
+    //                                                    let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
+    //                                                    formatter.dateFormat = "yyyy-MM-dd HH:mm"
+    //                                                    let date11 = formatter.date(from: date1)
+    //                                                    let date22 = formatter.date(from: date2)
+    //                                                    print(date1)
+    //                                                    if date11!.isSmallerThan(self.start_date!) && date22!.isGreaterThan(self.end_date!)
+    //                                                    {
+    //                                                        isReservarion = true
+    //                                                        break
+    //                                                    }
+    //                                                }
+    //                                            }
+    //                                            if isReservarion == false{
+    //                                                self.arr_search_spot.add(self.arrAllspot.object(at: i))
+    //                                            }
+    //                                        }
+    ////                                        let spotStart_times = "\(str) \(dict_spot.value(forKey: "tueStartTime") as! String)"
+    ////                                        let spotEnd_times = "\(str) \(dict_spot.value(forKey: "tueEndTime") as! String)"
+    ////                                        formatter.dateFormat = "yyyy-MM-dd h:mm a"
+    ////                                        let dateDay1 = formatter.date(from: spotStart_times)
+    ////                                        let dateDay2 = formatter.date(from: spotEnd_times)
+    ////                                        formatter.dateFormat = "MMM dd h a"
+    ////                                        if dateDay1!.isSmallerThan(self.start_date!) && dateDay2!.isGreaterThan(self.end_date!){
+    ////                                            //Do Something...
+    ////                                            self.arr_search_spot.add(self.arrAllspot.object(at: i))
+    ////                                        }
+    ////
+    //
+    //                                    }
+    //                                }
+    //                            }
+    //                            //MARK:- Wednesday Loop
+    //                            if arr_day[j] == "Wednesday" {
+    //                                if (self.arrAllspot.object(at: i) as! NSDictionary).value(forKey: "wedswitch") as! Bool == true{
+    //
+    //                                    let arrwed = datedaydict.value(forKey: "Wednesday") as! NSArray
+    //                                    for m in 0..<arrwed.count{
+    //
+    //                                        let wedStartTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "wedStartTime") as! String)
+    //                                        let wedEndTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "wedEndTime")  as! String)
+    //
+    //                                        let server_start1 = self.datetotime(userdate: wedStartTime)
+    //                                        let server_end1 = self.datetotime(userdate: wedEndTime)
+    //                                        print("server   - \(server_start1)")     // server
+    //                                        print("server     - \(server_end1)")     // server
+    //
+    //                                        let user_start = self.datetotime(userdate: self.start_date!)
+    //                                        let user_end = self.datetotime(userdate: self.end_date!)
+    //
+    //                                        print("user_start   - \(user_start)")     // user
+    //                                        print("user_end     - \(user_end)")     // user
+    //
+    //
+    //
+    //                                        if user_start >= server_start1 && user_end <= server_end1{
+    //                                            var isReservarion = false
+    //                                            for dict in arrCurrentRes
+    //                                            {
+    //                                                if (dict as! NSDictionary).value(forKey: "spotID") as! String == dict_spot.value(forKey: "id") as! String
+    //                                                {
+    //                                                    let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
+    //                                                    let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
+    //                                                    formatter.dateFormat = "yyyy-MM-dd HH:mm"
+    //                                                    let date11 = formatter.date(from: date1)
+    //                                                    let date22 = formatter.date(from: date2)
+    //                                                    print(date1)
+    //                                                    if date11!.isSmallerThan(self.start_date!) && date22!.isGreaterThan(self.end_date!)
+    //                                                    {
+    //                                                        isReservarion = true
+    //                                                        break
+    //                                                    }
+    //                                                }
+    //                                            }
+    //                                            if isReservarion == false{
+    //                                                self.arr_search_spot.add(self.arrAllspot.object(at: i))
+    //                                            }
+    //                                        }
+    //
+    ////                                        let spotStart_times = "\(str) \(dict_spot.value(forKey: "wedStartTime") as! String)"
+    ////                                        let spotEnd_times = "\(str) \(dict_spot.value(forKey: "wedEndTime") as! String)"
+    ////                                        formatter.dateFormat = "yyyy-MM-dd h:mm a"
+    ////                                        let dateDay1 = formatter.date(from: spotStart_times)
+    ////                                        let dateDay2 = formatter.date(from: spotEnd_times)
+    ////                                        formatter.dateFormat = "MMM dd h a"
+    ////                                        if dateDay1!.isSmallerThan(self.start_date!) && dateDay2!.isGreaterThan(self.end_date!){
+    ////                                            //Do Something...
+    ////                                            self.arr_search_spot.add(self.arrAllspot.object(at: i))
+    ////                                        }
+    ////
+    //                                    }
+    //                                }
+    //                            }
+    //                            //MARK:- Thusday Loop
+    //                            if arr_day[j] == "Thursday" {
+    //
+    //                                if (self.arrAllspot.object(at: i) as! NSDictionary).value(forKey: "thuswitch") as! Bool == true{
+    //
+    //                                    let arrThu = datedaydict.value(forKey: "Thursday") as! NSArray
+    //                                    for m in 0..<arrThu.count{
+    //
+    //                                        let thuStartTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "thuStartTime") as! String)
+    //                                        let thuEndTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "thuEndTime")  as! String)
+    //
+    //                                        let server_start1 = self.datetotime(userdate: thuStartTime)
+    //                                        let server_end1 = self.datetotime(userdate: thuEndTime)
+    //                                        print("server   - \(server_start1)")     // server
+    //                                        print("server     - \(server_end1)")     // server
+    //
+    //                                        let user_start = self.datetotime(userdate: self.start_date!)
+    //                                        let user_end = self.datetotime(userdate: self.end_date!)
+    //
+    //                                        print("user_start   - \(user_start)")     // user
+    //                                        print("user_end     - \(user_end)")     // user
+    //
+    //                                        if user_start >= server_start1 && user_end <= server_end1{
+    //                                            var isReservarion = false
+    //                                            for dict in arrCurrentRes
+    //                                            {
+    //                                                if (dict as! NSDictionary).value(forKey: "spotID") as! String == dict_spot.value(forKey: "id") as! String
+    //                                                {
+    //                                                    let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
+    //                                                    let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
+    //                                                    formatter.dateFormat = "yyyy-MM-dd HH:mm"
+    //                                                    let date11 = formatter.date(from: date1)
+    //                                                    let date22 = formatter.date(from: date2)
+    //                                                    print(date1)
+    //                                                    if date11!.isSmallerThan(self.start_date!) && date22!.isGreaterThan(self.end_date!)
+    //                                                    {
+    //                                                        isReservarion = true
+    //                                                        break
+    //                                                    }
+    //                                                }
+    //                                            }
+    //                                            if isReservarion == false{
+    //                                                self.arr_search_spot.add(self.arrAllspot.object(at: i))
+    //                                            }
+    //                                        }
+    ////
+    ////                                        let spotStart_times = "\(str) \(dict_spot.value(forKey: "thuStartTime") as! String)"
+    ////                                        let spotEnd_times = "\(str) \(dict_spot.value(forKey: "thuEndTime") as! String)"
+    ////                                        formatter.dateFormat = "yyyy-MM-dd h:mm a"
+    ////                                        let dateDay1 = formatter.date(from: spotStart_times)
+    ////                                        let dateDay2 = formatter.date(from: spotEnd_times)
+    ////                                        formatter.dateFormat = "MMM dd h a"
+    ////                                        if dateDay1!.isSmallerThan(self.start_date!) && dateDay2!.isGreaterThan(self.end_date!){
+    ////                                            //Do Something...
+    ////                                            self.arr_search_spot.add(self.arrAllspot.object(at: i))
+    ////                                        }
+    //                                    }
+    //                                }
+    //                            }
+    //
+    //                            //MARK:- Friday Loop
+    //                            if arr_day[j] == "Friday" {
+    //                                if (self.arrAllspot.object(at: i) as! NSDictionary).value(forKey: "friswitch") as! Bool == true{
+    //
+    //                                    let arrFri = datedaydict.value(forKey: "Friday") as! NSArray
+    //                                    for m in 0..<arrFri.count{
+    //
+    //                                        print(dict_spot.value(forKey: "friStartTime") as! String)
+    //                                        print(dict_spot.value(forKey: "friEndTime")  as! String)
+    //
+    //                                        let friStartTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "friStartTime") as! String)
+    //                                        let friEndTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "friEndTime")  as! String)
+    //                                        print(friStartTime)
+    //                                        print(friEndTime)
+    //
+    //                                        let server_start1 = self.datetotime(userdate: friStartTime)
+    //                                        let server_end1 = self.datetotime(userdate: friEndTime)
+    //                                        print("server   - \(server_start1)")     // server
+    //                                        print("server     - \(server_end1)")     // server
+    //
+    //                                        let user_start = self.datetotime(userdate: self.start_date!)
+    //                                        let user_end = self.datetotime(userdate: self.end_date!)
+    //
+    //                                        print("user_start   - \(user_start)")     // user
+    //                                        print("user_end     - \(user_end)")     // user
+    //
+    //                                        if user_start >= server_start1 && user_end <= server_end1{
+    //                                            var isReservarion = false
+    //                                            for dict in arrCurrentRes
+    //                                            {
+    //                                                if (dict as! NSDictionary).value(forKey: "spotID") as! String == dict_spot.value(forKey: "id") as! String
+    //                                                {
+    //                                                    let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
+    //                                                    let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
+    //                                                    formatter.dateFormat = "yyyy-MM-dd HH:mm"
+    //                                                    let date11 = formatter.date(from: date1)
+    //                                                    let date22 = formatter.date(from: date2)
+    //                                                    print(date1)
+    //                                                    if date11!.isSmallerThan(self.start_date!) && date22!.isGreaterThan(self.end_date!)
+    //                                                    {
+    //                                                        isReservarion = true
+    //                                                        break
+    //                                                    }
+    //                                                }
+    //                                            }
+    //                                            if isReservarion == false{
+    //                                                self.arr_search_spot.add(self.arrAllspot.object(at: i))
+    //                                            }
+    //                                        }
+    //
+    ////                                        let spotStart_times = "\(str) \(dict_spot.value(forKey: "friStartTime") as! String)"
+    ////                                        let spotEnd_times = "\(str) \(dict_spot.value(forKey: "friEndTime") as! String)"
+    ////                                        formatter.dateFormat = "yyyy-MM-dd h:mm a"
+    ////                                        let dateDay1 = formatter.date(from: spotStart_times)
+    ////                                        let dateDay2 = formatter.date(from: spotEnd_times)
+    ////                                        formatter.dateFormat = "MMM dd h a"
+    ////                                        if dateDay1!.isSmallerThan(self.start_date!) && dateDay2!.isGreaterThan(self.end_date!){
+    ////                                            //Do Something...
+    ////                                            self.arr_search_spot.add(self.arrAllspot.object(at: i))
+    ////                                        }
+    //                                    }
+    //                                }
+    //                            }
+    //                            //MARK:- Saturday Loop
+    //                            if arr_day[j] == "Saturday" {
+    //                                if (self.arrAllspot.object(at: i) as! NSDictionary).value(forKey: "satswitch") as! Bool == true{
+    //                                    let arrsat = datedaydict.value(forKey: "Saturday") as! NSArray
+    //                                    for m in 0..<arrsat.count{
+    //                                        let satStartTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "satStartTime") as! String)
+    //                                        let satEndTime = self.dateconvertServer(userdate: dict_spot.value(forKey: "satEndTime")  as! String)
+    //
+    //                                        let server_start1 = self.datetotime(userdate: satStartTime)
+    //                                        let server_end1 = self.datetotime(userdate: satEndTime)
+    //                                        print("server   - \(server_start1)")     // server
+    //                                        print("server     - \(server_end1)")     // server
+    //
+    //                                        let user_start = self.datetotime(userdate: self.start_date!)
+    //                                        let user_end = self.datetotime(userdate: self.end_date!)
+    //
+    //                                        print("user_start   - \(user_start)")     // user
+    //                                        print("user_end     - \(user_end)")     // user
+    //
+    //                                        if user_start >= server_start1 && user_end <= server_end1{
+    //                                            var isReservarion = false
+    //                                            for dict in arrCurrentRes
+    //                                            {
+    //                                                if (dict as! NSDictionary).value(forKey: "spotID") as! String == dict_spot.value(forKey: "id") as! String
+    //                                                {
+    //                                                    let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
+    //                                                    let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
+    //                                                    formatter.dateFormat = "yyyy-MM-dd HH:mm"
+    //                                                    let date11 = formatter.date(from: date1)
+    //                                                    let date22 = formatter.date(from: date2)
+    //                                                    print(date1)
+    //                                                    if date11!.isSmallerThan(self.start_date!) && date22!.isGreaterThan(self.end_date!)
+    //                                                    {
+    //                                                        isReservarion = true
+    //                                                        break
+    //                                                    }
+    //                                                }
+    //                                            }
+    //                                            if isReservarion == false{
+    //                                                self.arr_search_spot.add(self.arrAllspot.object(at: i))
+    //                                            }
+    //                                        }
+    //
+    ////                                        let spotStart_times = "\(str) \(dict_spot.value(forKey: "satStartTime") as! String)"
+    ////                                        let spotEnd_times = "\(str) \(dict_spot.value(forKey: "satEndTime") as! String)"
+    ////                                        formatter.dateFormat = "yyyy-MM-dd h:mm a"
+    ////                                        let dateDay1 = formatter.date(from: spotStart_times)
+    ////                                        let dateDay2 = formatter.date(from: spotEnd_times)
+    ////                                        formatter.dateFormat = "MMM dd h a"
+    ////                                        if dateDay1!.isSmallerThan(self.start_date!) && dateDay2!.isGreaterThan(self.end_date!){
+    ////                                            //Do Something...
+    ////                                            self.arr_search_spot.add(self.arrAllspot.object(at: i))
+    ////                                        }
+    //                                    }
+    //                                }
+    //                            }
+    //                        }
+    //                    }
+    //                    print(self.arr_search_spot)
+    //                    // Search Data load marker:-
+    //                    self.Search_Spot()
+    //                    self.Date_VIew.isHidden = true
+    //        }
+    //        endChange = false
+    //
+    //    }
     
     // MARK:- Google Api getting distance
     
@@ -2142,7 +2221,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         // GOOGLE DIRECTION APIS DEMO
         //https://maps.googleapis.com/maps/api/directions/json?origin=27.696981,85.2942719&destination=27.6792144,85.3632975&sensor=false&mode=driving&alternatives=falseGOOGLE_MAP_API_KEY
         
-      let url:String =   "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=\(originLat),\(originLong)&destinations=\(destinationLat),\(destinationLong)&key=AIzaSyATq8xrUL51RMK8Xgf_3YI-dl_ocbNajD4"
+        let url:String =   "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=\(originLat),\(originLong)&destinations=\(destinationLat),\(destinationLong)&key=AIzaSyATq8xrUL51RMK8Xgf_3YI-dl_ocbNajD4"
         
         
         //let url:String = "https://maps.googleapis.com/maps/api/directions/json?origin=\(originLat),\(originLong)&destination=\(destinationLat),\(destinationLong)&sensor=false&mode=driving&alternatives=false&key=AIzaSyCiA5RwJSdB8U9hdAHEW1US8k-TbQJ2OTI"
@@ -2178,11 +2257,14 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                     
                     if let rows = jsonObjectDictionary["rows"] as? [[String:Any]]{
                         
-                     var element = rows[0]["elements"] as? [[String:Any]]
+                        var element = rows[0]["elements"] as? [[String:Any]]
                         
                         var duration = element?[0]["duration"] as? [String:Any]
-                      //  print(duration?["text"] as! String)
-                        //lblDistance.text = duration?["text"] as! String
+                        if duration != nil
+                        {
+                            print(duration?["text"] as! String)
+                            lblDistance.text = duration?["text"] as! String
+                        }
                     }
                     
                     if let routesObject = jsonObjectDictionary["elements"] as? [[String:Any]] {
@@ -2209,7 +2291,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         let formatter = DateFormatter()
         //formatter.dateFormat = "EE MMM dd h a"
         formatter.dateFormat = "MMM dd, h a"
-
+        
         //        strPickerStart = formatter.string(from:  d1)
         //        strPickerEnd = formatter.string(from: d2)
         
@@ -2361,9 +2443,9 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     @IBAction func btn_booknow(_ sender: UIButton) {
         
         // show that we are doing something
-//        Spinner.stop()
         Spinner.start()
-        // debug line, should be removed, eventually
+        
+        // debug lines
         print("Lets do some booking!")
         print("your customer token is: \(AppState.sharedInstance.user.customertoken)")
         // create dummy car to create reference to defaultCar
@@ -2437,7 +2519,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         // check if there are any conflicting reservations
         AppState.sharedInstance.user.getReservationTimesForUser(spotUser: ownerID) {
             timesList in
-//            print("Completion: \(timesList)")
+            //            print("Completion: \(timesList)")
+            print("IM in here")
             var isConflict = AppState.sharedInstance.user.checkReservationAgainstTimesList(res: parkerReservation!, timesList: timesList)
             
             print("Conflict?: " + String(isConflict))
@@ -2452,6 +2535,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                 return
             }
             else {
+                print("IM over here")
                 // get source for payment
                 let source = AppState.sharedInstance.user.customertoken
                 
@@ -2459,7 +2543,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                 AppState.sharedInstance.appStateRoot.child("User").child(ownerID).observeSingleEvent(of: .value, with: { (snapshot) in
                     let userDict = snapshot.value as! [String: Any]
                     let destination = userDict["accountToken"] as! String
-                    print("Destination is: \(destination)")
+                    print("The destination is: \(destination)")
                     
                     // get integer value for amount for payment in cents
                     let amount = Int((NumberFormatter().number(from: (parkerReservation?.price)!)!.floatValue) * 100)
@@ -2472,11 +2556,11 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                         print("we are getting paid")
                         self.setPaymentContext(price: amount)
                         print("The payment context has been set")
+                        Spinner.stop()
                         self.paymentContext.requestPayment()
                         
                         // pay owner
-                        print("The owner is getting paid")
-                        MyAPIClient.sharedClient.completeTransfer(destination: destination, spotAmount: amount)
+                        MyAPIClient.sharedClient.completeTransfer(destination: destination, spotAmount: amount, spotID: self.highlightedSpot.spot_id, startDateTime: Reservation.dateToString(date: self.start_datepic.date))
                     }
                 })
                 
@@ -2485,9 +2569,9 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                 AppState.sharedInstance.user.addReservation(reservation: parkerReservation!)
                 AppState.sharedInstance.user.addReservationToUser(reservation: ownerReservation!)
             }
-        
+            
         }
-    //        Spinner.stop()
+        //        Spinner.stop()
     }
     
     // MARK:_ BTn Autocomplete loation search
@@ -2553,28 +2637,28 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         for mark in allMarkers {
             if mark == marker
             {
-                 marker.zIndex = 1
+                marker.zIndex = 1
             }else
             {
-                 mark.zIndex = 0
+                mark.zIndex = 0
             }
         }
-       
+        
         
         let index:Int! = Int(marker.accessibilityLabel!)
         print("Index is: \(String(index))")
         self.lblDistance.text = ""
         
-//        let coordinate1 = CLLocation(latitude: self.CurrentLocMarker.position.latitude, longitude: self.CurrentLocMarker.position.longitude)
-//        let coordinate2 = CLLocation(latitude: marker.position.latitude, longitude: marker.position.longitude)
-//        let distanceInMeters = coordinate1.distance(from: coordinate2)
+        //        let coordinate1 = CLLocation(latitude: self.CurrentLocMarker.position.latitude, longitude: self.CurrentLocMarker.position.longitude)
+        //        let coordinate2 = CLLocation(latitude: marker.position.latitude, longitude: marker.position.longitude)
+        //        let distanceInMeters = coordinate1.distance(from: coordinate2)
         
         callPlotRouteCalcDistanceAndTimeApis(originLat: String(self.CurrentLocMarker.position.latitude), originLong: String(self.CurrentLocMarker.position.longitude), destinationLat:  String(marker.position.latitude), destinationLong: String(marker.position.longitude))
         
         if Time_price == true{
             
-//            let price  = (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "hourlyPricing") as?  String
-//            let doller = (price! as NSString).integerValue
+            //            let price  = (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "hourlyPricing") as?  String
+            //            let doller = (price! as NSString).integerValue
             let form = DateFormatter()
             // initially set the format based on your datepicker date / server String
             form.dateFormat = "yyyy-MM-dd HH:mm"
@@ -2587,9 +2671,9 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             
             //print(time_Price)
             let doller = Reservation.priceToString(price: priceSPOT)
-//            let numberOfPlaces = 2.0
-//            let multiplier = pow(10.0, numberOfPlaces)
-//            let doller = round(priceSPOT * multiplier) / multiplier
+            //            let numberOfPlaces = 2.0
+            //            let multiplier = pow(10.0, numberOfPlaces)
+            //            let doller = round(priceSPOT * multiplier) / multiplier
             
             view_info.isHidden = false
             btn_close.isHidden = false
@@ -2613,9 +2697,9 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             
             lbl_spot_type.text = (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as?  String
             
-           // let intDist = Int(distanceInMeters)
+            // let intDist = Int(distanceInMeters)
             lbl_price.text = "$\(doller)"
-           // lbl_price.text = "$\(doller)"
+            // lbl_price.text = "$\(doller)"
             lbl_address.text = (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "address") as?  String
             //
             let str = (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "address") as!  String
@@ -2623,18 +2707,18 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             
             if arr.count>0 {
                 
-//                var str_addrss = ""
-//                if  let check = arr[0] as? Int{
-//                    for i in 1..<arr.count{
-//                        str_addrss.append(arr[i])
-//                    }
-//                    lbl_address.text = str_addrss
-//
-//                }else
-//                {
-//                    lbl_address.text = (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "address") as?  String
-//
-//                }
+                //                var str_addrss = ""
+                //                if  let check = arr[0] as? Int{
+                //                    for i in 1..<arr.count{
+                //                        str_addrss.append(arr[i])
+                //                    }
+                //                    lbl_address.text = str_addrss
+                //
+                //                }else
+                //                {
+                //                    lbl_address.text = (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "address") as?  String
+                //
+                //                }
                 
                 var str_addrss = ""
                 let str = arr[0]
@@ -2743,12 +2827,12 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             let priceSPOT = Reservation.publicCalcPrice(startDateTimeString:START,endDateTimeString: END, basePrice: basePrice)
             let doller = Reservation.priceToString(price: priceSPOT)
             //print(time_Price)
-//            let numberOfPlaces = 2.0
-//            let multiplier = pow(10.0, numberOfPlaces)
-//            let doller = round(priceSPOT * multiplier) / multiplier
+            //            let numberOfPlaces = 2.0
+            //            let multiplier = pow(10.0, numberOfPlaces)
+            //            let doller = round(priceSPOT * multiplier) / multiplier
             
-//            let price  = (arrspot.object(at: index) as! NSDictionary).value(forKey: "hourlyPricing") as?  String
-//            let doller = (price! as NSString).integerValue
+            //            let price  = (arrspot.object(at: index) as! NSDictionary).value(forKey: "hourlyPricing") as?  String
+            //            let doller = (price! as NSString).integerValue
             view_info.isHidden = false
             btn_close.isHidden = false
             curruntlat = marker.position.latitude
@@ -2784,8 +2868,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             }
             
             lbl_spot_time.text = "Time: \(strPickerStart) to \(strPickerEnd)"
-
-          //  lbl_spot_time.text = "Time: \(time)"
+            
+            //  lbl_spot_time.text = "Time: \(time)"
             
             if (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Garage"{
                 img_spot_type.image = UIImage(named:"garageParking")
@@ -2801,7 +2885,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             }
             
             lbl_spot_type.text = (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as?  String
-         //let intDist = Int(distanceInMeters)
+            //let intDist = Int(distanceInMeters)
             lbl_price.text = "$\(doller)"
             lbl_address.text = (arrspot.object(at: index) as! NSDictionary).value(forKey: "address") as?  String
             let str = (arrspot.object(at: index) as! NSDictionary).value(forKey: "address") as!  String
@@ -2823,7 +2907,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                             {
                                 str_addrss.append("\(arr[i])" )
                             }
-
+                            
                         }else{
                             if i == 1
                             {
@@ -2912,7 +2996,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         
         print("We are loading spots...")
         
-//        Spinner.start()
+        //        Spinner.start()
         var weekday = [String]()
         let dateformats = DateFormatter()
         dateformats.timeZone = TimeZone.current
@@ -2939,15 +3023,15 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             // initially set the format based on your datepicker date / server String
             formatter.dateFormat = "yyyy-MM-dd"
             formatter.timeZone = TimeZone(abbreviation: "GMT+0:00")
-           // let ddd = "2019-06-04"
-           // let dd = formatter.date(from: ddd)
-           // var str = formatter.string(from: self.start_datepic.date)
+            // let ddd = "2019-06-04"
+            // let dd = formatter.date(from: ddd)
+            // var str = formatter.string(from: self.start_datepic.date)
             var calcheck = Calendar.current
             calcheck.timeZone =  TimeZone(abbreviation: "GMT+0:00")!
             var str = formatter.string(from: Date())
             if snapshot.childrenCount > 0 {
                 formatter.dateFormat = "yyyy-MM-dd HH:mm"
-
+                
                 self.arrspot.removeAllObjects()
                 let arrCurrentRes = AppState.sharedInstance.user.myReservations
                 for artists in snapshot.children.allObjects as! [DataSnapshot] {
@@ -2956,10 +3040,10 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                     if dictdata.count>0
                     {
                         for (theKey, theValue) in dictdata {
-                          //  print(theKey)
-                          //  print(theValue)
+                            //  print(theKey)
+                            //  print(theValue)
                             self.arrAllspot.add(theValue)
-                           // self.arrspot.add(theValue)
+                            // self.arrspot.add(theValue)
                             if dayInWeek == "Sunday"{
                                 if (theValue as! NSDictionary).value(forKey: "sunswitch") as! Int  == 1
                                 {
@@ -2981,28 +3065,32 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                         let dateeDay1 = formatter.date(from: spotStart_times)
                                         let dateeDay2 = formatter.date(from: spotEnd_times)
                                         formatter.dateFormat = "MMM dd h a"
-                                        if dateeDay1!.isSmallerThan(endCur) && dateeDay2!.isSmallerThan(endCur)
+                                        if dateeDay1 != nil || dateeDay2 != nil
                                         {
-                                            var isReservarion = false
-                                            for dict in arrCurrentRes
+                                            
+                                            if dateeDay1!.isSmallerThan(endCur) && dateeDay2!.isSmallerThan(endCur)
                                             {
-                                                if (dict as! NSDictionary).value(forKey: "spotID") as! String == (theValue as! NSDictionary).value(forKey: "id") as! String
+                                                var isReservarion = false
+                                                for dict in arrCurrentRes
                                                 {
-                                                    let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
-                                                    let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
-                                                    formatter.dateFormat = "yyyy-MM-dd HH:mm"
-                                                    let date11 = formatter.date(from: date1)
-                                                    let date22 = formatter.date(from: date2)
-                                                    print(date1)
-                                                    if date11!.isSmallerThan(statCur) && date22!.isGreaterThan(endCur)
+                                                    if (dict as! NSDictionary).value(forKey: "spotID") as! String == (theValue as! NSDictionary).value(forKey: "id") as! String
                                                     {
-                                                        isReservarion = true
-                                                        break
+                                                        let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
+                                                        let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
+                                                        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+                                                        let date11 = formatter.date(from: date1)
+                                                        let date22 = formatter.date(from: date2)
+                                                        print(date1)
+                                                        if date11!.isSmallerThan(statCur) && date22!.isGreaterThan(endCur)
+                                                        {
+                                                            isReservarion = true
+                                                            break
+                                                        }
                                                     }
                                                 }
-                                            }
-                                            if isReservarion == false{
-                                                self.arrspot.add(theValue)
+                                                if isReservarion == false{
+                                                    self.arrspot.add(theValue)
+                                                }
                                             }
                                         }
                                     }
@@ -3036,29 +3124,29 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                             //                                        }
                                         }
                                     }
-//                                    if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
-//                                        var isReservarion = false
-//                                        for dict in arrCurrentRes
-//                                        {
-//                                            if (dict as! NSDictionary).value(forKey: "spotID") as! String == (theValue as! NSDictionary).value(forKey: "id") as! String
-//                                            {
-//                                                let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
-//                                                let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
-//                                                formatter.dateFormat = "yyyy-MM-dd HH:mm"
-//                                                let date11 = formatter.date(from: date1)
-//                                                let date22 = formatter.date(from: date2)
-//                                                print(date1)
-//                                                if date11!.isSmallerThan(statCur) && date22!.isGreaterThan(endCur)
-//                                                {
-//                                                    isReservarion = true
-//                                                    break
-//                                                }
-//                                            }
-//                                        }
-//                                        if isReservarion == false{
-//                                            self.arrspot.add(theValue)
-//                                        }
-//                                    }
+                                    //                                    if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
+                                    //                                        var isReservarion = false
+                                    //                                        for dict in arrCurrentRes
+                                    //                                        {
+                                    //                                            if (dict as! NSDictionary).value(forKey: "spotID") as! String == (theValue as! NSDictionary).value(forKey: "id") as! String
+                                    //                                            {
+                                    //                                                let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
+                                    //                                                let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
+                                    //                                                formatter.dateFormat = "yyyy-MM-dd HH:mm"
+                                    //                                                let date11 = formatter.date(from: date1)
+                                    //                                                let date22 = formatter.date(from: date2)
+                                    //                                                print(date1)
+                                    //                                                if date11!.isSmallerThan(statCur) && date22!.isGreaterThan(endCur)
+                                    //                                                {
+                                    //                                                    isReservarion = true
+                                    //                                                    break
+                                    //                                                }
+                                    //                                            }
+                                    //                                        }
+                                    //                                        if isReservarion == false{
+                                    //                                            self.arrspot.add(theValue)
+                                    //                                        }
+                                    //                                    }
                                 }
                             }
                             if dayInWeek == "Monday"{
@@ -3070,14 +3158,14 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     let dateDay1 = formatter.date(from: spotStart_times)
                                     let dateDay2 = formatter.date(from: spotEnd_times)
                                     formatter.dateFormat = "MMM dd h a"
-                                   
+                                    
                                     let statCur = self.dateWithHour(hour:calcheck.component(.hour, from: self.start_date!), minute: 00, second: 00, date: self.start_date!)!
                                     let endCur = self.dateWithHour(hour:calcheck.component(.hour, from:self.end_date!), minute: 00, second: 00, date: self.end_date!)!
                                     print(dateDay1!)
                                     print(statCur)
                                     print(dateDay2!)
                                     print(endCur)
-                                  
+                                    
                                     let statCheck = self.dateWithHour(hour:22, minute: 00, second: 00, date: self.start_date!)!
                                     if statCheck.isSmallerThan(statCur) || statCheck == statCur
                                     {
@@ -3088,28 +3176,32 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                         let dateeDay1 = formatter.date(from: spotStart_times)
                                         let dateeDay2 = formatter.date(from: spotEnd_times)
                                         formatter.dateFormat = "MMM dd h a"
-                                        if dateeDay1!.isSmallerThan(endCur) && dateeDay2!.isSmallerThan(endCur)
+                                        if dateeDay1 != nil || dateeDay2 != nil
                                         {
-                                            var isReservarion = false
-                                            for dict in arrCurrentRes
+                                            
+                                            if dateeDay1!.isSmallerThan(endCur) && dateeDay2!.isSmallerThan(endCur)
                                             {
-                                                if (dict as! NSDictionary).value(forKey: "spotID") as! String == (theValue as! NSDictionary).value(forKey: "id") as! String
+                                                var isReservarion = false
+                                                for dict in arrCurrentRes
                                                 {
-                                                    let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
-                                                    let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
-                                                    formatter.dateFormat = "yyyy-MM-dd HH:mm"
-                                                    let date11 = formatter.date(from: date1)
-                                                    let date22 = formatter.date(from: date2)
-                                                    print(date1)
-                                                    if date11!.isSmallerThan(statCur) && date22!.isGreaterThan(endCur)
+                                                    if (dict as! NSDictionary).value(forKey: "spotID") as! String == (theValue as! NSDictionary).value(forKey: "id") as! String
                                                     {
-                                                        isReservarion = true
-                                                        break
+                                                        let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
+                                                        let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
+                                                        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+                                                        let date11 = formatter.date(from: date1)
+                                                        let date22 = formatter.date(from: date2)
+                                                        print(date1)
+                                                        if date11!.isSmallerThan(statCur) && date22!.isGreaterThan(endCur)
+                                                        {
+                                                            isReservarion = true
+                                                            break
+                                                        }
                                                     }
                                                 }
-                                            }
-                                            if isReservarion == false{
-                                                self.arrspot.add(theValue)
+                                                if isReservarion == false{
+                                                    self.arrspot.add(theValue)
+                                                }
                                             }
                                         }
                                     }else
@@ -3165,28 +3257,32 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                         let dateeDay1 = formatter.date(from: spotStart_times)
                                         let dateeDay2 = formatter.date(from: spotEnd_times)
                                         formatter.dateFormat = "MMM dd h a"
-                                        if dateeDay1!.isSmallerThan(endCur) && dateeDay2!.isSmallerThan(endCur)
+                                        if dateeDay1 != nil || dateeDay2 != nil
                                         {
-                                            var isReservarion = false
-                                            for dict in arrCurrentRes
+                                            
+                                            if dateeDay1!.isSmallerThan(endCur) && dateeDay2!.isSmallerThan(endCur)
                                             {
-                                                if (dict as! NSDictionary).value(forKey: "spotID") as! String == (theValue as! NSDictionary).value(forKey: "id") as! String
+                                                var isReservarion = false
+                                                for dict in arrCurrentRes
                                                 {
-                                                    let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
-                                                    let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
-                                                    formatter.dateFormat = "yyyy-MM-dd HH:mm"
-                                                    let date11 = formatter.date(from: date1)
-                                                    let date22 = formatter.date(from: date2)
-                                                    print(date1)
-                                                    if date11!.isSmallerThan(statCur) && date22!.isGreaterThan(endCur)
+                                                    if (dict as! NSDictionary).value(forKey: "spotID") as! String == (theValue as! NSDictionary).value(forKey: "id") as! String
                                                     {
-                                                        isReservarion = true
-                                                        break
+                                                        let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
+                                                        let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
+                                                        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+                                                        let date11 = formatter.date(from: date1)
+                                                        let date22 = formatter.date(from: date2)
+                                                        print(date1)
+                                                        if date11!.isSmallerThan(statCur) && date22!.isGreaterThan(endCur)
+                                                        {
+                                                            isReservarion = true
+                                                            break
+                                                        }
                                                     }
                                                 }
-                                            }
-                                            if isReservarion == false{
-                                                self.arrspot.add(theValue)
+                                                if isReservarion == false{
+                                                    self.arrspot.add(theValue)
+                                                }
                                             }
                                         }
                                     }else
@@ -3220,33 +3316,33 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                         }
                                     }
                                     
-//                                    if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
-//                                        var isReservarion = false
-//                                        for dict in arrCurrentRes
-//                                        {
-//                                            if (dict as! NSDictionary).value(forKey: "spotID") as! String == (theValue as! NSDictionary).value(forKey: "id") as! String
-//                                            {
-//                                                let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
-//                                                let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
-//                                                formatter.dateFormat = "yyyy-MM-dd HH:mm"
-//                                                let date11 = formatter.date(from: date1)
-//                                                let date22 = formatter.date(from: date2)
-//                                                print(date1)
-//                                                if date11!.isSmallerThan(statCur) && date22!.isGreaterThan(endCur)
-//                                                {
-//                                                    isReservarion = true
-//                                                    break
-//                                                }
-//                                            }
-//                                        }
-//                                        if isReservarion == false{
-//                                            self.arrspot.add(theValue)
-//                                        }
-//                                    }
+                                    //                                    if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
+                                    //                                        var isReservarion = false
+                                    //                                        for dict in arrCurrentRes
+                                    //                                        {
+                                    //                                            if (dict as! NSDictionary).value(forKey: "spotID") as! String == (theValue as! NSDictionary).value(forKey: "id") as! String
+                                    //                                            {
+                                    //                                                let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
+                                    //                                                let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
+                                    //                                                formatter.dateFormat = "yyyy-MM-dd HH:mm"
+                                    //                                                let date11 = formatter.date(from: date1)
+                                    //                                                let date22 = formatter.date(from: date2)
+                                    //                                                print(date1)
+                                    //                                                if date11!.isSmallerThan(statCur) && date22!.isGreaterThan(endCur)
+                                    //                                                {
+                                    //                                                    isReservarion = true
+                                    //                                                    break
+                                    //                                                }
+                                    //                                            }
+                                    //                                        }
+                                    //                                        if isReservarion == false{
+                                    //                                            self.arrspot.add(theValue)
+                                    //                                        }
+                                    //                                    }
                                 }
                             }
                             if dayInWeek == "Wednesday"{
-                              
+                                
                                 if (theValue as! NSDictionary).value(forKey: "wedswitch") as! Int  == 1
                                 {
                                     let spotStart_times = "\(str) \((theValue as! NSDictionary).value(forKey: "wedStartTime") as! String)"
@@ -3267,28 +3363,32 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                         let dateeDay1 = formatter.date(from: spotStart_times)
                                         let dateeDay2 = formatter.date(from: spotEnd_times)
                                         formatter.dateFormat = "MMM dd h a"
-                                        if dateeDay1!.isSmallerThan(endCur) && dateeDay2!.isSmallerThan(endCur)
+                                        if dateeDay1 != nil || dateeDay2 != nil
                                         {
-                                            var isReservarion = false
-                                            for dict in arrCurrentRes
+                                            
+                                            if dateeDay1!.isSmallerThan(endCur) && dateeDay2!.isSmallerThan(endCur)
                                             {
-                                                if (dict as! NSDictionary).value(forKey: "spotID") as! String == (theValue as! NSDictionary).value(forKey: "id") as! String
+                                                var isReservarion = false
+                                                for dict in arrCurrentRes
                                                 {
-                                                    let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
-                                                    let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
-                                                    formatter.dateFormat = "yyyy-MM-dd HH:mm"
-                                                    let date11 = formatter.date(from: date1)
-                                                    let date22 = formatter.date(from: date2)
-                                                    print(date1)
-                                                    if date11!.isSmallerThan(statCur) && date22!.isGreaterThan(endCur)
+                                                    if (dict as! NSDictionary).value(forKey: "spotID") as! String == (theValue as! NSDictionary).value(forKey: "id") as! String
                                                     {
-                                                        isReservarion = true
-                                                        break
+                                                        let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
+                                                        let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
+                                                        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+                                                        let date11 = formatter.date(from: date1)
+                                                        let date22 = formatter.date(from: date2)
+                                                        print(date1)
+                                                        if date11!.isSmallerThan(statCur) && date22!.isGreaterThan(endCur)
+                                                        {
+                                                            isReservarion = true
+                                                            break
+                                                        }
                                                     }
                                                 }
-                                            }
-                                            if isReservarion == false{
-                                                self.arrspot.add(theValue)
+                                                if isReservarion == false{
+                                                    self.arrspot.add(theValue)
+                                                }
                                             }
                                         }
                                     }else
@@ -3318,31 +3418,31 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                         }
                                     }
                                     
-//                                    if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
-//                                        var isReservarion = false
-//                                         for dict in arrCurrentRes
-//                                         {
-//
-//                                            if (dict as! NSDictionary).value(forKey: "spotID") as! String == (theValue as! NSDictionary).value(forKey: "id") as! String
-//                                            {
-//
-//                                                let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
-//                                                let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
-//                                                formatter.dateFormat = "yyyy-MM-dd HH:mm"
-//                                                let date11 = formatter.date(from: date1)
-//                                                let date22 = formatter.date(from: date2)
-//                                                print(date1)
-//                                                if date11!.isSmallerThan(statCur) && date22!.isGreaterThan(endCur)
-//                                                {
-//                                                    isReservarion = true
-//                                                    break
-//                                                }
-//                                            }
-//                                         }
-//                                        if isReservarion == false{
-//                                            self.arrspot.add(theValue)
-//                                        }
-//                                    }
+                                    //                                    if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
+                                    //                                        var isReservarion = false
+                                    //                                         for dict in arrCurrentRes
+                                    //                                         {
+                                    //
+                                    //                                            if (dict as! NSDictionary).value(forKey: "spotID") as! String == (theValue as! NSDictionary).value(forKey: "id") as! String
+                                    //                                            {
+                                    //
+                                    //                                                let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
+                                    //                                                let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
+                                    //                                                formatter.dateFormat = "yyyy-MM-dd HH:mm"
+                                    //                                                let date11 = formatter.date(from: date1)
+                                    //                                                let date22 = formatter.date(from: date2)
+                                    //                                                print(date1)
+                                    //                                                if date11!.isSmallerThan(statCur) && date22!.isGreaterThan(endCur)
+                                    //                                                {
+                                    //                                                    isReservarion = true
+                                    //                                                    break
+                                    //                                                }
+                                    //                                            }
+                                    //                                         }
+                                    //                                        if isReservarion == false{
+                                    //                                            self.arrspot.add(theValue)
+                                    //                                        }
+                                    //                                    }
                                 }
                             }
                             if dayInWeek == "Thursday"{
@@ -3366,28 +3466,32 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                         let dateeDay1 = formatter.date(from: spotStart_times)
                                         let dateeDay2 = formatter.date(from: spotEnd_times)
                                         formatter.dateFormat = "MMM dd h a"
-                                        if dateeDay1!.isSmallerThan(endCur) && dateeDay2!.isSmallerThan(endCur)
+                                        if dateeDay1 != nil || dateeDay2 != nil
                                         {
-                                            var isReservarion = false
-                                            for dict in arrCurrentRes
+                                            
+                                            if dateeDay1!.isSmallerThan(endCur) && dateeDay2!.isSmallerThan(endCur)
                                             {
-                                                if (dict as! NSDictionary).value(forKey: "spotID") as! String == (theValue as! NSDictionary).value(forKey: "id") as! String
+                                                var isReservarion = false
+                                                for dict in arrCurrentRes
                                                 {
-                                                    let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
-                                                    let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
-                                                    formatter.dateFormat = "yyyy-MM-dd HH:mm"
-                                                    let date11 = formatter.date(from: date1)
-                                                    let date22 = formatter.date(from: date2)
-                                                    print(date1)
-                                                    if date11!.isSmallerThan(statCur) && date22!.isGreaterThan(endCur)
+                                                    if (dict as! NSDictionary).value(forKey: "spotID") as! String == (theValue as! NSDictionary).value(forKey: "id") as! String
                                                     {
-                                                        isReservarion = true
-                                                        break
+                                                        let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
+                                                        let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
+                                                        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+                                                        let date11 = formatter.date(from: date1)
+                                                        let date22 = formatter.date(from: date2)
+                                                        print(date1)
+                                                        if date11!.isSmallerThan(statCur) && date22!.isGreaterThan(endCur)
+                                                        {
+                                                            isReservarion = true
+                                                            break
+                                                        }
                                                     }
                                                 }
-                                            }
-                                            if isReservarion == false{
-                                                self.arrspot.add(theValue)
+                                                if isReservarion == false{
+                                                    self.arrspot.add(theValue)
+                                                }
                                             }
                                         }
                                     }else
@@ -3417,31 +3521,31 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                         }
                                     }
                                     
-//                                    if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
-//                                        var isReservarion = false
-//                                        for dict in arrCurrentRes
-//                                        {
-//                                            if (dict as! NSDictionary).value(forKey: "spotID") as! String == (theValue as! NSDictionary).value(forKey: "id") as! String
-//                                            {
-//                                                let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
-//                                                let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
-//                                                formatter.dateFormat = "yyyy-MM-dd HH:mm"
-//                                                let date11 = formatter.date(from: date1)
-//                                                let date22 = formatter.date(from: date2)
-//                                                print(date1)
-//
-//                                                    if date11!.isSmallerThan(statCur) && date22!.isGreaterThan(endCur)
-//                                                    {
-//                                                        isReservarion = true
-//                                                        break
-//                                                    }
-//                                            }
-//                                        }
-//                                        if isReservarion == false{
-//                                            self.arrspot.add(theValue)
-//                                        }
-//
-//                                    }
+                                    //                                    if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
+                                    //                                        var isReservarion = false
+                                    //                                        for dict in arrCurrentRes
+                                    //                                        {
+                                    //                                            if (dict as! NSDictionary).value(forKey: "spotID") as! String == (theValue as! NSDictionary).value(forKey: "id") as! String
+                                    //                                            {
+                                    //                                                let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
+                                    //                                                let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
+                                    //                                                formatter.dateFormat = "yyyy-MM-dd HH:mm"
+                                    //                                                let date11 = formatter.date(from: date1)
+                                    //                                                let date22 = formatter.date(from: date2)
+                                    //                                                print(date1)
+                                    //
+                                    //                                                    if date11!.isSmallerThan(statCur) && date22!.isGreaterThan(endCur)
+                                    //                                                    {
+                                    //                                                        isReservarion = true
+                                    //                                                        break
+                                    //                                                    }
+                                    //                                            }
+                                    //                                        }
+                                    //                                        if isReservarion == false{
+                                    //                                            self.arrspot.add(theValue)
+                                    //                                        }
+                                    //
+                                    //                                    }
                                 }
                             }
                             if dayInWeek == "Friday"{
@@ -3465,28 +3569,32 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                         let dateeDay1 = formatter.date(from: spotStart_times)
                                         let dateeDay2 = formatter.date(from: spotEnd_times)
                                         formatter.dateFormat = "MMM dd h a"
-                                        if dateeDay1!.isSmallerThan(endCur) && dateeDay2!.isSmallerThan(endCur)
+                                        if dateeDay1 != nil || dateeDay2 != nil
                                         {
-                                            var isReservarion = false
-                                            for dict in arrCurrentRes
+                                            
+                                            if dateeDay1!.isSmallerThan(endCur) && dateeDay2!.isSmallerThan(endCur)
                                             {
-                                                if (dict as! NSDictionary).value(forKey: "spotID") as! String == (theValue as! NSDictionary).value(forKey: "id") as! String
+                                                var isReservarion = false
+                                                for dict in arrCurrentRes
                                                 {
-                                                    let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
-                                                    let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
-                                                    formatter.dateFormat = "yyyy-MM-dd HH:mm"
-                                                    let date11 = formatter.date(from: date1)
-                                                    let date22 = formatter.date(from: date2)
-                                                    print(date1)
-                                                    if date11!.isSmallerThan(statCur) && date22!.isGreaterThan(endCur)
+                                                    if (dict as! NSDictionary).value(forKey: "spotID") as! String == (theValue as! NSDictionary).value(forKey: "id") as! String
                                                     {
-                                                        isReservarion = true
-                                                        break
+                                                        let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
+                                                        let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
+                                                        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+                                                        let date11 = formatter.date(from: date1)
+                                                        let date22 = formatter.date(from: date2)
+                                                        print(date1)
+                                                        if date11!.isSmallerThan(statCur) && date22!.isGreaterThan(endCur)
+                                                        {
+                                                            isReservarion = true
+                                                            break
+                                                        }
                                                     }
                                                 }
-                                            }
-                                            if isReservarion == false{
-                                                self.arrspot.add(theValue)
+                                                if isReservarion == false{
+                                                    self.arrspot.add(theValue)
+                                                }
                                             }
                                         }
                                     }else
@@ -3515,33 +3623,33 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                             }
                                         }
                                     }
-//                                    if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
-//                                        var isReservarion = false
-//                                        for dict in arrCurrentRes
-//                                        {
-//                                            if (dict as! NSDictionary).value(forKey: "spotID") as! String == (theValue as! NSDictionary).value(forKey: "id") as! String
-//                                            {
-//                                                let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
-//                                                let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
-//                                                formatter.dateFormat = "yyyy-MM-dd HH:mm"
-//                                                let date11 = formatter.date(from: date1)
-//                                                let date22 = formatter.date(from: date2)
-//                                                print(date1)
-//                                                if date11!.isSmallerThan(statCur) && date22!.isGreaterThan(endCur)
-//                                                {
-//                                                    isReservarion = true
-//                                                    break
-//                                                }
-//                                            }
-//                                        }
-//                                        if isReservarion == false{
-//                                            self.arrspot.add(theValue)
-//                                        }
-//                                        //                                        if self.getReservationsOnDay(date: dateDay1!) == true
-//                                        //                                        {
-//                                        //                                            self.arrspot.add(theValue)
-//                                        //                                        }
-//                                    }
+                                    //                                    if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
+                                    //                                        var isReservarion = false
+                                    //                                        for dict in arrCurrentRes
+                                    //                                        {
+                                    //                                            if (dict as! NSDictionary).value(forKey: "spotID") as! String == (theValue as! NSDictionary).value(forKey: "id") as! String
+                                    //                                            {
+                                    //                                                let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
+                                    //                                                let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
+                                    //                                                formatter.dateFormat = "yyyy-MM-dd HH:mm"
+                                    //                                                let date11 = formatter.date(from: date1)
+                                    //                                                let date22 = formatter.date(from: date2)
+                                    //                                                print(date1)
+                                    //                                                if date11!.isSmallerThan(statCur) && date22!.isGreaterThan(endCur)
+                                    //                                                {
+                                    //                                                    isReservarion = true
+                                    //                                                    break
+                                    //                                                }
+                                    //                                            }
+                                    //                                        }
+                                    //                                        if isReservarion == false{
+                                    //                                            self.arrspot.add(theValue)
+                                    //                                        }
+                                    //                                        //                                        if self.getReservationsOnDay(date: dateDay1!) == true
+                                    //                                        //                                        {
+                                    //                                        //                                            self.arrspot.add(theValue)
+                                    //                                        //                                        }
+                                    //                                    }
                                 }
                             }
                             if dayInWeek == "Saturday"{
@@ -3565,28 +3673,32 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                         let dateeDay1 = formatter.date(from: spotStart_times)
                                         let dateeDay2 = formatter.date(from: spotEnd_times)
                                         formatter.dateFormat = "MMM dd h a"
-                                        if dateeDay1!.isSmallerThan(endCur) && dateeDay2!.isSmallerThan(endCur)
+                                        if dateeDay1 != nil || dateeDay2 != nil
                                         {
-                                            var isReservarion = false
-                                            for dict in arrCurrentRes
+                                            
+                                            if dateeDay1!.isSmallerThan(endCur) && dateeDay2!.isSmallerThan(endCur)
                                             {
-                                                if (dict as! NSDictionary).value(forKey: "spotID") as! String == (theValue as! NSDictionary).value(forKey: "id") as! String
+                                                var isReservarion = false
+                                                for dict in arrCurrentRes
                                                 {
-                                                    let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
-                                                    let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
-                                                    formatter.dateFormat = "yyyy-MM-dd HH:mm"
-                                                    let date11 = formatter.date(from: date1)
-                                                    let date22 = formatter.date(from: date2)
-                                                    print(date1)
-                                                    if date11!.isSmallerThan(statCur) && date22!.isGreaterThan(endCur)
+                                                    if (dict as! NSDictionary).value(forKey: "spotID") as! String == (theValue as! NSDictionary).value(forKey: "id") as! String
                                                     {
-                                                        isReservarion = true
-                                                        break
+                                                        let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
+                                                        let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
+                                                        formatter.dateFormat = "yyyy-MM-dd HH:mm"
+                                                        let date11 = formatter.date(from: date1)
+                                                        let date22 = formatter.date(from: date2)
+                                                        print(date1)
+                                                        if date11!.isSmallerThan(statCur) && date22!.isGreaterThan(endCur)
+                                                        {
+                                                            isReservarion = true
+                                                            break
+                                                        }
                                                     }
                                                 }
-                                            }
-                                            if isReservarion == false{
-                                                self.arrspot.add(theValue)
+                                                if isReservarion == false{
+                                                    self.arrspot.add(theValue)
+                                                }
                                             }
                                         }
                                     }else
@@ -3616,87 +3728,87 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                         }
                                     }
                                     
-//                                    if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
-//                                        var isReservarion = false
-//                                        for dict in arrCurrentRes
-//                                        {
-//                                            if (dict as! NSDictionary).value(forKey: "spotID") as! String == (theValue as! NSDictionary).value(forKey: "id") as! String
-//                                            {
-//                                                let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
-//                                                let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
-//                                                formatter.dateFormat = "yyyy-MM-dd HH:mm"
-//                                                let date11 = formatter.date(from: date1)
-//                                                let date22 = formatter.date(from: date2)
-//                                                print(date1)
-//                                                if date11!.isSmallerThan(statCur) && date22!.isGreaterThan(endCur)
-//                                                {
-//                                                    isReservarion = true
-//                                                    break
-//                                                }
-//                                            }
-//                                        }
-//                                        if isReservarion == false{
-//                                            self.arrspot.add(theValue)
-//                                        }
-//                                    }
+                                    //                                    if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
+                                    //                                        var isReservarion = false
+                                    //                                        for dict in arrCurrentRes
+                                    //                                        {
+                                    //                                            if (dict as! NSDictionary).value(forKey: "spotID") as! String == (theValue as! NSDictionary).value(forKey: "id") as! String
+                                    //                                            {
+                                    //                                                let date1 = (dict as! NSDictionary).value(forKey: "startDateTime") as! String
+                                    //                                                let date2 = (dict as! NSDictionary).value(forKey: "endDateTime") as! String
+                                    //                                                formatter.dateFormat = "yyyy-MM-dd HH:mm"
+                                    //                                                let date11 = formatter.date(from: date1)
+                                    //                                                let date22 = formatter.date(from: date2)
+                                    //                                                print(date1)
+                                    //                                                if date11!.isSmallerThan(statCur) && date22!.isGreaterThan(endCur)
+                                    //                                                {
+                                    //                                                    isReservarion = true
+                                    //                                                    break
+                                    //                                                }
+                                    //                                            }
+                                    //                                        }
+                                    //                                        if isReservarion == false{
+                                    //                                            self.arrspot.add(theValue)
+                                    //                                        }
+                                    //                                    }
                                 }
                             }
                         }
-                         //self.loadEventsToMap(lat: self.userlatitude, long: self.userlongitude)
+                        //self.loadEventsToMap(lat: self.userlatitude, long: self.userlongitude)
                     }
                 }
                 
                 var spot_array:NSMutableArray = NSMutableArray()
-                 self.allMarkers.removeAll()
+                self.allMarkers.removeAll()
                 if self.arrspot.count > 0 {
                     
                     for tag in 0 ..< self.arrspot.count {
-//                        if dayInWeek == "Sunday"{
-//                            if (self.arrspot[tag] as! NSDictionary).value(forKey: "sunswitch") as! Int  == 0
-//                            {
-//                                return
-//                            }
-//                        }
-//                        if dayInWeek == "Monday"{
-//                            if (self.arrspot[tag] as! NSDictionary).value(forKey: "monswitch") as! Int  == 0
-//                            {
-//                                return
-//
-//                            }
-//
-//                        }
-//                        if dayInWeek == "Tuesday"{
-//                            if (self.arrspot[tag] as! NSDictionary).value(forKey: "thuswitch") as! Int  == 0
-//                            {
-//                                    return
-//                            }
-//                        }
-//                        if dayInWeek == "Wednesday"{
-//                            if (self.arrspot[tag] as! NSDictionary).value(forKey: "wedswitch") as! Int  == 0
-//                            {
-//                                return
-//                            }
-//
-//                        }
-//                        if dayInWeek == "Thursday"{
-//
-//                            if (self.arrspot[tag] as! NSDictionary).value(forKey: "thuswitch") as! Int  == 0
-//                            {
-//                                return
-//                            }
-//                        }
-//                        if dayInWeek == "Friday"{
-//                            if (self.arrspot[tag] as! NSDictionary).value(forKey: "friswitch") as! Int  == 0
-//                            {
-//                                return
-//                            }
-//                        }
-//                        if dayInWeek == "Saturday"{
-//                            if (self.arrspot[tag] as! NSDictionary).value(forKey: "satswitch") as! Int  == 0
-//                            {
-//                                return
-//                            }
-//                        }
+                        //                        if dayInWeek == "Sunday"{
+                        //                            if (self.arrspot[tag] as! NSDictionary).value(forKey: "sunswitch") as! Int  == 0
+                        //                            {
+                        //                                return
+                        //                            }
+                        //                        }
+                        //                        if dayInWeek == "Monday"{
+                        //                            if (self.arrspot[tag] as! NSDictionary).value(forKey: "monswitch") as! Int  == 0
+                        //                            {
+                        //                                return
+                        //
+                        //                            }
+                        //
+                        //                        }
+                        //                        if dayInWeek == "Tuesday"{
+                        //                            if (self.arrspot[tag] as! NSDictionary).value(forKey: "thuswitch") as! Int  == 0
+                        //                            {
+                        //                                    return
+                        //                            }
+                        //                        }
+                        //                        if dayInWeek == "Wednesday"{
+                        //                            if (self.arrspot[tag] as! NSDictionary).value(forKey: "wedswitch") as! Int  == 0
+                        //                            {
+                        //                                return
+                        //                            }
+                        //
+                        //                        }
+                        //                        if dayInWeek == "Thursday"{
+                        //
+                        //                            if (self.arrspot[tag] as! NSDictionary).value(forKey: "thuswitch") as! Int  == 0
+                        //                            {
+                        //                                return
+                        //                            }
+                        //                        }
+                        //                        if dayInWeek == "Friday"{
+                        //                            if (self.arrspot[tag] as! NSDictionary).value(forKey: "friswitch") as! Int  == 0
+                        //                            {
+                        //                                return
+                        //                            }
+                        //                        }
+                        //                        if dayInWeek == "Saturday"{
+                        //                            if (self.arrspot[tag] as! NSDictionary).value(forKey: "satswitch") as! Int  == 0
+                        //                            {
+                        //                                return
+                        //                            }
+                        //                        }
                         let marker = GMSMarker()
                         let lat1 = (self.arrspot.object(at: tag) as! NSDictionary).value(forKey: "user_lat") as! String
                         let long1 = (self.arrspot.object(at: tag) as! NSDictionary).value(forKey: "user_long") as! String
@@ -3728,7 +3840,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                         
                         lbl_marker.textAlignment = .center
                         lbl_marker.numberOfLines = 1;
-                       // lbl_marker.text = "$\(doller)"
+                        // lbl_marker.text = "$\(doller)"
                         lbl_marker.minimumScaleFactor = 0.5;
                         lbl_marker.adjustsFontSizeToFitWidth = true;
                         lbl_marker.textColor = UIColor.black
@@ -3744,10 +3856,10 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                         let basePrice = (self.arrspot.object(at: tag) as! NSDictionary).value(forKey: "basePricing") as! String
                         let priceSPOT = Reservation.publicCalcPrice(startDateTimeString:START,endDateTimeString: END, basePrice: basePrice)
                         //    print(time_Price)
-                         let dollerr = Reservation.priceToString(price: priceSPOT)
-//                        let numberOfPlaces = 2.0
-//                        let multiplier = pow(10.0, numberOfPlaces)
-//                        let rounded = round(priceSPOT * multiplier) / multiplier
+                        let dollerr = Reservation.priceToString(price: priceSPOT)
+                        //                        let numberOfPlaces = 2.0
+                        //                        let multiplier = pow(10.0, numberOfPlaces)
+                        //                        let rounded = round(priceSPOT * multiplier) / multiplier
                         lbl_marker.text = "$\(dollerr)"
                         marker.iconView = customView
                         self.allMarkers.append(marker)
@@ -3760,7 +3872,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             }
         })
         // need to get rid of this line...
-//        Spinner.stop()
+        //        Spinner.stop()
     }
     
     func get_todaySpots(tag:Int)
@@ -3821,76 +3933,76 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             //  let coordinate₀ = CLLocation(latitude: CLLocationDegrees(truncating: (arrspot.object(at: i) as! NSDictionary).value(forKey: "user_lat") as! NSNumber), longitude:CLLocationDegrees(truncating: (arrspot.object(at: i) as! NSDictionary).value(forKey: "user_long") as! NSNumber))
             let coordinate₁ = CLLocation(latitude: lat, longitude: long)
             let distacneinKM = (coordinate₀.distance(from: coordinate₁)/1000)
-//            if distacneinKM < 5 {
-//                print("dicstance ------<5 = \(distacneinKM)")
-//                print(five)
-//                five = five+1
-              //  if five < 5 {
-                    
-                    let marker = GMSMarker()
-//                    
-//                    let lat1 = (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "user_lat") as! String
-//                    let long1 = (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "user_long") as! String
-                    let lat = (lat1 as NSString).doubleValue
-                    let long = (long1 as NSString).doubleValue
-                    
-                    marker.position = CLLocationCoordinate2DMake(lat, long)
-                    marker.map = self.mapView
-                    marker.map = self.mapView
-                    
-                    let price = (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "hourlyPricing") as! String
-                    var doller = String()
-                    for (index, character) in price.enumerated() {
-                        if index < 4 {
-                            doller.append(character)
-                        }
-                        
-                    }
-                    marker.infoWindowAnchor = CGPoint(x: 0.5, y: 0.2)
-                    marker.accessibilityLabel = "\(i)"
-                    
-                    var markerimg = UIImageView()
-                    let customView = UIView()
-                    
-                    customView.frame = CGRect.init(x: 0, y: 0, width: 60, height: 60)
-                    markerimg  = UIImageView(frame:CGRect(x:0, y:0, width:60, height:60));
-                    markerimg.image = UIImage(named:"markers")
-                    markerimg.backgroundColor = UIColor.clear
-                    customView.addSubview(markerimg)
-                    let lbl_marker = UILabel()
-                    lbl_marker.frame = CGRect(x: 10, y: (markerimg.frame.height/2)-25, width: markerimg.frame.width-20, height: 40)
-                    markerimg.addSubview(lbl_marker)
-                    //lbl_marker.backgroundColor = UIColor.red
-                    lbl_marker.textAlignment = .center
-                    lbl_marker.numberOfLines = 1;
-                   
-                    let START = formatter.string(from: self.start_date!)
-                    print("start time :" + START)
-                    let END = formatter.string(from: self.end_date!)
-                    print("end time :" + END)
-                    //print(END)
-                    let basePrice = (self.arrspot.object(at:i) as! NSDictionary).value(forKey: "basePricing") as! String
-                    let priceSPOT = Reservation.publicCalcPrice(startDateTimeString:START,endDateTimeString: END, basePrice: basePrice)
-                    //    print(time_Price)
-                    let dollerr = Reservation.priceToString(price: priceSPOT)
-                    //                        let numberOfPlaces = 2.0
-                    //                        let multiplier = pow(10.0, numberOfPlaces)
-                    //                        let rounded = round(priceSPOT * multiplier) / multiplier
-                    lbl_marker.text = "$\(dollerr)"
-                    
-                   // lbl_marker.text = "$\(doller)"
-                    lbl_marker.minimumScaleFactor = 0.5;
-                    lbl_marker.adjustsFontSizeToFitWidth = true;
-                    lbl_marker.textColor = UIColor.black
-                    customView.backgroundColor = UIColor.clear
-                    marker.iconView = customView
-             //   }
-                //  Spinner.stop()
-//            }
-//            else{
-//                //    Spinner.stop()
-//
-//            }
+            //            if distacneinKM < 5 {
+            //                print("dicstance ------<5 = \(distacneinKM)")
+            //                print(five)
+            //                five = five+1
+            //  if five < 5 {
+            
+            let marker = GMSMarker()
+            //
+            //                    let lat1 = (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "user_lat") as! String
+            //                    let long1 = (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "user_long") as! String
+            let lat = (lat1 as NSString).doubleValue
+            let long = (long1 as NSString).doubleValue
+            
+            marker.position = CLLocationCoordinate2DMake(lat, long)
+            marker.map = self.mapView
+            marker.map = self.mapView
+            
+            let price = (self.arrspot.object(at: i) as! NSDictionary).value(forKey: "hourlyPricing") as! String
+            var doller = String()
+            for (index, character) in price.enumerated() {
+                if index < 4 {
+                    doller.append(character)
+                }
+                
+            }
+            marker.infoWindowAnchor = CGPoint(x: 0.5, y: 0.2)
+            marker.accessibilityLabel = "\(i)"
+            
+            var markerimg = UIImageView()
+            let customView = UIView()
+            
+            customView.frame = CGRect.init(x: 0, y: 0, width: 60, height: 60)
+            markerimg  = UIImageView(frame:CGRect(x:0, y:0, width:60, height:60));
+            markerimg.image = UIImage(named:"markers")
+            markerimg.backgroundColor = UIColor.clear
+            customView.addSubview(markerimg)
+            let lbl_marker = UILabel()
+            lbl_marker.frame = CGRect(x: 10, y: (markerimg.frame.height/2)-25, width: markerimg.frame.width-20, height: 40)
+            markerimg.addSubview(lbl_marker)
+            //lbl_marker.backgroundColor = UIColor.red
+            lbl_marker.textAlignment = .center
+            lbl_marker.numberOfLines = 1;
+            
+            let START = formatter.string(from: self.start_date!)
+            print("start time :" + START)
+            let END = formatter.string(from: self.end_date!)
+            print("end time :" + END)
+            //print(END)
+            let basePrice = (self.arrspot.object(at:i) as! NSDictionary).value(forKey: "basePricing") as! String
+            let priceSPOT = Reservation.publicCalcPrice(startDateTimeString:START,endDateTimeString: END, basePrice: basePrice)
+            //    print(time_Price)
+            let dollerr = Reservation.priceToString(price: priceSPOT)
+            //                        let numberOfPlaces = 2.0
+            //                        let multiplier = pow(10.0, numberOfPlaces)
+            //                        let rounded = round(priceSPOT * multiplier) / multiplier
+            lbl_marker.text = "$\(dollerr)"
+            
+            // lbl_marker.text = "$\(doller)"
+            lbl_marker.minimumScaleFactor = 0.5;
+            lbl_marker.adjustsFontSizeToFitWidth = true;
+            lbl_marker.textColor = UIColor.black
+            customView.backgroundColor = UIColor.clear
+            marker.iconView = customView
+            //   }
+            //  Spinner.stop()
+            //            }
+            //            else{
+            //                //    Spinner.stop()
+            //
+            //            }
         }
         Spinner.stop()
     }
@@ -3917,7 +4029,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                 let long1 = (self.arr_search_spot.object(at: i) as! NSDictionary).value(forKey: "user_long") as! String
                 let lat = (lat1 as NSString).doubleValue
                 let long = (long1 as NSString).doubleValue
-                 self.allMarkers.append(marker)
+                self.allMarkers.append(marker)
                 marker.position = CLLocationCoordinate2DMake(lat, long)
                 marker.map = self.mapView
                 let price = (self.arr_search_spot.object(at: i) as! NSDictionary).value(forKey: "hourlyPricing") as! String
@@ -4389,6 +4501,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                                 shippingAddress: self.paymentContext.shippingAddress,
                                                 shippingMethod: self.paymentContext.selectedShippingMethod,
                                                 completion: completion)
+        Spinner.start()
     }
     
     func paymentContext(_ paymentContext: STPPaymentContext, didFinishWith status: STPPaymentStatus, error: Error?) {
@@ -4441,12 +4554,14 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     }
     
     func setPaymentContext(price: Int) {
+//        Spinner.stop()
         paymentContext = STPPaymentContext(customerContext: STPCustomerContext(keyProvider: MyAPIClient.sharedClient))
         self.paymentContext.delegate = self
         self.paymentContext.hostViewController = self
         self.paymentContext.paymentAmount = price
         print(self.paymentContext.paymentAmount)
         print(self.paymentContext.hostViewController)
+//        Spinner.start()
     }
 }
 
@@ -4476,4 +4591,3 @@ extension Date {
         return self < date
     }
 }
-

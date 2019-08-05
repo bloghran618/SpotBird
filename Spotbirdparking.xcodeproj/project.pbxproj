@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		00ECD99B22A6A9CA00E7F015 /* RentingOutDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00ECD99A22A6A9CA00E7F015 /* RentingOutDetailViewController.swift */; };
+		037975CA5AF67C0F44167440 /* Pods_Spotbirdparking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 004FEE7D57FACF9250B89078 /* Pods_Spotbirdparking.framework */; };
 		0406E62A21620AD900C3E97B /* Login_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0406E62921620AD900C3E97B /* Login_ViewController.swift */; };
 		041EC522217F42AA007DEC9C /* Custommarkerinfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 041EC521217F42AA007DEC9C /* Custommarkerinfo.xib */; };
 		041EC524217F44EA007DEC9C /* Custommarkerinfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041EC523217F44EA007DEC9C /* Custommarkerinfo.swift */; };
@@ -142,6 +143,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				04E6384A2162722F003EAC28 /* CoreLocation.framework in Frameworks */,
+				037975CA5AF67C0F44167440 /* Pods_Spotbirdparking.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -9,8 +9,10 @@
 import XCTest
 import Firebase
 import Alamofire
-import GoogleMaps
 import GooglePlaces
+import GooglePlacePicker
+import GoogleMaps
+import CoreLocation
 @testable import Spotbirdparking
 
 class SpotbirdparkingTests: XCTestCase {
@@ -20,8 +22,7 @@ class SpotbirdparkingTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        
-        //FirebaseApp.configure()
+
     }
     
     func testDefaultCars() {
@@ -94,33 +95,92 @@ class SpotbirdparkingTests: XCTestCase {
         let expectation = self.expectation(description: "Testing stripe returning value")
         
         let totalBalance = ""
-        Alamofire.request(url, method: .post, parameters: params)
-            .validate(statusCode: 200..<300)
-            .responseJSON { response in
-                switch response.result {
-                case .success:
-                    print("Returned with success")
-                    expectation.fulfill()
-                case .failure(let error):
-                    let status = response.response?.statusCode
-                    print("Failed, status: \(status)")
-                    print("Here is the error: \(error)")
-                }
+        print("right before function")
+        let task = Alamofire.request(url, method: .post, parameters: params).validate().responseJSON { response in
+            switch response.result {
+            case .success:
+                print("Returned with success")
+            case .failure(let error):
+                let status = response.response?.statusCode
+                print("Failed, status: \(status)")
+                print("Here is the error: \(error)")
+            }
                 
-                if let result = response.result.value {
-                    let balance = result as! NSDictionary
-                    let totalBalance = String(describing: "\(balance["Balance"]!)")
-                }
-                print("hello")
-                XCTAssert(totalBalance != "")
+            if let result = response.result.value {
+                let balance = result as! NSDictionary
+                let totalBalance = String(describing: "\(balance["Balance"]!)")
+            }
+            print("hello")
+            XCTAssert(totalBalance != "")
+            expectation.fulfill()
         }
+        
+        task.resume()
+        
+        print("after function")
         waitForExpectations(timeout: 10, handler: nil)
         XCTAssert(totalBalance != "")
     }
 
     func test_google_place() {
-        try GMSServices.provideAPIKey("AIzaSyCvFxAOvA246L6Syk7Cl426254C-sMJGxk")
-        try GMSPlacesClient.provideAPIKey("AIzaSyCvFxAOvA246L6Syk7Cl426254C-sMJGxk")
+        
+        let address = "1 Infinite Loop, CA, USA"
+        let geocoder = CLGeocoder()
+        let expectation = self.expectation(description: "Testing google returning value")
+        
+        geocoder.geocodeAddressString(address, completionHandler: {(placemarks, error) -> Void in
+            if((error) != nil){
+                print("Error", error)
+            }
+            if let placemark = placemarks?.first {
+                let coordinates:CLLocationCoordinate2D = placemark.location!.coordinate
+                print(coordinates.longitude)
+                print(coordinates.latitude)
+            }
+            expectation.fulfill()
+        })
+        
+        
+        waitForExpectations(timeout: 10, handler: nil)
+        
     }
     
+    func testDownloadWebData() {
+        
+        // Create an expectation for a background download task.
+        let expectation = XCTestExpectation(description: "Download apple.com home page")
+        
+        // Create a URL for a web page to be downloaded.
+        let url = URL(string: "https://apple.com")!
+        
+        // Create a background task to download the web page.
+        let dataTask = URLSession.shared.dataTask(with: url) { (data, _, _) in
+            
+            // Make sure we downloaded some data.
+            XCTAssertNotNil(data, "No data was downloaded.")
+            // Fulfill the expectation to indicate that the background task has finished successfully.
+            expectation.fulfill()
+            
+        }
+        
+        // Start the download task.
+        dataTask.resume()
+        
+        
+        // Wait until the expectation is fulfilled, with a timeout of 10 seconds.
+        wait(for: [expectation], timeout: 10.0)
+    }
+    
+    func test_alamofire () {
+        let expectation = XCTestExpectation(description: "Download apple.com home page")
+        let url = "https://spotbird-backend-bloughran618.herokuapp.com/test_stripe"
+        
+        Alamofire.request(url).response { response in
+            XCTAssertNotNil(response)
+            
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 10.0)
+    }
 }
