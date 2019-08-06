@@ -533,7 +533,8 @@ class User {
                     "spotID": reservation.spot.spot_id,
                     "parkerID": reservation.parkerID,
                     "carID": reservation.car.car_uid,
-                    "ownerID": reservation.ownerID
+                    "ownerID": reservation.ownerID,
+                    "paymentIntent_id": reservation.paymentIntent_id
             ] as [String : Any]
         
         // create random ID for reservation to be under
@@ -569,7 +570,8 @@ class User {
                     "spotID": reservation.spot.spot_id,
                     "parkerID": reservation.parkerID,
                     "carID": reservation.car.car_uid,
-                    "ownerID": reservation.ownerID
+                    "ownerID": reservation.ownerID,
+                    "paymentIntent_id": reservation.paymentIntent_id
             ] as [String : Any]
         
         // create random ID for reservation to be under
@@ -657,7 +659,8 @@ class User {
                                 spot: reservationSpot,
                                 parkerID: reservationDict["parkerID"] as! String,
                                 car: reservationCar,
-                                ownerID: reservationDict["ownerID"] as! String)
+                                ownerID: reservationDict["ownerID"] as! String,
+                                paymentIntent_id: reservationDict["paymentIntent_id"] as! String)
                             
                             print("Reservation start: \(dbReservation!.startDateTime)")
                             
