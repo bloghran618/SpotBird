@@ -114,10 +114,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     
     var allMarkers = [GMSMarker]()
     
-    //These variables are used to create an id for the charge
-    var chargeID_spotID: String = ""
-    var chargeID_startDate: String = ""
-    
+    var chargeInfoReservation: Reservation!
     
     //MARK:- View Did Load
     
@@ -126,32 +123,6 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         
         start_scheduler()
         
-        /*
-        var defaultCar = Car(make: "", model: "", year: "", carImage: "", isDefault: false, car_id: "")
-        let parkerReservation = Reservation(
-            startDateTime: "2019-08-01 15:00",
-            endDateTime: "2019-08-01 16:00",
-            parkOrRent: "Park",
-            spot: self.highlightedSpot,
-            parkerID: "-LbQoDVfuiRm7NBsWOR9",
-            car: defaultCar!,
-            ownerID: "-LbQoDVfuiRm7NBsWOR9"
-        )
-        
-        // create reservation to be sent to the spot owner
-        let ownerReservation = Reservation(
-            startDateTime: "2019-08-01 15:00",
-            endDateTime: "2019-08-01 16:00",
-            parkOrRent: "Rent",
-            spot: self.highlightedSpot,
-            parkerID: "-LbQoDVfuiRm7NBsWOR9",
-            car: defaultCar!,
-            ownerID: "-LbQoDVfuiRm7NBsWOR9"
-        )
-        
-        AppState.sharedInstance.user.addReservation(reservation: parkerReservation!)
-        AppState.sharedInstance.user.addReservationToUser(reservation: ownerReservation!)
-         */
         
         // load aspects of User() object from the database
         AppState.sharedInstance.activeSpot.getSpots()
@@ -245,6 +216,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         lbl2.layer.masksToBounds = true;
         lbl2.layer.borderWidth = 2
         lbl2.layer.borderColor = UIColor.darkGray.cgColor
+        
+        
         
     }
     
@@ -2501,13 +2474,17 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             spot: self.highlightedSpot,
             parkerID: AppState.sharedInstance.userid,
             car: defaultCar!,
-            ownerID: ownerID
+            ownerID: ownerID,
+            paymentIntent_id: ""
         )
+        
+        // track reservation to set paymentIntent_id
+        // must be called before charge is created
+        self.chargeInfoReservation = parkerReservation
         
         // check if there are any conflicting reservations
         AppState.sharedInstance.user.getReservationTimesForUser(spotUser: ownerID) {
             timesList in
-            //            print("Completion: \(timesList)")
             
             Spinner.start()
             
@@ -2574,7 +2551,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             spot: self.highlightedSpot,
             parkerID: AppState.sharedInstance.userid,
             car: defaultCar,
-            ownerID: ownerID
+            ownerID: ownerID,
+            paymentIntent_id: ""
         )
         
         // create reservation to be sent to the spot owner
@@ -2585,7 +2563,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             spot: self.highlightedSpot,
             parkerID: AppState.sharedInstance.userid,
             car: defaultCar,
-            ownerID: ownerID
+            ownerID: ownerID,
+            paymentIntent_id: ""
         )
         
         // set reservations in the database
@@ -4559,6 +4538,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                                 amount: self.paymentContext.paymentAmount,
                                                 shippingAddress: self.paymentContext.shippingAddress,
                                                 shippingMethod: self.paymentContext.selectedShippingMethod,
+                                                reservationInfo: self.chargeInfoReservation,
                                                 completion: completion)
         Spinner.start()
     }
