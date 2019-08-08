@@ -63,7 +63,7 @@ class MyAPIClient: NSObject, STPEphemeralKeyProvider {
     
     // Transfer funds from our account to the spot owner
     // run with MyAPIClient.sharedClient.completeTransfer(destination: String, spotAmount: Int)
-    func completeTransfer(destination: String, spotAmount: Int, spotID: String, startDateTime: String) {
+    func completeTransfer(destination: String, spotAmount: Int, spotID: String, startDateTime: String, completion: @escaping (_ result: String) -> Void)  {
         print("Run completeTransfer()")
         let url = self.baseURL.appendingPathComponent("schedule_transfer")
         print("Spot Amount: \(spotAmount)")
@@ -81,11 +81,15 @@ class MyAPIClient: NSObject, STPEphemeralKeyProvider {
                 switch response.result {
                 case .success:
                     print("Transfer was a success")
+                    completion("Success")
+                    
                 case .failure(let error):
                     let status = response.response?.statusCode
                     print("Transfer failed, status: \(status)")
                     print("Here is the error: \(error)")
+                    completion("Failure")
                 }
+                
         }
         
     }
@@ -262,7 +266,7 @@ class MyAPIClient: NSObject, STPEphemeralKeyProvider {
                 //to get JSON return value
                 if let result = responseJSON.result.value {
                     let JSON = result as! NSDictionary
-                    Spinner.stop()
+//                    Spinner.stop()
                     // get values from jsonify
                     let enabledNSNumber = JSON["enabled"] as! NSNumber
                     let dueList: NSArray = JSON["due"] as! NSArray

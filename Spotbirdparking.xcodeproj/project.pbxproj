@@ -3,12 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		00ECD99B22A6A9CA00E7F015 /* RentingOutDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00ECD99A22A6A9CA00E7F015 /* RentingOutDetailViewController.swift */; };
-		037975CA5AF67C0F44167440 /* Pods_Spotbirdparking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 004FEE7D57FACF9250B89078 /* Pods_Spotbirdparking.framework */; };
 		0406E62A21620AD900C3E97B /* Login_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0406E62921620AD900C3E97B /* Login_ViewController.swift */; };
 		041EC522217F42AA007DEC9C /* Custommarkerinfo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 041EC521217F42AA007DEC9C /* Custommarkerinfo.xib */; };
 		041EC524217F44EA007DEC9C /* Custommarkerinfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 041EC523217F44EA007DEC9C /* Custommarkerinfo.swift */; };
@@ -27,6 +26,8 @@
 		04CE142E21C5257A00338DEE /* Timeclass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CE142D21C5257A00338DEE /* Timeclass.swift */; };
 		04E63848216211AD003EAC28 /* Signup_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E63847216211AD003EAC28 /* Signup_ViewController.swift */; };
 		04E6384A2162722F003EAC28 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E638492162722F003EAC28 /* CoreLocation.framework */; };
+		3CA9F4CE7FA28A6A0B34B19D /* Pods_Spotbirdparking.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29268BBE4B6DD8B2ED68EC0F /* Pods_Spotbirdparking.framework */; };
+		657AD7591BF948FB4E4E1EB7 /* Pods_SpotbirdparkingTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DD2501CA1FF9C9073CC7C775 /* Pods_SpotbirdparkingTests.framework */; };
 		B701C8E122A096130054F6D9 /* EmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B701C8E022A096130054F6D9 /* EmailViewController.swift */; };
 		B710B9952299FE1C00AF0C0E /* ProvideIDDocViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B710B9942299FE1C00AF0C0E /* ProvideIDDocViewController.swift */; };
 		B7141A4D20ED1DAF005B54D3 /* MyAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7141A4C20ED1DAF005B54D3 /* MyAPIClient.swift */; };
@@ -58,7 +59,6 @@
 		B7CF24F120BCBB3000722933 /* YouViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CF24F020BCBB3000722933 /* YouViewController.swift */; };
 		B7D3B2D62172644500ADBAD4 /* Reservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D3B2D52172644500ADBAD4 /* Reservation.swift */; };
 		B7F9425920FD903D001B421E /* SpotImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F9425820FD903D001B421E /* SpotImageViewController.swift */; };
-		BBA6049CE74020DC683BC5B6 /* Pods_SpotbirdparkingTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DAF59DF2ADFBA1A8A49A61F /* Pods_SpotbirdparkingTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,7 +72,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		004FEE7D57FACF9250B89078 /* Pods_Spotbirdparking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Spotbirdparking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		00ECD99A22A6A9CA00E7F015 /* RentingOutDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RentingOutDetailViewController.swift; sourceTree = "<group>"; };
 		0406E62921620AD900C3E97B /* Login_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login_ViewController.swift; sourceTree = "<group>"; };
 		041EC521217F42AA007DEC9C /* Custommarkerinfo.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Custommarkerinfo.xib; sourceTree = "<group>"; };
@@ -94,11 +93,11 @@
 		04CE142D21C5257A00338DEE /* Timeclass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timeclass.swift; sourceTree = "<group>"; };
 		04E63847216211AD003EAC28 /* Signup_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signup_ViewController.swift; sourceTree = "<group>"; };
 		04E638492162722F003EAC28 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		0E75364D0721806783610271 /* Pods-SpotbirdparkingTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpotbirdparkingTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SpotbirdparkingTests/Pods-SpotbirdparkingTests.release.xcconfig"; sourceTree = "<group>"; };
-		3DAF59DF2ADFBA1A8A49A61F /* Pods_SpotbirdparkingTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SpotbirdparkingTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		531BC5D2A3103854A71A1723 /* Pods-SpotbirdparkingTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpotbirdparkingTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SpotbirdparkingTests/Pods-SpotbirdparkingTests.debug.xcconfig"; sourceTree = "<group>"; };
-		96BF38230272878D1241525C /* Pods-Spotbirdparking.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Spotbirdparking.release.xcconfig"; path = "Pods/Target Support Files/Pods-Spotbirdparking/Pods-Spotbirdparking.release.xcconfig"; sourceTree = "<group>"; };
-		A2E9D3CDA1B39711BA0D6344 /* Pods-Spotbirdparking.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Spotbirdparking.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Spotbirdparking/Pods-Spotbirdparking.debug.xcconfig"; sourceTree = "<group>"; };
+		29268BBE4B6DD8B2ED68EC0F /* Pods_Spotbirdparking.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Spotbirdparking.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		30788BE8B02B4CE41BE01A2E /* Pods-SpotbirdparkingTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpotbirdparkingTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SpotbirdparkingTests/Pods-SpotbirdparkingTests.debug.xcconfig"; sourceTree = "<group>"; };
+		3AF034FA7720DBE0887ECD95 /* Pods-Spotbirdparking.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Spotbirdparking.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Spotbirdparking/Pods-Spotbirdparking.debug.xcconfig"; sourceTree = "<group>"; };
+		77675AD12579CAE736D23F2C /* Pods-Spotbirdparking.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Spotbirdparking.release.xcconfig"; path = "Pods/Target Support Files/Pods-Spotbirdparking/Pods-Spotbirdparking.release.xcconfig"; sourceTree = "<group>"; };
+		AE8D043FA595CB82AE1E569C /* Pods-SpotbirdparkingTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpotbirdparkingTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SpotbirdparkingTests/Pods-SpotbirdparkingTests.release.xcconfig"; sourceTree = "<group>"; };
 		B701C8E022A096130054F6D9 /* EmailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmailViewController.swift; sourceTree = "<group>"; };
 		B702B111212E361D004B3EF1 /* PriceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceViewController.swift; sourceTree = "<group>"; };
 		B710B9942299FE1C00AF0C0E /* ProvideIDDocViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProvideIDDocViewController.swift; sourceTree = "<group>"; };
@@ -135,6 +134,7 @@
 		B7CF24F020BCBB3000722933 /* YouViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = YouViewController.swift; sourceTree = "<group>"; };
 		B7D3B2D52172644500ADBAD4 /* Reservation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reservation.swift; sourceTree = "<group>"; };
 		B7F9425820FD903D001B421E /* SpotImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotImageViewController.swift; sourceTree = "<group>"; };
+		DD2501CA1FF9C9073CC7C775 /* Pods_SpotbirdparkingTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SpotbirdparkingTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,7 +143,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				04E6384A2162722F003EAC28 /* CoreLocation.framework in Frameworks */,
-				037975CA5AF67C0F44167440 /* Pods_Spotbirdparking.framework in Frameworks */,
+				3CA9F4CE7FA28A6A0B34B19D /* Pods_Spotbirdparking.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,7 +151,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BBA6049CE74020DC683BC5B6 /* Pods_SpotbirdparkingTests.framework in Frameworks */,
+				657AD7591BF948FB4E4E1EB7 /* Pods_SpotbirdparkingTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -195,13 +195,13 @@
 			path = Sources;
 			sourceTree = "<group>";
 		};
-		3E614DC8E61FBFDA7C188CE5 /* Pods */ = {
+		077E5FE99DA340C0569EC008 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				A2E9D3CDA1B39711BA0D6344 /* Pods-Spotbirdparking.debug.xcconfig */,
-				96BF38230272878D1241525C /* Pods-Spotbirdparking.release.xcconfig */,
-				531BC5D2A3103854A71A1723 /* Pods-SpotbirdparkingTests.debug.xcconfig */,
-				0E75364D0721806783610271 /* Pods-SpotbirdparkingTests.release.xcconfig */,
+				3AF034FA7720DBE0887ECD95 /* Pods-Spotbirdparking.debug.xcconfig */,
+				77675AD12579CAE736D23F2C /* Pods-Spotbirdparking.release.xcconfig */,
+				30788BE8B02B4CE41BE01A2E /* Pods-SpotbirdparkingTests.debug.xcconfig */,
+				AE8D043FA595CB82AE1E569C /* Pods-SpotbirdparkingTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -212,8 +212,8 @@
 				B71F2DE42086CDA800F47274 /* Spotbirdparking */,
 				B71F2DFB2086CDAA00F47274 /* SpotbirdparkingTests */,
 				B71F2DE32086CDA800F47274 /* Products */,
-				3E614DC8E61FBFDA7C188CE5 /* Pods */,
 				BB81449C832F6316AD50E70D /* Frameworks */,
+				077E5FE99DA340C0569EC008 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -285,8 +285,8 @@
 			isa = PBXGroup;
 			children = (
 				04E638492162722F003EAC28 /* CoreLocation.framework */,
-				004FEE7D57FACF9250B89078 /* Pods_Spotbirdparking.framework */,
-				3DAF59DF2ADFBA1A8A49A61F /* Pods_SpotbirdparkingTests.framework */,
+				29268BBE4B6DD8B2ED68EC0F /* Pods_Spotbirdparking.framework */,
+				DD2501CA1FF9C9073CC7C775 /* Pods_SpotbirdparkingTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -298,12 +298,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B71F2E012086CDAA00F47274 /* Build configuration list for PBXNativeTarget "Spotbirdparking" */;
 			buildPhases = (
-				B5FFF8283993428310063445 /* [CP] Check Pods Manifest.lock */,
+				697537BDD6EEB23F5C142851 /* [CP] Check Pods Manifest.lock */,
 				B71F2DDE2086CDA800F47274 /* Sources */,
 				B71F2DDF2086CDA800F47274 /* Frameworks */,
 				B71F2DE02086CDA800F47274 /* Resources */,
-				8D3253518431BC6C297075CD /* [CP] Embed Pods Frameworks */,
-				30FDC4DB255037458B1E2CCA /* [CP] Copy Pods Resources */,
+				D121D513D9D655FBDFA89E4E /* [CP] Embed Pods Frameworks */,
+				C44B839F81E3EBCCB17D387F /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -318,7 +318,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = B71F2E042086CDAA00F47274 /* Build configuration list for PBXNativeTarget "SpotbirdparkingTests" */;
 			buildPhases = (
-				CBB3CCC79A38DA5B7BA1643F /* [CP] Check Pods Manifest.lock */,
+				908562A8197DFE7AB715686E /* [CP] Check Pods Manifest.lock */,
 				B71F2DF42086CDAA00F47274 /* Sources */,
 				B71F2DF52086CDAA00F47274 /* Frameworks */,
 				B71F2DF62086CDAA00F47274 /* Resources */,
@@ -396,50 +396,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		30FDC4DB255037458B1E2CCA /* [CP] Copy Pods Resources */ = {
+		697537BDD6EEB23F5C142851 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Spotbirdparking/Pods-Spotbirdparking-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Spotbirdparking/Pods-Spotbirdparking-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Spotbirdparking/Pods-Spotbirdparking-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		8D3253518431BC6C297075CD /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Spotbirdparking/Pods-Spotbirdparking-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Spotbirdparking/Pods-Spotbirdparking-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Spotbirdparking/Pods-Spotbirdparking-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		B5FFF8283993428310063445 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
 				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-Spotbirdparking-checkManifestLockResult.txt",
 			);
@@ -448,22 +418,98 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		CBB3CCC79A38DA5B7BA1643F /* [CP] Check Pods Manifest.lock */ = {
+		908562A8197DFE7AB715686E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			inputFileListPaths = (
 			);
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
 				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-SpotbirdparkingTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		C44B839F81E3EBCCB17D387F /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Spotbirdparking/Pods-Spotbirdparking-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
+				"${PODS_ROOT}/GooglePlacePicker/Frameworks/GooglePlacePicker.framework/Resources/GooglePlacePicker.bundle",
+				"${PODS_ROOT}/GooglePlaces/Frameworks/GooglePlaces.framework/Resources/GooglePlaces.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlacePicker.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GooglePlaces.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Spotbirdparking/Pods-Spotbirdparking-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D121D513D9D655FBDFA89E4E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Spotbirdparking/Pods-Spotbirdparking-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/CryptoSwift/CryptoSwift.framework",
+				"${PODS_ROOT}/GRKOpenSSLFramework/OpenSSL-iOS/bin/openssl.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/JTAppleCalendar/JTAppleCalendar.framework",
+				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
+				"${BUILT_PRODUCTS_DIR}/Stripe/Stripe.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
+				"${BUILT_PRODUCTS_DIR}/themis/themis.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CryptoSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JTAppleCalendar.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Stripe.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/themis.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Spotbirdparking/Pods-Spotbirdparking-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -672,14 +718,15 @@
 		};
 		B71F2E022086CDAA00F47274 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = A2E9D3CDA1B39711BA0D6344 /* Pods-Spotbirdparking.debug.xcconfig */;
+			baseConfigurationReference = 3AF034FA7720DBE0887ECD95 /* Pods-Spotbirdparking.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_HEADERS_RUN_UNIFDEF = NO;
-				DEVELOPMENT_TEAM = SUP487L3XC;
+				DEVELOPMENT_TEAM = V2WV5FGJH4;
+				ENABLE_BITCODE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)/**",
 					"${PODS_ROOT}/Firebase/CoreOnly/Sources",
@@ -710,14 +757,15 @@
 		};
 		B71F2E032086CDAA00F47274 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 96BF38230272878D1241525C /* Pods-Spotbirdparking.release.xcconfig */;
+			baseConfigurationReference = 77675AD12579CAE736D23F2C /* Pods-Spotbirdparking.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_HEADERS_RUN_UNIFDEF = NO;
-				DEVELOPMENT_TEAM = SUP487L3XC;
+				DEVELOPMENT_TEAM = V2WV5FGJH4;
+				ENABLE_BITCODE = YES;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)/**",
 					"${PODS_ROOT}/Firebase/CoreOnly/Sources",
@@ -747,7 +795,7 @@
 		};
 		B71F2E052086CDAA00F47274 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 531BC5D2A3103854A71A1723 /* Pods-SpotbirdparkingTests.debug.xcconfig */;
+			baseConfigurationReference = 30788BE8B02B4CE41BE01A2E /* Pods-SpotbirdparkingTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -768,7 +816,7 @@
 		};
 		B71F2E062086CDAA00F47274 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0E75364D0721806783610271 /* Pods-SpotbirdparkingTests.release.xcconfig */;
+			baseConfigurationReference = AE8D043FA595CB82AE1E569C /* Pods-SpotbirdparkingTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";

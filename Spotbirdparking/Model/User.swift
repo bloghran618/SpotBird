@@ -139,11 +139,13 @@ class User {
                     (error:Error?, ref:DatabaseReference) in
                     if let error = error {
                         print("Data could not be saved: \(error).")
+                        print("Stop Spinner 10")
                         Spinner.stop()
                         
                     } else {
                         print("Data saved successfully!")
                         self.Get_UserProfile()  //
+                        print("Stop Spinner 11")
                         Spinner.stop()
                     }
             }
@@ -183,11 +185,13 @@ class User {
                                     (error:Error?, ref:DatabaseReference) in
                                     if let error = error {
                                         print("Data could not be saved: \(error).")
+                                        print("Stop Spinner 12")
                                         Spinner.stop()
                                         
                                     } else {
                                         print("Data saved successfully!")
                                          self.Get_UserProfile()  //
+                                        print("Stop Spinner 13")
                                         Spinner.stop()
                                     }
                                 }
@@ -230,11 +234,13 @@ class User {
                             (error:Error?, ref:DatabaseReference) in
                             if let error = error {
                                 print("Data could not be saved: \(error).")
+                                print("Stop Spinner 14")
                                 Spinner.stop()
                                 
                             } else {
                                 print("Data saved successfully!")
                                  self.Get_UserProfile()  //
+                                print("Stop Spinner 15")
                                 Spinner.stop()
                             }
                         }
@@ -265,6 +271,7 @@ class User {
                     AppState.sharedInstance.user.cars.append(Car(make: snapshotValue.value(forKey: "make") as! String, model: snapshotValue.value(forKey: "model") as! String, year: snapshotValue.value(forKey: "year") as! String, carImage: snapshotValue.value(forKey: "image") as! String, isDefault: snapshotValue.value(forKey: "default") as! Bool,car_id:(artists as! DataSnapshot).key)!)
                     
                 }
+                print("Stop Spinner 16")
                 Spinner.stop()
                 NotificationCenter.default.post(name: Notification.Name("cars"), object: nil)
             }
@@ -398,6 +405,7 @@ class User {
                         (error:Error?, ref:DatabaseReference) in
                         if let error = error {
                             print("Data could not be saved: \(error).")
+                            print("Stop Spinner 17")
                             Spinner.stop()
                         
                         } else {
@@ -711,6 +719,7 @@ class User {
             }
             //Spinner.stop()
         })
+        print("Stop Spinner 18")
         Spinner.stop()
     }
     

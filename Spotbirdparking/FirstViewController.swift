@@ -104,14 +104,14 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     // initialize highlighted spot to null
     var highlightedSpot: Spot!
     
-    // Stripe setup
     var profileOptions: [ProfileTableOption]?
     //    let cellIdentifier = "profileTableCell"
     
+    // Stripe setup
     let config = STPPaymentConfiguration.shared()
     let customerContext = STPCustomerContext(keyProvider: MyAPIClient.sharedClient)
-    
     var paymentContext = STPPaymentContext(customerContext: STPCustomerContext(keyProvider: MyAPIClient.sharedClient))
+    
     var allMarkers = [GMSMarker]()
     
     //These variables are used to create an id for the charge
@@ -2476,6 +2476,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         
         // check ahead to see if there is a value for the destination token
         let ownerID = self.highlightedSpot.owner_ids
+        print("The owner's ID is: \(ownerID)")
         print("Destination found")
         AppState.sharedInstance.appStateRoot.child("User").child(ownerID).observeSingleEvent(of: .value, with: { (snapshot) in
             let userDict = snapshot.value as! [String: Any]
@@ -2492,7 +2493,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             }
         })
         
-        // create reservation to be sent to the parker
+        // create reservation object
         let parkerReservation = Reservation(
             startDateTime: Reservation.dateToString(date: start_datepic.date),
             endDateTime: Reservation.dateToString(date: end_datepic.date),
@@ -2503,25 +2504,17 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             ownerID: ownerID
         )
         
-        // create reservation to be sent to the spot owner
-        let ownerReservation = Reservation(
-            startDateTime: Reservation.dateToString(date: start_datepic.date),
-            endDateTime: Reservation.dateToString(date: end_datepic.date),
-            parkOrRent: "Rent",
-            spot: self.highlightedSpot,
-            parkerID: AppState.sharedInstance.userid,
-            car: defaultCar!,
-            ownerID: ownerID
-        )
-        
-        print("Reservations created")
-        
         // check if there are any conflicting reservations
         AppState.sharedInstance.user.getReservationTimesForUser(spotUser: ownerID) {
             timesList in
             //            print("Completion: \(timesList)")
+            
+            Spinner.start()
+            
             print("IM in here")
             var isConflict = AppState.sharedInstance.user.checkReservationAgainstTimesList(res: parkerReservation!, timesList: timesList)
+            
+            Spinner.start()
             
             print("Conflict?: " + String(isConflict))
             
@@ -2536,43 +2529,109 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             }
             else {
                 print("IM over here")
-                // get source for payment
-                let source = AppState.sharedInstance.user.customertoken
                 
-                print("Source found")
-                AppState.sharedInstance.appStateRoot.child("User").child(ownerID).observeSingleEvent(of: .value, with: { (snapshot) in
-                    let userDict = snapshot.value as! [String: Any]
-                    let destination = userDict["accountToken"] as! String
-                    print("The destination is: \(destination)")
-                    
-                    // get integer value for amount for payment in cents
-                    let amount = Int((NumberFormatter().number(from: (parkerReservation?.price)!)!.floatValue) * 100)
+                        
+                // get integer value for amount for payment in cents
+                let amount = Int((NumberFormatter().number(from: (parkerReservation?.price)!)!.floatValue) * 100)
                     print("Price (cents): \(amount)")
-                    
-                    // make payment
-                    if(destination != "" && AppState.sharedInstance.user.customertoken != "") {
-                        
-                        // pay us
-                        print("we are getting paid")
-                        self.setPaymentContext(price: amount)
-                        print("The payment context has been set")
-                        Spinner.stop()
-                        self.paymentContext.requestPayment()
-                        
-                        // pay owner
-                        MyAPIClient.sharedClient.completeTransfer(destination: destination, spotAmount: amount, spotID: self.highlightedSpot.spot_id, startDateTime: Reservation.dateToString(date: self.start_datepic.date))
-                    }
-                })
                 
-                // set reservations in the database
-                print("The reservations are being created in the db")
-                AppState.sharedInstance.user.addReservation(reservation: parkerReservation!)
-                AppState.sharedInstance.user.addReservationToUser(reservation: ownerReservation!)
+                Spinner.start()
+//                sleep(4)
+                
+                // pay us
+                print("we are getting paid")
+                self.setPaymentContext(price: amount)
+                print("The payment context has been set")
+                Spinner.stop()
+                self.paymentContext.requestPayment()
+                
+                // if payment is successful we will initiate transfer and setting reservations
+                // see paymentContext didFinishWith ()
+                    
             }
             
         }
-        //        Spinner.stop()
     }
+    
+    // This function is a helper to btn_book, and is called by paymentContext : didFinishWith status
+    public func transferAndSetReservations() {
+        
+        print("Begin transfer and set the reservations")
+        
+        Spinner.start()
+        
+        // set the default car
+        let defaultCar = AppState.sharedInstance.user.getDefaultCar()
+        
+        // get the ID of the spot owner
+        let ownerID = self.highlightedSpot.owner_ids
+
+        // create reservation to be sent to the parker
+        let parkerReservation = Reservation(
+            startDateTime: Reservation.dateToString(date: start_datepic.date),
+            endDateTime: Reservation.dateToString(date: end_datepic.date),
+            parkOrRent: "Park",
+            spot: self.highlightedSpot,
+            parkerID: AppState.sharedInstance.userid,
+            car: defaultCar,
+            ownerID: ownerID
+        )
+        
+        // create reservation to be sent to the spot owner
+        let ownerReservation = Reservation(
+            startDateTime: Reservation.dateToString(date: start_datepic.date),
+            endDateTime: Reservation.dateToString(date: end_datepic.date),
+            parkOrRent: "Rent",
+            spot: self.highlightedSpot,
+            parkerID: AppState.sharedInstance.userid,
+            car: defaultCar,
+            ownerID: ownerID
+        )
+        
+        // set reservations in the database
+        print("The reservations are being created in the db")
+        AppState.sharedInstance.user.addReservation(reservation: parkerReservation!)
+        AppState.sharedInstance.user.addReservationToUser(reservation: ownerReservation!)
+        
+        let source = AppState.sharedInstance.user.customertoken
+
+        AppState.sharedInstance.appStateRoot.child("User").child(ownerID).observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            let userDict = snapshot.value as! [String: Any]
+            print("userDict: \(userDict)")
+            let destination = userDict["accountToken"] as! String
+            print("The destination is: \(destination)")
+            
+            // get integer value for amount for payment in cents
+            let amount = Int((NumberFormatter().number(from: (parkerReservation?.price)!)!.floatValue) * 100)
+
+            print("Amount to transfer: \(amount)")
+            
+            let message = ("\(self.highlightedSpot.address) \(self.highlightedSpot.town), \(self.highlightedSpot.state) reserved. See active reservations in Reservations tab")
+            let title = "Success"
+            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true)
+            
+            // pay owner
+            MyAPIClient.sharedClient.completeTransfer(destination: destination, spotAmount: amount, spotID: self.highlightedSpot.spot_id, startDateTime: Reservation.dateToString(date: self.start_datepic.date)) {result in
+                
+                // handle the result of the transfer
+                if (result == "Success") {
+                    Spinner.stop()
+                    let message = ("\(self.highlightedSpot.address) \(self.highlightedSpot.town), \(self.highlightedSpot.state) reserved. See active reservations in Reservations tab")
+                    let title = "Success"
+                    let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                    self.present(alert, animated: true)
+                }
+                else {
+                    print("There was an issue with the payment transfer")
+                }
+            }
+        })
+    }
+    
     
     // MARK:_ BTn Autocomplete loation search
     @IBAction func autocompleteClicked(_ sender: UIButton) {
@@ -4512,17 +4571,20 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         case .error:
             title = "Error"
             message = error?.localizedDescription ?? ""
+            let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+            let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+            alertController.addAction(action)
+            self.present(alertController, animated: true, completion: nil)
+            
         case .success:
-            Spinner.stop()
-            title = "Success"
-            message = "\(self.highlightedSpot.address) \(self.highlightedSpot.town), \(self.highlightedSpot.state) reserved. See active reservations in Reservations tab"
+            Spinner.start()
+            
+            // if payment succeeds and is not canceled transfer funds to the spot ownner and set the reservations in the database
+            self.transferAndSetReservations()
+            
         case .userCancellation:
             return
         }
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
-        alertController.addAction(action)
-        self.present(alertController, animated: true, completion: nil)
     }
     
     func paymentContextDidChange(_ paymentContext: STPPaymentContext) {
@@ -4554,14 +4616,12 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     }
     
     func setPaymentContext(price: Int) {
-//        Spinner.stop()
         paymentContext = STPPaymentContext(customerContext: STPCustomerContext(keyProvider: MyAPIClient.sharedClient))
         self.paymentContext.delegate = self
         self.paymentContext.hostViewController = self
         self.paymentContext.paymentAmount = price
         print(self.paymentContext.paymentAmount)
         print(self.paymentContext.hostViewController)
-//        Spinner.start()
     }
 }
 

@@ -2,12 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:../../Downloads/Indore.gpx">
-   </FileRef>
-   <FileRef
-      location = "group:Spotbirdparking/Philadelphia.gpx">
-   </FileRef>
-   <FileRef
       location = "group:Spotbirdparking.xcodeproj">
    </FileRef>
    <FileRef
