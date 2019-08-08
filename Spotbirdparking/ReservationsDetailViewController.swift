@@ -94,10 +94,10 @@ class ReservationsDetailViewController: UIViewController {
         
         alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { action in
             print("Canceling")
+            self.refundCharge()
+            self.removeScheduledJob()
             self.deleteParkingReservation()
             self.deleteSpotReservation()
-            self.removeScheduledJob()
-            //self.refundCharge()
             
             self.dismiss(animated: true, completion: nil)
         }))
@@ -211,7 +211,7 @@ class ReservationsDetailViewController: UIViewController {
         }
         
         //Deleting reservation from reservation list for view controller
-        var resIndex = 0
+        /*var resIndex = 0
         
         for eachRes in AppState.sharedInstance.user.reservations {
             if res.car.car_uid == eachRes.car.car_uid && res.endDateTime == eachRes.endDateTime && res.ownerID == eachRes.ownerID && res.parkerID == eachRes.parkerID && res.price == eachRes.price && res.spot.spot_id == eachRes.spot.spot_id && res.startDateTime == eachRes.startDateTime {
@@ -220,7 +220,7 @@ class ReservationsDetailViewController: UIViewController {
                 print(eachRes)
             }
             resIndex += 1
-        }
+        } */
         
     }
     
@@ -228,7 +228,9 @@ class ReservationsDetailViewController: UIViewController {
         
         let res = resOnDay[index]
         let url = "https://spotbird-backend-bloughran618.herokuapp.com/refund_charge"
-        let params: [String: Any] = ["spot_id": res.spot.spot_id, "start_date": res.startDateTime]
+        let params: [String: Any] = ["paymentIntent_id": res.paymentIntent_id]
+        
+        print(res.paymentIntent_id)
         
         Alamofire.request(url, method: .post, parameters: params)
             .validate(statusCode: 200..<300)
