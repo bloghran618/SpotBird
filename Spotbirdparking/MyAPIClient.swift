@@ -6,6 +6,7 @@
 //  Copyright © 2018 Spotbird. All rights reserved.
 //
 
+
 import Foundation
 import Stripe
 import Alamofire
@@ -50,62 +51,34 @@ class MyAPIClient: NSObject, STPEphemeralKeyProvider {
             "amount": amount,
             "customer_token": AppState.sharedInstance.user.customertoken
         ]
-        params["shipping"] = STPAddress.shippingInfoForCharge(with: shippingAddress, shippingMethod: shippingMethod)
+        
+        print("params are created")
+//        params["shipping"] = STPAddress.shippingInfoForCharge(with: shippingAddress, shippingMethod: shippingMethod)
         
         var paymentIntent_ID = ""
-        var ref: DatabaseReference!
-        ref = Database.database().reference()
-        var reservationParkerKey = ""
-        var reservationIndex = 0
-        
-        ref.child("User").child(reservationInfo.parkerID).child("Reservations").observeSingleEvent(of: .value, with: { (snapshot) in
-            // Get user value
-            let value = snapshot.value as! NSDictionary
-            
-            for eachRes in value {
-                //print(eachRes.key)
-                let resInfo = value[eachRes.key] as! NSDictionary
-                if (resInfo["carID"] as! String) == reservationInfo.car.car_uid && (resInfo["endDateTime"] as! String) == reservationInfo.endDateTime && (resInfo["ownerID"] as! String) == reservationInfo.ownerID && (resInfo["parkerID"] as! String) == reservationInfo.parkerID && (resInfo["price"] as! String) == reservationInfo.price && (resInfo["spotID"] as! String) == reservationInfo.spot.spot_id && (resInfo["startDateTime"] as! String) == reservationInfo.startDateTime && reservationInfo.parkOrRent == (resInfo["parkOrRent"] as! String) {
-                    reservationParkerKey = eachRes.key as! String
-                }
-            }
-            
-        }) { (error) in
-            print(error.localizedDescription)
-        }
-        
         
         Alamofire.request(url, method: .post, parameters: params)
             .validate(statusCode: 200..<300)
             .responseJSON { response in
                 switch response.result {
                 case .success:
+                    if let result = response.result.value {
+                        print(result)
+                        let intent = result as! NSDictionary
+                        paymentIntent_ID = String(describing: "\(intent["paymentIntent_id"]!)")
+                        print("ID: " + String(paymentIntent_ID))
+                    }
+                    AppState.sharedInstance.user.temporary_paymentIntent_id = paymentIntent_ID
                     completion(nil)
                 case .failure(let error):
                     completion(error)
-                }
-                if let result = response.result.value {
-                    print(result)
-                    let intent = result as! NSDictionary
-                    paymentIntent_ID = String(describing: "\(intent["paymentIntent_id"]!)")
-                    print("ID: " + String(paymentIntent_ID))
-                    
-                    //set paymentIntent Id in database
-                ref.child("User").child(AppState.sharedInstance.userid).child("Reservations").child(reservationParkerKey).child("paymentIntent_id").setValue(paymentIntent_ID)
-                    
-                    //set paymentIntent Id in reservations in the case that the reservations arent reloaded from the database before canceling the reservation (for refund purposes)
-                    for resInfo in AppState.sharedInstance.user.reservations {
-                        if resInfo.car.car_uid == reservationInfo.car.car_uid && resInfo.endDateTime == reservationInfo.endDateTime && resInfo.ownerID == reservationInfo.ownerID && resInfo.parkerID == reservationInfo.parkerID && resInfo.price == reservationInfo.price && resInfo.spot.spot_id == reservationInfo.spot.spot_id && resInfo.startDateTime == reservationInfo.startDateTime && reservationInfo.parkOrRent == resInfo.parkOrRent {
-                            resInfo.paymentIntent_id = paymentIntent_ID
-                        }
-                    }
                 }
         }
     }
     
     // Transfer funds from our account to the spot owner
     // run with MyAPIClient.sharedClient.completeTransfer(destination: String, spotAmount: Int)
-    func completeTransfer(destination: String, spotAmount: Int, spotID: String, startDateTime: String) {
+    func completeTransfer(destination: String, spotAmount: Int, spotID: String, startDateTime: String, completion: @escaping (_ result: String) -> Void)  {
         print("Run completeTransfer()")
         let url = self.baseURL.appendingPathComponent("schedule_transfer")
         print("Spot Amount: \(spotAmount)")
@@ -123,11 +96,15 @@ class MyAPIClient: NSObject, STPEphemeralKeyProvider {
                 switch response.result {
                 case .success:
                     print("Transfer was a success")
+                    completion("Success")
+                    
                 case .failure(let error):
                     let status = response.response?.statusCode
                     print("Transfer failed, status: \(status)")
                     print("Here is the error: \(error)")
+                    completion("Failure")
                 }
+                
         }
         
     }
@@ -304,7 +281,7 @@ class MyAPIClient: NSObject, STPEphemeralKeyProvider {
                 //to get JSON return value
                 if let result = responseJSON.result.value {
                     let JSON = result as! NSDictionary
-                    Spinner.stop()
+//                    Spinner.stop()
                     // get values from jsonify
                     let enabledNSNumber = JSON["enabled"] as! NSNumber
                     let dueList: NSArray = JSON["due"] as! NSArray

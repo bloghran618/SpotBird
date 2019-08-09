@@ -90,7 +90,7 @@ class ReservationsDetailViewController: UIViewController {
     }
     
     @IBAction func Cancel(_ sender: Any) {
-        let alert = UIAlertController(title: "Cancel", message: "Warning: This is a beta function and does not completely delete reservations and refund money", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Cancel", message: "This will cancel your reservations as well as return you money to the card used", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { action in
             print("Canceling")
@@ -106,31 +106,6 @@ class ReservationsDetailViewController: UIViewController {
         self.present(alert, animated: true)
         
     }
-    /*
-    @IBAction func start_scheduler(_ sender: Any) {
-        
-        
-        let url = "https://spotbird-backend-bloughran618.herokuapp.com/APScheduler_testing"
-        print("before starting scheduler")
-        let res = resOnDay[index]
-        
-        let params: [String: Any] = ["spot_id": res.spot.spot_id, "start_date": res.startDateTime]
-        
-        Alamofire.request(url, method: .post, parameters: params)
-            .validate(statusCode: 200..<300)
-            .responseJSON { response in
-                switch response.result {
-                case .success:
-                    print("Returned with success")
-                case .failure:
-                    print("Failure")
-                }
-                
-        }
-        print("after starting scheduler")
-        
-    }
- */
     
     func hasReservationPassed() -> Bool {
         let res = resOnDay[index]
@@ -210,17 +185,19 @@ class ReservationsDetailViewController: UIViewController {
             print(error.localizedDescription)
         }
         
-        //Deleting reservation from reservation list for view controller
-        /*var resIndex = 0
+        //Deleting reservation(s) (in the case that spot owner is parking in his own spot) from reservation list for view controller
+        var resIndex = 0
         
         for eachRes in AppState.sharedInstance.user.reservations {
             if res.car.car_uid == eachRes.car.car_uid && res.endDateTime == eachRes.endDateTime && res.ownerID == eachRes.ownerID && res.parkerID == eachRes.parkerID && res.price == eachRes.price && res.spot.spot_id == eachRes.spot.spot_id && res.startDateTime == eachRes.startDateTime {
+                print(resIndex)
                 AppState.sharedInstance.user.reservations.remove(at: resIndex)
                 print("Reservation deleted from reservation list: ")
                 print(eachRes)
+                resIndex -= 1
             }
             resIndex += 1
-        } */
+        }
         
     }
     

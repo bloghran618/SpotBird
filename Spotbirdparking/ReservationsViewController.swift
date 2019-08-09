@@ -116,7 +116,7 @@ class ReservationsViewController: UIViewController,GMSMapViewDelegate,CLLocation
     override func viewWillAppear(_ animated: Bool) {
         // set up the calendar formatting
         setupCalendarView()
-        getReservationsOnDay(date: self.cellDate)
+        self.resOnDay = self.getReservationsOnDay(date: self.cellDate)
         resByDayTable.reloadData()
         
         print("The view will appear right.... now!")

@@ -13,7 +13,7 @@ import GooglePlaces
 import GooglePlacePicker
 import GoogleMaps
 import CoreLocation
-@testable import Spotbirdparking
+//@testable import Spotbirdparking
 
 class SpotbirdparkingTests: XCTestCase {
     
