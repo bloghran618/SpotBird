@@ -16,6 +16,7 @@ import GooglePlaces
 import GooglePlacePicker
 import GooglePlaces
 import JTAppleCalendar
+import MapKit
 
 class ReservationsViewController: UIViewController,GMSMapViewDelegate,CLLocationManagerDelegate{
     
@@ -80,7 +81,7 @@ class ReservationsViewController: UIViewController,GMSMapViewDelegate,CLLocation
                 self.resOnDay = self.getReservationsOnDay(date: Date())
                 self.resByDayTable.reloadData()
                 
-                //setupCalendarView()
+                // setup the CalendarView()
                 self.setupCalendarView()
                 
                 Spinner.stop()
@@ -114,13 +115,19 @@ class ReservationsViewController: UIViewController,GMSMapViewDelegate,CLLocation
     
     // make sure to update calendar every time view is loaded
     override func viewWillAppear(_ animated: Bool) {
-        // set up the calendar formatting
-        setupCalendarView()
+        // load the reservation table with today's reservations
         self.resOnDay = self.getReservationsOnDay(date: self.cellDate)
         resByDayTable.reloadData()
         
+        // set up the calendar formatting
+        setupCalendarView()
+        
+        // reload the dates that are on the calendar
+        calendarView.reloadData()
+        
         print("The view will appear right.... now!")
         print("There should be \(AppState.sharedInstance.user.reservations.count) reservations")
+        print("there should be \(resOnDay.count) reservations on selected date: \(self.cellDate)")
         
         
     }
@@ -294,6 +301,9 @@ extension ReservationsViewController: JTAppleCalendarViewDelegate {
         // change by-day reservations based on cell
         self.resOnDay = getReservationsOnDay(date: date)
         resByDayTable.reloadData()
+        
+        // track the date selected
+        self.cellDate = date
     }
     
     // Hide view when deselecting cell
@@ -385,11 +395,17 @@ extension ReservationsViewController: UITableViewDelegate, UITableViewDataSource
                         UIApplication.shared.openURL(NSURL(string:
                             "comgooglemaps://?saddr=&daddr=\(self.spotlatitude),\(self.spotlongitude)&directionsmode=driving")! as URL)
         
-                    } else {
-                        NSLog("Can't use comgooglemaps://");
-                        let alert = UIAlertController(title: "Spotbirdparking", message: "Can't use comgooglemaps://", preferredStyle: UIAlertControllerStyle.alert)
-                        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
-                        self.present(alert, animated: true, completion: nil)
+                    }
+                    else {
+                        let coordinate = CLLocationCoordinate2DMake(self.spotlatitude, self.spotlongitude)
+                        let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: coordinate, addressDictionary:nil))
+                        mapItem.name = "\(res.spot.address), \(res.spot.town), \(res.spot.state) \(res.spot.zipCode))"
+                        mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving])
+                        
+//                        NSLog("Can't use comgooglemaps://");
+//                        let alert = UIAlertController(title: "Spotbirdparking", message: "Can't use comgooglemaps://", preferredStyle: UIAlertControllerStyle.alert)
+//                        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+//                        self.present(alert, animated: true, completion: nil)
         
                     }
         
