@@ -2188,7 +2188,7 @@
                         <viewLayoutGuide key="safeArea" id="Kcz-IE-oF2"/>
                     </view>
                     <navigationItem key="navigationItem" title="Address" id="qJ2-5Q-eD9">
-                        <barButtonItem key="rightBarButtonItem" title="Photo" id="Nde-2w-6fV">
+                        <barButtonItem key="rightBarButtonItem" title="Next" id="Nde-2w-6fV">
                             <connections>
                                 <segue destination="UfM-dX-UED" kind="push" identifier="imageSegue" id="uwV-in-ENC"/>
                             </connections>
@@ -2327,7 +2327,7 @@
                         <viewLayoutGuide key="safeArea" id="Fmu-dj-NZl"/>
                     </view>
                     <navigationItem key="navigationItem" title="Description" id="wum-Va-6R5">
-                        <barButtonItem key="rightBarButtonItem" title="Schedule" id="NvT-lu-yUV">
+                        <barButtonItem key="rightBarButtonItem" title="Next" id="NvT-lu-yUV">
                             <connections>
                                 <segue destination="XIr-hW-WI5" kind="push" identifier="scheduleSegue" id="0Gv-mR-MDU"/>
                             </connections>

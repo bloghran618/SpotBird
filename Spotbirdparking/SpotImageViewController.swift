@@ -17,14 +17,14 @@ class SpotImageViewController: UIViewController, UITextViewDelegate, UIImagePick
     
     let defaultImage = "addButton"
     var spotImagePicker = UIImagePickerController()
-    let descriptionText = "Clearly explain how someone may park in your spot"
+    let descriptionText = "Clearly explain how someone will access your parking spot. This description be available only after the user pays for your parking spot. "
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        spotDescription.layer.borderWidth = 1.0
-        spotDescription.layer.borderColor = UIColor.lightGray.cgColor
-        spotDescription.layer.cornerRadius = 8
+//        spotDescription.layer.borderWidth = 1.0
+//        spotDescription.layer.borderColor = UIColor.lightGray.cgColor
+//        spotDescription.layer.cornerRadius = 8
         
         print(AppState.sharedInstance.activeSpot.address)
         print(AppState.sharedInstance.activeSpot.state)
