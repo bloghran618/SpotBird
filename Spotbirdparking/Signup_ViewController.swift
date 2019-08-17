@@ -120,6 +120,7 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
             ref.child("User").queryOrdered(byChild: "uname").queryEqual(toValue: txt_username.text)
                 .observeSingleEvent(of: .value, with: {(snapshot: DataSnapshot) in
                     
+                    // check if the username already exists
                     if snapshot.exists() {
                         Spinner.stop()
                         self.view.endEditing(true)
@@ -201,93 +202,93 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
     
     func save_newuser()
     {
-        let customerToken = MyAPIClient.sharedClient.createCustomerID()
-        print("asdf, yes we are creating an account token")
-        let accountToken = MyAPIClient.sharedClient.createAccountID()
-        print("qwer")
-        
-        
-        if (profilePhoto.image?.isEqual(UIImage(named: "logo")))!
-        {
-            self.refArtists = Database.database().reference().child("User");
-            let key = self.refArtists.childByAutoId().key
-            let newuser = ["id":key,
-                           "fname":self.txt_fname.text!,
-                           "lname":self.txt_lname.text!,
-                           "uname":self.txt_username.text!,
-                           "pass":self.txt_pass.text!,
-                           "image":"",
-                           "email":txt_email.text!,
-                           "customerToken": customerToken,
-                           "accountToken": accountToken]
-            print(newuser)
-            
-            self.refArtists.child(key!).setValue(newuser){
-                (error:Error?, ref:DatabaseReference) in
-                if let error = error {
-                    print("Data could not be saved: \(error).")
-                    Spinner.stop()
+        // create customer and account ID
+        MyAPIClient.sharedClient.createCustomerID() { message in
+            print("Created Customer ID")
+            MyAPIClient.sharedClient.createAccountID() { message in
+                print("Created Account ID")
+                
+                if (self.profilePhoto.image?.isEqual(UIImage(named: "logo")))!
+                {
+                    self.refArtists = Database.database().reference().child("User");
+                    let key = self.refArtists.childByAutoId().key
+                    let newuser = ["id":key,
+                                   "fname":self.txt_fname.text!,
+                                   "lname":self.txt_lname.text!,
+                                   "uname":self.txt_username.text!,
+                                   "pass":self.txt_pass.text!,
+                                   "image":"",
+                                   "email":self.txt_email.text!,
+                                   "customerToken": AppState.sharedInstance.user.customertoken,
+                                   "accountToken": AppState.sharedInstance.user.accounttoken
+                    ]
+                    print(newuser)
                     
-                } else {
-                    Spinner.stop()
-                    self.getlogin(id: key!)
-                    print("Data saved successfully!")
+                    self.refArtists.child(key!).setValue(newuser){
+                        (error:Error?, ref:DatabaseReference) in
+                        if let error = error {
+                            print("Data could not be saved: \(error).")
+                            Spinner.stop()
+                            
+                        } else {
+                            Spinner.stop()
+                            self.getlogin(id: key!)
+                            print("Data saved successfully!")
+                            
+                        }
+                    }
                     
                 }
-            }
-            
-        }
-        else {
-            
-            var imageReference: StorageReference {
-                return Storage.storage().reference().child("User/")
-            }
-            guard let imageData = UIImageJPEGRepresentation(profilePhoto.image!, 0.5) else { return }
-            let uploadImageRef = imageReference.child(randomStringWithLength(length: 5) as String)
-            
-            let uploadTask = uploadImageRef.putData(imageData, metadata: nil) { (metadata, error) in
-                print("UPLOAD TASK FINISHED")
-                print(metadata ?? "NO METADATA")
-                print(error ?? "NO ERROR")
-                
-                uploadImageRef.downloadURL(completion: { (url, error) in
-                    if let error = error {
-                        print(error.localizedDescription)
-                        return
+                else {
+                    
+                    var imageReference: StorageReference {
+                        return Storage.storage().reference().child("User/")
                     }
-                    if let url = url?.absoluteString {
-                        let fullURL = url
-                        print(fullURL)
-                        self.refArtists = Database.database().reference().child("User");
-                        let key = self.refArtists.childByAutoId().key
-                        let newuser = ["id":key,
-                                       "fname":self.txt_fname.text!,
-                                       "lname":self.txt_lname.text!,
-                                       "uname":self.txt_username.text!,
-                                       "pass":self.txt_pass.text!,
-                                       "image":fullURL,
-                                       "customerToken": customerToken,
-                                       "accountToken": accountToken]
-                        print(newuser)
-                        self.refArtists.child(key!).setValue(newuser){
-                            (error:Error?, ref:DatabaseReference) in
+                    guard let imageData = UIImageJPEGRepresentation(self.profilePhoto.image!, 0.5) else { return }
+                    let uploadImageRef = imageReference.child(self.randomStringWithLength(length: 5) as String)
+                    
+                    let uploadTask = uploadImageRef.putData(imageData, metadata: nil) { (metadata, error) in
+                        print("UPLOAD TASK FINISHED")
+                        print(metadata ?? "NO METADATA")
+                        print(error ?? "NO ERROR")
+                        
+                        uploadImageRef.downloadURL(completion: { (url, error) in
                             if let error = error {
-                                print("Data could not be saved: \(error).")
-                                Spinner.stop()
-                                
-                            } else {
-                                Spinner.stop()
-                                self.getlogin(id: key!)
-                                print("Data saved successfully!")
-                                
+                                print(error.localizedDescription)
+                                return
                             }
-                        }
-                        
-                        
+                            if let url = url?.absoluteString {
+                                let fullURL = url
+                                print(fullURL)
+                                self.refArtists = Database.database().reference().child("User");
+                                let key = self.refArtists.childByAutoId().key
+                                let newuser = ["id":key,
+                                               "fname":self.txt_fname.text!,
+                                               "lname":self.txt_lname.text!,
+                                               "uname":self.txt_username.text!,
+                                               "pass":self.txt_pass.text!,
+                                               "image":fullURL,
+                                               "customerToken": AppState.sharedInstance.user.customertoken,
+                                               "accountToken": AppState.sharedInstance.user.accounttoken]
+                                print(newuser)
+                                self.refArtists.child(key!).setValue(newuser){
+                                    (error:Error?, ref:DatabaseReference) in
+                                    if let error = error {
+                                        print("Data could not be saved: \(error).")
+                                        Spinner.stop()
+                                        
+                                    } else {
+                                        Spinner.stop()
+                                        self.getlogin(id: key!)
+                                        print("Data saved successfully!")
+                                        
+                                    }
+                                }
+                            }
+                        })
                     }
-                })
+                }
             }
-            
         }
     }
     
@@ -314,10 +315,10 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
                     logindata.setValue(snapshotValue.value(forKey: "lname") as!String, forKey: "lname")
                     
                     if snapshotValue.value(forKey: "image") != nil{
-                        logindata.setValue(snapshotValue.value(forKey: "image") as!String, forKey: "CustomerToken")
+                        logindata.setValue(snapshotValue.value(forKey: "image") as! String, forKey: "image")
                     }
-                    if snapshotValue.value(forKey: "CustomerToken") != nil{
-                        logindata.setValue(snapshotValue.value(forKey: "CustomerToken") as!String, forKey: "CustomerToken")
+                    if snapshotValue.value(forKey: "customerToken") != nil{
+                        logindata.setValue(snapshotValue.value(forKey: "customerToken") as!String, forKey: "customerToken")
                     }
                     if snapshotValue.value(forKey: "accountToken") != nil{
                         logindata.setValue(snapshotValue.value(forKey: "accountToken") as!String, forKey: "accountToken")

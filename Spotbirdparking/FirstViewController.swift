@@ -264,8 +264,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     
     func viewWillAppear(animated: Bool) {
         //debug:
-        MyAPIClient.sharedClient.createCustomerID()
-        MyAPIClient.sharedClient.createAccountID()
+//        MyAPIClient.sharedClient.createCustomerID()
+//        MyAPIClient.sharedClient.createAccountID()
         super.viewWillAppear(animated)
     }
     

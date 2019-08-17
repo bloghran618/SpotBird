@@ -115,7 +115,7 @@ class MyAPIClient: NSObject, STPEphemeralKeyProvider {
         print("API Version: \(apiVersion)")
         
         let customerID = AppState.sharedInstance.user.customertoken
-        print("CustomerToken: \(customerID)")
+        print("customerToken: \(customerID)")
         print("Last Name: \(AppState.sharedInstance.user.lastName)")
         let url = self.baseURL.appendingPathComponent("ephemeral_keys")
         print(url)
@@ -137,7 +137,7 @@ class MyAPIClient: NSObject, STPEphemeralKeyProvider {
     
     // Create a new customer ID in Stripe
     // run with MyAPIClient.sharedClient.createCustomerID()
-    func createCustomerID() -> String {
+    func createCustomerID(completionHandler: @escaping (_ message: String) -> ()) {
         print("Create Customer ID!!!")
         let url = self.baseURL.appendingPathComponent("customer_id")
         //        let url = baseURLString.appendingPathComponent("customer_id")
@@ -160,15 +160,18 @@ class MyAPIClient: NSObject, STPEphemeralKeyProvider {
                     let customer_id_from_flask = JSON["customer_id"] ?? ""
                     print("Customer ID: \(JSON["customer_id"] ?? "")")
                     // set Customer Token to flask value
-                    AppState.sharedInstance.user.setcustomerToken(customerToken: customer_id_from_flask as! String)
+                    print("User name: \(AppState.sharedInstance.user.firstName)")
+                    AppState.sharedInstance.user.customertoken = customer_id_from_flask as! String
+                    print("Appstate set.")
+                    completionHandler("Customer ID Success")
                 }
         }
-        return AppState.sharedInstance.user.customertoken
+//        return AppState.sharedInstance.user.customertoken
     }
     
     // Create a new account ID in Stripe
     // run with MyAPIClient.sharedClient.createAccountID()
-    func createAccountID() -> String {
+    func createAccountID(completionHandler: @escaping (_ message: String) -> ()) {
         print("Create Account ID!!!")
         let url = self.baseURL.appendingPathComponent("account_id")
         //        let url = baseURLString.appendingPathComponent("customer_id")
@@ -190,11 +193,12 @@ class MyAPIClient: NSObject, STPEphemeralKeyProvider {
                     print("Response: \(JSON)")
                     let account_id_from_flask = JSON["account_id"] ?? ""
                     print("Account ID: \(JSON["account_id"] ?? "")")
-                    // set Customer Token to flask value
-                    AppState.sharedInstance.user.setaccountToken(accountToken: account_id_from_flask as! String)
+                    // set Account Token to flask value
+                    AppState.sharedInstance.user.accounttoken = account_id_from_flask as! String
+                    completionHandler("Account ID Success")
                 }
         }
-        return AppState.sharedInstance.user.accounttoken
+//        return AppState.sharedInstance.user.accounttoken
     }
     
     // Add tokenized connect account info to the user Stripe account
