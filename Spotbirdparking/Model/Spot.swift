@@ -120,6 +120,8 @@ class Spot {
     
     func getSpots() {
         
+        print("We are getting the spots!!!")
+        
         print(AppState.sharedInstance.userid)
         
         self.refArtists = Database.database().reference().child("User").child(AppState.sharedInstance.userid).child("MySpots");
@@ -129,6 +131,7 @@ class Spot {
                 AppState.sharedInstance.spots.removeAll()
                 for artists in snapshot.children.allObjects as! [DataSnapshot] {
                     let snapshotValue = ((snapshot.value as! NSDictionary).value(forKey: (artists as! DataSnapshot).key)) as! NSDictionary
+                    
                     
                     print(snapshotValue)
                     
@@ -177,7 +180,7 @@ class Spot {
                                 approved:false, spotImages: UIImage.init(named: "white")!, spots_id: (artists ).key, latitude: dblat, longitude: dblongitude, spottype: snapshotValue.value(forKey: "spot_type") as! String, owner_id: snapshotValue.value(forKey: "owner_id") as! String, Email: snapshotValue.value(forKey: "Email") as? String ?? "", baseprice: snapshotValue.value(forKey: "basePricing") as! String)!)
                      }
                 
-                print(AppState.sharedInstance.spots.count)
+                print("The number of spots is: \(AppState.sharedInstance.spots.count)")
               }
             
         })

@@ -2587,17 +2587,18 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
 
             print("Amount to transfer: \(amount)")
             
-            let message = ("\(self.highlightedSpot.address) \(self.highlightedSpot.town), \(self.highlightedSpot.state) reserved. See active reservations in Reservations tab")
-            let title = "Success"
-            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            self.present(alert, animated: true)
+//            let message = ("\(self.highlightedSpot.address) \(self.highlightedSpot.town), \(self.highlightedSpot.state) reserved. See active reservations in Reservations tab")
+//            let title = "Success"
+//            let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+//            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+//            self.present(alert, animated: true)
             
             // pay owner
             MyAPIClient.sharedClient.completeTransfer(destination: destination, spotAmount: amount, spotID: self.highlightedSpot.spot_id, startDateTime: Reservation.dateToString(date: self.start_datepic.date)) {result in
                 
                 // handle the result of the transfer
                 if (result == "Success") {
+                    print("Success")
                     Spinner.stop()
                     let message = ("\(self.highlightedSpot.address) \(self.highlightedSpot.town), \(self.highlightedSpot.state) reserved. See active reservations in Reservations tab")
                     let title = "Success"

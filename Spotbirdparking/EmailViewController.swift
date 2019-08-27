@@ -33,6 +33,12 @@ class EmailViewController: UIViewController, UITextViewDelegate {
         
         // set the placeholder text color to match the messageTextView
         returnAddressTextField.attributedPlaceholder = NSAttributedString(string: "Return Email (Optional)", attributes: [NSAttributedString.Key.foregroundColor: UIColor.lightGray])
+        
+        // return address field populated if possible from logindata
+        let email = (UserDefaults.standard.value(forKey: "logindata") as! NSDictionary).value(forKey: "email") as? String ?? ""
+        if (email != "") {
+            returnAddressTextField.text = email
+        }
     }
     
     // start editing the text view

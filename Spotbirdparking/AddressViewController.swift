@@ -15,6 +15,7 @@ import Photos
 import GooglePlaces
 import GooglePlacePicker
 import GooglePlaces
+import Firebase
 
 
 class AddressViewController: UIViewController, UITextFieldDelegate,CLLocationManagerDelegate,GMSMapViewDelegate,GMSAutocompleteViewControllerDelegate{
@@ -38,6 +39,10 @@ class AddressViewController: UIViewController, UITextFieldDelegate,CLLocationMan
     let CurrentLocMarker = GMSMarker()
     var spotcamera = false
     var type = ""
+    
+    // Spots variables
+    var spots = [Spot]()
+    var spotsLoaded = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -106,6 +111,13 @@ class AddressViewController: UIViewController, UITextFieldDelegate,CLLocationMan
         }
         
     }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        self.getAllSpots()
+    }
+    
     
     func borders(button:UIButton){
         button.layer.cornerRadius = 5
@@ -195,6 +207,70 @@ class AddressViewController: UIViewController, UITextFieldDelegate,CLLocationMan
         
         let emailTest = NSPredicate(format:"SELF MATCHES %@", emailRegEx)
         return emailTest.evaluate(with: testStr)
+    }
+    
+    func getAllSpots(){
+        
+        // reference database
+        let ref = Database.database().reference().child("All_Spots")
+        ref.observe(DataEventType.value, with: { (snapshot) in
+            for artists in snapshot.children.allObjects as! [DataSnapshot] {
+//                print("The artists is: \(artists)")
+                let snapshotValue = snapshot.value as! NSDictionary
+                let dictdata = ((snapshot.value as! NSDictionary).value(forKey: (artists as! DataSnapshot).key)) as! NSDictionary
+                for(key, spot) in dictdata {
+                    // get each public spot
+                    print("The spot as a dict is: \(spot)")
+                    self.spots.append(Spot(
+                        address: (spot as! NSDictionary).value(forKey: "address") as! String,
+                        town: (spot as! NSDictionary).value(forKey: "city") as! String,
+                        state: (spot as! NSDictionary).value(forKey: "state") as! String,
+                        zipCode: (spot as! NSDictionary).value(forKey: "zipcode") as! String,
+                        spotImage: "", description: "", monStartTime: "", monEndTime: "", tueStartTime: "", tueEndTime: "", wedStartTime: "", wedEndTime: "", thuStartTime: "", thuEndTime: "", friStartTime: "", friEndTime: "", satStartTime: "", satEndTime: "", sunStartTime: "", sunEndTime: "", monOn: false, tueOn: false, wedOn: false, thuOn: false, friOn: false, satOn: false, sunOn: false, hourlyPricing: "", dailyPricing: "", weeklyPricing: "", monthlyPricing: "", weeklyOn: false, monthlyOn: false, index: 0, approved: false, spotImages: UIImage(named: "white")!, spots_id: "", latitude: "", longitude: "", spottype: "", owner_id: "", Email: "", baseprice: "")!)
+                }
+            }
+            self.spotsLoaded = true
+        })
+    }
+    
+    // User clicks "Next", check that there is a spot and it is not already listed
+    @IBAction func NextButtonClicked(_ sender: Any) {
+        
+        // check if there is an active spot
+        if (AppState.sharedInstance.activeSpot.address == "") {
+            // present an alert to the user to let them know they did not select a spot
+            let alert = UIAlertController(title: "No Spot", message: "Please use the 'Search Google Maps' bar to find a spot", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true)
+        }
+        else {
+            var doesSpotExist = false
+            
+            // check if the active spot address matches with any existing spots in the database
+            print("Number Spots: \n\n\(self.spots.count)")
+            for spot in self.spots {
+                print("Spot.address: \(spot.address)")
+                print("Spot.town: \(spot.town)")
+                if (AppState.sharedInstance.activeSpot.address == spot.address &&
+                    AppState.sharedInstance.activeSpot.town == spot.town &&
+                    AppState.sharedInstance.activeSpot.zipCode == spot.zipCode) &&
+                    AppState.sharedInstance.activeSpot.state == spot.state {
+                    
+                    doesSpotExist = true
+                }
+            }
+            
+            if doesSpotExist {
+                // present an alert to the user to let them know the spot exists
+                let alert = UIAlertController(title: "Spot Exists", message: "This spot already exists in our database, please list a new spot", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true)
+            }
+            else {
+                // if the spot does not exist, go to the next screen
+                self.performSegue(withIdentifier: "provideImageSegue", sender: self)
+            }
+        }
     }
 }
 

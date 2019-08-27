@@ -1077,7 +1077,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set Default?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lVA-pG-SwB">
-                                <rect key="frame" x="161.5" y="368" width="91" height="20"/>
+                                <rect key="frame" x="160" y="368" width="94" height="20"/>
                                 <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -2011,7 +2011,7 @@
                                         </connections>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Specify your spot type:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pIv-bN-fjT">
-                                        <rect key="frame" x="113.5" y="44" width="173.5" height="20"/>
+                                        <rect key="frame" x="112" y="44" width="176" height="20"/>
                                         <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -2190,7 +2190,7 @@
                     <navigationItem key="navigationItem" title="Address" id="qJ2-5Q-eD9">
                         <barButtonItem key="rightBarButtonItem" title="Next" id="Nde-2w-6fV">
                             <connections>
-                                <segue destination="UfM-dX-UED" kind="push" identifier="imageSegue" id="uwV-in-ENC"/>
+                                <action selector="NextButtonClicked:" destination="ely-Xp-6Le" id="Aqf-Uy-VJh"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -2205,6 +2205,7 @@
                         <outlet property="txt_email" destination="5ET-0P-vZU" id="ImO-Nh-Lpt"/>
                         <outlet property="view_btm" destination="zVf-4X-dpv" id="lJg-Fy-Oca"/>
                         <outlet property="view_types" destination="WdS-K0-8K6" id="oTV-Dh-45A"/>
+                        <segue destination="UfM-dX-UED" kind="push" identifier="provideImageSegue" id="jR0-3e-SFw"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cVV-tE-bXR" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2695,7 +2696,7 @@
                         <viewLayoutGuide key="safeArea" id="VYx-Gp-vQa"/>
                     </view>
                     <navigationItem key="navigationItem" title="Schedule" id="VoD-QZ-Vcz">
-                        <barButtonItem key="rightBarButtonItem" title="Pricing" id="wDc-IT-1mb" userLabel="Pricing">
+                        <barButtonItem key="rightBarButtonItem" title="Next" id="wDc-IT-1mb" userLabel="Pricing">
                             <connections>
                                 <segue destination="cxN-3o-dLD" kind="push" identifier="priceSegue" id="0Bx-b6-QQL"/>
                             </connections>

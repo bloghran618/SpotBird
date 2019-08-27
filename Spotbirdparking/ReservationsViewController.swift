@@ -376,8 +376,15 @@ extension ReservationsViewController: UITableViewDelegate, UITableViewDataSource
         
         spotlatitude =  (res.spot.latitude as NSString).doubleValue
         spotlongitude = (res.spot.longitude as NSString).doubleValue
-        
         SpotDetails = res.spot.address
+        
+        // get spot info for Google maps and format it for Maps universal links
+        let spotAddress = res.spot.address as! String
+        let formattedSpotAddress = spotAddress.replacingOccurrences(of: " ", with: "+")
+        let spotTown = res.spot.town as! String
+        let formattedSpotTown = spotTown.replacingOccurrences(of: " ", with: "+")
+        let spotState = res.spot.state as! String
+        let formattedSpotState = spotState.replacingOccurrences(of: " ", with: "+")
         
         self.Spot_cooridnates = CLLocationCoordinate2DMake(self.spotlatitude,self.spotlongitude)
 //        self.mapView.delegate = self
@@ -392,8 +399,10 @@ extension ReservationsViewController: UITableViewDelegate, UITableViewDataSource
 //        self.mapView.settings.myLocationButton = true
         
                     if (UIApplication.shared.canOpenURL(NSURL(string:"comgooglemaps://")! as URL)) {
+//                        UIApplication.shared.openURL(NSURL(string:
+//                            "comgooglemaps://?saddr=&daddr=\(self.spotlatitude),\(self.spotlongitude)&directionsmode=driving")! as URL)
                         UIApplication.shared.openURL(NSURL(string:
-                            "comgooglemaps://?saddr=&daddr=\(self.spotlatitude),\(self.spotlongitude)&directionsmode=driving")! as URL)
+                            "comgooglemaps://?saddr=&daddr=\(formattedSpotAddress),\(formattedSpotTown),\(formattedSpotState)&directionsmode=driving")! as URL)
         
                     }
                     else {
