@@ -844,6 +844,5 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate{
         sunStartTime.isEnabled = true
         sunEndTime.isEnabled = true
     }
-    
-    
+
 }
