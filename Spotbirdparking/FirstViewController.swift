@@ -694,7 +694,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                 
                                 let statCur = self.dateWithHour(hour:calcheck.component(.hour, from: self.start_date!), minute: 00, second: 00, date: self.start_date!)!
                                 let endCur = self.dateWithHour(hour:calcheck.component(.hour, from:self.end_date!), minute: 00, second: 00, date: self.end_date!)!
-                                let statCheck = self.dateWithHour(hour:22, minute: 00, second: 00, date: self.start_date!)!
+                                let statCheck = self.dateWithHour(hour:23, minute: 59, second: 59, date: self.start_date!)!
                                 if statCheck.isSmallerThan(statCur) || statCheck == statCur
                                 {
                                     print("true")
@@ -826,7 +826,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                 
                                 let statCur = self.dateWithHour(hour:calcheck.component(.hour, from: self.start_date!), minute: 00, second: 00, date: self.start_date!)!
                                 let endCur = self.dateWithHour(hour:calcheck.component(.hour, from:self.end_date!), minute: 00, second: 00, date: self.end_date!)!
-                                let statCheck = self.dateWithHour(hour:22, minute: 00, second: 00, date: self.start_date!)!
+                                let statCheck = self.dateWithHour(hour:23, minute: 59, second: 59, date: self.start_date!)!
                                 if statCheck.isSmallerThan(statCur) || statCheck == statCur
                                 {
                                     print("true")
@@ -933,7 +933,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                 
                                 let statCur = self.dateWithHour(hour:calcheck.component(.hour, from: self.start_date!), minute: 00, second: 00, date: self.start_date!)!
                                 let endCur = self.dateWithHour(hour:calcheck.component(.hour, from:self.end_date!), minute: 00, second: 00, date: self.end_date!)!
-                                let statCheck = self.dateWithHour(hour:22, minute: 00, second: 00, date: self.start_date!)!
+                                let statCheck = self.dateWithHour(hour:23, minute: 59, second: 59, date: self.start_date!)!
                                 if statCheck.isSmallerThan(statCur) || statCheck == statCur
                                 {
                                     print("true")
@@ -1040,7 +1040,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                 
                                 let statCur = self.dateWithHour(hour:calcheck.component(.hour, from: self.start_date!), minute: 00, second: 00, date: self.start_date!)!
                                 let endCur = self.dateWithHour(hour:calcheck.component(.hour, from:self.end_date!), minute: 00, second: 00, date: self.end_date!)!
-                                let statCheck = self.dateWithHour(hour:22, minute: 00, second: 00, date: self.start_date!)!
+                                let statCheck = self.dateWithHour(hour:23, minute: 59, second: 59, date: self.start_date!)!
                                 if statCheck.isSmallerThan(statCur) || statCheck == statCur
                                 {
                                     print("true")
@@ -1149,7 +1149,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                 
                                 let statCur = self.dateWithHour(hour:calcheck.component(.hour, from: self.start_date!), minute: 00, second: 00, date: self.start_date!)!
                                 let endCur = self.dateWithHour(hour:calcheck.component(.hour, from:self.end_date!), minute: 00, second: 00, date: self.end_date!)!
-                                let statCheck = self.dateWithHour(hour:22, minute: 00, second: 00, date: self.start_date!)!
+                                let statCheck = self.dateWithHour(hour:23, minute: 59, second: 59, date: self.start_date!)!
                                 if statCheck.isSmallerThan(statCur) || statCheck == statCur
                                 {
                                     print("true")
@@ -1256,7 +1256,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                 
                                 let statCur = self.dateWithHour(hour:calcheck.component(.hour, from: self.start_date!), minute: 00, second: 00, date: self.start_date!)!
                                 let endCur = self.dateWithHour(hour:calcheck.component(.hour, from:self.end_date!), minute: 00, second: 00, date: self.end_date!)!
-                                let statCheck = self.dateWithHour(hour:22, minute: 00, second: 00, date: self.start_date!)!
+                                let statCheck = self.dateWithHour(hour:23, minute: 59, second: 59, date: self.start_date!)!
                                 if statCheck.isSmallerThan(statCur) || statCheck == statCur
                                 {
                                     print("true")
@@ -1362,7 +1362,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                 
                                 let statCur = self.dateWithHour(hour:calcheck.component(.hour, from: self.start_date!), minute: 00, second: 00, date: self.start_date!)!
                                 let endCur = self.dateWithHour(hour:calcheck.component(.hour, from:self.end_date!), minute: 00, second: 00, date: self.end_date!)!
-                                let statCheck = self.dateWithHour(hour:22, minute: 00, second: 00, date: self.start_date!)!
+                                let statCheck = self.dateWithHour(hour:23, minute: 59, second: 59, date: self.start_date!)!
                                 if statCheck.isSmallerThan(statCur) || statCheck == statCur
                                 {
                                     print("true")
@@ -3094,7 +3094,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     formatter.dateFormat = "MMM dd h a"
                                     let statCur = self.dateWithHour(hour:calcheck.component(.hour, from: self.start_date!), minute: 00, second: 00, date: self.start_date!)!
                                     let endCur = self.dateWithHour(hour:calcheck.component(.hour, from:self.end_date!), minute: 00, second: 00, date: self.end_date!)!
-                                    let statCheck = self.dateWithHour(hour:22, minute: 00, second: 00, date: self.start_date!)!
+                                    let statCheck = self.dateWithHour(hour:23, minute: 59, second: 59, date: self.start_date!)!
                                     if statCheck.isSmallerThan(statCur) || statCheck == statCur
                                     {
                                         print("true")
@@ -3205,7 +3205,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     print(dateDay2!)
                                     print(endCur)
                                     
-                                    let statCheck = self.dateWithHour(hour:22, minute: 00, second: 00, date: self.start_date!)!
+                                    let statCheck = self.dateWithHour(hour:23, minute: 59, second: 59, date: self.start_date!)!
                                     if statCheck.isSmallerThan(statCur) || statCheck == statCur
                                     {
                                         print("true")
@@ -3286,7 +3286,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     formatter.dateFormat = "MMM dd h a"
                                     let statCur = self.dateWithHour(hour:calcheck.component(.hour, from: self.start_date!), minute: 00, second: 00, date: self.start_date!)!
                                     let endCur = self.dateWithHour(hour:calcheck.component(.hour, from:self.end_date!), minute: 00, second: 00, date: self.end_date!)!
-                                    let statCheck = self.dateWithHour(hour:22, minute: 00, second: 00, date: self.start_date!)!
+                                    let statCheck = self.dateWithHour(hour:23, minute: 59, second: 59, date: self.start_date!)!
                                     if statCheck.isSmallerThan(statCur) || statCheck == statCur
                                     {
                                         print("true")
@@ -3392,7 +3392,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     formatter.dateFormat = "MMM dd h a"
                                     let statCur = self.dateWithHour(hour:calcheck.component(.hour, from: self.start_date!), minute: 00, second: 00, date: self.start_date!)!
                                     let endCur = self.dateWithHour(hour:calcheck.component(.hour, from:self.end_date!), minute: 00, second: 00, date: self.end_date!)!
-                                    let statCheck = self.dateWithHour(hour:22, minute: 00, second: 00, date: self.start_date!)!
+                                    let statCheck = self.dateWithHour(hour:23, minute: 59, second: 59, date: self.start_date!)!
                                     if statCheck.isSmallerThan(statCur) || statCheck == statCur
                                     {
                                         print("true")
@@ -3495,7 +3495,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     formatter.dateFormat = "MMM dd h a"
                                     let statCur = self.dateWithHour(hour:calcheck.component(.hour, from: self.start_date!), minute: 00, second: 00, date: self.start_date!)!
                                     let endCur = self.dateWithHour(hour:calcheck.component(.hour, from:self.end_date!), minute: 00, second: 00, date: self.end_date!)!
-                                    let statCheck = self.dateWithHour(hour:22, minute: 00, second: 00, date: self.start_date!)!
+                                    let statCheck = self.dateWithHour(hour:23, minute: 59, second: 59, date: self.start_date!)!
                                     if statCheck.isSmallerThan(statCur) || statCheck == statCur
                                     {
                                         print("true")
@@ -3598,7 +3598,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     formatter.dateFormat = "MMM dd h a"
                                     let statCur = self.dateWithHour(hour:calcheck.component(.hour, from: self.start_date!), minute: 00, second: 00, date: self.start_date!)!
                                     let endCur = self.dateWithHour(hour:calcheck.component(.hour, from:self.end_date!), minute: 00, second: 00, date: self.end_date!)!
-                                    let statCheck = self.dateWithHour(hour:22, minute: 00, second: 00, date: self.start_date!)!
+                                    let statCheck = self.dateWithHour(hour:23, minute: 59, second: 59, date: self.start_date!)!
                                     if statCheck.isSmallerThan(statCur) || statCheck == statCur
                                     {
                                         print("true")
@@ -3702,7 +3702,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     formatter.dateFormat = "MMM dd h a"
                                     let statCur = self.dateWithHour(hour:calcheck.component(.hour, from: self.start_date!), minute: 00, second: 00, date: self.start_date!)!
                                     let endCur = self.dateWithHour(hour:calcheck.component(.hour, from:self.end_date!), minute: 00, second: 00, date: self.end_date!)!
-                                    let statCheck = self.dateWithHour(hour:22, minute: 00, second: 00, date: self.start_date!)!
+                                    let statCheck = self.dateWithHour(hour:23, minute: 59, second: 59, date: self.start_date!)!
                                     if statCheck.isSmallerThan(statCur) || statCheck == statCur
                                     {
                                         print("true")
