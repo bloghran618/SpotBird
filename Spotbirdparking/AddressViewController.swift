@@ -44,6 +44,9 @@ class AddressViewController: UIViewController, UITextFieldDelegate,CLLocationMan
     var spots = [Spot]()
     var spotsLoaded = false
     
+    // boolean to check if we are editing a spot or addding a spot
+    var editMode = true
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -110,6 +113,18 @@ class AddressViewController: UIViewController, UITextFieldDelegate,CLLocationMan
             bnt4.setImage(UIImage.init(named: "drivewayParkingSelected"), for: .normal)
         }
         
+        // check if we are in edit mode or add mode
+        if (AppState.sharedInstance.activeSpot.longitude == "0" && AppState.sharedInstance.activeSpot.latitude == "0") {
+            editMode = false
+        }
+        else {
+            editMode = true
+        }
+        
+        // update "Search Google Maps" banner if in edit mode
+        if (editMode) {
+            self.btn_searchADD.setTitle("\(AppState.sharedInstance.activeSpot.address)", for: .normal)
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -246,17 +261,19 @@ class AddressViewController: UIViewController, UITextFieldDelegate,CLLocationMan
         else {
             var doesSpotExist = false
             
-            // check if the active spot address matches with any existing spots in the database
-            print("Number Spots: \n\n\(self.spots.count)")
-            for spot in self.spots {
-                print("Spot.address: \(spot.address)")
-                print("Spot.town: \(spot.town)")
-                if (AppState.sharedInstance.activeSpot.address == spot.address &&
-                    AppState.sharedInstance.activeSpot.town == spot.town &&
-                    AppState.sharedInstance.activeSpot.zipCode == spot.zipCode) &&
-                    AppState.sharedInstance.activeSpot.state == spot.state {
-                    
-                    doesSpotExist = true
+            if (!self.editMode) {
+                // check if the active spot address matches with any existing spots in the database
+                print("Number Spots: \n\n\(self.spots.count)")
+                for spot in self.spots {
+                    print("Spot.address: \(spot.address)")
+                    print("Spot.town: \(spot.town)")
+                    if (AppState.sharedInstance.activeSpot.address == spot.address &&
+                        AppState.sharedInstance.activeSpot.town == spot.town &&
+                        AppState.sharedInstance.activeSpot.zipCode == spot.zipCode) &&
+                        AppState.sharedInstance.activeSpot.state == spot.state {
+                        
+                        doesSpotExist = true
+                    }
                 }
             }
             

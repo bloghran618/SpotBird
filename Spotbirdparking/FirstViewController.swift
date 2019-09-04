@@ -2516,17 +2516,22 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
 //                sleep(4)
                 
                 // pay us
-                print("we are getting paid")
+                print("we are getting paizd")
                 self.setPaymentContext(price: amount)
                 print("The payment context has been set")
                 Spinner.stop()
-                self.paymentContext.requestPayment()
+                print("About to request payment")
+                do {
+                    try self.paymentContext.requestPayment()
+                    print("payment successfully requested")
+                } catch {
+                    print("there was a failure, but we caught it...")
+                }
                 
                 // if payment is successful we will initiate transfer and setting reservations
                 // see paymentContext didFinishWith ()
                     
             }
-            
         }
     }
     
