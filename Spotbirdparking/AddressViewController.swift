@@ -372,8 +372,11 @@ extension AddressViewController {
                     print(address)
                     
                     if AppState.sharedInstance.activeSpot.zipCode == ""{
-                        
+                       if (address.postalCode != nil)
+                       {
+                        print(address.postalCode as Any)
                         AppState.sharedInstance.activeSpot.zipCode = address.postalCode!
+                        }
                     }
                     let lines = address.lines! as [String]
                     if address.thoroughfare == nil{

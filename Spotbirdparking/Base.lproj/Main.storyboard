@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="SAM-dI-GZ6">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="SAM-dI-GZ6">
     <device id="retina6_1" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -1077,7 +1077,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set Default?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lVA-pG-SwB">
-                                <rect key="frame" x="160" y="368" width="94" height="20"/>
+                                <rect key="frame" x="161.5" y="368" width="91" height="20"/>
                                 <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -3205,14 +3205,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo" translatesAutoresizingMaskIntoConstraints="NO" id="7S8-wz-E3k">
-                                <rect key="frame" x="112" y="133" width="189" height="150"/>
+                                <rect key="frame" x="112" y="133" width="150" height="150"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="MT6-gf-Ugo"/>
                                     <constraint firstAttribute="height" constant="150" id="Uf9-ZB-2dF"/>
                                 </constraints>
                             </imageView>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="First Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9JS-YT-h5R">
-                                <rect key="frame" x="26" y="300" width="362" height="40"/>
+                                <rect key="frame" x="26" y="300" width="323" height="40"/>
                                 <color key="tintColor" red="1" green="1" blue="1" alpha="0.82916845029999997" colorSpace="custom" customColorSpace="displayP3"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="Ztg-l3-fGY"/>
@@ -3222,7 +3222,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Password" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kXT-zw-jgD">
-                                <rect key="frame" x="26" y="493" width="362" height="40"/>
+                                <rect key="frame" x="26" y="493" width="323" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="CIP-Ag-wCM"/>
                                 </constraints>
@@ -3231,7 +3231,7 @@
                                 <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                             </textField>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fxk-5S-wcu">
-                                <rect key="frame" x="26" y="591" width="362" height="35"/>
+                                <rect key="frame" x="26" y="591" width="323" height="35"/>
                                 <color key="backgroundColor" red="0.38823529410000002" green="0.73725490199999999" blue="0.43529411759999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="KlF-qk-GW0"/>
@@ -3246,7 +3246,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sCU-Tg-M00">
-                                <rect key="frame" x="26" y="548" width="362" height="35"/>
+                                <rect key="frame" x="26" y="548" width="323" height="35"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="35" id="CE2-L9-JiV"/>
@@ -3261,7 +3261,7 @@
                                 </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Last Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="DIi-A3-BOo">
-                                <rect key="frame" x="26" y="348" width="362" height="40"/>
+                                <rect key="frame" x="26" y="348" width="323" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="Kv4-2M-Rxr"/>
                                 </constraints>
@@ -3270,7 +3270,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="IFc-tC-lZb">
-                                <rect key="frame" x="26" y="396" width="362" height="40"/>
+                                <rect key="frame" x="26" y="396" width="323" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="jEc-fx-tPj"/>
                                 </constraints>
@@ -3279,7 +3279,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="User Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6ac-Pg-iZC">
-                                <rect key="frame" x="27" y="444" width="362" height="40"/>
+                                <rect key="frame" x="27" y="444" width="323" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="RbQ-ZD-9CB"/>
                                 </constraints>
@@ -3288,7 +3288,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="spotbirdname" translatesAutoresizingMaskIntoConstraints="NO" id="n1h-I6-msb">
-                                <rect key="frame" x="47" y="58" width="322" height="67"/>
+                                <rect key="frame" x="47" y="58" width="283" height="67"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="67" id="G8y-hJ-bGu"/>
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="67" id="NmA-Mg-ciD"/>
@@ -3345,20 +3345,20 @@
     </scenes>
     <resources>
         <image name="Back" width="263" height="263"/>
-        <image name="EmptyProfile" width="552" height="552"/>
-        <image name="Profile" width="37" height="37"/>
+        <image name="EmptyProfile" width="552.5" height="552.5"/>
+        <image name="Profile" width="37.5" height="37.5"/>
         <image name="Reservations" width="25" height="25"/>
         <image name="addButton" width="376" height="379"/>
-        <image name="cal_new" width="25" height="23"/>
+        <image name="cal_new" width="25" height="23.5"/>
         <image name="drivewayParking" width="237" height="237"/>
         <image name="emptySpot" width="237" height="237"/>
         <image name="garageParking" width="237" height="237"/>
-        <image name="logo" width="533" height="495"/>
+        <image name="logo" width="533.5" height="495.5"/>
         <image name="lotParking" width="237" height="237"/>
-        <image name="search_new" width="22" height="22"/>
-        <image name="spotbirdname" width="1055" height="392"/>
+        <image name="search_new" width="22.5" height="22.5"/>
+        <image name="spotbirdname" width="1055" height="392.5"/>
         <image name="streetParking" width="237" height="237"/>
-        <image name="walkingIcon" width="112" height="112"/>
+        <image name="walkingIcon" width="112.5" height="112.5"/>
         <image name="xbutton" width="263" height="263"/>
     </resources>
     <inferredMetricsTieBreakers>

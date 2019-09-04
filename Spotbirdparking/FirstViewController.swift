@@ -758,7 +758,6 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                         }
                                     }
                                 }
-                                
                                 //                                if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
                                 //                                    var isReservarion = false
                                 //                                    for dict in arrCurrentRes
