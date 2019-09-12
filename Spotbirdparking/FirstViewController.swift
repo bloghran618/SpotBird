@@ -738,7 +738,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     }
                                 }else
                                 {
-                                    if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
+                                    if  dateDay2!.isGreaterThan(endCur){
                                         var isReservarion = false
                                         for dict in arrCurrentRes
                                         {
@@ -762,7 +762,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                         }
                                     }
                                 }
-                                //                                if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
+                                //                                if  dateDay2!.isGreaterThan(endCur){
                                 //                                    var isReservarion = false
                                 //                                    for dict in arrCurrentRes
                                 //                                    {
@@ -870,7 +870,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     }
                                 }else
                                 {
-                                    if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
+                                    if  dateDay2!.isGreaterThan(endCur){
                                         var isReservarion = false
                                         for dict in arrCurrentRes
                                         {
@@ -895,7 +895,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     }
                                 }
                                 
-                                //                                if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
+                                //                                if  dateDay2!.isGreaterThan(endCur){
                                 //                                    var isReservarion = false
                                 //                                    for dict in arrCurrentRes
                                 //                                    {
@@ -937,6 +937,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                 
                                 let statCur = self.dateWithHour(hour:calcheck.component(.hour, from: self.start_date!), minute: 00, second: 00, date: self.start_date!)!
                                 let endCur = self.dateWithHour(hour:calcheck.component(.hour, from:self.end_date!), minute: 00, second: 00, date: self.end_date!)!
+                                
                                 let statCheck = self.dateWithHour(hour:23, minute: 59, second: 59, date: self.start_date!)!
                                 if statCheck.isSmallerThan(statCur) || statCheck == statCur
                                 {
@@ -977,7 +978,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     }
                                 }else
                                 {
-                                    if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
+                                    if  dateDay2!.isGreaterThan(endCur){
                                         var isReservarion = false
                                         for dict in arrCurrentRes
                                         {
@@ -1002,7 +1003,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     }
                                 }
                                 
-                                //                                if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
+                                //                                if  dateDay2!.isGreaterThan(endCur){
                                 //                                    var isReservarion = false
                                 //                                    for dict in arrCurrentRes
                                 //                                    {
@@ -1084,7 +1085,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     }
                                 }else
                                 {
-                                    if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
+                                    if  dateDay2!.isGreaterThan(endCur){
                                         var isReservarion = false
                                         for dict in arrCurrentRes
                                         {
@@ -1109,7 +1110,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     }
                                 }
                                 
-                                //                                if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
+                                //                                if  dateDay2!.isGreaterThan(endCur){
                                 //                                    var isReservarion = false
                                 //                                    for dict in arrCurrentRes
                                 //                                    {
@@ -1139,11 +1140,10 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                     //MARK:- Thusday Loop
                     if arr_day[j] == "Thursday" {
                         
-                        if (self.arrAllspot.object(at: i) as! NSDictionary).value(forKey: "thuswitch") as! Bool == true{
-                            
+                        if (self.arrAllspot.object(at: i) as! NSDictionary).value(forKey: "thuswitch") as! Bool == true
+                        {
                             let arrThu = datedaydict.value(forKey: "Thursday") as! NSArray
                             for m in 0..<arrThu.count{
-                                
                                 let spotStart_times = "\(str) \(dict_spot.value(forKey: "thuStartTime") as! String)"
                                 let spotEnd_times = "\(str) \(dict_spot.value(forKey: "thuEndTime") as! String)"
                                 formatter.dateFormat = "yyyy-MM-dd h:mm a"
@@ -1186,14 +1186,15 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                                     }
                                                 }
                                             }
-                                            if isReservarion == false{
+                                            if isReservarion == false
+                                            {
                                                 self.arr_search_spot.add(self.arrAllspot.object(at: i))
                                             }
                                         }
                                     }
                                 }else
                                 {
-                                    if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
+                                    if dateDay2!.isGreaterThan(endCur){
                                         var isReservarion = false
                                         for dict in arrCurrentRes
                                         {
@@ -1217,8 +1218,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                         }
                                     }
                                 }
-                                
-                                //                                if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
+                                //                                if  dateDay2!.isGreaterThan(endCur){
                                 //                                    var isReservarion = false
                                 //                                    for dict in arrCurrentRes
                                 //                                    {
@@ -1300,7 +1300,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     }
                                 }else
                                 {
-                                    if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
+                                    if  dateDay2!.isGreaterThan(endCur){
                                         var isReservarion = false
                                         for dict in arrCurrentRes
                                         {
@@ -1325,7 +1325,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     }
                                 }
                                 
-                                //                                if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
+                                //                                if  dateDay2!.isGreaterThan(endCur){
                                 //                                    var isReservarion = false
                                 //                                    for dict in arrCurrentRes
                                 //                                    {
@@ -1406,7 +1406,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     }
                                 }else
                                 {
-                                    if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
+                                    if  dateDay2!.isGreaterThan(endCur){
                                         var isReservarion = false
                                         for dict in arrCurrentRes
                                         {
@@ -1431,7 +1431,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     }
                                 }
                                 
-                                //                                if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
+                                //                                if  dateDay2!.isGreaterThan(endCur){
                                 //                                    var isReservarion = false
                                 //                                    for dict in arrCurrentRes
                                 //                                    {
@@ -3144,7 +3144,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     }
                                     else
                                     {
-                                        if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
+                                        if  dateDay2!.isGreaterThan(endCur){
                                             var isReservarion = false
                                             for dict in arrCurrentRes
                                             {
@@ -3172,7 +3172,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                             //                                        }
                                         }
                                     }
-                                    //                                    if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
+                                    //                                    if  dateDay2!.isGreaterThan(endCur){
                                     //                                        var isReservarion = false
                                     //                                        for dict in arrCurrentRes
                                     //                                        {
@@ -3254,7 +3254,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                         }
                                     }else
                                     {
-                                        if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
+                                        if  dateDay2!.isGreaterThan(endCur){
                                             var isReservarion = false
                                             for dict in arrCurrentRes
                                             {
@@ -3335,7 +3335,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                         }
                                     }else
                                     {
-                                        if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
+                                        if  dateDay2!.isGreaterThan(endCur){
                                             var isReservarion = false
                                             for dict in arrCurrentRes
                                             {
@@ -3364,7 +3364,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                         }
                                     }
                                     
-                                    //                                    if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
+                                    //                                    if  dateDay2!.isGreaterThan(endCur){
                                     //                                        var isReservarion = false
                                     //                                        for dict in arrCurrentRes
                                     //                                        {
@@ -3441,7 +3441,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                         }
                                     }else
                                     {
-                                        if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
+                                        if  dateDay2!.isGreaterThan(endCur){
                                             var isReservarion = false
                                             for dict in arrCurrentRes
                                             {
@@ -3466,7 +3466,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                         }
                                     }
                                     
-                                    //                                    if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
+                                    //                                    if  dateDay2!.isGreaterThan(endCur){
                                     //                                        var isReservarion = false
                                     //                                         for dict in arrCurrentRes
                                     //                                         {
@@ -3516,7 +3516,6 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                         formatter.dateFormat = "MMM dd h a"
                                         if dateeDay1 != nil || dateeDay2 != nil
                                         {
-                                            
                                             if dateeDay1!.isSmallerThan(endCur) && dateeDay2!.isSmallerThan(endCur)
                                             {
                                                 var isReservarion = false
@@ -3544,7 +3543,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                         }
                                     }else
                                     {
-                                        if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
+                                        if dateDay2!.isGreaterThan(endCur){
                                             var isReservarion = false
                                             for dict in arrCurrentRes
                                             {
@@ -3569,7 +3568,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                         }
                                     }
                                     
-                                    //                                    if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
+                                    //                                    if  dateDay2!.isGreaterThan(endCur){
                                     //                                        var isReservarion = false
                                     //                                        for dict in arrCurrentRes
                                     //                                        {
@@ -3647,7 +3646,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                         }
                                     }else
                                     {
-                                        if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
+                                        if  dateDay2!.isGreaterThan(endCur){
                                             var isReservarion = false
                                             for dict in arrCurrentRes
                                             {
@@ -3671,7 +3670,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                             }
                                         }
                                     }
-                                    //                                    if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
+                                    //                                    if  dateDay2!.isGreaterThan(endCur){
                                     //                                        var isReservarion = false
                                     //                                        for dict in arrCurrentRes
                                     //                                        {
@@ -3751,7 +3750,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                         }
                                     }else
                                     {
-                                        if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
+                                        if  dateDay2!.isGreaterThan(endCur){
                                             var isReservarion = false
                                             for dict in arrCurrentRes
                                             {
@@ -3776,7 +3775,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                         }
                                     }
                                     
-                                    //                                    if dateDay1!.isSmallerThan(statCur) && dateDay2!.isGreaterThan(endCur){
+                                    //                                    if  dateDay2!.isGreaterThan(endCur){
                                     //                                        var isReservarion = false
                                     //                                        for dict in arrCurrentRes
                                     //                                        {
@@ -4238,11 +4237,10 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         shapeLayer.path = bezierPath.cgPath
         img.layer.mask = shapeLayer
     }
-    
-    override func didReceiveMemoryWarning() {
+    override func didReceiveMemoryWarning()
+    {
         super.didReceiveMemoryWarning()
     }
-    
     // AIzaSyBXzbFQ7U9PRS-vrl5RR6es5qOeZ4KuKSg ,AIzaSyCvFxAOvA246L6Syk7Cl426254C-sMJGxk,AIzaSyC29rKRcHlAik1UyLD0jYtjC1KIXIRbEkA
     func fetchMapData(lat:Double,long:Double) {
         let directionURL = "https://maps.googleapis.com/maps/api/directions/json?" +
@@ -4251,7 +4249,6 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         
         Alamofire.request(directionURL).responseJSON
             { response in
-                
                 if let JSON = response.result.value {
                     let mapResponse: [String: AnyObject] = JSON as! [String : AnyObject]
                     let routesArray = (mapResponse["routes"] as? Array) ?? []
