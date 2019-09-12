@@ -128,22 +128,26 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         // load aspects of User() object from the database
         AppState.sharedInstance.activeSpot.getSpots()
         AppState.sharedInstance.user.GetCar()
-        
-        let queue = DispatchQueue(label: "Getting Reservations", qos: .utility)
-        queue.async {
-            AppState.sharedInstance.user.getReservations() { message in
-                print(message)
-                AppState.sharedInstance.user.reservationsDownloaded = true
-            }
+//        let queue = DispatchQueue(label: "Getting Reservations", qos: .utility)
+//        queue.async {
+//            AppState.sharedInstance.user.getReservations() { message in
+//                print(message)
+//                AppState.sharedInstance.user.reservationsDownloaded = true
+//            }
+//        }
+        AppState.sharedInstance.user.getReservations() { message in
+            print(message)
+            AppState.sharedInstance.user.reservationsDownloaded = true
+            print("Done getting the reservations")
         }
         AppState.sharedInstance.user.fetch_Balance()
         AppState.sharedInstance.user.fetch_LifeTimeBalance()
         
         
-        AppState.sharedInstance.user.getReservationsOfCurrentUser(){ message in
-
-            print(message)
-        }
+//        AppState.sharedInstance.user.getReservationsOfCurrentUser(){ message in
+//
+//            print(message)
+//        }
 
         
         dismissKeyboard()
@@ -219,7 +223,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         lbl2.layer.borderColor = UIColor.darkGray.cgColor
         
         
-        
+        print("View loaded")
     }
     
     //    func getReservationsOnDay(date: Date) -> Bool {

@@ -531,6 +531,8 @@ class User {
         // add reservation to current User() object
 //        self.reservations.append(reservation)
         
+        print("Starting addReservation")
+        
         // Set reference to active user in firebase
         let ref = Database.database().reference().child("User").child(AppState.sharedInstance.userid)
         
@@ -599,6 +601,7 @@ class User {
     
     // get the list of reservations for a user
     func getReservations(completionHandler: @escaping (_ message: String) -> ()) {
+
         // empty any current reservations
         print("Current thread in \(#function) is \(Thread.current)")
         print("!!!!!!!! WE ARE GETTING THE RESERVATIONS !!!!!!!!!!!!!!!")
@@ -609,12 +612,12 @@ class User {
 
         print("Get all the reservations")
         let user_id = AppState.sharedInstance.userid
-        
+
         // set database reference to User() in the database
         let ref = Database.database().reference().child("User").child(user_id)
         //variable to see if there are reservations or not
         var reservation_check = false
-        
+
         //checking to see if there are any reservations if case there are none
         ref.observeSingleEvent(of: .value, with: { (snapshot) in
             // Get user value
@@ -631,20 +634,20 @@ class User {
                 self.reservationsDownloaded = true
                 completionHandler("completed downloading reservations")
             }
-            
+
         }) { (error) in
             print(error.localizedDescription)
         }
-        
+
         // loop over each reservation in database reference
         ref.child("Reservations").observe(DataEventType.value, with: { (snapshot) in
             if snapshot.childrenCount > 0 {
                 for artists in snapshot.children.allObjects as! [DataSnapshot] {
                     let reservationDict = ((snapshot.value as! NSDictionary).value(forKey: (artists as! DataSnapshot).key)) as! NSDictionary
-                    
+
                     // each iteration saved to dictionary called snapshotValue
                     print("Reservation Dict: \(reservationDict)")
-                    
+
                     // get the parking Car() object
                     let userID = reservationDict["parkerID"] as! String
                     let carID = reservationDict["carID"] as! String
@@ -652,14 +655,14 @@ class User {
                     print("Car ID: \(carID)")
                     self.carAtPath(carUser: userID, carID: carID) { (reservationCar) in
                         print("ReservationCar Make and year: \(reservationCar.make), \(reservationCar.year)")
-                        
+
                         // get parking Spot() object
                         let spotID = reservationDict["spotID"] as! String
                         let ownerID = reservationDict["ownerID"] as! String
                         self.spotAtPath(userID: ownerID, spotID: spotID)
                         { (reservationSpot) in
                             print("Spot address: \(reservationSpot.address)")
-                            
+
                             // create Reservation() object
                             var dbReservation = Reservation(
                                 startDateTime: reservationDict["startDateTime"] as! String,
@@ -670,9 +673,9 @@ class User {
                                 car: reservationCar,
                                 ownerID: reservationDict["ownerID"] as! String,
                                 paymentIntent_id: reservationDict["paymentIntent_id"] as! String)
-                            
+
                             print("Reservation start: \(dbReservation!.startDateTime)")
-                            
+
                             // make sure there are no doubles
                             if !self.reservationInReservations(res: dbReservation!, reservations: AppState.sharedInstance.user.reservations) {
                                 // add reservation
@@ -696,36 +699,36 @@ class User {
         //Spinner.stop()
     }
     
-    func getReservationsOfCurrentUser(completionHandler: @escaping (_ message: String) -> ()) {
-        Spinner.start()
-        // empty any current reservations
-        print("!!!!!!!! WE ARE GETTING THE RESERVATIONS !!!!!!!!!!!!!!!")
-        AppState.sharedInstance.user.myReservations.removeAllObjects()
-        print("#: \(AppState.sharedInstance.user.myReservations.count)")
-        print("Get all the reservations")
-        let user_id = AppState.sharedInstance.userid
-        
-        // set database reference to User() reservations in the database
-        let ref = Database.database().reference().child("User").child(user_id).child("Reservations")
-        
-        // loop over each reservation in database reference
-        ref.observe(DataEventType.value, with: { (snapshot) in
-            if snapshot.childrenCount > 0 {
-                for artists in snapshot.children.allObjects as! [DataSnapshot] {
-                    let reservationDict = ((snapshot.value as! NSDictionary).value(forKey: (artists as! DataSnapshot).key)) as! NSDictionary
-                    print("Reservation Dict: \(reservationDict)")
-                    AppState.sharedInstance.user.myReservations.add(reservationDict)
-                }
-                completionHandler("COMPLETED... BOIII")
-            }
-            else {
-                print("No reservations")
-            }
-            //Spinner.stop()
-        })
-        print("Stop Spinner 18")
-        Spinner.stop()
-    }
+//    func getReservationsOfCurrentUser(completionHandler: @escaping (_ message: String) -> ()) {
+//        Spinner.start()
+//        // empty any current reservations
+//        print("!!!!!!!! WE ARE GETTING THE RESERVATIONS !!!!!!!!!!!!!!!")
+//        AppState.sharedInstance.user.myReservations.removeAllObjects()
+//        print("#: \(AppState.sharedInstance.user.myReservations.count)")
+//        print("Get all the reservations")
+//        let user_id = AppState.sharedInstance.userid
+//        
+//        // set database reference to User() reservations in the database
+//        let ref = Database.database().reference().child("User").child(user_id).child("Reservations")
+//        
+//        // loop over each reservation in database reference
+//        ref.observe(DataEventType.value, with: { (snapshot) in
+//            if snapshot.childrenCount > 0 {
+//                for artists in snapshot.children.allObjects as! [DataSnapshot] {
+//                    let reservationDict = ((snapshot.value as! NSDictionary).value(forKey: (artists as! DataSnapshot).key)) as! NSDictionary
+//                    print("Reservation Dict: \(reservationDict)")
+//                    AppState.sharedInstance.user.myReservations.add(reservationDict)
+//                }
+//                completionHandler("COMPLETED... BOIII")
+//            }
+//            else {
+//                print("No reservations")
+//            }
+//            //Spinner.stop()
+//        })
+//        print("Stop Spinner 18")
+//        Spinner.stop()
+//    }
     
     // check if a reservation matches one already in a list of reservations (ignore duplicates
     public func reservationInReservations(res: Reservation, reservations: [Reservation]) -> Bool {
