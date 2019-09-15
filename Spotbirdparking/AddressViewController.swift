@@ -254,7 +254,7 @@ class AddressViewController: UIViewController, UITextFieldDelegate,CLLocationMan
         // check if there is an active spot
         if (AppState.sharedInstance.activeSpot.address == "") {
             // present an alert to the user to let them know they did not select a spot
-            let alert = UIAlertController(title: "No Spot", message: "Please use the 'Search Google Maps' bar to find a spot", preferredStyle: .alert)
+            let alert = UIAlertController(title: "No Spot", message: "Please use the 'Spot Address' bar to find a spot", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             self.present(alert, animated: true)
         }

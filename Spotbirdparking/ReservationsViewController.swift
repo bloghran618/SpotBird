@@ -174,6 +174,7 @@ class ReservationsViewController: UIViewController,GMSMapViewDelegate,CLLocation
     func checkReservationDateMatchesCell(reservationDate: String, cellDate: Date) -> Bool
     {
         self.formatter.dateFormat = "yyyy-MM-dd HH:mm"
+//        self.formatter.dateFormat = "HH:mm a MMMM dd, yyyy"
         let resDate = self.formatter.date(from: reservationDate)
         
         return Calendar.current.isDate(resDate!, inSameDayAs: cellDate)
@@ -334,20 +335,29 @@ extension ReservationsViewController: UITableViewDelegate, UITableViewDataSource
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ResCell") as? ByDayResTableViewCell
         
+        // get the reservations
         let res = resOnDay[indexPath.row]
         
+        // convert database dateformat to Reservations date format
+        self.formatter.dateFormat = "yyyy-MM-dd HH:mm"
+        let startDate = self.formatter.date(from: res.startDateTime)
+        let endDate = self.formatter.date(from: res.endDateTime)
+        self.formatter.dateFormat = "MMM dd, h:mm a"
+        let formattedStartDate = self.formatter.string(from: startDate!)
+        let formattedEndDate = self.formatter.string(from: endDate!)
+
+        // configure the cell
         if res.parkOrRent == "Rent" {
             cell?.navButton.isHidden = true
         }
         else {
             cell?.navButton.isHidden = false
         }
-        
         cell?.spotImageView.sd_setImage(with: URL(string: res.spot.spotImage), placeholderImage: UIImage(named: "emptySpot"))
         cell?.addressLabel.text = res.spot.address
         cell?.cityStateLabel.text = res.spot.town + ", " + res.spot.state
-        cell?.timeLabel.text = "Begin: " + res.startDateTime
-        cell?.endTimeLabel.text = "Finish: " + res.endDateTime
+        cell?.timeLabel.text = "Begin: " + formattedStartDate
+        cell?.endTimeLabel.text = "Finish: " + formattedEndDate
         cell?.delegate = self
 
         return cell!

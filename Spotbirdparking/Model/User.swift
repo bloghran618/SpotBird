@@ -631,7 +631,7 @@ class User {
             }
             if reservation_check == false {
                 print("No reservations")
-                self.reservationsDownloaded = true
+//                self.reservationsDownloaded = true
                 completionHandler("completed downloading reservations")
             }
 
@@ -641,6 +641,7 @@ class User {
 
         // loop over each reservation in database reference
         ref.child("Reservations").observe(DataEventType.value, with: { (snapshot) in
+//        ref.child("Reservations").observeSingleEvent(of: .value, with: {snapshot in
             if snapshot.childrenCount > 0 {
                 for artists in snapshot.children.allObjects as! [DataSnapshot] {
                     let reservationDict = ((snapshot.value as! NSDictionary).value(forKey: (artists as! DataSnapshot).key)) as! NSDictionary
@@ -689,11 +690,12 @@ class User {
                         }
                     }
                 }
-                completionHandler("completed downloading reservations")
+                completionHandler("End Function")
             }
             else {
                 print("No reservations")
             }
+
             //Spinner.stop()
         })
         //Spinner.stop()

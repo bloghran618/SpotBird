@@ -128,17 +128,22 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         // load aspects of User() object from the database
         AppState.sharedInstance.activeSpot.getSpots()
         AppState.sharedInstance.user.GetCar()
-//        let queue = DispatchQueue(label: "Getting Reservations", qos: .utility)
-//        queue.async {
+//        let queue = DispatchQueue(label: "Getting Reservations", qos: .background).async {
 //            AppState.sharedInstance.user.getReservations() { message in
 //                print(message)
 //                AppState.sharedInstance.user.reservationsDownloaded = true
 //            }
+//            DispatchQueue.main.async {
+//                print("The background task is complete")
+//            }
 //        }
-        AppState.sharedInstance.user.getReservations() { message in
-            print(message)
-            AppState.sharedInstance.user.reservationsDownloaded = true
-            print("Done getting the reservations")
+        // get the reservations
+        _ = DispatchQueue(label: "Getting Reservations", qos: .background).async {
+            AppState.sharedInstance.user.getReservations() { message in
+                print(message)
+                AppState.sharedInstance.user.reservationsDownloaded = true
+                print("Done getting the reservations")
+            }
         }
         AppState.sharedInstance.user.fetch_Balance()
         AppState.sharedInstance.user.fetch_LifeTimeBalance()
@@ -2525,15 +2530,11 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                 print("The payment context has been set")
                 Spinner.stop()
                 print("About to request payment")
-                do {
-                    try self.paymentContext.requestPayment()
-                    print("payment successfully requested")
-                } catch {
-                    print("there was a failure, but we caught it...")
-                }
+                self.paymentContext.requestPayment()
+                print("payment successfully requested")
                 
                 // if payment is successful we will initiate transfer and setting reservations
-                // see paymentContext didFinishWith ()
+                // see paymentContext didFinishWith () to see logic path
                     
             }
         }
