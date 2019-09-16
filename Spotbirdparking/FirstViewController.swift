@@ -743,7 +743,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     }
                                 }else
                                 {
-                                    if  dateDay2!.isGreaterThan(endCur){
+                                   // if  dateDay2!.isGreaterThan(endCur){
                                         var isReservarion = false
                                         for dict in arrCurrentRes
                                         {
@@ -765,7 +765,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                         if isReservarion == false{
                                             self.arr_search_spot.add(self.arrAllspot.object(at: i))
                                         }
-                                    }
+                                    //}
                                 }
                                 //                                if  dateDay2!.isGreaterThan(endCur){
                                 //                                    var isReservarion = false
@@ -875,7 +875,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     }
                                 }else
                                 {
-                                    if  dateDay2!.isGreaterThan(endCur){
+                                    //if  dateDay2!.isGreaterThan(endCur){
                                         var isReservarion = false
                                         for dict in arrCurrentRes
                                         {
@@ -897,7 +897,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                         if isReservarion == false{
                                             self.arr_search_spot.add(self.arrAllspot.object(at: i))
                                         }
-                                    }
+                                    //}
                                 }
                                 
                                 //                                if  dateDay2!.isGreaterThan(endCur){
@@ -983,7 +983,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     }
                                 }else
                                 {
-                                    if  dateDay2!.isGreaterThan(endCur){
+                                   // if  dateDay2!.isGreaterThan(endCur){
                                         var isReservarion = false
                                         for dict in arrCurrentRes
                                         {
@@ -1005,7 +1005,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                         if isReservarion == false{
                                             self.arr_search_spot.add(self.arrAllspot.object(at: i))
                                         }
-                                    }
+                                   // }
                                 }
                                 
                                 //                                if  dateDay2!.isGreaterThan(endCur){
@@ -1090,7 +1090,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     }
                                 }else
                                 {
-                                    if  dateDay2!.isGreaterThan(endCur){
+                                    //if  dateDay2!.isGreaterThan(endCur){
                                         var isReservarion = false
                                         for dict in arrCurrentRes
                                         {
@@ -1112,7 +1112,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                         if isReservarion == false{
                                             self.arr_search_spot.add(self.arrAllspot.object(at: i))
                                         }
-                                    }
+                                   // }
                                 }
                                 
                                 //                                if  dateDay2!.isGreaterThan(endCur){
@@ -1199,7 +1199,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     }
                                 }else
                                 {
-                                    if dateDay2!.isGreaterThan(endCur){
+                                   // if dateDay2!.isGreaterThan(endCur){
                                         var isReservarion = false
                                         for dict in arrCurrentRes
                                         {
@@ -1221,7 +1221,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                         if isReservarion == false{
                                             self.arr_search_spot.add(self.arrAllspot.object(at: i))
                                         }
-                                    }
+                                   // }
                                 }
                                 //                                if  dateDay2!.isGreaterThan(endCur){
                                 //                                    var isReservarion = false
@@ -1305,7 +1305,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     }
                                 }else
                                 {
-                                    if  dateDay2!.isGreaterThan(endCur){
+                                    //if  dateDay2!.isGreaterThan(endCur){
                                         var isReservarion = false
                                         for dict in arrCurrentRes
                                         {
@@ -1327,7 +1327,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                         if isReservarion == false{
                                             self.arr_search_spot.add(self.arrAllspot.object(at: i))
                                         }
-                                    }
+                                    //}
                                 }
                                 
                                 //                                if  dateDay2!.isGreaterThan(endCur){
@@ -1411,7 +1411,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                     }
                                 }else
                                 {
-                                    if  dateDay2!.isGreaterThan(endCur){
+                                   // if  dateDay2!.isGreaterThan(endCur){
                                         var isReservarion = false
                                         for dict in arrCurrentRes
                                         {
@@ -1433,7 +1433,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                                         if isReservarion == false{
                                             self.arr_search_spot.add(self.arrAllspot.object(at: i))
                                         }
-                                    }
+                                    //}
                                 }
                                 
                                 //                                if  dateDay2!.isGreaterThan(endCur){
