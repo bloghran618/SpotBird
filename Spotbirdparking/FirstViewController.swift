@@ -49,8 +49,9 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     
     @IBOutlet weak var img_spot_type: UIImageView!
     @IBOutlet weak var lbl_spot_type: UILabel!
-    @IBOutlet weak var lbl_spot_time: UILabel!
-    
+    @IBOutlet weak var lbl_spot_from_time: UILabel!
+    @IBOutlet weak var lbl_spot_to_time: UILabel!
+
     fileprivate lazy var dateFormatter2: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd h:mm a"
@@ -410,7 +411,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         //        print(datestart)
         //        print(dateend)
         
-        // lbl_spot_time.text = "Spot Time - \(datestart) to \(dateend)"
+        // lbl_spot_from_time.text = "Spot Time - \(datestart) to \(dateend)"
         var time1 = Bool()
         
         // start date time check today
@@ -1489,7 +1490,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     //        //        print(datestart)
     //        //        print(dateend)
     //
-    //        // lbl_spot_time.text = "Spot Time - \(datestart) to \(dateend)"
+    //        // lbl_spot_from_time.text = "Spot Time - \(datestart) to \(dateend)"
     //        var time1 = Bool()
     //
     //        // start date time check today
@@ -2280,7 +2281,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         //        print(datestart)
         //        print(dateend)
         
-        // lbl_spot_time.text = "Spot Time - \(datestart) to \(dateend)"
+        // lbl_spot_from_time.text = "Spot Time - \(datestart) to \(dateend)"
         var time1 = Bool()
         
         // start date time check today
@@ -2461,10 +2462,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         print("The owner's ID is: \(ownerID)")
         print("Destination found")
         AppState.sharedInstance.appStateRoot.child("User").child(ownerID).observeSingleEvent(of: .value, with: { (snapshot) in
-            let userDict = snapshot.value as! [String: Any]
-            let destination = userDict["accountToken"] as! String
-            print("Destination is: \(destination)")
-            
+            let userDict = snapshot.value as? [String: Any]
+            let destination = userDict!["accountToken"] as? String
             if(destination == "") {
                 // handle if user customertoken is ""
                 let alert = UIAlertController(title: "Spot Info Misconfigured", message: "Spot was incorrectly configured. Please try another spot.", preferredStyle: .alert)
@@ -2729,8 +2728,9 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             curruntlat = marker.position.latitude
             curruntlong = marker.position.longitude
             
-            lbl_spot_time.text = "Time: \(strPickerStart) to \(strPickerEnd)"
-            
+            lbl_spot_from_time.text = "From: \(strPickerStart)"
+            lbl_spot_to_time.text = "To: \(strPickerEnd)"
+
             if (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Garage"{
                 img_spot_type.image = UIImage(named:"garageParking")
             }
@@ -2916,9 +2916,14 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                 time = "\((arrspot.object(at: index) as! NSDictionary).value(forKey: "sunStartTime") as!  String)-\((arrspot.object(at: index) as! NSDictionary).value(forKey: "sunEndTime") as!  String)"
             }
             
-            lbl_spot_time.text = "Time: \(strPickerStart) to \(strPickerEnd)"
+           // lbl_spot_from_time.text = "Time: \(strPickerStart) to \(strPickerEnd)"
             
-            //  lbl_spot_time.text = "Time: \(time)"
+            lbl_spot_from_time.text = "From: \(strPickerStart)"
+            lbl_spot_to_time.text = "To: \(strPickerEnd)"
+
+            
+            
+            //  lbl_spot_from_time.text = "Time: \(time)"
             
             if (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Garage"{
                 img_spot_type.image = UIImage(named:"garageParking")
