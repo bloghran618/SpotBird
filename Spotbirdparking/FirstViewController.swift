@@ -403,7 +403,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         
         let formatter = DateFormatter()
         // formatter.dateFormat = "EE MMM dd h a"
-        formatter.dateFormat = "MMM dd, h a"
+        formatter.dateFormat = "MMM dd, h:00 a"
         
         //        strPickerStart = formatter.string(from:  d1)
         //        strPickerEnd = formatter.string(from: d2)
@@ -2273,7 +2273,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         
         let formatter = DateFormatter()
         //formatter.dateFormat = "EE MMM dd h a"
-        formatter.dateFormat = "MMM dd, h a"
+        formatter.dateFormat = "MMM dd, h:00 a"
         
         //        strPickerStart = formatter.string(from:  d1)
         //        strPickerEnd = formatter.string(from: d2)
@@ -2918,6 +2918,12 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             
            // lbl_spot_from_time.text = "Time: \(strPickerStart) to \(strPickerEnd)"
             
+            //lbl_spot_from_time.text = "From: \(strPickerStart)"
+           // lbl_spot_to_time.text = "To: \(strPickerEnd)"//
+            
+            
+            print(strPickerStart)
+            print(strPickerStart)
             lbl_spot_from_time.text = "From: \(strPickerStart)"
             lbl_spot_to_time.text = "To: \(strPickerEnd)"
 

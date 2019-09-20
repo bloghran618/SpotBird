@@ -45,8 +45,6 @@ import IQKeyboardManagerSwift
         //  UITabBar.
         //  UITabBar.appearance().tintColor = UIColor.white
         
-        
-        
         if UserDefaults.standard.value(forKey: "logindata") as? NSDictionary != nil {
             let dict = UserDefaults.standard.value(forKey: "logindata") as? NSDictionary
             
