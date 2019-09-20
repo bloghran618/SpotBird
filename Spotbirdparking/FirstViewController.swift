@@ -2462,8 +2462,14 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         print("The owner's ID is: \(ownerID)")
         print("Destination found")
         AppState.sharedInstance.appStateRoot.child("User").child(ownerID).observeSingleEvent(of: .value, with: { (snapshot) in
-            let userDict = snapshot.value as? [String: Any]
-            let destination = userDict!["accountToken"] as? String
+            guard let userDict = snapshot.value as? [String: Any] else {
+                let alert = UIAlertController(title: "Spot Info Misconfigured", message: "Spot is not associated with an account. Please try another spot.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                self.present(alert, animated: true)
+                Spinner.stop()
+                return
+            }
+            let destination = userDict["accountToken"] as? String
             if(destination == "") {
                 // handle if user customertoken is ""
                 let alert = UIAlertController(title: "Spot Info Misconfigured", message: "Spot was incorrectly configured. Please try another spot.", preferredStyle: .alert)
