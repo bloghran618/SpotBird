@@ -284,7 +284,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y8d-dc-NVe">
-                                <rect key="frame" x="8" y="41" width="344" height="34"/>
+                                <rect key="frame" x="8" y="35" width="344" height="34"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="NEZ-C7-QgG"/>
@@ -299,7 +299,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nDX-Uf-lIu">
-                                <rect key="frame" x="368" y="41" width="34" height="34"/>
+                                <rect key="frame" x="368" y="35" width="34" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="34" id="Cs1-gM-hIR"/>
                                     <constraint firstAttribute="height" constant="34" id="YJp-OI-pCF"/>
@@ -315,13 +315,13 @@
                             <constraint firstItem="FRw-uK-Kr1" firstAttribute="trailing" secondItem="PQr-Ze-W5v" secondAttribute="trailing" id="26u-vs-Z6c"/>
                             <constraint firstItem="PQr-Ze-W5v" firstAttribute="bottom" secondItem="QhX-kS-Lr8" secondAttribute="bottom" constant="4" id="42d-DD-A2H"/>
                             <constraint firstItem="FRw-uK-Kr1" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" id="6XX-TA-Rmu"/>
-                            <constraint firstItem="nDX-Uf-lIu" firstAttribute="top" secondItem="tsR-hK-woN" secondAttribute="top" constant="41" id="7H4-Pg-WJR"/>
+                            <constraint firstItem="nDX-Uf-lIu" firstAttribute="top" secondItem="tsR-hK-woN" secondAttribute="top" constant="35" id="7H4-Pg-WJR"/>
                             <constraint firstItem="PQr-Ze-W5v" firstAttribute="trailing" secondItem="QhX-kS-Lr8" secondAttribute="trailing" constant="5" id="8Wp-cK-akd"/>
                             <constraint firstItem="QhX-kS-Lr8" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" constant="5" id="CoC-Fe-A4g"/>
                             <constraint firstItem="nDX-Uf-lIu" firstAttribute="leading" secondItem="Y8d-dc-NVe" secondAttribute="trailing" constant="16" id="FTe-yB-QEj"/>
                             <constraint firstItem="PQr-Ze-W5v" firstAttribute="trailing" secondItem="nDX-Uf-lIu" secondAttribute="trailing" constant="12" id="I2l-32-hiA"/>
                             <constraint firstItem="FRw-uK-Kr1" firstAttribute="top" secondItem="tsR-hK-woN" secondAttribute="top" id="Vxf-Ba-PlL"/>
-                            <constraint firstItem="Y8d-dc-NVe" firstAttribute="top" secondItem="tsR-hK-woN" secondAttribute="top" constant="41" id="a5o-Ix-ix1"/>
+                            <constraint firstItem="Y8d-dc-NVe" firstAttribute="top" secondItem="tsR-hK-woN" secondAttribute="top" constant="35" id="a5o-Ix-ix1"/>
                             <constraint firstItem="Y8d-dc-NVe" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" constant="8" id="x6m-vQ-bqK"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="PQr-Ze-W5v"/>
@@ -364,7 +364,7 @@
                     </connections>
                 </searchDisplayController>
             </objects>
-            <point key="canvasLocation" x="515.94202898550725" y="-352.90178571428572"/>
+            <point key="canvasLocation" x="610" y="-368"/>
         </scene>
         <!--Enable Payouts-->
         <scene sceneID="cqm-bR-7te">
