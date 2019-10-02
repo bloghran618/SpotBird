@@ -15,6 +15,7 @@ import Firebase
 
 class ProfileTableViewController: UITableViewController, STPPaymentContextDelegate {
     
+    
     var profileOptions: [ProfileTableOption]?
     let cellIdentifier = "profileTableCell"
     
@@ -225,14 +226,18 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
     
     // MARK: STPPaymentContextDelegate
     
-    func paymentContext(_ paymentContext: STPPaymentContext, didCreatePaymentResult paymentResult: STPPaymentResult, completion: @escaping STPErrorBlock) {
-        print("run didCreatePaymentResult paymentContext()")
-        //MyAPIClient.sharedClient.completeCharge(paymentResult,
-                                                //amount: self.paymentContext.paymentAmount,
-                                                //shippingAddress: self.paymentContext.shippingAddress,
-                                                //shippingMethod: self.paymentContext.selectedShippingMethod
-                                                //completion: completion)
+    func paymentContext(_ paymentContext: STPPaymentContext, didCreatePaymentResult paymentResult: STPPaymentResult, completion: @escaping STPPaymentStatusBlock) {
+        print("run didcreatepaymentresult")
     }
+    
+//    func paymentContext(_ paymentContext: STPPaymentContext, didCreatePaymentResult paymentResult: STPPaymentResult, completion: @escaping STPErrorBlock) {
+//        print("run didCreatePaymentResult paymentContext()")
+//        //MyAPIClient.sharedClient.completeCharge(paymentResult,
+//                                                //amount: self.paymentContext.paymentAmount,
+//                                                //shippingAddress: self.paymentContext.shippingAddress,
+//                                                //shippingMethod: self.paymentContext.selectedShippingMethod
+//                                                //completion: completion)
+//    }
     
     func paymentContext(_ paymentContext: STPPaymentContext, didFinishWith status: STPPaymentStatus, error: Error?) {
         print("run didFinishWith paymentContext()")

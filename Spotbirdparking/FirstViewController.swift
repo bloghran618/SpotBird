@@ -4557,15 +4557,59 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     }
     
     // MARK: STPPaymentContextDelegate
-    func paymentContext(_ paymentContext: STPPaymentContext, didCreatePaymentResult paymentResult: STPPaymentResult, completion: @escaping STPErrorBlock) {
-        print("run didCreatePaymentResult paymentContext()")
-        MyAPIClient.sharedClient.completeCharge(paymentResult,
-                                                amount: self.paymentContext.paymentAmount,
-                                                shippingAddress: self.paymentContext.shippingAddress,
-                                                shippingMethod: self.paymentContext.selectedShippingMethod,
-                                                reservationInfo: self.chargeInfoReservation,
-                                                completion: completion) 
-        Spinner.start()
+//    func paymentContext(_ paymentContext: STPPaymentContext, didCreatePaymentResult paymentResult: STPPaymentResult, completion: @escaping STPErrorBlock) {
+//        print("run didCreatePaymentResult paymentContext()")
+//
+//        // implement 3d secure
+////        let paymentIntentParams = paymentContext.
+////        let paymentIntentParams = paymentResult.paymentMethod
+////        let paymentManager = STPPaymentHandler.shared()
+////        paymentManager.confirmPayment(paymentIntentParams, with: self, completion: { (status, paymentIntent, error) in
+////        })
+//
+//        MyAPIClient.sharedClient.completeCharge(paymentResult,
+//                                                amount: self.paymentContext.paymentAmount,
+//                                                shippingAddress: self.paymentContext.shippingAddress,
+//                                                shippingMethod: self.paymentContext.selectedShippingMethod,
+//                                                reservationInfo: self.chargeInfoReservation,
+//                                                completion: completion)
+//        Spinner.start()
+//    }
+    
+    func paymentContext(_ paymentContext: STPPaymentContext,
+                        didCreatePaymentResult paymentResult: STPPaymentResult,
+                        completion: @escaping STPPaymentStatusBlock) {
+        // Create the PaymentIntent on the backend
+        print("creating the payment intent")
+        MyAPIClient.sharedClient.createPaymentIntent(context: self.paymentContext) { result in
+            switch result {
+            case .success(let clientSecret):
+                print("the result is: \(result)")
+                print("returned the client secret///")
+                // Confirm the PaymentIntent
+                let paymentIntentParams = STPPaymentIntentParams(clientSecret: clientSecret)
+                paymentIntentParams.paymentMethodId = paymentResult.paymentMethod.stripeId
+                print("confirming payment")
+                STPPaymentHandler.shared().confirmPayment(withParams: paymentIntentParams, authenticationContext: paymentContext) { status, paymentIntent, error in
+                    switch status {
+                    case .succeeded:
+                        // Your backend asynchronously fulfills the customer's order, e.g. via webhook
+                        // See https://stripe.com/docs/payments/payment-intents/ios#fulfillment
+                        completion(.success, nil)
+                    case .failed:
+                        completion(.error, error) // Report error
+                    case .canceled:
+                        completion(.userCancellation, nil) // Customer cancelled
+                    @unknown default:
+                        completion(.error, nil)
+                    }
+                }
+            case .failure(let error):
+                completion(.error, error) // Report error from your API
+                print("The payment intent was not created...")
+                break
+            }
+        }
     }
     
     func paymentContext(_ paymentContext: STPPaymentContext, didFinishWith status: STPPaymentStatus, error: Error?) {

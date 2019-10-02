@@ -49,7 +49,7 @@ class MyAPIClient: NSObject, STPEphemeralKeyProvider {
         var params: [String: Any] = [
             "source": result.paymentMethod.stripeId,
             "amount": amount,
-            "customer_token": AppState.sharedInstance.user.customertoken
+            "customer_token": AppState.sharedInstance.user.customertoken,
         ]
         
         print("params are created")
@@ -72,6 +72,31 @@ class MyAPIClient: NSObject, STPEphemeralKeyProvider {
                     completion(nil)
                 case .failure(let error):
                     completion(error)
+                }
+        }
+    }
+    
+    func createPaymentIntent(context: STPPaymentContext, completion: @escaping ((Result<String>) -> Void)) {
+        let url = self.baseURL.appendingPathComponent("create_payment_intent")
+        print("Here is a url: \(url)")
+        let params: [String: Any] = [
+            "amount": context.paymentAmount,
+            "customer_token": AppState.sharedInstance.user.customertoken,
+        ]
+        Alamofire.request(url, method: .post, parameters: params)
+            .validate(statusCode: 200..<300)
+            .responseJSON { response in
+                switch response.result {
+                case .success:
+                    print("recieved a value from create_payment_intent backend: \(response)")
+                    let intent = response.result.value as! NSDictionary
+                    print("Intent looks like: \(intent)")
+                    let client_secret = String(describing: "\(intent["clientSecret"]!)")
+                    print("The client secret is: \(client_secret)")
+                    print("returning the client secret")
+                    completion(.success(client_secret))
+                case .failure(let error):
+                    completion(.failure(error))
                 }
         }
     }

@@ -272,15 +272,14 @@ class PayoutsViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             let dateOfBirth = DateComponents(calendar: Calendar.current, year: Int(dateOfBirthYear), month: Int(dateOfBirthMonth), day: Int(dateOfBirthDay)) // all DOB int() because datePicker()
             
             // STPLegalEntityParams() object creation
-            var legalEntity = STPLegalEntityParams()
+            var legalEntity = STPConnectAccountIndividualParams()
             legalEntity.ssnLast4 = last4Social
-            legalEntity.entityTypeString = "individual"
+//            legalEntity.entityTypeString = "individual"
             legalEntity.firstName = firstName
             legalEntity.lastName = lastName
 //            legalEntity.personalAddress = address
             legalEntity.dateOfBirth = dateOfBirth
-            var accountInfo = STPConnectAccountParams(legalEntity: legalEntity)
-            
+            var accountInfo = STPConnectAccountParams.init(individual: legalEntity)
             
             // Create STPConnectAccountParams token
             STPAPIClient.shared().createToken(withConnectAccount: accountInfo) { (token, error) in

@@ -11,7 +11,7 @@
 <p align="center">
   <a href="https://github.com/cossacklabs/themis/releases"><img src="https://img.shields.io/github/release/cossacklabs/themis.svg" alt="GitHub release"></a>
   <a href="https://circleci.com/gh/cossacklabs/themis"><img src="https://circleci.com/gh/cossacklabs/themis/tree/master.svg?style=shield" alt="Circle CI"></a>
-  <a href="https://github.com/cossacklabs/themis/tree/master/tests"><img src="https://app.bitrise.io/app/b32b4ea8bffedad7/status.svg?token=sFMwuzxY2zy26LsqMkjuqg" alt="Bitrise"></a>
+  <a href="https://app.bitrise.io/app/69a1d5c9d42fa60f"><img src="https://app.bitrise.io/app/69a1d5c9d42fa60f/status.svg?token=Fp_06Ema5PgzBbZQyQy1bA&branch=master" alt="Bitrise"></a>
   <a href="https://github.com/cossacklabs/themis/releases/latest"><img src="https://img.shields.io/badge/platform-Android%20%7C%20iOS%20%7C%20macOS%20%7C%20Linux%20%7C%20Java-green.svg" alt="Platforms"></a>
   <a href='https://coveralls.io/github/cossacklabs/themis'><img src='https://coveralls.io/repos/github/cossacklabs/themis/badge.svg?branch=master' alt='Coverage Status' /></a>
   <a href='https://goreportcard.com/report/github.com/cossacklabs/themis'><img class="badge" tag="github.com/cossacklabs/themis" src="https://goreportcard.com/badge/github.com/cossacklabs/themis"></a>
@@ -150,7 +150,7 @@ This means you should indicate that you’re using encryption and only submit an
 
 Each change in Themis core library is being reviewed and approved by our internal team of cryptographers and security engineers. For every release, we perform internal audits by cryptographers who don't work on Themis.
 
-We use a lot of automated security testing, i.e. static code analysers, fuzzlers, memory analysers, unit tests (per each platform), integration tests (to find compatibility issues between different Themis-supported languages, OS and x86/x64 architectures). Read more about our security testing practices in [a blog post](https://medium.com/@cossacklabs/automated-security-testing-56ee1253c1fd).
+We use a lot of automated security testing, i.e. static code analysers, fuzzing tools, memory analysers, unit tests (per each platform), integration tests (to find compatibility issues between different Themis-supported languages, OS and x86/x64 architectures). Read more about our security testing practices in [a blog post](https://medium.com/@cossacklabs/automated-security-testing-56ee1253c1fd).
 
 If you believe that you've found a security-related issue, please drop us an email to [dev@cossacklabs.com](mailto:dev@cossacklabs.com). Bug bounty program may apply.
 
