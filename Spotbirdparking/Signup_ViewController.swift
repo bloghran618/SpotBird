@@ -132,9 +132,9 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
                         self.present(alertController, animated: true, completion: nil)
                     }
                     else {
-                        self.view.endEditing(true)
                         Spinner.start()
                         self.save_newuser()
+                        self.view.endEditing(true)
                         
                     }
                     
@@ -268,6 +268,7 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
                                                "uname":self.txt_username.text!,
                                                "pass":self.txt_pass.text!,
                                                "image":fullURL,
+                                               "email":self.txt_email.text!,
                                                "customerToken": AppState.sharedInstance.user.customertoken,
                                                "accountToken": AppState.sharedInstance.user.accounttoken]
                                 print(newuser)
@@ -300,8 +301,10 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
             if snapshot.childrenCount > 0 {
                 for artists in snapshot.children.allObjects as! [DataSnapshot] {
                     let snapshotValue = snapshot.value as! NSDictionary
-                    print(snapshotValue)
+                    print("login data: \(snapshotValue)")
                     AppState.sharedInstance.userid = snapshotValue.value(forKey: "id") as! String
+                    
+                    print("got id")
                     
 //                    UserDefaults.standard.setValue(snapshotValue, forKey: "logindata")
 //                    UserDefaults.standard.synchronize()
@@ -314,6 +317,8 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
                     logindata.setValue(snapshotValue.value(forKey: "email") as!String, forKey: "email")
                     logindata.setValue(snapshotValue.value(forKey: "lname") as!String, forKey: "lname")
                     
+                    print("first 4")
+                    
                     if snapshotValue.value(forKey: "image") != nil{
                         logindata.setValue(snapshotValue.value(forKey: "image") as! String, forKey: "image")
                     }
@@ -323,6 +328,8 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
                     if snapshotValue.value(forKey: "accountToken") != nil{
                         logindata.setValue(snapshotValue.value(forKey: "accountToken") as!String, forKey: "accountToken")
                     }
+                    
+                    print("checkpoint2")
                     
                     UserDefaults.standard.setValue(logindata, forKey: "logindata")
                     UserDefaults.standard.synchronize()

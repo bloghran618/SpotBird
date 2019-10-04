@@ -78,6 +78,8 @@ import IQKeyboardManagerSwift
             let initialViewController = storyboard.instantiateViewController(withIdentifier: "myTabbarControllerID")
             appDelegate.window?.rootViewController = initialViewController
             appDelegate.window?.makeKeyAndVisible()
+            
+            MyAPIClient.sharedClient.checkStripeAccount()
         }
         else
         {
@@ -88,13 +90,13 @@ import IQKeyboardManagerSwift
             self.window?.makeKeyAndVisible()
         }
         
-        print("Initializer first name: \(AppState.sharedInstance.user.firstName)")
-        print("Initializer last name: \(AppState.sharedInstance.user.lastName)")
-        print("Initializer Customer ID: \(AppState.sharedInstance.user.customertoken)")
-        print("Initializer Account ID: \(AppState.sharedInstance.user.accounttoken)")
+//        print("Initializer first name: \(AppState.sharedInstance.user.firstName)")
+//        print("Initializer last name: \(AppState.sharedInstance.user.lastName)")
+//        print("Initializer Customer ID: \(AppState.sharedInstance.user.customertoken)")
+//        print("Initializer Account ID: \(AppState.sharedInstance.user.accounttoken)")
         
-        MyAPIClient.sharedClient.checkStripeAccount()
-
+        print("There is no account status, we are just logging in...")
+        
         return true
     }
     
