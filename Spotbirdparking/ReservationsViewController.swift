@@ -196,12 +196,20 @@ class ReservationsViewController: UIViewController,GMSMapViewDelegate,CLLocation
         super.didReceiveMemoryWarning()
     }
     
+    // check if the existing reservation should show for the cell
     func getReservationsOnDay(date: Date) -> [Reservation] {
         print("The date we are looking at is: \(self.formatter.string(from: date))")
         var reservations = [Reservation]()
+        self.formatter.dateFormat = "yyyy-MM-dd HH:mm"
         
         for res in AppState.sharedInstance.user.reservations {
-            if(checkReservationDateMatchesCell(reservationDate: res.startDateTime, cellDate: date)) {
+//            if(checkReservationDateMatchesCell(reservationDate: res.startDateTime, cellDate: date)) {
+//                reservations.append(res)
+//            }
+            let startDate = self.formatter.date(from: res.startDateTime)
+            let endDate = self.formatter.date(from: res.endDateTime)
+            if((min(startDate!, endDate!) ... max(startDate!, endDate!)).contains(date) || checkReservationDateMatchesCell(reservationDate: res.startDateTime, cellDate: date) || checkReservationDateMatchesCell(reservationDate: res.endDateTime, cellDate: date)) {
+                
                 reservations.append(res)
             }
         }
@@ -269,8 +277,16 @@ extension ReservationsViewController: JTAppleCalendarViewDelegate {
         
         // show dates with reservation
         var isDateInRes = false
+        
+        self.formatter.dateFormat = "yyyy-MM-dd HH:mm"
+
         for res in AppState.sharedInstance.user.reservations {
-            if(checkReservationDateMatchesCell(reservationDate: res.startDateTime, cellDate: date)) {
+            
+            let startDate = self.formatter.date(from: res.startDateTime)
+            let endDate = self.formatter.date(from: res.endDateTime)
+            
+            // check reservation should show for date
+            if((min(startDate!, endDate!) ... max(startDate!, endDate!)).contains(date) || checkReservationDateMatchesCell(reservationDate: res.startDateTime, cellDate: date) || checkReservationDateMatchesCell(reservationDate: res.endDateTime, cellDate: date)) {
                 isDateInRes = true
             }
         }
@@ -556,4 +572,10 @@ extension ReservationsViewController: UITableViewDelegate, UITableViewDataSource
         })
     }
     
+}
+
+extension Date {
+    func isBetween(date1: Date, date2: Date) -> Bool {
+        return (min(date1, date2) ... max(date1, date2)).contains(self)
+    }
 }

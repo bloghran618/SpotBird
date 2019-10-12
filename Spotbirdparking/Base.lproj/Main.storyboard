@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="SAM-dI-GZ6">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="SAM-dI-GZ6">
     <device id="retina6_1" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -138,12 +138,16 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QhX-kS-Lr8" customClass="CustomView" customModule="Spotbirdparking" customModuleProvider="target">
                                 <rect key="frame" x="5" y="574" width="404" height="235"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HCK-NB-Bgj">
+                                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="HCK-NB-Bgj">
                                         <rect key="frame" x="315" y="7" width="80" height="80"/>
+                                        <gestureRecognizers/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="80" id="S7n-xN-7xT"/>
                                             <constraint firstAttribute="width" constant="80" id="g1h-Rp-Txw"/>
                                         </constraints>
+                                        <connections>
+                                            <outletCollection property="gestureRecognizers" destination="wPz-6T-3Wk" appends="YES" id="8EK-Qc-URM"/>
+                                        </connections>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XMc-xd-T8H">
                                         <rect key="frame" x="8" y="15" width="178" height="30"/>
@@ -363,6 +367,11 @@
                         <outlet property="searchResultsDelegate" destination="9pv-A4-QxB" id="TsX-iM-Cut"/>
                     </connections>
                 </searchDisplayController>
+                <tapGestureRecognizer id="wPz-6T-3Wk">
+                    <connections>
+                        <action selector="spotImageTapped:" destination="9pv-A4-QxB" id="evQ-30-yMg"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="608.69565217391312" y="-368.30357142857139"/>
         </scene>
@@ -501,7 +510,7 @@
                                                 <color key="textColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last 4 Digits Social Security Nubmer" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CZp-Zn-6Lf">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last 4 Digits Social Security Number" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CZp-Zn-6Lf">
                                                 <rect key="frame" x="0.0" y="698.5" width="414" height="20.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <nil key="textColor"/>
@@ -1971,7 +1980,7 @@
                                         </connections>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Specify your spot type:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pIv-bN-fjT">
-                                        <rect key="frame" x="112" y="44" width="176" height="20"/>
+                                        <rect key="frame" x="113.5" y="44" width="173.5" height="20"/>
                                         <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -3305,20 +3314,20 @@
     </scenes>
     <resources>
         <image name="Back" width="263" height="263"/>
-        <image name="EmptyProfile" width="552.5" height="552.5"/>
-        <image name="Profile" width="37.5" height="37.5"/>
+        <image name="EmptyProfile" width="552" height="552"/>
+        <image name="Profile" width="37" height="37"/>
         <image name="Reservations" width="25" height="25"/>
         <image name="addButton" width="376" height="379"/>
-        <image name="cal_new" width="25" height="23.5"/>
+        <image name="cal_new" width="25" height="23"/>
         <image name="drivewayParking" width="237" height="237"/>
         <image name="emptySpot" width="237" height="237"/>
         <image name="garageParking" width="237" height="237"/>
-        <image name="logo" width="533.5" height="495.5"/>
+        <image name="logo" width="533" height="495"/>
         <image name="lotParking" width="237" height="237"/>
-        <image name="search_new" width="22.5" height="22.5"/>
-        <image name="spotbirdname" width="1055" height="392.5"/>
+        <image name="search_new" width="22" height="22"/>
+        <image name="spotbirdname" width="1055" height="392"/>
         <image name="streetParking" width="237" height="237"/>
-        <image name="walkingIcon" width="112.5" height="112.5"/>
+        <image name="walkingIcon" width="112" height="112"/>
         <image name="xbutton" width="263" height="263"/>
     </resources>
     <inferredMetricsTieBreakers>

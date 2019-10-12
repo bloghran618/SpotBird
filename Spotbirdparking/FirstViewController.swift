@@ -2422,6 +2422,32 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         self.present(alertController, animated: true, completion: nil)
     }
     
+    // expand spot image on click
+    @IBAction func spotImageClicked(_ sender: Any) {
+        
+    }
+    
+    // 
+    @IBAction func spotImageTapped(_ sender: UITapGestureRecognizer) {
+        let imageView = sender.view as! UIImageView
+        let newImageView = UIImageView(image: imageView.image)
+        newImageView.frame = UIScreen.main.bounds
+        newImageView.backgroundColor = .black
+        newImageView.contentMode = .scaleAspectFit
+        newImageView.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissFullscreenImage))
+        newImageView.addGestureRecognizer(tap)
+        self.view.addSubview(newImageView)
+        self.navigationController?.isNavigationBarHidden = true
+        self.tabBarController?.tabBar.isHidden = true
+    }
+    
+    @objc func dismissFullscreenImage(_ sender: UITapGestureRecognizer) {
+        self.navigationController?.isNavigationBarHidden = false
+        self.tabBarController?.tabBar.isHidden = false
+        sender.view?.removeFromSuperview()
+    }
+    
     // MARK:_ BTn booknow
     @IBAction func btn_booknow(_ sender: UIButton) {
         
@@ -2619,6 +2645,9 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                     let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                     self.present(alert, animated: true)
+                    
+                    // hide notecard
+                    self.view_info.isHidden = true
                 }
                 else {
                     print("There was an issue with the payment transfer")
@@ -4595,6 +4624,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                     case .succeeded:
                         // Your backend asynchronously fulfills the customer's order, e.g. via webhook
                         // See https://stripe.com/docs/payments/payment-intents/ios#fulfillment
+                        Spinner.start()
                         completion(.success, nil)
                     case .failed:
                         completion(.error, error) // Report error

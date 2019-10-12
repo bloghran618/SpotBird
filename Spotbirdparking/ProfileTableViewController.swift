@@ -13,8 +13,7 @@ import MBProgressHUD
 import Firebase
 
 
-class ProfileTableViewController: UITableViewController, STPPaymentContextDelegate {
-    
+class ProfileTableViewController: UITableViewController, STPPaymentContextDelegate  {
     
     var profileOptions: [ProfileTableOption]?
     let cellIdentifier = "profileTableCell"
@@ -47,6 +46,7 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
             ProfileTableOption(option: "List", description: "Share your spot", logoImageName: "Share"),
             ProfileTableOption(option: "Enable Payouts", description: "Authorize payouts to bank account", logoImageName: "EnablePayouts"),
             ProfileTableOption(option: "Contact Us", description: "Send us an Email", logoImageName: "contactUs"),
+            ProfileTableOption(option: "Log Out", description: "Log out of your account", logoImageName: "Profile")
 //            ProfileTableOption(option: "Test Functionality", description: "Just for testing", logoImageName: "white")
         ]
         
@@ -147,6 +147,9 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
             print("Go to email")
             self.performSegue(withIdentifier: "Email", sender: self)
         }
+        else if profileOptions![(indexPath as NSIndexPath).row].option == "Log Out" {
+            self.logOut()
+        }
         else if profileOptions![(indexPath as NSIndexPath).row].option == "Test Functionality" {
             print("Just doing some debugging...")
             
@@ -154,6 +157,9 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
 //            print("requesting the payment...")
 //            self.paymentContext.requestPayment()
             
+        }
+        else {
+            print("Not a table option")
         }
     }
     
@@ -168,60 +174,33 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
         // Dispose of any resources that can be recreated.
     }
 
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
+    // log out the user
+    func logOut() {
+        
+        let alertController = UIAlertController(title: "Spotbirdparking", message: "Are you sure you want to logout?", preferredStyle: UIAlertControllerStyle.alert)
+        let DestructiveAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.destructive) { (result : UIAlertAction) -> Void in
+            UserDefaults.standard.removeObject(forKey: "logindata")
+            let appDomain = Bundle.main.bundleIdentifier!
+            UserDefaults.standard.removePersistentDomain(forName: appDomain)
+            UserDefaults.standard.synchronize()
+            AppState.sharedInstance.user.cars.removeAll()
+            AppState.sharedInstance.spots.removeAll()
+            
+            AppState.sharedInstance.userid = ""
+            AppState.sharedInstance.user.customertoken = ""
+            AppState.sharedInstance.user.accounttoken =  ""
+            AppState.sharedInstance.user.firstName = ""
+            AppState.sharedInstance.user.lastName = ""
+            AppState.sharedInstance.user.profileImage = ""
+            let vc = self.storyboard!.instantiateViewController(withIdentifier: "Login_ViewController") as! Login_ViewController
+            self.present(vc, animated: true, completion: nil)
+        }
+        let okAction = UIAlertAction(title: "No", style: UIAlertActionStyle.default) { (result : UIAlertAction) -> Void in
+        }
+        alertController.addAction(DestructiveAction)
+        alertController.addAction(okAction)
+        self.present(alertController, animated: true, completion: nil)
     }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
     
     // MARK: STPPaymentContextDelegate
@@ -230,14 +209,14 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
         print("run didcreatepaymentresult")
     }
     
-//    func paymentContext(_ paymentContext: STPPaymentContext, didCreatePaymentResult paymentResult: STPPaymentResult, completion: @escaping STPErrorBlock) {
-//        print("run didCreatePaymentResult paymentContext()")
-//        //MyAPIClient.sharedClient.completeCharge(paymentResult,
-//                                                //amount: self.paymentContext.paymentAmount,
-//                                                //shippingAddress: self.paymentContext.shippingAddress,
-//                                                //shippingMethod: self.paymentContext.selectedShippingMethod
-//                                                //completion: completion)
-//    }
+    //    func paymentContext(_ paymentContext: STPPaymentContext, didCreatePaymentResult paymentResult: STPPaymentResult, completion: @escaping STPErrorBlock) {
+    //        print("run didCreatePaymentResult paymentContext()")
+    //        //MyAPIClient.sharedClient.completeCharge(paymentResult,
+    //                                                //amount: self.paymentContext.paymentAmount,
+    //                                                //shippingAddress: self.paymentContext.shippingAddress,
+    //                                                //shippingMethod: self.paymentContext.selectedShippingMethod
+    //                                                //completion: completion)
+    //    }
     
     func paymentContext(_ paymentContext: STPPaymentContext, didFinishWith status: STPPaymentStatus, error: Error?) {
         print("run didFinishWith paymentContext()")
@@ -261,7 +240,7 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
     
     func paymentContextDidChange(_ paymentContext: STPPaymentContext) {
         print("run paymentContextDidChange()")
-
+        
     }
     
     func paymentContext(_ paymentContext: STPPaymentContext, didFailToLoadWithError error: Error) {
@@ -302,16 +281,3 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
     }
     
 }
-
-
-//extension ProfileTableViewController: STPAddCardViewControllerDelegate {
-//
-//    func addCardViewControllerDidCancel(_ addCardViewController: STPAddCardViewController) {
-//        navigationController?.popViewController(animated: true)
-//    }
-//
-//    func addCardViewController(_ addCardViewController: STPAddCardViewController,
-//                               didCreateToken token: STPToken,
-//                               completion: @escaping STPErrorBlock) {
-//    }
-//}

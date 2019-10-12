@@ -37,6 +37,9 @@ class Login_ViewController: UIViewController {
     
     @IBAction func btn_login(_ sender: Any) {
         
+        txt_uname.resignFirstResponder()
+        txt_pass.resignFirstResponder()
+        
         Spinner.start()
         let ref = Database.database().reference().child("User").queryOrdered(byChild: "uname").queryEqual(toValue : txt_uname.text!)
         ref.observe(.value, with:{ (snapshot: DataSnapshot) in
