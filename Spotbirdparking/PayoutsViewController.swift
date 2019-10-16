@@ -18,6 +18,7 @@ class PayoutsViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     @IBOutlet weak var line2AddressField: UITextField!
     @IBOutlet weak var cityAddressField: UITextField!
     @IBOutlet weak var stateAddressField: UITextField!
+    @IBOutlet weak var stateDoneButton: UIButton!
     @IBOutlet weak var stateDropDown: UIPickerView!
     @IBOutlet weak var zipAddressField: UITextField!
     @IBOutlet weak var dateOfBirthDatePicker: UIDatePicker!
@@ -36,17 +37,6 @@ class PayoutsViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     @IBOutlet weak var last4SocialValidation: UILabel!
     @IBOutlet weak var routingNumberValidation: UILabel!
     @IBOutlet weak var accountNumberValidation: UILabel!
-    
-    // Validation Labels
-//    @IBOutlet weak var firstNameValidation: UILabel!
-//    @IBOutlet weak var lastNameValidation: UILabel!
-//    @IBOutlet weak var addressLine1Validation: UILabel!
-//    @IBOutlet weak var cityValidation: UILabel!
-//    @IBOutlet weak var stateValidation: UILabel!
-//    @IBOutlet weak var zipValidation: UILabel!
-//    @IBOutlet weak var last4SocialValidation: UILabel!
-//    @IBOutlet weak var routingNumberValidation: UILabel!
-//    @IBOutlet weak var accountNumberValidation: UILabel!
     
     // Other
     @IBOutlet weak var termsLabel: UILabel!
@@ -86,10 +76,19 @@ class PayoutsViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             self.lastNameField.text = AppState.sharedInstance.user.lastName
         }
         
+        // default state (launch is in Philly, most spots should be in PA
         self.stateAddressField.text = "PA"
         
         termsLabel.numberOfLines = 0
     }
+    
+//    @objc func doneButtonAction() {
+//        print("done selected")
+//    }
+//
+//    @objc func cancelButtonAction() {
+//        print("cancel selected")
+//    }
     
     public func numberOfComponents(in pickerView: UIPickerView) -> Int{
         return 1
@@ -100,22 +99,26 @@ class PayoutsViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        
-        self.view.endEditing(true)
         return states[row][0]
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        
-        self.stateAddressField.text = self.states[row][1]
+//        self.stateAddressField.text = self.states[row][1]
+    }
+    
+    @IBAction func stateDoneButtonClicked(_ sender: Any) {
+        self.stateAddressField.text = self.states[stateDropDown.selectedRow(inComponent: 0)][1]
         self.stateDropDown.isHidden = true
+        self.stateDoneButton.isHidden = true
         stateValidation.isHidden = true
     }
+    
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         
         if textField == self.stateAddressField {
             self.stateDropDown.isHidden = false
+            self.stateDoneButton.isHidden = false
             textField.endEditing(true)
         }
     }
