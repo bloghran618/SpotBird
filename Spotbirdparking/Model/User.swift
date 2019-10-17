@@ -632,7 +632,7 @@ class User {
             if reservation_check == false {
                 print("No reservations")
 //                self.reservationsDownloaded = true
-                completionHandler("completed downloading reservations")
+                completionHandler("there are no reservations")
             }
 
         }) { (error) in
@@ -647,7 +647,7 @@ class User {
                     let reservationDict = ((snapshot.value as! NSDictionary).value(forKey: (artists as! DataSnapshot).key)) as! NSDictionary
 
                     // each iteration saved to dictionary called snapshotValue
-                    print("Reservation Dict: \(reservationDict)")
+//                    print("Reservation Dict: \(reservationDict)")
 
                     // get the parking Car() object
                     let userID = reservationDict["parkerID"] as! String
@@ -662,7 +662,7 @@ class User {
                         let ownerID = reservationDict["ownerID"] as! String
                         self.spotAtPath(userID: ownerID, spotID: spotID)
                         { (reservationSpot) in
-                            print("Spot address: \(reservationSpot.address)")
+//                            print("Spot address: \(reservationSpot.address)")
 
                             // create Reservation() object
                             var dbReservation = Reservation(
@@ -842,7 +842,7 @@ class User {
     }
     
     // retrieve Car() object for given User() and car_ID
-    public func carAtPath(carUser: String, carID: String, completion: @escaping (_ car: Car) ->Void) {
+    public func carAtPath(carUser: String, carID: String, completionHandler: @escaping (_ car: Car) ->Void) {
         var reservationCar = Car()
         
         // database path to Car()
@@ -862,17 +862,17 @@ class User {
                     carImage: carDict.value(forKey: "image") as! String,
                     isDefault: carDict.value(forKey: "default") as! Bool,
                     car_id: carID)!
-                completion(reservationCar)
+                completionHandler(reservationCar)
             }
             else {
                 // empty return values
-                completion(reservationCar)
+                completionHandler(reservationCar)
             }
         })
     }
     
     // retrieve Spot() for given spotID
-    public func spotAtPath(userID: String, spotID: String, completion: @escaping (_ spot: Spot) -> Void) {
+    public func spotAtPath(userID: String, spotID: String, completionHandler: @escaping (_ spot: Spot) -> Void) {
         
         // database path to Spot()
         let spotBaseRef = Database.database().reference().child("User").child(userID).child("MySpots").child(spotID)
@@ -883,7 +883,7 @@ class User {
         spotBaseRef.observe(.value, with:{ (snapshot: DataSnapshot) in
             if snapshot.exists() {
                 let spotDict = ((snapshot as! DataSnapshot).value) as! NSDictionary
-                print("Spot Dict: \(spotDict)")
+//                print("Spot Dict: \(spotDict)")
                 
                 // get the image for the spot
                 var spotImage = UIImage(named: "white")!
@@ -937,7 +937,7 @@ class User {
                     Email: spotDict["Email"] as! String,
                     baseprice: spotDict["basePricing"] as! String) as! Spot
                 
-                completion(reservationSpot)
+                completionHandler(reservationSpot)
             }
             else {
                 // add some error handlers here

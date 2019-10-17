@@ -111,6 +111,8 @@ class EmailViewController: UIViewController, UITextViewDelegate {
             "message": message
         ]
         
+        Spinner.start()
+        
         // Send request to the backend
         Alamofire.request(url, method: .post, parameters: params)
             .validate(statusCode: 200..<300)
@@ -118,6 +120,8 @@ class EmailViewController: UIViewController, UITextViewDelegate {
                 switch response.result {
                 case .success:
                     print("Returned with success")
+                    
+                    Spinner.stop()
                
                     // notify email successfully sent
                     let alert = UIAlertController(title: "Email Sent Successfully", message: "Thank you for your feedback", preferredStyle: .alert)
@@ -130,12 +134,15 @@ class EmailViewController: UIViewController, UITextViewDelegate {
                     
                     
                 case .failure(let error):
+                    
+                    Spinner.stop()
+                    
                     let status = response.response?.statusCode
                     print("Failed, status: \(status)")
                     print("Here is the error: \(error)")
                     
                     // notify the user there was an error
-                    let alert = UIAlertController(title: "Error", message: "There was an issue with the backend, please try again later", preferredStyle: .alert)
+                    let alert = UIAlertController(title: "Error", message: "Error sending email, please try again later", preferredStyle: .alert)
                     alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
                     self.present(alert, animated: true, completion: nil)
                 }

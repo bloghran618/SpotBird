@@ -76,7 +76,7 @@ class PriceViewController: UIViewController, UITextFieldDelegate,CLLocationManag
             
             print(basePRice)
             
-            lbl1_price.text =  "$\(basePRice)"
+            lbl1_price.text =  "$ \(basePRice)"
         }
         
         // lbl1_price.text = "$ \(AppState.sharedInstance.activeSpot.hourlyPricing)"
@@ -116,7 +116,7 @@ class PriceViewController: UIViewController, UITextFieldDelegate,CLLocationManag
     }
     
     @IBAction func Slide1(_ sender: Any) {
-        let index = String(format: "%.2f", ((Slide1!.value)))
+        let index = String(format: "%.2f", ((round(Slide1!.value / 0.05) * 0.05)))
         AppState.sharedInstance.activeSpot.hourlyPricing = index
         value1 = "101"
         lbl1_price.text = "$ \(AppState.sharedInstance.activeSpot.hourlyPricing)"
@@ -127,15 +127,16 @@ class PriceViewController: UIViewController, UITextFieldDelegate,CLLocationManag
         
         // base price
         AppState.sharedInstance.activeSpot.basePricing = index
-        lbl1_price.text =  AppState.sharedInstance.activeSpot.basePricing
+        lbl1_price.text = "$ \(AppState.sharedInstance.activeSpot.basePricing)"
         
         let hr =  24 * value + (index as NSString).floatValue
         let week =   168 * value + (index as NSString).floatValue
         let month =  730.001 * value + (index as NSString).floatValue
         
-        print(hr)
-        print(week)
-        print(month)
+        print(index)
+//        print(hr)
+//        print(week)
+//        print(month)
         
         lbl2_price.text = "$\(String(format: "%.2f", ((hr))))"
         lbl3_price.text = "$\(String(format: "%.2f", ((week))))"

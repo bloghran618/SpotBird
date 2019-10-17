@@ -90,7 +90,7 @@ class ReservationsDetailViewController: UIViewController {
     }
     
     @IBAction func Cancel(_ sender: Any) {
-        let alert = UIAlertController(title: "Cancel", message: "This will cancel your reservations as well as return you money to the card used", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Cancel", message: "This will cancel your reservation and issue a refund to the applied card. Do you wish to proceed?", preferredStyle: .alert)
         
         alert.addAction(UIAlertAction(title: "Yes", style: .destructive, handler: { action in
             print("Canceling")
