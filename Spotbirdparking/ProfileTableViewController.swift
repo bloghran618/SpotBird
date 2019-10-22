@@ -46,7 +46,7 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
             ProfileTableOption(option: "List", description: "Share your spot", logoImageName: "Share"),
             ProfileTableOption(option: "Enable Payouts", description: "Authorize payouts to bank account", logoImageName: "EnablePayouts"),
             ProfileTableOption(option: "Contact Us", description: "Send us an Email", logoImageName: "contactUs"),
-            ProfileTableOption(option: "Log Out", description: "Log out of your account", logoImageName: "Profile")
+//            ProfileTableOption(option: "Log Out", description: "Log out of your account", logoImageName: "white")
 //            ProfileTableOption(option: "Test Functionality", description: "Just for testing", logoImageName: "white")
         ]
         

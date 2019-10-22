@@ -558,18 +558,18 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         
         if time1 == true{
             time1 = false
-            let alert = UIAlertController(title: "Spotbirdparking", message: "Invalid Start TIME", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Spotbirdparking", message: "Invalid start time", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
         else if (datetostring(dates: end_date!))  < (datetostring(dates: start_date!)) && (datetostring(dates: start_date!)) != (datetostring(dates: end_date!))
         {
-            let alert = UIAlertController(title: "Spotbirdparking", message: "Start date greater than End date.", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Spotbirdparking", message: "Start time later than end time.", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
         else if (datetostring(dates: end_date!)) == (datetostring(dates: start_date!)) && end_date!.time < start_date!.time {
-            let alert = UIAlertController(title: "Spotbirdparking", message: "End Time greater than Start date.", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Spotbirdparking", message: "End time same as start time.", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }else if start_date! == end_date!  {
