@@ -2497,7 +2497,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         // GOOGLE DIRECTION APIS DEMO
         //https://maps.googleapis.com/maps/api/directions/json?origin=27.696981,85.2942719&destination=27.6792144,85.3632975&sensor=false&mode=driving&alternatives=falseGOOGLE_MAP_API_KEY
         
-        let url:String =   "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=\(originLat),\(originLong)&destinations=\(destinationLat),\(destinationLong)&key=AIzaSyATq8xrUL51RMK8Xgf_3YI-dl_ocbNajD4"
+        let url:String =   "https://maps.googleapis.com/maps/api/distancematrix/json?units=imperial&origins=\(originLat),\(originLong)&destinations=\(destinationLat),\(destinationLong)&mode=walking&key=AIzaSyATq8xrUL51RMK8Xgf_3YI-dl_ocbNajD4"
         
         
         //let url:String = "https://maps.googleapis.com/maps/api/directions/json?origin=\(originLat),\(originLong)&destination=\(destinationLat),\(destinationLong)&sensor=false&mode=driving&alternatives=false&key=AIzaSyCiA5RwJSdB8U9hdAHEW1US8k-TbQJ2OTI"
@@ -2526,7 +2526,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         
         if let jsonObjectDictionary = jsonObject as? NSDictionary {
             
-            print(jsonObjectDictionary)
+            print("jsonobjectdictionary: \(jsonObjectDictionary)")
             if let statusMessage = jsonObjectDictionary["status"] as? String{
                 
                 if(statusMessage == "OK"){
@@ -2961,16 +2961,12 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     // MARK:- locationManagerDelegate
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
+        print("location updated")
+        
         let location = locations.last
         self.CurrentLocMarker.position = (location?.coordinate)!
         cooridnates = (location?.coordinate)!
         // self.CurrentLocMarker.title = "myLoc"
-        var markerView = UIImageView()
-        markerView = UIImageView(image: UIImage.init(named: "current_location_icon"))
-        markerView.frame.size.width = 30
-        markerView.frame.size.height = 30
-        self.CurrentLocMarker.iconView = markerView
-        self.CurrentLocMarker.map = self.mapView
         userlatitude = (location?.coordinate.latitude)!
         userlongitude = (location?.coordinate.longitude)!
         let camera = GMSCameraPosition.camera(withLatitude: (location?.coordinate.latitude)!, longitude: (location?.coordinate.longitude)!, zoom:12)
@@ -2980,6 +2976,15 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         self.locationManager.stopUpdatingLocation()
         getlatlong()
         
+    }
+    
+    func addDestToMap() {
+        var markerView = UIImageView()
+        markerView = UIImageView(image: UIImage.init(named: "current_location_icon"))
+        markerView.frame.size.width = 40
+        markerView.frame.size.height = 40
+        self.CurrentLocMarker.iconView = markerView
+        self.CurrentLocMarker.map = self.mapView
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -3397,14 +3402,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         refArtists.observe(DataEventType.value, with: { (snapshot) in
             
             self.mapView.clear()
-            self.CurrentLocMarker.position = self.cooridnates
-            //self.CurrentLocMarker.title = "myLoc"
-            var markerView = UIImageView()
-            markerView = UIImageView(image: UIImage.init(named: "current_location_icon"))
-            markerView.frame.size.width = 30
-            markerView.frame.size.height = 30
-            //            self.CurrentLocMarker.iconView = markerView
-            //            self.CurrentLocMarker.map = self.mapView
+            self.addDestToMap()
+            
             var spotStart_times = ""
             var spotEnd_times = ""
             let formatter = DateFormatter()
@@ -4400,12 +4399,9 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         if arr_search_spot.count > 0
         {
             mapView.clear()
-            self.CurrentLocMarker.position = self.cooridnates
+//            self.CurrentLocMarker.position = self.cooridnates
             //   self.CurrentLocMarker.title = "myLoc"
-            var markerView = UIImageView()
-            markerView = UIImageView(image: UIImage.init(named: "current_location_icon"))
-            markerView.frame.size.width = 30
-            markerView.frame.size.height = 30
+            self.addDestToMap()
             //            self.CurrentLocMarker.iconView = markerView
             //            self.CurrentLocMarker.map = self.mapView
             self.allMarkers.removeAll()
@@ -4646,6 +4642,13 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     
     //MARK:_ GMSAutocompleteViewController
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
+        
+        print("selected a place")
+        print(place)
+        print("formatted address: \(place.formattedAddress)")
+        
+        self.btn_search_click!.setTitle(place.formattedAddress, for: .normal)
+        
         dismiss(animated: true, completion: nil)
         
         let cordinate:[String: CLLocationCoordinate2D] = ["cordinate": place.coordinate]
@@ -4668,10 +4671,6 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             }
         }
         //        self.CurrentLocMarker.title = "myLoc"
-        var markerView = UIImageView()
-        markerView = UIImageView(image: UIImage.init(named: "current_location_icon"))
-        markerView.frame.size.width = 30
-        markerView.frame.size.height = 30
         // self.CurrentLocMarker.iconView = markerView
         let camera = GMSCameraPosition.camera(withLatitude: (place.coordinate.latitude), longitude: (place.coordinate.longitude), zoom:self.mapView.camera.zoom)
         mapView.camera = camera
