@@ -1503,9 +1503,9 @@
                     <connections>
                         <outlet property="btn_back" destination="cwr-fF-1Jp" id="tgK-mx-tTB"/>
                         <outlet property="calendarView" destination="kyT-N9-3MS" id="3n1-oa-wdL"/>
-                        <outlet property="mapView" destination="awQ-uT-JFH" id="hpz-te-zNd"/>
                         <outlet property="monthYearLabel" destination="xir-m0-zCB" id="4Kf-Zl-Gjw"/>
                         <outlet property="resByDayTable" destination="yOr-SJ-4pC" id="rgT-g4-igC"/>
+                        <outlet property="resMapView" destination="awQ-uT-JFH" id="W81-tO-OhO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0aF-MH-aIS" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -2175,12 +2175,12 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="addrMapView" destination="IL1-y2-U6t" id="Vs9-AD-Zll"/>
                         <outlet property="bnt4" destination="wth-QP-Hbk" id="aeh-8R-J3v"/>
                         <outlet property="btn1" destination="sGX-Ot-Hlt" id="7tp-Bj-GFt"/>
                         <outlet property="btn2" destination="8f5-xc-M9p" id="OHr-xq-njQ"/>
                         <outlet property="btn3" destination="mmv-5k-b51" id="WDK-mE-OHm"/>
                         <outlet property="btn_searchADD" destination="biM-Ld-WIE" id="NtD-Fx-AQc"/>
-                        <outlet property="mapView" destination="IL1-y2-U6t" id="2wd-UD-i6s"/>
                         <outlet property="nextButton" destination="Nde-2w-6fV" id="Znd-Br-lLh"/>
                         <outlet property="txt_email" destination="5ET-0P-vZU" id="ImO-Nh-Lpt"/>
                         <outlet property="view_btm" destination="zVf-4X-dpv" id="lJg-Fy-Oca"/>

@@ -33,7 +33,8 @@ class AddressViewController: UIViewController, UITextFieldDelegate,CLLocationMan
     
     
     // MApview Outlets
-    @IBOutlet var mapView: GMSMapView!
+//    @IBOutlet var mapView: GMSMapView!
+    @IBOutlet weak var addrMapView: GMSMapView!
     
     var locationManager = CLLocationManager()
     let CurrentLocMarker = GMSMarker()
@@ -54,13 +55,13 @@ class AddressViewController: UIViewController, UITextFieldDelegate,CLLocationMan
 //        btn_searchADD.layer.borderColor = UIColor.blue.cgColor
 //        btn_searchADD.layer.borderWidth = 1
         
-        self.mapView.delegate = self
+        self.addrMapView.delegate = self
         self.locationManager.delegate = self
         self.locationManager.requestAlwaysAuthorization()
         self.locationManager.requestWhenInUseAuthorization()
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        CurrentLocMarker.map = self.mapView
-        mapView.settings.myLocationButton = true
+        CurrentLocMarker.map = self.addrMapView
+        addrMapView.settings.myLocationButton = true
         self.locationManager.startMonitoringSignificantLocationChanges()
         self.locationManager.startUpdatingLocation()
         
@@ -304,11 +305,11 @@ extension AddressViewController {
         markerView.frame.size.width = 30
         markerView.frame.size.height = 30
         self.CurrentLocMarker.iconView = markerView
-        self.CurrentLocMarker.map = self.mapView
+        self.CurrentLocMarker.map = self.addrMapView
         
         if spotcamera == false {
             let camera = GMSCameraPosition.camera(withLatitude: (location?.coordinate.latitude)!, longitude: (location?.coordinate.longitude)!, zoom:18)
-            self.mapView.animate(to: camera)
+            self.addrMapView.animate(to: camera)
         }
         self.locationManager.stopUpdatingLocation()
     }
@@ -318,25 +319,25 @@ extension AddressViewController {
     }
     
     // MARK:- googleMapsDelegate
-    func mapView(_ mapView: GMSMapView, idleAt position: GMSCameraPosition) {
+    func addrMapView(_ addrMapView: GMSMapView, idleAt position: GMSCameraPosition) {
         print("idle tap infor wirndow markers")
     }
     
-    func mapView(_ mapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
+    func addrMapView(_ addrMapView: GMSMapView, didTapAt coordinate: CLLocationCoordinate2D) {
         
     }
     
-    func didTapMyLocationButton(for mapView: GMSMapView) -> Bool {
+    func didTapMyLocationButton(for addrMapView: GMSMapView) -> Bool {
         spotcamera = false
         self.locationManager.startUpdatingLocation()
         return true
     }
     
-    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+    func addrMapView(_ addrMapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         return true
     }
     
-    func mapView(_ mapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
+    func addrMapView(_ addrMapView: GMSMapView, didTapInfoWindowOf marker: GMSMarker) {
         
     }
     
@@ -433,7 +434,7 @@ extension AddressViewController {
             }
         }
         
-        mapView.clear()
+        addrMapView.clear()
         self.CurrentLocMarker.position = (place.coordinate)
     //  self.CurrentLocMarker.title = AppState.sharedInstance.activeSpot.town
         var markerView = UIImageView()
@@ -441,11 +442,11 @@ extension AddressViewController {
         markerView.frame.size.width = 30
         markerView.frame.size.height = 30
         self.CurrentLocMarker.iconView = markerView
-        self.CurrentLocMarker.map = self.mapView
+        self.CurrentLocMarker.map = self.addrMapView
         
         let camera = GMSCameraPosition.camera(withLatitude: (place.coordinate.latitude), longitude: (place.coordinate.longitude), zoom:18)
     //  self.mapView.animate(to: camera)
-        mapView.camera = camera
+        addrMapView.camera = camera
         
         if txt_email.text != ""{
             self.nextButton.isEnabled = true

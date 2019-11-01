@@ -409,12 +409,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     }
     
     @IBAction func btn_Date_search_done(_ sender: UIButton) {
-        briansFunc()
-    }
-    
-    public func briansFunc() {
-        
-        // indicator for Kevin
+                
+        // indicator for Kevin pricing
         Time_price = true
         
         start_date = start_datepic.date
@@ -448,10 +444,11 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             end_date = end_date!.addingTimeInterval(-3600.0 * 12.0)
         }
         
+        // debug
         print("Start Date: \(formatter.string(from: start_date!))")
         print("End Date: \(formatter.string(from: end_date!))")
         print("Now: \(formatter.string(from: now))")
-
+        
         // some error checking
         if (start_date! < calendar.date(byAdding: .hour, value: -1, to: now)!) {
             let alert = UIAlertController(title: "Spotbirdparking", message: "Start time is before current time", preferredStyle: .alert)
@@ -484,7 +481,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         for i in 0...num_days-1 {
             let day_date = calendar.date(byAdding: .day, value: i, to: start_date!)
             let day_start = calendar.startOfDay(for: day_date!)
-//            let start_tomorrow = calendar.date(byAdding: .day, value: 1, to: day_start)
+            //            let start_tomorrow = calendar.date(byAdding: .day, value: 1, to: day_start)
             let day_end = calendar.date(byAdding: .minute, value: -1, to: calendar.date(byAdding: .day, value: 1, to: day_start)!)
             res_span.append([day_start, day_end])
         }
@@ -500,14 +497,11 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             print("day of week: \(calendar.component(.weekday, from: date[0] as! Date))")
         }
         
-        // uncomment when we want to go to all the spots
+        // check times for each spot
         for spot in self.arrAllspot {
             let spot_dict = spot as! NSDictionary
-//        for i in 0...4 {
-//            let spot_dict = self.arrAllspot[i] as! NSDictionary
             var is_conflict = false
             print("Spot ID: \(spot_dict["id"])")
-//            print("Spot sun start: \(spot_dict["sunStartTime"]), end: \(spot_dict["sunEndTime"]), switch: \(spot_dict["sunswitch"])")
             
             for times in res_span {
                 // get the index of the weekday (1=Sunday, 2=Monday, ... 7=Saturday)
@@ -519,7 +513,6 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                 var endHH = 0
                 var endMM = 0
                 
-                // TODO: Need to test this functionality further
                 if (weekday_index == 1) { // Sunday
                     // check if spot available on Sunday
                     if (spot_dict["sunswitch"] as! Int == 0) {
@@ -536,7 +529,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                         }
                     }
                 }
-                
+                    
                 else if (weekday_index == 2) { // Monday
                     // check if spot available on Monday
                     if (spot_dict["monswitch"] as! Int == 0) {
@@ -553,7 +546,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                         }
                     }
                 }
-                
+                    
                 else if (weekday_index == 3) { // Tuesday
                     // check if spot available on Tuesday
                     if (spot_dict["tueswitch"] as! Int == 0) {
@@ -570,7 +563,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                         }
                     }
                 }
-                
+                    
                 else if (weekday_index == 4) { // Wednesday
                     // check if spot available on Wednesday
                     if (spot_dict["wedswitch"] as! Int == 0) {
@@ -587,7 +580,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                         }
                     }
                 }
-                
+                    
                 else if (weekday_index == 5) { // Thursday
                     // check if spot available on Thursday
                     if (spot_dict["thuswitch"] as! Int == 0) {
@@ -604,7 +597,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                         }
                     }
                 }
-                
+                    
                 else if (weekday_index == 6) { // Friday
                     // check if spot available on Friday
                     if (spot_dict["friswitch"] as! Int == 0) {
@@ -621,7 +614,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                         }
                     }
                 }
-                
+                    
                 else if (weekday_index == 7) { // Saturday
                     // check if spot available on Saturday
                     if (spot_dict["satswitch"] as! Int == 0) {
@@ -641,7 +634,6 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             }
             
             if (!is_conflict) {
-//                self.arr_search_spot.add(self.arrAllspot[i])
                 print("No schedule conflicts\n")
                 self.arr_search_spot.add(spot)
             }
@@ -651,12 +643,10 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         }
         
         // display the spots with no conflict
-//        print("the spots: \(self.arr_search_spot)")
         self.Search_Spot()
         self.Date_VIew.isHidden = true
-
-//        print("Search Spot:\n\(self.arr_search_spot)")
         
+        //        print("Search Spot:\n\(self.arr_search_spot)")
     }
     
     public func checkTimes(times: [Date], in_available_start: Date, in_available_end: Date) -> Bool {

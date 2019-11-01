@@ -24,7 +24,8 @@ class ReservationsViewController: UIViewController,GMSMapViewDelegate,CLLocation
     @IBOutlet weak var resByDayTable: UITableView!
     @IBOutlet weak var monthYearLabel: UILabel!
     
-    @IBOutlet var mapView: GMSMapView!
+//    @IBOutlet weak var resMapView: GMSMapView!
+    @IBOutlet var resMapView: GMSMapView!
     @IBOutlet var btn_back: UIButton!
     
     var resOnDay = [Reservation]()
@@ -66,7 +67,7 @@ class ReservationsViewController: UIViewController,GMSMapViewDelegate,CLLocation
         resByDayTable.dataSource = self
         resByDayTable.rowHeight = 80
         
-        setView(view: mapView, hidden: true)
+        setView(view: resMapView, hidden: true)
         setView(view: btn_back, hidden: true)
         
         Spinner.stop()
@@ -219,7 +220,7 @@ class ReservationsViewController: UIViewController,GMSMapViewDelegate,CLLocation
     
     @IBAction func BAck(_ sender: Any)
     {
-        setView(view: mapView, hidden: true)
+        setView(view: resMapView, hidden: true)
         setView(view: btn_back, hidden: true)
     }
 }
@@ -464,11 +465,11 @@ extension ReservationsViewController: UITableViewDelegate, UITableViewDataSource
         markerView.frame.size.width = 30
         markerView.frame.size.height = 30
         self.CurrentLocMarker.iconView = markerView
-        self.CurrentLocMarker.map = self.mapView
+        self.CurrentLocMarker.map = self.resMapView
         // let camera = GMSCameraPosition.camera(withLatitude: (location?.coordinate.latitude)!, longitude: (location?.coordinate.longitude)!, zoom:12)
         // self.mapView.animate(to: camera)
         //   mapView.camera = camera
-        setView(view: mapView, hidden: false)
+        setView(view: resMapView, hidden: false)
         setView(view: btn_back, hidden: false)
         
         
@@ -515,11 +516,11 @@ extension ReservationsViewController: UITableViewDelegate, UITableViewDataSource
                                 let polyline = GMSPolyline(path: path)
                                 polyline.strokeColor = .blue
                                 polyline.strokeWidth = 4.5
-                                polyline.map = self.mapView
+                                polyline.map = self.resMapView
                                 
                                 let bounds = GMSCoordinateBounds(coordinate: source, coordinate: destination)
                                 let update = GMSCameraUpdate.fit(bounds, with: UIEdgeInsetsMake(170, 30, 30, 30))
-                                self.mapView!.moveCamera(update)
+                                self.resMapView!.moveCamera(update)
                                 let marker = GMSMarker()
                                 marker.position = destination
                                 marker.title = self.SpotDetails
@@ -528,9 +529,9 @@ extension ReservationsViewController: UITableViewDelegate, UITableViewDataSource
                                 markerView.frame.size.width = 30
                                 markerView.frame.size.height = 30
                                 marker.iconView = markerView
-                                marker.map = self.mapView
+                                marker.map = self.resMapView
                                 let camera = GMSCameraPosition.camera(withLatitude: (source.latitude), longitude: (source.longitude), zoom:10)
-                                self.mapView.animate(to: camera)
+                                self.resMapView.animate(to: camera)
                                 
                                 
                             }
@@ -546,7 +547,7 @@ extension ReservationsViewController: UITableViewDelegate, UITableViewDataSource
                                 alertController.addAction(defaultAction)
                                 self.present(alertController, animated: true, completion: nil)
                                 let camera = GMSCameraPosition.camera(withLatitude: (source.latitude), longitude: (source.longitude), zoom:12)
-                                self.mapView.animate(to: camera)
+                                self.resMapView.animate(to: camera)
                                 
                                 
                                 
