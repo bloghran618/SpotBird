@@ -139,13 +139,13 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
 //            }
 //        }
         // get the reservations
-        _ = DispatchQueue(label: "Getting Reservations", qos: .background).async {
-            AppState.sharedInstance.user.getReservations() { message in
-                print(message)
-                AppState.sharedInstance.user.reservationsDownloaded = true
-                print("Done getting the reservations")
-            }
-        }
+//        _ = DispatchQueue(label: "Getting Reservations", qos: .background).async {
+//            AppState.sharedInstance.user.getReservations() { message in
+//                print(message)
+//                AppState.sharedInstance.user.reservationsDownloaded = true
+//                print("Done getting the reservations")
+//            }
+//        }
         AppState.sharedInstance.user.fetch_Balance()
         AppState.sharedInstance.user.fetch_LifeTimeBalance()
         
@@ -232,25 +232,6 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         print("View loaded")
     }
     
-    //    func getReservationsOnDay(date: Date) -> Bool {
-    //
-    //        for res in AppState.sharedInstance.user.reservations {
-    //            if(checkReservationDateMatchesCell(reservationDate: res.startDateTime, cellDate: date)) {
-    //                 return true
-    //            }
-    //        }
-    //        return false
-    //    }
-    
-    func checkReservationDateMatchesCell(reservationDate: String, cellDate: Date) -> Bool
-    {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd HH:mm"
-        let resDate = formatter.date(from: reservationDate)
-        
-        return Calendar.current.isDate(resDate!, inSameDayAs: cellDate)
-    }
-    
     func start_scheduler() {
         
         let url = "https://spotbird-backend-bloughran618.herokuapp.com/start_scheduler"
@@ -268,15 +249,6 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                 
         }
         print("after starting scheduler")
-    }
-    
-    //MARK:- View will Appears
-    
-    func viewWillAppear(animated: Bool) {
-        //debug:
-//        MyAPIClient.sharedClient.createCustomerID()
-//        MyAPIClient.sharedClient.createAccountID()
-        super.viewWillAppear(animated)
     }
     
     

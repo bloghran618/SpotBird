@@ -53,6 +53,15 @@ class ReservationsViewController: UIViewController,GMSMapViewDelegate,CLLocation
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // get the reservations
+        _ = DispatchQueue(label: "Getting Reservations", qos: .background).async {
+            AppState.sharedInstance.user.getReservations() { message in
+                print(message)
+                AppState.sharedInstance.user.reservationsDownloaded = true
+                print("Done getting the reservations")
+            }
+        }
+        
         // highlight today in the calendar
         calendarView.selectDates([Date()])
         

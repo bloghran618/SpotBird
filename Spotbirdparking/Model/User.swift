@@ -685,7 +685,7 @@ class User {
                                 print("# reservations: \(AppState.sharedInstance.user.reservations.count)")
                             }
                             else {
-                                print("This reservatin is a duplicate")
+                                print("This reservation is a duplicate")
                             }
                         }
                     }
