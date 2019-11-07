@@ -599,6 +599,42 @@ class User {
         }
     }
     
+    // delete any reservation older than 2 months from the database
+    func cleanOldReservations(completionHandler: @escaping (_ message: String) -> ()) {
+        
+        // set database reference to User() in the database
+        let ref = Database.database().reference().child("User").child(AppState.sharedInstance.userid)
+        
+        // formatters and calendar setup
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-mm-dd hh:mm"
+        formatter.timeZone = TimeZone.current
+        var calendar = Calendar.current
+        calendar.timeZone = TimeZone.current
+        
+        // loop over each reservation in database reference
+        ref.child("Reservations").observe(DataEventType.value, with: { (snapshot) in
+            if snapshot.childrenCount > 0 {
+                for artists in snapshot.children.allObjects as! [DataSnapshot] {
+                    let reservationDict = ((snapshot.value as! NSDictionary).value(forKey: (artists as! DataSnapshot).key)) as! NSDictionary
+                    
+                    // check if the res is more than 2 months old
+                    let endDate = Reservation.stringToDate(string: reservationDict["endDateTime"] as! String)
+                    let twoMonthsFromEnd = calendar.date(byAdding: .month, value: 2, to: endDate)
+                    if (twoMonthsFromEnd! < Date()) {
+                        print("should remove this reservation ending on: \(Reservation.dateToString(date: endDate))) at: \((artists as! DataSnapshot).key)")
+                        let rem = Database.database().reference().child("User").child(AppState.sharedInstance.userid).child("Reservations").child("\(artists.key)")
+                        rem.removeValue()
+                    }
+                    else {
+                        print("Should just leave this reservatoin")
+                    }
+                }
+                completionHandler("deletion complete")
+            }
+        })
+    }
+    
     // get the list of reservations for a user
     func getReservations(completionHandler: @escaping (_ message: String) -> ()) {
 
@@ -641,13 +677,9 @@ class User {
 
         // loop over each reservation in database reference
         ref.child("Reservations").observe(DataEventType.value, with: { (snapshot) in
-//        ref.child("Reservations").observeSingleEvent(of: .value, with: {snapshot in
             if snapshot.childrenCount > 0 {
                 for artists in snapshot.children.allObjects as! [DataSnapshot] {
                     let reservationDict = ((snapshot.value as! NSDictionary).value(forKey: (artists as! DataSnapshot).key)) as! NSDictionary
-
-                    // each iteration saved to dictionary called snapshotValue
-//                    print("Reservation Dict: \(reservationDict)")
 
                     // get the parking Car() object
                     let userID = reservationDict["parkerID"] as! String
@@ -656,14 +688,14 @@ class User {
                     print("Car ID: \(carID)")
                     self.carAtPath(carUser: userID, carID: carID) { (reservationCar) in
                         print("ReservationCar Make and year: \(reservationCar.make), \(reservationCar.year)")
-
+                        
                         // get parking Spot() object
                         let spotID = reservationDict["spotID"] as! String
                         let ownerID = reservationDict["ownerID"] as! String
                         self.spotAtPath(userID: ownerID, spotID: spotID)
                         { (reservationSpot) in
-//                            print("Spot address: \(reservationSpot.address)")
-
+                            //                            print("Spot address: \(reservationSpot.address)")
+                            
                             // create Reservation() object
                             var dbReservation = Reservation(
                                 startDateTime: reservationDict["startDateTime"] as! String,
@@ -674,9 +706,9 @@ class User {
                                 car: reservationCar,
                                 ownerID: reservationDict["ownerID"] as! String,
                                 paymentIntent_id: reservationDict["paymentIntent_id"] as! String)
-
+                            
                             print("Reservation start: \(dbReservation!.startDateTime)")
-
+                            
                             // make sure there are no doubles
                             if !self.reservationInReservations(res: dbReservation!, reservations: AppState.sharedInstance.user.reservations) {
                                 // add reservation
@@ -689,6 +721,7 @@ class User {
                             }
                         }
                     }
+                    
                 }
                 completionHandler("End Function")
             }

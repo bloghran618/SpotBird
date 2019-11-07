@@ -93,6 +93,7 @@ class ReservationsViewController: UIViewController,GMSMapViewDelegate,CLLocation
                 
                 // setup the CalendarView()
                 self.setupCalendarView()
+                self.calendarView.reloadData()
                 
                 Spinner.stop()
             } else {

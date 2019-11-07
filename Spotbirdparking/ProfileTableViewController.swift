@@ -44,7 +44,7 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
             ProfileTableOption(option: "Cars", description: "Create and set default cars", logoImageName: "EmptyCar"),
             ProfileTableOption(option: "Payment", description: "Manage your payment options", logoImageName: "dollarSign"),
             ProfileTableOption(option: "List", description: "Share your spot", logoImageName: "Share"),
-            ProfileTableOption(option: "Enable Payouts", description: "Authorize payouts to bank account", logoImageName: "EnablePayouts"),
+            ProfileTableOption(option: "Enable Payouts", description: "Authorize payment for your listed spots", logoImageName: "EnablePayouts"),
             ProfileTableOption(option: "Contact Us", description: "Send us an Email", logoImageName: "contactUs"),
 //            ProfileTableOption(option: "Log Out", description: "Log out of your account", logoImageName: "white")
 //            ProfileTableOption(option: "Test Functionality", description: "Just for testing", logoImageName: "white")

@@ -149,6 +149,10 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         AppState.sharedInstance.user.fetch_Balance()
         AppState.sharedInstance.user.fetch_LifeTimeBalance()
         
+        AppState.sharedInstance.user.cleanOldReservations() { message in
+            print("Finished cleaning: \(message)")
+        }
+        
         
 //        AppState.sharedInstance.user.getReservationsOfCurrentUser(){ message in
 //

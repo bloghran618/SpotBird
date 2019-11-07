@@ -31,7 +31,7 @@ class Login_ViewController: UIViewController {
     }
     
     @IBAction func btn_newuser(_ sender: Any) {
-        let vc = self.storyboard?.instantiateViewController(withIdentifier: "Signup_ViewController") as! Signup_ViewController
+        var vc = self.storyboard?.instantiateViewController(withIdentifier: "Signup_ViewController") as! Signup_ViewController 
         self.present(vc, animated: true, completion: nil)
     }
     
