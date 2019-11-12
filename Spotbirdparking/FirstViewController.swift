@@ -177,7 +177,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         self.locationManager.delegate = self
         self.locationManager.requestWhenInUseAuthorization()
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        CurrentLocMarker.map = self.mapView
+//        CurrentLocMarker.map = self.mapView
         self.locationManager.startMonitoringSignificantLocationChanges()
         self.locationManager.startUpdatingLocation()
         //   mapView.isMyLocationEnabled = true
@@ -2940,7 +2940,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         let location = locations.last
         self.CurrentLocMarker.position = (location?.coordinate)!
         cooridnates = (location?.coordinate)!
-        // self.CurrentLocMarker.title = "myLoc"
+//         self.CurrentLocMarker.title = "myLoc"
         userlatitude = (location?.coordinate.latitude)!
         userlongitude = (location?.coordinate.longitude)!
         let camera = GMSCameraPosition.camera(withLatitude: (location?.coordinate.latitude)!, longitude: (location?.coordinate.longitude)!, zoom:12)
@@ -3486,46 +3486,6 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         })
         // need to get rid of this line...
         //        Spinner.stop()
-    }
-    
-    func get_todaySpots(tag:Int)
-    {
-        let marker = GMSMarker()
-        let lat1 = (self.arrspot.object(at: tag) as! NSDictionary).value(forKey: "user_lat") as! String
-        let long1 = (self.arrspot.object(at: tag) as! NSDictionary).value(forKey: "user_long") as! String
-        let lat = (lat1 as NSString).doubleValue
-        let long = (long1 as NSString).doubleValue
-        marker.position = CLLocationCoordinate2DMake(lat, long)
-        marker.map = self.mapView
-        let price = (self.arrspot.object(at: tag) as! NSDictionary).value(forKey: "hourlyPricing") as! String
-        var doller = String()
-        for (index, character) in price.enumerated() {
-            if index < 4 {
-                doller.append(character)
-            }
-        }
-        marker.infoWindowAnchor = CGPoint(x: 0.5, y: 0.2)
-        marker.accessibilityLabel = "\(tag)"
-        
-        var markerimg = UIImageView()
-        let customView = UIView()
-        customView.frame = CGRect.init(x: 0, y: 0, width: 60, height: 60)
-        markerimg  = UIImageView(frame:CGRect(x:0, y:0, width:60, height:60));
-        markerimg.image = UIImage(named:"markers")
-        markerimg.backgroundColor = UIColor.clear
-        customView.addSubview(markerimg)
-        let lbl_marker = UILabel()
-        lbl_marker.frame = CGRect(x: 10, y: (markerimg.frame.height/2)-25, width: markerimg.frame.width-20, height: 40)
-        markerimg.addSubview(lbl_marker)
-        //lbl_marker.backgroundColor = UIColor.red
-        lbl_marker.textAlignment = .center
-        lbl_marker.numberOfLines = 1;
-        lbl_marker.text = "$\(doller)"
-        lbl_marker.minimumScaleFactor = 0.5;
-        lbl_marker.adjustsFontSizeToFitWidth = true;
-        lbl_marker.textColor = UIColor.black
-        customView.backgroundColor = UIColor.clear
-        marker.iconView = customView
     }
     
     // MARK:_ Load Marker to map :-  Spot
