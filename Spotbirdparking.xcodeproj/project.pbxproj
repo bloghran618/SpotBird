@@ -40,11 +40,11 @@
 		B72F7C2022715821001B6D6F /* SSNTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B72F7C1F22715821001B6D6F /* SSNTextField.swift */; };
 		B735CB9621C8A2EA00946C73 /* PayoutsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B735CB9521C8A2EA00946C73 /* PayoutsViewController.swift */; };
 		B7364D0620B65B390081F40F /* ProfileTableOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7364D0520B65B390081F40F /* ProfileTableOption.swift */; };
-		B7364D0820B65F120081F40F /* ProfileTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7364D0720B65F120081F40F /* ProfileTableViewController.swift */; };
 		B7445D67212B967C0063F58D /* Spot.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7445D66212B967C0063F58D /* Spot.swift */; };
 		B74DE6EE2178100F0049A31B /* ReservationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74DE6ED2178100F0049A31B /* ReservationsViewController.swift */; };
 		B75AE7B920C496B40069A151 /* CarsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75AE7B820C496B40069A151 /* CarsTableViewCell.swift */; };
 		B75AE7BB20C4B63D0069A151 /* CarsDefinitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75AE7BA20C4B63D0069A151 /* CarsDefinitionViewController.swift */; };
+		B7626AA7237A5B59004CDBD3 /* ProfileOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7626AA6237A5B59004CDBD3 /* ProfileOptionsViewController.swift */; };
 		B77D9346211A807700D505BD /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77D9345211A807700D505BD /* ScheduleViewController.swift */; };
 		B7826C942147582100616275 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7826C932147582100616275 /* User.swift */; };
 		B79D514B218BDA4E001EFE1C /* ByDayResTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79D514A218BDA4E001EFE1C /* ByDayResTableViewCell.swift */; };
@@ -116,11 +116,11 @@
 		B72F7C1F22715821001B6D6F /* SSNTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SSNTextField.swift; sourceTree = "<group>"; };
 		B735CB9521C8A2EA00946C73 /* PayoutsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PayoutsViewController.swift; sourceTree = "<group>"; };
 		B7364D0520B65B390081F40F /* ProfileTableOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableOption.swift; sourceTree = "<group>"; };
-		B7364D0720B65F120081F40F /* ProfileTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableViewController.swift; sourceTree = "<group>"; };
 		B7445D66212B967C0063F58D /* Spot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spot.swift; sourceTree = "<group>"; };
 		B74DE6ED2178100F0049A31B /* ReservationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationsViewController.swift; sourceTree = "<group>"; };
 		B75AE7B820C496B40069A151 /* CarsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarsTableViewCell.swift; sourceTree = "<group>"; };
 		B75AE7BA20C4B63D0069A151 /* CarsDefinitionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarsDefinitionViewController.swift; sourceTree = "<group>"; };
+		B7626AA6237A5B59004CDBD3 /* ProfileOptionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileOptionsViewController.swift; sourceTree = "<group>"; };
 		B77D9345211A807700D505BD /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
 		B7826C932147582100616275 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B79D514A218BDA4E001EFE1C /* ByDayResTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ByDayResTableViewCell.swift; sourceTree = "<group>"; };
@@ -238,7 +238,7 @@
 				0406E62921620AD900C3E97B /* Login_ViewController.swift */,
 				04E63847216211AD003EAC28 /* Signup_ViewController.swift */,
 				04CC3FB12261EC8B00FF30B2 /* FirstViewController.swift */,
-				B7364D0720B65F120081F40F /* ProfileTableViewController.swift */,
+				B7626AA6237A5B59004CDBD3 /* ProfileOptionsViewController.swift */,
 				B7364D0520B65B390081F40F /* ProfileTableOption.swift */,
 				B7CF24F020BCBB3000722933 /* YouViewController.swift */,
 				B7B67FE220C34A7400A13FD0 /* CarsViewController.swift */,
@@ -522,6 +522,7 @@
 				B7826C942147582100616275 /* User.swift in Sources */,
 				B7CD91EB20F82C6100CFF016 /* ShareViewController.swift in Sources */,
 				0426E0352164F5060017E88B /* CustomInfoWindow.swift in Sources */,
+				B7626AA7237A5B59004CDBD3 /* ProfileOptionsViewController.swift in Sources */,
 				B71F2DE62086CDA800F47274 /* AppDelegate.swift in Sources */,
 				B74DE6EE2178100F0049A31B /* ReservationsViewController.swift in Sources */,
 				04E63848216211AD003EAC28 /* Signup_ViewController.swift in Sources */,
@@ -542,7 +543,6 @@
 				B7F9425920FD903D001B421E /* SpotImageViewController.swift in Sources */,
 				044217B52189BDF700946D91 /* CustomView.swift in Sources */,
 				041EC524217F44EA007DEC9C /* Custommarkerinfo.swift in Sources */,
-				B7364D0820B65F120081F40F /* ProfileTableViewController.swift in Sources */,
 				B72F7C2022715821001B6D6F /* SSNTextField.swift in Sources */,
 				B7D3B2D62172644500ADBAD4 /* Reservation.swift in Sources */,
 				B7A669D82134EC030057A283 /* AppState.swift in Sources */,

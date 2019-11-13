@@ -1,10 +1,9 @@
-
 //
-//  ProfileTableViewController.swift
+//  ProfileOptionsViewController.swift
 //  Spotbirdparking
 //
-//  Created by user138340 on 5/23/18.
-//  Copyright © 2018 Spotbird. All rights reserved.
+//  Created by user138340 on 11/11/19.
+//  Copyright © 2019 Spotbird. All rights reserved.
 //
 
 import UIKit
@@ -12,8 +11,10 @@ import Stripe
 import MBProgressHUD
 import Firebase
 
-
-class ProfileTableViewController: UITableViewController, STPPaymentContextDelegate  {
+class ProfileOptionsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, STPPaymentContextDelegate {
+    
+    
+    @IBOutlet weak var profileTableView: UITableView!
     
     var profileOptions: [ProfileTableOption]?
     let cellIdentifier = "profileTableCell"
@@ -24,7 +25,6 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
     let paymentContext = STPPaymentContext(customerContext: STPCustomerContext(keyProvider: MyAPIClient.sharedClient))
     
     let stripePublishableKey = "pk_test_TV3DNqRM8DCQJEcvMGpayRRj"
-    let backendBaseURL: String? = "https://stripe-example-backend619.herokuapp.com/"
     
     required init?(coder aDecoder: NSCoder) {
         print("Entered required init")
@@ -34,8 +34,12 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // check the status of the associated Stripe account
+        
+        print("loading...")
+        
+        self.profileTableView.delegate = self
+        self.profileTableView.dataSource = self
+        
         MyAPIClient.sharedClient.checkStripeAccount()
         
         // populate the options with data
@@ -46,8 +50,8 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
             ProfileTableOption(option: "List", description: "Share your spot", logoImageName: "Share"),
             ProfileTableOption(option: "Enable Payouts", description: "Authorize payment for your listed spots", logoImageName: "EnablePayouts"),
             ProfileTableOption(option: "Contact Us", description: "Send us an Email", logoImageName: "contactUs"),
-//            ProfileTableOption(option: "Log Out", description: "Log out of your account", logoImageName: "white")
-//            ProfileTableOption(option: "Test Functionality", description: "Just for testing", logoImageName: "white")
+            //            ProfileTableOption(option: "Log Out", description: "Log out of your account", logoImageName: "white")
+            //            ProfileTableOption(option: "Test Functionality", description: "Just for testing", logoImageName: "white")
         ]
         
         // check if the user has listed spots AND a restricted stripe account
@@ -74,47 +78,30 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
         }else{
             self.hideHUD()
         }
-    }
-    
-    
-    func showHud(message: String) {
-        let hud = MBProgressHUD.showAdded(to: self.view, animated: true)
-        hud.labelText = message
-        hud.isUserInteractionEnabled = false
-    }
-    
-    func hideHUD() {
-        MBProgressHUD.hide(for: self.view, animated: true)
-    }
 
-    
-    
-    
-    // MARK: - UITableViewDataSource
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
     }
     
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return profileOptions?.count ?? 0
     }
     
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
         guard let profileOptions = profileOptions else { return cell }
-                
+
         cell.textLabel?.text = profileOptions[(indexPath as NSIndexPath).row].option
         cell.detailTextLabel?.text = profileOptions[(indexPath as NSIndexPath).row].description
-        
+
         if let imageName = profileOptions[(indexPath as NSIndexPath).row].logoImageName {
-            cell.imageView?.image = UIImage(named: imageName)
+                    cell.imageView?.image = UIImage(named: imageName)
         }
         
         return cell;
     }
     
-    override  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("index path: \(indexPath)")
+        
         // perform segue based on what cell is clicked
         if profileOptions![(indexPath as NSIndexPath).row].option == "You" {
             self.performSegue(withIdentifier: "You", sender: self)
@@ -141,7 +128,7 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
             else {
                 self.performSegue(withIdentifier: "Payouts", sender: self)
             }
-
+            
         }
         else if profileOptions![(indexPath as NSIndexPath).row].option == "Contact Us" {
             print("Go to email")
@@ -153,9 +140,9 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
         else if profileOptions![(indexPath as NSIndexPath).row].option == "Test Functionality" {
             print("Just doing some debugging...")
             
-//            self.setPaymentContext(price: 1000)
-//            print("requesting the payment...")
-//            self.paymentContext.requestPayment()
+            //            self.setPaymentContext(price: 1000)
+            //            print("requesting the payment...")
+            //            self.paymentContext.requestPayment()
             
         }
         else {
@@ -163,17 +150,10 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
         }
     }
     
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func hideHUD() {
+        MBProgressHUD.hide(for: self.view, animated: true)
     }
-
+    
     // log out the user
     func logOut() {
         
@@ -201,10 +181,8 @@ class ProfileTableViewController: UITableViewController, STPPaymentContextDelega
         alertController.addAction(okAction)
         self.present(alertController, animated: true, completion: nil)
     }
-
     
     // MARK: STPPaymentContextDelegate
-    
     func paymentContext(_ paymentContext: STPPaymentContext, didCreatePaymentResult paymentResult: STPPaymentResult, completion: @escaping STPPaymentStatusBlock) {
         print("run didcreatepaymentresult")
     }
