@@ -20,7 +20,8 @@ target 'Spotbirdparking' do
   pod 'JTAppleCalendar', '~> 7.0' 
   pod 'MBProgressHUD'
   pod 'themis'
-  pod 'CryptoSwift'
+  pod 'CryptoSwift', '~> 1.0'
+  pod 'IQKeyboardManager'
 
   target 'SpotbirdparkingTests' do
     inherit! :search_paths

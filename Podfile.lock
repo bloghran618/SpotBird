@@ -81,6 +81,7 @@ PODS:
     - GoogleUtilities/Logger
   - GRKOpenSSLFramework (1.0.2.18)
   - GTMSessionFetcher/Core (1.2.2)
+  - IQKeyboardManager (6.5.3)
   - IQKeyboardManagerSwift (5.0.8)
   - JTAppleCalendar (7.1.8)
   - leveldb-library (1.22)
@@ -108,7 +109,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
-  - CryptoSwift
+  - CryptoSwift (~> 1.0)
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
@@ -116,6 +117,7 @@ DEPENDENCIES:
   - GoogleMaps
   - GooglePlacePicker
   - GooglePlaces
+  - IQKeyboardManager
   - IQKeyboardManagerSwift (~> 5.0)
   - JTAppleCalendar (~> 7.0)
   - MBProgressHUD
@@ -142,6 +144,7 @@ SPEC REPOS:
     - GoogleUtilities
     - GRKOpenSSLFramework
     - GTMSessionFetcher
+    - IQKeyboardManager
     - IQKeyboardManagerSwift
     - JTAppleCalendar
     - leveldb-library
@@ -164,11 +167,12 @@ SPEC CHECKSUMS:
   FirebaseStorage: 6162ef4322502b818d9de0ec552f5226d283de43
   GoogleAppMeasurement: ffe513e90551844a739e7bcbb1d2aca1c28a4338
   GoogleMaps: 5c13302e6fe6bb6e686b267196586b91cd594225
-  GooglePlacePicker: 1c60c2a26e9d1e73bcb0c6f89609db8d777d13c1
+  GooglePlacePicker: fa975116ac202ac29822c0a79758ea1c4db5a95f
   GooglePlaces: e874db179f2675c4f3eeda0b686b540273a578b0
   GoogleUtilities: 04fce34bcd5620c1ee76fb79172105c74a4df335
   GRKOpenSSLFramework: 1d65e55d569af7b23074373041a92cc8bc768a92
   GTMSessionFetcher: 61bb0f61a4cb560030f1222021178008a5727a23
+  IQKeyboardManager: c2f901164d56807a35788483584d09fa69192e8e
   IQKeyboardManagerSwift: 2e7dc7f98c111458c1ea2b373f893e8cf95e2b97
   JTAppleCalendar: b7fb40852f5f319fe55c8ec3861f1de0edc99cc8
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
@@ -178,6 +182,6 @@ SPEC CHECKSUMS:
   Stripe: 6c9ab10f087ca76c3cd7311462e383434921bdf8
   themis: f4ef6d942670146ad08dca8cc99a34ae040878c0
 
-PODFILE CHECKSUM: ee9d1463b731ec4c8494d3994eb24b8c88764f2e
+PODFILE CHECKSUM: e71ba8868a518c8a619bf357642facb81a86c359
 
 COCOAPODS: 1.5.3

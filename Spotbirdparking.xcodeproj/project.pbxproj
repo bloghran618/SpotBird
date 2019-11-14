@@ -48,6 +48,7 @@
 		B77D9346211A807700D505BD /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77D9345211A807700D505BD /* ScheduleViewController.swift */; };
 		B7826C942147582100616275 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7826C932147582100616275 /* User.swift */; };
 		B79D514B218BDA4E001EFE1C /* ByDayResTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79D514A218BDA4E001EFE1C /* ByDayResTableViewCell.swift */; };
+		B79F5C1A237DE88700B1849F /* config.plist in Sources */ = {isa = PBXBuildFile; fileRef = B79F5C19237DE88700B1849F /* config.plist */; };
 		B7A35D4120F5AA4500E4B566 /* AddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A35D4020F5AA4500E4B566 /* AddressViewController.swift */; };
 		B7A669D82134EC030057A283 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A669D72134EC030057A283 /* AppState.swift */; };
 		B7A86B4B20C0E9DB00041C61 /* Car.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A86B4A20C0E9DB00041C61 /* Car.swift */; };
@@ -124,6 +125,7 @@
 		B77D9345211A807700D505BD /* ScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleViewController.swift; sourceTree = "<group>"; };
 		B7826C932147582100616275 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		B79D514A218BDA4E001EFE1C /* ByDayResTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ByDayResTableViewCell.swift; sourceTree = "<group>"; };
+		B79F5C19237DE88700B1849F /* config.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = config.plist; sourceTree = "<group>"; };
 		B7A35D4020F5AA4500E4B566 /* AddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressViewController.swift; sourceTree = "<group>"; };
 		B7A669D72134EC030057A283 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
 		B7A86B4A20C0E9DB00041C61 /* Car.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Car.swift; sourceTree = "<group>"; };
@@ -267,6 +269,7 @@
 				B71F2DEE2086CDAA00F47274 /* Assets.xcassets */,
 				B71F2DF02086CDAA00F47274 /* LaunchScreen.storyboard */,
 				B71F2DF32086CDAA00F47274 /* Info.plist */,
+				B79F5C19237DE88700B1849F /* config.plist */,
 				041EC523217F44EA007DEC9C /* Custommarkerinfo.swift */,
 			);
 			path = Spotbirdparking;
@@ -432,6 +435,7 @@
 				"${PODS_ROOT}/GRKOpenSSLFramework/OpenSSL-iOS/bin/openssl.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/IQKeyboardManager/IQKeyboardManager.framework",
 				"${BUILT_PRODUCTS_DIR}/IQKeyboardManagerSwift/IQKeyboardManagerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/JTAppleCalendar/JTAppleCalendar.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
@@ -450,6 +454,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/openssl.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManager.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IQKeyboardManagerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JTAppleCalendar.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
@@ -553,6 +558,7 @@
 				B7CF24F120BCBB3000722933 /* YouViewController.swift in Sources */,
 				B75AE7B920C496B40069A151 /* CarsTableViewCell.swift in Sources */,
 				B7141A4D20ED1DAF005B54D3 /* MyAPIClient.swift in Sources */,
+				B79F5C1A237DE88700B1849F /* config.plist in Sources */,
 				B7B67FE320C34A7400A13FD0 /* CarsViewController.swift in Sources */,
 				04CE142E21C5257A00338DEE /* Timeclass.swift in Sources */,
 				B701C8E122A096130054F6D9 /* EmailViewController.swift in Sources */,

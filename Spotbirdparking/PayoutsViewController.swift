@@ -62,6 +62,7 @@ class PayoutsViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         routingNumberField.delegate = self
         
         hideAllValidationFields()
+        self.hideKeyboardWhenTappedAround()
         
         self.zipAddressField.keyboardType = UIKeyboardType.numberPad
         self.last4SocialField.keyboardType = UIKeyboardType.numberPad
@@ -81,14 +82,6 @@ class PayoutsViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         
         termsLabel.numberOfLines = 0
     }
-    
-//    @objc func doneButtonAction() {
-//        print("done selected")
-//    }
-//
-//    @objc func cancelButtonAction() {
-//        print("cancel selected")
-//    }
     
     public func numberOfComponents(in pickerView: UIPickerView) -> Int{
         return 1
@@ -119,7 +112,20 @@ class PayoutsViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         if textField == self.stateAddressField {
             self.stateDropDown.isHidden = false
             self.stateDoneButton.isHidden = false
-            textField.endEditing(true)
+//            textField.endEditing(true)
+            
+            // hide keyboard
+//            firstNameField.resignFirstResponder()
+//            lastNameField.resignFirstResponder()
+//            line1AddressField.resignFirstResponder()
+//            line2AddressField.resignFirstResponder()
+//            cityAddressField.resignFirstResponder()
+//            stateAddressField.resignFirstResponder()
+//            zipAddressField.resignFirstResponder()
+//            last4SocialField.resignFirstResponder()
+//            accountNumberField.resignFirstResponder()
+//            routingNumberField.resignFirstResponder()
+//            textField.resignFirstResponder()
         }
     }
     
@@ -170,6 +176,9 @@ class PayoutsViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
     
     // Function which activates when you hit the "submit info" button
     @IBAction func submitInfo(_ sender: Any) {
+        
+        Spinner.start()
+        
         print("Lets submit some info!")
         let firstName = firstNameField.text
         let lastName = lastNameField.text
@@ -291,11 +300,15 @@ class PayoutsViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
                     let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
                     alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
                     self.present(alert, animated: true, completion: nil)
+                    
+                    Spinner.stop()
                 }
                 else {
                     print("We successfully created STPConnectAccountParams token!!!")
                     print(token)
                     print(token?.tokenId)
+                    
+                    Spinner.stop()
                     
                     // do stuff with token
                     MyAPIClient.sharedClient.addConnectAccountInfoToken(token: token!, address: address)

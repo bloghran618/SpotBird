@@ -22,18 +22,23 @@ import IQKeyboardManagerSwift
     var window: UIWindow?
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         
-        //keybord manag
+        var keys = NSDictionary()
+        if let path = Bundle.main.path(forResource: "config", ofType: "plist") {
+            keys = NSDictionary(contentsOfFile: path) ?? NSDictionary()
+        }
+        
+        //keybord manager
         IQKeyboardManager.sharedManager().enable = true
         IQKeyboardManager.sharedManager().enableAutoToolbar = true
         IQKeyboardManager.sharedManager().shouldShowToolbarPlaceholder = true
 
-        GMSServices.provideAPIKey("AIzaSyCvFxAOvA246L6Syk7Cl426254C-sMJGxk")
-        GMSPlacesClient.provideAPIKey("AIzaSyCvFxAOvA246L6Syk7Cl426254C-sMJGxk")
+        GMSServices.provideAPIKey(keys["GMSServices"] as! String)
+        GMSPlacesClient.provideAPIKey(keys["GMSPlacesClient"] as! String)
         
         FirebaseApp.configure()
         
         // Set up Stripe keys
-        STPPaymentConfiguration.shared().publishableKey = "pk_test_TV3DNqRM8DCQJEcvMGpayRRj"
+        STPPaymentConfiguration.shared().publishableKey = keys["StripeKey"] as! String
         // See https://stripe.com/docs/mobile/ios for instructions on how to set up Apple Pay
         
         //   MyAPIClient.sharedClient.baseURLString = "https://stripe-example-backend619.herokuapp.com/"
