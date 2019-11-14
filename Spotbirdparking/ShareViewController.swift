@@ -33,6 +33,7 @@ class ShareViewController: UIViewController, UITableViewDataSource {
         
         self.spotTable.dataSource = self
         self.spotTable.rowHeight = 100
+        self.spotTable.tableFooterView = UIView()
 
       //  AppState.sharedInstance.activeSpot.getSpots()
         

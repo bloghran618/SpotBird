@@ -74,6 +74,7 @@ class ReservationsViewController: UIViewController,GMSMapViewDelegate,CLLocation
         calendarView.calendarDelegate = self
         resByDayTable.delegate = self
         resByDayTable.dataSource = self
+        self.resByDayTable.tableFooterView = UIView()
         resByDayTable.rowHeight = 80
         
         setView(view: resMapView, hidden: true)

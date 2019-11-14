@@ -15,6 +15,7 @@ class ProfileOptionsViewController: UIViewController, UITableViewDataSource, UIT
     
     
     @IBOutlet weak var profileTableView: UITableView!
+    @IBOutlet weak var logoutButton: UIButton!
     
     var profileOptions: [ProfileTableOption]?
     let cellIdentifier = "profileTableCell"
@@ -39,6 +40,9 @@ class ProfileOptionsViewController: UIViewController, UITableViewDataSource, UIT
         
         self.profileTableView.delegate = self
         self.profileTableView.dataSource = self
+        self.profileTableView.tableFooterView = UIView()
+        
+        self.logoutButton.layer.cornerRadius = 5
         
         MyAPIClient.sharedClient.checkStripeAccount()
         
@@ -91,6 +95,7 @@ class ProfileOptionsViewController: UIViewController, UITableViewDataSource, UIT
 
         cell.textLabel?.text = profileOptions[(indexPath as NSIndexPath).row].option
         cell.detailTextLabel?.text = profileOptions[(indexPath as NSIndexPath).row].description
+        cell.selectionStyle = .none
 
         if let imageName = profileOptions[(indexPath as NSIndexPath).row].logoImageName {
                     cell.imageView?.image = UIImage(named: imageName)
@@ -134,9 +139,6 @@ class ProfileOptionsViewController: UIViewController, UITableViewDataSource, UIT
             print("Go to email")
             self.performSegue(withIdentifier: "Email", sender: self)
         }
-        else if profileOptions![(indexPath as NSIndexPath).row].option == "Log Out" {
-            self.logOut()
-        }
         else if profileOptions![(indexPath as NSIndexPath).row].option == "Test Functionality" {
             print("Just doing some debugging...")
             
@@ -154,9 +156,8 @@ class ProfileOptionsViewController: UIViewController, UITableViewDataSource, UIT
         MBProgressHUD.hide(for: self.view, animated: true)
     }
     
-    // log out the user
-    func logOut() {
-        
+    
+    @IBAction func logoutButtonClicked(_ sender: Any) {
         let alertController = UIAlertController(title: "Spotbirdparking", message: "Are you sure you want to logout?", preferredStyle: UIAlertControllerStyle.alert)
         let DestructiveAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.destructive) { (result : UIAlertAction) -> Void in
             UserDefaults.standard.removeObject(forKey: "logindata")

@@ -26,6 +26,7 @@ class CarsViewController: UIViewController, UITableViewDataSource {
         
         super.viewDidLoad()
         CarsTable.dataSource = self
+        self.CarsTable.tableFooterView = UIView()
         self.CarsTable.rowHeight = 100
         
         AppState.sharedInstance.user.GetCar()
