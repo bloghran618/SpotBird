@@ -101,8 +101,8 @@ class PriceViewController: UIViewController, UITextFieldDelegate,CLLocationManag
         lbl3.text = String(AppState.sharedInstance.user.avg3)
         lbl4.text = String(AppState.sharedInstance.user.avg4)
         
-        weeklyPricingOn.addTarget(self, action: #selector(weeklyPricingSwitchChanged), for: UIControlEvents.valueChanged)
-        monthlyPricingOn.addTarget(self, action: #selector(monthlyPricingSwitchChanged), for: UIControlEvents.valueChanged)
+//        weeklyPricingOn.addTarget(self, action: #selector(weeklyPricingSwitchChanged), for: UIControlEvents.valueChanged)
+//        monthlyPricingOn.addTarget(self, action: #selector(monthlyPricingSwitchChanged), for: UIControlEvents.valueChanged)
         
         lbl1_mini.text = "$ 5"
         lbl1_max.text = "$ 8"
@@ -240,47 +240,47 @@ class PriceViewController: UIViewController, UITextFieldDelegate,CLLocationManag
         return true
     }
     
-    @objc func weeklyPricingSwitchChanged(switchState: UISwitch) {
-        AppState.sharedInstance.activeSpot.weeklyOn = switchState.isOn
-        
-        if switchState.isOn {
-            AppState.sharedInstance.activeSpot.weeklyPricing = AppState.sharedInstance.activeSpot.calculateReccomendedPricing()[2]
-            //   weeklyPricing.text = AppState.sharedInstance.activeSpot.weeklyPricing
-            sw1 = "on"
-            lbl3_price.isHidden = false
-            
-        }
-        else {
-            AppState.sharedInstance.activeSpot.weeklyPricing = ""
-            //   weeklyPricing.text = ""
-            sw1 = "off"
-            lbl3_price.isHidden = true
-        }
-        
-        // weeklyPricing.isEnabled = switchState.isOn
-        
-        // Slide3.isEnabled  = switchState.isOn
-        // lbl3_price.isHidden = switchState.isOn
-    }
-    
-    @objc func monthlyPricingSwitchChanged(switchState: UISwitch) {
-        AppState.sharedInstance.activeSpot.monthlyOn = switchState.isOn
-        if switchState.isOn {
-            AppState.sharedInstance.activeSpot.monthlyPricing = AppState.sharedInstance.activeSpot.calculateReccomendedPricing()[3]
-            // monthlyPricing.text = AppState.sharedInstance.activeSpot.monthlyPricing
-            sw2 = "on"
-            lbl4_price.isHidden = false
-        }
-        else {
-            AppState.sharedInstance.activeSpot.monthlyPricing = ""
-            //   monthlyPricing.text = ""
-            sw2 = "off"
-            lbl4_price.isHidden = true
-        }
-        //  monthlyPricing.isEnabled = switchState.isOn
-        //   Slide4.isEnabled  = switchState.isOn
-        // lbl4_price.isHidden = switchState.isOn
-    }
+//    @objc func weeklyPricingSwitchChanged(switchState: UISwitch) {
+//        AppState.sharedInstance.activeSpot.weeklyOn = switchState.isOn
+//
+//        if switchState.isOn {
+//            AppState.sharedInstance.activeSpot.weeklyPricing = AppState.sharedInstance.activeSpot.calculateReccomendedPricing()[2]
+//            //   weeklyPricing.text = AppState.sharedInstance.activeSpot.weeklyPricing
+//            sw1 = "on"
+//            lbl3_price.isHidden = false
+//
+//        }
+//        else {
+//            AppState.sharedInstance.activeSpot.weeklyPricing = ""
+//            //   weeklyPricing.text = ""
+//            sw1 = "off"
+//            lbl3_price.isHidden = true
+//        }
+//
+//        // weeklyPricing.isEnabled = switchState.isOn
+//
+//        // Slide3.isEnabled  = switchState.isOn
+//        // lbl3_price.isHidden = switchState.isOn
+//    }
+//
+//    @objc func monthlyPricingSwitchChanged(switchState: UISwitch) {
+//        AppState.sharedInstance.activeSpot.monthlyOn = switchState.isOn
+//        if switchState.isOn {
+//            AppState.sharedInstance.activeSpot.monthlyPricing = AppState.sharedInstance.activeSpot.calculateReccomendedPricing()[3]
+//            // monthlyPricing.text = AppState.sharedInstance.activeSpot.monthlyPricing
+//            sw2 = "on"
+//            lbl4_price.isHidden = false
+//        }
+//        else {
+//            AppState.sharedInstance.activeSpot.monthlyPricing = ""
+//            //   monthlyPricing.text = ""
+//            sw2 = "off"
+//            lbl4_price.isHidden = true
+//        }
+//        //  monthlyPricing.isEnabled = switchState.isOn
+//        //   Slide4.isEnabled  = switchState.isOn
+//        // lbl4_price.isHidden = switchState.isOn
+//    }
     
     @IBAction func postSpot(_ sender: Any) {
         //        hourlyPricing.resignFirstResponder()

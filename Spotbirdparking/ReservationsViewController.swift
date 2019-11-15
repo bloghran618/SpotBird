@@ -370,7 +370,7 @@ extension ReservationsViewController: UITableViewDelegate, UITableViewDataSource
         self.formatter.dateFormat = "yyyy-MM-dd HH:mm"
         let startDate = self.formatter.date(from: res.startDateTime)
         let endDate = self.formatter.date(from: res.endDateTime)
-        self.formatter.dateFormat = "MMM dd, h:mm a"
+        self.formatter.dateFormat = "MMM dd, h:00 a"
         let formattedStartDate = self.formatter.string(from: startDate!)
         let formattedEndDate = self.formatter.string(from: endDate!)
 

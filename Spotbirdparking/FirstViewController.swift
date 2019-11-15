@@ -79,6 +79,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     var tblLocation : UITableView!
     var hud : MBProgressHUD = MBProgressHUD()
     var placesClient: GMSPlacesClient!
+    var zoomLevel = 13
     
     var curruntlat : Double?
     var curruntlong : Double?
@@ -2943,7 +2944,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
 //         self.CurrentLocMarker.title = "myLoc"
         userlatitude = (location?.coordinate.latitude)!
         userlongitude = (location?.coordinate.longitude)!
-        let camera = GMSCameraPosition.camera(withLatitude: (location?.coordinate.latitude)!, longitude: (location?.coordinate.longitude)!, zoom:12)
+        let camera = GMSCameraPosition.camera(withLatitude: (location?.coordinate.latitude)!, longitude: (location?.coordinate.longitude)!, zoom:Float(self.zoomLevel))
         //  self.mapView.animate(to: camera)
         mapView.camera = camera
         five = 0
@@ -3394,17 +3395,42 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                 formatter.dateFormat = "yyyy-MM-dd HH:mm"
                 
                 self.arrspot.removeAllObjects()
-                let arrCurrentRes = AppState.sharedInstance.user.myReservations
+//                let arrCurrentRes = AppState.sharedInstance.user.myReservations
                 for artists in snapshot.children.allObjects as! [DataSnapshot] {
                     let snapshotValue = snapshot.value as! NSDictionary
                     let dictdata = ((snapshot.value as! NSDictionary).value(forKey: (artists as! DataSnapshot).key)) as! NSDictionary
+                    
+                    print("is the spot approved? idk yet...")
+                    print("address: \(dictdata["address"])")
+                    print("dictdata: \(dictdata)")
+                    if ((dictdata["approved"]) != nil) {
+                        print("approved is not nil")
+                        print("the value of approved: \(dictdata["approved"])")
+                    }
+                    
                     if dictdata.count>0
                     {
                         for (theKey, theValue) in dictdata {
                             //  print(theKey)
                             //  print(theValue)
-                            self.arrAllspot.add(theValue)
-                            // self.arrspot.add(theValue)
+                            
+                            // check if the spot is approved
+                            var approved = true
+                            let dict = theValue as! NSDictionary
+                            if (dict["approved"] != nil) {
+                                print("approved value: \(dict["approved"] as! NSInteger)")
+                                if (dict["approved"] as! NSInteger == 0) {
+                                    approved = false
+                                    print("the spot is not approved")
+                                }
+                                else {
+                                    print("the spot is approved")
+                                }
+                            }
+                            
+                            if (approved) {
+                                self.arrAllspot.add(theValue)
+                            }
                         }
                         //self.loadEventsToMap(lat: self.userlatitude, long: self.userlongitude)
                     }
@@ -3840,6 +3866,11 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         
         let cordinate:[String: CLLocationCoordinate2D] = ["cordinate": place.coordinate]
         mapView.clear()
+        
+        // adjust camera zoom level
+        let cameraSearchPosition = GMSCameraPosition.camera(withLatitude: (place.coordinate.latitude), longitude: (place.coordinate.longitude), zoom:Float(self.zoomLevel))
+        //  self.mapView.animate(to: camera)
+        mapView.camera = cameraSearchPosition
         
         self.CurrentLocMarker.position = CLLocationCoordinate2DMake(place.coordinate.latitude, place.coordinate.longitude)
         Userlat = place.coordinate.latitude
