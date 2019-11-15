@@ -319,7 +319,7 @@ class Spot {
                                  "owner_id":AppState.sharedInstance.userid,
                                  "Email":AppState.sharedInstance.activeSpot.Email,
                                  "basePricing":AppState.sharedInstance.activeSpot.basePricing,
-                                 "approved":"true",
+                                 "approved":true,
                                  ] as [String : Any]
                     
                     print(spots)
