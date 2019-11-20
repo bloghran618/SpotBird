@@ -147,9 +147,12 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
 //                print("Done getting the reservations")
 //            }
 //        }
+        
+        // fetch figures from stripe
         AppState.sharedInstance.user.fetch_Balance()
         AppState.sharedInstance.user.fetch_LifeTimeBalance()
         
+        // clean any reservation older than 2
         AppState.sharedInstance.user.cleanOldReservations() { message in
             print("Finished cleaning: \(message)")
         }
@@ -238,6 +241,13 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         
         
         print("View loaded")
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        // check internet connectivity
+        self.recursiveCheckInternetConnection()
     }
     
     func start_scheduler() {
@@ -4212,6 +4222,20 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         print(self.paymentContext.paymentAmount)
         print(self.paymentContext.hostViewController)
     }
+    
+    func recursiveCheckInternetConnection() {
+        if Connectivity.isConnectedToInternet {
+            print("connected to the internet")
+        }
+        else {
+            let alert = UIAlertController(title: "You are not connected to the internet", message: "Please connect to the internet and hit retry", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Retry", style: .default, handler: {(action:UIAlertAction!) in
+                self.recursiveCheckInternetConnection()
+            }))
+            self.present(alert, animated: true, completion: nil)
+            print("not connected to the internet")
+        }
+    }
 }
 
 extension Date {
@@ -4238,5 +4262,12 @@ extension Date {
     
     func isSmallerThan(_ date: Date) -> Bool {
         return self < date
+    }
+}
+
+struct Connectivity {
+    static let nrm = NetworkReachabilityManager()!
+    static var isConnectedToInternet:Bool {
+        return self.nrm.isReachable
     }
 }
