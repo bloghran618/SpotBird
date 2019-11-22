@@ -312,29 +312,28 @@ class PayoutsViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
                     
                     // do stuff with token
                     MyAPIClient.sharedClient.addConnectAccountInfoToken(token: token!, address: address)
-                    self.navigationController?.popViewController(animated: true)
-                }
-            }
-            
-            
-            
-            // Create bankAccount token
-            STPAPIClient.shared().createToken(withBankAccount: bankAccount) { (token, error) in
-                if let error = error {
-                    print(error)
-                    let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
-                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
-                    self.present(alert, animated: true, completion: nil)
-                }
-                else {
-                    print("We successfully created STPBankAccountParams token!!!")
-                    print(token)
-                    print(token?.tokenId)
-
-                    // debug
-                    print("Stripe Account Number: \(AppState.sharedInstance.user.accounttoken)")
-                    // send token to backend
-                    MyAPIClient.sharedClient.addAccountToken(token: token!)
+                
+                    
+                    // Create bankAccount token on successful account params token
+                    STPAPIClient.shared().createToken(withBankAccount: bankAccount) { (token, error) in
+                        if let error = error {
+                            print(error)
+                            let alert = UIAlertController(title: "Error", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
+                            alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
+                            self.present(alert, animated: true, completion: nil)
+                        }
+                        else {
+                            print("We successfully created STPBankAccountParams token!!!")
+                            print(token)
+                            print(token?.tokenId)
+                            
+                            // debug
+                            print("Stripe Account Number: \(AppState.sharedInstance.user.accounttoken)")
+                            // send token to backend
+                            MyAPIClient.sharedClient.addAccountToken(token: token!)
+                        }
+                    }
+                    
                 }
             }
         }

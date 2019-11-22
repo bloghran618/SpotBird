@@ -96,7 +96,7 @@ class PriceViewController: UIViewController, UITextFieldDelegate,CLLocationManag
             lbl4_price.isHidden = true
         }
         
-        lbl1.text = String(AppState.sharedInstance.user.avg1)
+//        lbl1.text = String(AppState.sharedInstance.user.avg1)
         lbl2.text = String(AppState.sharedInstance.user.avg2)
         lbl3.text = String(AppState.sharedInstance.user.avg3)
         lbl4.text = String(AppState.sharedInstance.user.avg4)
@@ -104,8 +104,8 @@ class PriceViewController: UIViewController, UITextFieldDelegate,CLLocationManag
 //        weeklyPricingOn.addTarget(self, action: #selector(weeklyPricingSwitchChanged), for: UIControlEvents.valueChanged)
 //        monthlyPricingOn.addTarget(self, action: #selector(monthlyPricingSwitchChanged), for: UIControlEvents.valueChanged)
         
-        lbl1_mini.text = "$ 5"
-        lbl1_max.text = "$ 8"
+        lbl1_mini.text = "$5"
+        lbl1_max.text = "$8"
         
         
         print((AppState.sharedInstance.activeSpot.monthlyPricing))
