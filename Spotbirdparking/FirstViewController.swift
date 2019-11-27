@@ -16,7 +16,7 @@ import GooglePlacePicker
 import GooglePlaces
 import Stripe
 
-class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapViewDelegate,GMSAutocompleteViewControllerDelegate,UIPickerViewDataSource,UIPickerViewDelegate, STPPaymentContextDelegate {
+class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapViewDelegate,GMSAutocompleteViewControllerDelegate, STPPaymentContextDelegate {
     
     @IBOutlet var mapView: GMSMapView!
     // info window:-
@@ -43,8 +43,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     @IBOutlet weak var end_datepic: UIDatePicker!
     let dateFormatter = DateFormatter()
     
-    @IBOutlet weak var timpic1: UIPickerView!
-    @IBOutlet weak var timepic2: UIPickerView!
+//    @IBOutlet weak var timpic1: UIPickerView!
+//    @IBOutlet weak var timepic2: UIPickerView!
     
     
     @IBOutlet weak var img_spot_type: UIImageView!
@@ -197,11 +197,11 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             }
         })
         Date_VIew.isHidden = true
-        start_datepic.addTarget(self, action: #selector(startdatePickerChanged(picker:)), for: .valueChanged)
-        end_datepic.addTarget(self, action: #selector(EnddatePickerChanged(picker:)), for: .valueChanged)
+//        start_datepic.addTarget(self, action: #selector(startdatePickerChanged(picker:)), for: .valueChanged)
+//        end_datepic.addTarget(self, action: #selector(EnddatePickerChanged(picker:)), for: .valueChanged)
         dateFormatter.dateFormat = "MMM, dd, YYYY, H:mm:ss"
         
-        timearrayset()
+//        timearrayset()
         
         start_datepic.minimumDate = Date()
         end_datepic.minimumDate = calendar.date(byAdding: .hour, value: 1, to:  Date())
@@ -217,27 +217,27 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         Date_VIew.layer.cornerRadius = 5;
         Date_VIew.layer.masksToBounds = true;
         Date_VIew.layer.borderWidth = 1
-        Date_VIew.layer.borderColor = UIColor.black.cgColor
+        Date_VIew.layer.borderColor = UIColor(red: 83.0/255.0, green: 188.0/255.0, blue: 99.0/255.0, alpha: 1.0).cgColor
         
         btn_cancel.layer.cornerRadius = 5;
         btn_cancel.layer.masksToBounds = true;
-        btn_cancel.layer.borderWidth = 2
-        btn_cancel.layer.borderColor = UIColor.darkGray.cgColor
+//        btn_cancel.layer.borderWidth = 2
+//        btn_cancel.layer.borderColor = UIColor(red: 83.0/255.0, green: 188.0/255.0, blue: 99.0/255.0, alpha: 1.0).cgColor
         
         btn_done.layer.cornerRadius = 5;
         btn_done.layer.masksToBounds = true;
-        btn_done.layer.borderWidth = 2
-        btn_done.layer.borderColor = UIColor.darkGray.cgColor
+//        btn_done.layer.borderWidth = 2
+//        btn_done.layer.borderColor = UIColor(red: 83.0/255.0, green: 188.0/255.0, blue: 99.0/255.0, alpha: 1.0).cgColor
         
         lbl1.layer.cornerRadius = 5;
         lbl1.layer.masksToBounds = true;
-        lbl1.layer.borderWidth = 2
-        lbl1.layer.borderColor = UIColor.darkGray.cgColor
+//        lbl1.layer.borderWidth = 2
+//        lbl1.layer.borderColor = UIColor(red: 83.0/255.0, green: 188.0/255.0, blue: 99.0/255.0, alpha: 1.0).cgColor
         
         lbl2.layer.cornerRadius = 5;
         lbl2.layer.masksToBounds = true;
-        lbl2.layer.borderWidth = 2
-        lbl2.layer.borderColor = UIColor.darkGray.cgColor
+//        lbl2.layer.borderWidth = 2
+//        lbl2.layer.borderColor = UIColor(red: 83.0/255.0, green: 188.0/255.0, blue: 99.0/255.0, alpha: 1.0).cgColor
         
         
         print("View loaded")
@@ -276,100 +276,101 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     }
     //MARK:- Methords
     
-    func timearrayset()  {
-        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:a"
-        let stringdate = dateFormatter.string(from: Date())
-        let threehoursfromnow = dateFormatter.string(from: Calendar.current.date(byAdding: .hour, value: 3, to: Date())!)
-        
-        print("Stringdate: \(stringdate)")
-        print("threehoursfromnow: \(threehoursfromnow)")
-        
-        timearray.append("PM")
-        timearray.append("AM")
-        
-        if stringdate.contains("PM")
-        {
-            format1 = "PM"
-            timpic1.selectRow(0, inComponent: 0, animated: false)
-        }
-        else
-        {
-            format1 = "AM"
-            timpic1.selectRow(1, inComponent: 0, animated: false)
-        }
-        
-        if threehoursfromnow.contains("PM") {
-            format2 = "PM"
-            timepic2.selectRow(0, inComponent: 0, animated: false)
-        }
-        else {
-            format2 = "AM"
-            timepic2.selectRow(1, inComponent: 0, animated: false)
-        }
-    }
+//    func timearrayset()  {
+//        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:a"
+//        let stringdate = dateFormatter.string(from: Date())
+//        let threehoursfromnow = dateFormatter.string(from: Calendar.current.date(byAdding: .hour, value: 3, to: Date())!)
+//
+//        print("Stringdate: \(stringdate)")
+//        print("threehoursfromnow: \(threehoursfromnow)")
+//
+//        timearray.append("PM")
+//        timearray.append("AM")
+//
+//        if stringdate.contains("PM")
+//        {
+//            format1 = "PM"
+//            timpic1.selectRow(0, inComponent: 0, animated: false)
+//        }
+//        else
+//        {
+//            format1 = "AM"
+//            timpic1.selectRow(1, inComponent: 0, animated: false)
+//        }
+//
+//        if threehoursfromnow.contains("PM") {
+//            format2 = "PM"
+//            timepic2.selectRow(0, inComponent: 0, animated: false)
+//        }
+//        else {
+//            format2 = "AM"
+//            timepic2.selectRow(1, inComponent: 0, animated: false)
+//        }
+//    }
     // start date-
-    @objc func startdatePickerChanged(picker: UIDatePicker)
-    {
-        print(picker.date)
-        let formatter = DateFormatter()
-        formatter.dateFormat = "EE MMM dd"
-        let date = formatter.string(from: picker.date)
-        print(date)
-        print(date)
-        strPickerStart = date
-    }
+//    @objc func startdatePickerChanged(picker: UIDatePicker)
+//    {
+//        print(picker.date)
+//        let formatter = DateFormatter()
+//        formatter.dateFormat = "EE MMM dd"
+//        let date = formatter.string(from: picker.date)
+//        print(date)
+//        strPickerStart = date
+//    }
     
     // end date-
-    @objc func EnddatePickerChanged(picker: UIDatePicker) {
-        
-        endChange = true
-        print(picker.date)
-        let formatter = DateFormatter()
-        formatter.dateFormat = "EE MMM dd"
-        let date = formatter.string(from: picker.date)
-        print(date)
-        strPickerEnd = date
-        
-        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:a"
-        let formatter12 = DateFormatter()
-        formatter12.dateFormat = "yyyy-MM-dd hh:mm:a"
-        
-        var str = formatter12.string(from: picker.date)
-        if str.contains("AM")
-        {
-            if format2 == "AM"
-            {
-                end_date = formatter12.date(from: str)!
-            }else
-            {
-                let replaced = str.replacingOccurrences(of: "AM", with: "PM")
-                end_date = formatter12.date(from: replaced)!
-            }
-            print(end_date!)
-        }else
-        {
-            if format2 == "PM"
-            {
-                end_date = formatter12.date(from: str)!
-                
-            }else
-            {
-                let replaced = str.replacingOccurrences(of: "PM", with: "AM")
-                let dateFormatter = DateFormatter()
-                dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:a" //Your date format
-                dateFormatter.timeZone = TimeZone(abbreviation: "GMT+0:00")
-                guard let date = dateFormatter.date(from: replaced) else
-                {
-                    fatalError()
-                }
-                end_date =  date
-            }
-            print(end_date!)
-        }
-    }
+//    @objc func EnddatePickerChanged(picker: UIDatePicker) {
+//
+//        endChange = true
+//        print(picker.date)
+//        let formatter = DateFormatter()
+//        formatter.dateFormat = "EE MMM dd"
+//        let date = formatter.string(from: picker.date)
+//        print(date)
+//        strPickerEnd = date
+//
+//        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:a"
+//        let formatter12 = DateFormatter()
+//        formatter12.dateFormat = "yyyy-MM-dd hh:mm:a"
+//
+//        var str = formatter12.string(from: picker.date)
+//        if str.contains("AM")
+//        {
+//            if format2 == "AM"
+//            {
+//                end_date = formatter12.date(from: str)!
+//            }else
+//            {
+//                let replaced = str.replacingOccurrences(of: "AM", with: "PM")
+//                end_date = formatter12.date(from: replaced)!
+//            }
+//            print(end_date!)
+//        }else
+//        {
+//            if format2 == "PM"
+//            {
+//                end_date = formatter12.date(from: str)!
+//
+//            }else
+//            {
+//                let replaced = str.replacingOccurrences(of: "PM", with: "AM")
+//                let dateFormatter = DateFormatter()
+//                dateFormatter.dateFormat = "yyyy-MM-dd hh:mm:a" //Your date format
+//                dateFormatter.timeZone = TimeZone(abbreviation: "GMT+0:00")
+//                guard let date = dateFormatter.date(from: replaced) else
+//                {
+//                    fatalError()
+//                }
+//                end_date =  date
+//            }
+//            print(end_date!)
+//        }
+//    }
+    
     //MARK:- Button Click Event
     // MARK: _ BTn Date searching(Calender Click Event)
     @IBAction func btn_Date_search(_ sender: UIButton) {
+        
         view_info.isHidden = true
         btn_close.isHidden = true
 //        start_datepic.date = NSDate() as Date
@@ -400,6 +401,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     
     @IBAction func btn_Date_search_done(_ sender: UIButton) {
         displayAvailableSpots()
+        
+        setStartEndDate()
         
         print("there are \(arr_search_spot.count) available spots")
         
@@ -432,18 +435,18 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         
         
         // format start/end times AM/PM with Kevin's interesting AM/PM formatter
-        if (formatter.string(from: start_date!).contains("AM") && format1 == "PM") {
-            start_date = start_date!.addingTimeInterval(3600.0 * 12.0) as! Date
-        }
-        else if (formatter.string(from: start_date!).contains("PM") && format1 == "AM") {
-            start_date = start_date!.addingTimeInterval(-3600.0 * 12.0)
-        }
-        if (formatter.string(from: end_date!).contains("AM") && format2 == "PM") {
-            end_date = end_date!.addingTimeInterval(3600.0 * 12.0) as! Date
-        }
-        else if (formatter.string(from: end_date!).contains("PM") && format2 == "AM") {
-            end_date = end_date!.addingTimeInterval(-3600.0 * 12.0)
-        }
+//        if (formatter.string(from: start_date!).contains("AM") && format1 == "PM") {
+//            start_date = start_date!.addingTimeInterval(3600.0 * 12.0) as! Date
+//        }
+//        else if (formatter.string(from: start_date!).contains("PM") && format1 == "AM") {
+//            start_date = start_date!.addingTimeInterval(-3600.0 * 12.0)
+//        }
+//        if (formatter.string(from: end_date!).contains("AM") && format2 == "PM") {
+//            end_date = end_date!.addingTimeInterval(3600.0 * 12.0) as! Date
+//        }
+//        else if (formatter.string(from: end_date!).contains("PM") && format2 == "AM") {
+//            end_date = end_date!.addingTimeInterval(-3600.0 * 12.0)
+//        }
         
         // debug
         print("Start Date: \(formatter.string(from: start_date!))")
@@ -507,12 +510,6 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             for times in res_span {
                 // get the index of the weekday (1=Sunday, 2=Monday, ... 7=Saturday)
                 let weekday_index = calendar.component(.weekday, from: times[0] as! Date)
-                
-                // initialize hour and minute bounds for this reservation on this day
-                var startHH = 0
-                var startMM = 0
-                var endHH = 0
-                var endMM = 0
                 
                 if (weekday_index == 1) { // Sunday
                     // check if spot available on Sunday
@@ -2543,131 +2540,28 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         }
     }
     
-    
+    // determine notecard to/from time values
     func setStartEndDate()
     {
-        let d1 = start_datepic.date
-        let d2 = end_datepic.date
+        print("resetting the dates")
+        var d1 = start_datepic.date
+        var d2 = end_datepic.date
         
+        // round datepicker dates to nearest 15 minutes
+        let calendar = Calendar.current
+        let interval = 15
+        let nextDiff = -1 * (calendar.component(.minute, from: d1) % interval)
+        d1 = calendar.date(byAdding: .minute, value: nextDiff, to: d1) ?? Date()
+        d2 = calendar.date(byAdding: .minute, value: nextDiff, to: d2) ?? Date()
+        
+        // format and set notecard values
         let formatter = DateFormatter()
         //formatter.dateFormat = "EE MMM dd h a"
-        formatter.dateFormat = "MMM dd, h:00 a"
-        
-        //        strPickerStart = formatter.string(from:  d1)
-        //        strPickerEnd = formatter.string(from: d2)
-        
-        //        print(datestart)
-        //        print(dateend)
-        
-        // lbl_spot_from_time.text = "Spot Time - \(datestart) to \(dateend)"
-        var time1 = Bool()
-        
-        // start date time check today
-        let myStringafd = dateFormatter2.string(from: start_datepic.date)
-        print(myStringafd)
-        if myStringafd.contains("AM")
-        {
-            if format1 == "AM"
-            {
-                start_date = dateFormatter2.date(from: myStringafd)!
-                strPickerStart = formatter.string(from:  start_date!)
-                
-            }else
-            {
-                let replaced = myStringafd.replacingOccurrences(of: "AM", with: "PM")
-                start_date = dateFormatter2.date(from: replaced)!
-                strPickerStart = formatter.string(from:  start_date!)
-                
-            }
-            print(start_date!)
-        }else
-        {
-            if format1 == "PM"
-            {
-                start_date = dateFormatter2.date(from: myStringafd)!
-                strPickerStart = formatter.string(from:  start_date!)
-                
-            }else
-            {
-                let replaced = myStringafd.replacingOccurrences(of: "PM", with: "AM")
-                start_date = dateFormatter2.date(from: replaced)!
-                strPickerStart = formatter.string(from:  start_date!)
-                
-            }
-            print(start_date!)
-        }
-        
-        if (datetostring(dates: start_date!)) == (datetostring(dates: Date())) {
-            
-            let usertime = datetotime(userdate: dateconvert(userdate: start_date!))
-            print(usertime)
-            
-            let Datesystmem = datetotime(userdate: dateconvert(userdate: Date()))
-            print(Datesystmem)
-            
-            if usertime != Datesystmem && usertime < Datesystmem {
-                time1 = true
-            }
-        }
-        
-        print(time1)
-        var firsttime = Bool()
-        dateFormatter.dateFormat = "dd-MM-yyyy HH:mm:a"
-        if endChange == false {
-            print(start_date)
-            print(end_date)
-            
-            let addhour = calendar.date(byAdding: .hour, value: 3, to: start_date!)
-            end_date = addhour!
-            strPickerEnd = formatter.string(from:  end_date!)
-            
-            print(addhour)
-            print(end_date)
-        }
-        
-        // End date time check today
-        if endChange == true {
-            var str = dateFormatter2.string(from: end_datepic.date)
-            
-            if str.contains("AM")
-            {
-                if format2 == "AM"
-                {
-                    end_date = dateFormatter2.date(from: str)!
-                    strPickerEnd = formatter.string(from:  end_date!)
-                    
-                }else
-                {
-                    let replaced = str.replacingOccurrences(of: "AM", with: "PM")
-                    end_date = dateFormatter2.date(from: replaced)!
-                    strPickerEnd = formatter.string(from:  end_date!)
-                    
-                }
-                print(end_date!)
-            }
-                
-            else
-            {
-                if format2 == "PM"
-                {
-                    end_date = dateFormatter2.date(from: str)!
-                    strPickerEnd = formatter.string(from:  end_date!)
-                    
-                }else
-                {
-                    let replaced = str.replacingOccurrences(of: "PM", with: "AM")
-                    end_date = dateFormatter2.date(from: replaced)!
-                    strPickerEnd = formatter.string(from:  end_date!)
-                }
-                print(end_date!)
-            }
-            
-        }
-        
-        start_date = dateconvert(userdate: start_date!)
-        end_date = dateconvert(userdate: end_date!)
-        print(strPickerStart)
-        print(strPickerEnd)
+        formatter.dateFormat = "MMM dd, h:mm a"
+        strPickerStart = formatter.string(from:  d1)
+        strPickerEnd = formatter.string(from: d2)
+        print("strPickerStart: \(strPickerStart)")
+        print("strPickerEnd: \(strPickerEnd)")
     }
     
     func dateWithHour (hour: Int, minute:Int, second:Int,date: Date) ->Date?{
@@ -3940,41 +3834,41 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     }
     
     
-    // UIPICKERVIEW:_
-    func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return timearray.count
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
-    {
-        let today = Date()
-        if pickerView == timpic1{
-            format1 = timearray[row]
-        }
-        if pickerView == timepic2{
-            endChange = true
-            format2 = timearray[row]
-        }
-    }
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return timearray[row]
-    }
-    
-    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
-        var pickerLabel = view as? UILabel;
-        if (pickerLabel == nil)
-        {
-            pickerLabel = UILabel()
-            pickerLabel?.font = UIFont(name: "Montserrat", size: 14)
-            pickerLabel?.textAlignment = NSTextAlignment.left
-        }
-        pickerLabel?.text = "     \(timearray[row])"
-        return pickerLabel!;
-    }
+//    // UIPICKERVIEW:_
+//    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+//        return 1
+//    }
+//
+//    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+//        return timearray.count
+//    }
+//
+//    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int)
+//    {
+//        let today = Date()
+//        if pickerView == timpic1{
+//            format1 = timearray[row]
+//        }
+//        if pickerView == timepic2{
+//            endChange = true
+//            format2 = timearray[row]
+//        }
+//    }
+//    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+//        return timearray[row]
+//    }
+//
+//    func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
+//        var pickerLabel = view as? UILabel;
+//        if (pickerLabel == nil)
+//        {
+//            pickerLabel = UILabel()
+//            pickerLabel?.font = UIFont(name: "Montserrat", size: 14)
+//            pickerLabel?.textAlignment = NSTextAlignment.left
+//        }
+//        pickerLabel?.text = "     \(timearray[row])"
+//        return pickerLabel!;
+//    }
     
     func dateconvertServer(userdate:String) -> Date {
         var today:Date?

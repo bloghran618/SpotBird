@@ -24,21 +24,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" text="Nav Here" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="KQZ-1w-vlD">
-                                <rect key="frame" x="135.5" y="426.5" width="143" height="43"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="36"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Someday maybe..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A5M-7J-77L">
-                                <rect key="frame" x="147.5" y="477.5" width="119" height="17"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QiO-Ac-YKT" customClass="GMSMapView">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -51,89 +36,104 @@
                                     <constraint firstAttribute="height" constant="52" id="VH4-7g-j4X"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="czQ-MO-hkx">
-                                <rect key="frame" x="26" y="92" width="362" height="520"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="czQ-MO-hkx">
+                                <rect key="frame" x="32" y="90" width="350" height="520"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Za1-wY-lc1">
-                                        <rect key="frame" x="3" y="2" width="100" height="33"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                        <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="17"/>
-                                        <state key="normal" title="Cancel">
-                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="btn_Date_search_close:" destination="9pv-A4-QxB" eventType="touchUpInside" id="zHu-Ho-Yk7"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AQB-tB-M9J">
-                                        <rect key="frame" x="260" y="5" width="100" height="30"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                        <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="17"/>
-                                        <state key="normal" title="Done">
-                                            <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="btn_Date_search_done:" destination="9pv-A4-QxB" eventType="touchUpInside" id="Kgs-8g-8Pd"/>
-                                        </connections>
-                                    </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Start Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LiC-XT-Ter">
-                                        <rect key="frame" x="76" y="36" width="210" height="22"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="zPI-A6-UFv">
-                                        <rect key="frame" x="2" y="58" width="360" height="216"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="0.32549019610000002" green="0.73725490199999999" blue="0.38823529410000002" alpha="1" colorSpace="calibratedRGB"/>
-                                        <date key="date" timeIntervalSinceReferenceDate="563786175.46510696">
-                                            <!--2018-11-13 07:16:15 +0000-->
-                                        </date>
-                                    </datePicker>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="End Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MnO-zb-khj">
-                                        <rect key="frame" x="76" y="274" width="210" height="21"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="NDz-9g-HdA">
-                                        <rect key="frame" x="2" y="297" width="360" height="216"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="0.32549019610000002" green="0.73725490199999999" blue="0.38823529410000002" alpha="1" colorSpace="calibratedRGB"/>
-                                        <date key="date" timeIntervalSinceReferenceDate="563786342.424402">
-                                            <!--2018-11-13 07:19:02 +0000-->
-                                        </date>
-                                    </datePicker>
-                                    <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="K1h-2H-jBz">
-                                        <rect key="frame" x="224" y="58" width="138" height="216"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="0.32549019610000002" green="0.73725490199999999" blue="0.38823529410000002" alpha="1" colorSpace="calibratedRGB"/>
-                                        <color key="tintColor" red="0.0" green="0.47058823529411764" blue="0.52156862745098043" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <connections>
-                                            <outlet property="dataSource" destination="9pv-A4-QxB" id="JjE-GW-s8s"/>
-                                            <outlet property="delegate" destination="9pv-A4-QxB" id="SYZ-4m-vg1"/>
-                                        </connections>
-                                    </pickerView>
-                                    <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mCf-3K-Sne">
-                                        <rect key="frame" x="224" y="297" width="138" height="216"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                        <color key="backgroundColor" red="0.32549019610000002" green="0.73725490199999999" blue="0.38823529410000002" alpha="1" colorSpace="calibratedRGB"/>
-                                        <color key="tintColor" red="0.0" green="0.47058823529999999" blue="0.52156862749999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <connections>
-                                            <outlet property="dataSource" destination="9pv-A4-QxB" id="DLf-2S-MPK"/>
-                                            <outlet property="delegate" destination="9pv-A4-QxB" id="Wj5-iI-mw7"/>
-                                        </connections>
-                                    </pickerView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="gcI-VA-lFK">
+                                        <rect key="frame" x="0.0" y="0.0" width="350" height="520"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vuX-ia-JCe">
+                                                <rect key="frame" x="0.0" y="0.0" width="350" height="46"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Za1-wY-lc1">
+                                                        <rect key="frame" x="20" y="3" width="100" height="40"/>
+                                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="100" id="GWG-QZ-G2i"/>
+                                                            <constraint firstAttribute="height" constant="40" id="Gv2-Ty-vL4"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="17"/>
+                                                        <state key="normal" title="Cancel">
+                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="btn_Date_search_close:" destination="9pv-A4-QxB" eventType="touchUpInside" id="zHu-Ho-Yk7"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AQB-tB-M9J">
+                                                        <rect key="frame" x="230" y="3" width="100" height="40"/>
+                                                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="40" id="0os-uv-JWu"/>
+                                                            <constraint firstAttribute="width" constant="100" id="p1y-pm-T1P"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="17"/>
+                                                        <state key="normal" title="Search">
+                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="btn_Date_search_done:" destination="9pv-A4-QxB" eventType="touchUpInside" id="Kgs-8g-8Pd"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="Za1-wY-lc1" firstAttribute="leading" secondItem="vuX-ia-JCe" secondAttribute="leading" constant="20" id="J99-FH-LSa"/>
+                                                    <constraint firstItem="Za1-wY-lc1" firstAttribute="centerY" secondItem="vuX-ia-JCe" secondAttribute="centerY" id="fyW-eY-719"/>
+                                                    <constraint firstAttribute="trailing" secondItem="AQB-tB-M9J" secondAttribute="trailing" constant="20" id="giD-E0-jNw"/>
+                                                    <constraint firstItem="AQB-tB-M9J" firstAttribute="centerY" secondItem="vuX-ia-JCe" secondAttribute="centerY" id="jdi-X6-2Ls"/>
+                                                    <constraint firstAttribute="height" constant="46" id="yl1-r2-CG2"/>
+                                                </constraints>
+                                            </view>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Parking Start" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LiC-XT-Ter">
+                                                <rect key="frame" x="0.0" y="46" width="350" height="26"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="22"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WS3-1B-fl7">
+                                                <rect key="frame" x="0.0" y="72" width="350" height="216"/>
+                                                <subviews>
+                                                    <datePicker contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="15" translatesAutoresizingMaskIntoConstraints="NO" id="zPI-A6-UFv">
+                                                        <rect key="frame" x="0.0" y="0.0" width="350" height="216"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <date key="date" timeIntervalSinceReferenceDate="563786175.46510696">
+                                                            <!--2018-11-13 07:16:15 +0000-->
+                                                        </date>
+                                                    </datePicker>
+                                                </subviews>
+                                            </stackView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Parking Finish" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MnO-zb-khj">
+                                                <rect key="frame" x="0.0" y="288" width="350" height="26"/>
+                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="22"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p7u-N4-Tnz">
+                                                <rect key="frame" x="0.0" y="314" width="350" height="206"/>
+                                                <subviews>
+                                                    <datePicker contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="15" translatesAutoresizingMaskIntoConstraints="NO" id="NDz-9g-HdA">
+                                                        <rect key="frame" x="0.0" y="0.0" width="350" height="206"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <date key="date" timeIntervalSinceReferenceDate="563786342.424402">
+                                                            <!--2018-11-13 07:19:02 +0000-->
+                                                        </date>
+                                                    </datePicker>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
                                 </subviews>
-                                <color key="backgroundColor" red="0.32549019610000002" green="0.73725490199999999" blue="0.38823529410000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="gcI-VA-lFK" secondAttribute="bottom" id="GMB-aZ-HYN"/>
+                                    <constraint firstAttribute="height" constant="520" id="JKv-jo-gOW"/>
+                                    <constraint firstAttribute="trailing" secondItem="gcI-VA-lFK" secondAttribute="trailing" id="RJv-FL-thd"/>
+                                    <constraint firstItem="gcI-VA-lFK" firstAttribute="top" secondItem="czQ-MO-hkx" secondAttribute="top" id="eXR-Cs-mxC"/>
+                                    <constraint firstItem="gcI-VA-lFK" firstAttribute="leading" secondItem="czQ-MO-hkx" secondAttribute="leading" id="gmI-CS-nZp"/>
+                                </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QhX-kS-Lr8" customClass="CustomView" customModule="Spotbirdparking" customModuleProvider="target">
                                 <rect key="frame" x="5" y="574" width="404" height="235"/>
@@ -326,8 +326,11 @@
                             <constraint firstItem="QhX-kS-Lr8" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" constant="5" id="CoC-Fe-A4g"/>
                             <constraint firstItem="nDX-Uf-lIu" firstAttribute="leading" secondItem="Y8d-dc-NVe" secondAttribute="trailing" constant="16" id="FTe-yB-QEj"/>
                             <constraint firstItem="PQr-Ze-W5v" firstAttribute="trailing" secondItem="nDX-Uf-lIu" secondAttribute="trailing" constant="12" id="I2l-32-hiA"/>
+                            <constraint firstItem="czQ-MO-hkx" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" constant="32" id="M0h-oz-Mvr"/>
                             <constraint firstItem="FRw-uK-Kr1" firstAttribute="top" secondItem="tsR-hK-woN" secondAttribute="top" constant="30" id="Vxf-Ba-PlL"/>
+                            <constraint firstItem="PQr-Ze-W5v" firstAttribute="trailing" secondItem="czQ-MO-hkx" secondAttribute="trailing" constant="32" id="WtV-LM-Yzz"/>
                             <constraint firstItem="Y8d-dc-NVe" firstAttribute="top" secondItem="tsR-hK-woN" secondAttribute="top" constant="39" id="a5o-Ix-ix1"/>
+                            <constraint firstItem="czQ-MO-hkx" firstAttribute="top" secondItem="FRw-uK-Kr1" secondAttribute="bottom" constant="8" id="eR8-fd-k32"/>
                             <constraint firstItem="Y8d-dc-NVe" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" constant="8" id="x6m-vQ-bqK"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="PQr-Ze-W5v"/>
@@ -355,8 +358,6 @@
                         <outlet property="mapView" destination="QiO-Ac-YKT" id="Jlv-cB-HSB"/>
                         <outlet property="searchDisplayController" destination="PWz-Br-3k2" id="IA7-gx-Gyn"/>
                         <outlet property="start_datepic" destination="zPI-A6-UFv" id="iwY-36-QYe"/>
-                        <outlet property="timepic2" destination="mCf-3K-Sne" id="1uN-HO-Vex"/>
-                        <outlet property="timpic1" destination="K1h-2H-jBz" id="xcI-6x-dQ3"/>
                         <outlet property="view_info" destination="QhX-kS-Lr8" id="JYQ-Li-jfM"/>
                     </connections>
                 </viewController>
@@ -1004,7 +1005,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set Default?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lVA-pG-SwB">
-                                <rect key="frame" x="161.5" y="368" width="91" height="20"/>
+                                <rect key="frame" x="160" y="368" width="94" height="20"/>
                                 <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -2011,7 +2012,7 @@
                                         </connections>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Specify your spot type:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pIv-bN-fjT">
-                                        <rect key="frame" x="113.5" y="44" width="173.5" height="20"/>
+                                        <rect key="frame" x="112" y="44" width="176" height="20"/>
                                         <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -2673,7 +2674,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Specify when your parking spot is available" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bbJ-H8-U6i">
-                                <rect key="frame" x="43" y="458" width="328" height="20"/>
+                                <rect key="frame" x="43" y="458" width="328.5" height="20"/>
                                 <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -2750,7 +2751,7 @@
                                 <rect key="frame" x="6" y="109" width="402" height="95"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Base" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hme-od-cOZ">
-                                        <rect key="frame" x="5" y="11" width="36.5" height="40"/>
+                                        <rect key="frame" x="5" y="11" width="38.5" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="rWx-vL-TVo"/>
                                         </constraints>
@@ -2759,7 +2760,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$ 20" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cxz-iq-eBT">
-                                        <rect key="frame" x="76.5" y="11" width="43" height="40"/>
+                                        <rect key="frame" x="78.5" y="11" width="43" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="BXd-IE-IUX"/>
                                         </constraints>
