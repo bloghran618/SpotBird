@@ -96,7 +96,16 @@ class User {
                     let dict = ((snap as! DataSnapshot).value) as! NSDictionary
                     
                     
-                    let logindata = ["fname":dict.value(forKey: "fname") as! String,"id":dict.value(forKey: "id") as! String,"image":dict.value(forKey: "image") as! String,"lname":dict.value(forKey: "lname") as! String,"uname":dict.value(forKey: "uname") as! String,"email":dict.value(forKey: "email") as! String]
+                    let logindata = [
+                        "fname":dict.value(forKey: "fname") as! String,
+                        "id":dict.value(forKey: "id") as! String,
+                        "image":dict.value(forKey: "image") as! String,
+                        "lname":dict.value(forKey: "lname") as! String,
+                        "uname":dict.value(forKey: "uname") as! String,
+                        "email":dict.value(forKey: "email") as! String,
+                        "customerToken":dict.value(forKey: "customerToken") as! String,
+                        "accountToken":dict.value(forKey: "accountToken") as! String,
+                        ]
                     
                     
                     UserDefaults.standard.setValue(logindata, forKey: "logindata")
@@ -140,13 +149,11 @@ class User {
                     (error:Error?, ref:DatabaseReference) in
                     if let error = error {
                         print("Data could not be saved: \(error).")
-                        print("Stop Spinner 10")
                         Spinner.stop()
                         
                     } else {
                         print("Data saved successfully!")
                         self.Get_UserProfile()  //
-                        print("Stop Spinner 11")
                         Spinner.stop()
                     }
             }
@@ -186,13 +193,11 @@ class User {
                                     (error:Error?, ref:DatabaseReference) in
                                     if let error = error {
                                         print("Data could not be saved: \(error).")
-                                        print("Stop Spinner 12")
                                         Spinner.stop()
                                         
                                     } else {
                                         print("Data saved successfully!")
                                          self.Get_UserProfile()  //
-                                        print("Stop Spinner 13")
                                         Spinner.stop()
                                     }
                                 }
@@ -235,13 +240,11 @@ class User {
                             (error:Error?, ref:DatabaseReference) in
                             if let error = error {
                                 print("Data could not be saved: \(error).")
-                                print("Stop Spinner 14")
                                 Spinner.stop()
                                 
                             } else {
                                 print("Data saved successfully!")
                                  self.Get_UserProfile()  //
-                                print("Stop Spinner 15")
                                 Spinner.stop()
                             }
                         }

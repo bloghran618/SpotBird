@@ -47,8 +47,9 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
             self.profilePhoto.image = #imageLiteral(resourceName: "EmptyProfile")
         }
         else{
-            self.profilePhoto.sd_setImage(with: URL(string: AppState.sharedInstance.user.profileImage), placeholderImage: #imageLiteral(resourceName: "Profile"))
-            original_pic.sd_setImage(with: URL(string: AppState.sharedInstance.user.profileImage), placeholderImage: #imageLiteral(resourceName: "Profile"))
+            // note that the placeholderImage is not nothing, it is UIImage.named("white"), you can change the image by double-clicking the blank
+            self.profilePhoto.sd_setImage(with: URL(string: AppState.sharedInstance.user.profileImage), placeholderImage: #imageLiteral(resourceName: "white"))
+            original_pic.sd_setImage(with: URL(string: AppState.sharedInstance.user.profileImage), placeholderImage: #imageLiteral(resourceName: "white"))
         }
         
         if Int(AppState.sharedInstance.user.lifeBalance) == 0 {
@@ -72,6 +73,10 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     
     // udapte user profile
     @objc func saveprofile(){
+        
+        // close any open keyboards
+        firstName.resignFirstResponder()
+        lastName.resignFirstResponder()
         
         if firstName.text == ""
         {

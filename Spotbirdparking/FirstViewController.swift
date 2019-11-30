@@ -3363,6 +3363,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                     for tag in 0 ..< self.arr_search_spot.count {
                 
                         let marker = GMSMarker()
+                        marker.tracksViewChanges = true
                         let lat1 = (self.arr_search_spot.object(at: tag) as! NSDictionary).value(forKey: "user_lat") as! String
                         let long1 = (self.arr_search_spot.object(at: tag) as! NSDictionary).value(forKey: "user_long") as! String
                         let lat = (lat1 as NSString).doubleValue
@@ -3415,6 +3416,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                         //                        let rounded = round(priceSPOT * multiplier) / multiplier
                         lbl_marker.text = "$\(dollerr)"
                         marker.iconView = customView
+                        marker.tracksViewChanges = false
                         self.allMarkers.append(marker)
                     }
                     Spinner.stop()

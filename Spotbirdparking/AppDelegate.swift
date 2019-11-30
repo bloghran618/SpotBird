@@ -60,7 +60,7 @@ import IQKeyboardManagerSwift
             AppState.sharedInstance.user.firstName = (dict?.value(forKey: "fname") as? String)!
             AppState.sharedInstance.user.lastName = (dict?.value(forKey: "lname") as? String)!
             if  dict?.value(forKey: "image") != nil{
-                AppState.sharedInstance.user.customertoken = (dict?.value(forKey: "image") as? String)!
+                AppState.sharedInstance.user.profileImage = (dict?.value(forKey: "image") as? String)!
             }
             
             if  dict?.value(forKey: "customerToken") != nil{
