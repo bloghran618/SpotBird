@@ -30,27 +30,27 @@
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FRw-uK-Kr1">
-                                <rect key="frame" x="0.0" y="30" width="414" height="52"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="86"/>
                                 <color key="backgroundColor" red="0.32549019610000002" green="0.73725490199999999" blue="0.38823529410000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="52" id="VH4-7g-j4X"/>
+                                    <constraint firstAttribute="height" constant="86" id="VH4-7g-j4X"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="czQ-MO-hkx">
-                                <rect key="frame" x="32" y="90" width="350" height="520"/>
+                                <rect key="frame" x="24" y="94" width="366" height="520"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="gcI-VA-lFK">
-                                        <rect key="frame" x="0.0" y="0.0" width="350" height="520"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="366" height="520"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vuX-ia-JCe">
-                                                <rect key="frame" x="0.0" y="0.0" width="350" height="46"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="366" height="46"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Za1-wY-lc1">
-                                                        <rect key="frame" x="20" y="3" width="100" height="40"/>
+                                                        <rect key="frame" x="16" y="7" width="100" height="32"/>
                                                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="100" id="GWG-QZ-G2i"/>
-                                                            <constraint firstAttribute="height" constant="40" id="Gv2-Ty-vL4"/>
+                                                            <constraint firstAttribute="height" constant="32" id="Gv2-Ty-vL4"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="17"/>
                                                         <state key="normal" title="Cancel">
@@ -61,10 +61,10 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AQB-tB-M9J">
-                                                        <rect key="frame" x="230" y="3" width="100" height="40"/>
+                                                        <rect key="frame" x="250" y="7" width="100" height="32"/>
                                                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="40" id="0os-uv-JWu"/>
+                                                            <constraint firstAttribute="height" constant="32" id="0os-uv-JWu"/>
                                                             <constraint firstAttribute="width" constant="100" id="p1y-pm-T1P"/>
                                                         </constraints>
                                                         <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="17"/>
@@ -78,24 +78,24 @@
                                                 </subviews>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstItem="Za1-wY-lc1" firstAttribute="leading" secondItem="vuX-ia-JCe" secondAttribute="leading" constant="20" id="J99-FH-LSa"/>
+                                                    <constraint firstItem="Za1-wY-lc1" firstAttribute="leading" secondItem="vuX-ia-JCe" secondAttribute="leading" constant="16" id="J99-FH-LSa"/>
                                                     <constraint firstItem="Za1-wY-lc1" firstAttribute="centerY" secondItem="vuX-ia-JCe" secondAttribute="centerY" id="fyW-eY-719"/>
-                                                    <constraint firstAttribute="trailing" secondItem="AQB-tB-M9J" secondAttribute="trailing" constant="20" id="giD-E0-jNw"/>
+                                                    <constraint firstAttribute="trailing" secondItem="AQB-tB-M9J" secondAttribute="trailing" constant="16" id="giD-E0-jNw"/>
                                                     <constraint firstItem="AQB-tB-M9J" firstAttribute="centerY" secondItem="vuX-ia-JCe" secondAttribute="centerY" id="jdi-X6-2Ls"/>
                                                     <constraint firstAttribute="height" constant="46" id="yl1-r2-CG2"/>
                                                 </constraints>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Parking Start" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LiC-XT-Ter">
-                                                <rect key="frame" x="0.0" y="46" width="350" height="26"/>
+                                                <rect key="frame" x="0.0" y="46" width="366" height="26"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="22"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WS3-1B-fl7">
-                                                <rect key="frame" x="0.0" y="72" width="350" height="216"/>
+                                                <rect key="frame" x="0.0" y="72" width="366" height="216"/>
                                                 <subviews>
                                                     <datePicker contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="15" translatesAutoresizingMaskIntoConstraints="NO" id="zPI-A6-UFv">
-                                                        <rect key="frame" x="0.0" y="0.0" width="350" height="216"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="366" height="216"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <date key="date" timeIntervalSinceReferenceDate="563786175.46510696">
                                                             <!--2018-11-13 07:16:15 +0000-->
@@ -104,17 +104,17 @@
                                                 </subviews>
                                             </stackView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Parking Finish" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MnO-zb-khj">
-                                                <rect key="frame" x="0.0" y="288" width="350" height="26"/>
+                                                <rect key="frame" x="0.0" y="288" width="366" height="26"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="22"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p7u-N4-Tnz">
-                                                <rect key="frame" x="0.0" y="314" width="350" height="206"/>
+                                                <rect key="frame" x="0.0" y="314" width="366" height="206"/>
                                                 <subviews>
                                                     <datePicker contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="15" translatesAutoresizingMaskIntoConstraints="NO" id="NDz-9g-HdA">
-                                                        <rect key="frame" x="0.0" y="0.0" width="350" height="206"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="366" height="206"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <date key="date" timeIntervalSinceReferenceDate="563786342.424402">
                                                             <!--2018-11-13 07:19:02 +0000-->
@@ -290,7 +290,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="tailTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Y8d-dc-NVe">
-                                <rect key="frame" x="8" y="39" width="344" height="34"/>
+                                <rect key="frame" x="8" y="44" width="344" height="34"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="34" id="NEZ-C7-QgG"/>
@@ -305,7 +305,7 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nDX-Uf-lIu">
-                                <rect key="frame" x="368" y="39" width="34" height="34"/>
+                                <rect key="frame" x="368" y="44" width="34" height="34"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="34" id="Cs1-gM-hIR"/>
                                     <constraint firstAttribute="height" constant="34" id="YJp-OI-pCF"/>
@@ -320,16 +320,16 @@
                         <constraints>
                             <constraint firstItem="FRw-uK-Kr1" firstAttribute="trailing" secondItem="PQr-Ze-W5v" secondAttribute="trailing" id="26u-vs-Z6c"/>
                             <constraint firstItem="PQr-Ze-W5v" firstAttribute="bottom" secondItem="QhX-kS-Lr8" secondAttribute="bottom" constant="4" id="42d-DD-A2H"/>
+                            <constraint firstItem="FRw-uK-Kr1" firstAttribute="top" secondItem="PQr-Ze-W5v" secondAttribute="top" constant="-44" id="4DM-fR-JBE"/>
                             <constraint firstItem="FRw-uK-Kr1" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" id="6XX-TA-Rmu"/>
-                            <constraint firstItem="nDX-Uf-lIu" firstAttribute="top" secondItem="tsR-hK-woN" secondAttribute="top" constant="39" id="7H4-Pg-WJR"/>
+                            <constraint firstItem="nDX-Uf-lIu" firstAttribute="top" secondItem="PQr-Ze-W5v" secondAttribute="top" id="7H4-Pg-WJR"/>
                             <constraint firstItem="PQr-Ze-W5v" firstAttribute="trailing" secondItem="QhX-kS-Lr8" secondAttribute="trailing" constant="5" id="8Wp-cK-akd"/>
                             <constraint firstItem="QhX-kS-Lr8" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" constant="5" id="CoC-Fe-A4g"/>
                             <constraint firstItem="nDX-Uf-lIu" firstAttribute="leading" secondItem="Y8d-dc-NVe" secondAttribute="trailing" constant="16" id="FTe-yB-QEj"/>
                             <constraint firstItem="PQr-Ze-W5v" firstAttribute="trailing" secondItem="nDX-Uf-lIu" secondAttribute="trailing" constant="12" id="I2l-32-hiA"/>
-                            <constraint firstItem="czQ-MO-hkx" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" constant="32" id="M0h-oz-Mvr"/>
-                            <constraint firstItem="FRw-uK-Kr1" firstAttribute="top" secondItem="tsR-hK-woN" secondAttribute="top" constant="30" id="Vxf-Ba-PlL"/>
-                            <constraint firstItem="PQr-Ze-W5v" firstAttribute="trailing" secondItem="czQ-MO-hkx" secondAttribute="trailing" constant="32" id="WtV-LM-Yzz"/>
-                            <constraint firstItem="Y8d-dc-NVe" firstAttribute="top" secondItem="tsR-hK-woN" secondAttribute="top" constant="39" id="a5o-Ix-ix1"/>
+                            <constraint firstItem="czQ-MO-hkx" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" constant="24" id="M0h-oz-Mvr"/>
+                            <constraint firstItem="PQr-Ze-W5v" firstAttribute="trailing" secondItem="czQ-MO-hkx" secondAttribute="trailing" constant="24" id="WtV-LM-Yzz"/>
+                            <constraint firstItem="Y8d-dc-NVe" firstAttribute="top" secondItem="PQr-Ze-W5v" secondAttribute="top" id="a5o-Ix-ix1"/>
                             <constraint firstItem="czQ-MO-hkx" firstAttribute="top" secondItem="FRw-uK-Kr1" secondAttribute="bottom" constant="8" id="eR8-fd-k32"/>
                             <constraint firstItem="Y8d-dc-NVe" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" constant="8" id="x6m-vQ-bqK"/>
                         </constraints>
@@ -1005,7 +1005,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set Default?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lVA-pG-SwB">
-                                <rect key="frame" x="161.5" y="368" width="91" height="20"/>
+                                <rect key="frame" x="160" y="368" width="94" height="20"/>
                                 <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -1671,7 +1671,7 @@
                                 </connections>
                             </button>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hCn-Pf-hPL">
-                                <rect key="frame" x="0.0" y="86" width="166" height="810"/>
+                                <rect key="frame" x="0.0" y="86" width="414" height="810"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" misplaced="YES" layoutMarginsFollowReadableWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="21A-HN-aTY">
                                         <rect key="frame" x="8" y="8" width="359" height="591"/>
@@ -1767,7 +1767,7 @@
                                 </constraints>
                             </scrollView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ACq-qR-7bd">
-                                <rect key="frame" x="64" y="54" width="48" height="24"/>
+                                <rect key="frame" x="64" y="54" width="296" height="24"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -2012,7 +2012,7 @@
                                         </connections>
                                     </textField>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Specify your spot type:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pIv-bN-fjT">
-                                        <rect key="frame" x="113.5" y="44" width="173.5" height="20"/>
+                                        <rect key="frame" x="112" y="44" width="176" height="20"/>
                                         <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -2674,7 +2674,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Specify when your parking spot is available" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bbJ-H8-U6i">
-                                <rect key="frame" x="43" y="458" width="328" height="20"/>
+                                <rect key="frame" x="43" y="458" width="328.5" height="20"/>
                                 <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -2751,7 +2751,7 @@
                                 <rect key="frame" x="6" y="109" width="402" height="95"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Base" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hme-od-cOZ">
-                                        <rect key="frame" x="5" y="11" width="36.5" height="40"/>
+                                        <rect key="frame" x="5" y="11" width="38.5" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="rWx-vL-TVo"/>
                                         </constraints>
@@ -2760,7 +2760,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$ 20" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cxz-iq-eBT">
-                                        <rect key="frame" x="76.5" y="11" width="43" height="40"/>
+                                        <rect key="frame" x="78.5" y="11" width="43" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="40" id="BXd-IE-IUX"/>
                                         </constraints>

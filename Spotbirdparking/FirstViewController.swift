@@ -169,6 +169,9 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         
         btn_search_click.layer.cornerRadius = (btn_search_click.frame.height/2-6)
         btn_search_click.layer.borderWidth = 1
+//        btn_search_click.imageEdgeInsets = UIEdgeInsetsMake(0, 8, 0, 0)
+//        btn_search_click.imageView?.contentMode = .scaleAspectFit
+        
         
         img_spot.layer.borderWidth = 1
         img_spot.layer.masksToBounds = false
@@ -402,8 +405,6 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     @IBAction func btn_Date_search_done(_ sender: UIButton) {
         displayAvailableSpots()
         
-        setStartEndDate()
-        
         print("there are \(arr_search_spot.count) available spots")
         
         // display the spots with no conflict
@@ -417,8 +418,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         // indicator for Kevin pricing
         Time_price = true
         
-        start_date = start_datepic.date
-        end_date = end_datepic.date
+        let date1 = start_datepic.date
+        let date2 = end_datepic.date
         let now = Date()
         
         // formatters and calendar setup
@@ -449,28 +450,37 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
 //        }
         
         // debug
-        print("Start Date: \(formatter.string(from: start_date!))")
-        print("End Date: \(formatter.string(from: end_date!))")
+        print("Start Date: \(formatter.string(from: date1))")
+        print("End Date: \(formatter.string(from: date2))")
         print("Now: \(formatter.string(from: now))")
         
         // some error checking
-        if (start_date! < calendar.date(byAdding: .hour, value: -1, to: now)!) {
-            let alert = UIAlertController(title: "Spotbirdparking", message: "Start time is before current time", preferredStyle: .alert)
+        if (date1 < calendar.date(byAdding: .hour, value: -1, to: now)!) {
+            let alert = UIAlertController(title: "Dates Error", message: "Start time is before current time", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
             return
         }
-        else if (end_date! < start_date!) {
-            let alert = UIAlertController(title: "Spotbirdparking", message: "Start time is after end time", preferredStyle: .alert)
+        else if (date2 < date1) {
+            let alert = UIAlertController(title: "Dates Error", message: "Start time is after end time", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
             return
         }
-        else if (end_date == start_date) {
-            let alert = UIAlertController(title: "Spotbirdparking", message: "Start time and end time are equal", preferredStyle: .alert)
+        else if (date2 == date1) {
+            let alert = UIAlertController(title: "Dates Error", message: "Start time and end time are equal", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
             return
+        }
+        // there are no issues with the dates
+        else {
+            // set the dates used for pricing algorithm
+            start_date = date1
+            end_date = date2
+            
+            // reset dates used for notecard label
+            setStartEndDate()
         }
         
         // get the number of calendar days between dates
