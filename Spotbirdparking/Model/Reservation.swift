@@ -56,11 +56,11 @@ class Reservation {
         }
         
         // get the number of hours between end and start
-        let timeDelta = endDateTime.hours(from: startDateTime)
+        let timeDelta = endDateTime.minutes(from: startDateTime)
         
          if basePrice != ""{
             // add ( # hours * base price * 0.1 ) to the price
-            price += Double(timeDelta) * Double(basePriceTrimmed)! * 0.1
+            price += Double(timeDelta) * Double(basePriceTrimmed)! * 0.1 / 60
         }
         
         // Price = base + ( base * hours parked * 0.1 )

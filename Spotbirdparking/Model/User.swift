@@ -647,7 +647,6 @@ class User {
         print("Reservations: \(AppState.sharedInstance.user.reservations)")
         print("#: \(AppState.sharedInstance.user.reservations.count)")
         AppState.sharedInstance.user.reservations.removeAll()
-        print("#: \(AppState.sharedInstance.user.reservations.count)")
 
         print("Get all the reservations")
         let user_id = AppState.sharedInstance.userid
@@ -901,6 +900,16 @@ class User {
                 completionHandler(reservationCar)
             }
             else {
+                print("we could not find that car")
+                
+                reservationCar = Car(
+                    make: "Car Info Not Found. ",
+                    model: "Car has been deleted",
+                    year: "",
+                    carImage: "",
+                    isDefault: false,
+                    car_id: "")!
+                
                 // empty return values
                 completionHandler(reservationCar)
             }
@@ -978,6 +987,53 @@ class User {
             else {
                 // add some error handlers here
                 print("We could not find that Spot()")
+                
+                let reservationSpot = Spot(
+                    address: "Spot Not Found",
+                    town: "Spot has been deleted",
+                    state: "",
+                    zipCode: "",
+                    spotImage: "",
+                    description: "",
+                    monStartTime: "",
+                    monEndTime: "",
+                    tueStartTime: "",
+                    tueEndTime: "",
+                    wedStartTime: "",
+                    wedEndTime: "",
+                    thuStartTime: "",
+                    thuEndTime: "",
+                    friStartTime: "",
+                    friEndTime: "",
+                    satStartTime: "",
+                    satEndTime: "",
+                    sunStartTime: "",
+                    sunEndTime: "",
+                    monOn: false,
+                    tueOn: false,
+                    wedOn: false,
+                    thuOn: false,
+                    friOn: false,
+                    satOn: false,
+                    sunOn: false,
+                    hourlyPricing: "",
+                    dailyPricing: "",
+                    weeklyPricing: "",
+                    monthlyPricing: "",
+                    weeklyOn: false,
+                    monthlyOn: false,
+                    index: 1,
+                    approved: true,
+                    spotImages: UIImage(named: "white")!,
+                    spots_id: "",
+                    latitude: "",
+                    longitude: "",
+                    spottype: "",
+                    owner_id: "",
+                    Email: "",
+                    baseprice: "") as! Spot
+                
+                completionHandler(reservationSpot)
             }
         })
     }
