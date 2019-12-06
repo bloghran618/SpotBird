@@ -126,7 +126,6 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         
         start_scheduler()
         
-        
         // load aspects of User() object from the database
         AppState.sharedInstance.activeSpot.getSpots()
         AppState.sharedInstance.user.GetCar()
@@ -418,9 +417,17 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         // indicator for Kevin pricing
         Time_price = true
         
-        let date1 = start_datepic.date
-        let date2 = end_datepic.date
+        var date1 = start_datepic.date
+        var date2 = end_datepic.date
         let now = Date()
+        
+        // round datepicker dates to nearest 15 minutes
+        var calendar = Calendar.current
+        calendar.timeZone = TimeZone.current
+        let interval = 15
+        let nextDiff = -1 * (calendar.component(.minute, from: date1) % interval)
+        date1 = calendar.date(byAdding: .minute, value: nextDiff, to: date1) ?? Date()
+        date2 = calendar.date(byAdding: .minute, value: nextDiff, to: date2) ?? Date()
         
         // formatters and calendar setup
         let formatter = DateFormatter()
@@ -430,10 +437,6 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         let hourFormatter = DateFormatter()
         hourFormatter.dateFormat = "h:mm a"
         hourFormatter.timeZone = TimeZone.current
-        
-        var calendar = Calendar.current
-        calendar.timeZone = TimeZone.current
-        
         
         // format start/end times AM/PM with Kevin's interesting AM/PM formatter
 //        if (formatter.string(from: start_date!).contains("AM") && format1 == "PM") {
@@ -2635,6 +2638,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         
         // show that we are doing something
         Spinner.start()
+        btn_book.isEnabled = false
         
         // debug lines
         print("Lets do some booking!")
@@ -2768,8 +2772,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
 
         // create reservation to be sent to the parker
         let parkerReservation = Reservation(
-            startDateTime: Reservation.dateToString(date: start_datepic.date),
-            endDateTime: Reservation.dateToString(date: end_datepic.date),
+            startDateTime: Reservation.dateToString(date: start_date!),
+            endDateTime: Reservation.dateToString(date: end_date!),
             parkOrRent: "Park",
             spot: self.highlightedSpot,
             parkerID: AppState.sharedInstance.userid,
@@ -2780,8 +2784,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         
         // create reservation to be sent to the spot owner
         let ownerReservation = Reservation(
-            startDateTime: Reservation.dateToString(date: start_datepic.date),
-            endDateTime: Reservation.dateToString(date: end_datepic.date),
+            startDateTime: Reservation.dateToString(date: start_date!),
+            endDateTime: Reservation.dateToString(date: end_date!),
             parkOrRent: "Rent",
             spot: self.highlightedSpot,
             parkerID: AppState.sharedInstance.userid,
@@ -4070,6 +4074,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     
     func paymentContext(_ paymentContext: STPPaymentContext, didFinishWith status: STPPaymentStatus, error: Error?) {
         print("run didFinishWith paymentContext()")
+        btn_book.isEnabled = true
         let title: String
         let message: String
         switch status {

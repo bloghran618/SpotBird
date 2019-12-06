@@ -33,6 +33,7 @@ class CarsViewController: UIViewController, UITableViewDataSource {
         
         if AppState.sharedInstance.user.cars.count != 0{
             navigationItem.rightBarButtonItem = editButtonItem
+//            navigationItem.rightBarButtonItem = UIBarButtonItem(title: "Delete", style: .plain, target: self, action: #selector(addTapped))
             CarsTable.reloadData()
         }
         
