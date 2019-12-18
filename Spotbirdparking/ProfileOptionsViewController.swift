@@ -50,10 +50,10 @@ class ProfileOptionsViewController: UIViewController, UITableViewDataSource, UIT
         profileOptions = [
             ProfileTableOption(option: "You", description: "Tell us about yourself", logoImageName: "youImage"),
             ProfileTableOption(option: "Cars", description: "Create and set default cars", logoImageName: "EmptyCar"),
-            ProfileTableOption(option: "Payment", description: "Manage your payment options", logoImageName: "dollarSign"),
+            ProfileTableOption(option: "Payment Method", description: "Manage your payment options", logoImageName: "dollarSign"),
             ProfileTableOption(option: "List", description: "Share your spot", logoImageName: "Share"),
             ProfileTableOption(option: "Enable Payouts", description: "Authorize payment for your listed spots", logoImageName: "EnablePayouts"),
-            ProfileTableOption(option: "Contact Us", description: "Send us an Email", logoImageName: "contactUs"),
+            ProfileTableOption(option: "Email Us", description: "Send us feedback", logoImageName: "contactUs"),
             //            ProfileTableOption(option: "Log Out", description: "Log out of your account", logoImageName: "white")
             //            ProfileTableOption(option: "Test Functionality", description: "Just for testing", logoImageName: "white")
         ]

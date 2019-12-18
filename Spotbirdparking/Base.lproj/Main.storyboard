@@ -849,7 +849,7 @@
             </objects>
             <point key="canvasLocation" x="3279.1999999999998" y="-1042.128935532234"/>
         </scene>
-        <!--Your Cars-->
+        <!--Cars-->
         <scene sceneID="toD-FW-cTF">
             <objects>
                 <viewController id="JUt-VR-hJv" customClass="CarsViewController" customModule="Spotbirdparking" customModuleProvider="target" sceneMemberID="viewController">
@@ -951,7 +951,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="XIx-NB-eHD"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Your Cars" id="7Qw-eg-EFG"/>
+                    <navigationItem key="navigationItem" title="Cars" id="7Qw-eg-EFG"/>
                     <connections>
                         <outlet property="AddCarButton" destination="XHV-xG-mLh" id="s8J-U1-HTU"/>
                         <outlet property="CarsTable" destination="Qeh-yY-8AJ" id="akL-vQ-w60"/>
@@ -1975,7 +1975,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="HwS-Da-hpB"/>
                     </view>
-                    <navigationItem key="navigationItem" id="wlm-c3-mq2"/>
+                    <navigationItem key="navigationItem" title="List" id="wlm-c3-mq2"/>
                     <connections>
                         <outlet property="addSpot" destination="R9A-qJ-vDs" id="43Q-aC-jbN"/>
                         <outlet property="spotTable" destination="RM5-2f-eSe" id="p7m-H7-eUr"/>

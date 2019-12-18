@@ -52,6 +52,7 @@ class ShareViewController: UIViewController, UITableViewDataSource {
         super.viewWillAppear(animated)
         if AppState.sharedInstance.spots.count > 0 {
             navigationItem.rightBarButtonItem = editButtonItem
+            self.editButtonItem.title = "Delete"
         }
         self.spotTable.reloadData()
         
@@ -98,6 +99,14 @@ class ShareViewController: UIViewController, UITableViewDataSource {
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         spotTable.setEditing(editing, animated: animated)
+        
+        if(self.isEditing)
+        {
+            self.editButtonItem.title = "Done"
+        }else
+        {
+            self.editButtonItem.title = "Delete"
+        }
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {

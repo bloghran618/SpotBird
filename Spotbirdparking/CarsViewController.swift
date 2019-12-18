@@ -44,7 +44,8 @@ class CarsViewController: UIViewController, UITableViewDataSource {
     
     @objc func RefreshData(notification: Notification) {
         if AppState.sharedInstance.user.cars.count != 0{
-         navigationItem.rightBarButtonItem = editButtonItem
+            navigationItem.rightBarButtonItem = editButtonItem
+            self.editButtonItem.title = "Delete"
         }
         CarsTable.reloadData()
     }
@@ -80,6 +81,14 @@ class CarsViewController: UIViewController, UITableViewDataSource {
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         CarsTable.setEditing(editing, animated: animated)
+        
+        if(self.isEditing)
+        {
+            self.editButtonItem.title = "Done"
+        }else
+        {
+            self.editButtonItem.title = "Delete"
+        }
     }
     
     // Delete a car
@@ -91,8 +100,6 @@ class CarsViewController: UIViewController, UITableViewDataSource {
             tableView.deleteRows(at: [indexPath], with: .fade)
                  
              CarsTable.reloadData()
-        } else if editingStyle == .insert {
-            
         }
     }
     
