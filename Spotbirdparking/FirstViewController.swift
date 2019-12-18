@@ -2951,6 +2951,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             
             view_info.isHidden = false
             btn_close.isHidden = false
+            Date_VIew.isHidden = true
             curruntlat = marker.position.latitude
             curruntlong = marker.position.longitude
             

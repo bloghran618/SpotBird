@@ -24,9 +24,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QiO-Ac-YKT" customClass="GMSMapView">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QiO-Ac-YKT" customClass="GMSMapView">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FRw-uK-Kr1">
@@ -323,14 +322,18 @@
                             <constraint firstItem="FRw-uK-Kr1" firstAttribute="top" secondItem="PQr-Ze-W5v" secondAttribute="top" constant="-44" id="4DM-fR-JBE"/>
                             <constraint firstItem="FRw-uK-Kr1" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" id="6XX-TA-Rmu"/>
                             <constraint firstItem="nDX-Uf-lIu" firstAttribute="top" secondItem="PQr-Ze-W5v" secondAttribute="top" id="7H4-Pg-WJR"/>
+                            <constraint firstItem="QiO-Ac-YKT" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" id="84i-Qv-fhW"/>
                             <constraint firstItem="PQr-Ze-W5v" firstAttribute="trailing" secondItem="QhX-kS-Lr8" secondAttribute="trailing" constant="5" id="8Wp-cK-akd"/>
                             <constraint firstItem="QhX-kS-Lr8" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" constant="5" id="CoC-Fe-A4g"/>
                             <constraint firstItem="nDX-Uf-lIu" firstAttribute="leading" secondItem="Y8d-dc-NVe" secondAttribute="trailing" constant="16" id="FTe-yB-QEj"/>
+                            <constraint firstItem="QiO-Ac-YKT" firstAttribute="top" secondItem="tsR-hK-woN" secondAttribute="top" id="HbL-X7-Bcy"/>
                             <constraint firstItem="PQr-Ze-W5v" firstAttribute="trailing" secondItem="nDX-Uf-lIu" secondAttribute="trailing" constant="12" id="I2l-32-hiA"/>
                             <constraint firstItem="czQ-MO-hkx" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" constant="24" id="M0h-oz-Mvr"/>
                             <constraint firstItem="PQr-Ze-W5v" firstAttribute="trailing" secondItem="czQ-MO-hkx" secondAttribute="trailing" constant="24" id="WtV-LM-Yzz"/>
                             <constraint firstItem="Y8d-dc-NVe" firstAttribute="top" secondItem="PQr-Ze-W5v" secondAttribute="top" id="a5o-Ix-ix1"/>
                             <constraint firstItem="czQ-MO-hkx" firstAttribute="top" secondItem="FRw-uK-Kr1" secondAttribute="bottom" constant="8" id="eR8-fd-k32"/>
+                            <constraint firstItem="QiO-Ac-YKT" firstAttribute="trailing" secondItem="PQr-Ze-W5v" secondAttribute="trailing" id="gI9-QE-ba4"/>
+                            <constraint firstItem="QiO-Ac-YKT" firstAttribute="bottom" secondItem="PQr-Ze-W5v" secondAttribute="bottom" id="hLD-Iq-gXu"/>
                             <constraint firstItem="Y8d-dc-NVe" firstAttribute="leading" secondItem="PQr-Ze-W5v" secondAttribute="leading" constant="8" id="x6m-vQ-bqK"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="PQr-Ze-W5v"/>
@@ -1990,169 +1993,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IL1-y2-U6t" customClass="GMSMapView">
-                                <rect key="frame" x="0.0" y="124" width="414" height="529"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zVf-4X-dpv" customClass="CustomView" customModule="Spotbirdparking" customModuleProvider="target">
-                                <rect key="frame" x="7" y="656" width="400" height="64"/>
-                                <subviews>
-                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5ET-0P-vZU">
-                                        <rect key="frame" x="4" y="6" width="392" height="30"/>
-                                        <nil key="textColor"/>
-                                        <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="17"/>
-                                        <textInputTraits key="textInputTraits"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="_placeholderLabel.textColor ">
-                                                <color key="value" cocoaTouchSystemColor="darkTextColor"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                        <connections>
-                                            <outlet property="delegate" destination="ely-Xp-6Le" id="BXr-eW-04l"/>
-                                        </connections>
-                                    </textField>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Specify your spot type:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pIv-bN-fjT">
-                                        <rect key="frame" x="113.5" y="44" width="173.5" height="20"/>
-                                        <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="pIv-bN-fjT" secondAttribute="bottom" id="0OR-YW-jsS"/>
-                                    <constraint firstAttribute="trailing" secondItem="5ET-0P-vZU" secondAttribute="trailing" constant="4" id="2Uw-GE-9NZ"/>
-                                    <constraint firstItem="pIv-bN-fjT" firstAttribute="centerX" secondItem="zVf-4X-dpv" secondAttribute="centerX" id="2lE-rR-3qy"/>
-                                    <constraint firstItem="5ET-0P-vZU" firstAttribute="leading" secondItem="zVf-4X-dpv" secondAttribute="leading" constant="4" id="G3H-mN-e2f"/>
-                                    <constraint firstItem="5ET-0P-vZU" firstAttribute="top" secondItem="zVf-4X-dpv" secondAttribute="top" constant="6" id="Nw7-RV-yGn"/>
-                                    <constraint firstAttribute="height" constant="64" id="fQq-fr-vkz"/>
-                                </constraints>
-                            </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WdS-K0-8K6">
-                                <rect key="frame" x="7" y="724" width="400" height="84"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sGX-Ot-Hlt">
-                                        <rect key="frame" x="3" y="1" width="98" height="60"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="60" id="XRf-dN-RWF"/>
-                                        </constraints>
-                                        <state key="normal" title="Garage" image="garageParking">
-                                            <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="btn_TYPE:" destination="ely-Xp-6Le" eventType="touchUpInside" id="m89-qI-jbM"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8f5-xc-M9p">
-                                        <rect key="frame" x="102" y="1" width="97.5" height="60"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="60" id="Mx3-yI-odl"/>
-                                        </constraints>
-                                        <state key="normal" title="Street" image="streetParking">
-                                            <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="btn_TYPE:" destination="ely-Xp-6Le" eventType="touchUpInside" id="Zjh-ZC-ZPU"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mmv-5k-b51">
-                                        <rect key="frame" x="200.5" y="1" width="98" height="60"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="60" id="Etr-OR-xxv"/>
-                                        </constraints>
-                                        <state key="normal" title="Lot" image="lotParking">
-                                            <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="btn_TYPE:" destination="ely-Xp-6Le" eventType="touchUpInside" id="knS-SE-bSc"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wth-QP-Hbk">
-                                        <rect key="frame" x="299.5" y="1" width="97.5" height="60"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="60" id="qWC-Se-y4M"/>
-                                        </constraints>
-                                        <state key="normal" title="Other" image="drivewayParking">
-                                            <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="btn_TYPE:" destination="ely-Xp-6Le" eventType="touchUpInside" id="u5M-TX-vKJ"/>
-                                        </connections>
-                                    </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Garage" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ufl-RQ-dOY">
-                                        <rect key="frame" x="3" y="62" width="98" height="21"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="21" id="IVF-35-bij"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Street" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gkQ-um-aWc">
-                                        <rect key="frame" x="102" y="62" width="97.5" height="21"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="21" id="ncf-IM-5mL"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lot" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ijg-oG-ueM">
-                                        <rect key="frame" x="200.5" y="62" width="98" height="21"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="21" id="sDv-hx-gfb"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Driveway" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fFD-ir-wFo">
-                                        <rect key="frame" x="299.5" y="62" width="97.5" height="21"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="21" id="1LP-C8-i8R"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="gkQ-um-aWc" secondAttribute="bottom" constant="1" id="00O-KK-zUH"/>
-                                    <constraint firstItem="fFD-ir-wFo" firstAttribute="leading" secondItem="Ijg-oG-ueM" secondAttribute="trailing" constant="1" id="ALk-iF-KIo"/>
-                                    <constraint firstItem="fFD-ir-wFo" firstAttribute="top" secondItem="wth-QP-Hbk" secondAttribute="bottom" constant="1" id="B9z-XK-4Pt"/>
-                                    <constraint firstItem="Ijg-oG-ueM" firstAttribute="top" secondItem="mmv-5k-b51" secondAttribute="bottom" constant="1" id="Bbn-k9-oEA"/>
-                                    <constraint firstAttribute="trailing" secondItem="wth-QP-Hbk" secondAttribute="trailing" constant="3" id="C94-BW-NaA"/>
-                                    <constraint firstItem="gkQ-um-aWc" firstAttribute="width" secondItem="ufl-RQ-dOY" secondAttribute="width" id="CLo-E2-hiX"/>
-                                    <constraint firstItem="ufl-RQ-dOY" firstAttribute="top" secondItem="sGX-Ot-Hlt" secondAttribute="bottom" constant="1" id="EsB-0q-QVW"/>
-                                    <constraint firstItem="mmv-5k-b51" firstAttribute="leading" secondItem="8f5-xc-M9p" secondAttribute="trailing" constant="1" id="Fn7-lF-AWt"/>
-                                    <constraint firstItem="gkQ-um-aWc" firstAttribute="top" secondItem="8f5-xc-M9p" secondAttribute="bottom" constant="1" id="Gw5-ML-wan"/>
-                                    <constraint firstItem="gkQ-um-aWc" firstAttribute="leading" secondItem="ufl-RQ-dOY" secondAttribute="trailing" constant="1" id="NNr-kh-0at"/>
-                                    <constraint firstItem="wth-QP-Hbk" firstAttribute="width" secondItem="sGX-Ot-Hlt" secondAttribute="width" id="QBU-B8-hR9"/>
-                                    <constraint firstAttribute="bottom" secondItem="ufl-RQ-dOY" secondAttribute="bottom" constant="1" id="Sz7-rM-S48"/>
-                                    <constraint firstItem="fFD-ir-wFo" firstAttribute="width" secondItem="ufl-RQ-dOY" secondAttribute="width" id="UHF-jn-6cE"/>
-                                    <constraint firstItem="ufl-RQ-dOY" firstAttribute="leading" secondItem="WdS-K0-8K6" secondAttribute="leading" constant="3" id="bJ0-g5-tU8"/>
-                                    <constraint firstItem="8f5-xc-M9p" firstAttribute="width" secondItem="sGX-Ot-Hlt" secondAttribute="width" id="dB3-y8-3Ae"/>
-                                    <constraint firstAttribute="bottom" secondItem="fFD-ir-wFo" secondAttribute="bottom" constant="1" id="fO6-f5-Ch7"/>
-                                    <constraint firstAttribute="bottom" secondItem="Ijg-oG-ueM" secondAttribute="bottom" constant="1" id="m1r-bX-MNe"/>
-                                    <constraint firstItem="sGX-Ot-Hlt" firstAttribute="leading" secondItem="WdS-K0-8K6" secondAttribute="leading" constant="3" id="mZy-4z-QMZ"/>
-                                    <constraint firstItem="Ijg-oG-ueM" firstAttribute="width" secondItem="ufl-RQ-dOY" secondAttribute="width" id="oXd-iE-MtZ"/>
-                                    <constraint firstAttribute="height" constant="84" id="ppx-Tk-wv7"/>
-                                    <constraint firstItem="wth-QP-Hbk" firstAttribute="leading" secondItem="mmv-5k-b51" secondAttribute="trailing" constant="1" id="svi-ic-Mcs"/>
-                                    <constraint firstItem="8f5-xc-M9p" firstAttribute="leading" secondItem="sGX-Ot-Hlt" secondAttribute="trailing" constant="1" id="vpC-pe-yV8"/>
-                                    <constraint firstItem="Ijg-oG-ueM" firstAttribute="leading" secondItem="gkQ-um-aWc" secondAttribute="trailing" constant="1" id="vyE-sV-GW3"/>
-                                    <constraint firstItem="mmv-5k-b51" firstAttribute="width" secondItem="sGX-Ot-Hlt" secondAttribute="width" id="xFR-8r-Ayy"/>
-                                    <constraint firstAttribute="trailing" secondItem="fFD-ir-wFo" secondAttribute="trailing" constant="3" id="yXu-53-LGw"/>
-                                </constraints>
-                            </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="biM-Ld-WIE">
                                 <rect key="frame" x="8" y="89" width="398" height="34"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -2169,22 +2009,171 @@
                                     <action selector="autocompleteClicked:" destination="9pv-A4-QxB" eventType="touchUpInside" id="RCW-Nc-lMl"/>
                                 </connections>
                             </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IL1-y2-U6t" customClass="GMSMapView">
+                                <rect key="frame" x="0.0" y="131" width="414" height="519"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="MSc-QS-7bh">
+                                <rect key="frame" x="8" y="658" width="398" height="147"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="5ET-0P-vZU">
+                                        <rect key="frame" x="0.0" y="0.0" width="398" height="30"/>
+                                        <nil key="textColor"/>
+                                        <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="17"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="_placeholderLabel.textColor ">
+                                                <color key="value" cocoaTouchSystemColor="darkTextColor"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <outlet property="delegate" destination="ely-Xp-6Le" id="BXr-eW-04l"/>
+                                        </connections>
+                                    </textField>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Specify your spot type:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pIv-bN-fjT">
+                                        <rect key="frame" x="0.0" y="38" width="398" height="20"/>
+                                        <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" translatesAutoresizingMaskIntoConstraints="NO" id="g8C-7q-NBS">
+                                        <rect key="frame" x="0.0" y="66" width="398" height="81"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="HdJ-LP-33a">
+                                                <rect key="frame" x="0.0" y="0.0" width="60" height="81"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sGX-Ot-Hlt">
+                                                        <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="60" id="XRf-dN-RWF"/>
+                                                            <constraint firstAttribute="width" constant="60" id="zWQ-hZ-EOd"/>
+                                                        </constraints>
+                                                        <state key="normal" title="Garage" image="garageParking">
+                                                            <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="btn_TYPE:" destination="ely-Xp-6Le" eventType="touchUpInside" id="m89-qI-jbM"/>
+                                                        </connections>
+                                                    </button>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Garage" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ufl-RQ-dOY">
+                                                        <rect key="frame" x="0.0" y="60" width="60" height="21"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="21" id="IVF-35-bij"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="OFs-ac-JX7">
+                                                <rect key="frame" x="112.5" y="0.0" width="60" height="81"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8f5-xc-M9p">
+                                                        <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="60" id="Flg-D9-LT4"/>
+                                                            <constraint firstAttribute="height" constant="60" id="Mx3-yI-odl"/>
+                                                        </constraints>
+                                                        <state key="normal" title="Street" image="streetParking">
+                                                            <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="btn_TYPE:" destination="ely-Xp-6Le" eventType="touchUpInside" id="Zjh-ZC-ZPU"/>
+                                                        </connections>
+                                                    </button>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Street" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gkQ-um-aWc">
+                                                        <rect key="frame" x="0.0" y="60" width="60" height="21"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="21" id="ncf-IM-5mL"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="kro-Zq-afg">
+                                                <rect key="frame" x="225.5" y="0.0" width="60" height="81"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mmv-5k-b51">
+                                                        <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="60" id="Etr-OR-xxv"/>
+                                                            <constraint firstAttribute="width" constant="60" id="UsE-9k-imc"/>
+                                                        </constraints>
+                                                        <state key="normal" title="Lot" image="lotParking">
+                                                            <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="btn_TYPE:" destination="ely-Xp-6Le" eventType="touchUpInside" id="knS-SE-bSc"/>
+                                                        </connections>
+                                                    </button>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Lot" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ijg-oG-ueM">
+                                                        <rect key="frame" x="0.0" y="60" width="60" height="21"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="21" id="sDv-hx-gfb"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="v9B-k9-pMe">
+                                                <rect key="frame" x="338" y="0.0" width="60" height="81"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wth-QP-Hbk">
+                                                        <rect key="frame" x="0.0" y="0.0" width="60" height="60"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="60" id="F78-At-p1I"/>
+                                                            <constraint firstAttribute="height" constant="60" id="qWC-Se-y4M"/>
+                                                        </constraints>
+                                                        <state key="normal" title="Other" image="drivewayParking">
+                                                            <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <connections>
+                                                            <action selector="btn_TYPE:" destination="ely-Xp-6Le" eventType="touchUpInside" id="u5M-TX-vKJ"/>
+                                                        </connections>
+                                                    </button>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Driveway" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fFD-ir-wFo">
+                                                        <rect key="frame" x="0.0" y="60" width="60" height="21"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="21" id="1LP-C8-i8R"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="17"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="zVf-4X-dpv" firstAttribute="top" secondItem="IL1-y2-U6t" secondAttribute="bottom" constant="3" id="2BJ-cv-Da3"/>
-                            <constraint firstItem="WdS-K0-8K6" firstAttribute="leading" secondItem="Kcz-IE-oF2" secondAttribute="leading" constant="7" id="BSn-4I-obA"/>
+                            <constraint firstItem="MSc-QS-7bh" firstAttribute="leading" secondItem="Kcz-IE-oF2" secondAttribute="leading" constant="8" id="4Yw-Fu-jP6"/>
+                            <constraint firstItem="Kcz-IE-oF2" firstAttribute="bottom" secondItem="MSc-QS-7bh" secondAttribute="bottom" constant="8" id="838-Ze-o4C"/>
+                            <constraint firstItem="Kcz-IE-oF2" firstAttribute="trailing" secondItem="MSc-QS-7bh" secondAttribute="trailing" constant="8" id="CT6-uR-0OV"/>
                             <constraint firstItem="IL1-y2-U6t" firstAttribute="trailing" secondItem="Kcz-IE-oF2" secondAttribute="trailing" id="F20-6i-bY7"/>
-                            <constraint firstItem="Kcz-IE-oF2" firstAttribute="trailing" secondItem="zVf-4X-dpv" secondAttribute="trailing" constant="7" id="I5o-UL-XdL"/>
-                            <constraint firstItem="IL1-y2-U6t" firstAttribute="top" secondItem="biM-Ld-WIE" secondAttribute="bottom" constant="1" id="Ra3-eU-q5H"/>
-                            <constraint firstItem="WdS-K0-8K6" firstAttribute="top" secondItem="zVf-4X-dpv" secondAttribute="bottom" constant="4" id="UeR-VS-DEq"/>
+                            <constraint firstItem="IL1-y2-U6t" firstAttribute="top" secondItem="biM-Ld-WIE" secondAttribute="bottom" constant="8" id="Gcj-c8-3AU"/>
+                            <constraint firstItem="MSc-QS-7bh" firstAttribute="top" secondItem="IL1-y2-U6t" secondAttribute="bottom" constant="8" id="Nbx-ot-upr"/>
                             <constraint firstItem="biM-Ld-WIE" firstAttribute="leading" secondItem="Kcz-IE-oF2" secondAttribute="leading" constant="8" id="WPm-f1-GbU"/>
                             <constraint firstItem="Kcz-IE-oF2" firstAttribute="trailing" secondItem="biM-Ld-WIE" secondAttribute="trailing" constant="8" id="WqY-zG-Jxk"/>
-                            <constraint firstItem="Kcz-IE-oF2" firstAttribute="trailing" secondItem="WdS-K0-8K6" secondAttribute="trailing" constant="7" id="amp-4B-qOy"/>
                             <constraint firstItem="biM-Ld-WIE" firstAttribute="top" secondItem="Kcz-IE-oF2" secondAttribute="top" constant="1" id="oTB-Jl-UCX"/>
                             <constraint firstItem="IL1-y2-U6t" firstAttribute="leading" secondItem="Kcz-IE-oF2" secondAttribute="leading" id="orS-gr-jSo"/>
-                            <constraint firstItem="Kcz-IE-oF2" firstAttribute="bottom" secondItem="WdS-K0-8K6" secondAttribute="bottom" constant="5" id="wNo-Hq-deP"/>
-                            <constraint firstItem="zVf-4X-dpv" firstAttribute="leading" secondItem="Kcz-IE-oF2" secondAttribute="leading" constant="7" id="z3U-df-Ejq"/>
+                            <constraint firstItem="MSc-QS-7bh" firstAttribute="leading" secondItem="Kcz-IE-oF2" secondAttribute="leading" constant="8" id="xB6-ok-5Yd"/>
+                            <constraint firstItem="Kcz-IE-oF2" firstAttribute="trailing" secondItem="MSc-QS-7bh" secondAttribute="trailing" constant="8" id="yKF-qz-dOa"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Kcz-IE-oF2"/>
                     </view>
@@ -2204,8 +2193,6 @@
                         <outlet property="btn_searchADD" destination="biM-Ld-WIE" id="NtD-Fx-AQc"/>
                         <outlet property="nextButton" destination="Nde-2w-6fV" id="Znd-Br-lLh"/>
                         <outlet property="txt_email" destination="5ET-0P-vZU" id="ImO-Nh-Lpt"/>
-                        <outlet property="view_btm" destination="zVf-4X-dpv" id="lJg-Fy-Oca"/>
-                        <outlet property="view_types" destination="WdS-K0-8K6" id="oTV-Dh-45A"/>
                         <segue destination="UfM-dX-UED" kind="push" identifier="provideImageSegue" id="jR0-3e-SFw"/>
                     </connections>
                 </viewController>

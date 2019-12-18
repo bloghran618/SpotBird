@@ -51,13 +51,14 @@ class AddressViewController: UIViewController, UITextFieldDelegate,CLLocationMan
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print("Loading the view...")
+        
         btn_searchADD.layer.cornerRadius = 2
 //        btn_searchADD.layer.borderColor = UIColor.blue.cgColor
 //        btn_searchADD.layer.borderWidth = 1
         
         self.addrMapView.delegate = self
         self.locationManager.delegate = self
-        self.locationManager.requestAlwaysAuthorization()
         self.locationManager.requestWhenInUseAuthorization()
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         CurrentLocMarker.map = self.addrMapView
@@ -65,22 +66,22 @@ class AddressViewController: UIViewController, UITextFieldDelegate,CLLocationMan
         self.locationManager.startMonitoringSignificantLocationChanges()
         self.locationManager.startUpdatingLocation()
         
+        print("block 1")
+        
         self.txt_email.delegate = self
+        
+        print("block 1.1")
         
         self.hideKeyboardWhenTappedAround()
         
         //   txt_email.layer.borderWidth = 2
         //   txt_email.layer.borderColor = UIColor.cyan.cgColor
         
-        view_btm.layer.cornerRadius = 5
-        view_btm.layer.masksToBounds = true
-//        view_btm.layer.borderWidth = 1
-//        view_btm.layer.borderColor = UIColor.black.cgColor
+        print("block 1.2")
+        
         nextButton.isEnabled = false
-        view_types.layer.cornerRadius = 6
-        view_types.layer.masksToBounds = true
-//        view_types.layer.borderWidth = 1
-//        view_types.layer.borderColor = UIColor.black.cgColor
+        
+        print("block 2")
 //
         if ((AppState.sharedInstance.activeSpot.address == "") && (AppState.sharedInstance.activeSpot.town == "")) && ((AppState.sharedInstance.activeSpot.zipCode == "") && (AppState.sharedInstance.activeSpot.state == "")) {
             nextButton.isEnabled = false
@@ -114,6 +115,8 @@ class AddressViewController: UIViewController, UITextFieldDelegate,CLLocationMan
             bnt4.setImage(UIImage.init(named: "drivewayParkingSelected"), for: .normal)
         }
         
+        print("block 3")
+        
         // check if we are in edit mode or add mode
         if (AppState.sharedInstance.activeSpot.longitude == "0" && AppState.sharedInstance.activeSpot.latitude == "0") {
             editMode = false
@@ -126,6 +129,8 @@ class AddressViewController: UIViewController, UITextFieldDelegate,CLLocationMan
         if (editMode) {
             self.btn_searchADD.setTitle("\(AppState.sharedInstance.activeSpot.address)", for: .normal)
         }
+        
+        print("block 4")
     }
     
     override func viewDidAppear(_ animated: Bool) {
