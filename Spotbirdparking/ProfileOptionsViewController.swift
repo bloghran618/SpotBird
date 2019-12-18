@@ -135,7 +135,7 @@ class ProfileOptionsViewController: UIViewController, UITableViewDataSource, UIT
             }
             
         }
-        else if profileOptions![(indexPath as NSIndexPath).row].option == "Contact Us" {
+        else if profileOptions![(indexPath as NSIndexPath).row].option == "Email Us" {
             print("Go to email")
             self.performSegue(withIdentifier: "Email", sender: self)
         }
