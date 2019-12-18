@@ -1808,7 +1808,7 @@
             </objects>
             <point key="canvasLocation" x="1665" y="1781"/>
         </scene>
-        <!--Your Profile-->
+        <!--Profile-->
         <scene sceneID="q3q-ac-wb3">
             <objects>
                 <viewController id="a5b-fp-Yij" customClass="ProfileOptionsViewController" customModule="Spotbirdparking" customModuleProvider="target" sceneMemberID="viewController">
@@ -1875,7 +1875,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="AEa-mR-XZx"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Your Profile" id="yhy-K2-0bH"/>
+                    <navigationItem key="navigationItem" title="Profile" id="yhy-K2-0bH"/>
                     <connections>
                         <outlet property="logoutButton" destination="n4Q-9y-c8J" id="jaS-K5-j2e"/>
                         <outlet property="profileTableView" destination="467-2J-eKM" id="Eqs-ba-xLf"/>

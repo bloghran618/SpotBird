@@ -102,7 +102,7 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
         }
         else if txt_pass.text == ""
         {
-            let alert = UIAlertController(title: "Spotbirdparking", message: "Password", preferredStyle: UIAlertControllerStyle.alert)
+            let alert = UIAlertController(title: "Spotbirdparking", message: "Enter Password", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }

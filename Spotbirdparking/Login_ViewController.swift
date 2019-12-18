@@ -156,7 +156,7 @@ class Login_ViewController: UIViewController {
             }
             else{
                   Spinner.stop()
-                let alertController = UIAlertController(title: "Spotbird", message: "Record Not Found..", preferredStyle: .alert)
+                let alertController = UIAlertController(title: "Spotbird", message: "Invalid User/Pass Combination", preferredStyle: .alert)
                 let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
                 alertController.addAction(defaultAction)
                 self.present(alertController, animated: true, completion: nil)
