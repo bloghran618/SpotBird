@@ -15,9 +15,9 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0.9</string>
+	<string>1.0.10</string>
 	<key>CFBundleVersion</key>
-	<string>1.0.9</string>
+	<string>1.0.10</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>comgooglemaps</string>
@@ -28,13 +28,13 @@
 	<key>NSCameraUsageDescription</key>
 	<string>Allow you to take photos for profile, car or spot</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Description</string>
+	<string>Allow you to search spots near you, display distance to spot, and navigate to spots</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Will you allow this app to always know your location?</string>
+	<string>Allow you to search spots near you, display distance to spot, and navigate to spots</string>
 	<key>NSLocationUsageDescription</key>
-	<string>Use Location</string>
+	<string>Allow you to search spots near you, display distance to spot, and navigate to spots</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Do you allow this app to know your current location?</string>
+	<string>Allow you to search spots near you, display distance to spot, and navigate to spots</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Allow you to add photos for profile, car or spot</string>
 	<key>UILaunchStoryboardName</key>
