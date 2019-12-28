@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B71F2DE12086CDA800F47274"
-               BuildableName = "Spotbirdparking.app"
-               BlueprintName = "Spotbirdparking"
-               ReferencedContainer = "container:Spotbirdparking.xcodeproj">
+               BuildableName = "Spotbird.app"
+               BlueprintName = "Spotbird"
+               ReferencedContainer = "container:Spotbird.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B71F2DE12086CDA800F47274"
-            BuildableName = "Spotbirdparking.app"
-            BlueprintName = "Spotbirdparking"
-            ReferencedContainer = "container:Spotbirdparking.xcodeproj">
+            BuildableName = "Spotbird.app"
+            BlueprintName = "Spotbird"
+            ReferencedContainer = "container:Spotbird.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -56,9 +56,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B71F2DE12086CDA800F47274"
-            BuildableName = "Spotbirdparking.app"
-            BlueprintName = "Spotbirdparking"
-            ReferencedContainer = "container:Spotbirdparking.xcodeproj">
+            BuildableName = "Spotbird.app"
+            BlueprintName = "Spotbird"
+            ReferencedContainer = "container:Spotbird.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -79,9 +79,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B71F2DE12086CDA800F47274"
-            BuildableName = "Spotbirdparking.app"
-            BlueprintName = "Spotbirdparking"
-            ReferencedContainer = "container:Spotbirdparking.xcodeproj">
+            BuildableName = "Spotbird.app"
+            BlueprintName = "Spotbird"
+            ReferencedContainer = "container:Spotbird.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

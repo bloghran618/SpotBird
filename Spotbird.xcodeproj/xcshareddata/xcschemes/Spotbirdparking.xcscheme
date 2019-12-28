@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0930"
+   LastUpgradeVersion = "1010"
    version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B71F2DE12086CDA800F47274"
-               BuildableName = "Spotbirdparking.app"
-               BlueprintName = "Spotbirdparking"
-               ReferencedContainer = "container:Spotbirdparking.xcodeproj">
+               BuildableName = "Spotbird.app"
+               BlueprintName = "Spotbird"
+               ReferencedContainer = "container:Spotbird.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B71F2DF72086CDAA00F47274"
-               BuildableName = "SpotbirdparkingTests.xctest"
-               BlueprintName = "SpotbirdparkingTests"
-               ReferencedContainer = "container:Spotbirdparking.xcodeproj">
+               BuildableName = "SpotbirdTests.xctest"
+               BlueprintName = "SpotbirdTests"
+               ReferencedContainer = "container:Spotbird.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -43,9 +43,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B71F2DE12086CDA800F47274"
-            BuildableName = "Spotbirdparking.app"
-            BlueprintName = "Spotbirdparking"
-            ReferencedContainer = "container:Spotbirdparking.xcodeproj">
+            BuildableName = "Spotbird.app"
+            BlueprintName = "Spotbird"
+            ReferencedContainer = "container:Spotbird.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -53,8 +53,8 @@
    </TestAction>
    <LaunchAction
       buildConfiguration = "Debug"
-      selectedDebuggerIdentifier = ""
-      selectedLauncherIdentifier = "Xcode.IDEFoundation.Launcher.PosixSpawn"
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
@@ -66,18 +66,11 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B71F2DE12086CDA800F47274"
-            BuildableName = "Spotbirdparking.app"
-            BlueprintName = "Spotbirdparking"
-            ReferencedContainer = "container:Spotbirdparking.xcodeproj">
+            BuildableName = "Spotbird.app"
+            BlueprintName = "Spotbird"
+            ReferencedContainer = "container:Spotbird.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
-      <EnvironmentVariables>
-         <EnvironmentVariable
-            key = "OS_ACTIVITY_MODE"
-            value = "disable"
-            isEnabled = "YES">
-         </EnvironmentVariable>
-      </EnvironmentVariables>
       <AdditionalOptions>
       </AdditionalOptions>
       <LocationScenarioReference
@@ -96,9 +89,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B71F2DE12086CDA800F47274"
-            BuildableName = "Spotbirdparking.app"
-            BlueprintName = "Spotbirdparking"
-            ReferencedContainer = "container:Spotbirdparking.xcodeproj">
+            BuildableName = "Spotbird.app"
+            BlueprintName = "Spotbird"
+            ReferencedContainer = "container:Spotbird.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

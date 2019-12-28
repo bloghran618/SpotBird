@@ -8,7 +8,7 @@
       location = "group:Spotbirdparking/Philadelphia.gpx">
    </FileRef>
    <FileRef
-      location = "group:Spotbirdparking.xcodeproj">
+      location = "group:/Users/user138340/Desktop/SpotBird/Spotbird.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">

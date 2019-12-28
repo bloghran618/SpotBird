@@ -53,7 +53,7 @@ class ProfileOptionsViewController: UIViewController, UITableViewDataSource, UIT
             ProfileTableOption(option: "Payment Method", description: "Manage your payment options", logoImageName: "dollarSign"),
             ProfileTableOption(option: "List", description: "Share your spot", logoImageName: "Share"),
             ProfileTableOption(option: "Enable Payouts", description: "Authorize payment for your listed spots", logoImageName: "EnablePayouts"),
-            ProfileTableOption(option: "Email Us", description: "Send us feedback", logoImageName: "contactUs"),
+            ProfileTableOption(option: "Email Us", description: "Send us feedback", logoImageName: "emailUs"),
             //            ProfileTableOption(option: "Log Out", description: "Log out of your account", logoImageName: "white")
             //            ProfileTableOption(option: "Test Functionality", description: "Just for testing", logoImageName: "white")
         ]
