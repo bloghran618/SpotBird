@@ -239,29 +239,13 @@ class ReservationsViewController: UIViewController,GMSMapViewDelegate,CLLocation
 extension ReservationsViewController: JTAppleCalendarViewDataSource {
     
     func configureCalendar(_ calendar: JTAppleCalendarView) -> ConfigurationParameters {
-        // set formate of date
-        formatter.dateFormat = "yyyy MM dd"
-        formatter.timeZone = Calendar.current.timeZone
-        formatter.locale = Calendar.current.locale
-        
-        // get the current year and month
-        let monthFormatter = DateFormatter()
-        monthFormatter.dateFormat = "MM"
-        let yearFormatter = DateFormatter()
-        yearFormatter.dateFormat = "YYYY"
+  
+        // Set start and end dates for  calendar display based on current date
         let now = Date()
-        let MM = monthFormatter.string(from: now)
-        let YYYY = yearFormatter.string(from: now)
-        let nextYYYY = String((Int(YYYY) ?? 2020) + 1)
-        print("Starting Month is: \(MM)")
-        print("Starting year is: \(YYYY)")
-        print("Next year is: \(nextYYYY)")
+        let twoMonthsAgo = Calendar.current.date(byAdding: .month, value: -2, to: now)
+        let nextYear = Calendar.current.date(byAdding: .year, value: 1, to: now)
         
-        // set the start and end date as this month -> 12 months from now
-        let startDate = formatter.date(from: "\(YYYY) \(String((Int(MM) ?? 3) - 2)) 01")!
-        let endDate = formatter.date(from: "\(nextYYYY) \(MM) 28")!
-        
-        let parameters = ConfigurationParameters(startDate: startDate, endDate: endDate)
+        let parameters = ConfigurationParameters(startDate: twoMonthsAgo!, endDate: nextYear!)
         return parameters
     }
 }
