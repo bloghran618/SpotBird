@@ -2612,7 +2612,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         
     }
     
-    // 
+    // full screen if spot image is tapped
     @IBAction func spotImageTapped(_ sender: UITapGestureRecognizer) {
         let imageView = sender.view as! UIImageView
         let newImageView = UIImageView(image: imageView.image)

@@ -17,25 +17,15 @@ import CryptoSwift
 class ReservationsDetailViewController: UIViewController {
     
     @IBOutlet weak var imgSpot: UIImageView!
-    
     @IBOutlet weak var lblAddress: UILabel!
-    
     @IBOutlet weak var lblType: UILabel!
-    
     @IBOutlet weak var imgIcon: UIImageView!
-    
     @IBOutlet weak var lblStart: UILabel!
-    
     @IBOutlet weak var lblEnd: UILabel!
-    
     @IBOutlet weak var lblPrice: UILabel!
-    
     @IBOutlet weak var lblEmail: UILabel!
-    
     @IBOutlet weak var lblDesc: UILabel!
-    
     @IBOutlet weak var lblTitle: UILabel!
-    
     @IBOutlet weak var Cancel: UIButton!
     
     var resOnDay = [Reservation]()
@@ -105,6 +95,27 @@ class ReservationsDetailViewController: UIViewController {
         
         self.present(alert, animated: true)
         
+    }
+    
+    // full screen if spot image is tapped
+    @IBAction func ReservationImageClicked(_ sender: UITapGestureRecognizer) {
+        let imageView = sender.view as! UIImageView
+        let newImageView = UIImageView(image: imageView.image)
+        newImageView.frame = UIScreen.main.bounds
+        newImageView.backgroundColor = .black
+        newImageView.contentMode = .scaleAspectFit
+        newImageView.isUserInteractionEnabled = true
+        let tap = UITapGestureRecognizer(target: self, action: #selector(dismissFullscreenImage))
+        newImageView.addGestureRecognizer(tap)
+        self.view.addSubview(newImageView)
+        self.navigationController?.isNavigationBarHidden = true
+        self.tabBarController?.tabBar.isHidden = true
+    }
+    
+    @objc func dismissFullscreenImage(_ sender: UITapGestureRecognizer) {
+        self.navigationController?.isNavigationBarHidden = false
+        self.tabBarController?.tabBar.isHidden = false
+        sender.view?.removeFromSuperview()
     }
     
     func hasReservationPassed() -> Bool {
