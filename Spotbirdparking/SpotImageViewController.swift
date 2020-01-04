@@ -101,7 +101,7 @@ class SpotImageViewController: UIViewController, UITextViewDelegate, UIImagePick
         }
     }
     
-    @IBAction func SpotImageOnClick(_ sender: Any) {
+    @IBAction func SpotImageOnClick(_ sender: UITapGestureRecognizer) {
         print("Choose image")
         self.spotDescription.resignFirstResponder()
         
@@ -110,6 +110,16 @@ class SpotImageViewController: UIViewController, UITextViewDelegate, UIImagePick
         alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { _ in self.openCamera()}))
         alert.addAction(UIAlertAction(title: "Gallery", style: .default, handler: { _ in self.openGallery()}))
         alert.addAction(UIAlertAction.init(title: "Cancel", style: .default, handler: nil))
+        
+        // present as popoverPresentationController if iPad
+        switch UIDevice.current.userInterfaceIdiom {
+        case .pad:
+            alert.popoverPresentationController?.sourceView = sender.view as! UIView
+            alert.popoverPresentationController?.sourceRect = (sender.view as! UIView).bounds
+            alert.popoverPresentationController?.permittedArrowDirections = .up
+        default:
+            break
+        }
         
         self.present(alert, animated: true, completion: nil)
     }

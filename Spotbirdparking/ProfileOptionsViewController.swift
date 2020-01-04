@@ -114,7 +114,7 @@ class ProfileOptionsViewController: UIViewController, UITableViewDataSource, UIT
         else if profileOptions![(indexPath as NSIndexPath).row].option == "Cars" {
             self.performSegue(withIdentifier: "Cars", sender: self)
         }
-        else if profileOptions![(indexPath as NSIndexPath).row].option == "Payment" {
+        else if profileOptions![(indexPath as NSIndexPath).row].option == "Payment Method" {
             print(self.paymentContext.hostViewController)
             self.paymentContext.pushPaymentOptionsViewController()
         }

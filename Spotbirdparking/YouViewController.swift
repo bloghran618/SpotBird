@@ -140,7 +140,7 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         }
     }
     
-    @IBAction func ProfileImageOnClick(_ sender: Any) {
+    @IBAction func ProfileImageOnClick(_ sender: UITapGestureRecognizer) {
         // Close the keyboard
         firstName.resignFirstResponder()
         lastName.resignFirstResponder()
@@ -150,13 +150,23 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         alert.addAction(UIAlertAction(title: "Camera", style: .default, handler: { _ in self.openCamera()}))
         alert.addAction(UIAlertAction(title: "Gallery", style: .default, handler: { _ in self.openGallery()}))
         alert.addAction(UIAlertAction.init(title: "Cancel", style: .default, handler: nil))
+        
+        // present as popoverPresentationController if iPad
+        switch UIDevice.current.userInterfaceIdiom {
+        case .pad:
+            alert.popoverPresentationController?.sourceView = sender.view as! UIView
+            alert.popoverPresentationController?.sourceRect = (sender.view as! UIView).bounds
+            alert.popoverPresentationController?.permittedArrowDirections = .up
+        default:
+            break
+        }
+        
         self.present(alert, animated: true, completion: nil)
        
     }
     
     func openCamera() {
         if(UIImagePickerController .isSourceTypeAvailable(UIImagePickerControllerSourceType.camera)) {
-            //TODO: Test functionality with a real camera
             ProfileImagePicker.sourceType = UIImagePickerControllerSourceType.camera
             ProfileImagePicker.allowsEditing = false
             self.present(ProfileImagePicker, animated: true, completion: nil)
