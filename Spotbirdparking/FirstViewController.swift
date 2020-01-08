@@ -2971,7 +2971,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
 //                img_spot_type.image = UIImage(named:"drivewayParking")
 //            }
             
-            lbl_spot_type.text = (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as?  String
+            lbl_spot_type.text = "Spot Type: \((arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as? String ?? "")"
             
             // let intDist = Int(distanceInMeters)
             lbl_price.text = "$\(doller)"
@@ -3171,7 +3171,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
 //                img_spot_type.image = UIImage(named:"drivewayParking")
 //            }
             
-            lbl_spot_type.text = (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as?  String
+            lbl_spot_type.text = "Spot Type: \((arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as?  String ?? "")"
             //let intDist = Int(distanceInMeters)
             lbl_price.text = "$\(doller)"
             lbl_address.text = (arrspot.object(at: index) as! NSDictionary).value(forKey: "address") as?  String

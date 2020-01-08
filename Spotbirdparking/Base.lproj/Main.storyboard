@@ -36,10 +36,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="czQ-MO-hkx">
-                                <rect key="frame" x="24" y="94" width="366" height="520"/>
+                                <rect key="frame" x="24" y="94" width="366" height="537"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="gcI-VA-lFK">
-                                        <rect key="frame" x="0.0" y="0.0" width="366" height="520"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="366" height="537"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vuX-ia-JCe">
                                                 <rect key="frame" x="0.0" y="0.0" width="366" height="46"/>
@@ -51,7 +51,7 @@
                                                             <constraint firstAttribute="width" constant="100" id="GWG-QZ-G2i"/>
                                                             <constraint firstAttribute="height" constant="32" id="Gv2-Ty-vL4"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="17"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <state key="normal" title="Cancel">
                                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
@@ -66,7 +66,7 @@
                                                             <constraint firstAttribute="height" constant="32" id="0os-uv-JWu"/>
                                                             <constraint firstAttribute="width" constant="100" id="p1y-pm-T1P"/>
                                                         </constraints>
-                                                        <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="17"/>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                         <state key="normal" title="Search">
                                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         </state>
@@ -84,16 +84,16 @@
                                                     <constraint firstAttribute="height" constant="46" id="yl1-r2-CG2"/>
                                                 </constraints>
                                             </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Parking Start" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LiC-XT-Ter">
-                                                <rect key="frame" x="0.0" y="46" width="366" height="26"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Start Time" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LiC-XT-Ter">
+                                                <rect key="frame" x="0.0" y="46" width="366" height="29"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="22"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="24"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             </label>
-                                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WS3-1B-fl7">
-                                                <rect key="frame" x="0.0" y="72" width="366" height="216"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WS3-1B-fl7">
+                                                <rect key="frame" x="0.0" y="75" width="366" height="216"/>
                                                 <subviews>
-                                                    <datePicker contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="15" translatesAutoresizingMaskIntoConstraints="NO" id="zPI-A6-UFv">
+                                                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="15" translatesAutoresizingMaskIntoConstraints="NO" id="zPI-A6-UFv">
                                                         <rect key="frame" x="0.0" y="0.0" width="366" height="216"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <date key="date" timeIntervalSinceReferenceDate="563786175.46510696">
@@ -102,18 +102,18 @@
                                                     </datePicker>
                                                 </subviews>
                                             </stackView>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Parking Finish" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MnO-zb-khj">
-                                                <rect key="frame" x="0.0" y="288" width="366" height="26"/>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="End Time" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MnO-zb-khj">
+                                                <rect key="frame" x="0.0" y="291" width="366" height="30"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <fontDescription key="fontDescription" name="DroidSans" family="Droid Sans" pointSize="22"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
                                                 <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="p7u-N4-Tnz">
-                                                <rect key="frame" x="0.0" y="314" width="366" height="206"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="p7u-N4-Tnz">
+                                                <rect key="frame" x="0.0" y="321" width="366" height="216"/>
                                                 <subviews>
-                                                    <datePicker contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="15" translatesAutoresizingMaskIntoConstraints="NO" id="NDz-9g-HdA">
-                                                        <rect key="frame" x="0.0" y="0.0" width="366" height="206"/>
+                                                    <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="dateAndTime" minuteInterval="15" translatesAutoresizingMaskIntoConstraints="NO" id="NDz-9g-HdA">
+                                                        <rect key="frame" x="0.0" y="0.0" width="366" height="216"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <date key="date" timeIntervalSinceReferenceDate="563786342.424402">
                                                             <!--2018-11-13 07:19:02 +0000-->
@@ -128,7 +128,6 @@
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="bottom" secondItem="gcI-VA-lFK" secondAttribute="bottom" id="GMB-aZ-HYN"/>
-                                    <constraint firstAttribute="height" constant="520" id="JKv-jo-gOW"/>
                                     <constraint firstAttribute="trailing" secondItem="gcI-VA-lFK" secondAttribute="trailing" id="RJv-FL-thd"/>
                                     <constraint firstItem="gcI-VA-lFK" firstAttribute="top" secondItem="czQ-MO-hkx" secondAttribute="top" id="eXR-Cs-mxC"/>
                                     <constraint firstItem="gcI-VA-lFK" firstAttribute="leading" secondItem="czQ-MO-hkx" secondAttribute="leading" id="gmI-CS-nZp"/>
