@@ -70,11 +70,9 @@ class PriceViewController: UIViewController, UITextFieldDelegate,CLLocationManag
         
         lbl1_price.text = "$ 5"
         if AppState.sharedInstance.activeSpot.basePricing != ""{
-            let basePRice = AppState.sharedInstance.activeSpot.basePricing.replacingOccurrences(of: "$", with: "")
-            print(basePRice)
+            let basePRice = AppState.sharedInstance.activeSpot.basePricing.replacingOccurrences(of: " ", with: "")
+            print("the base price is:\(basePRice)")
             Slide1.value = (basePRice as NSString).floatValue
-            
-            print(basePRice)
             
             lbl1_price.text =  "$ \(basePRice)"
         }

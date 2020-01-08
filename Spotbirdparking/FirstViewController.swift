@@ -186,8 +186,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
 //        CurrentLocMarker.map = self.mapView
         self.locationManager.startMonitoringSignificantLocationChanges()
         self.locationManager.startUpdatingLocation()
-        //   mapView.isMyLocationEnabled = true
-        mapView.settings.myLocationButton = true
+//        mapView.isMyLocationEnabled = false
+        mapView.settings.myLocationButton = false
         
         mapView.padding = UIEdgeInsets(top: 0, left: 0, bottom: 20, right: 20)
         method(arg: true, completion: { (success) -> Void in
