@@ -213,13 +213,6 @@
                                             <action selector="btn_booknow:" destination="9pv-A4-QxB" eventType="touchUpInside" id="FGF-8S-yDN"/>
                                         </connections>
                                     </button>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="DjM-en-wqx">
-                                        <rect key="frame" x="335" y="138" width="50" height="50"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="lqE-tH-1hY"/>
-                                            <constraint firstAttribute="width" constant="50" id="s9O-eN-uAl"/>
-                                        </constraints>
-                                    </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="9" translatesAutoresizingMaskIntoConstraints="NO" id="koM-pt-Wok">
                                         <rect key="frame" x="226" y="15" width="79" height="30"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -258,11 +251,9 @@
                                     <constraint firstAttribute="height" constant="235" id="SUo-wV-2Js"/>
                                     <constraint firstItem="HeY-6v-C12" firstAttribute="leading" secondItem="QhX-kS-Lr8" secondAttribute="leading" constant="10" id="TQQ-jm-0a1"/>
                                     <constraint firstItem="HCK-NB-Bgj" firstAttribute="leading" secondItem="koM-pt-Wok" secondAttribute="trailing" constant="10" id="Ub9-ZT-DwW"/>
-                                    <constraint firstAttribute="trailing" secondItem="DjM-en-wqx" secondAttribute="trailing" constant="19" id="WMh-SK-sNm"/>
                                     <constraint firstItem="koM-pt-Wok" firstAttribute="leading" secondItem="VPG-vN-v6S" secondAttribute="trailing" constant="5" id="Wpr-md-xMp"/>
                                     <constraint firstItem="7Q2-Wa-yH1" firstAttribute="leading" secondItem="QhX-kS-Lr8" secondAttribute="leading" constant="8" id="aEo-ge-hp0"/>
                                     <constraint firstItem="HeY-6v-C12" firstAttribute="top" secondItem="nQH-iD-idv" secondAttribute="bottom" constant="6" id="afT-sZ-JRk"/>
-                                    <constraint firstItem="mrR-4b-4rH" firstAttribute="top" secondItem="DjM-en-wqx" secondAttribute="bottom" constant="8" id="bDs-b9-3CU"/>
                                     <constraint firstItem="HCK-NB-Bgj" firstAttribute="leading" secondItem="cn4-cD-0MP" secondAttribute="trailing" constant="3" id="cvF-Ka-otv"/>
                                     <constraint firstItem="nQH-iD-idv" firstAttribute="top" secondItem="HCK-NB-Bgj" secondAttribute="bottom" id="dI1-GH-pl7"/>
                                     <constraint firstItem="7Q2-Wa-yH1" firstAttribute="leading" secondItem="QhX-kS-Lr8" secondAttribute="leading" constant="8" id="hkk-id-Mae"/>
@@ -296,7 +287,7 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="16"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="140" maxY="0.0"/>
-                                <state key="normal" title="Search Your Destination" image="search_new">
+                                <state key="normal" title="Search Your Destination">
                                     <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
                                 </state>
                                 <connections>
@@ -349,7 +340,6 @@
                         <outlet property="btn_search_click" destination="Y8d-dc-NVe" id="yhx-Hw-OgV"/>
                         <outlet property="end_datepic" destination="NDz-9g-HdA" id="MEl-LG-jo5"/>
                         <outlet property="img_spot" destination="HCK-NB-Bgj" id="ckm-Xe-VdW"/>
-                        <outlet property="img_spot_type" destination="DjM-en-wqx" id="lbv-qa-vZQ"/>
                         <outlet property="lbl1" destination="LiC-XT-Ter" id="Gc5-gZ-Z4x"/>
                         <outlet property="lbl2" destination="MnO-zb-khj" id="ELW-yD-B5D"/>
                         <outlet property="lblDistance" destination="koM-pt-Wok" id="o8Z-zd-hbE"/>

@@ -47,7 +47,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
 //    @IBOutlet weak var timepic2: UIPickerView!
     
     
-    @IBOutlet weak var img_spot_type: UIImageView!
+//    @IBOutlet weak var img_spot_type: UIImageView!
     @IBOutlet weak var lbl_spot_type: UILabel!
     @IBOutlet weak var lbl_spot_from_time: UILabel!
     @IBOutlet weak var lbl_spot_to_time: UILabel!
@@ -2958,18 +2958,18 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             lbl_spot_from_time.text = "From: \(strPickerStart)"
             lbl_spot_to_time.text = "To: \(strPickerEnd)"
 
-            if (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Garage"{
-                img_spot_type.image = UIImage(named:"garageParking")
-            }
-            if (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Lot"{
-                img_spot_type.image = UIImage(named:"lotParking")
-            }
-            if (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Street"{
-                img_spot_type.image = UIImage(named:"streetParking")
-            }
-            if (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Driveway"{
-                img_spot_type.image = UIImage(named:"drivewayParking")
-            }
+//            if (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Garage"{
+//                img_spot_type.image = UIImage(named:"garageParking")
+//            }
+//            if (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Lot"{
+//                img_spot_type.image = UIImage(named:"lotParking")
+//            }
+//            if (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Street"{
+//                img_spot_type.image = UIImage(named:"streetParking")
+//            }
+//            if (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Driveway"{
+//                img_spot_type.image = UIImage(named:"drivewayParking")
+//            }
             
             lbl_spot_type.text = (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as?  String
             
@@ -3158,18 +3158,18 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             
             //  lbl_spot_from_time.text = "Time: \(time)"
             
-            if (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Garage"{
-                img_spot_type.image = UIImage(named:"garageParking")
-            }
-            if (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Lot"{
-                img_spot_type.image = UIImage(named:"lotParking")
-            }
-            if (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Street"{
-                img_spot_type.image = UIImage(named:"streetParking")
-            }
-            if (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Driveway"{
-                img_spot_type.image = UIImage(named:"drivewayParking")
-            }
+//            if (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Garage"{
+//                img_spot_type.image = UIImage(named:"garageParking")
+//            }
+//            if (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Lot"{
+//                img_spot_type.image = UIImage(named:"lotParking")
+//            }
+//            if (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Street"{
+//                img_spot_type.image = UIImage(named:"streetParking")
+//            }
+//            if (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as!  String == "Driveway"{
+//                img_spot_type.image = UIImage(named:"drivewayParking")
+//            }
             
             lbl_spot_type.text = (arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as?  String
             //let intDist = Int(distanceInMeters)
