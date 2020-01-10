@@ -395,10 +395,10 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     // MARK:_ BTn Date searching close ()
     @IBAction func btn_Date_search_close(_ sender: UIButton) {
         Date_VIew.isHidden = true
-        start_datepic.date = Date()
+//        start_datepic.date = Date()
         //end_datepic.date = Date()
-        end_datepic.minimumDate = calendar.date(byAdding: .hour, value: 1, to:  Date())
-        end_datepic.date = calendar.date(byAdding: .hour, value: 3, to:  Date())!
+//        end_datepic.minimumDate = calendar.date(byAdding: .hour, value: 1, to:  Date())
+//        end_datepic.date = calendar.date(byAdding: .hour, value: 3, to:  Date())!
     }
     
     @IBAction func btn_Date_search_done(_ sender: UIButton) {
@@ -425,9 +425,10 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         var calendar = Calendar.current
         calendar.timeZone = TimeZone.current
         let interval = 15
-        let nextDiff = -1 * (calendar.component(.minute, from: date1) % interval)
-        date1 = calendar.date(byAdding: .minute, value: nextDiff, to: date1) ?? Date()
-        date2 = calendar.date(byAdding: .minute, value: nextDiff, to: date2) ?? Date()
+        let nextDiff1 = -1 * (calendar.component(.minute, from: date1) % interval)
+        let nextDiff2 = -1 * (calendar.component(.minute, from: date2) % interval)
+        date1 = calendar.date(byAdding: .minute, value: nextDiff1, to: date1) ?? Date()
+        date2 = calendar.date(byAdding: .minute, value: nextDiff2, to: date2) ?? Date()
         
         // formatters and calendar setup
         let formatter = DateFormatter()
@@ -2563,9 +2564,10 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         // round datepicker dates to nearest 15 minutes
         let calendar = Calendar.current
         let interval = 15
-        let nextDiff = -1 * (calendar.component(.minute, from: d1) % interval)
-        d1 = calendar.date(byAdding: .minute, value: nextDiff, to: d1) ?? Date()
-        d2 = calendar.date(byAdding: .minute, value: nextDiff, to: d2) ?? Date()
+        let nextDiff1 = -1 * (calendar.component(.minute, from: d1) % interval)
+        let nextDiff2 = -1 * (calendar.component(.minute, from: d2) % interval)
+        d1 = calendar.date(byAdding: .minute, value: nextDiff1, to: d1) ?? Date()
+        d2 = calendar.date(byAdding: .minute, value: nextDiff2, to: d2) ?? Date()
         
         // format and set notecard values
         let formatter = DateFormatter()
@@ -3647,7 +3649,6 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                     let END = formatter.string(from: end_date!)
                     print("end time :" + END)
                     //print(END)
-                    
                     
                     let priceSPOT = Reservation.publicCalcPrice(startDateTimeString:START,endDateTimeString: END, basePrice: basePrice)
                     
