@@ -130,134 +130,215 @@ class User {
     }
     
     // Set database to car
-    public func Set_UserProfile(change:String) {
+    public func Set_UserProfile() {
         Spinner.start()
         var imageReference: StorageReference {
             return Storage.storage().reference().child("User")
         }
         
-        if change == "nil"{
-            let str = "User/" + AppState.sharedInstance.userid
-            let ref = Database.database().reference().child(str)
-            print(AppState.sharedInstance.user.firstName)
-            print(AppState.sharedInstance.user.lastName)
-            
-            ref.updateChildValues([
-                "fname":AppState.sharedInstance.user.firstName,
-                "lname":AppState.sharedInstance.user.lastName,
-                ]){
-                    (error:Error?, ref:DatabaseReference) in
-                    if let error = error {
-                        print("Data could not be saved: \(error).")
-                        Spinner.stop()
-                        
-                    } else {
-                        print("Data saved successfully!")
-                        self.Get_UserProfile()  //
-                        Spinner.stop()
-                    }
-            }
-        }
-        else if change == "same"
-        {
-            let pictureRef = Storage.storage().reference().child("User").child(AppState.sharedInstance.userid).child(imgname)
-            pictureRef.delete { error in
+        let str = "User/" + AppState.sharedInstance.userid
+        let ref = Database.database().reference().child(str)
+        
+        // update first and last name
+        ref.updateChildValues([
+            "fname":AppState.sharedInstance.user.firstName,
+            "lname":AppState.sharedInstance.user.lastName,
+            ]){
+                (error:Error?, ref:DatabaseReference) in
                 if let error = error {
-                } else {
-                    guard let imageData = UIImageJPEGRepresentation(self.New_img.image!, 0.5) else { return }
-                    let uploadImageRef = imageReference.child(self.randomStringWithLength(length: 5) as String)
+                    print("Data could not be saved: \(error).")
+                    Spinner.stop()
                     
-                    let uploadTask = uploadImageRef.putData(imageData, metadata: nil) { (metadata, error) in
-                        print("UPLOAD TASK FINISHED")
-                        print(metadata ?? "NO METADATA")
-                        print(error ?? "NO ERROR")
-                        
-                        uploadImageRef.downloadURL(completion: { (url, error) in
-                            if let error = error {
-                                print(error.localizedDescription)
-                                return
-                            }
-                            if let url = url?.absoluteString {
-                                let fullURL = url
-                                print(fullURL)
-                                
-                                let str = "User/" + AppState.sharedInstance.userid
-                                print(str)
-                                let ref = Database.database().reference().child(str)
-                                
-                                ref.updateChildValues([
-                                    "fname":AppState.sharedInstance.user.firstName,
-                                    "lname":AppState.sharedInstance.user.lastName,
-                                    "image":fullURL
-                                ]){
-                                    (error:Error?, ref:DatabaseReference) in
-                                    if let error = error {
-                                        print("Data could not be saved: \(error).")
-                                        Spinner.stop()
-                                        
-                                    } else {
-                                        print("Data saved successfully!")
-                                         self.Get_UserProfile()  //
-                                        Spinner.stop()
-                                    }
+                } else {
+                    print("Data saved successfully!")
+                    self.Get_UserProfile()  //
+                    Spinner.stop()
+                }
+        }
+        
+        // update the image if neccessary
+        if ((New_img.image) != nil) {
+            print("we have a new image")
+            
+            print("checkpoint0")
+                
+            guard let imageData = UIImageJPEGRepresentation(New_img.image!, 0.5) else { return }
+            print("checkpoint0.5")
+            print(String(imgname))
+            let uploadImageRef = imageReference.child(String(imgname))
+                
+            print("checkpoint1")
+                
+            let uploadTask = uploadImageRef.putData(imageData, metadata: nil) { (metadata, error) in
+                    uploadImageRef.downloadURL(completion: { (url, error) in
+                        if let error = error {
+                            print(error.localizedDescription)
+                            return
+                        }
+                        if let url = url?.absoluteString {
+                            let fullURL = url
+                            print(fullURL)
+                            
+                            let str = "User/" + AppState.sharedInstance.userid
+                            print(str)
+                            let ref = Database.database().reference().child(str)
+                            
+                            ref.updateChildValues([
+                                "image":fullURL
+                            ]){
+                                (error:Error?, ref:DatabaseReference) in
+                                if let error = error {
+                                    print("Data could not be saved: \(error).")
+                                    Spinner.stop()
+                            
+                                } else {
+                                    print("Data saved successfully!")
+                                    self.Get_UserProfile()  //
+                                    Spinner.stop()
                                 }
                             }
-                        })
-                    }
-                    uploadTask.observe(.progress) { (snapshot) in
-                        print(snapshot.progress ?? "NO MORE PROGRESS")
-                    }
-                }
-            }
-            
-        }
-        else
-        {
-            //   let pictureRef = Storage.storage().reference().child("User/\(imgname)")
-            
-            guard let imageData = UIImageJPEGRepresentation(New_img.image!, 0.5) else { return }
-            let uploadImageRef = imageReference.child(String(imgname))
-            
-            let uploadTask = uploadImageRef.putData(imageData, metadata: nil) { (metadata, error) in
-                uploadImageRef.downloadURL(completion: { (url, error) in
-                    if let error = error {
-                        print(error.localizedDescription)
-                        return
-                    }
-                    if let url = url?.absoluteString {
-                        let fullURL = url
-                        print(fullURL)
-                        
-                        let str = "User/" + AppState.sharedInstance.userid
-                        print(str)
-                        let ref = Database.database().reference().child(str)
-                        
-                        ref.updateChildValues([
-                            "fname":AppState.sharedInstance.user.firstName,
-                            "lname":AppState.sharedInstance.user.lastName,
-                            "image":fullURL
-                        ]){
-                            (error:Error?, ref:DatabaseReference) in
-                            if let error = error {
-                                print("Data could not be saved: \(error).")
-                                Spinner.stop()
-                                
-                            } else {
-                                print("Data saved successfully!")
-                                 self.Get_UserProfile()  //
-                                Spinner.stop()
-                            }
                         }
-                    }
-                })
+                    })
+                }
+                uploadTask.observe(.progress) { (snapshot) in
+                    print(snapshot.progress ?? "NO MORE PROGRESS")
+                }
+                
+                
             }
-            uploadTask.observe(.progress) { (snapshot) in
-                print(snapshot.progress ?? "NO MORE PROGRESS")
-            }
-            
-            
         }
-    }
+
+//        guard let imageData = UIImageJPEGRepresentation(New_img.image!, 0.5) else { return }
+
+        
+//        if change == "nil"{
+//            let str = "User/" + AppState.sharedInstance.userid
+//            let ref = Database.database().reference().child(str)
+//            print(AppState.sharedInstance.user.firstName)
+//            print(AppState.sharedInstance.user.lastName)
+//
+//            ref.updateChildValues([
+//                "fname":AppState.sharedInstance.user.firstName,
+//                "lname":AppState.sharedInstance.user.lastName,
+//                ]){
+//                    (error:Error?, ref:DatabaseReference) in
+//                    if let error = error {
+//                        print("Data could not be saved: \(error).")
+//                        Spinner.stop()
+//
+//                    } else {
+//                        print("Data saved successfully!")
+//                        self.Get_UserProfile()  //
+//                        Spinner.stop()
+//                    }
+//            }
+//        }
+//        else if change == "same"
+//        {
+//            let pictureRef = Storage.storage().reference().child("User").child(AppState.sharedInstance.userid).child(imgname)
+//            pictureRef.delete { error in
+//                if let error = error {
+//                } else {
+//                    guard let imageData = UIImageJPEGRepresentation(self.New_img.image!, 0.5) else { return }
+//                    let uploadImageRef = imageReference.child(self.randomStringWithLength(length: 5) as String)
+//
+//                    let uploadTask = uploadImageRef.putData(imageData, metadata: nil) { (metadata, error) in
+//                        print("UPLOAD TASK FINISHED")
+//                        print(metadata ?? "NO METADATA")
+//                        print(error ?? "NO ERROR")
+//
+//                        uploadImageRef.downloadURL(completion: { (url, error) in
+//                            if let error = error {
+//                                print(error.localizedDescription)
+//                                return
+//                            }
+//                            if let url = url?.absoluteString {
+//                                let fullURL = url
+//                                print(fullURL)
+//
+//                                let str = "User/" + AppState.sharedInstance.userid
+//                                print(str)
+//                                let ref = Database.database().reference().child(str)
+//
+//                                ref.updateChildValues([
+//                                    "fname":AppState.sharedInstance.user.firstName,
+//                                    "lname":AppState.sharedInstance.user.lastName,
+//                                    "image":fullURL
+//                                ]){
+//                                    (error:Error?, ref:DatabaseReference) in
+//                                    if let error = error {
+//                                        print("Data could not be saved: \(error).")
+//                                        Spinner.stop()
+//
+//                                    } else {
+//                                        print("Data saved successfully!")
+//                                         self.Get_UserProfile()  //
+//                                        Spinner.stop()
+//                                    }
+//                                }
+//                            }
+//                        })
+//                    }
+//                    uploadTask.observe(.progress) { (snapshot) in
+//                        print(snapshot.progress ?? "NO MORE PROGRESS")
+//                    }
+//                }
+//            }
+//
+//        }
+//        else
+//        {
+//            //   let pictureRef = Storage.storage().reference().child("User/\(imgname)")
+////
+//            print("checkpoint0")
+//
+//            guard let imageData = UIImageJPEGRepresentation(New_img.image!, 0.5) else { return }
+//            print("checkpoint0.5")
+//            print(String(imgname))
+//            let uploadImageRef = imageReference.child(String(imgname))
+//
+//            print("checkpoint1")
+//
+//            let uploadTask = uploadImageRef.putData(imageData, metadata: nil) { (metadata, error) in
+//                uploadImageRef.downloadURL(completion: { (url, error) in
+//                    if let error = error {
+//                        print(error.localizedDescription)
+//                        return
+//                    }
+//                    if let url = url?.absoluteString {
+//                        let fullURL = url
+//                        print(fullURL)
+//
+//                        let str = "User/" + AppState.sharedInstance.userid
+//                        print(str)
+//                        let ref = Database.database().reference().child(str)
+//
+//                        ref.updateChildValues([
+//                            "fname":AppState.sharedInstance.user.firstName,
+//                            "lname":AppState.sharedInstance.user.lastName,
+//                            "image":fullURL
+//                        ]){
+//                            (error:Error?, ref:DatabaseReference) in
+//                            if let error = error {
+//                                print("Data could not be saved: \(error).")
+//                                Spinner.stop()
+//
+//                            } else {
+//                                print("Data saved successfully!")
+//                                 self.Get_UserProfile()  //
+//                                Spinner.stop()
+//                            }
+//                        }
+//                    }
+//                })
+//            }
+//            uploadTask.observe(.progress) { (snapshot) in
+//                print(snapshot.progress ?? "NO MORE PROGRESS")
+//            }
+//
+//
+//        }
+//    }
     
     // Get database to car
     public func GetCar() {

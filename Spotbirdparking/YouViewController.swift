@@ -74,6 +74,8 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     // udapte user profile
     @objc func saveprofile(){
         
+        print("save the profile")
+        
         // close any open keyboards
         firstName.resignFirstResponder()
         lastName.resignFirstResponder()
@@ -90,16 +92,13 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
             self.present(alert, animated: true, completion: nil)
         }
         else{
+            print("alerts passed, start saving profile")
+            
             // Save user profile
-            if profilePhoto.image == #imageLiteral(resourceName: "EmptyProfile"){
-              AppState.sharedInstance.user.Set_UserProfile(change: "nil")
-            }
-            else if original_pic.image == profilePhoto.image{
-              AppState.sharedInstance.user.Set_UserProfile(change: "same")
-            }
-            else{
-                AppState.sharedInstance.user.Set_UserProfile(change: "change")
-            }
+            AppState.sharedInstance.user.Set_UserProfile()
+            
+            // hide the save button to indicte save
+            hide_save()
         }
     }
     
@@ -213,6 +212,10 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     func show_save()  {
         let camera = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveprofile))
         self.navigationItem.rightBarButtonItem = camera
+    }
+    
+    func hide_save() {
+        self.navigationItem.rightBarButtonItem = nil
     }
     
     func attributedText(withString string: String, boldString: String, font: UIFont) -> NSAttributedString {
