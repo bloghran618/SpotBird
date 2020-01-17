@@ -15,6 +15,7 @@ import GooglePlaces
 import GooglePlacePicker
 import GooglePlaces
 import Stripe
+import EasyTipView
 
 class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapViewDelegate,GMSAutocompleteViewControllerDelegate, STPPaymentContextDelegate {
     
@@ -2633,6 +2634,49 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         self.navigationController?.isNavigationBarHidden = false
         self.tabBarController?.tabBar.isHidden = false
         sender.view?.removeFromSuperview()
+    }
+    
+    // display expanded address if label is tapped
+    @IBAction func addressLabelTapped(_ sender: UILabel) {
+        print("address label tapped")
+        
+//        var preferences = EasyTipView.Preferences()
+//        preferences.drawing.font = UIFont(name: "Futura-Medium", size: 13)!
+//        preferences.drawing.foregroundColor = UIColor.white
+//        preferences.drawing.backgroundColor = UIColor(hue:0.46, saturation:0.99, brightness:0.6, alpha:1)
+//        preferences.drawing.arrowPosition = EasyTipView.ArrowPosition.top
+//        
+//        let tipView = sender as UIButton
+//        EasyTipView.show(forView: tipView, text: "Tip view within the topmost window. Tap to dismiss.",
+//                         preferences: preferences)
+
+        
+//        let gradientColor = UIColor(red: 0.886, green: 0.922, blue: 0.941, alpha: 1.000)
+//        let gradientColor2 = UIColor(red: 0.812, green: 0.851, blue: 0.875, alpha: 1.000)
+//        let preference = ToolTipPreferences()
+//        preference.drawing.bubble.gradientColors = [gradientColor, gradientColor2]
+//        preference.drawing.arrow.tipCornerRadius = 0
+//        preference.drawing.message.color = .black
+//
+//        print("checkpoint2")
+//
+//        let mktooltipview = sender as UIView
+//
+//        print("checkpoint 3")
+//        mktooltipview.showToolTip(identifier: "identifier", title: "Dapibus", message: "Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum.", arrowPosition: .top)
+        
+        
+//        self.lbl_address.height
+//        var popup = UIView(frame: CGRect(x: 100, y: 200, width: 200, height: 200))
+//
+//        let lb = UILabel(frame: CGRect(x: 100, y: 200, width: 200, height: 200))
+//        lb.text="anything"
+//        popup.backgroundColor = UIColor.red
+//
+//        // show on screen
+//        self.view.addSubview(popup)
+//        popup.addSubview(lb)
+//        lb.center = popup.center
     }
     
     // MARK:_ BTn booknow

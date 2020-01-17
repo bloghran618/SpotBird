@@ -1,7 +1,7 @@
 # Uncomment the next line to define a global platform for your project
 # platform :ios, '9.0'
 
-target 'Spotbirdparking' do
+target 'Spotbird' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
 
@@ -22,8 +22,9 @@ target 'Spotbirdparking' do
   pod 'themis'
   pod 'CryptoSwift', '~> 1.0'
   pod 'IQKeyboardManager'
+  pod 'EasyTipView', '~> 2.0.4'
 
-  target 'SpotbirdparkingTests' do
+  target 'SpotbirdTests' do
     inherit! :search_paths
     # Pods for testing
   end

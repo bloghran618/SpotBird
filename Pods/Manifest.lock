@@ -1,6 +1,7 @@
 PODS:
   - Alamofire (4.9.0)
   - CryptoSwift (1.0.0)
+  - EasyTipView (2.0.4)
   - Firebase/Auth (5.20.2):
     - Firebase/CoreOnly
     - FirebaseAuth (= 5.4.2)
@@ -110,6 +111,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire
   - CryptoSwift (~> 1.0)
+  - EasyTipView (~> 2.0.4)
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Database
@@ -126,7 +128,7 @@ DEPENDENCIES:
   - themis
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - Alamofire
     - CryptoSwift
     - Firebase
@@ -153,10 +155,13 @@ SPEC REPOS:
     - SDWebImage
     - Stripe
     - themis
+  trunk:
+    - EasyTipView
 
 SPEC CHECKSUMS:
   Alamofire: afc3e7c6db61476cb45cdd23fed06bad03bbc321
   CryptoSwift: d81eeaa59dc5a8d03720fe919a6fd07b51f7439f
+  EasyTipView: 4f8beae0a82db2ca4a9b5fd658785fc5f61d296b
   Firebase: 0c8cf33f266410c61ab3e2265cfa412200351d9c
   FirebaseAnalytics: ece1aa57a4f43c64d53a648b5a5e05151aae947b
   FirebaseAuth: dd7bbf03a5aee0eafb3a1aee4d2812bd74bac890
@@ -182,6 +187,6 @@ SPEC CHECKSUMS:
   Stripe: 6c9ab10f087ca76c3cd7311462e383434921bdf8
   themis: f4ef6d942670146ad08dca8cc99a34ae040878c0
 
-PODFILE CHECKSUM: e71ba8868a518c8a619bf357642facb81a86c359
+PODFILE CHECKSUM: d397f3b211e507cf47db8c1c68786d964a35fab1
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.8.4
