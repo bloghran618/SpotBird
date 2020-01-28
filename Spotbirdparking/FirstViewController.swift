@@ -19,11 +19,16 @@ import EasyTipView
 
 class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapViewDelegate,GMSAutocompleteViewControllerDelegate, STPPaymentContextDelegate {
     
+    @IBOutlet var topLevelView: UIView!
+    
     @IBOutlet var mapView: GMSMapView!
     // info window:-
     @IBOutlet weak var img_spot: UIImageView!
     @IBOutlet weak var lbl_price: UILabel!
-    @IBOutlet weak var lbl_address: UILabel!
+//    @IBOutlet weak var lbl_address: UILabel!
+    
+    @IBOutlet weak var addressButton: UIButton!
+    
     @IBOutlet weak var btn_close: UIButton!
     @IBOutlet weak var btn_book: UIButton!
     @IBOutlet weak var btn_dtls: UIButton!
@@ -119,6 +124,9 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     
     var chargeInfoReservation: Reservation!
     var paymentIntent_ID: String!
+    
+    // initialize an easytipview
+    var easyTipView : EasyTipView!
     
     //MARK:- View Did Load
     
@@ -2636,6 +2644,41 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         sender.view?.removeFromSuperview()
     }
     
+    
+    @IBAction func addressButtonTapped(_ sender: UIButton) {
+        print("address ''button'' tapped")
+        
+        var preferences = EasyTipView.Preferences()
+        preferences.drawing.font = UIFont.systemFont(ofSize: 16.0)
+
+        preferences.drawing.foregroundColor = UIColor.black
+        preferences.drawing.backgroundColor = UIColor.white
+        preferences.drawing.borderColor = UIColor.black
+        preferences.drawing.borderWidth = 1
+        preferences.drawing.arrowPosition = EasyTipView.ArrowPosition.bottom
+        
+        // check if the button label is truncated
+        let size = (sender.titleLabel?.text as! NSString).size(withAttributes: [NSAttributedStringKey.font: preferences.drawing.font])
+        if (size.width > (sender.titleLabel?.bounds.size.width)!) {
+            print("truncated; show the easytipview")
+            
+            // dismiss the tip view if it exists (negates duplicates)
+            if (self.easyTipView != nil) {
+                self.easyTipView.dismiss()
+            }
+            // set up and display the tip view
+            let tipView = EasyTipView(text: sender.titleLabel!.text ?? "Null", preferences: preferences)
+            tipView.show(animated: true, forView: sender, withinSuperview: sender.superview)
+            
+            // dismiss the tip view if tapped around in notecard
+            TapToDismissEasyTip().set(easyTipView: tipView, superView: sender.superview)
+            self.easyTipView = tipView
+        }
+        else {
+            print("not truncated; do not show the easytipview")
+        }
+    }
+    
     // display expanded address if label is tapped
     @IBAction func addressLabelTapped(_ sender: UILabel) {
         print("address label tapped")
@@ -2645,7 +2688,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
 //        preferences.drawing.foregroundColor = UIColor.white
 //        preferences.drawing.backgroundColor = UIColor(hue:0.46, saturation:0.99, brightness:0.6, alpha:1)
 //        preferences.drawing.arrowPosition = EasyTipView.ArrowPosition.top
-//        
+//
 //        let tipView = sender as UIButton
 //        EasyTipView.show(forView: tipView, text: "Tip view within the topmost window. Tap to dismiss.",
 //                         preferences: preferences)
@@ -2948,6 +2991,11 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     
     func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
         
+        // dismiss the tip view if it exists
+        if (self.easyTipView != nil) {
+            self.easyTipView.dismiss()
+        }
+        
         print("We did tap a marker")
         if marker == self.CurrentLocMarker
         {
@@ -3022,7 +3070,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             // let intDist = Int(distanceInMeters)
             lbl_price.text = "$\(doller)"
             // lbl_price.text = "$\(doller)"
-            lbl_address.text = (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "address") as?  String
+//            lbl_address.text = (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "address") as?  String
+            addressButton.setTitle((arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "address") as?  String, for: .normal)
             //
             let str = (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "address") as!  String
             var arr = str.components(separatedBy: " ")
@@ -3073,11 +3122,13 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                         }
                     }
                     
-                    lbl_address.text = str_addrss
+//                    lbl_address.text = str_addrss
+                    addressButton.setTitle(str_addrss, for: .normal)
                     
                 }else
                 {
-                    lbl_address.text = (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "address") as?  String
+//                    lbl_address.text = (arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "address") as?  String
+                    addressButton.setTitle((arr_search_spot.object(at: index) as! NSDictionary).value(forKey: "address") as?  String, for: .normal)
                     
                 }
                 
@@ -3220,7 +3271,8 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             lbl_spot_type.text = "Spot Type: \((arrspot.object(at: index) as! NSDictionary).value(forKey: "spot_type") as?  String ?? "")"
             //let intDist = Int(distanceInMeters)
             lbl_price.text = "$\(doller)"
-            lbl_address.text = (arrspot.object(at: index) as! NSDictionary).value(forKey: "address") as?  String
+//            lbl_address.text = (arrspot.object(at: index) as! NSDictionary).value(forKey: "address") as?  String
+            addressButton.setTitle((arrspot.object(at: index) as! NSDictionary).value(forKey: "address") as?  String, for: .normal)
             let str = (arrspot.object(at: index) as! NSDictionary).value(forKey: "address") as!  String
             var arr = str.components(separatedBy: " ")
             
@@ -3257,11 +3309,13 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
                         }
                     }
                     
-                    lbl_address.text = str_addrss
+//                    lbl_address.text = str_addrss
+                    addressButton.setTitle(str_addrss, for: .normal)
                     
                 }else
                 {
-                    lbl_address.text = (arrspot.object(at: index) as! NSDictionary).value(forKey: "address") as?  String
+//                    lbl_address.text = (arrspot.object(at: index) as! NSDictionary).value(forKey: "address") as?  String
+                    addressButton.setTitle((arrspot.object(at: index) as! NSDictionary).value(forKey: "address") as?  String, for: .normal)
                 }
             }
             let imgurl = (arrspot.object(at: index) as! NSDictionary).value(forKey: "image") as!  String
@@ -4226,5 +4280,26 @@ struct Connectivity {
     static let nrm = NetworkReachabilityManager()!
     static var isConnectedToInternet:Bool {
         return self.nrm.isReachable
+    }
+}
+
+// helper class to dismiss EasyTipView
+class TapToDismissEasyTip: UITapGestureRecognizer {
+    var easyTipView: EasyTipView? = nil
+    var superView: UIView? = nil
+    
+    func set(easyTipView: EasyTipView?, superView: UIView?) {
+        self.easyTipView = easyTipView
+        self.superView = UIView(frame: UIApplication.shared.keyWindow!.bounds)
+        self.superView?.backgroundColor = UIColor.black
+        self.numberOfTouchesRequired = 1
+        superView?.addGestureRecognizer(self)
+        self.addTarget(self, action: #selector(self.dismiss))
+    }
+    
+    @objc func dismiss()  {
+        easyTipView?.dismiss(withCompletion: {
+            self.superView?.removeGestureRecognizer(self)
+        })
     }
 }
