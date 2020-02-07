@@ -50,6 +50,8 @@ import IQKeyboardManagerSwift
         //  UITabBar.
         //  UITabBar.appearance().tintColor = UIColor.white
         
+        print("User Defaults = \(UserDefaults.standard.value(forKey: "logindata") as? NSDictionary)")
+        
         if UserDefaults.standard.value(forKey: "logindata") as? NSDictionary != nil {
             let dict = UserDefaults.standard.value(forKey: "logindata") as? NSDictionary
             
@@ -88,17 +90,13 @@ import IQKeyboardManagerSwift
         }
         else
         {
+            let appDelegate = UIApplication.shared.delegate! as! AppDelegate
             self.window = UIWindow(frame: UIScreen.main.bounds)
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let initialViewController = storyboard.instantiateViewController(withIdentifier: "Login_ViewController")
             self.window?.rootViewController = initialViewController
             self.window?.makeKeyAndVisible()
         }
-        
-//        print("Initializer first name: \(AppState.sharedInstance.user.firstName)")
-//        print("Initializer last name: \(AppState.sharedInstance.user.lastName)")
-//        print("Initializer Customer ID: \(AppState.sharedInstance.user.customertoken)")
-//        print("Initializer Account ID: \(AppState.sharedInstance.user.accounttoken)")
         
         print("There is no account status, we are just logging in...")
         

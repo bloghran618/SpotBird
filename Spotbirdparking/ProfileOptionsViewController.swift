@@ -161,9 +161,17 @@ class ProfileOptionsViewController: UIViewController, UITableViewDataSource, UIT
         let alertController = UIAlertController(title: "Spotbirdparking", message: "Are you sure you want to logout?", preferredStyle: UIAlertControllerStyle.alert)
         let DestructiveAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.destructive) { (result : UIAlertAction) -> Void in
             UserDefaults.standard.removeObject(forKey: "logindata")
-            let appDomain = Bundle.main.bundleIdentifier!
-            UserDefaults.standard.removePersistentDomain(forName: appDomain)
+            UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)
             UserDefaults.standard.synchronize()
+            
+            if UserDefaults.standard.value(forKey: "logindata") as? NSDictionary != nil {
+                print("not really logged out")
+                print("User defaults: \(UserDefaults.standard)")
+            }
+            else {
+                print("should be logged out")
+                print("\(UserDefaults.standard.value(forKey: "logindata"))")
+            }
             AppState.sharedInstance.user.cars.removeAll()
             AppState.sharedInstance.spots.removeAll()
             

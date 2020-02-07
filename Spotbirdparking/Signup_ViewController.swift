@@ -124,7 +124,7 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
                     if snapshot.exists() {
                         Spinner.stop()
                         self.view.endEditing(true)
-                        let alertController = UIAlertController(title: "Spotbirdparking", message: "User Name already exist ", preferredStyle: .alert)
+                        let alertController = UIAlertController(title: "Spotbirdparking", message: "User Name already exists ", preferredStyle: .alert)
                         
                         let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
                         alertController.addAction(defaultAction)

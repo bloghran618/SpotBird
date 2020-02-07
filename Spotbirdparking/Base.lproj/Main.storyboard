@@ -1694,7 +1694,7 @@
                                         <rect key="frame" x="8" y="8" width="359" height="591"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="gpC-Uv-pzC">
-                                                <rect key="frame" x="0.0" y="0.0" width="390" height="434.5"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="390" height="466.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5RU-f6-6nF">
                                                         <rect key="frame" x="0.0" y="0.0" width="390" height="20.5"/>
@@ -1756,8 +1756,14 @@
                                                             <constraint firstAttribute="trailing" secondItem="90T-8r-y5m" secondAttribute="trailing" id="dj1-m2-scw"/>
                                                         </constraints>
                                                     </stackView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Renter Car Photo:" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3MJ-uz-lM6">
+                                                        <rect key="frame" x="0.0" y="199.5" width="390" height="24"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
                                                     <imageView clipsSubviews="YES" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="NLC-RY-1s4">
-                                                        <rect key="frame" x="0.0" y="199.5" width="390" height="235"/>
+                                                        <rect key="frame" x="0.0" y="231.5" width="390" height="235"/>
                                                         <gestureRecognizers/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="235" id="ER5-Ro-WBs"/>

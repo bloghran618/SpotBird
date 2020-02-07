@@ -22,6 +22,10 @@ class Login_ViewController: UIViewController {
         txt_pass.autocorrectionType = .no
         view.endEditing(true)
         
+        print("login stuff:")
+        print("App State User: \(AppState.sharedInstance.user.firstName), \(AppState.sharedInstance.user.lastName), \(AppState.sharedInstance.user.accounttoken)")
+        print("User ID: \(AppState.sharedInstance.userid)")
+        
 //        txt_uname.text = "a@gmail.com"
 //        txt_pass.text = "123456"
     }
@@ -56,39 +60,39 @@ class Login_ViewController: UIViewController {
                         
                       print(dict)
                     
-                    if let val = dict["MySpots"] {
-                        var array =  NSMutableArray()
-                        let dictspot =  dict.value(forKey: "MySpots") as! NSDictionary
-                        print(dictspot)
-                        let keys = dictspot.allKeys
-                        print(keys)
-                        
-                        for i in 0..<keys.count {
-                            let indexdict =  dictspot.value(forKey: keys[i] as! String) as!  NSDictionary
-                            print(indexdict)
-                            array.add(indexdict)
-                         }
-                          print(array)
-                        // make model class data
-                         self.Myspots(spotarray: array, key: id)
-                    }
-                    
-                    if let val = dict["Cars"] {
-                        var array =  NSMutableArray()
-                        let dictspot =  dict.value(forKey: "Cars") as! NSDictionary
-                        print(dictspot)
-                        let keys = dictspot.allKeys
-                        print(keys)
-                        
-                        for i in 0..<keys.count {
-                            let indexdict =  dictspot.value(forKey: keys[i] as! String) as!  NSDictionary
-                            print(indexdict)
-                            array.add(indexdict)
-                        }
-                        print(array)
-                        // make model class data
-                        self.MyCars(carsarray: array, key: id)
-                    }
+//                    if let val = dict["MySpots"] {
+//                        var array =  NSMutableArray()
+//                        let dictspot =  dict.value(forKey: "MySpots") as! NSDictionary
+//                        print(dictspot)
+//                        let keys = dictspot.allKeys
+//                        print(keys)
+//                        
+//                        for i in 0..<keys.count {
+//                            let indexdict =  dictspot.value(forKey: keys[i] as! String) as!  NSDictionary
+//                            print(indexdict)
+//                            array.add(indexdict)
+//                         }
+//                          print(array)
+//                        // make model class data
+//                         self.Myspots(spotarray: array, key: id)
+//                    }
+//                    
+//                    if let val = dict["Cars"] {
+//                        var array =  NSMutableArray()
+//                        let dictspot =  dict.value(forKey: "Cars") as! NSDictionary
+//                        print(dictspot)
+//                        let keys = dictspot.allKeys
+//                        print(keys)
+//                        
+//                        for i in 0..<keys.count {
+//                            let indexdict =  dictspot.value(forKey: keys[i] as! String) as!  NSDictionary
+//                            print(indexdict)
+//                            array.add(indexdict)
+//                        }
+//                        print(array)
+//                        // make model class data
+//                        self.MyCars(carsarray: array, key: id)
+//                    }
                     
                     var logindata =  NSMutableDictionary()
                     
@@ -115,16 +119,17 @@ class Login_ViewController: UIViewController {
                     print("Last name 1: \(AppState.sharedInstance.user.lastName)")
                     print("Customer Token 1: \(AppState.sharedInstance.user.customertoken)")
                         
-                        UserDefaults.standard.setValue(logindata, forKey: "logindata")
-                        UserDefaults.standard.synchronize()
-                        let data_login = UserDefaults.standard.value(forKey: "logindata") as! NSDictionary
-                        print(data_login)
-                        
-                        AppState.sharedInstance.user.customertoken = data_login.value(forKey: "customerToken") as? String ?? ""
-                        AppState.sharedInstance.user.accounttoken = data_login.value(forKey: "accountToken") as? String ?? ""
-                        AppState.sharedInstance.user.firstName = (data_login.value(forKey: "fname") as? String)!
-                        AppState.sharedInstance.user.lastName = (data_login.value(forKey: "lname") as? String)!
-                        AppState.sharedInstance.user.profileImage = (dict.value(forKey: "image") as? String)!
+                    UserDefaults.standard.setValue(logindata, forKey: "logindata")
+                    UserDefaults.standard.synchronize()
+                    let data_login = UserDefaults.standard.value(forKey: "logindata") as! NSDictionary
+                    print(data_login)
+                    
+                    AppState.sharedInstance.userid = data_login.value(forKey: "id") as! String
+                    AppState.sharedInstance.user.customertoken = data_login.value(forKey: "customerToken") as? String ?? ""
+                    AppState.sharedInstance.user.accounttoken = data_login.value(forKey: "accountToken") as? String ?? ""
+                    AppState.sharedInstance.user.firstName = (data_login.value(forKey: "fname") as? String)!
+                    AppState.sharedInstance.user.lastName = (data_login.value(forKey: "lname") as? String)!
+                    AppState.sharedInstance.user.profileImage = (dict.value(forKey: "image") as? String)!
                     
                     print("Last name 2: \(AppState.sharedInstance.user.lastName)")
                     print("Customer Token 2: \(AppState.sharedInstance.user.customertoken)")
@@ -144,10 +149,10 @@ class Login_ViewController: UIViewController {
                         let initialViewController = self.storyboard!.instantiateViewController(withIdentifier: "myTabbarControllerID")
                         appDelegate.window?.rootViewController = initialViewController
                         appDelegate.window?.makeKeyAndVisible()
-                        
+                    
                     }else {
                         Spinner.stop()
-                        let alertController = UIAlertController(title: "Error", message: "Incorrect Password..", preferredStyle: .alert)
+                        let alertController = UIAlertController(title: "Error", message: "Invalid User/Pass Combination", preferredStyle: .alert)
                         let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
                         alertController.addAction(defaultAction)
                         self.present(alertController, animated: true, completion: nil)
@@ -156,7 +161,7 @@ class Login_ViewController: UIViewController {
             }
             else{
                   Spinner.stop()
-                let alertController = UIAlertController(title: "Spotbird", message: "Invalid User/Pass Combination", preferredStyle: .alert)
+                let alertController = UIAlertController(title: "Error", message: "Invalid User/Pass Combination", preferredStyle: .alert)
                 let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
                 alertController.addAction(defaultAction)
                 self.present(alertController, animated: true, completion: nil)

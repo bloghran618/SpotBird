@@ -210,8 +210,8 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     }
     
     func show_save()  {
-        let camera = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveprofile))
-        self.navigationItem.rightBarButtonItem = camera
+        let saveButton = UIBarButtonItem(barButtonSystemItem: .save, target: self, action: #selector(saveprofile))
+        self.navigationItem.rightBarButtonItem = saveButton
     }
     
     func hide_save() {
