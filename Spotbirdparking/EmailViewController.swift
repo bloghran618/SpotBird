@@ -1,9 +1,9 @@
 //
 //  EmailViewController.swift
-//  Spotbirdparking
+//  Spothawk
 //
 //  Created by user138340 on 5/30/19.
-//  Copyright © 2019 Spotbird. All rights reserved.
+//  Copyright © 2020 Spothawk. All rights reserved.
 //
 
 import UIKit
@@ -95,7 +95,7 @@ class EmailViewController: UIViewController, UITextViewDelegate {
             returnEmailString = "Return Email: \(returnAddressTextField.text)\n"
         }
         let message = """
-            Email from SpotBird\n
+            Email from Spothawk\n
             \(String(messageTextView.text))\n\n
             ---------------------------------------------------------------\n
             Metadata:\n

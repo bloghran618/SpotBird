@@ -1,10 +1,10 @@
 
 //
 //  Custommarkerinfo.swift
-//  Spotbirdparking
+//  Spothawk
 //
 //  Created by mac on 23/10/18.
-//  Copyright © 2018 Spotbird. All rights reserved.
+//  Copyright © 2020 Spothawk. All rights reserved.
 //
 
 import UIKit

@@ -1,9 +1,9 @@
 //
 //  FirstViewController.swift
-//  Spotbirdparking
+//  Spothawk
 //
 //  Created by mac on 13/04/19.
-//  Copyright © 2019 Spotbird. All rights reserved.
+//  Copyright © 2020 Spothawk. All rights reserved.
 //
 import UIKit
 import CoreLocation
@@ -857,22 +857,22 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
 //
 //        if time1 == true{
 //            time1 = false
-//            let alert = UIAlertController(title: "Spotbirdparking", message: "Invalid start time", preferredStyle: .alert)
+//            let alert = UIAlertController(title: "Spothawk", message: "Invalid start time", preferredStyle: .alert)
 //            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
 //            self.present(alert, animated: true, completion: nil)
 //        }
 //        else if (datetostring(dates: end_date!))  < (datetostring(dates: start_date!)) && (datetostring(dates: start_date!)) != (datetostring(dates: end_date!))
 //        {
-//            let alert = UIAlertController(title: "Spotbirdparking", message: "Start time later than end time.", preferredStyle: .alert)
+//            let alert = UIAlertController(title: "Spothawk", message: "Start time later than end time.", preferredStyle: .alert)
 //            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
 //            self.present(alert, animated: true, completion: nil)
 //        }
 //        else if (datetostring(dates: end_date!)) == (datetostring(dates: start_date!)) && end_date!.time < start_date!.time {
-//            let alert = UIAlertController(title: "Spotbirdparking", message: "End time same as start time.", preferredStyle: .alert)
+//            let alert = UIAlertController(title: "Spothawk", message: "End time same as start time.", preferredStyle: .alert)
 //            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
 //            self.present(alert, animated: true, completion: nil)
 //        }else if start_date! == end_date!  {
-//            let alert = UIAlertController(title: "Spotbirdparking", message: " Start date and end date is equal.", preferredStyle: .alert)
+//            let alert = UIAlertController(title: "Spothawk", message: " Start date and end date is equal.", preferredStyle: .alert)
 //            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
 //            self.present(alert, animated: true, completion: nil)
 //        }
@@ -1901,22 +1901,22 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     //
     //        if time1 == true{
     //            time1 = false
-    //            let alert = UIAlertController(title: "Spotbirdparking", message: "Invalid Start TIME", preferredStyle: .alert)
+    //            let alert = UIAlertController(title: "Spothawk", message: "Invalid Start TIME", preferredStyle: .alert)
     //            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
     //            self.present(alert, animated: true, completion: nil)
     //        }
     //        else if (datetostring(dates: end_date!))  < (datetostring(dates: start_date!)) && (datetostring(dates: start_date!)) != (datetostring(dates: end_date!))
     //        {
-    //            let alert = UIAlertController(title: "Spotbirdparking", message: "Start date greater than End date.", preferredStyle: .alert)
+    //            let alert = UIAlertController(title: "Spothawk", message: "Start date greater than End date.", preferredStyle: .alert)
     //            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
     //            self.present(alert, animated: true, completion: nil)
     //        }
     //        else if (datetostring(dates: end_date!)) == (datetostring(dates: start_date!)) && end_date!.time < start_date!.time {
-    //            let alert = UIAlertController(title: "Spotbirdparking", message: "End Time greater than Start date.", preferredStyle: .alert)
+    //            let alert = UIAlertController(title: "Spothawk", message: "End Time greater than Start date.", preferredStyle: .alert)
     //            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
     //            self.present(alert, animated: true, completion: nil)
     //        }else if start_date! == end_date!  {
-    //            let alert = UIAlertController(title: "Spotbirdparking", message: " Start date and end date is equal.", preferredStyle: .alert)
+    //            let alert = UIAlertController(title: "Spothawk", message: " Start date and end date is equal.", preferredStyle: .alert)
     //            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
     //            self.present(alert, animated: true, completion: nil)
     //        }
@@ -2612,7 +2612,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
     
     // MARK:_ BTn details
     @IBAction func btn_Details(_ sender: UIButton) {
-        let alertController = UIAlertController(title: "Spotbirdparking", message: "Not Available...!", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Spothawk", message: "Not Available...!", preferredStyle: .alert)
         let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
         alertController.addAction(defaultAction)
         self.present(alertController, animated: true, completion: nil)
@@ -3772,7 +3772,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         }
         else{
             mapView.clear()
-            let alertController = UIAlertController(title: "Spotbird", message: "No spots found", preferredStyle: .alert)
+            let alertController = UIAlertController(title: "Spothawk", message: "No spots found", preferredStyle: .alert)
             let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
             alertController.addAction(defaultAction)
             self.present(alertController, animated: true, completion: nil)

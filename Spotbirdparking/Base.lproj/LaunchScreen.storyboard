@@ -26,12 +26,11 @@
                                     <constraint firstAttribute="width" constant="93" id="yff-Oj-shA"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="spotbird" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mMw-rp-6ad">
-                                <rect key="frame" x="91" y="324" width="193" height="69"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="spothawk" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mMw-rp-6ad">
+                                <rect key="frame" x="62.5" y="324" width="250" height="69"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="69" id="DKG-uu-70i"/>
-                                    <constraint firstAttribute="width" secondItem="mMw-rp-6ad" secondAttribute="height" multiplier="193:69" id="OBz-SQ-4Rt"/>
-                                    <constraint firstAttribute="width" constant="193" id="jrJ-hp-HIK"/>
+                                    <constraint firstAttribute="width" constant="250" id="jrJ-hp-HIK"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Futura-Medium" family="Futura" pointSize="52"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -54,6 +53,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="logo" width="355.66665649414062" height="330.33334350585938"/>
+        <image name="logo" width="533" height="495"/>
     </resources>
 </document>

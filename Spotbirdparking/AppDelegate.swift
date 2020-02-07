@@ -1,9 +1,9 @@
 //
 //  AppDelegate.swift
-//  Spotbirdparking
+//  Spothawk
 //
 //  Created by user138340 on 4/17/18.
-//  Copyright © 2018 Spotbird. All rights reserved.
+//  Copyright © 2020 Spothawk. All rights reserved.
 //
 
 import UIKit
@@ -44,7 +44,7 @@ import IQKeyboardManagerSwift
         //   MyAPIClient.sharedClient.baseURLString = "https://stripe-example-backend619.herokuapp.com/"
         
         let config = STPPaymentConfiguration.shared()
-        config.companyName = "Spotbird Parking"
+        config.companyName = "Spothawk"
         
         // Assign color values to tab bar.
         //  UITabBar.

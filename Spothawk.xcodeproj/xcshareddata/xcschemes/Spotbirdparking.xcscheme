@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "1000"
+   LastUpgradeVersion = "1010"
    version = "1.7">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "B71F2DE12086CDA800F47274"
-               BuildableName = "Spotbird.app"
-               BlueprintName = "Spotbird"
-               ReferencedContainer = "container:Spotbird.xcodeproj">
+               BuildableName = "Spothawk.app"
+               BlueprintName = "Spothawk"
+               ReferencedContainer = "container:Spothawk.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -28,14 +28,24 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "B71F2DF72086CDAA00F47274"
+               BuildableName = "SpothawkTests.xctest"
+               BlueprintName = "SpothawkTests"
+               ReferencedContainer = "container:Spothawk.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B71F2DE12086CDA800F47274"
-            BuildableName = "Spotbird.app"
-            BlueprintName = "Spotbird"
-            ReferencedContainer = "container:Spotbird.xcodeproj">
+            BuildableName = "Spothawk.app"
+            BlueprintName = "Spothawk"
+            ReferencedContainer = "container:Spothawk.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -56,9 +66,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B71F2DE12086CDA800F47274"
-            BuildableName = "Spotbird.app"
-            BlueprintName = "Spotbird"
-            ReferencedContainer = "container:Spotbird.xcodeproj">
+            BuildableName = "Spothawk.app"
+            BlueprintName = "Spothawk"
+            ReferencedContainer = "container:Spothawk.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <AdditionalOptions>
@@ -79,9 +89,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "B71F2DE12086CDA800F47274"
-            BuildableName = "Spotbird.app"
-            BlueprintName = "Spotbird"
-            ReferencedContainer = "container:Spotbird.xcodeproj">
+            BuildableName = "Spothawk.app"
+            BlueprintName = "Spothawk"
+            ReferencedContainer = "container:Spothawk.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

@@ -1,9 +1,9 @@
 //
 //  ByDayResTableViewCell.swift
-//  Spotbirdparking
+//  Spothawk
 //
 //  Created by user138340 on 11/1/18.
-//  Copyright © 2018 Spotbird. All rights reserved.
+//  Copyright © 2020 Spothawk. All rights reserved.
 //
 
 import UIKit

@@ -105,13 +105,13 @@
 		B702B111212E361D004B3EF1 /* PriceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceViewController.swift; sourceTree = "<group>"; };
 		B710B9942299FE1C00AF0C0E /* ProvideIDDocViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProvideIDDocViewController.swift; sourceTree = "<group>"; };
 		B7141A4C20ED1DAF005B54D3 /* MyAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAPIClient.swift; sourceTree = "<group>"; };
-		B71F2DE22086CDA800F47274 /* Spotbird.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spotbird.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		B71F2DE22086CDA800F47274 /* Spothawk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spothawk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B71F2DE52086CDA800F47274 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B71F2DEC2086CDA800F47274 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B71F2DEE2086CDAA00F47274 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B71F2DF12086CDAA00F47274 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B71F2DF32086CDAA00F47274 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B71F2DF82086CDAA00F47274 /* SpotbirdTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpotbirdTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B71F2DF82086CDAA00F47274 /* SpothawkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpothawkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B71F2DFC2086CDAA00F47274 /* SpotbirdparkingTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotbirdparkingTests.swift; sourceTree = "<group>"; };
 		B71F2DFE2086CDAA00F47274 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B72D8BE320D0B6BE0038310F /* CheckBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBox.swift; sourceTree = "<group>"; };
@@ -230,8 +230,8 @@
 		B71F2DE32086CDA800F47274 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B71F2DE22086CDA800F47274 /* Spotbird.app */,
-				B71F2DF82086CDAA00F47274 /* SpotbirdTests.xctest */,
+				B71F2DE22086CDA800F47274 /* Spothawk.app */,
+				B71F2DF82086CDAA00F47274 /* SpothawkTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -305,9 +305,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		B71F2DE12086CDA800F47274 /* Spotbird */ = {
+		B71F2DE12086CDA800F47274 /* Spothawk */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B71F2E012086CDAA00F47274 /* Build configuration list for PBXNativeTarget "Spotbird" */;
+			buildConfigurationList = B71F2E012086CDAA00F47274 /* Build configuration list for PBXNativeTarget "Spothawk" */;
 			buildPhases = (
 				07AAB6FA531643F052978AB0 /* [CP] Check Pods Manifest.lock */,
 				B71F2DDE2086CDA800F47274 /* Sources */,
@@ -320,14 +320,14 @@
 			);
 			dependencies = (
 			);
-			name = Spotbird;
+			name = Spothawk;
 			productName = Spotbirdparking;
-			productReference = B71F2DE22086CDA800F47274 /* Spotbird.app */;
+			productReference = B71F2DE22086CDA800F47274 /* Spothawk.app */;
 			productType = "com.apple.product-type.application";
 		};
-		B71F2DF72086CDAA00F47274 /* SpotbirdTests */ = {
+		B71F2DF72086CDAA00F47274 /* SpothawkTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B71F2E042086CDAA00F47274 /* Build configuration list for PBXNativeTarget "SpotbirdTests" */;
+			buildConfigurationList = B71F2E042086CDAA00F47274 /* Build configuration list for PBXNativeTarget "SpothawkTests" */;
 			buildPhases = (
 				915A1E80D281B73CDA0C9868 /* [CP] Check Pods Manifest.lock */,
 				B71F2DF42086CDAA00F47274 /* Sources */,
@@ -339,9 +339,9 @@
 			dependencies = (
 				B71F2DFA2086CDAA00F47274 /* PBXTargetDependency */,
 			);
-			name = SpotbirdTests;
+			name = SpothawkTests;
 			productName = SpotbirdparkingTests;
-			productReference = B71F2DF82086CDAA00F47274 /* SpotbirdTests.xctest */;
+			productReference = B71F2DF82086CDAA00F47274 /* SpothawkTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -364,7 +364,7 @@
 					};
 				};
 			};
-			buildConfigurationList = B71F2DDD2086CDA700F47274 /* Build configuration list for PBXProject "Spotbird" */;
+			buildConfigurationList = B71F2DDD2086CDA700F47274 /* Build configuration list for PBXProject "Spothawk" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -377,8 +377,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B71F2DE12086CDA800F47274 /* Spotbird */,
-				B71F2DF72086CDAA00F47274 /* SpotbirdTests */,
+				B71F2DE12086CDA800F47274 /* Spothawk */,
+				B71F2DF72086CDAA00F47274 /* SpothawkTests */,
 			);
 		};
 /* End PBXProject section */
@@ -551,7 +551,7 @@
 /* Begin PBXTargetDependency section */
 		B71F2DFA2086CDAA00F47274 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = B71F2DE12086CDA800F47274 /* Spotbird */;
+			target = B71F2DE12086CDA800F47274 /* Spothawk */;
 			targetProxy = B71F2DF92086CDAA00F47274 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -784,7 +784,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Spotbird.app/Spotbird";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Spothawk.app/Spothawk";
 			};
 			name = Debug;
 		};
@@ -805,14 +805,14 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Spotbird.app/Spotbird";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Spothawk.app/Spothawk";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B71F2DDD2086CDA700F47274 /* Build configuration list for PBXProject "Spotbird" */ = {
+		B71F2DDD2086CDA700F47274 /* Build configuration list for PBXProject "Spothawk" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B71F2DFF2086CDAA00F47274 /* Debug */,
@@ -821,7 +821,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B71F2E012086CDAA00F47274 /* Build configuration list for PBXNativeTarget "Spotbird" */ = {
+		B71F2E012086CDAA00F47274 /* Build configuration list for PBXNativeTarget "Spothawk" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B71F2E022086CDAA00F47274 /* Debug */,
@@ -830,7 +830,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B71F2E042086CDAA00F47274 /* Build configuration list for PBXNativeTarget "SpotbirdTests" */ = {
+		B71F2E042086CDAA00F47274 /* Build configuration list for PBXNativeTarget "SpothawkTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B71F2E052086CDAA00F47274 /* Debug */,

@@ -1,9 +1,9 @@
 //
 //  ReservationsViewController.swift
-//  Spotbirdparking
+//  Spothawk
 //
 //  Created by user138340 on 10/17/18.
-//  Copyright © 2018 Spotbird. All rights reserved.
+//  Copyright © 2020 Spothawk. All rights reserved.
 //
 
 import UIKit
@@ -324,7 +324,7 @@ extension ReservationsViewController: JTAppleCalendarViewDelegate {
         handleCellSelected(view: cell, cellState: cellState)
         handleCellTextColor(view: cell, cellState: cellState)
         
-        // change event view to SpotBird green color
+        // change event view to Spothawk green color
         guard let validCell = cell as? CustomCell else { return }
         validCell.eventView.backgroundColor = UIColor.init(red: 83/255, green: 188/255, blue: 111/255, alpha: 1.0)
     }
@@ -434,7 +434,7 @@ extension ReservationsViewController: UITableViewDelegate, UITableViewDataSource
                         mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving])
                         
 //                        NSLog("Can't use comgooglemaps://");
-//                        let alert = UIAlertController(title: "Spotbirdparking", message: "Can't use comgooglemaps://", preferredStyle: UIAlertControllerStyle.alert)
+//                        let alert = UIAlertController(title: "Spothawk", message: "Can't use comgooglemaps://", preferredStyle: UIAlertControllerStyle.alert)
 //                        alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
 //                        self.present(alert, animated: true, completion: nil)
         

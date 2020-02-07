@@ -3,10 +3,10 @@
 
 //
 //  ReservationsDetailViewController.swift
-//  Spotbirdparking
+//  Spothawk
 //
 //  Created by mac on 29/04/19.
-//  Copyright © 2019 Spotbird. All rights reserved.
+//  Copyright © 2020 Spothawk. All rights reserved.
 //
 
 import UIKit

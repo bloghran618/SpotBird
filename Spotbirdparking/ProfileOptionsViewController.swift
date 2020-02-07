@@ -1,9 +1,9 @@
 //
 //  ProfileOptionsViewController.swift
-//  Spotbirdparking
+//  Spothawk
 //
 //  Created by user138340 on 11/11/19.
-//  Copyright © 2019 Spotbird. All rights reserved.
+//  Copyright © 2020 Spothawk. All rights reserved.
 //
 
 import UIKit
@@ -158,7 +158,7 @@ class ProfileOptionsViewController: UIViewController, UITableViewDataSource, UIT
     
     
     @IBAction func logoutButtonClicked(_ sender: Any) {
-        let alertController = UIAlertController(title: "Spotbirdparking", message: "Are you sure you want to logout?", preferredStyle: UIAlertControllerStyle.alert)
+        let alertController = UIAlertController(title: "Spothawk", message: "Are you sure you want to logout?", preferredStyle: UIAlertControllerStyle.alert)
         let DestructiveAction = UIAlertAction(title: "Yes", style: UIAlertActionStyle.destructive) { (result : UIAlertAction) -> Void in
             UserDefaults.standard.removeObject(forKey: "logindata")
             UserDefaults.standard.removePersistentDomain(forName: Bundle.main.bundleIdentifier!)

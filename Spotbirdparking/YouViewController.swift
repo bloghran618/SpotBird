@@ -1,9 +1,9 @@
 //
 //  YouViewController.swift
-//  Spotbirdparking
+//  Spothawk
 //
 //  Created by user138340 on 5/28/18.
-//  Copyright © 2018 Spotbird. All rights reserved.
+//  Copyright © 2020 Spothawk. All rights reserved.
 //
 import UIKit
 import Firebase
@@ -82,12 +82,12 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         
         if firstName.text == ""
         {
-            let alert = UIAlertController(title: "Spotbirdparking", message: "Enter First Name", preferredStyle: UIAlertControllerStyle.alert)
+            let alert = UIAlertController(title: "Spothawk", message: "Enter First Name", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }else if lastName.text == ""
         {
-            let alert = UIAlertController(title: "Spotbirdparking", message: "Enter Last Name", preferredStyle: UIAlertControllerStyle.alert)
+            let alert = UIAlertController(title: "Spothawk", message: "Enter Last Name", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }

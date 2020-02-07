@@ -1,9 +1,9 @@
 //
 //  Signup_ViewController.swift
-//  Spotbirdparking
+//  Spothawk
 //
 //  Created by mac on 01/10/18.
-//  Copyright © 2018 Spotbird. All rights reserved.
+//  Copyright © 2020 Spothawk. All rights reserved.
 //
 
 
@@ -79,36 +79,36 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
         
         if txt_fname.text == ""
         {
-            let alert = UIAlertController(title: "Spotbirdparking", message: "Enter First Name", preferredStyle: UIAlertControllerStyle.alert)
+            let alert = UIAlertController(title: "Spothawk", message: "Enter First Name", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }else if txt_lname.text == ""
         {
-            let alert = UIAlertController(title: "Spotbirdparking", message: "Enter Last Name", preferredStyle: UIAlertControllerStyle.alert)
+            let alert = UIAlertController(title: "Spothawk", message: "Enter Last Name", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
         else if txt_email.text == ""
         {
-            let alert = UIAlertController(title: "Spotbirdparking", message: "Enter Email", preferredStyle: UIAlertControllerStyle.alert)
+            let alert = UIAlertController(title: "Spothawk", message: "Enter Email", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
         else if txt_username.text == ""
         {
-            let alert = UIAlertController(title: "Spotbirdparking", message: "Enter User Name", preferredStyle: UIAlertControllerStyle.alert)
+            let alert = UIAlertController(title: "Spothawk", message: "Enter User Name", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
         else if txt_pass.text == ""
         {
-            let alert = UIAlertController(title: "Spotbirdparking", message: "Enter Password", preferredStyle: UIAlertControllerStyle.alert)
+            let alert = UIAlertController(title: "Spothawk", message: "Enter Password", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
         else if (txt_pass.text?.count)! < 8
         {
-            let alert = UIAlertController(title: "Spotbirdparking", message: "Minimum 8 character Password ", preferredStyle: UIAlertControllerStyle.alert)
+            let alert = UIAlertController(title: "Spothawk", message: "Minimum 8 character Password ", preferredStyle: UIAlertControllerStyle.alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
         }
@@ -124,7 +124,7 @@ class Signup_ViewController: UIViewController,UITextFieldDelegate, UIImagePicker
                     if snapshot.exists() {
                         Spinner.stop()
                         self.view.endEditing(true)
-                        let alertController = UIAlertController(title: "Spotbirdparking", message: "User Name already exists ", preferredStyle: .alert)
+                        let alertController = UIAlertController(title: "Spothawk", message: "User Name already exists ", preferredStyle: .alert)
                         
                         let defaultAction = UIAlertAction(title: "OK", style: .cancel, handler: nil)
                         alertController.addAction(defaultAction)

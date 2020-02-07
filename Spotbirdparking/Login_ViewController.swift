@@ -1,9 +1,9 @@
 //
 //  Login_ViewController.swift
-//  Spotbirdparking
+//  Spothawk
 //
 //  Created by mac on 01/10/18.
-//  Copyright © 2018 Spotbird. All rights reserved.
+//  Copyright © 2020 Spothawk. All rights reserved.
 //
 import UIKit
 import Firebase

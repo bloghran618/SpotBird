@@ -1,9 +1,9 @@
 //
 //  RentingOutDetailViewController.swift
-//  Spotbirdparking
+//  Spothawk
 //
 //  Created by Drew Loughran on 6/4/19.
-//  Copyright © 2019 Spotbird. All rights reserved.
+//  Copyright © 2020 Spothawk. All rights reserved.
 //
 
 import UIKit
