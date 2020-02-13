@@ -36,6 +36,11 @@ import IQKeyboardManagerSwift
         GMSPlacesClient.provideAPIKey(keys["GMSPlacesClient"] as! String)
         
         FirebaseApp.configure()
+        Auth.auth().signInAnonymously() { (authResult, error) in
+            guard let user = authResult?.user else { return }
+            let isAnonymous = user.isAnonymous  // true
+            let uid = user.uid
+        }
         
         // Set up Stripe keys
         STPPaymentConfiguration.shared().publishableKey = keys["StripeKey"] as! String
