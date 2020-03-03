@@ -11,7 +11,7 @@ import Stripe
 import MBProgressHUD
 import Firebase
 
-class ProfileOptionsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate, STPPaymentContextDelegate {
+class ProfileOptionsViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     
     @IBOutlet weak var profileTableView: UITableView!
@@ -27,11 +27,11 @@ class ProfileOptionsViewController: UIViewController, UITableViewDataSource, UIT
     
     let stripePublishableKey = "pk_test_TV3DNqRM8DCQJEcvMGpayRRj"
     
-    required init?(coder aDecoder: NSCoder) {
-        print("Entered required init")
-        super.init(coder: aDecoder)
-        setPaymentContext(price: 5000)
-    }
+//    required init?(coder aDecoder: NSCoder) {
+//        print("Entered required init")
+//        super.init(coder: aDecoder)
+//        setPaymentContext(price: 5000)
+//    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -205,66 +205,66 @@ class ProfileOptionsViewController: UIViewController, UITableViewDataSource, UIT
     //                                                //completion: completion)
     //    }
     
-    func paymentContext(_ paymentContext: STPPaymentContext, didFinishWith status: STPPaymentStatus, error: Error?) {
-        print("run didFinishWith paymentContext()")
-        let title: String
-        let message: String
-        switch status {
-        case .error:
-            title = "Error"
-            message = error?.localizedDescription ?? ""
-        case .success:
-            title = "Success"
-            message = "You bought a SPOT!"
-        case .userCancellation:
-            return
-        }
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
-        alertController.addAction(action)
-        self.present(alertController, animated: true, completion: nil)
-    }
+//    func paymentContext(_ paymentContext: STPPaymentContext, didFinishWith status: STPPaymentStatus, error: Error?) {
+//        print("run didFinishWith paymentContext()")
+//        let title: String
+//        let message: String
+//        switch status {
+//        case .error:
+//            title = "Error"
+//            message = error?.localizedDescription ?? ""
+//        case .success:
+//            title = "Success"
+//            message = "You bought a SPOT!"
+//        case .userCancellation:
+//            return
+//        }
+//        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+//        let action = UIAlertAction(title: "OK", style: .default, handler: nil)
+//        alertController.addAction(action)
+//        self.present(alertController, animated: true, completion: nil)
+//    }
     
     func paymentContextDidChange(_ paymentContext: STPPaymentContext) {
         print("run paymentContextDidChange()")
         
     }
     
-    func paymentContext(_ paymentContext: STPPaymentContext, didFailToLoadWithError error: Error) {
-        print("run didFailToLoadWithError paymentContext()")
-        print("Error: \(error)")
-        let alertController = UIAlertController(
-            title: "Error",
-            message: error.localizedDescription,
-            preferredStyle: .alert
-        )
-        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
-            // Need to assign to _ because optional binding loses @discardableResult value
-            // https://bugs.swift.org/browse/SR-1681
-            _ = self.navigationController?.popViewController(animated: true)
-        })
-        let retry = UIAlertAction(title: "Retry", style: .default, handler: { action in
-            self.paymentContext.retryLoading()
-        })
-        alertController.addAction(cancel)
-        alertController.addAction(retry)
-        self.present(alertController, animated: true, completion: nil)
-        print("Customer String: \(AppState.sharedInstance.user.customertoken)")
-        print("Account String: \(AppState.sharedInstance.user.accounttoken)")
-    }
+//    func paymentContext(_ paymentContext: STPPaymentContext, didFailToLoadWithError error: Error) {
+//        print("run didFailToLoadWithError paymentContext()")
+//        print("Error: \(error)")
+//        let alertController = UIAlertController(
+//            title: "Error",
+//            message: error.localizedDescription,
+//            preferredStyle: .alert
+//        )
+//        let cancel = UIAlertAction(title: "Cancel", style: .cancel, handler: { action in
+//            // Need to assign to _ because optional binding loses @discardableResult value
+//            // https://bugs.swift.org/browse/SR-1681
+//            _ = self.navigationController?.popViewController(animated: true)
+//        })
+//        let retry = UIAlertAction(title: "Retry", style: .default, handler: { action in
+//            self.paymentContext.retryLoading()
+//        })
+//        alertController.addAction(cancel)
+//        alertController.addAction(retry)
+//        self.present(alertController, animated: true, completion: nil)
+//        print("Customer String: \(AppState.sharedInstance.user.customertoken)")
+//        print("Account String: \(AppState.sharedInstance.user.accounttoken)")
+//    }
     
-    func setPaymentContext(price: Int) {
-        let a = self as! UIViewController
-        print("a is: \(a)")
-        print("Setting the payment context")
-        self.paymentContext.delegate = self
-        print("no issue with the delegate")
-        self.paymentContext.hostViewController = self as! UIViewController
-        print("No issue setting the host view controller")
-        self.paymentContext.paymentAmount = price
-        print(self.paymentContext.paymentAmount)
-        print(self.paymentContext.hostViewController)
-        print("Finished setting the payment context")
-    }
+//    func setPaymentContext(price: Int) {
+//        let a = self as! UIViewController
+//        print("a is: \(a)")
+//        print("Setting the payment context")
+//        self.paymentContext.delegate = self
+//        print("no issue with the delegate")
+//        self.paymentContext.hostViewController = self as! UIViewController
+//        print("No issue setting the host view controller")
+//        self.paymentContext.paymentAmount = price
+//        print(self.paymentContext.paymentAmount)
+//        print(self.paymentContext.hostViewController)
+//        print("Finished setting the payment context")
+//    }
     
 }

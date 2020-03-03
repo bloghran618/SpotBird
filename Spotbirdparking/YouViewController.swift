@@ -10,7 +10,6 @@ import Firebase
 import FirebaseAuth
 import Photos
 import Alamofire
-import Stripe
 
 class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -26,6 +25,14 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     var strurl = ""
     var dict = NSDictionary()
      var hud : MBProgressHUD = MBProgressHUD()
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        print("view disappearing")
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        print("view disappeared")
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -234,10 +241,11 @@ extension UIViewController {
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
     }
-    
+
     @objc func dismissKeyboard() {
-        view.endEditing(true)
+//        view.endEditing(true)
+        print("dismiss the keyboard")
     }
-    
-   
+
+
 }
