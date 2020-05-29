@@ -2,10 +2,10 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:../../Downloads/Indore.gpx">
+      location = "group:/Users/user138340/Downloads/Philadelphia.gpx">
    </FileRef>
    <FileRef
-      location = "group:Spotbirdparking/Philadelphia.gpx">
+      location = "group:../../Downloads/Indore.gpx">
    </FileRef>
    <FileRef
       location = "group:/Users/user138340/Desktop/SpotBird/Spothawk.xcodeproj">

@@ -12,7 +12,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@class STPSourceParams, STPPaymentMethodParams;
+@class STPConfirmPaymentMethodOptions,
+STPMandateDataParams,
+STPSourceParams,
+STPPaymentMethodParams,
+STPPaymentResult,
+STPPaymentIntentShippingDetailsParams;
 
 /**
  An object representing parameters used to confirm a PaymentIntent object.
@@ -61,6 +66,12 @@ NS_ASSUME_NONNULL_BEGIN
  @note alternative to `paymentMethodParams`
  */
 @property (nonatomic, copy, nullable) NSString *paymentMethodId;
+
+/**
+ Provide an STPPaymentResult from STPPaymentContext, and this will populate
+ the proper field (either paymentMethodId or paymentMethodParams) for your PaymentMethod.
+ */
+- (void)configureWithPaymentResult:(STPPaymentResult *)paymentResult;
 
 /**
  Provide a supported `STPSourceParams` object into here, and Stripe will create a Source
@@ -113,6 +124,28 @@ NS_ASSUME_NONNULL_BEGIN
  app.
  */
 @property (nonatomic, nullable) NSNumber *useStripeSDK;
+
+/**
+ Details about the Mandate to create.
+ @note If this value is null and the (self.paymentMethod.type == STPPaymentMethodTypeSEPADebit | | self.paymentMethodParams.type == STPPaymentMethodTypeAUBECSDebit || self.paymentMethodParams.type == STPPaymentMethodTypeBacsDebit) && self.mandate == nil`, the SDK will set this to an internal value indicating that the mandate data should be inferred from the current context.
+ */
+@property (nonatomic, nullable) STPMandateDataParams *mandateData;
+
+/**
+ The ID of the Mandate to be used for this payment.
+ */
+@property (nonatomic, nullable) NSString *mandate;
+
+/**
+ Options to update the associated PaymentMethod during confirmation.
+ @see STPPaymentMethodOptions
+ */
+@property (nonatomic, nullable) STPConfirmPaymentMethodOptions *paymentMethodOptions;
+
+/**
+ Shipping information.
+ */
+@property (nonatomic, nullable) STPPaymentIntentShippingDetailsParams *shipping;
 
 /**
  The URL to redirect your customer back to after they authenticate or cancel

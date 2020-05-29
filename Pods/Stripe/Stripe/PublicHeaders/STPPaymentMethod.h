@@ -12,7 +12,14 @@
 #import "STPPaymentMethodEnums.h"
 #import "STPPaymentOption.h"
 
-@class STPPaymentMethodBillingDetails, STPPaymentMethodCard, STPPaymentMethodiDEAL, STPPaymentMethodFPX, STPPaymentMethodCardPresent;
+@class STPPaymentMethodAUBECSDebit,
+STPPaymentMethodBillingDetails,
+STPPaymentMethodCard,
+STPPaymentMethodCardPresent,
+STPPaymentMethodFPX,
+STPPaymentMethodiDEAL,
+STPPaymentMethodSEPADebit,
+STPPaymentMethodBacsDebit;
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -68,6 +75,21 @@ NS_ASSUME_NONNULL_BEGIN
  If this is a card present PaymentMethod (ie `self.type == STPPaymentMethodTypeCardPresent`), this contains additional details.
  */
 @property (nonatomic, nullable, readonly) STPPaymentMethodCardPresent *cardPresent;
+
+/**
+ If this is a SEPA Debit PaymentMethod (ie `self.type == STPPaymentMethodTypeSEPADebit`), this contains additional details.
+ */
+@property (nonatomic, nullable, readonly) STPPaymentMethodSEPADebit *sepaDebit;
+
+/**
+ If this is a Bacs Debit PaymentMethod (ie `self.type == STPPaymentMethodTypeBacsDebit`), this contains additional details.
+ */
+@property (nonatomic, nullable, readonly) STPPaymentMethodBacsDebit *bacsDebit;
+
+/**
+ If this is an AU BECS Debit PaymentMethod (i.e. `self.type == STPPaymentMethodTypeAUBECSDebit`), this contains additional details.
+*/
+@property (nonatomic, nullable, readonly) STPPaymentMethodAUBECSDebit *auBECSDebit;
 
 /**
  The ID of the Customer to which this PaymentMethod is saved. Nil when the PaymentMethod has not been saved to a Customer.

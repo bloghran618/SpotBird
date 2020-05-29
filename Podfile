@@ -24,7 +24,7 @@ target 'Spothawk' do
   pod 'IQKeyboardManager'
   pod 'EasyTipView', '~> 2.0.4'
 
-  target 'SpotbirdTests' do
+  target 'SpothawkTests' do
     inherit! :search_paths
     # Pods for testing
   end

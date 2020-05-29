@@ -1,6 +1,0 @@
-framework module Pods_Spotbird {
-  umbrella header "Pods-Spotbird-umbrella.h"
-
-  export *
-  module * { export * }
-}

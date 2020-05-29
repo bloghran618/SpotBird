@@ -26,7 +26,8 @@
 		04CE142E21C5257A00338DEE /* Timeclass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CE142D21C5257A00338DEE /* Timeclass.swift */; };
 		04E63848216211AD003EAC28 /* Signup_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E63847216211AD003EAC28 /* Signup_ViewController.swift */; };
 		04E6384A2162722F003EAC28 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E638492162722F003EAC28 /* CoreLocation.framework */; };
-		380220B5E1F0A5C2EC066F85 /* Pods_Spotbird.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 30BA59F0E7DDB3E61BBECED1 /* Pods_Spotbird.framework */; };
+		099F2C927A248091FC02235B /* Pods_SpothawkTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8512F001D86165E0A66AC556 /* Pods_SpothawkTests.framework */; };
+		99B9291E1362F8837EE5EC6A /* Pods_Spothawk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 491D7067E36E9195C873A643 /* Pods_Spothawk.framework */; };
 		B701C8E122A096130054F6D9 /* EmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B701C8E022A096130054F6D9 /* EmailViewController.swift */; };
 		B710B9952299FE1C00AF0C0E /* ProvideIDDocViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B710B9942299FE1C00AF0C0E /* ProvideIDDocViewController.swift */; };
 		B7141A4D20ED1DAF005B54D3 /* MyAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7141A4C20ED1DAF005B54D3 /* MyAPIClient.swift */; };
@@ -59,7 +60,6 @@
 		B7CF24F120BCBB3000722933 /* YouViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CF24F020BCBB3000722933 /* YouViewController.swift */; };
 		B7D3B2D62172644500ADBAD4 /* Reservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D3B2D52172644500ADBAD4 /* Reservation.swift */; };
 		B7F9425920FD903D001B421E /* SpotImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F9425820FD903D001B421E /* SpotImageViewController.swift */; };
-		BF3D446DCCD938DB26CCD505 /* Pods_SpotbirdTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D6FA3ABE6760FFEF8C3EDDA5 /* Pods_SpotbirdTests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,9 +95,14 @@
 		04CE142D21C5257A00338DEE /* Timeclass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timeclass.swift; sourceTree = "<group>"; };
 		04E63847216211AD003EAC28 /* Signup_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signup_ViewController.swift; sourceTree = "<group>"; };
 		04E638492162722F003EAC28 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		30BA59F0E7DDB3E61BBECED1 /* Pods_Spotbird.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Spotbird.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		11C5FDF535FD3D0FEC5950A4 /* Pods-Spothawk.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Spothawk.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Spothawk/Pods-Spothawk.debug.xcconfig"; sourceTree = "<group>"; };
+		1971EC2A3916BF107048FEEB /* Pods-SpothawkTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpothawkTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SpothawkTests/Pods-SpothawkTests.release.xcconfig"; sourceTree = "<group>"; };
+		1ACE4664AF9E864EEF4218DF /* Pods-SpothawkTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpothawkTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SpothawkTests/Pods-SpothawkTests.debug.xcconfig"; sourceTree = "<group>"; };
+		491D7067E36E9195C873A643 /* Pods_Spothawk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Spothawk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		67F2C00F8C7357DF52D64EF5 /* Pods-SpotbirdTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpotbirdTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SpotbirdTests/Pods-SpotbirdTests.debug.xcconfig"; sourceTree = "<group>"; };
 		7F1C546B9D9D5AD45B0FF4E8 /* Pods-SpotbirdTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpotbirdTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SpotbirdTests/Pods-SpotbirdTests.release.xcconfig"; sourceTree = "<group>"; };
+		8512F001D86165E0A66AC556 /* Pods_SpothawkTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SpothawkTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		86175152B0D140CF92A06E0A /* Pods-Spothawk.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Spothawk.release.xcconfig"; path = "Pods/Target Support Files/Pods-Spothawk/Pods-Spothawk.release.xcconfig"; sourceTree = "<group>"; };
 		95ABCDDFE28931C6DD2A960E /* Pods-Spotbirdparking.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Spotbirdparking.release.xcconfig"; path = "Pods/Target Support Files/Pods-Spotbirdparking/Pods-Spotbirdparking.release.xcconfig"; sourceTree = "<group>"; };
 		AEAFF4B492A691B0B7D3A811 /* Pods-Spotbirdparking.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Spotbirdparking.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Spotbirdparking/Pods-Spotbirdparking.debug.xcconfig"; sourceTree = "<group>"; };
 		B5D1565F156B315AFFDFDD8B /* Pods-SpotbirdparkingTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpotbirdparkingTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SpotbirdparkingTests/Pods-SpotbirdparkingTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -139,7 +144,6 @@
 		B7D3B2D52172644500ADBAD4 /* Reservation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reservation.swift; sourceTree = "<group>"; };
 		B7F9425820FD903D001B421E /* SpotImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotImageViewController.swift; sourceTree = "<group>"; };
 		D08408BCF6BF9BC8856D9DC8 /* Pods-Spotbird.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Spotbird.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Spotbird/Pods-Spotbird.debug.xcconfig"; sourceTree = "<group>"; };
-		D6FA3ABE6760FFEF8C3EDDA5 /* Pods_SpotbirdTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SpotbirdTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF0218389585B018109DC51B /* Pods-Spotbird.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Spotbird.release.xcconfig"; path = "Pods/Target Support Files/Pods-Spotbird/Pods-Spotbird.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -149,7 +153,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				04E6384A2162722F003EAC28 /* CoreLocation.framework in Frameworks */,
-				380220B5E1F0A5C2EC066F85 /* Pods_Spotbird.framework in Frameworks */,
+				99B9291E1362F8837EE5EC6A /* Pods_Spothawk.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -157,7 +161,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BF3D446DCCD938DB26CCD505 /* Pods_SpotbirdTests.framework in Frameworks */,
+				099F2C927A248091FC02235B /* Pods_SpothawkTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -212,6 +216,10 @@
 				DF0218389585B018109DC51B /* Pods-Spotbird.release.xcconfig */,
 				67F2C00F8C7357DF52D64EF5 /* Pods-SpotbirdTests.debug.xcconfig */,
 				7F1C546B9D9D5AD45B0FF4E8 /* Pods-SpotbirdTests.release.xcconfig */,
+				11C5FDF535FD3D0FEC5950A4 /* Pods-Spothawk.debug.xcconfig */,
+				86175152B0D140CF92A06E0A /* Pods-Spothawk.release.xcconfig */,
+				1ACE4664AF9E864EEF4218DF /* Pods-SpothawkTests.debug.xcconfig */,
+				1971EC2A3916BF107048FEEB /* Pods-SpothawkTests.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -219,8 +227,8 @@
 		B71F2DD92086CDA700F47274 = {
 			isa = PBXGroup;
 			children = (
-				B71F2DE42086CDA800F47274 /* Spotbirdparking */,
-				B71F2DFB2086CDAA00F47274 /* SpotbirdparkingTests */,
+				B71F2DE42086CDA800F47274 /* Spothawk */,
+				B71F2DFB2086CDAA00F47274 /* SpothawkTests */,
 				B71F2DE32086CDA800F47274 /* Products */,
 				BB81449C832F6316AD50E70D /* Frameworks */,
 				944B5E3080046E7597205612 /* Pods */,
@@ -236,7 +244,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		B71F2DE42086CDA800F47274 /* Spotbirdparking */ = {
+		B71F2DE42086CDA800F47274 /* Spothawk */ = {
 			isa = PBXGroup;
 			children = (
 				042F4CD12229211800BD546A /* Model */,
@@ -280,24 +288,24 @@
 				B79F5C19237DE88700B1849F /* config.plist */,
 				041EC523217F44EA007DEC9C /* Custommarkerinfo.swift */,
 			);
-			path = Spotbirdparking;
+			path = Spothawk;
 			sourceTree = "<group>";
 		};
-		B71F2DFB2086CDAA00F47274 /* SpotbirdparkingTests */ = {
+		B71F2DFB2086CDAA00F47274 /* SpothawkTests */ = {
 			isa = PBXGroup;
 			children = (
 				B71F2DFC2086CDAA00F47274 /* SpotbirdparkingTests.swift */,
 				B71F2DFE2086CDAA00F47274 /* Info.plist */,
 			);
-			path = SpotbirdparkingTests;
+			path = SpothawkTests;
 			sourceTree = "<group>";
 		};
 		BB81449C832F6316AD50E70D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
 				04E638492162722F003EAC28 /* CoreLocation.framework */,
-				30BA59F0E7DDB3E61BBECED1 /* Pods_Spotbird.framework */,
-				D6FA3ABE6760FFEF8C3EDDA5 /* Pods_SpotbirdTests.framework */,
+				491D7067E36E9195C873A643 /* Pods_Spothawk.framework */,
+				8512F001D86165E0A66AC556 /* Pods_SpothawkTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -422,7 +430,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-Spotbird-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-Spothawk-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -435,15 +443,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Spotbird/Pods-Spotbird-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Spothawk/Pods-Spothawk-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Spotbird/Pods-Spotbird-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Spothawk/Pods-Spothawk-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Spotbird/Pods-Spotbird-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Spothawk/Pods-Spothawk-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		915A1E80D281B73CDA0C9868 /* [CP] Check Pods Manifest.lock */ = {
@@ -461,7 +469,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-SpotbirdTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-SpothawkTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -474,15 +482,15 @@
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Spotbird/Pods-Spotbird-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Spothawk/Pods-Spothawk-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-Spotbird/Pods-Spotbird-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-Spothawk/Pods-Spothawk-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Spotbird/Pods-Spotbird-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Spothawk/Pods-Spothawk-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -692,7 +700,7 @@
 		};
 		B71F2E022086CDAA00F47274 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D08408BCF6BF9BC8856D9DC8 /* Pods-Spotbird.debug.xcconfig */;
+			baseConfigurationReference = 11C5FDF535FD3D0FEC5950A4 /* Pods-Spothawk.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -708,7 +716,7 @@
 					"\"${PODS_ROOT}/Headers/Public/Firebase\"",
 					"\"${PODS_ROOT}/Headers/Public/FirebaseAuthInterop\"",
 				);
-				INFOPLIST_FILE = Spotbirdparking/Info.plist;
+				INFOPLIST_FILE = Spothawk/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -717,7 +725,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.spotbirdparking.spotbird;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "Spotbirdparking/Third_Partys/Spotbirdparking-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Spothawk/Third_Partys/Spotbirdparking-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -731,7 +739,7 @@
 		};
 		B71F2E032086CDAA00F47274 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DF0218389585B018109DC51B /* Pods-Spotbird.release.xcconfig */;
+			baseConfigurationReference = 86175152B0D140CF92A06E0A /* Pods-Spothawk.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -747,7 +755,7 @@
 					"\"${PODS_ROOT}/Headers/Public/Firebase\"",
 					"\"${PODS_ROOT}/Headers/Public/FirebaseAuthInterop\"",
 				);
-				INFOPLIST_FILE = Spotbirdparking/Info.plist;
+				INFOPLIST_FILE = Spothawk/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -756,7 +764,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.spotbirdparking.spotbird;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "Spotbirdparking/Third_Partys/Spotbirdparking-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "Spothawk/Third_Partys/Spotbirdparking-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				USER_HEADER_SEARCH_PATHS = (
@@ -769,7 +777,7 @@
 		};
 		B71F2E052086CDAA00F47274 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 67F2C00F8C7357DF52D64EF5 /* Pods-SpotbirdTests.debug.xcconfig */;
+			baseConfigurationReference = 1ACE4664AF9E864EEF4218DF /* Pods-SpothawkTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -790,7 +798,7 @@
 		};
 		B71F2E062086CDAA00F47274 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 7F1C546B9D9D5AD45B0FF4E8 /* Pods-SpotbirdTests.release.xcconfig */;
+			baseConfigurationReference = 1971EC2A3916BF107048FEEB /* Pods-SpothawkTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
