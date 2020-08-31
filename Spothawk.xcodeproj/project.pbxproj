@@ -21,7 +21,6 @@
 		04ACA90521F5C9D90015CF8D /* TNSlider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ACA8FF21F5C9D80015CF8D /* TNSlider.swift */; };
 		04ACA90621F5C9D90015CF8D /* TNTextLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ACA90021F5C9D80015CF8D /* TNTextLayer.swift */; };
 		04ACA90721F5C9D90015CF8D /* TNTrackLayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04ACA90121F5C9D80015CF8D /* TNTrackLayer.swift */; };
-		04B4D5952163BDF400F49505 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04B4D5942163BDF400F49505 /* GoogleService-Info.plist */; };
 		04CC3FB22261EC8B00FF30B2 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CC3FB12261EC8B00FF30B2 /* FirstViewController.swift */; };
 		04CE142E21C5257A00338DEE /* Timeclass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04CE142D21C5257A00338DEE /* Timeclass.swift */; };
 		04E63848216211AD003EAC28 /* Signup_ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E63847216211AD003EAC28 /* Signup_ViewController.swift */; };
@@ -31,6 +30,7 @@
 		B701C8E122A096130054F6D9 /* EmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B701C8E022A096130054F6D9 /* EmailViewController.swift */; };
 		B710B9952299FE1C00AF0C0E /* ProvideIDDocViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B710B9942299FE1C00AF0C0E /* ProvideIDDocViewController.swift */; };
 		B7141A4D20ED1DAF005B54D3 /* MyAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7141A4C20ED1DAF005B54D3 /* MyAPIClient.swift */; };
+		B7150EC224F5F6EF00BD984B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B7150EC124F5F6EF00BD984B /* GoogleService-Info.plist */; };
 		B71F2DE62086CDA800F47274 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71F2DE52086CDA800F47274 /* AppDelegate.swift */; };
 		B71F2DED2086CDA800F47274 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B71F2DEB2086CDA800F47274 /* Main.storyboard */; };
 		B71F2DEF2086CDAA00F47274 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B71F2DEE2086CDAA00F47274 /* Assets.xcassets */; };
@@ -46,10 +46,10 @@
 		B75AE7B920C496B40069A151 /* CarsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75AE7B820C496B40069A151 /* CarsTableViewCell.swift */; };
 		B75AE7BB20C4B63D0069A151 /* CarsDefinitionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B75AE7BA20C4B63D0069A151 /* CarsDefinitionViewController.swift */; };
 		B7626AA7237A5B59004CDBD3 /* ProfileOptionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7626AA6237A5B59004CDBD3 /* ProfileOptionsViewController.swift */; };
+		B773FADB248AF166007958E4 /* config.plist in Resources */ = {isa = PBXBuildFile; fileRef = B79F5C19237DE88700B1849F /* config.plist */; };
 		B77D9346211A807700D505BD /* ScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B77D9345211A807700D505BD /* ScheduleViewController.swift */; };
 		B7826C942147582100616275 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7826C932147582100616275 /* User.swift */; };
 		B79D514B218BDA4E001EFE1C /* ByDayResTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B79D514A218BDA4E001EFE1C /* ByDayResTableViewCell.swift */; };
-		B79F5C1A237DE88700B1849F /* config.plist in Sources */ = {isa = PBXBuildFile; fileRef = B79F5C19237DE88700B1849F /* config.plist */; };
 		B7A35D4120F5AA4500E4B566 /* AddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A35D4020F5AA4500E4B566 /* AddressViewController.swift */; };
 		B7A669D82134EC030057A283 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A669D72134EC030057A283 /* AppState.swift */; };
 		B7A86B4B20C0E9DB00041C61 /* Car.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7A86B4A20C0E9DB00041C61 /* Car.swift */; };
@@ -90,7 +90,6 @@
 		04ACA8FF21F5C9D80015CF8D /* TNSlider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TNSlider.swift; sourceTree = "<group>"; };
 		04ACA90021F5C9D80015CF8D /* TNTextLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TNTextLayer.swift; sourceTree = "<group>"; };
 		04ACA90121F5C9D80015CF8D /* TNTrackLayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TNTrackLayer.swift; sourceTree = "<group>"; };
-		04B4D5942163BDF400F49505 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		04CC3FB12261EC8B00FF30B2 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
 		04CE142D21C5257A00338DEE /* Timeclass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timeclass.swift; sourceTree = "<group>"; };
 		04E63847216211AD003EAC28 /* Signup_ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Signup_ViewController.swift; sourceTree = "<group>"; };
@@ -110,6 +109,8 @@
 		B702B111212E361D004B3EF1 /* PriceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceViewController.swift; sourceTree = "<group>"; };
 		B710B9942299FE1C00AF0C0E /* ProvideIDDocViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProvideIDDocViewController.swift; sourceTree = "<group>"; };
 		B7141A4C20ED1DAF005B54D3 /* MyAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAPIClient.swift; sourceTree = "<group>"; };
+		B7150EC024F5F5E100BD984B /* GoogleService-Info (1).plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info (1).plist"; sourceTree = "<group>"; };
+		B7150EC124F5F6EF00BD984B /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B71F2DE22086CDA800F47274 /* Spothawk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spothawk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B71F2DE52086CDA800F47274 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B71F2DEC2086CDA800F47274 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -183,6 +184,7 @@
 		043E033321746CDD00134F78 /* Third_Partys */ = {
 			isa = PBXGroup;
 			children = (
+				B7150EC024F5F5E100BD984B /* GoogleService-Info (1).plist */,
 				04ACA8FA21F5C9D80015CF8D /* Sources */,
 				044217B42189BDF600946D91 /* CustomView.swift */,
 				043E033621746CF300134F78 /* iToast.h */,
@@ -249,7 +251,7 @@
 			children = (
 				042F4CD12229211800BD546A /* Model */,
 				043E033321746CDD00134F78 /* Third_Partys */,
-				04B4D5942163BDF400F49505 /* GoogleService-Info.plist */,
+				B7150EC124F5F6EF00BD984B /* GoogleService-Info.plist */,
 				B71F2DE52086CDA800F47274 /* AppDelegate.swift */,
 				B7141A4C20ED1DAF005B54D3 /* MyAPIClient.swift */,
 				0426E0342164F5050017E88B /* CustomInfoWindow.swift */,
@@ -323,6 +325,7 @@
 				B71F2DE02086CDA800F47274 /* Resources */,
 				18838CE54053F859DDF04AF4 /* [CP] Embed Pods Frameworks */,
 				A0A2B98DF80500F10EB35141 /* [CP] Copy Pods Resources */,
+				B7150EBD24F5DC2A00BD984B /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -396,12 +399,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B773FADB248AF166007958E4 /* config.plist in Resources */,
 				041EC522217F42AA007DEC9C /* Custommarkerinfo.xib in Resources */,
 				0426E0332164F4FF0017E88B /* CustomInfoWindow.xib in Resources */,
 				B71F2DF22086CDAA00F47274 /* LaunchScreen.storyboard in Resources */,
-				04B4D5952163BDF400F49505 /* GoogleService-Info.plist in Resources */,
 				B71F2DEF2086CDAA00F47274 /* Assets.xcassets in Resources */,
 				B71F2DED2086CDA800F47274 /* Main.storyboard in Resources */,
+				B7150EC224F5F6EF00BD984B /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -493,6 +497,23 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Spothawk/Pods-Spothawk-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		B7150EBD24F5DC2A00BD984B /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/FirebaseCrashlytics/run\"\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -534,7 +555,6 @@
 				B7CF24F120BCBB3000722933 /* YouViewController.swift in Sources */,
 				B75AE7B920C496B40069A151 /* CarsTableViewCell.swift in Sources */,
 				B7141A4D20ED1DAF005B54D3 /* MyAPIClient.swift in Sources */,
-				B79F5C1A237DE88700B1849F /* config.plist in Sources */,
 				B7B67FE320C34A7400A13FD0 /* CarsViewController.swift in Sources */,
 				04CE142E21C5257A00338DEE /* Timeclass.swift in Sources */,
 				B701C8E122A096130054F6D9 /* EmailViewController.swift in Sources */,
@@ -707,6 +727,8 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_HEADERS_RUN_UNIFDEF = NO;
+				CURRENT_PROJECT_VERSION = 1.0.16;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = V2WV5FGJH4;
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = (
@@ -722,6 +744,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.16;
 				PRODUCT_BUNDLE_IDENTIFIER = com.spotbirdparking.spotbird;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -746,6 +769,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				COPY_HEADERS_RUN_UNIFDEF = NO;
+				CURRENT_PROJECT_VERSION = 1.0.16;
 				DEVELOPMENT_TEAM = V2WV5FGJH4;
 				ENABLE_BITCODE = NO;
 				HEADER_SEARCH_PATHS = (
@@ -761,6 +785,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MARKETING_VERSION = 1.0.16;
 				PRODUCT_BUNDLE_IDENTIFIER = com.spotbirdparking.spotbird;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
