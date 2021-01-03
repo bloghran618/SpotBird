@@ -62,8 +62,6 @@ class ScheduleViewController: UIViewController, UITextFieldDelegate{
     private var datePicker: UIDatePicker?
     
     let dateFormatter = DateFormatter()
-   
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()

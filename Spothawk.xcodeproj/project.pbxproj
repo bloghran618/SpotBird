@@ -30,7 +30,6 @@
 		B701C8E122A096130054F6D9 /* EmailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B701C8E022A096130054F6D9 /* EmailViewController.swift */; };
 		B710B9952299FE1C00AF0C0E /* ProvideIDDocViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B710B9942299FE1C00AF0C0E /* ProvideIDDocViewController.swift */; };
 		B7141A4D20ED1DAF005B54D3 /* MyAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7141A4C20ED1DAF005B54D3 /* MyAPIClient.swift */; };
-		B7150EC224F5F6EF00BD984B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B7150EC124F5F6EF00BD984B /* GoogleService-Info.plist */; };
 		B71F2DE62086CDA800F47274 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B71F2DE52086CDA800F47274 /* AppDelegate.swift */; };
 		B71F2DED2086CDA800F47274 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B71F2DEB2086CDA800F47274 /* Main.storyboard */; };
 		B71F2DEF2086CDAA00F47274 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B71F2DEE2086CDAA00F47274 /* Assets.xcassets */; };
@@ -60,6 +59,7 @@
 		B7CF24F120BCBB3000722933 /* YouViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7CF24F020BCBB3000722933 /* YouViewController.swift */; };
 		B7D3B2D62172644500ADBAD4 /* Reservation.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7D3B2D52172644500ADBAD4 /* Reservation.swift */; };
 		B7F9425920FD903D001B421E /* SpotImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F9425820FD903D001B421E /* SpotImageViewController.swift */; };
+		EBFE929D259926B50085A852 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EBFE929C259926B50085A852 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -110,7 +110,6 @@
 		B710B9942299FE1C00AF0C0E /* ProvideIDDocViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProvideIDDocViewController.swift; sourceTree = "<group>"; };
 		B7141A4C20ED1DAF005B54D3 /* MyAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAPIClient.swift; sourceTree = "<group>"; };
 		B7150EC024F5F5E100BD984B /* GoogleService-Info (1).plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info (1).plist"; sourceTree = "<group>"; };
-		B7150EC124F5F6EF00BD984B /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B71F2DE22086CDA800F47274 /* Spothawk.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spothawk.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B71F2DE52086CDA800F47274 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B71F2DEC2086CDA800F47274 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -146,6 +145,7 @@
 		B7F9425820FD903D001B421E /* SpotImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotImageViewController.swift; sourceTree = "<group>"; };
 		D08408BCF6BF9BC8856D9DC8 /* Pods-Spotbird.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Spotbird.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Spotbird/Pods-Spotbird.debug.xcconfig"; sourceTree = "<group>"; };
 		DF0218389585B018109DC51B /* Pods-Spotbird.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Spotbird.release.xcconfig"; path = "Pods/Target Support Files/Pods-Spotbird/Pods-Spotbird.release.xcconfig"; sourceTree = "<group>"; };
+		EBFE929C259926B50085A852 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -251,7 +251,6 @@
 			children = (
 				042F4CD12229211800BD546A /* Model */,
 				043E033321746CDD00134F78 /* Third_Partys */,
-				B7150EC124F5F6EF00BD984B /* GoogleService-Info.plist */,
 				B71F2DE52086CDA800F47274 /* AppDelegate.swift */,
 				B7141A4C20ED1DAF005B54D3 /* MyAPIClient.swift */,
 				0426E0342164F5050017E88B /* CustomInfoWindow.swift */,
@@ -286,6 +285,7 @@
 				041EC521217F42AA007DEC9C /* Custommarkerinfo.xib */,
 				B71F2DEE2086CDAA00F47274 /* Assets.xcassets */,
 				B71F2DF02086CDAA00F47274 /* LaunchScreen.storyboard */,
+				EBFE929C259926B50085A852 /* GoogleService-Info.plist */,
 				B71F2DF32086CDAA00F47274 /* Info.plist */,
 				B79F5C19237DE88700B1849F /* config.plist */,
 				041EC523217F44EA007DEC9C /* Custommarkerinfo.swift */,
@@ -405,7 +405,7 @@
 				B71F2DF22086CDAA00F47274 /* LaunchScreen.storyboard in Resources */,
 				B71F2DEF2086CDAA00F47274 /* Assets.xcassets in Resources */,
 				B71F2DED2086CDA800F47274 /* Main.storyboard in Resources */,
-				B7150EC224F5F6EF00BD984B /* GoogleService-Info.plist in Resources */,
+				EBFE929D259926B50085A852 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

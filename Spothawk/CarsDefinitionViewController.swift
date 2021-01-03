@@ -84,6 +84,8 @@ class CarsDefinitionViewController: UIViewController, UITextFieldDelegate, UIIma
         case .denied:
             // same same
             print("User has denied the permission.")
+        case .limited:
+            print("User has limited permissions")
         }
     }
     

@@ -27,6 +27,7 @@ DerivedData/
 *.perspectivev3
 !default.perspectivev3
 *fig.plist
+GoogleService-Info.plist
 
 ### Xcode Patch ###
 *.xcodeproj/*

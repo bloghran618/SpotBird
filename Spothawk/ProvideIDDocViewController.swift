@@ -50,6 +50,8 @@ class ProvideIDDocViewController: UIViewController, UIImagePickerControllerDeleg
         case .denied:
             // same same
             print("User has denied the permission.")
+        case .limited:
+            print("User has limited permissions")
         }
     }
     

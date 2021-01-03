@@ -98,6 +98,8 @@ class SpotImageViewController: UIViewController, UITextViewDelegate, UIImagePick
         case .denied:
             // same same
             print("User has denied the permission.")
+        case .limited:
+            print("User has limited permissions")
         }
     }
     
