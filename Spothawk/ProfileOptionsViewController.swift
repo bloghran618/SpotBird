@@ -51,7 +51,7 @@ class ProfileOptionsViewController: UIViewController, UITableViewDataSource, UIT
             ProfileTableOption(option: "You", description: "Tell us about yourself", logoImageName: "youImage"),
             ProfileTableOption(option: "Cars", description: "Create and set default cars", logoImageName: "EmptyCar"),
             ProfileTableOption(option: "Payment Method", description: "Manage your payment options", logoImageName: "dollarSign"),
-            ProfileTableOption(option: "List", description: "Share your spot", logoImageName: "Share"),
+            ProfileTableOption(option: "Spots", description: "List and share unused spots", logoImageName: "Share"),
             ProfileTableOption(option: "Enable Payouts", description: "Authorize payment for your listed spots", logoImageName: "EnablePayouts"),
             ProfileTableOption(option: "Email Us", description: "Send us feedback", logoImageName: "emailUs"),
             //            ProfileTableOption(option: "Log Out", description: "Log out of your account", logoImageName: "white")
@@ -122,7 +122,7 @@ class ProfileOptionsViewController: UIViewController, UITableViewDataSource, UIT
             print(self.paymentContext.hostViewController)
             self.paymentContext.pushPaymentOptionsViewController()
         }
-        else if profileOptions![(indexPath as NSIndexPath).row].option == "List" {
+        else if profileOptions![(indexPath as NSIndexPath).row].option == "Spots" {
             self.performSegue(withIdentifier: "Share", sender: self)
         }
         else if profileOptions![(indexPath as NSIndexPath).row].option == "Enable Payouts" {

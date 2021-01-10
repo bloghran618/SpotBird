@@ -120,15 +120,18 @@ class Spot {
     
     func getSpots() {
         
-        print("We are getting the spots!!!")
-        
-        print(AppState.sharedInstance.userid)
-        
+        print("Retrieve MySpots for user  \(AppState.sharedInstance.userid)")
+                
+        // reference the spots for the given user
         self.refArtists = Database.database().reference().child("User").child(AppState.sharedInstance.userid).child("MySpots");
         self.refArtists.observe(DataEventType.value, with: { (snapshot) in
             
             if snapshot.childrenCount > 0 {
+                
+                // remove all spots in appstate spots to ensure no duplicates
                 AppState.sharedInstance.spots.removeAll()
+                
+                // observe each child in MySpots
                 for artists in snapshot.children.allObjects as! [DataSnapshot] {
                     let snapshotValue = ((snapshot.value as! NSDictionary).value(forKey: (artists as! DataSnapshot).key)) as! NSDictionary
                     
@@ -138,6 +141,7 @@ class Spot {
                     let dblat = snapshotValue.value(forKey: "user_lat") as! String
                     let dblongitude =  snapshotValue.value(forKey: "user_long") as! String
                     
+                    // append the spot to spots
                     AppState.sharedInstance.spots.append(Spot(address: snapshotValue.value(forKey: "address") as!
                             String, town: snapshotValue.value(forKey: "city") as! String,
                                     state: snapshotValue.value(forKey: "state") as! String,
@@ -180,6 +184,7 @@ class Spot {
                                     approved: true, spotImages: UIImage.init(named: "white")!, spots_id: (artists ).key, latitude: dblat, longitude: dblongitude, spottype: snapshotValue.value(forKey: "spot_type") as! String, owner_id: snapshotValue.value(forKey: "owner_id") as! String, Email: snapshotValue.value(forKey: "Email") as? String ?? "", baseprice: snapshotValue.value(forKey: "basePricing") as! String)!)
                     }
                 
+                // display the number of spots retrieved
                 print("The number of spots is: \(AppState.sharedInstance.spots.count)")
               }
             

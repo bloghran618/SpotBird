@@ -49,7 +49,7 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         
        // AppState.sharedInstance.user.Get_UserProfile()
        
-        
+        print("The user profile image: \(AppState.sharedInstance.user.profileImage)|")
         if AppState.sharedInstance.user.profileImage == ""{
             self.profilePhoto.image = #imageLiteral(resourceName: "EmptyProfile")
         }
@@ -245,9 +245,7 @@ extension UIViewController {
     }
 
     @objc func dismissKeyboard() {
-//        view.endEditing(true)
+        view.endEditing(true)
         print("dismiss the keyboard")
     }
-
-
 }

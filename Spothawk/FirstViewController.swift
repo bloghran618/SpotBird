@@ -2440,9 +2440,10 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
         }
         else {
             let alert = UIAlertController(title: "You are not connected to the internet", message: "Please connect to the internet and hit retry", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Retry", style: .default, handler: {(action:UIAlertAction!) in
+            alert.addAction(UIAlertAction(title: "Retry", style: .default, handler: {(action: UIAlertAction!) in
                 self.recursiveCheckInternetConnection()
             }))
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
             print("not connected to the internet")
         }

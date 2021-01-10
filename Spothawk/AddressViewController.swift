@@ -264,6 +264,12 @@ class AddressViewController: UIViewController, UITextFieldDelegate,CLLocationMan
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             self.present(alert, animated: true)
         }
+        else if (AppState.sharedInstance.activeSpot.spot_type == "") {
+            // present an alert to the user to let them know they did not select a spot type
+            let alert = UIAlertController(title: "No Spot Type", message: "Please specify your spot type at the bottom of this screen", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alert, animated: true)
+        }
         else {
             var doesSpotExist = false
             
