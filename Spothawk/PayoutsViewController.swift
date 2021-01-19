@@ -64,10 +64,16 @@ class PayoutsViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         hideAllValidationFields()
         self.hideKeyboardWhenTappedAround()
         
+        // set numeric keyboard for numeric fields
         self.zipAddressField.keyboardType = UIKeyboardType.numberPad
         self.last4SocialField.keyboardType = UIKeyboardType.numberPad
         self.routingNumberField.keyboardType = UIKeyboardType.numberPad
         self.accountNumberField.keyboardType = UIKeyboardType.numberPad
+        
+        // State field is not editable by keyboard
+        self.stateAddressField.inputView = UIView()
+        self.stateAddressField.inputAccessoryView = UIView()
+        self.stateAddressField.tintColor = .white
         
         // set the first and last name fields if info availible
         if(AppState.sharedInstance.user.firstName != "") {
@@ -120,7 +126,6 @@ class PayoutsViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
         if textField == self.stateAddressField {
             self.stateDropDown.isHidden = false
             self.stateDoneButton.isHidden = false
-//            textField.endEditing(true)
             
             // hide keyboard
 //            firstNameField.resignFirstResponder()
@@ -280,7 +285,7 @@ class PayoutsViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             
 
             // STPConnectAccountParams() object creation
-            var address = STPAddress()
+            let address = STPAddress()
             address.name = "\(firstName) \(lastName)"
             address.line1 = line1Address
             address.line2 = line2Address
@@ -292,14 +297,14 @@ class PayoutsViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
             let dateOfBirth = DateComponents(calendar: Calendar.current, year: Int(dateOfBirthYear), month: Int(dateOfBirthMonth), day: Int(dateOfBirthDay)) // all DOB int() because datePicker()
             
             // STPLegalEntityParams() object creation
-            var legalEntity = STPConnectAccountIndividualParams()
+            let legalEntity = STPConnectAccountIndividualParams()
             legalEntity.ssnLast4 = last4Social
 //            legalEntity.entityTypeString = "individual"
             legalEntity.firstName = firstName
             legalEntity.lastName = lastName
 //            legalEntity.personalAddress = address
             legalEntity.dateOfBirth = dateOfBirth
-            var accountInfo = STPConnectAccountParams.init(individual: legalEntity)
+            let accountInfo = STPConnectAccountParams.init(individual: legalEntity)
             
             // Create STPConnectAccountParams token
             STPAPIClient.shared().createToken(withConnectAccount: accountInfo) { (token, error) in
@@ -313,8 +318,8 @@ class PayoutsViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
                 }
                 else {
                     print("We successfully created STPConnectAccountParams token!!!")
-                    print(token)
-                    print(token?.tokenId)
+                    print(token as Any)
+                    print(token?.tokenId as Any)
                     
 //                    Spinner.stop()
                     
@@ -334,8 +339,8 @@ class PayoutsViewController: UIViewController, UIPickerViewDelegate, UIPickerVie
                         else {
                             Spinner.stop()
                             print("We successfully created STPBankAccountParams token!!!")
-                            print(token)
-                            print(token?.tokenId)
+                            print(token as Any)
+                            print(token?.tokenId as Any)
                             
                             // debug
                             print("Stripe Account Number: \(AppState.sharedInstance.user.accounttoken)")

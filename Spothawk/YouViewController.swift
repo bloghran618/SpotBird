@@ -51,12 +51,12 @@ class YouViewController: UIViewController, UITextFieldDelegate, UIImagePickerCon
        
         print("The user profile image: \(AppState.sharedInstance.user.profileImage)|")
         if AppState.sharedInstance.user.profileImage == ""{
-            self.profilePhoto.image = #imageLiteral(resourceName: "EmptyProfile")
+            self.profilePhoto.image = UIImage(named: "addProfilePhoto")
         }
         else{
-            // note that the placeholderImage is not nothing, it is UIImage.named("white"), you can change the image by double-clicking the blank
-            self.profilePhoto.sd_setImage(with: URL(string: AppState.sharedInstance.user.profileImage), placeholderImage: #imageLiteral(resourceName: "white"))
-            original_pic.sd_setImage(with: URL(string: AppState.sharedInstance.user.profileImage), placeholderImage: #imageLiteral(resourceName: "white"))
+            // note that the placeholderImage is not nothing, it is UIImage.named("white"), you can change the image by clicking the blank
+            self.profilePhoto.sd_setImage(with: URL(string: AppState.sharedInstance.user.profileImage), placeholderImage: UIImage(named: "white"))
+            original_pic.sd_setImage(with: URL(string: AppState.sharedInstance.user.profileImage), placeholderImage: UIImage(named: "white"))
         }
         
         if Int(AppState.sharedInstance.user.lifeBalance) == 0 {

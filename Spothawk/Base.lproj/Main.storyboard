@@ -1065,6 +1065,7 @@
                         <subviews>
                             <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="EmptyProfile" translatesAutoresizingMaskIntoConstraints="NO" id="UCq-iB-Ws3">
                                 <rect key="frame" x="132" y="52" width="150" height="150"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <gestureRecognizers/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="aKO-7u-UCg"/>
@@ -3074,7 +3075,6 @@
                                 </state>
                                 <connections>
                                     <action selector="btn_login:" destination="SAM-dI-GZ6" eventType="touchUpInside" id="z1m-jS-z7S"/>
-                                    <action selector="btn_newuser:" destination="88Y-zQ-ULl" eventType="touchUpInside" id="fEX-Xi-Sa1"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sCU-Tg-M00">
@@ -3088,7 +3088,6 @@
                                     <color key="titleColor" red="0.32549019610000002" green="0.73725490199999999" blue="0.38823529410000002" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>
-                                    <action selector="btn_login:" destination="88Y-zQ-ULl" eventType="touchUpInside" id="4WE-WY-CN1"/>
                                     <action selector="btn_register:" destination="SAM-dI-GZ6" eventType="touchUpInside" id="ziV-8W-WTa"/>
                                 </connections>
                             </button>

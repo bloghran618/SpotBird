@@ -2443,7 +2443,7 @@ class FirstViewController: UIViewController,CLLocationManagerDelegate,GMSMapView
             alert.addAction(UIAlertAction(title: "Retry", style: .default, handler: {(action: UIAlertAction!) in
                 self.recursiveCheckInternetConnection()
             }))
-            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+//            alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             self.present(alert, animated: true, completion: nil)
             print("not connected to the internet")
         }

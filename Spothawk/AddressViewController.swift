@@ -37,7 +37,7 @@ class AddressViewController: UIViewController, UITextFieldDelegate,CLLocationMan
     @IBOutlet weak var addrMapView: GMSMapView!
     
     var locationManager = CLLocationManager()
-    let CurrentLocMarker = GMSMarker()
+    var CurrentLocMarker = GMSMarker()
     var spotcamera = false
     var type = ""
     
@@ -54,35 +54,22 @@ class AddressViewController: UIViewController, UITextFieldDelegate,CLLocationMan
         print("Loading the view...")
         
         btn_searchADD.layer.cornerRadius = 2
-//        btn_searchADD.layer.borderColor = UIColor.blue.cgColor
-//        btn_searchADD.layer.borderWidth = 1
         
         self.addrMapView.delegate = self
         self.locationManager.delegate = self
         self.locationManager.requestWhenInUseAuthorization()
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest
         CurrentLocMarker.map = self.addrMapView
-        addrMapView.settings.myLocationButton = true
-        self.locationManager.startMonitoringSignificantLocationChanges()
-        self.locationManager.startUpdatingLocation()
-        
-        print("block 1")
-        
+        addrMapView.settings.myLocationButton = false
+                
         self.txt_email.delegate = self
-        
-        print("block 1.1")
-        
+                
         self.hideKeyboardWhenTappedAround()
         
         //   txt_email.layer.borderWidth = 2
         //   txt_email.layer.borderColor = UIColor.cyan.cgColor
-        
-        print("block 1.2")
-        
-        nextButton.isEnabled = false
-        
-        print("block 2")
-//
+                
+        // enable or disable nextbutton based on if spot is set already
         if ((AppState.sharedInstance.activeSpot.address == "") && (AppState.sharedInstance.activeSpot.town == "")) && ((AppState.sharedInstance.activeSpot.zipCode == "") && (AppState.sharedInstance.activeSpot.state == "")) {
             nextButton.isEnabled = false
         }
@@ -114,9 +101,7 @@ class AddressViewController: UIViewController, UITextFieldDelegate,CLLocationMan
         else{
             bnt4.setImage(UIImage.init(named: "drivewayParkingSelected"), for: .normal)
         }
-        
-        print("block 3")
-        
+                
         // check if we are in edit mode or add mode
         if (AppState.sharedInstance.activeSpot.longitude == "0" && AppState.sharedInstance.activeSpot.latitude == "0") {
             editMode = false
@@ -125,12 +110,37 @@ class AddressViewController: UIViewController, UITextFieldDelegate,CLLocationMan
             editMode = true
         }
         
-        // update "Search Google Maps" banner if in edit mode
+        // update "Search Google Maps" banner and set map location if in edit mode
         if (editMode) {
             self.btn_searchADD.setTitle("\(AppState.sharedInstance.activeSpot.address)", for: .normal)
+            print("we are in edit mode...")
+            
+            let spotLat = Double(AppState.sharedInstance.activeSpot.latitude)
+            let spotLong = Double(AppState.sharedInstance.activeSpot.longitude)
+            print("spot lat: \(spotLat)")
+            print("spot long: \(spotLong)")
+            
+            self.addrMapView.clear()
+            let markerPosition = CLLocationCoordinate2D(latitude: spotLat!, longitude: spotLong!)
+            self.CurrentLocMarker = GMSMarker(position: markerPosition)
+            var markerView = UIImageView()
+            markerView = UIImageView(image: UIImage.init(named: "current_location_icon"))
+            markerView.frame.size.width = 30
+            markerView.frame.size.height = 30
+            self.CurrentLocMarker.iconView = markerView
+            self.CurrentLocMarker.map = self.addrMapView
+            
+            let camera = GMSCameraPosition.camera(withLatitude: spotLat!, longitude: spotLong!, zoom: 18)
+            self.addrMapView.camera = camera
+            
+//            self.addrMapView.clear()
+//            let camera = GMSCameraPosition.camera(withLatitude: 41.7613561, longitude: -72.7448469, zoom: 18)
+//            self.addrMapView.camera = camera
         }
-        
-        print("block 4")
+        else { // we are not in edit mode
+            self.locationManager.startMonitoringSignificantLocationChanges()
+            self.locationManager.startUpdatingLocation()
+        }
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -158,6 +168,8 @@ class AddressViewController: UIViewController, UITextFieldDelegate,CLLocationMan
     
     // select Spot type -
     @IBAction func btn_TYPE(_ sender: Any) {
+        
+        print("I hit one of the spot type buttons")
         
           nextButton.isEnabled = true
         
@@ -355,6 +367,7 @@ extension AddressViewController {
     //MARK:_ GMSAutocompleteViewController
     func viewController(_ viewController: GMSAutocompleteViewController, didAutocompleteWith place: GMSPlace) {
         dismiss(animated: true, completion: nil)
+        print("update map")
         
         spotcamera = true
         AppState.sharedInstance.activeSpot.latitude = String(place.coordinate.latitude)
@@ -391,12 +404,12 @@ extension AddressViewController {
             self.btn_searchADD.setTitle("\(AppState.sharedInstance.activeSpot.address)", for: .normal)
         }
        
+        // set the value for the search bar after you find an address
         if makeaddress == "" {
             let cordinate:[String: CLLocationCoordinate2D] = ["cordinate": place.coordinate]
             let geocoder = GMSGeocoder()
             geocoder.reverseGeocodeCoordinate(place.coordinate) { response , error in
                 
-                //Add this line
                 if let address = response!.firstResult() {
                     print(address)
                     
@@ -446,7 +459,9 @@ extension AddressViewController {
         }
         
         addrMapView.clear()
-        self.CurrentLocMarker.position = (place.coordinate)
+        let markerPosition = CLLocationCoordinate2D(latitude: place.coordinate.latitude, longitude: place.coordinate.longitude)
+        self.CurrentLocMarker = GMSMarker(position: markerPosition)
+//        self.CurrentLocMarker.position = (place.coordinate)
     //  self.CurrentLocMarker.title = AppState.sharedInstance.activeSpot.town
         var markerView = UIImageView()
         markerView = UIImageView(image: UIImage.init(named: "current_location_icon"))
@@ -454,10 +469,12 @@ extension AddressViewController {
         markerView.frame.size.height = 30
         self.CurrentLocMarker.iconView = markerView
         self.CurrentLocMarker.map = self.addrMapView
+        print("place latitude: \(place.coordinate.latitude)")
+        print("place longitude: \(place.coordinate.longitude)")
         
         let camera = GMSCameraPosition.camera(withLatitude: (place.coordinate.latitude), longitude: (place.coordinate.longitude), zoom:18)
-    //  self.mapView.animate(to: camera)
-        addrMapView.camera = camera
+        self.addrMapView.animate(to: camera)
+        self.addrMapView.camera = camera
         
         if txt_email.text != ""{
             self.nextButton.isEnabled = true
