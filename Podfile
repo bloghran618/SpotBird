@@ -1,11 +1,11 @@
 # Uncomment the next line to define a global platform for your project
 # platform :ios, '9.0'
 
-target 'Spothawk' do
+target 'LightPark' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
 
-  # Pods for Spothawk
+  # Pods for LightPark
   pod 'Stripe'
   pod 'Alamofire'
   pod 'Firebase/Core'
@@ -29,7 +29,7 @@ target 'Spothawk' do
   pod 'IQKeyboardManager'
   pod 'EasyTipView', '~> 2.0.4'
 
-  target 'SpothawkTests' do
+  target 'LightParkTests' do
     inherit! :search_paths
     # Pods for testing
   end
